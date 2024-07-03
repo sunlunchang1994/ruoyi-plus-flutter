@@ -7,15 +7,15 @@ part of 'page_model.dart';
 // **************************************************************************
 
 PageModel _$PageModelFromJson(Map<String, dynamic> json) => PageModel(
-      current: json['current'] as int? ?? 0,
-      pages: json['pages'] as int? ?? 0,
+      current: (json['current'] as num?)?.toInt() ?? 0,
+      pages: (json['pages'] as num?)?.toInt() ?? 0,
       isLastPage: json['isLastPage'] as bool? ?? true,
       records: (json['records'] as List<dynamic>?)
           ?.map((e) => e as Map<String, dynamic>)
           .toList(),
       searchCount: json['searchCount'] as bool? ?? false,
-      size: json['size'] as int? ?? 0,
-      total: json['total'] as int? ?? 0,
+      size: (json['size'] as num?)?.toInt() ?? 0,
+      total: (json['total'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$PageModelToJson(PageModel instance) => <String, dynamic>{

@@ -99,6 +99,7 @@ dev_dependencies:
   # 网络相关-------------------------------------
   retrofit_generator: ^8.1.1
   build_runner: ^2.4.11
+  #json_serializable 生成新的命令 flutter pub run build_runner build
   json_serializable: ^6.8.0
 
   # The "flutter_lints" package below contains a set of recommended lints to

@@ -4,7 +4,7 @@ import 'package:retrofit/retrofit.dart';
 import '../../../../base/api/api_config.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
-import '../../../../base/vm/global_vm.dart';
+import '../../../../extras/user/entity/login_result.dart';
 
 part 'user_api.g.dart';
 
@@ -14,20 +14,34 @@ abstract class UserApiClient {
     dio ??= BaseDio.getInstance().getDio();
     return _UserApiClient(dio, baseUrl: baseUrl);
   }
+
+  ///用户登录
+  @POST("/client/token")
+  Future<ResultEntity> example(@Body() Map<String, Object> data);
 }
 
 ///用户服务
 class UserServiceRepository {
   static final UserApiClient _userApiClient = UserApiClient();
 
-  static Future<IntensifyEntity> login(
+  /**
+   * 示例
+   */
+  static Future<IntensifyEntity<LoginResult>> example(
       String account, String password, CancelToken cancelToken) async {
-    IntensifyEntity intensifyEntity =
-        IntensifyEntity(resultEntity: ResultEntity(code: 500, msg: "请完善本APP"));
-    //将用户信息存入全局数据
-    if (intensifyEntity.isSuccess()) {
-      GlobalVm().userVmBox.userInfoOf.value = intensifyEntity.data;
-    }
-    return intensifyEntity;
+    Map<String, Object> dataMap = {};
+    dataMap["username"] = account;
+    dataMap["password"] = password;
+    return _userApiClient
+        .example(dataMap)
+        .asStream()
+        .map((event) {
+      var intensifyEntity = IntensifyEntity<LoginResult>(
+          resultEntity: event,
+          createData: (resultEntity) =>
+              LoginResult.fromJson(resultEntity.data));
+      ApiConfig().token = "bearer ${intensifyEntity.data.access_token}";
+      return intensifyEntity;
+    }).single;
   }
 }

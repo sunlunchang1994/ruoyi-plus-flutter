@@ -2,6 +2,7 @@
 import 'package:dio/dio.dart';
 import 'package:flustars_flutter3/flustars_flutter3.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_scaffold_single/code/extras/user/repository/remote/user_public_api.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +38,8 @@ class WelcomePage extends AppBaseStatelessWidget<_WelcomeVm> {
                     children: [
                       const Center(
                           child: Image(
-                              image: AssetImage("assets/images/ic_launcher.png"),
+                              image:
+                                  AssetImage("assets/images/ic_launcher.png"),
                               width: 56,
                               height: 56)),
                       Text(S.current.app_name,
@@ -74,16 +76,22 @@ class _WelcomeVm extends AppBaseVm {
         !TextUtil.isEmpty(SpUserConfig.getAccount()) &&
         !TextUtil.isEmpty(SpUserConfig.getPassword())) {
       showLoading(title: S.current.user_label_logging_in);
-      UserServiceRepository.login(SpUserConfig.getAccount()!,
+      UserPublicServiceRepository.login(SpUserConfig.getAccount()!,
               SpUserConfig.getPassword()!, cancelToken)
           .then((IntensifyEntity<dynamic> value) {
         dismissLoading();
         if (value.isSuccess()) {
-          AppToastBridge.showToast(msg: S.current.user_toast_login_login_successful);
+          AppToastBridge.showToast(
+              msg: S.current.user_toast_login_login_successful);
           //startByPage(MainPage(), finish: true);
         } else {
           SpUserConfig.saveIsAutoLogin(true);
           AppToastBridge.showToast(msg: value.getMsg());
+          startByPage(LoginPage(), finish: true);
+        }
+      }, onError: (e) {
+        dismissLoading();
+        if (!cancelToken.isCancelled) {
           startByPage(LoginPage(), finish: true);
         }
       });

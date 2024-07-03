@@ -4,6 +4,9 @@ import 'package:dio/dio.dart';
 import 'package:flustars_flutter3/flustars_flutter3.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_scaffold_single/code/base/api/base_dio.dart';
+import 'package:flutter_scaffold_single/code/extras/user/entity/login_result.dart';
+import 'package:flutter_scaffold_single/code/extras/user/repository/remote/user_public_api.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/images.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
@@ -210,8 +213,8 @@ class _LoginModel extends AppBaseVm {
       return;
     }
     showLoading(title: S.current.user_label_logging_in);
-    UserServiceRepository.login(userName!, password!, cancelToken)
-        .then((IntensifyEntity<dynamic> value) {
+    UserPublicServiceRepository.login(userName!, password!, cancelToken)
+        .then((IntensifyEntity<LoginResult> value) {
       dismissLoading();
       if (value.isSuccess()) {
         if (_isSavePassword) {
@@ -222,6 +225,11 @@ class _LoginModel extends AppBaseVm {
         //startByPage(MainPage(), finish: true);
       } else if (!cancelToken.isCancelled) {
         AppToastBridge.showToast(msg: value.getMsg());
+      }
+    }, onError: (e) {
+      dismissLoading();
+      if (!cancelToken.isCancelled) {
+        AppToastBridge.showToast(msg: BaseDio.getInstance().getErrorMsg(e));
       }
     });
   }

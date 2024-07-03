@@ -6,23 +6,23 @@ import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../entity/login_result.dart';
 
-part 'user_api.g.dart';
+part 'user_public_api.g.dart';
 
 @RestApi(baseUrl: ApiConfig.API_URL)
-abstract class UserApiClient {
-  factory UserApiClient({Dio? dio, String? baseUrl}) {
+abstract class UserPublicApiClient {
+  factory UserPublicApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _UserApiClient(dio, baseUrl: baseUrl);
+    return _UserPublicApiClient(dio, baseUrl: baseUrl);
   }
 
   ///用户登录
-  @POST("/client/token")
+  @POST("/client/login")
   Future<ResultEntity> login(@Body() Map<String, Object> data);
 }
 
 ///用户服务
-class UserServiceRepository {
-  static final UserApiClient _userApiClient = UserApiClient();
+class UserPublicServiceRepository {
+  static final UserPublicApiClient _userApiClient = UserPublicApiClient();
 
   ///用户登录
   static Future<IntensifyEntity<LoginResult>> login(
@@ -38,7 +38,7 @@ class UserServiceRepository {
           resultEntity: event,
           createData: (resultEntity) =>
               LoginResult.fromJson(resultEntity.data));
-      ApiConfig().token = "bearer ${intensifyEntity.data.access_token}";
+      ApiConfig().token = intensifyEntity.data.access_token;
       return intensifyEntity;
     }).single;
   }

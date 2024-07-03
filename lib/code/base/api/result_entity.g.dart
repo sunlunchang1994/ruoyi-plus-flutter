@@ -7,7 +7,7 @@ part of 'result_entity.dart';
 // **************************************************************************
 
 ResultEntity _$ResultEntityFromJson(Map<String, dynamic> json) => ResultEntity(
-      code: json['code'] as int?,
+      code: (json['code'] as num?)?.toInt(),
       msg: json['msg'] as String?,
       data: json['data'],
     );

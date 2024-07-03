@@ -7,12 +7,16 @@ part of 'login_result.dart';
 // **************************************************************************
 
 LoginResult _$LoginResultFromJson(Map<String, dynamic> json) => LoginResult(
-      json['userId'] as String,
+      User.fromJson(json['user'] as Map<String, dynamic>),
+      (json['roles'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      (json['permissions'] as List<dynamic>?)?.map((e) => e as String).toList(),
       json['token'] as String,
     );
 
 Map<String, dynamic> _$LoginResultToJson(LoginResult instance) =>
     <String, dynamic>{
-      'userId': instance.userId,
+      'user': instance.user,
+      'roles': instance.roles,
+      'permissions': instance.permissions,
       'token': instance.token,
     };
