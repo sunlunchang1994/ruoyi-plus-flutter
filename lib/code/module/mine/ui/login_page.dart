@@ -229,7 +229,7 @@ class _LoginModel extends AppBaseVm {
     }, onError: (e) {
       dismissLoading();
       if (!cancelToken.isCancelled) {
-        AppToastBridge.showToast(msg: BaseDio.getInstance().getErrorMsg(e));
+        AppToastBridge.showToast(msg: BaseDio.getErrorMsg(e));
       }
     });
   }

@@ -45,17 +45,17 @@ class BaseDio {
   }
 
   ///获取错误码
-  int getErrorCode(dynamic error, {String? defErrMsg}) {
+  static int getErrorCode(dynamic error, {String? defErrMsg}) {
     return getError(error, defErrMsg: defErrMsg).code!;
   }
 
   ///获取错误信息
-  String getErrorMsg(dynamic error, {String? defErrMsg}) {
+  static String getErrorMsg(dynamic error, {String? defErrMsg}) {
     return getError(error, defErrMsg: defErrMsg).msg!;
   }
 
   ///获取错误结果对象
-  ResultEntity getError(dynamic error, {String? defErrMsg}) {
+  static ResultEntity getError(dynamic error, {String? defErrMsg}) {
     defErrMsg ??= S.current.label_unknown_exception;
     // 这里封装了一个 BaseError 类，会根据后端返回的code返回不同的错误类
     int defCode = 500;
