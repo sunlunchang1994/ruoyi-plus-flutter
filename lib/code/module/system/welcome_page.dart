@@ -6,14 +6,13 @@ import 'package:flutter_scaffold_single/code/extras/user/repository/remote/user_
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../generated/l10n.dart';
-import '../../../base/api/result_entity.dart';
-import '../../../base/ui/app_mvvm.dart';
-import '../../../base/ui/utils/bar_utils.dart';
-import '../../../base/utils/app_toast.dart';
-import '../repository/local/sp_user_config.dart';
-import '../repository/remote/user_api.dart';
-import 'login_page.dart';
+import '../../../generated/l10n.dart';
+import '../../base/api/result_entity.dart';
+import '../../base/ui/app_mvvm.dart';
+import '../../base/ui/utils/bar_utils.dart';
+import '../../base/utils/app_toast.dart';
+import '../user/repository/local/sp_user_config.dart';
+import '../user/ui/login_page.dart';
 
 class WelcomePage extends AppBaseStatelessWidget<_WelcomeVm> {
   WelcomePage({Key? key}) : super(key: key);
@@ -24,7 +23,7 @@ class WelcomePage extends AppBaseStatelessWidget<_WelcomeVm> {
     // 隐藏状态栏和底部按钮栏
     BarUtils.showEnabledSystemUI(false);
     return ChangeNotifierProvider(
-      create: (welcomeVm) => _WelcomeVm(),
+      create: (context) => _WelcomeVm(),
       builder: (context, child) {
         registerEvent(context);
         return Scaffold(

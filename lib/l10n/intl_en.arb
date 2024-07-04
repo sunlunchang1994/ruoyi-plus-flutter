@@ -238,5 +238,9 @@
   "dict_label_child_node": "子节点",
   "dict_label_details": "字典详情",
   "dict_label_system_dict_edit_hint": "系统字典不允许修改",
-  "dict_label_system_dict_remove_hint": "系统字典不允许删除"
+  "dict_label_system_dict_remove_hint": "系统字典不允许删除",
+
+  "main_divide_text": "-----------------------------",
+  "main_label_workbench": "工作台",
+  "main_label_mine": "我的"
 }

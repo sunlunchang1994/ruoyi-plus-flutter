@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_scaffold_single/code/base/api/base_dio.dart';
 import 'package:flutter_scaffold_single/code/extras/user/entity/login_result.dart';
 import 'package:flutter_scaffold_single/code/extras/user/repository/remote/user_public_api.dart';
+import 'package:flutter_scaffold_single/code/module/biz_main/ui/main_page.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/images.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
@@ -18,7 +19,6 @@ import '../../../base/ui/app_mvvm.dart';
 import '../../../base/ui/utils/bar_utils.dart';
 import '../../../base/utils/app_toast.dart';
 import '../repository/local/sp_user_config.dart';
-import '../repository/remote/user_api.dart';
 
 class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
   final String title = S.current.app_name;
@@ -29,7 +29,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
   Widget build(BuildContext context) {
     BarUtils.showEnabledSystemUI(true);
     return ChangeNotifierProvider(
-      create: (loginModel) => _LoginModel(),
+      create: (context) => _LoginModel(),
       builder: (context, child) {
         ThemeData themeData = Theme.of(context);
         registerEvent(context);
@@ -90,12 +90,11 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                     obscureText: true,
                                     controller: TextEditingController(text: loginModel.password),
                                     decoration: InputDecoration(
-                                      //isDense: true,
+                                        //isDense: true,
                                         contentPadding: EdgeInsets.all(SlcDimens.appDimens8),
                                         labelText: S.of(context).user_label_password,
                                         hintText: S.of(context).user_label_input_password,
-                                        border:
-                                        const OutlineInputBorder() /*border: InputBorder.none*/),
+                                        border: const OutlineInputBorder() /*border: InputBorder.none*/),
                                     onChanged: (value) => loginModel.password = value)),
                             SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
                             Row(
@@ -168,8 +167,7 @@ class _LoginModel extends AppBaseVm {
 
   bool get isAutoLogin => _isAutoLogin;
 
-  _LoginModel() {
-  }
+  _LoginModel() {}
 
   void setIsSavePassword(bool value) {
     _isSavePassword = value;
@@ -208,7 +206,7 @@ class _LoginModel extends AppBaseVm {
           _saveLoginStatus();
         }
         AppToastBridge.showToast(msg: S.current.user_toast_login_login_successful);
-        //startByPage(MainPage(), finish: true);
+        startByPage(MainPage(), finish: true);
       } else if (!cancelToken.isCancelled) {
         AppToastBridge.showToast(msg: value.getMsg());
       }

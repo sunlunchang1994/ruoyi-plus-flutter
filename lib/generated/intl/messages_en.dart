@@ -276,6 +276,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "-----------------------------"),
         "label_wechat": MessageLookupByLibrary.simpleMessage("微信"),
         "label_wechat_x": MessageLookupByLibrary.simpleMessage("微信：%s"),
+        "main_divide_text": MessageLookupByLibrary.simpleMessage(
+            "-----------------------------"),
+        "main_label_mine": MessageLookupByLibrary.simpleMessage("我的"),
+        "main_label_workbench": MessageLookupByLibrary.simpleMessage("工作台"),
         "title_already_the_latest_version":
             MessageLookupByLibrary.simpleMessage("已是最新版本"),
         "title_be_updating": MessageLookupByLibrary.simpleMessage("正在更新"),

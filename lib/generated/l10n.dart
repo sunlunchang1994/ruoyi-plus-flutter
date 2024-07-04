@@ -2439,6 +2439,36 @@ class S {
       args: [],
     );
   }
+
+  /// `-----------------------------`
+  String get main_divide_text {
+    return Intl.message(
+      '-----------------------------',
+      name: 'main_divide_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `工作台`
+  String get main_label_workbench {
+    return Intl.message(
+      '工作台',
+      name: 'main_label_workbench',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `我的`
+  String get main_label_mine {
+    return Intl.message(
+      '我的',
+      name: 'main_label_mine',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
