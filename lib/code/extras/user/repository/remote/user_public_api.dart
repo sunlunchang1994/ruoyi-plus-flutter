@@ -38,7 +38,7 @@ class UserPublicServiceRepository {
           resultEntity: event,
           createData: (resultEntity) =>
               LoginResult.fromJson(resultEntity.data));
-      ApiConfig().token = intensifyEntity.data.access_token;
+      ApiConfig().token = intensifyEntity.data.token;
       return intensifyEntity;
     }).single;
   }

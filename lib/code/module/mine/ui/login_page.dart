@@ -35,7 +35,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
         registerEvent(context);
         var loginModel = Provider.of<_LoginModel>(context, listen: false);
         return Scaffold(
-            backgroundColor: themeData.colorScheme.background,
+            backgroundColor: themeData.colorScheme.surface,
             appBar: AppBar(
               /*brightness: Brightness.dark,*/
               title: Text(title),
@@ -47,9 +47,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                     flex: 2,
                     child: Center(
                         child: Image(
-                            image: AssetImage("assets/images/ic_launcher.png"),
-                            width: 72,
-                            height: 72))),
+                            image: AssetImage("assets/images/ic_launcher.png"), width: 72, height: 72))),
                 Expanded(
                     flex: 6,
                     child: Padding(
@@ -65,23 +63,18 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                     SlcStyles.getTextColorSecondaryStyleByTheme(
                                         Theme.of(context))),*/
                             Container(
-                              margin:
-                                  EdgeInsets.only(top: SlcDimens.appDimens8),
-                              decoration: SlcImages.getBgBoxDecoration(
-                                  color: themeData.cardColor, radius: 4),
+                              margin: EdgeInsets.only(top: SlcDimens.appDimens8),
+                              decoration: SlcImages.getBgBoxDecoration(color: themeData.cardColor),
                               child: TextField(
-                                  controller: TextEditingController(
-                                      text: loginModel.userName),
+                                  focusNode: loginModel.userNameInputFocus,
+                                  controller: TextEditingController(text: loginModel.userName),
                                   decoration: InputDecoration(
                                       //isDense: true,
-                                      contentPadding:
-                                          EdgeInsets.all(SlcDimens.appDimens8),
+                                      contentPadding: EdgeInsets.all(SlcDimens.appDimens8),
                                       labelText: S.of(context).user_label_account,
                                       hintText: S.of(context).user_label_input_account,
-                                      border:
-                                          const OutlineInputBorder() /*border: InputBorder.none*/),
-                                  onChanged: (value) =>
-                                      loginModel.userName = value),
+                                      border: const OutlineInputBorder() /*border: InputBorder.none*/),
+                                  onChanged: (value) => loginModel.userName = value),
                             ),
                             SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
                             //此处暂时用material样式
@@ -90,24 +83,20 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                     SlcStyles.getTextColorSecondaryStyleByTheme(
                                         Theme.of(context))),*/
                             Container(
-                                margin:
-                                    EdgeInsets.only(top: SlcDimens.appDimens8),
-                                decoration: SlcImages.getBgBoxDecoration(
-                                    color: themeData.cardColor, radius: 4),
+                                margin: EdgeInsets.only(top: SlcDimens.appDimens8),
+                                decoration: SlcImages.getBgBoxDecoration(color: themeData.cardColor),
                                 child: TextField(
+                                    focusNode: loginModel.passwordInputFocus,
                                     obscureText: true,
-                                    controller: TextEditingController(
-                                        text: loginModel.password),
+                                    controller: TextEditingController(text: loginModel.password),
                                     decoration: InputDecoration(
-                                        //isDense: true,
-                                        contentPadding: EdgeInsets.all(
-                                            SlcDimens.appDimens8),
+                                      //isDense: true,
+                                        contentPadding: EdgeInsets.all(SlcDimens.appDimens8),
                                         labelText: S.of(context).user_label_password,
                                         hintText: S.of(context).user_label_input_password,
                                         border:
-                                            const OutlineInputBorder() /*border: InputBorder.none*/),
-                                    onChanged: (value) =>
-                                        loginModel.password = value)),
+                                        const OutlineInputBorder() /*border: InputBorder.none*/),
+                                    onChanged: (value) => loginModel.password = value)),
                             SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
                             Row(
                               children: [
@@ -116,11 +105,9 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                     return Checkbox(
                                         value: value,
                                         onChanged: (bool? isCheck) {
-                                          loginModel.setIsSavePassword(
-                                              isCheck ?? false);
+                                          loginModel.setIsSavePassword(isCheck ?? false);
                                         },
-                                        materialTapTargetSize:
-                                            MaterialTapTargetSize.shrinkWrap);
+                                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap);
                                   },
                                   selector: (context, value) {
                                     return value._isSavePassword;
@@ -130,18 +117,15 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                   },
                                 ),
                                 Text(S.of(context).user_label_save_password),
-                                SlcStyles.getSizedBox(
-                                    width: SlcDimens.appDimens12),
+                                SlcStyles.getSizedBox(width: SlcDimens.appDimens12),
                                 Selector<_LoginModel, bool>(
                                   builder: (context, value, child) {
                                     return Checkbox(
                                         value: value,
                                         onChanged: (bool? isCheck) {
-                                          loginModel
-                                              .setIsAutoLogin(isCheck ?? false);
+                                          loginModel.setIsAutoLogin(isCheck ?? false);
                                         },
-                                        materialTapTargetSize:
-                                            MaterialTapTargetSize.shrinkWrap);
+                                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap);
                                   },
                                   selector: (context, value) {
                                     return value._isAutoLogin;
@@ -153,8 +137,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                 Text(S.of(context).user_label_auto_login)
                               ],
                             ),
-                            SlcStyles.getSizedBox(
-                                height: SlcDimens.appDimens24),
+                            SlcStyles.getSizedBox(height: SlcDimens.appDimens24),
                             SizedBox(
                                 width: double.infinity,
                                 child: FilledButton(
@@ -162,8 +145,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                       loginModel.login();
                                     },
                                     child: Text(S.of(context).user_label_login,
-                                        style: themeData
-                                            .primaryTextTheme.titleMedium)))
+                                        style: themeData.primaryTextTheme.titleMedium)))
                           ],
                         )))
               ],
@@ -177,12 +159,17 @@ class _LoginModel extends AppBaseVm {
   final CancelToken cancelToken = CancelToken();
   String? userName = SpUserConfig.getAccount();
   String? password = SpUserConfig.getPassword();
+  FocusNode userNameInputFocus = FocusNode();
+  FocusNode passwordInputFocus = FocusNode();
   bool _isSavePassword = SpUserConfig.isSavePassword();
   bool _isAutoLogin = SpUserConfig.isAutoLogin();
 
   bool get isSavePassword => _isSavePassword;
 
   bool get isAutoLogin => _isAutoLogin;
+
+  _LoginModel() {
+  }
 
   void setIsSavePassword(bool value) {
     _isSavePassword = value;
@@ -202,26 +189,25 @@ class _LoginModel extends AppBaseVm {
 
   ///登录
   void login() {
+    userNameInputFocus.unfocus();
+    passwordInputFocus.unfocus();
     if (TextUtil.isEmpty(userName)) {
-      AppToastBridge.showToast(
-          msg: S.current.user_label_account_not_empty_hint);
+      AppToastBridge.showToast(msg: S.current.user_label_account_not_empty_hint);
       return;
     }
     if (TextUtil.isEmpty(password)) {
-      AppToastBridge.showToast(
-          msg: S.current.user_label_password_bot_empty_hint);
+      AppToastBridge.showToast(msg: S.current.user_label_password_bot_empty_hint);
       return;
     }
     showLoading(title: S.current.user_label_logging_in);
-    UserPublicServiceRepository.login(userName!, password!, cancelToken)
-        .then((IntensifyEntity<LoginResult> value) {
+    UserPublicServiceRepository.login(userName!, password!, cancelToken).then(
+        (IntensifyEntity<LoginResult> value) {
       dismissLoading();
       if (value.isSuccess()) {
         if (_isSavePassword) {
           _saveLoginStatus();
         }
-        AppToastBridge.showToast(
-            msg: S.current.user_toast_login_login_successful);
+        AppToastBridge.showToast(msg: S.current.user_toast_login_login_successful);
         //startByPage(MainPage(), finish: true);
       } else if (!cancelToken.isCancelled) {
         AppToastBridge.showToast(msg: value.getMsg());
