@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         return S.of(context).app_name;
       },
       //builder: BotToastInit(),
-      theme: AppStyles.appLightTheme,
+      theme: AppStyles.getAppLightThemeMD3(),
       // 设置语言
       localizationsDelegates: const [
         S.delegate,
