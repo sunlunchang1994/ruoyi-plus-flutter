@@ -8,11 +8,11 @@ import '../../entity/login_result.dart';
 
 part 'user_public_api.g.dart';
 
-@RestApi(baseUrl: ApiConfig.API_URL)
+@RestApi()
 abstract class UserPublicApiClient {
   factory UserPublicApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _UserPublicApiClient(dio, baseUrl: baseUrl);
+    return _UserPublicApiClient(dio, baseUrl: baseUrl ?? ApiConfig.API_URL);
   }
 
   ///用户登录

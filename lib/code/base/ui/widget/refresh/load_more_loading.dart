@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 
+import '../../../../../generated/l10n.dart';
+
 class LoadMoreLoadingWidget extends StatelessWidget {
   const LoadMoreLoadingWidget({super.key});
 
@@ -20,7 +22,7 @@ class LoadMoreLoadingWidget extends StatelessWidget {
               padding: const EdgeInsets.only(
                 left: 16,
               ),
-              child: new Text("正在加载...",
+              child: new Text(S.current.label_refresh_loading,
                   style: SlcStyles.getTextColorSecondaryStyleByTheme(
                       Theme.of(context)))),
         ],

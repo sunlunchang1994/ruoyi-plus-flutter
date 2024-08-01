@@ -6,7 +6,7 @@ import '../ui/login_page.dart';
 import '../repository/local/sp_user_config.dart';
 
 class ConstantUser {
-  static void logOut(RouterVm routerVm) {
+  static void logOut(RouterVmBox routerVm) {
     SpUserConfig.saveIsAutoLogin(false);
     ApiConfig().token = null;
     GlobalVm globalVm = GlobalVm();

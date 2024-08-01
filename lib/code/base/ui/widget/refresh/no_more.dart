@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 
+import '../../../../../generated/l10n.dart';
+
 class NoMoreWidget extends StatelessWidget {
   const NoMoreWidget({super.key});
 
@@ -9,7 +11,7 @@ class NoMoreWidget extends StatelessWidget {
     return Center(
         child: Padding(
             padding: EdgeInsets.all(8),
-            child: Text("--我是有底线的--",
+            child: Text(S.current.label_refresh_loading_no_more,
                 style: SlcStyles.getTextColorHintStyleByTheme(
                     Theme.of(context)))));
   }

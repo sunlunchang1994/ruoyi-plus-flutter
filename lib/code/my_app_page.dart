@@ -1,6 +1,7 @@
-import 'package:flustars_flutter3/flustars_flutter3.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/sp_util.dart';
 
 import '../generated/l10n.dart';
 import '../res/styles.dart';

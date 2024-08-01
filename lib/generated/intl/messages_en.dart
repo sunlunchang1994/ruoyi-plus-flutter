@@ -205,6 +205,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "label_phone": MessageLookupByLibrary.simpleMessage("手机"),
         "label_phone_x": MessageLookupByLibrary.simpleMessage("手机：%s"),
         "label_prompt": MessageLookupByLibrary.simpleMessage("提示"),
+        "label_refresh_divide_text": MessageLookupByLibrary.simpleMessage(
+            "-----------------------------"),
+        "label_refresh_load_complete":
+            MessageLookupByLibrary.simpleMessage("上拉加载更多"),
+        "label_refresh_load_end":
+            MessageLookupByLibrary.simpleMessage("没有更多数据"),
+        "label_refresh_load_failed":
+            MessageLookupByLibrary.simpleMessage("加载失败，请重试"),
+        "label_refresh_loading":
+            MessageLookupByLibrary.simpleMessage("正在加载中..."),
+        "label_refresh_loading_no_more":
+            MessageLookupByLibrary.simpleMessage("--我是有底线的--"),
+        "label_refresh_loading_succeed":
+            MessageLookupByLibrary.simpleMessage("加载成功"),
         "label_restarting": MessageLookupByLibrary.simpleMessage("正在重启"),
         "label_running": MessageLookupByLibrary.simpleMessage("正在运行"),
         "label_save_failed": MessageLookupByLibrary.simpleMessage("保存失败"),

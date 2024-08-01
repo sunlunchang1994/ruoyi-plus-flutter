@@ -41,18 +41,17 @@ dependencies:
     sdk: flutter
   flukit: any #https://pub.flutter-io.cn/packages/flukit
 
+  intl: ^0.19.0
+
   #基础框架
-  flutter_slc_boxes:
-    git:
-      url: https://gitee.com/slcpublic/flutter_slc_boxes.git
 
   #----------------- 版本不要轻易改动  加上是因为上述包也用了这个
   #状态管理
   provider: ^5.0.0
-  #fulter工具包
-  #地址：https://pub.flutter-io.cn/packages/flustars_flutter3
-  flustars_flutter3: ^3.0.0
-  #
+  #框架
+  flutter_slc_boxes:
+    git:
+      url: https://gitee.com/slcpublic/flutter_slc_boxes.git
 
   # UI工具---------------------------------------
   #Toast
@@ -81,7 +80,7 @@ dependencies:
   # 文件相关---------------------------------------
   #图片选择
   image_picker: ^1.1.2
-  # 保存图片到相册 https://pub.dev/packages/image_gallery_saver
+  # 保存图片到相册 https://pub.dev/packages/image_gallery_saver 混合开发中好像有点冲突，具体待测试
   image_gallery_saver: ^2.0.3
   # 文件选择
   file_picker: ^8.0.6
@@ -91,6 +90,8 @@ dependencies:
   permission_handler: ^11.3.1
   #UUID
   uuid: ^4.4.0
+  #解决键盘被遮挡 暂时用不上
+  #keyboard_avoider: ^0.2.0
 
 dev_dependencies:
   flutter_test:

@@ -1521,6 +1521,76 @@ class S {
   }
 
   /// `-----------------------------`
+  String get label_refresh_divide_text {
+    return Intl.message(
+      '-----------------------------',
+      name: 'label_refresh_divide_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `上拉加载更多`
+  String get label_refresh_load_complete {
+    return Intl.message(
+      '上拉加载更多',
+      name: 'label_refresh_load_complete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `没有更多数据`
+  String get label_refresh_load_end {
+    return Intl.message(
+      '没有更多数据',
+      name: 'label_refresh_load_end',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `加载失败，请重试`
+  String get label_refresh_load_failed {
+    return Intl.message(
+      '加载失败，请重试',
+      name: 'label_refresh_load_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `正在加载中...`
+  String get label_refresh_loading {
+    return Intl.message(
+      '正在加载中...',
+      name: 'label_refresh_loading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `加载成功`
+  String get label_refresh_loading_succeed {
+    return Intl.message(
+      '加载成功',
+      name: 'label_refresh_loading_succeed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `--我是有底线的--`
+  String get label_refresh_loading_no_more {
+    return Intl.message(
+      '--我是有底线的--',
+      name: 'label_refresh_loading_no_more',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `-----------------------------`
   String get app_divide_text {
     return Intl.message(
       '-----------------------------',

@@ -1,4 +1,5 @@
 import '../../extras/user/vmbox/user_vm_box.dart';
+import 'box/to_top_msg_vmbox.dart';
 
 class GlobalVm {
   GlobalVm._privateConstructor();
@@ -12,5 +13,7 @@ class GlobalVm {
   final Map<String, dynamic> globalCache = {};
 
   final UserVmBox userVmBox = UserVmBox();
-  String? token;
+
+  //final toTopMsgVmBox = ToTopMsgVmBox();
+
 }

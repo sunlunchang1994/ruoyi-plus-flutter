@@ -4,14 +4,55 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 
 class SlcUiBoxStyleUtils {
+  ///列表
+  static const TextStyle itemLabelTextStyleByDay =
+  TextStyle(color: Colors.black87, fontSize: 16);
+  static const TextStyle itemLabelTextStyleByNight =
+  TextStyle(color: Colors.white, fontSize: 16);
+  static const TextStyle itemPrimaryTextStyleByDay =
+  TextStyle(color: Colors.black87, fontSize: 16);
+  static const TextStyle itemPrimaryTextStyleByNight =
+  TextStyle(color: Colors.white, fontSize: 16);
+
+  static TextStyle getItemLabelTextStyleByContext(BuildContext context) {
+    return getItemLabelTextStyleByThemeData(Theme.of(context));
+  }
+
+  static TextStyle getItemLabelTextStyleByThemeData(ThemeData themeData) {
+    if (themeData.brightness == Brightness.dark) {
+      return itemLabelTextStyleByNight;
+    } else {
+      return itemLabelTextStyleByDay;
+    }
+  }
+
+  static TextStyle getItemPrimaryTextStyleByContext(BuildContext context) {
+    return getItemPrimaryTextStyleByThemeData(Theme.of(context));
+  }
+
+  static TextStyle getItemPrimaryTextStyleByThemeData(ThemeData themeData) {
+    if (themeData.brightness == Brightness.dark) {
+      return itemPrimaryTextStyleByNight;
+    } else {
+      return itemPrimaryTextStyleByDay;
+    }
+  }
+
+  ///icon边距
+  static const EdgeInsets itemPrefixWidgetMargin =
+  EdgeInsets.fromLTRB(16, 12, 0, 12);
+  static const EdgeInsets itemSuffixItemHMargin =
+  EdgeInsets.fromLTRB(0, 12, 16, 12);
+
+  ///表单
   static const TextStyle variantFormLabelTextStyleByDay =
-      TextStyle(color: Colors.black87, fontSize: 16);
+  TextStyle(color: Colors.black87, fontSize: 16);
   static const TextStyle variantFormLabelTextStyleByNight =
-      TextStyle(color: Colors.white, fontSize: 16);
+  TextStyle(color: Colors.white, fontSize: 16);
   static const TextStyle variantFormPrimaryTextStyleByDay =
-      TextStyle(color: Colors.black87, fontSize: 16);
+  TextStyle(color: Colors.black87, fontSize: 16);
   static const TextStyle variantFormPrimaryTextStyleByNight =
-      TextStyle(color: Colors.white, fontSize: 16);
+  TextStyle(color: Colors.white, fontSize: 16);
 
   static TextStyle getVariantFormLabelTextStyleByContext(BuildContext context) {
     return getVariantFormLabelTextStyleByThemeData(Theme.of(context));
@@ -42,33 +83,33 @@ class SlcUiBoxStyleUtils {
 
   ///单行labelMargin
   static const EdgeInsets variantFormLabelHMargin =
-      EdgeInsets.fromLTRB(16, 12, 0, 12);
+  EdgeInsets.fromLTRB(16, 12, 0, 12);
 
   ///多行labelMargin
   static const EdgeInsets variantFormLabelVMargin =
-      EdgeInsets.fromLTRB(16, 12, 0, 0);
+  EdgeInsets.fromLTRB(16, 12, 0, 0);
 
   ///单行ContentMargin
   static const EdgeInsets variantFormContentHMargin =
-      EdgeInsets.fromLTRB(16, 10, 16, 10);
+  EdgeInsets.fromLTRB(16, 10, 16, 10);
 
   ///单行ContentMargin结束间隔容忍宽度
   static const EdgeInsets variantFormContentHMarginByEndHumility =
-      EdgeInsets.fromLTRB(16, 10, 8, 10);
+  EdgeInsets.fromLTRB(16, 10, 8, 10);
 
   ///多行ContentMargin
   static const EdgeInsets variantFormContentVMargin =
-      EdgeInsets.fromLTRB(16, 0, 16, 10);
+  EdgeInsets.fromLTRB(16, 0, 16, 10);
 
   ///多行ContentMargin结束间隔容忍宽度
   static const EdgeInsets variantFormContentVMarginByEndHumility =
-      EdgeInsets.fromLTRB(16, 0, 8, 10);
+  EdgeInsets.fromLTRB(16, 0, 8, 10);
 
   ///icon边距
-  static const EdgeInsets simplePrefixWidgetMargin =
-      EdgeInsets.fromLTRB(16, 12, 0, 12);
-  static const EdgeInsets simpleSuffixItemHMargin =
-      EdgeInsets.fromLTRB(0, 12, 16, 12);
+  static const EdgeInsets variantFormPrefixWidgetMargin =
+  EdgeInsets.fromLTRB(16, 12, 0, 12);
+  static const EdgeInsets variantFormSuffixItemHMargin =
+  EdgeInsets.fromLTRB(0, 12, 16, 12);
 
   ///
   /// 使用笔记
@@ -78,21 +119,21 @@ class SlcUiBoxStyleUtils {
   ///
   static InputDecoration getSimpleInputDecoration(
       {EdgeInsetsGeometry? contentPadding,
-      String? hintText,
-      TextStyle? hintStyle}) {
+        String? hintText,
+        TextStyle? hintStyle}) {
     return InputDecoration.collapsed(
-            hintText: hintText, hintStyle: hintStyle ??= const TextStyle())
+        hintText: hintText, hintStyle: hintStyle ??= const TextStyle())
         .copyWith(
-            contentPadding:
-                contentPadding ?? const EdgeInsets.symmetric(vertical: 2));
+        contentPadding:
+        contentPadding ?? const EdgeInsets.symmetric(vertical: 2));
   }
 
   static Divider getDividerByBg(
       {double height = 1,
-      double thickness = 0,
-      double? indent,
-      double? endIndent,
-      Color color = Colors.transparent}) {
+        double thickness = 0,
+        double? indent,
+        double? endIndent,
+        Color color = Colors.transparent}) {
     return Divider(
       height: height,
       thickness: thickness,
@@ -122,10 +163,13 @@ class SlcUiBoxStyleUtils {
 class SimpleVariantFormLayout extends StatelessWidget {
   //标签
   final Widget? label;
+
   //关键提示
   final Widget? emphasize;
+
   //标签风格
   final TextStyle? labelTextStyle;
+
   //内容
   final Widget? content;
 
@@ -165,7 +209,7 @@ class SimpleVariantFormLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
-    return Material(
+    return Ink(
         color: themeData.cardColor,
         child: InkWell(
             onTap: onTap,
@@ -192,36 +236,36 @@ class SimpleVariantFormLayout extends StatelessWidget {
   List<Widget> _createChildren(ThemeData themeData) {
     List<Widget> children = <Widget>[];
     if (label != null) {
+      List<Widget> labelChildren = <Widget>[];
+      labelChildren.add(DefaultTextStyle(
+          style: labelTextStyle ??
+              SlcUiBoxStyleUtils.getVariantFormLabelTextStyleByThemeData(
+                  themeData),
+          child: label!));
+      if (emphasize != null) {
+        labelChildren.add(DefaultTextStyle(
+            style: labelTextStyle?.copyWith(color: Colors.red.shade500) ??
+                SlcUiBoxStyleUtils.getVariantFormLabelTextStyleByThemeData(
+                    themeData)
+                    .copyWith(color: Colors.red.shade500),
+            child: emphasize!));
+      }
       children.add(Padding(
           padding: labelMargin ??
               (singleLine
                   ? SlcUiBoxStyleUtils.variantFormLabelHMargin
                   : SlcUiBoxStyleUtils.variantFormLabelVMargin),
-          child: label == null
-              ? null
-              : DefaultTextStyle(
-                  style: labelTextStyle ??
-                      SlcUiBoxStyleUtils
-                          .getVariantFormLabelTextStyleByThemeData(themeData),
-                  child: label!)));
-      if (emphasize != null) {
-        children.add(DefaultTextStyle(
-            style: labelTextStyle?.copyWith(color: Colors.red.shade500) ??
-                SlcUiBoxStyleUtils.getVariantFormLabelTextStyleByThemeData(
-                        themeData)
-                    .copyWith(color: Colors.red.shade500),
-            child: emphasize!));
-      }
+          child: Row(children: labelChildren)));
     }
     final contentPadding = Padding(
         padding: contentMargin ??
             (singleLine
                 ? contentHumility
-                    ? SlcUiBoxStyleUtils.variantFormContentHMarginByEndHumility
-                    : SlcUiBoxStyleUtils.variantFormContentHMargin
+                ? SlcUiBoxStyleUtils.variantFormContentHMarginByEndHumility
+                : SlcUiBoxStyleUtils.variantFormContentHMargin
                 : contentHumility
-                    ? SlcUiBoxStyleUtils.variantFormContentVMarginByEndHumility
-                    : SlcUiBoxStyleUtils.variantFormContentVMargin),
+                ? SlcUiBoxStyleUtils.variantFormContentVMarginByEndHumility
+                : SlcUiBoxStyleUtils.variantFormContentVMargin),
         child: content);
     children.add(singleLine ? Expanded(child: contentPadding) : contentPadding);
     return children;
@@ -238,10 +282,10 @@ class SimpleListItemLayout extends StatelessWidget {
 
   SimpleListItemLayout(
       {this.prefix,
-      this.suffix,
-      this.child,
-      this.prefixWidgetMargin,
-      this.suffixWidgetMargin});
+        this.suffix,
+        this.child,
+        this.prefixWidgetMargin,
+        this.suffixWidgetMargin});
 
   @override
   Widget build(BuildContext context) {
@@ -249,12 +293,12 @@ class SimpleListItemLayout extends StatelessWidget {
     if (this.prefix != null) {
       children.add(Padding(
           padding:
-              prefixWidgetMargin ?? SlcUiBoxStyleUtils.simplePrefixWidgetMargin,
+          prefixWidgetMargin ?? SlcUiBoxStyleUtils.itemPrefixWidgetMargin,
           child: IconTheme(
             child: this.prefix!,
             data: IconThemeData(
                 color: SlcStyles.getTextColorSecondaryStyleByTheme(
-                        Theme.of(context))
+                    Theme.of(context))
                     .color),
           )));
     }
@@ -267,12 +311,12 @@ class SimpleListItemLayout extends StatelessWidget {
     if (this.suffix != null) {
       children.add(Padding(
           padding:
-              suffixWidgetMargin ?? SlcUiBoxStyleUtils.simpleSuffixItemHMargin,
+          suffixWidgetMargin ?? SlcUiBoxStyleUtils.itemSuffixItemHMargin,
           child: IconTheme(
             child: this.suffix!,
             data: IconThemeData(
                 color: SlcStyles.getTextColorSecondaryStyleByTheme(
-                        Theme.of(context))
+                    Theme.of(context))
                     .color),
           )));
     }
@@ -287,11 +331,11 @@ class SuperEasyListItemLayout extends SimpleListItemLayout {
   SuperEasyListItemLayout(
       {IconData? prefixIcon, IconData? suffixIcon, String? labelText})
       : super(
-            prefix: prefixIcon == null ? null : Icon(prefixIcon),
-            suffix: suffixIcon == null ? null : Icon(suffixIcon),
-            child: labelText == null
-                ? null
-                : Padding(
-                    padding: SlcUiBoxStyleUtils.variantFormLabelHMargin,
-                    child: Text(labelText)));
+      prefix: prefixIcon == null ? null : Icon(prefixIcon),
+      suffix: suffixIcon == null ? null : Icon(suffixIcon),
+      child: labelText == null
+          ? null
+          : Padding(
+          padding: EdgeInsets.fromLTRB(16, 12, 0, 12),
+          child: Text(labelText)));
 }

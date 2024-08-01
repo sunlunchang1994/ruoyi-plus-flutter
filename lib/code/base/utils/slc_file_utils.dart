@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flustars_flutter3/flustars_flutter3.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/date_util.dart';
 
 class SlcFileUtils {
   static const String VALUE_FILE_NAME_DATE_FORMAT = "_yyyyMMdd_HHmmss";

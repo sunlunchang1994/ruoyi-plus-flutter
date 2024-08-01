@@ -29,7 +29,7 @@ class LoadMoreFormat<T> {
   int _baseOffset = DEF_OFFICE;
   int _offset = DEF_OFFICE;
   int _size = 15;
-  final ObservableField<LoadMoreStatus> refreshOf = ObservableField();
+  final ObservableField<LoadMoreStatus> refreshStatusOf = ObservableField();
 
   LoadMoreFormat({int offset = DEF_OFFICE, int size = DEF_size}) {
     this._baseOffset = offset;
@@ -47,12 +47,12 @@ class LoadMoreFormat<T> {
     }
     targetList.addAll(sourceList);
     if (offsetEqualsBaseOffset()) {
-      refreshOf.setValueAndNotify(LoadMoreStatus.refreshCompleted);
+      refreshStatusOf.setValueAndNotify(LoadMoreStatus.refreshCompleted);
     }
     if (isLastPage) {
-      refreshOf.setValueAndNotify(LoadMoreStatus.noMore);
+      refreshStatusOf.setValueAndNotify(LoadMoreStatus.noMore);
     } else {
-      refreshOf.setValueAndNotify(LoadMoreStatus.loadMoreCompleted);
+      refreshStatusOf.setValueAndNotify(LoadMoreStatus.loadMoreCompleted);
     }
     if (targetList.isEmpty) {
       return;
@@ -61,13 +61,13 @@ class LoadMoreFormat<T> {
   }
 
   void loadMoreFail() {
-    refreshOf.setValueAndNotify(LoadMoreStatus.failed);
+    refreshStatusOf.setValueAndNotify(LoadMoreStatus.failed);
   }
 
   void refresh({bool notificationUi = false}) {
     _offset = getBaseOffset();
     if (notificationUi) {
-      refreshOf.setValueAndNotify(LoadMoreStatus.refreshCompleted);
+      refreshStatusOf.setValueAndNotify(LoadMoreStatus.refreshCompleted);
     }
   }
 
@@ -81,5 +81,9 @@ class LoadMoreFormat<T> {
 
   int getOffset() {
     return this._offset;
+  }
+
+  int getSize() {
+    return this._size;
   }
 }

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flustars_flutter3/flustars_flutter3.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
 
 import '../../../generated/l10n.dart';
 import '../api/result_entity.dart';
@@ -62,13 +62,13 @@ class BaseDio {
     if (error is Error) {
       return ResultEntity(code: defCode, msg: error.toString());
     } else if (error is Exception) {
-      switch (error.runtimeType) {
+      switch (error) {
         case DioException _:
-          if ((error as DioException).type == DioExceptionType.badResponse) {
+          if (error.type == DioExceptionType.badResponse) {
             final response = error.response;
             if (response != null) {
-              ResultEntity baseEntity = ResultEntity(code: response.statusCode);
-              if (response.statusCode == 401) {
+              //ResultEntity baseEntity = ResultEntity(code: response.statusCode);
+              /*if (response.statusCode == 401) {
                 baseEntity.msg = "请先登录";
               } else if (response.statusCode == 403) {
                 baseEntity.msg = "非法访问，请使用正确的token";
@@ -92,14 +92,25 @@ class BaseDio {
                     msg: response.statusMessage,
                   );
                 }
+              }*/
+              //上面这里不需要了，一般后端会给出
+              try {
+                ResultEntity baseEntity =
+                ResultEntity.fromJson(response.data);
+                baseEntity.code ??= response.statusCode;
+                return baseEntity;
+              } catch (e) {
+                return ResultEntity(
+                  code: response.statusCode,
+                  msg: response.statusMessage,
+                );
               }
             }
             return ResultEntity(code: defCode, msg: defErrMsg);
           }
         case ApiException _:
-          ApiException apiException = error as ApiException;
           return ResultEntity(
-              code: apiException.code, msg: apiException.message ?? defErrMsg);
+              code: error.code, msg: error.message ?? defErrMsg);
       }
     }
     return ResultEntity(code: defCode, msg: defErrMsg);

@@ -1,13 +1,13 @@
 //登录
 
 import 'package:dio/dio.dart';
-import 'package:flustars_flutter3/flustars_flutter3.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_scaffold_single/code/base/api/base_dio.dart';
 import 'package:flutter_scaffold_single/code/extras/user/entity/login_result.dart';
 import 'package:flutter_scaffold_single/code/extras/user/repository/remote/user_public_api.dart';
 import 'package:flutter_scaffold_single/code/module/biz_main/ui/main_page.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/images.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
@@ -197,7 +197,7 @@ class _LoginModel extends AppBaseVm {
       AppToastBridge.showToast(msg: S.current.user_label_password_bot_empty_hint);
       return;
     }
-    showLoading(title: S.current.user_label_logging_in);
+    showLoading(text: S.current.user_label_logging_in);
     UserPublicServiceRepository.login(userName!, password!, cancelToken).then(
         (IntensifyEntity<LoginResult> value) {
       dismissLoading();

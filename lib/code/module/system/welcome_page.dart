@@ -1,8 +1,8 @@
 //欢迎
 import 'package:dio/dio.dart';
-import 'package:flustars_flutter3/flustars_flutter3.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_scaffold_single/code/extras/user/repository/remote/user_public_api.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:provider/provider.dart';
 
@@ -74,7 +74,7 @@ class _WelcomeVm extends AppBaseVm {
         SpUserConfig.isSavePassword() &&
         !TextUtil.isEmpty(SpUserConfig.getAccount()) &&
         !TextUtil.isEmpty(SpUserConfig.getPassword())) {
-      showLoading(title: S.current.user_label_logging_in);
+      showLoading(text: S.current.user_label_logging_in);
       UserPublicServiceRepository.login(SpUserConfig.getAccount()!,
               SpUserConfig.getPassword()!, cancelToken)
           .then((IntensifyEntity<dynamic> value) {

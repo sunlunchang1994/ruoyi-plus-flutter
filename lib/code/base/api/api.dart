@@ -6,7 +6,7 @@ import '../api/base_dio.dart';
 
 part 'api.g.dart';
 
-@RestApi(baseUrl: ApiConfig.API_URL)
+@RestApi()
 abstract class ApiClient {
   factory ApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();

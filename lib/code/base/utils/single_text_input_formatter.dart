@@ -1,5 +1,5 @@
-import 'package:flustars_flutter3/flustars_flutter3.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 
 class DecimalTextInputFormatter extends FilteringTextInputFormatter {
   DecimalTextInputFormatter() : super(RegExp(r'[0-9.]'), allow: true);

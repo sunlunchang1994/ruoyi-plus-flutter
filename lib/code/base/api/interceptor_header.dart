@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flustars_flutter3/flustars_flutter3.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/network/api_constant.dart';
 
 import '../vm/global_vm.dart';

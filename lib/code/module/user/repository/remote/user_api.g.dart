@@ -12,9 +12,7 @@ class _UserApiClient implements UserApiClient {
   _UserApiClient(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'http://175.178.17.134:11021';
-  }
+  });
 
   final Dio _dio;
 

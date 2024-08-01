@@ -1,4 +1,4 @@
-import 'package:flustars_flutter3/flustars_flutter3.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/sp_util.dart';
 
 class SpUserConfig {
 
