@@ -1,5 +1,5 @@
+import 'package:flutter_scaffold_single/code/extras/mix/mix_manager.dart';
 import '../../extras/user/vmbox/user_vm_box.dart';
-import 'box/to_top_msg_vmbox.dart';
 
 class GlobalVm {
   GlobalVm._privateConstructor();
@@ -14,6 +14,6 @@ class GlobalVm {
 
   final UserVmBox userVmBox = UserVmBox();
 
-  //final toTopMsgVmBox = ToTopMsgVmBox();
+  //final mixManager = MixManager();
 
 }
