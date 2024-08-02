@@ -13,8 +13,8 @@ class FastTimeFormatUtils {
     if (TextUtil.isEmpty(date)) {
       return "";
     }
-    return DateFormat(ConstantBase.VALUE_TIME_PATTERN_BY_Y_MC_CH).format(
-        DateFormat(ConstantBase.VALUE_TIME_PATTERN_BY_Y_MC_COMMON).parse(date));
+    return toTargetFormat(date, ConstantBase.VALUE_TIME_PATTERN_BY_Y_MC_COMMON,
+        ConstantBase.VALUE_TIME_PATTERN_BY_Y_MC_CH);
   }
 
   ///
@@ -27,8 +27,8 @@ class FastTimeFormatUtils {
     if (TextUtil.isEmpty(date)) {
       return "";
     }
-    return DateFormat(ConstantBase.VALUE_TIME_PATTERN_BY_Y_D_CH).format(
-        DateFormat(ConstantBase.VALUE_TIME_PATTERN_BY_Y_D_COMMON).parse(date));
+    return toTargetFormat(date, ConstantBase.VALUE_TIME_PATTERN_BY_Y_D_COMMON,
+        ConstantBase.VALUE_TIME_PATTERN_BY_Y_D_CH);
   }
 
   ///
@@ -41,8 +41,8 @@ class FastTimeFormatUtils {
     if (TextUtil.isEmpty(date)) {
       return "";
     }
-    return DateFormat(ConstantBase.VALUE_TIME_PATTERN_BY_Y_M_CH).format(
-        DateFormat(ConstantBase.VALUE_TIME_PATTERN_BY_Y_M_COMMON).parse(date));
+    return toTargetFormat(date, ConstantBase.VALUE_TIME_PATTERN_BY_Y_M_COMMON,
+        ConstantBase.VALUE_TIME_PATTERN_BY_Y_M_CH);
   }
 
   ///
@@ -55,7 +55,14 @@ class FastTimeFormatUtils {
     if (TextUtil.isEmpty(date)) {
       return "";
     }
-    return DateFormat(ConstantBase.VALUE_TIME_PATTERN_BY_H_M_COMMON).format(
-        DateFormat(ConstantBase.VALUE_TIME_PATTERN_BY_Y_S_COMMON).parse(date));
+    return toTargetFormat(date, ConstantBase.VALUE_TIME_PATTERN_BY_Y_S_COMMON,
+        ConstantBase.VALUE_TIME_PATTERN_BY_H_M_COMMON);
+  }
+
+  ///
+  /// 转换为目标格式
+  static String toTargetFormat(
+      String date, String srcPattern, String newPattern) {
+    return DateFormat(newPattern).format(DateFormat(srcPattern).parse(date));
   }
 }
