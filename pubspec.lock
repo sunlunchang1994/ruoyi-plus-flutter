@@ -344,10 +344,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: cdbf0b60280b4c7e6e99295e3af7c65a109f6575
+      resolved-ref: "7b35744339fdf06549d88c330dfecba44e157dc6"
       url: "https://gitee.com/slcpublic/flutter_slc_boxes.git"
     source: git
-    version: "0.2.9"
+    version: "0.3.2"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -826,10 +826,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences
-      sha256: c3f888ba2d659f3e75f4686112cc1e71f46177f74452d40d8307edc332296ead
+      sha256: c272f9cabca5a81adc9b0894381e9c1def363e980f960fa903c604c471b22f68
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.0"
+    version: "2.3.1"
   shared_preferences_android:
     dependency: transitive
     description:
@@ -866,10 +866,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_web
-      sha256: "3a293170d4d9403c3254ee05b84e62e8a9b3c5808ebd17de6a33fe9ea6457936"
+      sha256: "59dc807b94d29d52ddbb1b3c0d3b9d0a67fc535a64e62a5542c8db0513fcb6c2"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.0"
+    version: "2.4.1"
   shared_preferences_windows:
     dependency: transitive
     description:

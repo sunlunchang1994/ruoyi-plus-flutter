@@ -1,23 +1,23 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'page_model.g.dart';
+part 'app_page_model.g.dart';
 
 ///加载更多
 @JsonSerializable()
-class PageModel {
-  int? current;
-  int? pages;
+class AppPageModel {
+  int current;
+  int pages;
   bool? isLastPage;
   List<Map<String, dynamic>>? records;
 
-  bool? searchCount;
-  int? size;
-  int? total;
+  bool searchCount;
+  int size;
+  int total;
 
-  PageModel(
+  AppPageModel(
       {this.current = 0,
       this.pages = 0,
-      this.isLastPage = true,
+      this.isLastPage,
       this.records,
       this.searchCount = false,
       this.size = 0,
@@ -30,21 +30,21 @@ class PageModel {
     return isLastPage!;
   }
 
-  factory PageModel.fromJson(Map<String, dynamic> json) =>
-      _$PageModelFromJson(json);
+  factory AppPageModel.fromJson(Map<String, dynamic> json) =>
+      _$AppPageModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$PageModelToJson(this);
+  Map<String, dynamic> toJson() => _$AppPageModelToJson(this);
 }
 
 class IntensifyPageModel<T> {
-  late PageModel _pageModel;
+  late AppPageModel _pageModel;
   List<T>? _dataList;
 
   IntensifyPageModel(
-      {PageModel? pageModel,
+      {AppPageModel? pageModel,
       List<T>? dataList,
-      List<T> Function(PageModel)? createData}) {
-    pageModel ??= PageModel(current: 1, pages: 1, total: 0);
+      List<T> Function(AppPageModel)? createData}) {
+    pageModel ??= AppPageModel(current: 1, pages: 1, total: 0);
     /*if (pageModel == null) {
       pageModel = PageModel(current: 1, pages: 1, total: 0);
     }*/
@@ -61,7 +61,7 @@ class IntensifyPageModel<T> {
     return _pageModel.getIsLastPage();
   }
 
-  PageModel getPageModel() {
+  AppPageModel getPageModel() {
     return _pageModel;
   }
 

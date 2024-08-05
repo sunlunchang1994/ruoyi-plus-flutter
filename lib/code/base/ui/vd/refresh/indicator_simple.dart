@@ -1,11 +1,11 @@
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_scaffold_single/code/base/ui/widget/refresh/load_more.dart';
-import 'package:flutter_scaffold_single/code/base/ui/widget/refresh/load_more_error.dart';
-import 'package:flutter_scaffold_single/code/base/ui/widget/refresh/load_more_loading.dart';
-import 'package:flutter_scaffold_single/code/base/ui/widget/refresh/no_more.dart';
 
+import 'load_more.dart';
+import 'load_more_error.dart';
+import 'load_more_loading.dart';
 import 'load_more_succeed.dart';
+import 'no_more.dart';
 
 /// Classic footer.
 class FooterSimple extends Footer {

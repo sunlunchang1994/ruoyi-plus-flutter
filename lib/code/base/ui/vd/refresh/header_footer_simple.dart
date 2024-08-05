@@ -1,7 +1,7 @@
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_scaffold_single/code/base/ui/widget/refresh/indicator_simple.dart';
+import 'indicator_simple.dart';
 
 ///
 ///默认的底部控件
