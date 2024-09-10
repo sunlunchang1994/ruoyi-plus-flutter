@@ -44,7 +44,8 @@ class AttachmentConfig {
   /// @param relativePath
   /// @return
   String getDownloadPathByRelative(String relativePath) {
-    return getDownloadRequestUrl() + relativePath;
+    String downloadPath = getDownloadRequestUrl() + relativePath;
+    return downloadPath;
   }
 
   String explicitDownloadPathAuto(String downloadPath) {
