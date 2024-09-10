@@ -6,7 +6,9 @@ class ApiConfig extends ApiConstant {
   static const int CODE_UNKNOWN_MISTAKE = 500;
   static const String STR_UNKNOWN_MISTAKE = "Unknown mistake";
 
-  ApiConfig._privateConstructor();
+  ApiConfig._privateConstructor() {
+    _syncAttachment();
+  }
 
   static final ApiConfig _instance = ApiConfig._privateConstructor();
 
@@ -25,6 +27,10 @@ class ApiConfig extends ApiConstant {
 
   void setApiUrl(String apiUrl) {
     _apiUrl = apiUrl;
+    _syncAttachment();
+  }
+
+  void _syncAttachment() {
     AttachmentConfig().setDownloadIpPort(getApiUrl());
     AttachmentConfig().setDownloadApiPart("");
   }
