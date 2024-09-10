@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../api/api_config.dart';
 import '../api/base_dio.dart';
 
 part 'api.g.dart';

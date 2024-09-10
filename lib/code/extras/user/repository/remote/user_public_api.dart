@@ -12,7 +12,7 @@ part 'user_public_api.g.dart';
 abstract class UserPublicApiClient {
   factory UserPublicApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _UserPublicApiClient(dio, baseUrl: baseUrl ?? ApiConfig.API_URL);
+    return _UserPublicApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getApiUrl());
   }
 
   ///用户登录

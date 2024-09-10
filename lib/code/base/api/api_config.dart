@@ -1,12 +1,10 @@
+import 'package:flutter_scaffold_single/code/extras/component/attachment/utils/attachment_config.dart';
 import 'package:flutter_slc_boxes/flutter/slc/network/api_constant.dart';
 
 class ApiConfig extends ApiConstant {
   static const String KEY_TOKEN = "Authorization";
   static const int CODE_UNKNOWN_MISTAKE = 500;
   static const String STR_UNKNOWN_MISTAKE = "Unknown mistake";
-
-  //基于原版ruoyi-vue  不是ruoyi-vue-plus
-  static String API_URL = "http://175.178.17.134:11021";
 
   ApiConfig._privateConstructor();
 
@@ -16,7 +14,20 @@ class ApiConfig extends ApiConstant {
     return _instance;
   }
 
+  //基于原版ruoyi-vue  不是ruoyi-vue-plus
+  String _apiUrl = "http://175.178.17.134:11021";
+
   String? token;
+
+  String getApiUrl() {
+    return _apiUrl;
+  }
+
+  void setApiUrl(String apiUrl) {
+    _apiUrl = apiUrl;
+    AttachmentConfig().setDownloadIpPort(getApiUrl());
+    AttachmentConfig().setDownloadApiPart("");
+  }
 }
 
 abstract class OnSuccess<T> {}
