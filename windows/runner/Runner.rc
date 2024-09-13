@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "android.slc" "\0"
-            VALUE "FileDescription", "flutter_scaffold_single" "\0"
+            VALUE "FileDescription", "ruoyi_plus_flutter" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "flutter_scaffold_single" "\0"
+            VALUE "InternalName", "ruoyi_plus_flutter" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 android.slc. All rights reserved." "\0"
-            VALUE "OriginalFilename", "flutter_scaffold_single.exe" "\0"
-            VALUE "ProductName", "flutter_scaffold_single" "\0"
+            VALUE "OriginalFilename", "ruoyi_plus_flutter.exe" "\0"
+            VALUE "ProductName", "ruoyi_plus_flutter" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

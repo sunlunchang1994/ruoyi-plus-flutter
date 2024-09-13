@@ -1,4 +1,4 @@
-package android.slc.flutter_scaffold_single
+package android.slc.ruoyi_plus_flutter
 
 import io.flutter.embedding.android.FlutterActivity
 

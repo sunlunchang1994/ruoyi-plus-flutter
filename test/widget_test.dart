@@ -6,7 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_scaffold_single/code/my_app_page.dart';
+import 'package:ruoyi_plus_flutter/code/my_app_page.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
