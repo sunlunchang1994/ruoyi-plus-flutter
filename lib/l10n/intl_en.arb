@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "app_name": "脚手架",
+  "app_name": "ruoyi-plus-flutter",
   "label_params": "Label{name}",
   "action_divide_text": "-----------------------------",
   "action_save": "保存",
