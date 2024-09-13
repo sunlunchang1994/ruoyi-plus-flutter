@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/sp_util.dart';
 
+import 'route/app_router.dart';
 import '../generated/l10n.dart';
 import '../res/styles.dart';
 import 'base/config/constant_base.dart';
@@ -15,6 +16,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _init();
+    return MaterialApp.router(
+        routerConfig: router,
+        //title: S.of(context).app_name,
+        onGenerateTitle: (context) {
+          return S.of(context).app_name;
+        },
+        //builder: BotToastInit(),
+        theme: AppStyles.getAppLightThemeMD3(),
+        // 设置语言
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate
+        ],
+        // 将zh设置为第一项,没有适配语言时，英语为首选项
+        supportedLocales: S.delegate.supportedLocales);
     return MaterialApp(
       home: WelcomePage(),
       //home: MainPage(),
