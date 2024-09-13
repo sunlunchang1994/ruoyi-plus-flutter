@@ -1,7 +1,7 @@
 //欢迎
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_scaffold_single/code/extras/user/repository/remote/user_public_api.dart';
+import '../../extras/user/repository/remote/user_public_api.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:provider/provider.dart';

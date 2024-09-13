@@ -1,4 +1,4 @@
-import 'package:flutter_scaffold_single/code/base/api/api_config.dart';
+import '../../../base/api/api_config.dart';
 import 'package:flutter_slc_boxes/flutter/slc/router/router.dart';
 
 import '../../../base/vm/global_vm.dart';

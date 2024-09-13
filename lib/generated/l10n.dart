@@ -50,10 +50,10 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `脚手架`
+  /// `ruoyi-plus-flutter`
   String get app_name {
     return Intl.message(
-      '脚手架',
+      'ruoyi-plus-flutter',
       name: 'app_name',
       desc: '',
       args: [],

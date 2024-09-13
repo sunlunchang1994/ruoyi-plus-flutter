@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:flutter_scaffold_single/code/base/api/api_config.dart';
-import 'package:flutter_scaffold_single/code/base/vm/global_vm.dart';
+import '../../base/api/api_config.dart';
 
 ///
 /// 嵌入在原生应用上的消息盒子用于接收消息

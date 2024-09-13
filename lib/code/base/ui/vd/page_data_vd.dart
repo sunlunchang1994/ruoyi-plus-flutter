@@ -115,6 +115,7 @@ class PageDataState extends State<PageDataVd> {
         controllerByState!.callRefresh();
       };
       widget.vmBox.refreshEvent.addListener(refreshEventCallback!);
+      widget.vmBox.refreshEvent.addListener(refreshEventCallback!);
     }
   }
 

@@ -1,4 +1,4 @@
-import 'package:flutter_scaffold_single/code/base/api/app_page_model.dart';
+import '../../../base/api/app_page_model.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 
 class PageTransformUtils {

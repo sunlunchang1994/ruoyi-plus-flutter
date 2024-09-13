@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_scaffold_single/code/extras/mix/mix_manager.dart';
+import 'mix_manager.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
 
 import 'mix_method_channel_handler.dart';

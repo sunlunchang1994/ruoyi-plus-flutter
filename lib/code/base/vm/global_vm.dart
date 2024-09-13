@@ -1,4 +1,4 @@
-import 'package:flutter_scaffold_single/code/extras/mix/mix_manager.dart';
+import '../../extras/mix/mix_manager.dart';
 import '../../extras/user/vmbox/user_vm_box.dart';
 
 class GlobalVm {

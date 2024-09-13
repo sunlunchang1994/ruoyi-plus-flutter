@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_scaffold_single/code/base/ui/app_mvvm.dart';
+import '../../../base/ui/app_mvvm.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../generated/l10n.dart';

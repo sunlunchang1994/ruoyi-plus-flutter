@@ -1,4 +1,4 @@
-import 'package:flutter_scaffold_single/code/extras/component/attachment/utils/attachment_config.dart';
+import '../../extras/component/attachment/utils/attachment_config.dart';
 import 'package:flutter_slc_boxes/flutter/slc/network/api_constant.dart';
 
 class ApiConfig extends ApiConstant {

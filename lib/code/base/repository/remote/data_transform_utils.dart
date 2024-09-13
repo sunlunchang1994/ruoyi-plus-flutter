@@ -1,4 +1,4 @@
-import 'package:flutter_scaffold_single/code/base/ui/vd/list_data_component.dart';
+import '../../../base/ui/vd/list_data_component.dart';
 
 import '../../api/result_entity.dart';
 

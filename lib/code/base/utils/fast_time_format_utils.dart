@@ -1,4 +1,4 @@
-import 'package:flutter_scaffold_single/code/base/config/constant_base.dart';
+import '../config/constant_base.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:intl/intl.dart';
 

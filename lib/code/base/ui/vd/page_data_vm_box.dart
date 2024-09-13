@@ -1,4 +1,4 @@
-import 'package:flutter_scaffold_single/code/base/ui/vd/list_data_component.dart';
+import 'list_data_component.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/load_more_format.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 

@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_scaffold_single/code/base/ui/app_mvvm.dart';
-import 'package:flutter_scaffold_single/code/base/ui/utils/bar_utils.dart';
-import 'package:flutter_scaffold_single/code/module/biz_main/ui/workbench_page.dart';
-import 'package:flutter_scaffold_single/code/module/user/ui/mine_page.dart';
+import '../../../base/ui/app_mvvm.dart';
+import '../../../base/ui/utils/bar_utils.dart';
+import 'workbench_page.dart';
+import '../../user/ui/mine_page.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../generated/l10n.dart';

@@ -1,4 +1,4 @@
-import 'package:flutter_scaffold_single/code/extras/user/entity/user.dart';
+import '../../../extras/user/entity/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'login_result.g.dart';
