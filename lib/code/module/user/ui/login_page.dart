@@ -205,7 +205,7 @@ class _LoginModel extends AppBaseVm {
           _saveLoginStatus();
         }
         AppToastBridge.showToast(msg: S.current.user_toast_login_login_successful);
-        startByPage(MainPage(), finish: true);
+        pushReplacementPage(MainPage());
       } else if (!cancelToken.isCancelled) {
         AppToastBridge.showToast(msg: value.getMsg());
       }

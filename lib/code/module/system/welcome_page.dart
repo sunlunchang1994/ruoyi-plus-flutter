@@ -86,16 +86,16 @@ class _WelcomeVm extends AppBaseVm {
         } else {
           SpUserConfig.saveIsAutoLogin(true);
           AppToastBridge.showToast(msg: value.getMsg());
-          startByPage(LoginPage(), finish: true);
+          pushReplacementPage(LoginPage());
         }
       }, onError: (e) {
         dismissLoading();
         if (!cancelToken.isCancelled) {
-          startByPage(LoginPage(), finish: true);
+          pushReplacementPage(LoginPage());
         }
       });
     } else {
-      startByPage(LoginPage(), finish: true);
+      pushReplacementPage(LoginPage());
     }
   }
 
