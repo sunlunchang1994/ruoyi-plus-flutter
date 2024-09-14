@@ -1,5 +1,7 @@
 import '../../../base/ui/vd/list_data_component.dart';
 
+import '../../api/api_config.dart';
+import '../../api/api_exception.dart';
 import '../../api/result_entity.dart';
 
 ///@Author sunlunchang
@@ -15,5 +17,21 @@ class DateTransformUtils {
     DateWrapper<T> dateWrapper =
         entity2LDWrapperShell(entity, data: entity.data);
     return dateWrapper;
+  }
+
+  static ResultEntity checkError<T>(ResultEntity entity) {
+    if (entity.isSuccess()) {
+      return entity;
+    }
+    throw ApiException(entity.code ?? ApiConfig.CODE_UNKNOWN_MISTAKE,
+        message: entity.msg);
+  }
+
+  static IntensifyEntity<T> checkErrorIe<T>(IntensifyEntity<T> entity) {
+    if (entity.isSuccess()) {
+      return entity;
+    }
+    throw ApiException(entity.getCode() ?? ApiConfig.CODE_UNKNOWN_MISTAKE,
+        message: entity.getMsg());
   }
 }

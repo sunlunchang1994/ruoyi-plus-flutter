@@ -130,7 +130,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_label_unknown_file": MessageLookupByLibrary.simpleMessage("未知文件"),
         "app_label_unselect_all": MessageLookupByLibrary.simpleMessage("全不选"),
         "app_label_yuan": MessageLookupByLibrary.simpleMessage("元"),
-        "app_name": MessageLookupByLibrary.simpleMessage("脚手架"),
+        "app_name": MessageLookupByLibrary.simpleMessage("ruoyi-plus-flutter"),
         "app_toast_login_login_failed":
             MessageLookupByLibrary.simpleMessage("登录失败"),
         "app_toast_login_login_successful":
@@ -160,10 +160,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "label_data_is_null": MessageLookupByLibrary.simpleMessage("数据为空"),
         "label_def": MessageLookupByLibrary.simpleMessage("默认"),
         "label_delete_failed": MessageLookupByLibrary.simpleMessage("删除失败"),
-        "label_delete_ing": MessageLookupByLibrary.simpleMessage("正在删除&#8230;"),
+        "label_delete_ing": MessageLookupByLibrary.simpleMessage("正在删除..."),
         "label_delete_really": MessageLookupByLibrary.simpleMessage("确认删除？"),
         "label_delete_success": MessageLookupByLibrary.simpleMessage("删除成功"),
-        "label_exiting": MessageLookupByLibrary.simpleMessage("正在退出&#8230;"),
+        "label_exiting": MessageLookupByLibrary.simpleMessage("正在退出..."),
         "label_file_are_uploading":
             MessageLookupByLibrary.simpleMessage("正在上传"),
         "label_file_download_failed":
@@ -187,7 +187,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "label_job_title_x": MessageLookupByLibrary.simpleMessage("职务：%s"),
         "label_list_divide_text": MessageLookupByLibrary.simpleMessage(
             "-----------------------------"),
-        "label_loading": MessageLookupByLibrary.simpleMessage("正在加载&#8230;"),
+        "label_loading": MessageLookupByLibrary.simpleMessage("正在加载..."),
         "label_loading_failure": MessageLookupByLibrary.simpleMessage("加载失败"),
         "label_loading_success": MessageLookupByLibrary.simpleMessage("加载成功"),
         "label_mailbox": MessageLookupByLibrary.simpleMessage("邮箱"),
@@ -222,7 +222,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "label_restarting": MessageLookupByLibrary.simpleMessage("正在重启"),
         "label_running": MessageLookupByLibrary.simpleMessage("正在运行"),
         "label_save_failed": MessageLookupByLibrary.simpleMessage("保存失败"),
-        "label_save_ing": MessageLookupByLibrary.simpleMessage("正在保存&#8230;"),
+        "label_save_ing": MessageLookupByLibrary.simpleMessage("正在保存..."),
         "label_select_divide_text": MessageLookupByLibrary.simpleMessage(
             "-----------------------------"),
         "label_select_parameter_is_missing":
@@ -234,7 +234,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "label_state_not_selected": MessageLookupByLibrary.simpleMessage("未选择"),
         "label_state_selected": MessageLookupByLibrary.simpleMessage("已选择"),
         "label_state_undone": MessageLookupByLibrary.simpleMessage("未完成"),
-        "label_submit_ing": MessageLookupByLibrary.simpleMessage("正在提交&#8230;"),
+        "label_submit_ing": MessageLookupByLibrary.simpleMessage("正在提交..."),
         "label_submitted_failure": MessageLookupByLibrary.simpleMessage("提交失败"),
         "label_submitted_success": MessageLookupByLibrary.simpleMessage("提交成功"),
         "label_success_saved": MessageLookupByLibrary.simpleMessage("保存成功"),
@@ -308,6 +308,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("账号不能为空"),
         "user_label_all_dept": MessageLookupByLibrary.simpleMessage("所有部门"),
         "user_label_auto_login": MessageLookupByLibrary.simpleMessage("自动登录"),
+        "user_label_captcha_code": MessageLookupByLibrary.simpleMessage("验证码"),
         "user_label_cell_phone": MessageLookupByLibrary.simpleMessage("手机"),
         "user_label_check_for_updates":
             MessageLookupByLibrary.simpleMessage("检查更新"),
@@ -322,6 +323,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("修改密码"),
         "user_label_input_account":
             MessageLookupByLibrary.simpleMessage("请输入账号"),
+        "user_label_input_captcha_code":
+            MessageLookupByLibrary.simpleMessage("请输入验证码"),
         "user_label_input_password":
             MessageLookupByLibrary.simpleMessage("请输入密码"),
         "user_label_logging_in": MessageLookupByLibrary.simpleMessage("正在登录"),

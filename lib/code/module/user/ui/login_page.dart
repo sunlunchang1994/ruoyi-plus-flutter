@@ -1,8 +1,13 @@
 //登录
 
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:ruoyi_plus_flutter/code/extras/system/repository/remote/sys_public_api.dart';
 import '../../../base/api/base_dio.dart';
+import '../../../base/ui/vd/list_data_component.dart';
+import '../../../extras/system/entity/captcha.dart';
 import '../../../extras/user/entity/login_result.dart';
 import '../../../extras/user/repository/remote/user_public_api.dart';
 import '../../biz_main/ui/main_page.dart';
@@ -20,9 +25,11 @@ import '../../../base/utils/app_toast.dart';
 import '../repository/local/sp_user_config.dart';
 
 class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
+  static const String routeName = '/login';
+
   final String title = S.current.app_name;
 
-  LoginPage({Key? key}) : super(key: key);
+  LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +40,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
         ThemeData themeData = Theme.of(context);
         registerEvent(context);
         var loginModel = Provider.of<_LoginModel>(context, listen: false);
+        loginModel.initVm();
         return Scaffold(
             backgroundColor: themeData.colorScheme.surface,
             appBar: AppBar(
@@ -55,46 +63,76 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
+                            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                             //此处暂时用material样式
-                            /*Text(S.of(context).user_label_account,
-                                style:
-                                    SlcStyles.getTextColorSecondaryStyleByTheme(
-                                        Theme.of(context))),*/
-                            Container(
-                              margin: EdgeInsets.only(top: SlcDimens.appDimens8),
-                              decoration: SlcImages.getBgBoxDecoration(color: themeData.cardColor),
-                              child: TextField(
-                                  focusNode: loginModel.userNameInputFocus,
-                                  controller: TextEditingController(text: loginModel.userName),
-                                  decoration: InputDecoration(
-                                      //isDense: true,
-                                      contentPadding: EdgeInsets.all(SlcDimens.appDimens8),
-                                      labelText: S.of(context).user_label_account,
-                                      hintText: S.of(context).user_label_input_account,
-                                      border: const OutlineInputBorder() /*border: InputBorder.none*/),
-                                  onChanged: (value) => loginModel.userName = value),
-                            ),
-                            SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
+                            TextField(
+                                focusNode: loginModel.userNameInputFocus,
+                                controller: TextEditingController(text: loginModel.userName),
+                                decoration: InputDecoration(
+                                    //isDense: true,
+                                    contentPadding: EdgeInsets.all(SlcDimens.appDimens8),
+                                    labelText: S.of(context).user_label_account,
+                                    hintText: S.of(context).user_label_input_account,
+                                    border: const OutlineInputBorder() /*border: InputBorder.none*/),
+                                onChanged: (value) => loginModel.userName = value),
+                            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                             //此处暂时用material样式
-                            /*Text(S.of(context).user_label_password,
-                                style:
-                                    SlcStyles.getTextColorSecondaryStyleByTheme(
-                                        Theme.of(context))),*/
-                            Container(
-                                margin: EdgeInsets.only(top: SlcDimens.appDimens8),
-                                decoration: SlcImages.getBgBoxDecoration(color: themeData.cardColor),
-                                child: TextField(
-                                    focusNode: loginModel.passwordInputFocus,
-                                    obscureText: true,
-                                    controller: TextEditingController(text: loginModel.password),
-                                    decoration: InputDecoration(
-                                        //isDense: true,
-                                        contentPadding: EdgeInsets.all(SlcDimens.appDimens8),
-                                        labelText: S.of(context).user_label_password,
-                                        hintText: S.of(context).user_label_input_password,
-                                        border: const OutlineInputBorder() /*border: InputBorder.none*/),
-                                    onChanged: (value) => loginModel.password = value)),
+                            TextField(
+                                focusNode: loginModel.passwordInputFocus,
+                                obscureText: true,
+                                controller: TextEditingController(text: loginModel.password),
+                                decoration: InputDecoration(
+                                    //isDense: true,
+                                    contentPadding: EdgeInsets.all(SlcDimens.appDimens8),
+                                    labelText: S.of(context).user_label_password,
+                                    hintText: S.of(context).user_label_input_password,
+                                    border: const OutlineInputBorder() /*border: InputBorder.none*/),
+                                onChanged: (value) => loginModel.password = value),
+                            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                            Row(children: [
+                              Expanded(
+                                  child: TextField(
+                                      focusNode: loginModel.captchaInputFocus,
+                                      obscureText: true,
+                                      controller: TextEditingController(text: loginModel.captchaCode),
+                                      decoration: InputDecoration(
+                                          //isDense: true,
+                                          contentPadding: EdgeInsets.all(SlcDimens.appDimens8),
+                                          labelText: S.of(context).user_label_captcha_code,
+                                          hintText: S.of(context).user_label_input_captcha_code,
+                                          border: const OutlineInputBorder() /*border: InputBorder.none*/),
+                                      onChanged: (value) => loginModel.captchaCode = value)),
+                              SlcStyles.getSizedBox(width: SlcDimens.appDimens16),
+                              Selector<_LoginModel, Captcha?>(
+                                  builder: (context, value, child) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        loginModel.refreshCaptcha();
+                                      },
+                                      child: SizedBox(
+                                          height: 48,
+                                          width: 120,
+                                          child: Image.memory(
+                                              gaplessPlayback: true,
+                                              base64Decode(value?.img ?? ""), errorBuilder: (
+                                            BuildContext context,
+                                            Object error,
+                                            StackTrace? stackTrace,
+                                          ) {
+                                            return const Center(
+                                                child: SizedBox(
+                                              width: 24,
+                                              height: 24,
+                                              child: CircularProgressIndicator(strokeWidth: 3),
+                                            ));
+                                          })),
+                                    );
+                                  },
+                                  selector: (context, vm) {
+                                    return vm.captcha;
+                                  },
+                                  shouldRebuild: (oldVal, newVal) => oldVal != newVal),
+                            ]),
                             SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
                             Row(
                               children: [
@@ -157,8 +195,10 @@ class _LoginModel extends AppBaseVm {
   final CancelToken cancelToken = CancelToken();
   String? userName = SpUserConfig.getAccount();
   String? password = SpUserConfig.getPassword();
+  String captchaCode = '';
   FocusNode userNameInputFocus = FocusNode();
   FocusNode passwordInputFocus = FocusNode();
+  FocusNode captchaInputFocus = FocusNode();
   bool _isSavePassword = SpUserConfig.isSavePassword();
   bool _isAutoLogin = SpUserConfig.isAutoLogin();
 
@@ -166,7 +206,22 @@ class _LoginModel extends AppBaseVm {
 
   bool get isAutoLogin => _isAutoLogin;
 
-  _LoginModel() {}
+  Captcha? captcha;
+
+  void initVm() {
+    refreshCaptcha();
+  }
+
+  ///刷新验证码
+  void refreshCaptcha() {
+    SysPublicServiceRepository.getCode().then((result) {
+      captcha = result.data;
+      notifyListeners();
+    }, onError: (e) {
+      ResultEntity resultEntity = BaseDio.getError(e);
+      AppToastBridge.showToast(msg: resultEntity.msg);
+    });
+  }
 
   void setIsSavePassword(bool value) {
     _isSavePassword = value;
@@ -188,6 +243,7 @@ class _LoginModel extends AppBaseVm {
   void login() {
     userNameInputFocus.unfocus();
     passwordInputFocus.unfocus();
+    captchaInputFocus.unfocus();
     if (TextUtil.isEmpty(userName)) {
       AppToastBridge.showToast(msg: S.current.user_label_account_not_empty_hint);
       return;

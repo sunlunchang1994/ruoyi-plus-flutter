@@ -4,7 +4,8 @@ import 'package:flutter_slc_boxes/flutter/slc/network/api_constant.dart';
 ///@Author sunlunchang
 ///Api配置类、配置url、token等，可根据需要再此拓展
 class ApiConfig extends ApiConstant {
-  static const String KEY_TOKEN = "Authorization";
+  static const String KEY_TOKEN = "authorization";
+  static const String KEY_CLIENT_ID = "clientid";
   static const int CODE_UNKNOWN_MISTAKE = 500;
   static const String STR_UNKNOWN_MISTAKE = "Unknown mistake";
 
@@ -18,10 +19,12 @@ class ApiConfig extends ApiConstant {
     return _instance;
   }
 
-  //基于原版ruoyi-vue  不是ruoyi-vue-plus
-  String _apiUrl = "http://175.178.17.134:11021";
+  //ruoyi-vue-plus
+  String _apiUrl = "http://192.168.31.174:8080";
 
   String? token;
+
+  String? clientid = "428a8310cd442757ae699df5d894f051";
 
   String getApiUrl() {
     return _apiUrl;

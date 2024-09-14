@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 import '../../../../generated/l10n.dart';
 
 class MainPage extends AppBaseStatelessWidget<_MainVm> {
+  static const String routeName = '/index';
+
   MainPage({super.key});
 
   @override

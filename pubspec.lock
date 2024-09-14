@@ -33,14 +33,6 @@ packages:
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
     source: hosted
     version: "2.11.0"
-  auto_route:
-    dependency: transitive
-    description:
-      name: auto_route
-      sha256: b83e8ce46da7228cdd019b5a11205454847f0a971bca59a7529b98df9876889b
-      url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
-    source: hosted
-    version: "9.2.2"
   boolean_selector:
     dependency: transitive
     description:
@@ -344,10 +336,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "13290e7a466e50af3fe03808199c30774dfe9bc0"
+      resolved-ref: b7af253882eca6c7db23f6c459f23380ff452a0b
       url: "https://gitee.com/slcpublic/flutter_slc_boxes.git"
     source: git
-    version: "0.3.5"
+    version: "0.3.7"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -390,14 +382,6 @@ packages:
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
     source: hosted
     version: "2.1.2"
-  go_router:
-    dependency: "direct main"
-    description:
-      name: go_router
-      sha256: "2ddb88e9ad56ae15ee144ed10e33886777eb5ca2509a914850a5faa7b52ff459"
-      url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
-    source: hosted
-    version: "14.2.7"
   go_router_builder:
     dependency: "direct dev"
     description:

@@ -1,25 +1,13 @@
 import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
+import 'package:ruoyi_plus_flutter/code/module/biz_main/ui/main_page.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/welcome_page.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/login_page.dart';
 
-import '../module/biz_main/ui/main_page.dart';
+import '../module/user/ui/login_page.dart';
 
 // GoRouter configuration
-final router = GoRouter(
-  initialLocation: '/welcome',
-  routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) => MainPage(),
-    ),
-    GoRoute(
-      path: '/welcome',
-      builder: (context, state) => WelcomePage(),
-    ),
-    GoRoute(
-      path: '/login',
-      builder: (context, state) => LoginPage(),
-    ),
-  ],
-);
+final Map<String, WidgetBuilder> router = {
+  WelcomePage.routeName: (BuildContext context) => WelcomePage(),
+  LoginPage.routeName: (BuildContext context) => LoginPage(),
+  MainPage.routeName: (BuildContext context) => MainPage(),
+
+};

@@ -20,6 +20,12 @@ class HeaderInterceptor extends Interceptor {
         !TextUtil.isEmpty(apiConfig.token)) {
       options.headers.addAll({ApiConfig.KEY_TOKEN: apiConfig.token});
     }
+
+    if (options.headers[ApiConfig.KEY_CLIENT_ID] == null &&
+        !TextUtil.isEmpty(apiConfig.clientid)) {
+      options.headers.addAll({ApiConfig.KEY_CLIENT_ID: apiConfig.clientid});
+    }
+
     if (TextUtil.isEmpty(options.headers["content-type"])) {
       options.headers.addAll({
         "content-type": ApiConstant.VALUE_APPLICATION_JSON

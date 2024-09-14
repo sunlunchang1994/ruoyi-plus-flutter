@@ -50,10 +50,10 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `脚手架`
+  /// `ruoyi-plus-flutter`
   String get app_name {
     return Intl.message(
-      '脚手架',
+      'ruoyi-plus-flutter',
       name: 'app_name',
       desc: '',
       args: [],
@@ -470,10 +470,10 @@ class S {
     );
   }
 
-  /// `正在加载&#8230;`
+  /// `正在加载...`
   String get label_loading {
     return Intl.message(
-      '正在加载&#8230;',
+      '正在加载...',
       name: 'label_loading',
       desc: '',
       args: [],
@@ -500,10 +500,10 @@ class S {
     );
   }
 
-  /// `正在删除&#8230;`
+  /// `正在删除...`
   String get label_delete_ing {
     return Intl.message(
-      '正在删除&#8230;',
+      '正在删除...',
       name: 'label_delete_ing',
       desc: '',
       args: [],
@@ -600,10 +600,10 @@ class S {
     );
   }
 
-  /// `正在提交&#8230;`
+  /// `正在提交...`
   String get label_submit_ing {
     return Intl.message(
-      '正在提交&#8230;',
+      '正在提交...',
       name: 'label_submit_ing',
       desc: '',
       args: [],
@@ -660,10 +660,10 @@ class S {
     );
   }
 
-  /// `正在保存&#8230;`
+  /// `正在保存...`
   String get label_save_ing {
     return Intl.message(
-      '正在保存&#8230;',
+      '正在保存...',
       name: 'label_save_ing',
       desc: '',
       args: [],
@@ -690,10 +690,10 @@ class S {
     );
   }
 
-  /// `正在退出&#8230;`
+  /// `正在退出...`
   String get label_exiting {
     return Intl.message(
-      '正在退出&#8230;',
+      '正在退出...',
       name: 'label_exiting',
       desc: '',
       args: [],
@@ -2125,6 +2125,26 @@ class S {
     return Intl.message(
       '请输入密码',
       name: 'user_label_input_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `验证码`
+  String get user_label_captcha_code {
+    return Intl.message(
+      '验证码',
+      name: 'user_label_captcha_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请输入验证码`
+  String get user_label_input_captcha_code {
+    return Intl.message(
+      '请输入验证码',
+      name: 'user_label_input_captcha_code',
       desc: '',
       args: [],
     );

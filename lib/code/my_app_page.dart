@@ -10,37 +10,19 @@ import 'base/config/constant_base.dart';
 import 'module/system/welcome_page.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     _init();
-    return MaterialApp.router(
-        routerConfig: router,
-        //title: S.of(context).app_name,
-        onGenerateTitle: (context) {
-          return S.of(context).app_name;
-        },
-        //builder: BotToastInit(),
-        theme: AppStyles.getAppLightThemeMD3(),
-        // 设置语言
-        localizationsDelegates: const [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate
-        ],
-        // 将zh设置为第一项,没有适配语言时，英语为首选项
-        supportedLocales: S.delegate.supportedLocales);
     return MaterialApp(
-      home: WelcomePage(),
-      //home: MainPage(),
-      //title: S.of(context).app_name,
+      initialRoute: WelcomePage.routeName,
+      routes: router,
       onGenerateTitle: (context) {
         return S.of(context).app_name;
       },
-      //builder: BotToastInit(),
       theme: AppStyles.getAppLightThemeMD3(),
       // 设置语言
       localizationsDelegates: const [

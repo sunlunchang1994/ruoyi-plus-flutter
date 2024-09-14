@@ -9,8 +9,6 @@ import 'interceptor_header.dart';
 ///@Author sunlunchang
 ///基础dio工具，单例模式
 class BaseDio {
-  BaseDio._(); // 把构造方法私有化
-
   static final BaseDio _instance = BaseDio._();
 
   static BaseDio getInstance() {
@@ -19,9 +17,11 @@ class BaseDio {
     return _instance;
   }
 
-  ///此处待优化，需将Dio提升为全局变量
-  Dio getDio() {
-    final Dio dio = Dio();
+  Dio? _dio = null;
+
+  // 把构造方法私有化
+  BaseDio._() {
+    Dio dio = Dio();
     dio.options = BaseOptions(
         receiveTimeout: const Duration(seconds: 15000),
         connectTimeout: const Duration(seconds: 15000)); // 设置超时时间等 ...
@@ -44,7 +44,12 @@ class BaseDio {
         logPrint: (object) {
           LogUtil.d(object, tag: "dio");
         }));
-    return dio;
+    _dio = dio;
+  }
+
+  ///此处待优化，需将Dio提升为全局变量
+  Dio getDio() {
+    return _dio!;
   }
 
   ///获取错误码
@@ -98,8 +103,7 @@ class BaseDio {
               }*/
               //上面这里不需要了，一般后端会给出
               try {
-                ResultEntity baseEntity =
-                ResultEntity.fromJson(response.data);
+                ResultEntity baseEntity = ResultEntity.fromJson(response.data);
                 baseEntity.code ??= response.statusCode;
                 return baseEntity;
               } catch (e) {
@@ -112,8 +116,7 @@ class BaseDio {
             return ResultEntity(code: defCode, msg: defErrMsg);
           }
         case ApiException _:
-          return ResultEntity(
-              code: error.code, msg: error.message ?? defErrMsg);
+          return ResultEntity(code: error.code, msg: error.message ?? defErrMsg);
       }
     }
     return ResultEntity(code: defCode, msg: defErrMsg);

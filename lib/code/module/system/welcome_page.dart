@@ -15,7 +15,10 @@ import '../user/repository/local/sp_user_config.dart';
 import '../user/ui/login_page.dart';
 
 class WelcomePage extends AppBaseStatelessWidget<_WelcomeVm> {
-  WelcomePage({Key? key}) : super(key: key);
+
+  static const String routeName = '/';
+
+  WelcomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,20 +40,15 @@ class WelcomePage extends AppBaseStatelessWidget<_WelcomeVm> {
                     children: [
                       const Center(
                           child: Image(
-                              image:
-                                  AssetImage("assets/images/ic_launcher.png"),
-                              width: 56,
-                              height: 56)),
-                      Text(S.current.app_name,
-                          style: Theme.of(context).textTheme.titleMedium)
+                              image: AssetImage("assets/images/ic_launcher.png"), width: 56, height: 56)),
+                      Text(S.current.app_name, style: Theme.of(context).textTheme.titleMedium)
                     ],
                   )),
               Expanded(
                   flex: 3,
                   child: Center(
                     child: Text(S.current.label_loading,
-                        style:
-                            SlcStyles.getTextColorHintStyleByTheme(themeData)),
+                        style: SlcStyles.getTextColorHintStyleByTheme(themeData)),
                   )),
               const Spacer(flex: 1),
             ],
@@ -69,33 +67,32 @@ class _WelcomeVm extends AppBaseVm {
   }
 
   void init() async {
-    await Future.delayed(const Duration(milliseconds: 800));
+    await Future.delayed(const Duration(milliseconds: 1200));
     if (SpUserConfig.isAutoLogin() &&
         SpUserConfig.isSavePassword() &&
         !TextUtil.isEmpty(SpUserConfig.getAccount()) &&
         !TextUtil.isEmpty(SpUserConfig.getPassword())) {
       showLoading(text: S.current.user_label_logging_in);
-      UserPublicServiceRepository.login(SpUserConfig.getAccount()!,
-              SpUserConfig.getPassword()!, cancelToken)
+      UserPublicServiceRepository.login(
+              SpUserConfig.getAccount()!, SpUserConfig.getPassword()!, cancelToken)
           .then((IntensifyEntity<dynamic> value) {
         dismissLoading();
         if (value.isSuccess()) {
-          AppToastBridge.showToast(
-              msg: S.current.user_toast_login_login_successful);
+          AppToastBridge.showToast(msg: S.current.user_toast_login_login_successful);
           //startByPage(MainPage(), finish: true);
         } else {
           SpUserConfig.saveIsAutoLogin(true);
           AppToastBridge.showToast(msg: value.getMsg());
-          pushReplacementPage(LoginPage());
+          pushReplacementNamed(LoginPage.routeName);
         }
       }, onError: (e) {
         dismissLoading();
         if (!cancelToken.isCancelled) {
-          pushReplacementPage(LoginPage());
+          pushReplacementNamed(LoginPage.routeName);
         }
       });
     } else {
-      pushReplacementPage(LoginPage());
+      pushReplacementNamed(LoginPage.routeName);
     }
   }
 
