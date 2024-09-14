@@ -1,5 +1,7 @@
 import 'package:flutter/services.dart';
 
+///@Author sunlunchang
+///顶部工具栏工具类
 class BarUtils {
   static void showEnabledSystemUI(bool isShow) {
     if (isShow) {

@@ -6,6 +6,9 @@ import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
 
 import 'mix_method_channel_handler.dart';
 
+/// @Author sunlunchang
+/// 混合开发可以用到
+/// 处理在此进入时刷新界面和切换界面
 class MixPageHandler {
   final MixMethodChannelHandler mixMethodChannelVmBox;
 
@@ -94,6 +97,8 @@ class MixPageHandler {
   }
 }
 
+///
+/// 混合开发时进入的一个界面应该在此组件下
 class MixShelfWidget extends StatelessWidget {
   final Widget Function(BuildContext context) transitionBuilder;
   final MixManager mixManager;

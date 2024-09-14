@@ -3,6 +3,8 @@ import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 
 import '../../../../../generated/l10n.dart';
 
+/// @Author sunlunchang
+/// 列表页 状态为加载更多时展示
 class LoadMoreWidget extends StatelessWidget {
   const LoadMoreWidget({super.key});
 

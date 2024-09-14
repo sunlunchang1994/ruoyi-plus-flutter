@@ -2,6 +2,8 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'result_entity.g.dart';
 
+///@Author sunlunchang
+///后端返回的实体类基础结构
 @JsonSerializable()
 class ResultEntity {
   int? code;
@@ -21,6 +23,7 @@ class ResultEntity {
   Map<String, dynamic> toJson() => _$ResultEntityToJson(this);
 }
 
+///动态类型转为具体的泛型类型
 class IntensifyEntity<T> {
   late ResultEntity _resultEntity;
   T? _data;

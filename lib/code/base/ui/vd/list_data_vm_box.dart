@@ -1,6 +1,10 @@
 import 'list_data_component.dart';
 
-///基础数据列表
+/// @Author sunlunchang
+/// mvvm接口数据拓展
+/// 对基础列表页数据管理进一步拓展、用户快速构建列表页数据管理
+
+///基础列表
 abstract class IBaseListDataCommonVmBox<T> extends IListDataVmBox<T> {
   DateWrapper<List<T>>? _dateWrapper;
 
@@ -11,7 +15,7 @@ abstract class IBaseListDataCommonVmBox<T> extends IListDataVmBox<T> {
   void onFailed(DateWrapper<List<T>> dateWrapper) {}
 }
 
-///基础数据列表
+///基础列表进一步拓展、实现异步刷新、更新数据
 abstract class BaseListDataVmBox<T> extends IBaseListDataCommonVmBox<T> {
   @override
   void refreshAsync() {
@@ -37,6 +41,7 @@ abstract class BaseListDataVmBox<T> extends IBaseListDataCommonVmBox<T> {
   }
 }
 
+///对基础列表进一步拓展、快速实现同步刷新、解决部分第三方库需要等待数据响应的场景
 class FastBaseListDataVmBox<T> extends BaseListDataVmBox<T>
     with ListenerItemClick<T> {
   Refresh<T>? _refresh;

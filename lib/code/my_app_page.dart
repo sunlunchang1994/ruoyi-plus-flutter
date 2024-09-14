@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
   }
 
   void _init() {
-    LogUtil.init(isDebug: ConstantBase.IS_DEBUG);
+    LogUtil.init(isDebug: !ConstantBase.IS_RELEASE);
     SpUtil.getInstance().then((value) => {LogUtil.d("初始化SpUtil成功")});
   }
 }

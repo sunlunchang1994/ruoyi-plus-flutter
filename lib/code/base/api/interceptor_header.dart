@@ -2,9 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/network/api_constant.dart';
 
-import '../vm/global_vm.dart';
 import '../api/api_config.dart';
 
+///@Author sunlunchang
+///header拦截器，可在此处完善token等
 class HeaderInterceptor extends Interceptor {
   /*@override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {

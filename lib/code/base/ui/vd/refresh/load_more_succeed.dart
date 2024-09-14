@@ -3,6 +3,8 @@ import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 
 import '../../../../../generated/l10n.dart';
 
+/// @Author sunlunchang
+/// 列表页 加载更多成功控件
 class LoadMoreSucceedWidget extends StatelessWidget {
   const LoadMoreSucceedWidget({super.key});
 

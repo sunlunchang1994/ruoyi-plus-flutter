@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+/// @Author sunlunchang
+/// toast桥接类
 class AppToastBridge {
   static void showToast({msg = String, ToastBridge? toastLength}) {
     //BotToast.showText(text: msg);

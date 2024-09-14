@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'indicator_simple.dart';
 
 ///
-///默认的底部控件
+///@Author sunlunchang
+///默认的底部控件，用在列表的分页加载中
 ///
 class HeaderFooterSimple {
   static MaterialHeader getDefHeader() {

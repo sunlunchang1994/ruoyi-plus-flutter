@@ -6,6 +6,8 @@ import '../api/result_entity.dart';
 import 'api_exception.dart';
 import 'interceptor_header.dart';
 
+///@Author sunlunchang
+///基础dio工具，单例模式
 class BaseDio {
   BaseDio._(); // 把构造方法私有化
 
@@ -17,6 +19,7 @@ class BaseDio {
     return _instance;
   }
 
+  ///此处待优化，需将Dio提升为全局变量
   Dio getDio() {
     final Dio dio = Dio();
     dio.options = BaseOptions(
