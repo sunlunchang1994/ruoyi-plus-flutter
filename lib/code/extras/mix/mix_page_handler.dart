@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slc_boxes/flutter/slc/router/slc_router.dart';
 import 'mix_manager.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
 
@@ -30,9 +31,9 @@ class MixPageHandler {
   ///此处传递MixPlaceholderPage的context
   BuildContext? _handlerReAttachContext;
 
-  Widget Function()? _reAttachPageFunc;
+  Widget Function(BuildContext)? _reAttachPageFunc;
 
-  Function(BuildContext)? _reAttachRouteFunc;
+  String Function(BuildContext)? _reAttachRouteFunc;
 
   ///销毁过
   bool _detachExperienced = false;
@@ -42,7 +43,7 @@ class MixPageHandler {
   }
 
   ///与registerHandlerReAttachRoute互斥，为了防止内存泄漏，二者取其一
-  registerHandlerReAttachPage(Widget Function()? reAttachPageFunc) {
+  registerHandlerReAttachPage(Widget Function(BuildContext)? reAttachPageFunc) {
     _reAttachPageFunc = reAttachPageFunc;
     if (reAttachPageFunc != null) {
       registerHandlerReAttachRoute(null);
@@ -50,7 +51,8 @@ class MixPageHandler {
   }
 
   ///与registerHandlerReAttachPage互斥，为了防止内存泄漏，二者取其一
-  registerHandlerReAttachRoute(Function(BuildContext)? reAttachRouteFunc) {
+  registerHandlerReAttachRoute(
+      String Function(BuildContext)? reAttachRouteFunc) {
     _reAttachRouteFunc = reAttachRouteFunc;
     if (reAttachRouteFunc != null) {
       registerHandlerReAttachPage(null);
@@ -62,10 +64,11 @@ class MixPageHandler {
   _onAttach(dynamic arguments) {
     if (_detachExperienced && _handlerReAttachContext != null) {
       if (_reAttachPageFunc != null) {
-        Navigator.of(_handlerReAttachContext!).pushReplacement(
-            createMixPageRouteBuilder(_reAttachPageFunc!.call()));
+        _handlerReAttachContext!.pushReplacement(createMixPageRouteBuilder(
+            _reAttachPageFunc!.call(_handlerReAttachContext!)));
       } else if (_reAttachRouteFunc != null) {
-        _reAttachRouteFunc!.call(_handlerReAttachContext!);
+        _handlerReAttachContext!.pushReplacementNamed(
+            _reAttachRouteFunc!.call(_handlerReAttachContext!));
       } else {
         //没有界面
       }
