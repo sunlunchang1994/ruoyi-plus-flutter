@@ -7,7 +7,8 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../../generated/l10n.dart';
 
 ///
-///获取空试图
+///@Author sunlunchang
+///一般页面中或列表页中、当获取的数据为空时，可将此控件放到页面中
 ///
 class ContentEmptyWidget extends StatelessWidget {
   const ContentEmptyWidget({super.key});

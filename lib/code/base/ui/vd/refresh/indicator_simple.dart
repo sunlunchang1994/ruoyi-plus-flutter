@@ -7,7 +7,10 @@ import 'load_more_loading.dart';
 import 'load_more_succeed.dart';
 import 'no_more.dart';
 
-/// Classic footer.
+///
+/// @Author sunlunchang
+/// 分页加载的底部视图根据easy的默认实现进行更改
+///
 class FooterSimple extends Footer {
   final Key? key;
 

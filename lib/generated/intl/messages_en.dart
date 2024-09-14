@@ -130,7 +130,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_label_unknown_file": MessageLookupByLibrary.simpleMessage("未知文件"),
         "app_label_unselect_all": MessageLookupByLibrary.simpleMessage("全不选"),
         "app_label_yuan": MessageLookupByLibrary.simpleMessage("元"),
-        "app_name": MessageLookupByLibrary.simpleMessage("ruoyi-plus-flutter"),
+        "app_name": MessageLookupByLibrary.simpleMessage("脚手架"),
         "app_toast_login_login_failed":
             MessageLookupByLibrary.simpleMessage("登录失败"),
         "app_toast_login_login_successful":

@@ -2,7 +2,8 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'app_page_model.g.dart';
 
-///加载更多
+///@Author sunlunchang
+///分页数据模型，根据后端返回的数据结构进行更改
 @JsonSerializable()
 class AppPageModel {
   int current;
@@ -36,6 +37,7 @@ class AppPageModel {
   Map<String, dynamic> toJson() => _$AppPageModelToJson(this);
 }
 
+///将AppPageModel解析成具体的实体类
 class IntensifyPageModel<T> {
   late AppPageModel _pageModel;
   List<T>? _dataList;

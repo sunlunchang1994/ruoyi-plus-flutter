@@ -7,6 +7,8 @@ import 'page_data_vm_box.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/load_more_format.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/base_mvvm.dart';
 
+/// @Author sunlunchang
+/// 分页场景下的分页数据视图，基于EasyRefresh进行拓展，用与快速构建分页功能
 class PageDataVd extends StatefulWidget {
   final FastBaseListDataPageVmBox vmBox;
 

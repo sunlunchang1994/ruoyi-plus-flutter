@@ -1,3 +1,5 @@
+///@Author sunlunchang
+///后端数据实体类基础类
 class BaseEntity {
   int? id;
 

@@ -1,10 +1,13 @@
 import 'dart:io';
 
+///@Author sunlunchang
+///基础常量
 class ConstantBase {
-  static final Map<String, dynamic> GLOBAL_CACHE = <String, dynamic>{};
 
-  static const bool IS_DEBUG = true;
+  ///是否为发布到线上模式；待完善、需去掉不可变
+  static const bool IS_RELEASE = false;
 
+  ///文件保存基础路径
   static final String PATH_SAVE_DIR = "${Platform.pathSeparator}file";
 
   ///时间格式化

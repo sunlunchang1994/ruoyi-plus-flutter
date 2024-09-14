@@ -3,8 +3,11 @@ import 'package:flutter_slc_boxes/flutter/slc/common/date_util.dart';
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-///日期时间格式化
-///@DateTimeConverter()
+///@Author sunlunchang
+///Json格式化工具，在实体类字段加加上相关类名注解，即可在序列化和反序列化是转换格式
+
+
+///@DateTimeConverter
 class DateTimeConverter implements JsonConverter<DateTime, String> {
 
   const DateTimeConverter();

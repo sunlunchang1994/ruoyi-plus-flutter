@@ -10,7 +10,10 @@ import 'dart:ui' as ui;
 
 import '../api/result_entity.dart';
 
+/// @Author sunlunchang
+/// 图像工具类
 class ImageUtils {
+  ///将控件转为图片
   static Future<ResultEntity> saveWidget2Img(GlobalKey globalKey) async {
     if (Platform.isIOS
         ? await Permission.photos.request().isGranted

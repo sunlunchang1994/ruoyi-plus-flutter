@@ -1,6 +1,8 @@
 import '../../extras/component/attachment/utils/attachment_config.dart';
 import 'package:flutter_slc_boxes/flutter/slc/network/api_constant.dart';
 
+///@Author sunlunchang
+///Api配置类、配置url、token等，可根据需要再此拓展
 class ApiConfig extends ApiConstant {
   static const String KEY_TOKEN = "Authorization";
   static const int CODE_UNKNOWN_MISTAKE = 500;

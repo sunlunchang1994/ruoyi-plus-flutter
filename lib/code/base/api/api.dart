@@ -5,6 +5,8 @@ import '../api/base_dio.dart';
 
 part 'api.g.dart';
 
+///@Author sunlunchang
+///api客户端基础类
 @RestApi()
 abstract class ApiClient {
   factory ApiClient({Dio? dio, String? baseUrl}) {
