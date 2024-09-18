@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/sp_util.dart';
+import 'package:form_builder_validators/localization/l10n.dart';
 
 import 'route/app_router.dart';
 import '../generated/l10n.dart';
@@ -10,7 +11,6 @@ import 'base/config/constant_base.dart';
 import 'module/system/welcome_page.dart';
 
 class MyApp extends StatelessWidget {
-
   const MyApp({super.key});
 
   // This widget is the root of your application.
@@ -27,9 +27,8 @@ class MyApp extends StatelessWidget {
       // 设置语言
       localizationsDelegates: const [
         S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
+        FormBuilderLocalizations.delegate,
+        ...GlobalMaterialLocalizations.delegates,
       ],
       // 将zh设置为第一项,没有适配语言时，英语为首选项
       supportedLocales: S.delegate.supportedLocales,

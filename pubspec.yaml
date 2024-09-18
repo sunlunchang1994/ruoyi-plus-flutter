@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.4.3 <4.0.0'
+  sdk: '>=3.5.0 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -94,7 +94,14 @@ dependencies:
   uuid: ^4.4.0
   #解决键盘被遮挡 暂时用不上
   #keyboard_avoider: ^0.2.0
-
+  # 表单相关
+  flutter_form_builder: ^9.4.1
+  form_builder_extra_fields: ^11.0.0
+  form_builder_image_picker: ^4.1.0
+  form_builder_file_picker: ^4.2.0
+  form_builder_validators: ^11.0.0
+  form_builder_phone_field: ^2.0.1
+  # form_builder_cupertino_fields: ^0.4.0 ios风格
 dev_dependencies:
   flutter_test:
     sdk: flutter

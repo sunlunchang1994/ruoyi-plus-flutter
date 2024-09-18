@@ -20,7 +20,8 @@ class ApiConfig extends ApiConstant {
   }
 
   //ruoyi-vue-plus
-  String _apiUrl = "http://192.168.31.174:8080";
+  //String _apiUrl = "http://192.168.31.174:8080";
+  String _apiUrl = "http://192.168.166.66:8080";
 
   String? token;
 

@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:ruoyi_plus_flutter/code/extras/system/repository/remote/sys_public_api.dart';
 import '../../../base/api/base_dio.dart';
 import '../../../base/ui/vd/list_data_component.dart';
@@ -59,7 +60,8 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                     flex: 6,
                     child: Padding(
                         padding: EdgeInsets.all(SlcDimens.appDimens24),
-                        child: Column(
+                        child: FormBuilder(
+                            child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -70,10 +72,9 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                 controller: TextEditingController(text: loginModel.userName),
                                 decoration: InputDecoration(
                                     //isDense: true,
-                                    contentPadding: EdgeInsets.all(SlcDimens.appDimens8),
                                     labelText: S.of(context).user_label_account,
                                     hintText: S.of(context).user_label_input_account,
-                                    border: const OutlineInputBorder() /*border: InputBorder.none*/),
+                                    border: const UnderlineInputBorder() /*border: InputBorder.none*/),
                                 onChanged: (value) => loginModel.userName = value),
                             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                             //此处暂时用material样式
@@ -83,24 +84,22 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                 controller: TextEditingController(text: loginModel.password),
                                 decoration: InputDecoration(
                                     //isDense: true,
-                                    contentPadding: EdgeInsets.all(SlcDimens.appDimens8),
                                     labelText: S.of(context).user_label_password,
                                     hintText: S.of(context).user_label_input_password,
-                                    border: const OutlineInputBorder() /*border: InputBorder.none*/),
+                                    border: const UnderlineInputBorder() /*border: InputBorder.none*/),
                                 onChanged: (value) => loginModel.password = value),
                             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                             Row(children: [
                               Expanded(
                                   child: TextField(
                                       focusNode: loginModel.captchaInputFocus,
-                                      obscureText: true,
                                       controller: TextEditingController(text: loginModel.captchaCode),
                                       decoration: InputDecoration(
                                           //isDense: true,
-                                          contentPadding: EdgeInsets.all(SlcDimens.appDimens8),
                                           labelText: S.of(context).user_label_captcha_code,
                                           hintText: S.of(context).user_label_input_captcha_code,
-                                          border: const OutlineInputBorder() /*border: InputBorder.none*/),
+                                          border:
+                                              const UnderlineInputBorder() /*border: InputBorder.none*/),
                                       onChanged: (value) => loginModel.captchaCode = value)),
                               SlcStyles.getSizedBox(width: SlcDimens.appDimens16),
                               Selector<_LoginModel, Captcha?>(
@@ -183,7 +182,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                     child: Text(S.of(context).user_label_login,
                                         style: themeData.primaryTextTheme.titleMedium)))
                           ],
-                        )))
+                        ))))
               ],
             ));
       },
