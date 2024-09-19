@@ -4,6 +4,7 @@ import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
 import '../../../generated/l10n.dart';
 import '../api/result_entity.dart';
 import 'api_exception.dart';
+import 'interceptor_encrypt.dart';
 import 'interceptor_header.dart';
 
 ///@Author sunlunchang
@@ -25,7 +26,8 @@ class BaseDio {
     dio.options = BaseOptions(
         receiveTimeout: const Duration(seconds: 15000),
         connectTimeout: const Duration(seconds: 15000)); // 设置超时时间等 ...
-    dio.interceptors.add(HeaderInterceptor()); // 添加拦截器，如 token之类，需要全局使用的参数
+    dio.interceptors.add(HeaderInterceptor()); // 添加header拦截器，如 token之类，需要全局使用的参数
+    dio.interceptors.add(EncryptInterceptor()); // 添加加密拦截器
     /*dio.interceptors.add(SlcDioLogger(
         requestHeader: true,
         requestBody: true,

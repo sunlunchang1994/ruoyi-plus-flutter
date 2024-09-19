@@ -74,7 +74,7 @@ class _WelcomeVm extends AppBaseVm {
         !TextUtil.isEmpty(SpUserConfig.getPassword())) {
       showLoading(text: S.current.user_label_logging_in);
       UserPublicServiceRepository.login(
-              SpUserConfig.getAccount()!, SpUserConfig.getPassword()!, cancelToken)
+              SpUserConfig.getAccount()!, SpUserConfig.getPassword()!,"", cancelToken)
           .then((IntensifyEntity<dynamic> value) {
         dismissLoading();
         if (value.isSuccess()) {

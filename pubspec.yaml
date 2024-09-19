@@ -94,6 +94,8 @@ dependencies:
   uuid: ^4.4.0
   #解决键盘被遮挡 暂时用不上
   #keyboard_avoider: ^0.2.0
+
+  # 表单---------------------------------------
   # 表单相关
   flutter_form_builder: ^9.4.1
   form_builder_extra_fields: ^11.0.0
@@ -102,6 +104,9 @@ dependencies:
   form_builder_validators: ^11.0.0
   form_builder_phone_field: ^2.0.1
   # form_builder_cupertino_fields: ^0.4.0 ios风格
+
+  #加解密
+  encrypt: ^5.0.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

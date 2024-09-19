@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/encrypt_util.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
 import 'package:ruoyi_plus_flutter/code/extras/system/repository/remote/sys_public_api.dart';
 import '../../../base/api/base_dio.dart';
 import '../../../base/ui/vd/list_data_component.dart';
@@ -67,7 +69,8 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                           children: [
                             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                             //此处暂时用material样式
-                            TextField(
+                            FormBuilderTextField(
+                                name: "userName",
                                 focusNode: loginModel.userNameInputFocus,
                                 controller: TextEditingController(text: loginModel.userName),
                                 decoration: InputDecoration(
@@ -78,7 +81,8 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                 onChanged: (value) => loginModel.userName = value),
                             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                             //此处暂时用material样式
-                            TextField(
+                            FormBuilderTextField(
+                                name: "password",
                                 focusNode: loginModel.passwordInputFocus,
                                 obscureText: true,
                                 controller: TextEditingController(text: loginModel.password),
@@ -91,7 +95,8 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                             Row(children: [
                               Expanded(
-                                  child: TextField(
+                                  child: FormBuilderTextField(
+                                      name: "captchaCode",
                                       focusNode: loginModel.captchaInputFocus,
                                       controller: TextEditingController(text: loginModel.captchaCode),
                                       decoration: InputDecoration(
@@ -172,7 +177,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                 Text(S.of(context).user_label_auto_login)
                               ],
                             ),
-                            SlcStyles.getSizedBox(height: SlcDimens.appDimens24),
+                            SlcStyles.getSizedBox(height: SlcDimens.appDimens36),
                             SizedBox(
                                 width: double.infinity,
                                 child: FilledButton(
@@ -194,7 +199,7 @@ class _LoginModel extends AppBaseVm {
   final CancelToken cancelToken = CancelToken();
   String? userName = SpUserConfig.getAccount();
   String? password = SpUserConfig.getPassword();
-  String captchaCode = '';
+  String? captchaCode;
   FocusNode userNameInputFocus = FocusNode();
   FocusNode passwordInputFocus = FocusNode();
   FocusNode captchaInputFocus = FocusNode();
@@ -252,7 +257,7 @@ class _LoginModel extends AppBaseVm {
       return;
     }
     showLoading(text: S.current.user_label_logging_in);
-    UserPublicServiceRepository.login(userName!, password!, cancelToken).then(
+    UserPublicServiceRepository.login(userName!, password!,captchaCode!, cancelToken).then(
         (IntensifyEntity<LoginResult> value) {
       dismissLoading();
       if (value.isSuccess()) {

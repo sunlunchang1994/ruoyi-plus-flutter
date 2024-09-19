@@ -16,7 +16,10 @@ abstract class UserPublicApiClient {
   }
 
   ///用户登录
-  @POST("/client/login")
+  @POST("/auth/login")
+  @Headers(<String, dynamic>{
+    ApiConfig.KEY_APPLY_ENCRYPT: true
+  })
   Future<ResultEntity> login(@Body() Map<String, Object> data);
 }
 
@@ -26,10 +29,11 @@ class UserPublicServiceRepository {
 
   ///用户登录
   static Future<IntensifyEntity<LoginResult>> login(
-      String account, String password, CancelToken cancelToken) async {
+      String account, String password,String captchaCode, CancelToken cancelToken) async {
     Map<String, Object> dataMap = {};
     dataMap["username"] = account;
     dataMap["password"] = password;
+    dataMap["captchaCode"] = captchaCode;
     return _userApiClient
         .login(dataMap)
         .asStream()
