@@ -4,9 +4,6 @@ import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:encrypt/encrypt.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/encrypt_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/num_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/network/api_constant.dart';
 import 'package:retrofit/http.dart';
 
 import '../api/api_config.dart';
@@ -21,18 +18,23 @@ class EncryptInterceptor extends Interceptor {
     dynamic applyEncrypt = options.headers[ApiConfig.KEY_APPLY_ENCRYPT];
     if ((applyEncrypt == true || applyEncrypt == "true") &&
         (options.method == HttpMethod.POST || options.method == HttpMethod.PUT)) {
-      //String aesKey = generateRandomString();
-      String aesKey = "11111111111111111111111111111111";
+      String aesKey = generateRandomString();
+      //String aesKey = "11111111111111111111111111111111";
       //加密aesKey
       String encryptAes = EncryptUtil.encodeBase64(aesKey);
       dynamic rsaKeyParser = RSAKeyParser().parse(decorationPublicKey(apiConfig.rsaPublicKey));
       final publicKeyEncrypter = Encrypter(RSA(publicKey: rsaKeyParser));
       final encrypted = publicKeyEncrypter.encrypt(encryptAes);
       options.headers[ApiConfig.KEY_ENCRYPT_KEY] = encrypted.base64;
-
-      final aesEncrypter = Encrypter(AES(Key.fromUtf8(aesKey),mode: AESMode.ecb));
-      String jsonString = jsonEncode(options.data);
-      String dataContent = aesEncrypter.encrypt(jsonString).base64;
+      //加密内容
+      final aesEncrypter = Encrypter(AES(Key.fromUtf8(aesKey), mode: AESMode.ecb));
+      String plaintext;
+      if (options.data is String) {
+        plaintext = options.data;
+      } else {
+        plaintext = jsonEncode(options.data);
+      }
+      String dataContent = aesEncrypter.encrypt(plaintext).base64;
       options.data = dataContent;
       //移除无用的header
       options.headers.remove(ApiConfig.KEY_APPLY_ENCRYPT);
@@ -48,6 +50,9 @@ class EncryptInterceptor extends Interceptor {
     return resultStr;
   }
 
+  /**
+   * 装饰公钥
+   */
   String decorationPublicKey(String publicKey) {
     String decorationPublicKey = "";
     decorationPublicKey += "-----BEGIN PUBLIC KEY-----";
