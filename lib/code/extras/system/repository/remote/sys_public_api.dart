@@ -13,7 +13,7 @@ part 'sys_public_api.g.dart';
 abstract class SysPublicApiClient {
   factory SysPublicApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _SysPublicApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getApiUrl());
+    return _SysPublicApiClient(dio, baseUrl: baseUrl ?? ApiConfig().apiUrl);
   }
 
   ///获取验证码

@@ -68,7 +68,17 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                            //此处暂时用material样式
+                            FormBuilderTextField(
+                                name: "tenantId",
+                                focusNode: loginModel.userNameInputFocus,
+                                controller: TextEditingController(text: loginModel.userName),
+                                decoration: InputDecoration(
+                                  //isDense: true,
+                                    labelText: S.of(context).user_label_account,
+                                    hintText: S.of(context).user_label_input_account,
+                                    border: const UnderlineInputBorder() /*border: InputBorder.none*/),
+                                onChanged: (value) => loginModel.userName = value),
+                            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                             FormBuilderTextField(
                                 name: "userName",
                                 focusNode: loginModel.userNameInputFocus,
@@ -80,7 +90,6 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                     border: const UnderlineInputBorder() /*border: InputBorder.none*/),
                                 onChanged: (value) => loginModel.userName = value),
                             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                            //此处暂时用material样式
                             FormBuilderTextField(
                                 name: "password",
                                 focusNode: loginModel.passwordInputFocus,
@@ -98,14 +107,14 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                   child: FormBuilderTextField(
                                       name: "captchaCode",
                                       focusNode: loginModel.captchaInputFocus,
-                                      controller: TextEditingController(text: loginModel.captchaCode),
+                                      controller: TextEditingController(text: loginModel.codeResult),
                                       decoration: InputDecoration(
                                           //isDense: true,
                                           labelText: S.of(context).user_label_captcha_code,
                                           hintText: S.of(context).user_label_input_captcha_code,
                                           border:
                                               const UnderlineInputBorder() /*border: InputBorder.none*/),
-                                      onChanged: (value) => loginModel.captchaCode = value)),
+                                      onChanged: (value) => loginModel.codeResult = value)),
                               SlcStyles.getSizedBox(width: SlcDimens.appDimens16),
                               Selector<_LoginModel, Captcha?>(
                                   builder: (context, value, child) {
@@ -199,7 +208,7 @@ class _LoginModel extends AppBaseVm {
   final CancelToken cancelToken = CancelToken();
   String? userName = SpUserConfig.getAccount();
   String? password = SpUserConfig.getPassword();
-  String? captchaCode;
+  String? codeResult;
   FocusNode userNameInputFocus = FocusNode();
   FocusNode passwordInputFocus = FocusNode();
   FocusNode captchaInputFocus = FocusNode();
@@ -257,7 +266,7 @@ class _LoginModel extends AppBaseVm {
       return;
     }
     showLoading(text: S.current.user_label_logging_in);
-    UserPublicServiceRepository.login(userName!, password!,captchaCode!, cancelToken).then(
+    UserPublicServiceRepository.login(userName!, password!, codeResult!, captcha?.uuid, cancelToken).then(
         (IntensifyEntity<LoginResult> value) {
       dismissLoading();
       if (value.isSuccess()) {
@@ -273,6 +282,8 @@ class _LoginModel extends AppBaseVm {
       dismissLoading();
       if (!cancelToken.isCancelled) {
         AppToastBridge.showToast(msg: BaseDio.getErrorMsg(e));
+        //失败则刷新验证码
+        refreshCaptcha();
       }
     });
   }

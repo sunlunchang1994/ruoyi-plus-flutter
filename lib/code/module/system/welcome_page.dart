@@ -68,7 +68,8 @@ class _WelcomeVm extends AppBaseVm {
 
   void init() async {
     await Future.delayed(const Duration(milliseconds: 1200));
-    if (SpUserConfig.isAutoLogin() &&
+    pushReplacementNamed(LoginPage.routeName);
+    /*if (SpUserConfig.isAutoLogin() &&
         SpUserConfig.isSavePassword() &&
         !TextUtil.isEmpty(SpUserConfig.getAccount()) &&
         !TextUtil.isEmpty(SpUserConfig.getPassword())) {
@@ -93,7 +94,7 @@ class _WelcomeVm extends AppBaseVm {
       });
     } else {
       pushReplacementNamed(LoginPage.routeName);
-    }
+    }*/
   }
 
   @override
