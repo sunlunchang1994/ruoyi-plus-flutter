@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
+import 'package:ruoyi_plus_flutter/code/base/config/env_config.dart';
 import 'package:ruoyi_plus_flutter/code/base/repository/remote/data_transform_utils.dart';
 import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 
@@ -28,10 +29,10 @@ class UserPublicServiceRepository {
   static final UserPublicApiClient _userApiClient = UserPublicApiClient();
 
   ///用户登录
-  static Future<IntensifyEntity<LoginResult>> login(
-      String tenantId, String account, String password, String codeResult, String? codeUuid, CancelToken cancelToken) async {
+  static Future<IntensifyEntity<LoginResult>> login(String? tenantId, String account, String password,
+      String codeResult, String? codeUuid, CancelToken cancelToken) async {
     Map<String, Object> dataMap = {};
-    dataMap["tenantId"] = tenantId;
+    dataMap["tenantId"] = tenantId ?? EnvConfig.getEnvConfig().defTenantId;
     dataMap["username"] = account;
     dataMap["password"] = password;
     dataMap["code"] = codeResult;

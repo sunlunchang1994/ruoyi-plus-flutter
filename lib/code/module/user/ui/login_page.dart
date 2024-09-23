@@ -6,7 +6,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
-import 'package:ruoyi_plus_flutter/code/extras/system/repository/remote/sys_public_api.dart';
+import 'package:ruoyi_plus_flutter/code/base/config/env_config.dart';
+import 'package:ruoyi_plus_flutter/code/extras/system/repository/remote/auth_api.dart';
 import '../../../base/api/base_dio.dart';
 import '../../../base/ui/widget/my_form_builder_text_field.dart';
 import '../../../extras/system/entity/captcha.dart';
@@ -64,18 +65,23 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                            MyFormBuilderSelect(
-                                name: "tenantName",
-                                controller: TextEditingController(text: loginModel.tenantName),
-                                decoration: MyInputDecoration(
-                                    suffixIcon: const Icon(Icons.chevron_right),
-                                    suffixIconConstraints: const BoxConstraints(minWidth: 24,maxHeight: 24),
-                                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                                    labelText: S.of(context).user_label_tenant,
-                                    hintText: S.of(context).user_label_select_tenant,
-                                    border: const UnderlineInputBorder() /*border: InputBorder.none*/),
-                                onChanged: (value) => loginModel.tenantName = value),
-                            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                            Visibility(
+                                visible: EnvConfig.getEnvConfig().tenantEnable,
+                                child: MyFormBuilderSelect(
+                                    name: "tenantName",
+                                    controller: TextEditingController(text: loginModel.tenantName),
+                                    decoration: MyInputDecoration(
+                                        suffixIcon: const Icon(Icons.chevron_right),
+                                        suffixIconConstraints:
+                                            const BoxConstraints(minWidth: 24, maxHeight: 24),
+                                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                                        labelText: S.of(context).user_label_tenant,
+                                        hintText: S.of(context).user_label_select_tenant,
+                                        border: const UnderlineInputBorder() /*border: InputBorder.none*/),
+                                    onChanged: (value) => loginModel.tenantName = value)),
+                            Visibility(
+                                visible: EnvConfig.getEnvConfig().tenantEnable,
+                                child: SlcStyles.getSizedBox(height: SlcDimens.appDimens16)),
                             FormBuilderTextField(
                                 name: "userName",
                                 focusNode: loginModel.userNameInputFocus,
@@ -205,14 +211,26 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
 
 class _LoginModel extends AppBaseVm {
   final CancelToken cancelToken = CancelToken();
+
+  //租户相关
   String? tenantId = SpUserConfig.getTenantId();
   String? tenantName = SpUserConfig.getTenantName();
+
+  //用户名
   String? userName = SpUserConfig.getAccount();
+
+  //密码
   String? password = SpUserConfig.getPassword();
+
+  //验证码输入结果
   String? codeResult;
+
+  //聚焦对象
   FocusNode userNameInputFocus = FocusNode();
   FocusNode passwordInputFocus = FocusNode();
   FocusNode captchaInputFocus = FocusNode();
+
+  //是否保存密码和自动登录
   bool _isSavePassword = SpUserConfig.isSavePassword();
   bool _isAutoLogin = SpUserConfig.isAutoLogin();
 
@@ -220,6 +238,7 @@ class _LoginModel extends AppBaseVm {
 
   bool get isAutoLogin => _isAutoLogin;
 
+  //获取的验证码对象
   Captcha? captcha;
 
   void initVm() {
@@ -228,7 +247,7 @@ class _LoginModel extends AppBaseVm {
 
   ///刷新验证码
   void refreshCaptcha() {
-    SysPublicServiceRepository.getCode().then((result) {
+    AuthServiceRepository.getCode().then((result) {
       captcha = result.data;
       notifyListeners();
     }, onError: (e) {
@@ -258,7 +277,7 @@ class _LoginModel extends AppBaseVm {
     userNameInputFocus.unfocus();
     passwordInputFocus.unfocus();
     captchaInputFocus.unfocus();
-    if (TextUtil.isEmpty(tenantId)) {
+    if (EnvConfig.getEnvConfig().tenantEnable && TextUtil.isEmpty(tenantId)) {
       AppToastBridge.showToast(msg: S.current.user_label_tenant_not_empty_hint);
       return;
     }
@@ -272,7 +291,7 @@ class _LoginModel extends AppBaseVm {
     }
     showLoading(text: S.current.user_label_logging_in);
     UserPublicServiceRepository.login(
-            tenantId!, userName!, password!, codeResult!, captcha?.uuid, cancelToken)
+            tenantId, userName!, password!, codeResult!, captcha?.uuid, cancelToken)
         .then((IntensifyEntity<LoginResult> value) {
       dismissLoading();
       if (value.isSuccess()) {

@@ -1,6 +1,3 @@
-import '../../extras/component/attachment/utils/attachment_config.dart';
-import 'package:flutter_slc_boxes/flutter/slc/network/api_constant.dart';
-
 ///@Author sunlunchang
 ///环境配置
 abstract class EnvConfig {
@@ -13,6 +10,8 @@ abstract class EnvConfig {
   String get clientId;
 
   bool get tenantEnable;
+
+  String get defTenantId => "000000";
 
   static const String _active = "dev";
   static final Map<String, EnvConfig> _envConfigMap = {
