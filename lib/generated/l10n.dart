@@ -2090,6 +2090,26 @@ class S {
     );
   }
 
+  /// `机构`
+  String get user_label_tenant {
+    return Intl.message(
+      '机构',
+      name: 'user_label_tenant',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请选择机构`
+  String get user_label_select_tenant {
+    return Intl.message(
+      '请选择机构',
+      name: 'user_label_select_tenant',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `账号`
   String get user_label_account {
     return Intl.message(
@@ -2435,6 +2455,16 @@ class S {
     return Intl.message(
       '选择%s',
       name: 'user_label_select_x',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `机构不能为空`
+  String get user_label_tenant_not_empty_hint {
+    return Intl.message(
+      '机构不能为空',
+      name: 'user_label_tenant_not_empty_hint',
       desc: '',
       args: [],
     );

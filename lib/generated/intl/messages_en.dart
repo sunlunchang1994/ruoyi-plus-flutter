@@ -338,10 +338,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "user_label_pet_name": MessageLookupByLibrary.simpleMessage("昵称"),
         "user_label_save_password":
             MessageLookupByLibrary.simpleMessage("保存密码"),
+        "user_label_select_tenant":
+            MessageLookupByLibrary.simpleMessage("请选择机构"),
         "user_label_select_x": MessageLookupByLibrary.simpleMessage("选择%s"),
         "user_label_setting": MessageLookupByLibrary.simpleMessage("设置"),
         "user_label_sign_out": MessageLookupByLibrary.simpleMessage("退出登录"),
         "user_label_stay_tuned": MessageLookupByLibrary.simpleMessage("敬请期待"),
+        "user_label_tenant": MessageLookupByLibrary.simpleMessage("机构"),
+        "user_label_tenant_not_empty_hint":
+            MessageLookupByLibrary.simpleMessage("机构不能为空"),
         "user_label_user_info_list":
             MessageLookupByLibrary.simpleMessage("用户列表"),
         "user_label_user_info_not_found":

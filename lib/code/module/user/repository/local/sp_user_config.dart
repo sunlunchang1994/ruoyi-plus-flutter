@@ -22,6 +22,28 @@ class SpUserConfig {
     return SpUtil.getBool("autoLogin", defValue: false)??false;
   }
 
+  ///设置租户
+  static void saveTenantId(String? tenantId) {
+    SpUtil.putString("tenantId", tenantId??"");
+  }
+
+  /// 获取保存的租户
+  static String? getTenantId() {
+    return SpUtil.getString("tenantId");
+  }
+
+
+  ///设置租户Name
+  static void saveTenantName(String? tenantName) {
+    SpUtil.putString("tenantName", tenantName??"");
+  }
+
+  /// 获取保存的租户Name
+  static String? getTenantName() {
+    return SpUtil.getString("tenantName");
+  }
+
+
   ///设置账号
   static void saveAccount(String? account) {
     SpUtil.putString("account", account??"");

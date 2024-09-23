@@ -29,15 +29,15 @@ class UserPublicServiceRepository {
 
   ///用户登录
   static Future<IntensifyEntity<LoginResult>> login(
-      String account, String password, String codeResult, String? codeUuid, CancelToken cancelToken) async {
+      String tenantId, String account, String password, String codeResult, String? codeUuid, CancelToken cancelToken) async {
     Map<String, Object> dataMap = {};
+    dataMap["tenantId"] = tenantId;
     dataMap["username"] = account;
     dataMap["password"] = password;
     dataMap["code"] = codeResult;
     dataMap["uuid"] = codeUuid ?? '';
     dataMap["clientId"] = ApiConfig().clientid;
     dataMap["grantType"] = 'password';
-    dataMap["tenantId"] = '000000';
     return _userApiClient
         .login(dataMap)
         .asStream()

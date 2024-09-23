@@ -5,18 +5,16 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/encrypt_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
+import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:ruoyi_plus_flutter/code/extras/system/repository/remote/sys_public_api.dart';
 import '../../../base/api/base_dio.dart';
-import '../../../base/ui/vd/list_data_component.dart';
+import '../../../base/ui/widget/my_form_builder_text_field.dart';
 import '../../../extras/system/entity/captcha.dart';
 import '../../../extras/user/entity/login_result.dart';
 import '../../../extras/user/repository/remote/user_public_api.dart';
 import '../../biz_main/ui/main_page.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/images.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:provider/provider.dart';
 
@@ -45,22 +43,20 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
         var loginModel = Provider.of<_LoginModel>(context, listen: false);
         loginModel.initVm();
         return Scaffold(
-            backgroundColor: themeData.colorScheme.surface,
-            appBar: AppBar(
-              /*brightness: Brightness.dark,*/
-              title: Text(title),
-              //titleSpacing: 0,
-            ),
-            body: Column(
-              children: [
-                const Expanded(
-                    flex: 2,
-                    child: Center(
-                        child: Image(
-                            image: AssetImage("assets/images/ic_launcher.png"), width: 72, height: 72))),
-                Expanded(
-                    flex: 6,
-                    child: Padding(
+            appBar: AppBar(title: Text(title)),
+            body: KeyboardAvoider(
+                autoScroll: true,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const SizedBox(
+                        height: 160,
+                        child: Center(
+                            child: Image(
+                                image: AssetImage("assets/images/ic_launcher.png"),
+                                width: 72,
+                                height: 72))),
+                    Padding(
                         padding: EdgeInsets.all(SlcDimens.appDimens24),
                         child: FormBuilder(
                             child: Column(
@@ -68,23 +64,25 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                            FormBuilderTextField(
-                                name: "tenantId",
-                                focusNode: loginModel.userNameInputFocus,
-                                controller: TextEditingController(text: loginModel.userName),
-                                decoration: InputDecoration(
-                                  //isDense: true,
-                                    labelText: S.of(context).user_label_account,
-                                    hintText: S.of(context).user_label_input_account,
+                            MyFormBuilderSelect(
+                                name: "tenantName",
+                                controller: TextEditingController(text: loginModel.tenantName),
+                                decoration: MyInputDecoration(
+                                    suffixIcon: const Icon(Icons.chevron_right),
+                                    suffixIconConstraints: const BoxConstraints(minWidth: 24,maxHeight: 24),
+                                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                                    labelText: S.of(context).user_label_tenant,
+                                    hintText: S.of(context).user_label_select_tenant,
                                     border: const UnderlineInputBorder() /*border: InputBorder.none*/),
-                                onChanged: (value) => loginModel.userName = value),
+                                onChanged: (value) => loginModel.tenantName = value),
                             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                             FormBuilderTextField(
                                 name: "userName",
                                 focusNode: loginModel.userNameInputFocus,
                                 controller: TextEditingController(text: loginModel.userName),
-                                decoration: InputDecoration(
-                                    //isDense: true,
+                                decoration: MyInputDecoration(
+                                    contentPadding: EdgeInsets.zero,
+                                    floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.of(context).user_label_account,
                                     hintText: S.of(context).user_label_input_account,
                                     border: const UnderlineInputBorder() /*border: InputBorder.none*/),
@@ -95,8 +93,8 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                 focusNode: loginModel.passwordInputFocus,
                                 obscureText: true,
                                 controller: TextEditingController(text: loginModel.password),
-                                decoration: InputDecoration(
-                                    //isDense: true,
+                                decoration: MyInputDecoration(
+                                    floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.of(context).user_label_password,
                                     hintText: S.of(context).user_label_input_password,
                                     border: const UnderlineInputBorder() /*border: InputBorder.none*/),
@@ -108,7 +106,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                       name: "captchaCode",
                                       focusNode: loginModel.captchaInputFocus,
                                       controller: TextEditingController(text: loginModel.codeResult),
-                                      decoration: InputDecoration(
+                                      decoration: MyInputDecoration(
                                           //isDense: true,
                                           labelText: S.of(context).user_label_captcha_code,
                                           hintText: S.of(context).user_label_input_captcha_code,
@@ -196,9 +194,10 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                     child: Text(S.of(context).user_label_login,
                                         style: themeData.primaryTextTheme.titleMedium)))
                           ],
-                        ))))
-              ],
-            ));
+                        ))),
+                    const SizedBox(height: 200)
+                  ],
+                )));
       },
     );
   }
@@ -206,6 +205,8 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
 
 class _LoginModel extends AppBaseVm {
   final CancelToken cancelToken = CancelToken();
+  String? tenantId = SpUserConfig.getTenantId();
+  String? tenantName = SpUserConfig.getTenantName();
   String? userName = SpUserConfig.getAccount();
   String? password = SpUserConfig.getPassword();
   String? codeResult;
@@ -257,6 +258,10 @@ class _LoginModel extends AppBaseVm {
     userNameInputFocus.unfocus();
     passwordInputFocus.unfocus();
     captchaInputFocus.unfocus();
+    if (TextUtil.isEmpty(tenantId)) {
+      AppToastBridge.showToast(msg: S.current.user_label_tenant_not_empty_hint);
+      return;
+    }
     if (TextUtil.isEmpty(userName)) {
       AppToastBridge.showToast(msg: S.current.user_label_account_not_empty_hint);
       return;
@@ -266,8 +271,9 @@ class _LoginModel extends AppBaseVm {
       return;
     }
     showLoading(text: S.current.user_label_logging_in);
-    UserPublicServiceRepository.login(userName!, password!, codeResult!, captcha?.uuid, cancelToken).then(
-        (IntensifyEntity<LoginResult> value) {
+    UserPublicServiceRepository.login(
+            tenantId!, userName!, password!, codeResult!, captcha?.uuid, cancelToken)
+        .then((IntensifyEntity<LoginResult> value) {
       dismissLoading();
       if (value.isSuccess()) {
         if (_isSavePassword) {
@@ -292,6 +298,8 @@ class _LoginModel extends AppBaseVm {
   void _saveLoginStatus() {
     SpUserConfig.saveIsSavePassword(_isSavePassword);
     SpUserConfig.saveIsAutoLogin(_isAutoLogin);
+    SpUserConfig.saveTenantId(tenantId);
+    SpUserConfig.saveTenantName(tenantName);
     SpUserConfig.saveAccount(userName);
     SpUserConfig.savePassword(password);
   }
