@@ -34,6 +34,7 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
             body: Consumer<_MineVm>(builder: (context, value, child) {
               return Column(children: [
                 Card(
+                  elevation: 0,
                   margin: EdgeInsets.symmetric(horizontal: SlcDimens.appDimens16),
                   child: Padding(
                       padding: EdgeInsets.all(SlcDimens.appDimens16),
