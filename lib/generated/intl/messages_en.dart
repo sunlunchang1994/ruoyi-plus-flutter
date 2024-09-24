@@ -345,8 +345,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "user_label_sign_out": MessageLookupByLibrary.simpleMessage("退出登录"),
         "user_label_stay_tuned": MessageLookupByLibrary.simpleMessage("敬请期待"),
         "user_label_tenant": MessageLookupByLibrary.simpleMessage("机构"),
+        "user_label_tenant_get_info_error":
+            MessageLookupByLibrary.simpleMessage("获取机构信息失败"),
         "user_label_tenant_not_empty_hint":
             MessageLookupByLibrary.simpleMessage("机构不能为空"),
+        "user_label_tenant_select":
+            MessageLookupByLibrary.simpleMessage("选择机构"),
         "user_label_user_info_list":
             MessageLookupByLibrary.simpleMessage("用户列表"),
         "user_label_user_info_not_found":

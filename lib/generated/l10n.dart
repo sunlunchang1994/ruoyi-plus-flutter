@@ -2490,6 +2490,26 @@ class S {
     );
   }
 
+  /// `选择机构`
+  String get user_label_tenant_select {
+    return Intl.message(
+      '选择机构',
+      name: 'user_label_tenant_select',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `获取机构信息失败`
+  String get user_label_tenant_get_info_error {
+    return Intl.message(
+      '获取机构信息失败',
+      name: 'user_label_tenant_get_info_error',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `-----------------------------`
   String get dict_divide_text {
     return Intl.message(

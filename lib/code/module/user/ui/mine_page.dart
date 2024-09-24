@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
+import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import '../../../base/ui/app_mvvm.dart';
 import 'package:provider/provider.dart';
 
@@ -30,10 +32,29 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
             appBar: AppBar(title: Text(title)),
             //图标滚动使用固定大小来解决
             body: Consumer<_MineVm>(builder: (context, value, child) {
-              return Container(
-                alignment: Alignment.center,
-                child: const Text("我的"),
-              );
+              return Column(children: [
+                Card(
+                  margin: EdgeInsets.symmetric(horizontal: SlcDimens.appDimens16),
+                  child: Padding(
+                      padding: EdgeInsets.all(SlcDimens.appDimens16),
+                      child: Row(children: [
+                        Expanded(child: Column(children: [Text("")])),
+                        FadeInImage(
+                            width: 80,
+                            height: 80,
+                            placeholder: const AssetImage("assets/images/slc/app_ic_def_user_head.png"),
+                            image: NetworkImage(GlobalVm().userVmBox.userInfoOf.value?.user?.avatar ?? ""),
+                            imageErrorBuilder: (
+                              context,
+                              error,
+                              stackTrace,
+                            ) {
+                              return Image.asset("assets/images/slc/app_ic_def_user_head.png",
+                                  width: 80, height: 80);
+                            })
+                      ])),
+                )
+              ]);
             }));
       },
     );

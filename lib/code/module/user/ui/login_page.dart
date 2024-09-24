@@ -11,8 +11,10 @@ import 'package:ruoyi_plus_flutter/code/extras/system/repository/remote/auth_api
 import '../../../base/api/base_dio.dart';
 import '../../../base/ui/widget/my_form_builder_text_field.dart';
 import '../../../extras/system/entity/captcha.dart';
-import '../../../extras/user/entity/login_result.dart';
-import '../../../extras/user/repository/remote/user_public_api.dart';
+import '../../../extras/system/entity/login_tenant_vo.dart';
+import '../../../extras/system/entity/tenant_list_vo.dart';
+import '../../../extras/user/entity/user_info_vo.dart';
+import '../../../extras/user/repository/remote/user_api.dart';
 import '../../biz_main/ui/main_page.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
@@ -67,44 +69,61 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                             Visibility(
                                 visible: EnvConfig.getEnvConfig().tenantEnable,
-                                child: MyFormBuilderSelect(
-                                    name: "tenantName",
-                                    controller: TextEditingController(text: loginModel.tenantName),
-                                    decoration: MyInputDecoration(
-                                        suffixIcon: const Icon(Icons.chevron_right),
-                                        suffixIconConstraints:
-                                            const BoxConstraints(minWidth: 24, maxHeight: 24),
-                                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                                        labelText: S.of(context).user_label_tenant,
-                                        hintText: S.of(context).user_label_select_tenant,
-                                        border: const UnderlineInputBorder() /*border: InputBorder.none*/),
-                                    onChanged: (value) => loginModel.tenantName = value)),
-                            Visibility(
-                                visible: EnvConfig.getEnvConfig().tenantEnable,
-                                child: SlcStyles.getSizedBox(height: SlcDimens.appDimens16)),
-                            FormBuilderTextField(
-                                name: "userName",
-                                focusNode: loginModel.userNameInputFocus,
-                                controller: TextEditingController(text: loginModel.userName),
-                                decoration: MyInputDecoration(
-                                    contentPadding: EdgeInsets.zero,
-                                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                                    labelText: S.of(context).user_label_account,
-                                    hintText: S.of(context).user_label_input_account,
-                                    border: const UnderlineInputBorder() /*border: InputBorder.none*/),
-                                onChanged: (value) => loginModel.userName = value),
+                                child: Selector<_LoginModel, String?>(builder: (context, value, child) {
+                                  return MyFormBuilderSelect(
+                                      name: "tenantName",
+                                      controller: TextEditingController(text: value),
+                                      onTap: () => _showSelectTenantDialog(context),
+                                      decoration: MyInputDecoration(
+                                          suffixIcon: const Icon(Icons.chevron_right),
+                                          suffixIconConstraints:
+                                              const BoxConstraints(minWidth: 24, maxHeight: 24),
+                                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                                          labelText: S.of(context).user_label_tenant,
+                                          hintText: S.of(context).user_label_select_tenant,
+                                          border:
+                                              const UnderlineInputBorder() /*border: InputBorder.none*/));
+                                }, selector: (context, vm) {
+                                  return vm.tenantName;
+                                }, shouldRebuild: (oldVal, newVal) {
+                                  return oldVal != newVal;
+                                })),
                             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                            FormBuilderTextField(
-                                name: "password",
-                                focusNode: loginModel.passwordInputFocus,
-                                obscureText: true,
-                                controller: TextEditingController(text: loginModel.password),
-                                decoration: MyInputDecoration(
-                                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                                    labelText: S.of(context).user_label_password,
-                                    hintText: S.of(context).user_label_input_password,
-                                    border: const UnderlineInputBorder() /*border: InputBorder.none*/),
-                                onChanged: (value) => loginModel.password = value),
+                            Selector<_LoginModel, String?>(builder: (context, value, child) {
+                              return FormBuilderTextField(
+                                  name: "userName",
+                                  focusNode: loginModel.userNameInputFocus,
+                                  controller: TextEditingController(text: value),
+                                  decoration: MyInputDecoration(
+                                      contentPadding: EdgeInsets.zero,
+                                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                                      labelText: S.of(context).user_label_account,
+                                      hintText: S.of(context).user_label_input_account,
+                                      border: const UnderlineInputBorder() /*border: InputBorder.none*/),
+                                  onChanged: (value) => loginModel.userName = value);
+                            }, selector: (context, vm) {
+                              return vm.userName;
+                            }, shouldRebuild: (oldVal, newVal) {
+                              return oldVal != newVal;
+                            }),
+                            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                            Selector<_LoginModel, String?>(builder: (context, value, child) {
+                              return FormBuilderTextField(
+                                  name: "password",
+                                  focusNode: loginModel.passwordInputFocus,
+                                  obscureText: true,
+                                  controller: TextEditingController(text: value),
+                                  decoration: MyInputDecoration(
+                                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                                      labelText: S.of(context).user_label_password,
+                                      hintText: S.of(context).user_label_input_password,
+                                      border: const UnderlineInputBorder() /*border: InputBorder.none*/),
+                                  onChanged: (value) => loginModel.password = value);
+                            }, selector: (context, vm) {
+                              return vm.password;
+                            }, shouldRebuild: (oldVal, newVal) {
+                              return oldVal != newVal;
+                            }),
                             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                             Row(children: [
                               Expanded(
@@ -207,6 +226,26 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
       },
     );
   }
+
+  ///显示选择租户对话框
+  void _showSelectTenantDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          List<TenantListVo>? tenantList = getVm().loginTenant?.voList;
+          List<SimpleDialogOption> dialogItem = List.generate(tenantList?.length ?? 0, (index) {
+            TenantListVo tenantItem = tenantList![index];
+            return SimpleDialogOption(
+              child: Text(tenantItem.companyName!),
+              onPressed: () {
+                getVm().onSelectTenant(tenantItem);
+                Navigator.of(context).pop();
+              },
+            );
+          });
+          return SimpleDialog(title: Text(S.current.user_label_tenant_select), children: dialogItem);
+        });
+  }
 }
 
 class _LoginModel extends AppBaseVm {
@@ -241,8 +280,26 @@ class _LoginModel extends AppBaseVm {
   //获取的验证码对象
   Captcha? captcha;
 
+  LoginTenantVo? loginTenant;
+
   void initVm() {
     refreshCaptcha();
+    AuthServiceRepository.tenantList().then((result) {
+      loginTenant = result.data;
+      TenantListVo? targetTenantItem = loginTenant!.voList?.firstWhere((item) {
+        return item.tenantId == tenantId;
+      });
+      onSelectTenant(targetTenantItem);
+    }, onError: (error) => {AppToastBridge.showToast(msg: S.current.user_label_tenant_get_info_error)});
+  }
+
+  void onSelectTenant(TenantListVo? data) {
+    if (data == null) {
+      return;
+    }
+    tenantId = data.tenantId;
+    tenantName = data.companyName;
+    notifyListeners();
   }
 
   ///刷新验证码
@@ -290,9 +347,11 @@ class _LoginModel extends AppBaseVm {
       return;
     }
     showLoading(text: S.current.user_label_logging_in);
-    UserPublicServiceRepository.login(
-            tenantId, userName!, password!, codeResult!, captcha?.uuid, cancelToken)
-        .then((IntensifyEntity<LoginResult> value) {
+    AuthServiceRepository.login(tenantId, userName!, password!, codeResult!, captcha?.uuid, cancelToken)
+        .asStream()
+        .asyncMap((event) => UserServiceRepository.getInfo())
+        .single
+        .then((IntensifyEntity<UserInfoVo> value) {
       dismissLoading();
       if (value.isSuccess()) {
         if (_isSavePassword) {

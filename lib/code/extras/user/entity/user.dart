@@ -6,40 +6,30 @@ part 'user.g.dart';
 
 @JsonSerializable()
 class User {
-  dynamic searchValue;
-  String? createBy;
-  String? createTime;
-  dynamic updateBy;
-  dynamic updateTime;
-  dynamic remark;
   int? userId;
+  String? tenantId;
   int? deptId;
   String? userName;
   String? nickName;
+  String? userType;
   String? email;
   String? phonenumber;
   String? sex;
   String? avatar;
   String? password;
   String? status;
-  String? delFlag;
   String? loginIp;
   String? loginDate;
-  Dept? dept;
+  String? remark;
+  String? createTime;
+  String? deptName;
   List<Role>? roles;
-  dynamic roleIds;
-  dynamic postIds;
-  dynamic roleId;
-  bool? admin;
+  List<int>? roleIds;
+  List<int>? postIds;
+  List<int>? roleId;
 
   User(
-      {this.searchValue,
-      this.createBy,
-      this.createTime,
-      this.updateBy,
-      this.updateTime,
-      this.remark,
-      this.userId,
+      {this.userId,
       this.deptId,
       this.userName,
       this.nickName,
@@ -49,15 +39,14 @@ class User {
       this.avatar,
       this.password,
       this.status,
-      this.delFlag,
       this.loginIp,
       this.loginDate,
-      this.dept,
+      this.createTime,
+      this.remark,
       this.roles,
       this.roleIds,
       this.postIds,
-      this.roleId,
-      this.admin});
+      this.roleId});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
