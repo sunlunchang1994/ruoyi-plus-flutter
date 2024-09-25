@@ -6,14 +6,11 @@ part 'user_info_vo.g.dart';
 
 @JsonSerializable()
 class UserInfoVo {
-  User? user;
+  User user;
   List<String>? permissions;
   List<String>? roles;
 
-  UserInfoVo(
-      {this.user,
-      this.permissions,
-      this.roles});
+  UserInfoVo(this.user, {this.permissions, this.roles});
 
   factory UserInfoVo.fromJson(Map<String, dynamic> json) => _$UserInfoVoFromJson(json);
 

@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:ruoyi_plus_flutter/code/base/ui/widget/fast_slc_ui_box.dart';
 import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import '../../../base/ui/app_mvvm.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../extras/user/entity/user_info_vo.dart';
 
 class MinePage extends StatefulWidget {
   const MinePage({super.key});
@@ -39,12 +42,23 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                   child: Padding(
                       padding: EdgeInsets.all(SlcDimens.appDimens16),
                       child: Row(children: [
-                        Expanded(child: Column(children: [Text("")])),
+                        Expanded(
+                            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                          Text(getVm().userInfoVo?.user.deptName ?? S.current.app_label_not_completed,
+                              style: SlcStyles.getTextColorSecondaryStyleByTheme(themeData)),
+                          Text(getVm().userInfoVo?.user.getRoleName() ?? S.current.app_label_not_completed,
+                              style: SlcStyles.getTextColorSecondaryStyleByTheme(themeData)),
+                          Padding(
+                              padding: EdgeInsets.only(top: SlcDimens.appDimens8),
+                              child: Text(
+                                  getVm().userInfoVo?.user.nickName ?? S.current.app_label_not_completed,
+                                  style: themeData.textTheme.titleLarge)),
+                        ])),
                         FadeInImage(
                             width: 80,
                             height: 80,
                             placeholder: const AssetImage("assets/images/slc/app_ic_def_user_head.png"),
-                            image: NetworkImage(GlobalVm().userVmBox.userInfoOf.value?.user?.avatar ?? ""),
+                            image: NetworkImage(getVm().userInfoVo?.user.avatar ?? ""),
                             imageErrorBuilder: (
                               context,
                               error,
@@ -54,7 +68,19 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                                   width: 80, height: 80);
                             })
                       ])),
-                )
+                ),
+                Expanded(
+                    child: Padding(
+                        padding: EdgeInsets.only(top: SlcDimens.appDimens16),
+                        child: ListView(children: [
+                          ListTile(
+                              leading: const Icon(Icons.settings),
+                              title: Text(S.current.user_label_setting),
+                              visualDensity: VisualDensity.compact,
+                              tileColor: themeData.colorScheme.surfaceContainerLow,//根据card规则实现
+                              onTap: () {}),
+                          SlcUiBoxStyleUtils.getDividerByBg(),
+                        ])))
               ]);
             }));
       },
@@ -66,10 +92,23 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
 }
 
 class _MineVm extends AppBaseVm {
-  void initVm() {}
+  UserInfoVo? userInfoVo;
+
+  void initVm() {
+    _onUserInfoVoChange(notify: false);
+    GlobalVm().userVmBox.userInfoOf.addListener(_onUserInfoVoChange);
+  }
+
+  void _onUserInfoVoChange({bool notify = true}) {
+    userInfoVo = GlobalVm().userVmBox.userInfoOf.value;
+    if (notify) {
+      notifyListeners();
+    }
+  }
 
   @override
   void dispose() {
+    GlobalVm().userVmBox.userInfoOf.removeListener(_onUserInfoVoChange);
     super.dispose();
   }
 }

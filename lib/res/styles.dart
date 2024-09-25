@@ -19,9 +19,8 @@ class AppStyles extends SlcStyles {
   static ThemeData getAppLightTheme() {
     if (_appLightTheme == null) {
       ColorScheme colorScheme =
-          ColorScheme.fromSwatch(primarySwatch: Colors.blue)
-              .copyWith(surface: SlcColors.colorBackground);
-      _appLightTheme = new ThemeData(
+          ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(surface: SlcColors.colorBackground);
+      _appLightTheme = ThemeData(
           useMaterial3: false,
           colorScheme: colorScheme,
           cardColor: Colors.white,

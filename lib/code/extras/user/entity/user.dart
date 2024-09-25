@@ -1,3 +1,6 @@
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/object_util.dart';
+
 import 'dept.dart';
 import 'role.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -47,6 +50,15 @@ class User {
       this.roleIds,
       this.postIds,
       this.roleId});
+
+  String? getRoleName(){
+    if(ObjectUtil.isEmptyList(roles)){
+      return null;
+    }
+    return roles!.map((item){
+      return item.roleName;
+    }).join(',');
+  }
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
