@@ -6,6 +6,8 @@ import '../../../../base/api/api_config.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
+import '../../../../base/vm/global_vm.dart';
+import '../../../user/entity/user_info_vo.dart';
 import '../../entity/captcha.dart';
 
 part 'menu_api.g.dart';
@@ -34,15 +36,20 @@ class MenuServiceRepository {
           var intensifyEntity = IntensifyEntity<List<RouterVo>>(
               resultEntity: event,
               createData: (resultEntity) {
-                List<RouterVo> dataList = (resultEntity.data as List<Map<String, dynamic>>?)?.map((item) {
+                List<RouterVo> dataList = (resultEntity.data as List<dynamic>?)?.map((item) {
                       return RouterVo.fromJson(item);
                     }).toList() ??
-                    List.empty(growable: true);//列表为空时创建默认的
+                    List.empty(growable: true); //列表为空时创建默认的
                 return dataList;
               });
           return intensifyEntity;
         })
         .map(DateTransformUtils.checkErrorIe)
+        .map((event) {
+          List<RouterVo> routerVoList = event.data;
+          GlobalVm().userVmBox.routerVoOf.value = routerVoList;
+          return event;
+        })
         .single;
   }
 }

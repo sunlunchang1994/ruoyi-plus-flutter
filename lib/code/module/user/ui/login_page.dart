@@ -8,10 +8,12 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/env_config.dart';
 import 'package:ruoyi_plus_flutter/code/extras/system/repository/remote/auth_api.dart';
+import 'package:ruoyi_plus_flutter/code/extras/system/repository/remote/menu_api.dart';
 import '../../../base/api/base_dio.dart';
 import '../../../base/ui/widget/my_form_builder_text_field.dart';
 import '../../../extras/system/entity/captcha.dart';
 import '../../../extras/system/entity/login_tenant_vo.dart';
+import '../../../extras/system/entity/router_vo.dart';
 import '../../../extras/system/entity/tenant_list_vo.dart';
 import '../../../extras/user/entity/user_info_vo.dart';
 import '../../../extras/user/repository/remote/user_api.dart';
@@ -350,8 +352,9 @@ class _LoginModel extends AppBaseVm {
     AuthServiceRepository.login(tenantId, userName!, password!, codeResult!, captcha?.uuid, cancelToken)
         .asStream()
         .asyncMap((event) => UserServiceRepository.getInfo())
+        .asyncMap((event) => MenuServiceRepository.getRouters())
         .single
-        .then((IntensifyEntity<UserInfoVo> value) {
+        .then((IntensifyEntity<List<RouterVo>> value) {
       dismissLoading();
       if (value.isSuccess()) {
         if (_isSavePassword) {

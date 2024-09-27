@@ -1,4 +1,3 @@
-import '../../extras/mix/mix_manager.dart';
 import '../../extras/user/vmbox/user_vm_box.dart';
 
 /// @Author sunlunchang
