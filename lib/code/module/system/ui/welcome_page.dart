@@ -1,18 +1,18 @@
 //欢迎
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import '../../extras/user/repository/remote/user_api.dart';
+import '../../../extras/user/repository/remote/user_api.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:provider/provider.dart';
 
-import '../../../generated/l10n.dart';
-import '../../base/api/result_entity.dart';
-import '../../base/ui/app_mvvm.dart';
-import '../../base/ui/utils/bar_utils.dart';
-import '../../base/utils/app_toast.dart';
-import '../user/repository/local/sp_user_config.dart';
-import '../user/ui/login_page.dart';
+import '../../../../generated/l10n.dart';
+import '../../../base/api/result_entity.dart';
+import '../../../base/ui/app_mvvm.dart';
+import '../../../base/ui/utils/bar_utils.dart';
+import '../../../base/utils/app_toast.dart';
+import '../../user/repository/local/sp_user_config.dart';
+import '../../user/ui/login_page.dart';
 
 class WelcomePage extends AppBaseStatelessWidget<_WelcomeVm> {
 

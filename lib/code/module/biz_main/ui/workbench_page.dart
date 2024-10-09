@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/ui/menu_page.dart';
 import '../../../base/ui/app_mvvm.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +17,7 @@ class WorkbenchPage extends StatefulWidget {
 }
 
 class _WorkbenchState extends AppBaseState<WorkbenchPage, _WorkbenchVm> with AutomaticKeepAliveClientMixin {
-  final String title = S.current.main_label_mine;
+  final String title = S.current.main_label_workbench;
 
   @override
   Widget build(BuildContext context) {
@@ -50,4 +52,28 @@ class _WorkbenchVm extends AppBaseVm {
   void dispose() {
     super.dispose();
   }
+}
+
+class WorkbenchPage2 extends StatefulWidget {
+  const WorkbenchPage2({super.key});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _WorkbenchState2();
+  }
+}
+
+class _WorkbenchState2 extends State<WorkbenchPage2> with AutomaticKeepAliveClientMixin {
+  final String title = S.current.main_label_workbench;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(title: Text(title)),
+        //图标滚动使用固定大小来解决
+        body: MenuPage(GlobalVm().userVmBox.routerVoOf.value ?? [], null));
+  }
+
+  @override
+  bool get wantKeepAlive => true;
 }
