@@ -3,7 +3,6 @@ import 'dart:io';
 ///@Author sunlunchang
 ///基础常量
 class ConstantBase {
-
   ///是否为发布到线上模式；待完善、需去掉不可变
   static const bool IS_RELEASE = false;
 
@@ -22,4 +21,9 @@ class ConstantBase {
   static final String VALUE_TIME_PATTERN_BY_Y_H_CH = "yyyy年MM月dd日 HH时";
   static final String VALUE_TIME_PATTERN_BY_Y_MC_CH = "yyyy年MM月";
   static final String VALUE_TIME_PATTERN_BY_Y_M_CH = "yyyy年MM月dd日 HH:mm";
+
+  ///路由相关
+  static const String COMPONENT_LAYOUT = "Layout"; //Layout组件标识
+  static const String COMPONENT_PARENT_VIEW = "ParentView"; //ParentView组件标识
+  static const String COMPONENT_INNER_LINK = "InnerLink"; //InnerLink组件标识
 }

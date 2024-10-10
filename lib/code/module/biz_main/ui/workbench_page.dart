@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/menu_page.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/ui/menu/menu_grid.dart';
 import '../../../base/ui/app_mvvm.dart';
 import 'package:provider/provider.dart';
 
@@ -71,7 +71,7 @@ class _WorkbenchState2 extends State<WorkbenchPage2> with AutomaticKeepAliveClie
     return Scaffold(
         appBar: AppBar(title: Text(title)),
         //图标滚动使用固定大小来解决
-        body: MenuPage(GlobalVm().userVmBox.routerVoOf.value ?? [], null));
+        body: MenuGrid(GlobalVm().userVmBox.routerVoOf.value ?? [], null));
   }
 
   @override

@@ -50,4 +50,9 @@ class RouterVo {
       _$RouterVoFromJson(json);
 
   Map<String, dynamic> toJson() => _$RouterVoToJson(this);
+
+  ///获取路由title
+  String getRouterTitle(){
+    return meta?.title ?? name ?? "";
+  }
 }

@@ -8,10 +8,7 @@ class AppStyles extends SlcStyles {
 
   ///MD3
   static ThemeData getAppLightThemeMD3() {
-    if (_appLightTheme == null) {
-      //_appLightTheme = SlcStyles.appTheme.copyWith(scaffoldBackgroundColor: Colors.grey.shade100/*, useMaterial3: true*/);
-      _appLightTheme = SlcStyles.appTheme.copyWith();
-    }
+    _appLightTheme ??= SlcStyles.appTheme.copyWith();
     return _appLightTheme!;
   }
 
@@ -40,5 +37,5 @@ class AppStyles extends SlcStyles {
   }
 
   //全局appToolbarTextStyle 如果需要就在上面主题中用上
-  static final TextStyle appToolbarTextStyle = TextStyle(fontSize: 18);
+  static const TextStyle appToolbarTextStyle = TextStyle(fontSize: 18);
 }

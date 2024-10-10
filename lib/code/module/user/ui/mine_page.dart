@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/widget/fast_slc_ui_box.dart';
 import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
+import '../../../../res/colors.dart';
 import '../../../base/ui/app_mvvm.dart';
 import 'package:provider/provider.dart';
 
@@ -77,7 +79,8 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                               leading: const Icon(Icons.settings),
                               title: Text(S.current.user_label_setting),
                               visualDensity: VisualDensity.compact,
-                              tileColor: themeData.colorScheme.surfaceContainerLow,//根据card规则实现
+                              tileColor: SlcColors.getCardColorByTheme(themeData),
+                              //根据card规则实现
                               onTap: () {}),
                           SlcUiBoxStyleUtils.getDividerByBg(),
                         ])))
