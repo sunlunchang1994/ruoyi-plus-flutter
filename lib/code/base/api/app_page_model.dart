@@ -7,7 +7,7 @@ part 'app_page_model.g.dart';
 @JsonSerializable()
 class AppPageModel {
   int current;
-  int pages;
+  int? pages;
   bool? isLastPage;
   List<dynamic>? rows;
 
@@ -17,12 +17,14 @@ class AppPageModel {
 
   AppPageModel(
       {this.current = 0,
-      this.pages = 0,
+      this.pages,
       this.isLastPage,
       this.rows,
       this.searchCount = false,
       this.size = 0,
-      this.total = 0});
+      this.total = 0}) {
+    pages ??= (total / size).toInt() + 1;
+  }
 
   bool getIsLastPage() {
     if (isLastPage == null) {

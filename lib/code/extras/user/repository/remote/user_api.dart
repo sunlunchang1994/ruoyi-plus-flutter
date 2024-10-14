@@ -60,8 +60,11 @@ class UserServiceRepository {
           var intensifyEntity = IntensifyEntity<PageModel<User>>(
               resultEntity: ResultEntity(code: event.code, msg: event.msg),
               createData: (resultEntity) {
-                AppPageModel appPageModel =
-                    AppPageModel(current: offset, size: size, rows: event.rows, total: event.total);
+                AppPageModel appPageModel = AppPageModel(
+                    current: offset,
+                    size: size,
+                    rows: event.rows,
+                    total: event.total);
                 PageModel<User> pageModel = PageTransformUtils.appPageModel2PageModel(appPageModel,
                     records: User.formJsonList(appPageModel.rows));
                 return pageModel;
