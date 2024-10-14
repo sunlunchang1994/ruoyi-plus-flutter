@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/menu/menu_grid.dart';
-import '../../../base/ui/app_mvvm.dart';
 import 'package:provider/provider.dart';
+import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
+import 'package:ruoyi_plus_flutter/code/extras/user/repository/remote/user_api.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/ui/menu/menu_grid.dart';
 
 import '../../../../generated/l10n.dart';
 
@@ -21,24 +22,17 @@ class _WorkbenchState extends AppBaseState<WorkbenchPage, _WorkbenchVm> with Aut
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (loginModel) => _WorkbenchVm(),
-      builder: (context, child) {
-        ThemeData themeData = Theme.of(context);
-        registerEvent(context);
-        final mainVm = Provider.of<_WorkbenchVm>(context, listen: false);
-        mainVm.initVm();
-        return Scaffold(
-            appBar: AppBar(title: Text(title)),
-            //图标滚动使用固定大小来解决
-            body: Consumer<_WorkbenchVm>(builder: (context, value, child) {
-              return Container(
-                alignment: Alignment.center,
-                child: const Text("工作台"),
-              );
-            }));
-      },
-    );
+    return ChangeNotifierProvider(create: (context) {
+      return _WorkbenchVm();
+    }, builder: (context, child) {
+      ThemeData themeData = Theme.of(context);
+      registerEvent(context);
+      getVm().initVm();
+      return Scaffold(
+          appBar: AppBar(title: Text(title)),
+          //图标滚动使用固定大小来解决
+          body: MenuGrid(GlobalVm().userVmBox.routerVoOf.value ?? [], null));
+    });
   }
 
   @override
@@ -46,34 +40,6 @@ class _WorkbenchState extends AppBaseState<WorkbenchPage, _WorkbenchVm> with Aut
 }
 
 class _WorkbenchVm extends AppBaseVm {
-  void initVm() {}
-
-  @override
-  void dispose() {
-    super.dispose();
+  void initVm() {
   }
-}
-
-class WorkbenchPage2 extends StatefulWidget {
-  const WorkbenchPage2({super.key});
-
-  @override
-  State<StatefulWidget> createState() {
-    return _WorkbenchState2();
-  }
-}
-
-class _WorkbenchState2 extends State<WorkbenchPage2> with AutomaticKeepAliveClientMixin {
-  final String title = S.current.main_label_workbench;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text(title)),
-        //图标滚动使用固定大小来解决
-        body: MenuGrid(GlobalVm().userVmBox.routerVoOf.value ?? [], null));
-  }
-
-  @override
-  bool get wantKeepAlive => true;
 }

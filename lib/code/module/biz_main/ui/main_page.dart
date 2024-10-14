@@ -22,7 +22,7 @@ class MainPage extends AppBaseStatelessWidget<_MainVm> {
       registerEvent(context);
       var mainVm = Provider.of<_MainVm>(context, listen: false);
 
-      List<Widget> pageList = [const WorkbenchPage2(), const MinePage()];
+      List<Widget> pageList = [const WorkbenchPage(), const MinePage()];
 
       var pageController = PageController();
 

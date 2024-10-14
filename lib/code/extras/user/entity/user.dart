@@ -63,4 +63,9 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserToJson(this);
+
+  static List<User> formJsonList(List<dynamic>? data) {
+    return data?.map((json) => User.fromJson(json)).toList() ??
+        List.empty();
+  }
 }

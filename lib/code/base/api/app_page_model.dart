@@ -9,7 +9,7 @@ class AppPageModel {
   int current;
   int pages;
   bool? isLastPage;
-  List<Map<String, dynamic>>? records;
+  List<dynamic>? rows;
 
   bool searchCount;
   int size;
@@ -19,20 +19,19 @@ class AppPageModel {
       {this.current = 0,
       this.pages = 0,
       this.isLastPage,
-      this.records,
+      this.rows,
       this.searchCount = false,
       this.size = 0,
       this.total = 0});
 
   bool getIsLastPage() {
     if (isLastPage == null) {
-      return (current??0) >= (pages??1);
+      return (current ?? 0) >= (pages ?? 1);
     }
     return isLastPage!;
   }
 
-  factory AppPageModel.fromJson(Map<String, dynamic> json) =>
-      _$AppPageModelFromJson(json);
+  factory AppPageModel.fromJson(Map<String, dynamic> json) => _$AppPageModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$AppPageModelToJson(this);
 }
@@ -43,18 +42,14 @@ class IntensifyPageModel<T> {
   List<T>? _dataList;
 
   IntensifyPageModel(
-      {AppPageModel? pageModel,
-      List<T>? dataList,
-      List<T> Function(AppPageModel)? createData}) {
+      {AppPageModel? pageModel, List<T>? dataList, List<T> Function(AppPageModel)? createData}) {
     pageModel ??= AppPageModel(current: 1, pages: 1, total: 0);
     /*if (pageModel == null) {
       pageModel = PageModel(current: 1, pages: 1, total: 0);
     }*/
     this._pageModel = pageModel;
     this._dataList = dataList;
-    if (this._pageModel.records != null &&
-        this._dataList == null &&
-        createData != null) {
+    if (this._pageModel.rows != null && this._dataList == null && createData != null) {
       this._dataList = createData.call(this._pageModel);
     }
   }

@@ -63,3 +63,24 @@ class IntensifyEntity<T> {
     return _resultEntity.data;
   }
 }
+
+///后端返回的实体类基础结构
+@JsonSerializable()
+class ResultPageModel {
+  int? code;
+  String? msg;
+  dynamic rows;
+  int total;
+
+  ResultPageModel(
+      {this.code, this.msg, this.rows, this.total = 0});
+
+  bool isSuccess() {
+    return code == 0 || code == 200;
+  }
+
+  factory ResultPageModel.fromJson(Map<String, dynamic> json) =>
+      _$ResultPageModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ResultPageModelToJson(this);
+}

@@ -15,4 +15,5 @@ class UserInfoVo {
   factory UserInfoVo.fromJson(Map<String, dynamic> json) => _$UserInfoVoFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserInfoVoToJson(this);
+
 }
