@@ -4,12 +4,14 @@ import 'package:retrofit/retrofit.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/app_page_model.dart';
 import 'package:ruoyi_plus_flutter/code/base/repository/remote/data_transform_utils.dart';
 import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
+import 'package:ruoyi_plus_flutter/code/extras/user/entity/dept.dart';
 import 'package:ruoyi_plus_flutter/code/extras/user/entity/user.dart';
 
 import '../../../../base/api/api_config.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/repository/remote/page_transform_utils.dart';
+import '../../entity/dept_tree.dart';
 import '../../entity/user_info_vo.dart';
 
 part 'user_api.g.dart';
@@ -28,6 +30,10 @@ abstract class UserApiClient {
   ///用户列表
   @GET("/system/user/list")
   Future<ResultPageModel> list(@Queries() Map<String, dynamic> queries);
+
+  ///获取部门树列表
+  @GET("/system/user/deptTree")
+  Future<ResultEntity> deptTree();
 }
 
 ///用户服务
@@ -60,14 +66,27 @@ class UserServiceRepository {
           var intensifyEntity = IntensifyEntity<PageModel<User>>(
               resultEntity: ResultEntity(code: event.code, msg: event.msg),
               createData: (resultEntity) {
-                AppPageModel appPageModel = AppPageModel(
-                    current: offset,
-                    size: size,
-                    rows: event.rows,
-                    total: event.total);
+                AppPageModel appPageModel =
+                    AppPageModel(current: offset, size: size, rows: event.rows, total: event.total);
                 PageModel<User> pageModel = PageTransformUtils.appPageModel2PageModel(appPageModel,
                     records: User.formJsonList(appPageModel.rows));
                 return pageModel;
+              });
+          return intensifyEntity;
+        })
+        .map(DateTransformUtils.checkErrorIe)
+        .single;
+  }
+
+  static Future<IntensifyEntity<List<DeptTree>>> deptTree(Dept? dept) {
+    return _userApiClient
+        .deptTree()
+        .asStream()
+        .map((event) {
+          var intensifyEntity = IntensifyEntity<List<DeptTree>>(
+              resultEntity: event,
+              createData: (resultEntity) {
+                return DeptTree.fromJsonList(resultEntity.data);
               });
           return intensifyEntity;
         })

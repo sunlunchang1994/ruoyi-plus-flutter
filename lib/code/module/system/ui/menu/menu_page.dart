@@ -20,7 +20,7 @@ class MenuPage extends AppBaseStatelessWidget<_MenuPageVm> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (loginModel) => _MenuPageVm(),
+      create: (context) => _MenuPageVm(),
       builder: (context, child) {
         ThemeData themeData = Theme.of(context);
         registerEvent(context);

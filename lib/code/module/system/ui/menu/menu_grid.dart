@@ -4,10 +4,12 @@ import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/menu/menu_page.dart';
+import '../../../../../generated/l10n.dart';
 import '../../../../base/ui/app_mvvm.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../extras/system/entity/router_vo.dart';
+import '../../../user/ui/dept/dept_list_browser_page.dart';
 import 'menu_item_view.dart';
 
 class MenuGrid extends AppBaseStatelessWidget<_MenuGridVm> {
@@ -65,10 +67,13 @@ class _MenuGridVm extends AppBaseVm {
   void onRouterClick(RouterVo router) {
     if (ConstantBase.COMPONENT_LAYOUT == router.component && !ObjectUtil.isEmptyList(router.children)) {
       pushNamed(MenuPage.routeName, arguments: {
-        "title": router.getRouterTitle(),
+        ConstantBase.INTENT_KEY_TITLE: router.getRouterTitle(),
         "routerList": router.children,
         "path": router.path
       });
+    } else {
+      pushNamed(DeptListBrowserPage.routeName,
+          arguments: {ConstantBase.INTENT_KEY_TITLE: S.current.user_label_all_dept});
     }
   }
 

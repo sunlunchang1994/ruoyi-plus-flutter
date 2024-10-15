@@ -26,4 +26,7 @@ class ConstantBase {
   static const String COMPONENT_LAYOUT = "Layout"; //Layout组件标识
   static const String COMPONENT_PARENT_VIEW = "ParentView"; //ParentView组件标识
   static const String COMPONENT_INNER_LINK = "InnerLink"; //InnerLink组件标识
+
+  ///Intent 标题Key
+  static const String INTENT_KEY_TITLE = "title";
 }

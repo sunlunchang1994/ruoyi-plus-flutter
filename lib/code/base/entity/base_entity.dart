@@ -1,29 +1,26 @@
 ///@Author sunlunchang
 ///后端数据实体类基础类
 class BaseEntity {
-  int? id;
-
-  int? createUser;
+  String? searchValue;
 
   int? createDept;
 
+  int? createBy;
+
   String? createTime;
 
-  int? updateUser;
+  int? updateBy;
 
   String? updateTime;
 
-  int? status;
-
-  int? isDeleted;
+  Map<String, dynamic>? params;
 
   BaseEntity(
-      {this.id,
-      this.createUser,
+      {this.searchValue,
       this.createDept,
+      this.createBy,
       this.createTime,
-      this.updateUser,
+      this.updateBy,
       this.updateTime,
-      this.status,
-      this.isDeleted});
+      this.params});
 }

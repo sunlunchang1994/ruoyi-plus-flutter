@@ -26,15 +26,41 @@ class ContentEmptyWidget extends StatelessWidget {
           Padding(
               padding: EdgeInsets.only(top: SlcDimens.appDimens8),
               child: Text(S.current.label_data_is_null,
-                  style: SlcStyles.getTextColorHintStyleByTheme(
-                      Theme.of(context))))
+                  style: SlcStyles.getTextColorHintStyleByTheme(Theme.of(context))))
         ]));
   }
 
   ///
-  /// 获取空视图
+  /// 获取空视图包装
   ///
   static ContentEmptyWidget? getEmptyWidgetByDataSize(int size) {
     return size <= 0 ? const ContentEmptyWidget() : null;
+  }
+}
+
+class ContentEmptyWrapper extends StatelessWidget {
+  const ContentEmptyWrapper({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomScrollView(
+      slivers: [
+        SliverFillViewport(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              return ContentEmptyWidget();
+            },
+            childCount: 1,
+          ),
+        )
+      ],
+    );
+  }
+
+  ///
+  /// 获取空视图包装
+  ///
+  static Widget? getEmptyWrapperByDataSize(int size) {
+    return size <= 0 ? const ContentEmptyWrapper() : null;
   }
 }

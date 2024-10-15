@@ -36,8 +36,8 @@ abstract class BaseListDataVmBox<T> extends IBaseListDataCommonVmBox<T> {
   }
 
   void onSucceed(List<T> dataList) {
-    dataList.clear();
-    dataList.addAll(dataList);
+    this.dataList.clear();
+    this.dataList.addAll(dataList);
   }
 }
 

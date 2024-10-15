@@ -27,7 +27,7 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (loginModel) => _MineVm(),
+      create: (context) => _MineVm(),
       builder: (context, child) {
         ThemeData themeData = Theme.of(context);
         registerEvent(context);

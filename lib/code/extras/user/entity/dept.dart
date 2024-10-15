@@ -1,49 +1,37 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:ruoyi_plus_flutter/code/base/entity/base_entity.dart';
 
 part 'dept.g.dart';
 
 @JsonSerializable()
-class Dept {
-  dynamic searchValue;
-  dynamic createBy;
-  dynamic createTime;
-  dynamic updateBy;
-  dynamic updateTime;
-  dynamic remark;
+class Dept extends BaseEntity {
   int? deptId;
   int? parentId;
-  String? ancestors;
   String? deptName;
+  String? deptCategory;
   int? orderNum;
-  dynamic leader;
-  dynamic phone;
-  dynamic email;
+  int? leader;
+  String? leaderName;
+  String? phone;
+  String? email;
   String? status;
-  dynamic delFlag;
-  dynamic parentName;
-  List<Dept>? children;
-  int? memberCount;
 
   Dept(
-      {this.searchValue,
-      this.createBy,
-      this.createTime,
-      this.updateBy,
-      this.updateTime,
-      this.remark,
-      this.deptId,
+      {this.deptId,
       this.parentId,
-      this.ancestors,
       this.deptName,
+      this.deptCategory,
       this.orderNum,
       this.leader,
+      this.leaderName,
       this.phone,
       this.email,
       this.status,
-      this.delFlag,
-      this.parentName,
-      this.children,
-      this.memberCount});
+      super.createDept,
+      super.createBy,
+      super.createTime,
+      super.updateBy,
+      super.updateTime});
 
   factory Dept.fromJson(Map<String, dynamic> json) => _$DeptFromJson(json);
 
