@@ -33,7 +33,23 @@ class Dept extends BaseEntity {
       super.updateBy,
       super.updateTime});
 
+  String deptNameVo() {
+    return deptName!;
+  }
+
+  int deptIdVo() {
+    return deptId!;
+  }
+
+  int parentIdVo() {
+    return parentId!;
+  }
+
   factory Dept.fromJson(Map<String, dynamic> json) => _$DeptFromJson(json);
 
   Map<String, dynamic> toJson() => _$DeptToJson(this);
+
+  static List<Dept> formJsonList(List<dynamic>? data) {
+    return data?.map((json) => Dept.fromJson(json)).toList() ?? List.empty();
+  }
 }

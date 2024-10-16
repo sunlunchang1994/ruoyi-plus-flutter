@@ -15,11 +15,11 @@ final Map<String, WidgetBuilder> router = {
   MainPage.routeName: (BuildContext context) => MainPage(),
   MenuPage.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo();
-    return MenuPage(slcRouterInfo.arguments[ConstantBase.INTENT_KEY_TITLE],
+    return MenuPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE],
         slcRouterInfo.arguments["routerList"], slcRouterInfo.arguments["path"]);
   },
   DeptListBrowserPage.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo();
-    return DeptListBrowserPage(slcRouterInfo.arguments[ConstantBase.INTENT_KEY_TITLE]);
+    return DeptListBrowserPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
 };

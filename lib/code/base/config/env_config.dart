@@ -1,7 +1,7 @@
 ///@Author sunlunchang
 ///环境配置
 abstract class EnvConfig {
-  final bool _release = true;
+  final bool _release = false;
 
   bool get isRelease => _release;
 

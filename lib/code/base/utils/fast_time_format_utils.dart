@@ -1,3 +1,5 @@
+import 'package:flutter_slc_boxes/flutter/slc/common/date_util.dart';
+
 import '../config/constant_base.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:intl/intl.dart';
@@ -15,8 +17,7 @@ class FastTimeFormatUtils {
     if (TextUtil.isEmpty(date)) {
       return "";
     }
-    return toTargetFormat(date, ConstantBase.VALUE_TIME_PATTERN_BY_Y_MC_COMMON,
-        ConstantBase.VALUE_TIME_PATTERN_BY_Y_MC_CH);
+    return toTargetFormat(date, DateFormats.y_mo, DateFormats.zh_y_mo);
   }
 
   ///
@@ -29,8 +30,7 @@ class FastTimeFormatUtils {
     if (TextUtil.isEmpty(date)) {
       return "";
     }
-    return toTargetFormat(date, ConstantBase.VALUE_TIME_PATTERN_BY_Y_D_COMMON,
-        ConstantBase.VALUE_TIME_PATTERN_BY_Y_D_CH);
+    return toTargetFormat(date, DateFormats.y_mo_d, DateFormats.zh_y_mo_d);
   }
 
   ///
@@ -43,8 +43,7 @@ class FastTimeFormatUtils {
     if (TextUtil.isEmpty(date)) {
       return "";
     }
-    return toTargetFormat(date, ConstantBase.VALUE_TIME_PATTERN_BY_Y_M_COMMON,
-        ConstantBase.VALUE_TIME_PATTERN_BY_Y_M_CH);
+    return toTargetFormat(date, DateFormats.y_mo_d_h_m, DateFormats.zh_y_mo_d_h_m_en_time);
   }
 
   ///
@@ -57,14 +56,12 @@ class FastTimeFormatUtils {
     if (TextUtil.isEmpty(date)) {
       return "";
     }
-    return toTargetFormat(date, ConstantBase.VALUE_TIME_PATTERN_BY_Y_S_COMMON,
-        ConstantBase.VALUE_TIME_PATTERN_BY_H_M_COMMON);
+    return toTargetFormat(date, DateFormats.full, DateFormats.zh_full_en_time);
   }
 
   ///
   /// 转换为目标格式
-  static String toTargetFormat(
-      String date, String srcPattern, String newPattern) {
+  static String toTargetFormat(String date, String srcPattern, String newPattern) {
     return DateFormat(newPattern).format(DateFormat(srcPattern).parse(date));
   }
 }

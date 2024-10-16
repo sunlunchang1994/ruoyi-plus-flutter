@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/sp_util.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
+import 'package:ruoyi_plus_flutter/code/base/config/env_config.dart';
 
 import 'route/app_router.dart';
 import '../generated/l10n.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
   }
 
   void _init() {
-    LogUtil.init(isDebug: !ConstantBase.IS_RELEASE);
+    LogUtil.init(isDebug: !EnvConfig.getEnvConfig().isRelease);
     SpUtil.getInstance().then((value) => {LogUtil.d("初始化SpUtil成功")});
   }
 }
