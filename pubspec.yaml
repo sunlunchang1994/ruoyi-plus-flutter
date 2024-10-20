@@ -147,6 +147,7 @@ flutter:
     - assets/images/slc/ic_loading.svg
     - assets/images/slc/ic_loading.png
     - assets/images/slc/app_ic_def_user_head.png
+    - assets/images/slc/user_ic_folder.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

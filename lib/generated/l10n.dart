@@ -2450,6 +2450,16 @@ class S {
     );
   }
 
+  /// `顶级部门`
+  String get user_label_top_dept {
+    return Intl.message(
+      '顶级部门',
+      name: 'user_label_top_dept',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `选择%s`
   String get user_label_select_x {
     return Intl.message(

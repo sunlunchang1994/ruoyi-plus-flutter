@@ -351,6 +351,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("机构不能为空"),
         "user_label_tenant_select":
             MessageLookupByLibrary.simpleMessage("选择机构"),
+        "user_label_top_dept": MessageLookupByLibrary.simpleMessage("顶级部门"),
         "user_label_user_info_list":
             MessageLookupByLibrary.simpleMessage("用户列表"),
         "user_label_user_info_not_found":
