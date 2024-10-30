@@ -2,7 +2,6 @@ import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slc_boxes/flutter/slc/mvvm/base_mvvm.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_svg/svg.dart';
@@ -52,7 +51,7 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
                 return true;
               }),
               Expanded(
-                  child: ListDataVd(getVm().listVmBox, getVm(), refreshOnStart: false,
+                  child: ListDataVd(getVm().listVmBox, getVm(), refreshOnStart: true,
                       child: Consumer<_DeptListBrowserVm>(builder: (context, vm, child) {
                 if (vm.listVmBox.dataList.isEmpty) {
                   return const ContentEmptyWrapper();
@@ -120,9 +119,11 @@ class TreeFastBaseListDataVmBox<T> extends FastBaseListDataVmBox<T> {
   //部门栈堆
   final List<SlcTreeNav> treeNacStacks = List.empty(growable: true);
 
-  void next(SlcTreeNav treeNav) {
+  void next(SlcTreeNav treeNav, {bool notify = false}) {
     treeNacStacks.add(treeNav);
-    sendRefreshEvent();
+    if (notify) {
+      sendRefreshEvent();
+    }
   }
 
   void previous(dynamic treeId) {
@@ -172,15 +173,18 @@ class _DeptListBrowserVm extends AppBaseVm {
         return DateWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
       }
     });
-    WidgetsBinding.instance.endOfFrame.then((value) {
+    //类似于Android的runPost
+    /*WidgetsBinding.instance.endOfFrame.then((value) {
       SlcTreeNav slcTreeNav = SlcTreeNav(ConstantBase.VALUE_PARENT_ID_DEF, S.current.user_label_top_dept);
       next(slcTreeNav);
-    });
+    });*/
+    SlcTreeNav slcTreeNav = SlcTreeNav(ConstantBase.VALUE_PARENT_ID_DEF, S.current.user_label_top_dept);
+    next(slcTreeNav, notify: true);
   }
 
-  void next(SlcTreeNav treeNav) {
+  void next(SlcTreeNav treeNav, {bool notify = true}) {
     _currentSearch.parentId = treeNav.id;
-    listVmBox.next(treeNav);
+    listVmBox.next(treeNav, notify: notify);
     notifyListeners();
   }
 
