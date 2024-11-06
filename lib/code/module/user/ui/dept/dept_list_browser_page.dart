@@ -42,6 +42,42 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
             //图标滚动使用固定大小来解决
             body: Column(children: [
               Selector<_DeptListBrowserVm, List<SlcTreeNav>>(builder: (context, value, child) {
+                //最后一个
+                SlcTreeNav lastItem = value.last;
+                return Row(
+                  children: [
+                    SvgPicture.asset("assets/images/slc/user_ic_folder.svg",
+                        height: 16, color: themeData.primaryColor),
+                    Expanded(
+                        child: SizedBox(
+                            height: 32,
+                            child: ListView.builder(
+                                itemCount: value.length,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (ctx, index) {
+                                  SlcTreeNav currentItem = value[index];
+                                  if (lastItem == currentItem) {
+                                    return Row(children: [
+                                      Icon(Icons.arrow_right, color: themeData.primaryColor),
+                                      Text(currentItem.treeName,
+                                          style: TextStyle(color: themeData.primaryColor))
+                                    ]);
+                                  } else {
+                                    return GestureDetector(
+                                        child: Row(children: [
+                                          Icon(Icons.arrow_right,
+                                              color: SlcColors.getTextColorSecondaryByTheme(themeData)),
+                                          Text(currentItem.treeName,
+                                              style: TextStyle(
+                                                  color: SlcColors.getTextColorSecondaryByTheme(themeData)))
+                                        ]),
+                                        onTap: () {
+                                          getVm().previous(currentItem.id);
+                                        });
+                                  }
+                                })))
+                  ],
+                );
                 return Row(
                   children: getNavWidget(themeData, value),
                 );
@@ -79,7 +115,9 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
                             visualDensity: VisualDensity.compact,
                             tileColor: SlcColors.getCardColorByTheme(themeData),
                             //根据card规则实现
-                            onTap: () {}));
+                            onTap: () {
+                              getVm().nextByDept(listItem);
+                            }));
                   },
                 );
               })))
@@ -101,10 +139,15 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
             Text(value.treeName, style: TextStyle(color: themeData.primaryColor))
           ]));
         } else {
-          navWidget.add(Row(children: [
-            Icon(Icons.arrow_right, color: SlcColors.getTextColorSecondaryByTheme(themeData)),
-            Text(value.treeName, style: TextStyle(color: SlcColors.getTextColorSecondaryByTheme(themeData)))
-          ]));
+          navWidget.add(GestureDetector(
+              child: Row(children: [
+                Icon(Icons.arrow_right, color: SlcColors.getTextColorSecondaryByTheme(themeData)),
+                Text(value.treeName,
+                    style: TextStyle(color: SlcColors.getTextColorSecondaryByTheme(themeData)))
+              ]),
+              onTap: () {
+                getVm().previous(value.id);
+              }));
         }
       }
     }
@@ -127,12 +170,14 @@ class TreeFastBaseListDataVmBox<T> extends FastBaseListDataVmBox<T> {
   }
 
   void previous(dynamic treeId) {
+    //当arriveTargetTreeId为true时，后续节点则添加到移除列表内
     bool arriveTargetTreeId = false;
     List<SlcTreeNav> awaitRemoveNavList = List.empty(growable: true);
     //遍历得到需要移除的导航列表
     for (var item in treeNacStacks) {
       if (arriveTargetTreeId) {
         awaitRemoveNavList.add(item);
+        continue;
       }
       if (item.id == treeId) {
         arriveTargetTreeId = true;
@@ -179,13 +224,22 @@ class _DeptListBrowserVm extends AppBaseVm {
       next(slcTreeNav);
     });*/
     SlcTreeNav slcTreeNav = SlcTreeNav(ConstantBase.VALUE_PARENT_ID_DEF, S.current.user_label_top_dept);
+    next(slcTreeNav, notify: false);
+  }
+
+  ///根据部门信息获取下一个节点
+  void nextByDept(Dept dept) {
+    SlcTreeNav slcTreeNav = SlcTreeNav(dept.deptId, dept.deptName!);
     next(slcTreeNav, notify: true);
   }
 
+  ///下一个节点
   void next(SlcTreeNav treeNav, {bool notify = true}) {
     _currentSearch.parentId = treeNav.id;
     listVmBox.next(treeNav, notify: notify);
-    notifyListeners();
+    if (notify) {
+      notifyListeners();
+    }
   }
 
   void previous(dynamic treeId) {
