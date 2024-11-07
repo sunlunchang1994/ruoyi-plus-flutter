@@ -15,9 +15,9 @@ import 'menu_item_view.dart';
 
 class MenuGrid extends AppBaseStatelessWidget<_MenuGridVm> {
   final List<RouterVo> routerList;
-  final String? path;
+  final String? parentPath;
 
-  MenuGrid(this.routerList, this.path, {super.key});
+  MenuGrid(this.routerList, this.parentPath, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class MenuGrid extends AppBaseStatelessWidget<_MenuGridVm> {
         ThemeData themeData = Theme.of(context);
         registerEvent(context);
         final menuVm = Provider.of<_MenuGridVm>(context, listen: false);
-        menuVm.initVm(this.routerList, this.path);
+        menuVm.initVm(routerList, parentPath);
         return GridView.count(
             // 定义列数
             crossAxisCount: 3,
@@ -58,22 +58,32 @@ class MenuGrid extends AppBaseStatelessWidget<_MenuGridVm> {
 
 class _MenuGridVm extends AppBaseVm {
   late List<RouterVo> routerList;
-  String? path;
+  String? parentPath;
 
-  void initVm(List<RouterVo> routerList, String? path) {
+  void initVm(List<RouterVo> routerList, String? parentPath) {
     this.routerList = routerList;
-    this.path = path;
+    this.parentPath = parentPath;
+  }
+
+  ///获取目标path路由
+  String _targetPathByRouter(RouterVo router) {
+    String currentPath = (router.path ?? "");
+    if (!currentPath.startsWith('/')) {
+      currentPath = '/$currentPath';
+    }
+    return (parentPath ?? "") + currentPath;
   }
 
   void onRouterClick(RouterVo router) {
-    if (ConstantSys.VALUE_COMPONENT_LAYOUT == router.component && !ObjectUtil.isEmptyList(router.children)) {
+    if (ConstantSys.VALUE_COMPONENT_LAYOUT == router.component &&
+        !ObjectUtil.isEmptyList(router.children)) {
       pushNamed(MenuPage.routeName, arguments: {
         ConstantBase.KEY_INTENT_TITLE: router.getRouterTitle(),
         "routerList": router.children,
-        "path": router.path
+        "parentPath": _targetPathByRouter(router)
       });
     } else {
-      pushNamed(DeptListBrowserPage.routeName,
+      pushNamed(_targetPathByRouter(router),
           arguments: {ConstantBase.KEY_INTENT_TITLE: S.current.user_label_all_dept});
     }
   }

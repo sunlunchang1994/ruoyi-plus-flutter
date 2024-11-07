@@ -2060,6 +2060,26 @@ class S {
     );
   }
 
+  /// `404`
+  String get app_label_404 {
+    return Intl.message(
+      '404',
+      name: 'app_label_404',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `抱歉，页面未找到！`
+  String get app_label_404_msg {
+    return Intl.message(
+      '抱歉，页面未找到！',
+      name: 'app_label_404_msg',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `-----------------------------`
   String get user_divide_text {
     return Intl.message(

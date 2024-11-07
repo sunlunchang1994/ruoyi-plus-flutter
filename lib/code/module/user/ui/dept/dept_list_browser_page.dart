@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
@@ -10,20 +8,22 @@ import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/vd/list_data_vd.dart';
 import 'package:ruoyi_plus_flutter/code/extras/system/repository/remote/dept_api.dart';
-import 'package:ruoyi_plus_flutter/code/extras/user/repository/remote/user_api.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
 import '../../../../base/ui/vd/list_data_component.dart';
-import '../../../../base/ui/vd/list_data_vm_box.dart';
 import '../../../../base/ui/vd/refresh/content_empty.dart';
 import '../../../../extras/component/tree/entity/slc_tree_nav.dart';
+import '../../../../extras/component/tree/vmbox/tree_data_list_vm_vox.dart';
 import '../../../../extras/user/entity/dept.dart';
 
+///
+/// 部门浏览列表
+///
 class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
-  static const String routeName = '/dept_list_browser';
+  static const String routeName = '/system/dept';
 
   final String title;
 
@@ -37,91 +37,104 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
         ThemeData themeData = Theme.of(context);
         registerEvent(context);
         getVm().initVm();
-        return Scaffold(
-            appBar: AppBar(title: Text(title)),
-            //图标滚动使用固定大小来解决
-            body: Column(children: [
-              Selector<_DeptListBrowserVm, List<SlcTreeNav>>(builder: (context, value, child) {
-                //最后一个
-                SlcTreeNav lastItem = value.last;
-                return Row(
-                  children: [
-                    SvgPicture.asset("assets/images/slc/user_ic_folder.svg",
-                        height: 16, color: themeData.primaryColor),
-                    Expanded(
-                        child: SizedBox(
-                            height: 32,
-                            child: ListView.builder(
-                                itemCount: value.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (ctx, index) {
-                                  SlcTreeNav currentItem = value[index];
-                                  if (lastItem == currentItem) {
-                                    return Row(children: [
-                                      Icon(Icons.arrow_right, color: themeData.primaryColor),
-                                      Text(currentItem.treeName,
-                                          style: TextStyle(color: themeData.primaryColor))
-                                    ]);
-                                  } else {
-                                    return GestureDetector(
-                                        child: Row(children: [
-                                          Icon(Icons.arrow_right,
-                                              color: SlcColors.getTextColorSecondaryByTheme(themeData)),
+        return PopScope(
+            canPop: false,
+            onPopInvokedWithResult: (canPop, result) {
+              if (canPop) {
+                return;
+              }
+              if (getVm().canPop()) {
+                Navigator.pop(context);
+                return;
+              }
+              getVm().autoPrevious();
+            },
+            child: Scaffold(
+                appBar: AppBar(title: Text(title)),
+                //图标滚动使用固定大小来解决
+                body: Column(children: [
+                  Selector<_DeptListBrowserVm, List<SlcTreeNav>>(builder: (context, value, child) {
+                    //最后一个
+                    SlcTreeNav lastItem = value.last;
+                    return Row(
+                      children: [
+                        SvgPicture.asset("assets/images/slc/user_ic_folder.svg",
+                            height: 16, color: themeData.primaryColor),
+                        Expanded(
+                            child: SizedBox(
+                                height: 32,
+                                child: ListView.builder(
+                                    itemCount: value.length,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (ctx, index) {
+                                      SlcTreeNav currentItem = value[index];
+                                      if (lastItem == currentItem) {
+                                        return Row(children: [
+                                          Icon(Icons.arrow_right, color: themeData.primaryColor),
                                           Text(currentItem.treeName,
-                                              style: TextStyle(
-                                                  color: SlcColors.getTextColorSecondaryByTheme(themeData)))
-                                        ]),
+                                              style: TextStyle(color: themeData.primaryColor))
+                                        ]);
+                                      } else {
+                                        return GestureDetector(
+                                            child: Row(children: [
+                                              Icon(Icons.arrow_right,
+                                                  color: SlcColors.getTextColorSecondaryByTheme(themeData)),
+                                              Text(currentItem.treeName,
+                                                  style: TextStyle(
+                                                      color: SlcColors.getTextColorSecondaryByTheme(
+                                                          themeData)))
+                                            ]),
+                                            onTap: () {
+                                              getVm().previous(currentItem.id);
+                                            });
+                                      }
+                                    })))
+                      ],
+                    );
+                    return Row(
+                      children: getNavWidget(themeData, value),
+                    );
+                  }, selector: (context, vm) {
+                    return vm.listVmBox.treeNacStacks;
+                  }, shouldRebuild: (oldVal, newVal) {
+                    return true;
+                  }),
+                  Expanded(
+                      child: ListDataVd(getVm().listVmBox, getVm(), refreshOnStart: true,
+                          child: Consumer<_DeptListBrowserVm>(builder: (context, vm, child) {
+                    if (vm.listVmBox.dataList.isEmpty) {
+                      return const ContentEmptyWrapper();
+                    }
+                    return ListView.builder(
+                      clipBehavior: Clip.none,
+                      scrollDirection: Axis.vertical,
+                      padding: EdgeInsets.zero,
+                      itemCount: vm.listVmBox.dataList.length,
+                      itemBuilder: (ctx, index) {
+                        Dept listItem = vm.listVmBox.dataList[index];
+                        return Padding(
+                            padding: const EdgeInsets.only(bottom: 1),
+                            child: ListTile(
+                                trailing: Ink(
+                                    child: InkWell(
+                                        child: Padding(
+                                            padding: EdgeInsets.all(SlcDimens.appDimens12),
+                                            child: const Icon(Icons.chevron_right, size: 24)),
                                         onTap: () {
-                                          getVm().previous(currentItem.id);
-                                        });
-                                  }
-                                })))
-                  ],
-                );
-                return Row(
-                  children: getNavWidget(themeData, value),
-                );
-              }, selector: (context, vm) {
-                return vm.listVmBox.treeNacStacks;
-              }, shouldRebuild: (oldVal, newVal) {
-                return true;
-              }),
-              Expanded(
-                  child: ListDataVd(getVm().listVmBox, getVm(), refreshOnStart: true,
-                      child: Consumer<_DeptListBrowserVm>(builder: (context, vm, child) {
-                if (vm.listVmBox.dataList.isEmpty) {
-                  return const ContentEmptyWrapper();
-                }
-                return ListView.builder(
-                  clipBehavior: Clip.none,
-                  scrollDirection: Axis.vertical,
-                  padding: EdgeInsets.zero,
-                  itemCount: vm.listVmBox.dataList.length,
-                  itemBuilder: (ctx, index) {
-                    Dept listItem = vm.listVmBox.dataList[index];
-                    return Padding(
-                        padding: const EdgeInsets.only(bottom: 1),
-                        child: ListTile(
-                            trailing: Ink(
-                                child: InkWell(
-                                    child: Padding(
-                                        padding: EdgeInsets.all(SlcDimens.appDimens12),
-                                        child: const Icon(Icons.chevron_right, size: 24)),
-                                    onTap: () {
-                                      //点击事件
-                                    })),
-                            contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
-                            title: Text(listItem.deptNameVo()),
-                            visualDensity: VisualDensity.compact,
-                            tileColor: SlcColors.getCardColorByTheme(themeData),
-                            //根据card规则实现
-                            onTap: () {
-                              getVm().nextByDept(listItem);
-                            }));
-                  },
-                );
-              })))
-            ]));
+                                          //点击事件
+                                        })),
+                                contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
+                                title: Text(listItem.deptNameVo()),
+                                visualDensity: VisualDensity.compact,
+                                tileColor: SlcColors.getCardColorByTheme(themeData),
+                                //根据card规则实现
+                                onTap: () {
+                                  getVm().nextByDept(listItem);
+                                }));
+                      },
+                    );
+                  })))
+                ])));
       },
     );
   }
@@ -152,52 +165,6 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
       }
     }
     return navWidget;
-  }
-}
-
-class TreeFastBaseListDataVmBox<T> extends FastBaseListDataVmBox<T> {
-  //部门栈堆数据
-  final Map<dynamic, List<T>> treeStacksDataMap = Map.identity();
-
-  //部门栈堆
-  final List<SlcTreeNav> treeNacStacks = List.empty(growable: true);
-
-  void next(SlcTreeNav treeNav, {bool notify = false}) {
-    treeNacStacks.add(treeNav);
-    if (notify) {
-      sendRefreshEvent();
-    }
-  }
-
-  void previous(dynamic treeId) {
-    //当arriveTargetTreeId为true时，后续节点则添加到移除列表内
-    bool arriveTargetTreeId = false;
-    List<SlcTreeNav> awaitRemoveNavList = List.empty(growable: true);
-    //遍历得到需要移除的导航列表
-    for (var item in treeNacStacks) {
-      if (arriveTargetTreeId) {
-        awaitRemoveNavList.add(item);
-        continue;
-      }
-      if (item.id == treeId) {
-        arriveTargetTreeId = true;
-      }
-    }
-    //移除需要移除的
-    for (var item in awaitRemoveNavList) {
-      treeNacStacks.remove(item);
-      treeStacksDataMap.remove(item.id);
-    }
-    //设置当前的数据
-    List<T>? treStackData = treeStacksDataMap[treeId] ?? List.empty(growable: true);
-    onSucceed(treStackData);
-  }
-
-  @override
-  void onSucceed(List<T> dataList) {
-    super.onSucceed(dataList);
-    SlcTreeNav slcTreeNav = treeNacStacks.last;
-    treeStacksDataMap[slcTreeNav.id] = dataList;
   }
 }
 
@@ -242,9 +209,22 @@ class _DeptListBrowserVm extends AppBaseVm {
     }
   }
 
+  ///自动上一级
+  void autoPrevious() {
+    dynamic previousTreeId = listVmBox.getPreviousTreeId();
+    if (previousTreeId != null) {
+      previous(previousTreeId);
+    }
+  }
+
+  ///上一级
   void previous(dynamic treeId) {
     _currentSearch.parentId = treeId;
     listVmBox.previous(treeId);
     notifyListeners();
+  }
+
+  bool canPop() {
+    return !listVmBox.canPrevious();
   }
 }

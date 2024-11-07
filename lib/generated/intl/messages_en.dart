@@ -70,6 +70,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "action_update_now": MessageLookupByLibrary.simpleMessage("立即更新"),
         "app_divide_text": MessageLookupByLibrary.simpleMessage(
             "-----------------------------"),
+        "app_label_404": MessageLookupByLibrary.simpleMessage("404"),
+        "app_label_404_msg": MessageLookupByLibrary.simpleMessage("抱歉，页面未找到！"),
         "app_label_add_add_details":
             MessageLookupByLibrary.simpleMessage("添加明细"),
         "app_label_add_attachments":

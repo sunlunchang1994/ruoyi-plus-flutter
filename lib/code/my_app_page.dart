@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: WelcomePage.routeName,
       routes: router,
+      onUnknownRoute: get404Route,
       onGenerateTitle: (context) {
         return S.of(context).app_name;
       },

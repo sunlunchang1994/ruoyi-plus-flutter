@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/menu/menu_grid.dart';
 
 import '../../../../extras/system/entity/router_vo.dart';
@@ -13,9 +12,9 @@ class MenuPage extends AppBaseStatelessWidget<_MenuPageVm> {
 
   final String title;
   final List<RouterVo> routerList;
-  final String? path;
+  final String? parentPath;
 
-  MenuPage(this.title, this.routerList, this.path, {super.key});
+  MenuPage(this.title, this.routerList, this.parentPath, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +27,7 @@ class MenuPage extends AppBaseStatelessWidget<_MenuPageVm> {
         return Scaffold(
             appBar: AppBar(title: Text(title)),
             //图标滚动使用固定大小来解决
-            body: MenuGrid(routerList, null));
+            body: MenuGrid(routerList, parentPath));
       },
     );
   }

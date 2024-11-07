@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:ruoyi_plus_flutter/res/colors.dart';
 
 import '../../../../extras/system/entity/router_vo.dart';
 
