@@ -2260,6 +2260,16 @@ class S {
     );
   }
 
+  /// `头像`
+  String get user_label_avatar {
+    return Intl.message(
+      '头像',
+      name: 'user_label_avatar',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `修改密码`
   String get user_label_edit_pass_word {
     return Intl.message(

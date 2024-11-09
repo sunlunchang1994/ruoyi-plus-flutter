@@ -221,6 +221,7 @@
   "user_toast_login_login_successful": "登录成功",
   "user_toast_login_login_failed": "登录失败",
   "user_label_pet_name": "昵称",
+  "user_label_avatar": "头像",
   "user_label_edit_pass_word": "修改密码",
   "user_label_old_password": "原密码",
   "user_label_new_password": "新密码",

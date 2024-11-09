@@ -310,6 +310,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("账号不能为空"),
         "user_label_all_dept": MessageLookupByLibrary.simpleMessage("所有部门"),
         "user_label_auto_login": MessageLookupByLibrary.simpleMessage("自动登录"),
+        "user_label_avatar": MessageLookupByLibrary.simpleMessage("头像"),
         "user_label_captcha_code": MessageLookupByLibrary.simpleMessage("验证码"),
         "user_label_cell_phone": MessageLookupByLibrary.simpleMessage("手机"),
         "user_label_check_for_updates":

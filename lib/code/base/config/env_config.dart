@@ -13,7 +13,7 @@ abstract class EnvConfig {
 
   String get defTenantId => "000000";
 
-  static const String _active = "dev";
+  static const String _active = "devXb";
   static final Map<String, EnvConfig> _envConfigMap = {
     "dev": _DevEnvConfig(),
     "devXb": _DevXbEnvConfig(),
@@ -54,7 +54,7 @@ class _DevXbEnvConfig extends EnvConfig {
   }
 
   @override
-  String get apiUrl => "http://192.168.31.174:8080";
+  String get apiUrl => "http://192.168.31.178:8080";
 
   @override
   String get clientId => "428a8310cd442757ae699df5d894f051";

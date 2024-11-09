@@ -9,12 +9,14 @@ import '../module/system/ui/fof/no_found_page.dart';
 import '../module/system/ui/menu/menu_page.dart';
 import '../module/user/ui/dept/dept_list_browser_page.dart';
 import '../module/user/ui/login_page.dart';
+import '../module/user/ui/profile_page.dart';
 
 // GoRouter configuration
 final Map<String, WidgetBuilder> router = {
   WelcomePage.routeName: (BuildContext context) => WelcomePage(),
   NotFoundPage.routeName: (BuildContext context) => NotFoundPage(),
   LoginPage.routeName: (BuildContext context) => LoginPage(),
+  ProfilePage.routeName: (BuildContext context) => ProfilePage(),
   MainPage.routeName: (BuildContext context) => MainPage(),
   MenuPage.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo();

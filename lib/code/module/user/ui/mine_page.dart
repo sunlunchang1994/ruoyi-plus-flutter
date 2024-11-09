@@ -5,6 +5,7 @@ import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/widget/fast_slc_ui_box.dart';
 import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/ui/profile_page.dart';
 import '../../../../res/colors.dart';
 import '../../../base/ui/app_mvvm.dart';
 import 'package:provider/provider.dart';
@@ -41,35 +42,42 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                 Card(
                   elevation: 0,
                   margin: EdgeInsets.symmetric(horizontal: SlcDimens.appDimens16),
-                  child: Padding(
-                      padding: EdgeInsets.all(SlcDimens.appDimens16),
-                      child: Row(children: [
-                        Expanded(
-                            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          Text(getVm().userInfoVo?.user.deptName ?? S.current.app_label_not_completed,
-                              style: SlcStyles.getTextColorSecondaryStyleByTheme(themeData)),
-                          Text(getVm().userInfoVo?.user.getRoleName() ?? S.current.app_label_not_completed,
-                              style: SlcStyles.getTextColorSecondaryStyleByTheme(themeData)),
-                          Padding(
-                              padding: EdgeInsets.only(top: SlcDimens.appDimens8),
-                              child: Text(
-                                  getVm().userInfoVo?.user.nickName ?? S.current.app_label_not_completed,
-                                  style: themeData.textTheme.titleLarge)),
-                        ])),
-                        FadeInImage(
-                            width: 80,
-                            height: 80,
-                            placeholder: const AssetImage("assets/images/slc/app_ic_def_user_head.png"),
-                            image: NetworkImage(getVm().userInfoVo?.user.avatar ?? ""),
-                            imageErrorBuilder: (
-                              context,
-                              error,
-                              stackTrace,
-                            ) {
-                              return Image.asset("assets/images/slc/app_ic_def_user_head.png",
-                                  width: 80, height: 80);
-                            })
-                      ])),
+                  child: GestureDetector(
+                      onTap: () {
+                        getVm().pushNamed(ProfilePage.routeName);
+                      },
+                      child: Padding(
+                          padding: EdgeInsets.all(SlcDimens.appDimens16),
+                          child: Row(children: [
+                            Expanded(
+                                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                              Text(getVm().userInfoVo?.user.deptName ?? S.current.app_label_not_completed,
+                                  style: SlcStyles.getTextColorSecondaryStyleByTheme(themeData)),
+                              Text(
+                                  getVm().userInfoVo?.user.getRoleName() ??
+                                      S.current.app_label_not_completed,
+                                  style: SlcStyles.getTextColorSecondaryStyleByTheme(themeData)),
+                              Padding(
+                                  padding: EdgeInsets.only(top: SlcDimens.appDimens8),
+                                  child: Text(
+                                      getVm().userInfoVo?.user.nickName ??
+                                          S.current.app_label_not_completed,
+                                      style: themeData.textTheme.titleLarge)),
+                            ])),
+                            FadeInImage(
+                                width: 80,
+                                height: 80,
+                                placeholder: const AssetImage("assets/images/slc/app_ic_def_user_head.png"),
+                                image: NetworkImage(getVm().userInfoVo?.user.avatar ?? ""),
+                                imageErrorBuilder: (
+                                  context,
+                                  error,
+                                  stackTrace,
+                                ) {
+                                  return Image.asset("assets/images/slc/app_ic_def_user_head.png",
+                                      width: 80, height: 80);
+                                })
+                          ]))),
                 ),
                 Expanded(
                     child: Padding(
