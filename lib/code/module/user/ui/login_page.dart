@@ -76,10 +76,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                       name: "tenantName",
                                       controller: TextEditingController(text: value),
                                       onTap: () => _showSelectTenantDialog(context),
-                                      decoration: MyInputDecoration(
-                                          suffixIcon: const Icon(Icons.chevron_right),
-                                          suffixIconConstraints:
-                                              const BoxConstraints(minWidth: 24, maxHeight: 24),
+                                      decoration: MySelectDecoration(
                                           floatingLabelBehavior: FloatingLabelBehavior.always,
                                           labelText: S.of(context).user_label_tenant,
                                           hintText: S.of(context).user_label_select_tenant,

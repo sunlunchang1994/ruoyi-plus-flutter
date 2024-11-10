@@ -31,41 +31,47 @@ class User {
   List<int>? postIds;
   List<int>? roleId;
 
-  User(
-      {this.userId,
-      this.deptId,
-      this.userName,
-      this.nickName,
-      this.email,
-      this.phonenumber,
-      this.sex,
-      this.avatar,
-      this.password,
-      this.status,
-      this.loginIp,
-      this.loginDate,
-      this.createTime,
-      this.remark,
-      this.roles,
-      this.roleIds,
-      this.postIds,
-      this.roleId});
+  User({this.userId,
+    this.deptId,
+    this.userName,
+    this.nickName,
+    this.email,
+    this.phonenumber,
+    this.sex,
+    this.avatar,
+    this.password,
+    this.status,
+    this.loginIp,
+    this.loginDate,
+    this.createTime,
+    this.remark,
+    this.roles,
+    this.roleIds,
+    this.postIds,
+    this.roleId});
 
-  String? getRoleName(){
-    if(ObjectUtil.isEmptyList(roles)){
+  String? getRoleName() {
+    if (ObjectUtil.isEmptyList(roles)) {
       return null;
     }
-    return roles!.map((item){
+    return roles!.map((item) {
       return item.roleName;
     }).join(',');
   }
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
-  Map<String, dynamic> toJson() => _$UserToJson(this);
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> jsonMap = _$UserToJson(this);
+    jsonMap['roles'] = roles?.map((role) => role.toJson()).toList();
+    return jsonMap;
+  }
 
   static List<User> formJsonList(List<dynamic>? data) {
-    return data?.map((json) => User.fromJson(json)).toList() ??
-        List.empty();
+    return data?.map((json) => User.fromJson(json)).toList() ?? List.empty();
+  }
+
+  static User copyUser(User user) {
+    return User.fromJson(user.toJson());
   }
 }

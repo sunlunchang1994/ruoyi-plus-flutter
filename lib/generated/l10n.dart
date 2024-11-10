@@ -2550,6 +2550,46 @@ class S {
     );
   }
 
+  /// `用户昵称`
+  String get user_label_nike_name {
+    return Intl.message(
+      '用户昵称',
+      name: 'user_label_nike_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `手机号码`
+  String get user_label_phone_number {
+    return Intl.message(
+      '手机号码',
+      name: 'user_label_phone_number',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `邮箱`
+  String get user_label_mailbox {
+    return Intl.message(
+      '邮箱',
+      name: 'user_label_mailbox',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `性别`
+  String get user_label_sex {
+    return Intl.message(
+      '性别',
+      name: 'user_label_sex',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `-----------------------------`
   String get dict_divide_text {
     return Intl.message(

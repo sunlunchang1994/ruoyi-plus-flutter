@@ -1,35 +1,18 @@
 //个人资料
-
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_image_picker/form_builder_image_picker.dart';
-import 'package:keyboard_avoider/keyboard_avoider.dart';
-import 'package:ruoyi_plus_flutter/code/base/config/env_config.dart';
-import 'package:ruoyi_plus_flutter/code/extras/system/repository/remote/auth_api.dart';
-import 'package:ruoyi_plus_flutter/code/extras/system/repository/remote/menu_api.dart';
-import '../../../base/api/base_dio.dart';
-import '../../../base/ui/widget/my_form_builder_text_field.dart';
-import '../../../extras/system/entity/captcha.dart';
-import '../../../extras/system/entity/login_tenant_vo.dart';
-import '../../../extras/system/entity/router_vo.dart';
-import '../../../extras/system/entity/tenant_list_vo.dart';
-import '../../../extras/user/entity/user_info_vo.dart';
-import '../../../extras/user/repository/remote/user_api.dart';
-import '../../biz_main/ui/main_page.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:keyboard_avoider/keyboard_avoider.dart';
+import '../../../base/ui/widget/form_builder_image_picker/form_builder_single_image_picker.dart';
+import '../../../base/ui/widget/my_form_builder_text_field.dart';
+import '../../../base/vm/global_vm.dart';
+import '../../../extras/user/entity/user.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../generated/l10n.dart';
-import '../../../base/api/result_entity.dart';
 import '../../../base/ui/app_mvvm.dart';
-import '../../../base/ui/utils/bar_utils.dart';
-import '../../../base/utils/app_toast.dart';
-import '../repository/local/sp_user_config.dart';
 
 class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
   static const String routeName = '/profile';
@@ -50,21 +33,100 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
             appBar: AppBar(title: Text(title)),
             body: KeyboardAvoider(
                 autoScroll: true,
-                child: Column(
-                  children: [
-                    FormBuilderImagePicker(
-                      name: 'avatar',
-                      previewBuilder: (ctx,children,addBtn){
-                        return Text('data');
-                      },
-                      decoration: InputDecoration(
-                        labelText: S.current.user_label_avatar,
-                        hintText: S.current.user_label_select_tenant,
-                      ),
-                      maxImages: 1,
-                    ),
-                  ],
-                )));
+                child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: SlcDimens.appDimens16),
+                    child: FormBuilder(
+                        child: Column(
+                      children: [
+                        FormBuilderSingleImagePicker(
+                          name: 'avatar',
+                          initialValue: getVm().userInfo.avatar,
+                          previewWidth: 96,
+                          previewHeight: 96,
+                          placeholderImage: const AssetImage("assets/images/slc/app_ic_def_user_head.png"),
+                          imageErrorBuilder: (
+                            context,
+                            error,
+                            stackTrace,
+                          ) {
+                            return Image.asset("assets/images/slc/app_ic_def_user_head.png",
+                                width: 96, height: 96);
+                          },
+                          decoration: InputDecoration(
+                            labelText: S.current.user_label_avatar,
+                            hintText: S.current.user_label_select_tenant,
+                          ),
+                        ),
+                        SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                        Selector<_ProfileModel, String?>(builder: (context, value, child) {
+                          return FormBuilderTextField(
+                              name: "nickName",
+                              controller: TextEditingController(text: value),
+                              decoration: MyInputDecoration(
+                                  contentPadding: EdgeInsets.zero,
+                                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  labelText: S.of(context).user_label_nike_name,
+                                  hintText: S.of(context).app_label_please_input,
+                                  border: const UnderlineInputBorder()),
+                              onChanged: (value) => getVm().userInfo.nickName = value);
+                        }, selector: (context, vm) {
+                          return vm.userInfo.nickName;
+                        }, shouldRebuild: (oldVal, newVal) {
+                          return oldVal != newVal;
+                        }),
+                        SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                        Selector<_ProfileModel, String?>(builder: (context, value, child) {
+                          return FormBuilderTextField(
+                              name: "phonenumber",
+                              controller: TextEditingController(text: value),
+                              decoration: MyInputDecoration(
+                                  contentPadding: EdgeInsets.zero,
+                                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  labelText: S.of(context).user_label_phone_number,
+                                  hintText: S.of(context).app_label_please_input,
+                                  border: const UnderlineInputBorder()),
+                              onChanged: (value) => getVm().userInfo.phonenumber = value);
+                        }, selector: (context, vm) {
+                          return vm.userInfo.phonenumber;
+                        }, shouldRebuild: (oldVal, newVal) {
+                          return oldVal != newVal;
+                        }),
+                        SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                        Selector<_ProfileModel, String?>(builder: (context, value, child) {
+                          return FormBuilderTextField(
+                              name: "email",
+                              controller: TextEditingController(text: value),
+                              decoration: MyInputDecoration(
+                                  contentPadding: EdgeInsets.zero,
+                                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  labelText: S.of(context).user_label_mailbox,
+                                  hintText: S.of(context).app_label_please_input,
+                                  border: const UnderlineInputBorder()),
+                              onChanged: (value) => getVm().userInfo.email = value);
+                        }, selector: (context, vm) {
+                          return vm.userInfo.email;
+                        }, shouldRebuild: (oldVal, newVal) {
+                          return oldVal != newVal;
+                        }),
+                        SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                        Selector<_ProfileModel, String?>(builder: (context, value, child) {
+                          return FormBuilderTextField(
+                              name: "email",
+                              controller: TextEditingController(text: value),
+                              decoration: MyInputDecoration(
+                                  contentPadding: EdgeInsets.zero,
+                                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  labelText: S.of(context).user_label_sex,
+                                  hintText: S.of(context).app_label_please_input,
+                                  border: const UnderlineInputBorder()),
+                              onChanged: (value) => getVm().userInfo.sex = value);
+                        }, selector: (context, vm) {
+                          return vm.userInfo.sex;
+                        }, shouldRebuild: (oldVal, newVal) {
+                          return oldVal != newVal;
+                        }),
+                      ],
+                    )))));
       },
     );
   }
@@ -73,7 +135,11 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
 class _ProfileModel extends AppBaseVm {
   final CancelToken cancelToken = CancelToken();
 
-  void initVm() {}
+  late User userInfo;
+
+  void initVm() {
+    userInfo = User.copyUser(GlobalVm().userVmBox.userInfoOf.value!.user);
+  }
 
   @override
   void dispose() {

@@ -332,19 +332,23 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("请输入密码"),
         "user_label_logging_in": MessageLookupByLibrary.simpleMessage("正在登录"),
         "user_label_login": MessageLookupByLibrary.simpleMessage("登录"),
+        "user_label_mailbox": MessageLookupByLibrary.simpleMessage("邮箱"),
         "user_label_my_qr_code": MessageLookupByLibrary.simpleMessage("我的二维码"),
         "user_label_new_password": MessageLookupByLibrary.simpleMessage("新密码"),
+        "user_label_nike_name": MessageLookupByLibrary.simpleMessage("用户昵称"),
         "user_label_old_password": MessageLookupByLibrary.simpleMessage("原密码"),
         "user_label_password": MessageLookupByLibrary.simpleMessage("密码"),
         "user_label_password_bot_empty_hint":
             MessageLookupByLibrary.simpleMessage("密码不能为空"),
         "user_label_pet_name": MessageLookupByLibrary.simpleMessage("昵称"),
+        "user_label_phone_number": MessageLookupByLibrary.simpleMessage("手机号码"),
         "user_label_save_password":
             MessageLookupByLibrary.simpleMessage("保存密码"),
         "user_label_select_tenant":
             MessageLookupByLibrary.simpleMessage("请选择机构"),
         "user_label_select_x": MessageLookupByLibrary.simpleMessage("选择%s"),
         "user_label_setting": MessageLookupByLibrary.simpleMessage("设置"),
+        "user_label_sex": MessageLookupByLibrary.simpleMessage("性别"),
         "user_label_sign_out": MessageLookupByLibrary.simpleMessage("退出登录"),
         "user_label_stay_tuned": MessageLookupByLibrary.simpleMessage("敬请期待"),
         "user_label_tenant": MessageLookupByLibrary.simpleMessage("机构"),
