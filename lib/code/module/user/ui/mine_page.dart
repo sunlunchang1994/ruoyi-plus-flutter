@@ -7,6 +7,7 @@ import 'package:ruoyi_plus_flutter/code/base/ui/widget/fast_slc_ui_box.dart';
 import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/profile_page.dart';
 import '../../../../res/colors.dart';
+import '../../../../res/dimens.dart';
 import '../../../base/ui/app_mvvm.dart';
 import 'package:provider/provider.dart';
 
@@ -64,19 +65,22 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                                           S.current.app_label_not_completed,
                                       style: themeData.textTheme.titleLarge)),
                             ])),
-                            FadeInImage(
-                                width: 80,
-                                height: 80,
-                                placeholder: const AssetImage("assets/images/slc/app_ic_def_user_head.png"),
-                                image: NetworkImage(getVm().userInfoVo?.user.avatar ?? ""),
-                                imageErrorBuilder: (
-                                  context,
-                                  error,
-                                  stackTrace,
-                                ) {
-                                  return Image.asset("assets/images/slc/app_ic_def_user_head.png",
-                                      width: 80, height: 80);
-                                })
+                            ClipRRect(
+                                borderRadius: BorderRadius.all(Radius.circular(AppDimens.appAvatarRadius)),
+                                child: FadeInImage(
+                                    width: 80,
+                                    height: 80,
+                                    placeholder:
+                                        const AssetImage("assets/images/slc/app_ic_def_user_head.png"),
+                                    image: NetworkImage(getVm().userInfoVo?.user.avatar ?? ""),
+                                    imageErrorBuilder: (
+                                      context,
+                                      error,
+                                      stackTrace,
+                                    ) {
+                                      return Image.asset("assets/images/slc/app_ic_def_user_head.png",
+                                          width: 80, height: 80);
+                                    }))
                           ]))),
                 ),
                 Expanded(

@@ -23,11 +23,6 @@ class FormBuilderSingleImagePicker extends FormBuilderFieldDecoration<dynamic> {
   /// when [maxImages] == 1, it's better to set this to false
   final bool showDecoration;
 
-  /// set to true to let images decide their own width
-  ///
-  /// when [maxImages] == 1, it's better to set this to true
-  final bool previewAutoSizeWidth;
-
   /// the width of image previews, also see [previewAutoSizeWidth]
   final double previewWidth;
 
@@ -132,7 +127,6 @@ class FormBuilderSingleImagePicker extends FormBuilderFieldDecoration<dynamic> {
     this.loadingWidget,
     this.transformImageWidget,
     this.showDecoration = true,
-    this.previewAutoSizeWidth = false,
     this.previewBuilder,
     this.fit = BoxFit.cover,
     this.preventPop = false,
@@ -164,45 +158,53 @@ class FormBuilderSingleImagePicker extends FormBuilderFieldDecoration<dynamic> {
   }) : super(
           builder: (FormFieldState<dynamic> field) {
             final state = field as FormBuilderImagePickerState;
-            final theme = Theme.of(state.context);
-            final disabledColor = theme.disabledColor;
-            final primaryColor = theme.primaryColor;
             final value = state.value;
-            final canUpload = value == null && state.enabled;
 
             //图片构建方法
             Widget itemBuilder(BuildContext context, dynamic value) {
-              bool checkIfItemIsCustomType(dynamic e) =>
-                  !(e is XFile || e is String || e is Uint8List || e is ImageProvider || e is Widget);
+              bool checkIfItemIsCustomType(dynamic e) => !(e == null ||
+                  e is XFile ||
+                  e is String ||
+                  e is Uint8List ||
+                  e is ImageProvider ||
+                  e is Widget);
 
               final itemCustomType = checkIfItemIsCustomType(value);
               var displayItem = value;
               if (itemCustomType && displayCustomType != null) {
                 displayItem = displayCustomType(value);
               }
+              //类型没处理
               assert(
                 !checkIfItemIsCustomType(displayItem),
                 'Display item must be of type [Uint8List], [XFile], [String] (url), [ImageProvider] or [Widget]. '
                 'Consider using displayCustomType to handle the type: ${displayItem.runtimeType}',
               );
 
-              final displayWidget = displayItem is Widget
-                  ? displayItem
-                  : displayItem is ImageProvider
-                      ? Image(image: displayItem, fit: fit)
-                      : displayItem is Uint8List
-                          ? Image.memory(displayItem, fit: fit)
-                          : displayItem is String
-                              ? FadeInImage(
-                                  fit: fit,
-                                  placeholder: placeholderImage,
-                                  image: NetworkImage(displayItem),
-                                  imageErrorBuilder: imageErrorBuilder)
-                              : XFileImage(
-                                  file: displayItem,
-                                  fit: fit,
-                                  loadingWidget: loadingWidget,
-                                );
+              final displayWidget = displayItem == null
+                  ? Image(image: placeholderImage, width: previewWidth, height: previewWidth, fit: fit)
+                  : displayItem is Widget
+                      ? displayItem
+                      : displayItem is ImageProvider
+                          ? Image(image: displayItem, width: previewWidth, height: previewWidth, fit: fit)
+                          : displayItem is Uint8List
+                              ? Image.memory(displayItem,
+                                  width: previewWidth, height: previewWidth, fit: fit)
+                              : displayItem is String
+                                  ? FadeInImage(
+                                      fit: fit,
+                                      width: previewWidth,
+                                      height: previewWidth,
+                                      placeholder: placeholderImage,
+                                      image: NetworkImage(displayItem),
+                                      imageErrorBuilder: imageErrorBuilder)
+                                  : XFileImage(
+                                      file: displayItem,
+                                      fit: fit,
+                                      width: previewWidth,
+                                      height: previewWidth,
+                                      loadingWidget: loadingWidget,
+                                    );
               return Stack(
                 key: ObjectKey(value),
                 children: <Widget>[
@@ -237,7 +239,7 @@ class FormBuilderSingleImagePicker extends FormBuilderFieldDecoration<dynamic> {
                     availableImageSources: availableImageSources,
                     onImageSelected: (image) {
                       state.focus();
-                      field.didChange([...value, ...image]);
+                      field.didChange(image.first);
                       Navigator.pop(state.context);
                     },
                   );
@@ -252,15 +254,13 @@ class FormBuilderSingleImagePicker extends FormBuilderFieldDecoration<dynamic> {
                 },
                 child: SizedBox(
                   height: previewHeight,
-                  child: SizedBox(
-                    width: previewAutoSizeWidth ? null : previewWidth,
-                    child: itemBuilder(state.context, value),
-                  ),
+                  width: previewWidth,
+                  child: itemBuilder(state.context, value),
                 ));
             return showDecoration
                 ? InputDecorator(
                     decoration: state.decoration,
-                    child: Padding(padding: EdgeInsets.only(top: 8), child: child),
+                    child: Padding(padding: const EdgeInsets.only(top: 8), child: child),
                   )
                 : child;
           },
@@ -278,11 +278,15 @@ class XFileImage extends StatefulWidget {
     super.key,
     required this.file,
     this.fit,
+    this.width,
+    this.height,
     this.loadingWidget,
   });
 
   final XFile file;
   final BoxFit? fit;
+  final double? width;
+  final double? height;
   final WidgetBuilder? loadingWidget;
 
   @override
@@ -301,7 +305,7 @@ class _XFileImageState extends State<XFileImage> {
         if (data == null) {
           return widget.loadingWidget?.call(context) ?? const Center(child: CircularProgressIndicator());
         }
-        return Image.memory(data, fit: widget.fit);
+        return Image.memory(data, width: widget.width, height: widget.height, fit: widget.fit);
       },
     );
   }

@@ -2530,6 +2530,16 @@ class S {
     );
   }
 
+  /// `验证码不能为空`
+  String get user_label_captcha_code_empty_hint {
+    return Intl.message(
+      '验证码不能为空',
+      name: 'user_label_captcha_code_empty_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `选择机构`
   String get user_label_tenant_select {
     return Intl.message(

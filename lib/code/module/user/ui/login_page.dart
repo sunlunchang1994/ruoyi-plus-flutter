@@ -345,6 +345,10 @@ class _LoginModel extends AppBaseVm {
       AppToastBridge.showToast(msg: S.current.user_label_password_bot_empty_hint);
       return;
     }
+    if (TextUtil.isEmpty(codeResult)) {
+      AppToastBridge.showToast(msg: S.current.user_label_captcha_code_empty_hint);
+      return;
+    }
     showLoading(text: S.current.user_label_logging_in);
     AuthServiceRepository.login(tenantId, userName!, password!, codeResult!, captcha?.uuid, cancelToken)
         .asStream()

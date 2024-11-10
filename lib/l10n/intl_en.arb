@@ -248,6 +248,7 @@
   "user_label_tenant_not_empty_hint": "机构不能为空",
   "user_label_account_not_empty_hint": "账号不能为空",
   "user_label_password_bot_empty_hint": "密码不能为空",
+  "user_label_captcha_code_empty_hint": "验证码不能为空",
   "user_label_tenant_select": "选择机构",
   "user_label_tenant_get_info_error": "获取机构信息失败",
   "user_label_nike_name": "用户昵称",

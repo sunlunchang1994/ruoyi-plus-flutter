@@ -5,6 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
+import 'package:ruoyi_plus_flutter/res/dimens.dart';
 import '../../../base/ui/widget/form_builder_image_picker/form_builder_single_image_picker.dart';
 import '../../../base/ui/widget/my_form_builder_text_field.dart';
 import '../../../base/vm/global_vm.dart';
@@ -51,6 +52,11 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                           ) {
                             return Image.asset("assets/images/slc/app_ic_def_user_head.png",
                                 width: 96, height: 96);
+                          },
+                          transformImageWidget: (context, child) {
+                            return ClipRRect(
+                                borderRadius: BorderRadius.all(Radius.circular(AppDimens.appAvatarRadius)),
+                                child: child);
                           },
                           decoration: InputDecoration(
                             labelText: S.current.user_label_avatar,
