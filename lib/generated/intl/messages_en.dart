@@ -94,6 +94,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("结束时间必须大于开始时间"),
         "app_label_get_attachments_error":
             MessageLookupByLibrary.simpleMessage("附件获取失败"),
+        "app_label_image_crop": MessageLookupByLibrary.simpleMessage("裁剪"),
         "app_label_location_permission_hint":
             MessageLookupByLibrary.simpleMessage("我们需要获取位置权限才能进定位！"),
         "app_label_location_permission_request_hint":

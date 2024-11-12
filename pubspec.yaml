@@ -84,8 +84,12 @@ dependencies:
   image_picker: ^1.1.2
   # 保存图片到相册 https://pub.dev/packages/image_gallery_saver 混合开发中好像有点冲突，具体待测试
   image_gallery_saver: ^2.0.3
+  # 图片裁剪
+  crop_your_image: ^1.1.0
   # 文件选择
   file_picker: ^8.0.6
+  # 路径访问
+  path_provider: ^2.1.5
 
   # 其他---------------------------------------
   #权限处理

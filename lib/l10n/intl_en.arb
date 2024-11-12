@@ -203,6 +203,7 @@
   "app_label_photo_album": "相册",
   "app_label_404": "404",
   "app_label_404_msg": "抱歉，页面未找到！",
+  "app_label_image_crop": "裁剪",
   "user_divide_text": "-----------------------------",
   "user_label_setting": "设置",
   "user_label_login": "登录",

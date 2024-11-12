@@ -111,6 +111,9 @@ class FormBuilderSingleImagePicker extends FormBuilderFieldDecoration<dynamic> {
 
   final WidgetBuilder? loadingWidget;
 
+  ///选择图片
+  final Future<XFile?> Function(XFile? image)? onImageSelect;
+
   FormBuilderSingleImagePicker({
     super.key,
     required super.name,
@@ -155,6 +158,7 @@ class FormBuilderSingleImagePicker extends FormBuilderFieldDecoration<dynamic> {
       ImageSourceOption.camera,
       ImageSourceOption.gallery,
     ],
+    this.onImageSelect,
   }) : super(
           builder: (FormFieldState<dynamic> field) {
             final state = field as FormBuilderImagePickerState;
@@ -182,11 +186,11 @@ class FormBuilderSingleImagePicker extends FormBuilderFieldDecoration<dynamic> {
               );
 
               final displayWidget = displayItem == null
-                  ? Image(image: placeholderImage, width: previewWidth, height: previewWidth, fit: fit)
+                  ? Image(image: placeholderImage, width: previewWidth, height: previewHeight, fit: fit)
                   : displayItem is Widget
                       ? displayItem
                       : displayItem is ImageProvider
-                          ? Image(image: displayItem, width: previewWidth, height: previewWidth, fit: fit)
+                          ? Image(image: displayItem, width: previewWidth, height: previewHeight, fit: fit)
                           : displayItem is Uint8List
                               ? Image.memory(displayItem,
                                   width: previewWidth, height: previewWidth, fit: fit)
@@ -194,7 +198,7 @@ class FormBuilderSingleImagePicker extends FormBuilderFieldDecoration<dynamic> {
                                   ? FadeInImage(
                                       fit: fit,
                                       width: previewWidth,
-                                      height: previewWidth,
+                                      height: previewHeight,
                                       placeholder: placeholderImage,
                                       image: NetworkImage(displayItem),
                                       imageErrorBuilder: imageErrorBuilder)
@@ -202,7 +206,7 @@ class FormBuilderSingleImagePicker extends FormBuilderFieldDecoration<dynamic> {
                                       file: displayItem,
                                       fit: fit,
                                       width: previewWidth,
-                                      height: previewWidth,
+                                      height: previewHeight,
                                       loadingWidget: loadingWidget,
                                     );
               return Stack(
@@ -239,8 +243,19 @@ class FormBuilderSingleImagePicker extends FormBuilderFieldDecoration<dynamic> {
                     availableImageSources: availableImageSources,
                     onImageSelected: (image) {
                       state.focus();
-                      field.didChange(image.first);
-                      Navigator.pop(state.context);
+                      //如果有监听则通过监听获取结果
+                      if (onImageSelect != null) {
+                        Navigator.pop(state.context);
+                        onImageSelect.call(image.first).then((imageSingle) {
+                          if (imageSingle == null) {
+                            return;
+                          }
+                          field.didChange(imageSingle);
+                        });
+                      } else {
+                        field.didChange(image.first);
+                        Navigator.pop(state.context);
+                      }
                     },
                   );
                   onTap != null

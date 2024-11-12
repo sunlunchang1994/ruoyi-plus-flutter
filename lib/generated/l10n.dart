@@ -2080,6 +2080,16 @@ class S {
     );
   }
 
+  /// `裁剪`
+  String get app_label_image_crop {
+    return Intl.message(
+      '裁剪',
+      name: 'app_label_image_crop',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `-----------------------------`
   String get user_divide_text {
     return Intl.message(

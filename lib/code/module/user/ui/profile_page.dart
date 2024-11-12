@@ -9,6 +9,7 @@ import 'package:ruoyi_plus_flutter/res/dimens.dart';
 import '../../../base/ui/widget/form_builder_image_picker/form_builder_single_image_picker.dart';
 import '../../../base/ui/widget/my_form_builder_text_field.dart';
 import '../../../base/vm/global_vm.dart';
+import '../../../extras/component/crop/crop_image.dart';
 import '../../../extras/user/entity/user.dart';
 import 'package:provider/provider.dart';
 
@@ -62,6 +63,15 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                             labelText: S.current.user_label_avatar,
                             hintText: S.current.user_label_select_tenant,
                           ),
+                          onImageSelect: (image) async {
+                            if (image == null) {
+                              return Future.value(null);
+                            }
+                            await Navigator.push(context, MaterialPageRoute(builder: (context) {
+                              return CropImage(image);
+                            }));
+                            return image;
+                          },
                         ),
                         SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                         Selector<_ProfileModel, String?>(builder: (context, value, child) {
