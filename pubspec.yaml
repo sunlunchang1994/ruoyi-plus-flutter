@@ -87,7 +87,7 @@ dependencies:
   # 图片裁剪
   crop_your_image: ^1.1.0
   # 文件选择
-  file_picker: ^8.0.6
+  file_picker: ^8.1.4
   # 路径访问
   path_provider: ^2.1.5
 

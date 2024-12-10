@@ -1,9 +1,13 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:crop_your_image/crop_your_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:ruoyi_plus_flutter/code/base/utils/slc_file_utils.dart';
 
 import '../../../../generated/l10n.dart';
 
@@ -11,7 +15,7 @@ class CropImage extends StatefulWidget {
   ///图像路径
   final XFile imagePath;
 
-  CropImage(this.imagePath, {super.key});
+  const CropImage(this.imagePath, {super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -34,14 +38,27 @@ class CropState extends State<CropImage> {
       });
     });
     return Scaffold(
-        appBar: AppBar(title: Text(S.current.app_label_image_crop)),
+        appBar: AppBar(
+          title: Text(S.current.app_label_image_crop),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  _controller.crop();
+                },
+                icon: const Icon(Icons.save))
+          ],
+        ),
         body: Center(
             child: imageData == null
                 ? const CircularProgressIndicator()
                 : Crop(
                     image: imageData!,
                     controller: _controller,
-                    onCropped: (image) {
+                    onCropped: (image)async {
+                      Directory applicationCacheDirectory = await getApplicationCacheDirectory();
+                      File saveCropPath = File(applicationCacheDirectory.path+SlcFileUtils.getFileNameByTime(prefix: "IMG_",suffix: ".png"));
+                      saveCropPath.writeAsBytesSync(image);
+                      LogUtil.d(saveCropPath.path,tag: "裁剪文件保存");
                       // do something with cropped image data
                     })));
   }
