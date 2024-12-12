@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 
 typedef FutureVoidCallBack = Future<void> Function();
 
+///从form_builder_image_picker中复制过来的，因为form_builder_image_picker中的ImageSourceSheet未导出
 class ImageSourceBottomSheet extends StatefulWidget {
   /// Optional maximum height of image
   final double? maxHeight;
