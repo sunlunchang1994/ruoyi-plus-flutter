@@ -36,7 +36,7 @@ abstract class AuthApiClient {
 
 ///认证服务
 class AuthServiceRepository {
-  static final AuthApiClient _userApiClient = AuthApiClient();
+  static final AuthApiClient _ossApiClient = AuthApiClient();
 
   ///用户登录
   static Future<IntensifyEntity<LoginResult>> login(String? tenantId, String account, String password,
@@ -49,7 +49,7 @@ class AuthServiceRepository {
     dataMap["uuid"] = codeUuid ?? '';
     dataMap["clientId"] = ApiConfig().clientid;
     dataMap["grantType"] = 'password';
-    return _userApiClient
+    return _ossApiClient
         .login(dataMap)
         .asStream()
         .map((event) {
@@ -68,7 +68,7 @@ class AuthServiceRepository {
 
   ///获取验证码
   static Future<IntensifyEntity<Captcha>> getCode() async {
-    return _userApiClient
+    return _ossApiClient
         .getCode()
         .asStream()
         .map((event) {
@@ -82,7 +82,7 @@ class AuthServiceRepository {
 
   ///获取租户列表
   static Future<IntensifyEntity<LoginTenantVo>> tenantList() async {
-    return _userApiClient
+    return _ossApiClient
         .tenantList()
         .asStream()
         .map((event) {

@@ -184,7 +184,9 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
   }
 
   ///显示提示保存对话框
-  void _showPromptSaveDialog() {}
+  void _showPromptSaveDialog() {
+
+  }
 }
 
 class _ProfileModel extends AppBaseVm {
