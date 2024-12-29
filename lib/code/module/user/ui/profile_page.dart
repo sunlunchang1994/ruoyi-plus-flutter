@@ -2,15 +2,20 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_slc_boxes/flutter/slc/dialog/dialog_loading_vm.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
+import 'package:ruoyi_plus_flutter/code/base/utils/app_toast.dart';
+import 'package:ruoyi_plus_flutter/code/extras/user/repository/remote/user_profile_api.dart';
 import 'package:ruoyi_plus_flutter/res/dimens.dart';
+import '../../../base/api/result_entity.dart';
 import '../../../base/ui/widget/form_builder_image_picker/form_builder_single_image_picker.dart';
 import '../../../base/ui/widget/my_form_builder_text_field.dart';
 import '../../../base/vm/global_vm.dart';
 import '../../../extras/component/crop/crop_image.dart';
+import '../../../extras/user/entity/avatar_vo.dart';
 import '../../../extras/user/entity/user.dart';
 import 'package:provider/provider.dart';
 
@@ -75,6 +80,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                 return Image.asset("assets/images/slc/app_ic_def_user_head.png",
                                     width: 96, height: 96);
                               },
+                              //TODO 此处加个缓存，内部的FadeInImage改成CachedNetworkImage
                               transformImageWidget: (context, child) {
                                 return ClipRRect(
                                     borderRadius:
@@ -93,8 +99,9 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                     await Navigator.push(context, MaterialPageRoute(builder: (context) {
                                   return CropImage(image);
                                 }));
-                                getVm().applyInfoChange();
-                                return cropImagePath == null ? image : XFile(cropImagePath);
+                                XFile imageXFile = cropImagePath == null ? image : XFile(cropImagePath);
+                                getVm().onSelectAvatarPath(imageXFile.path);
+                                return imageXFile;
                               },
                             ),
                             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
@@ -184,9 +191,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
   }
 
   ///显示提示保存对话框
-  void _showPromptSaveDialog() {
-
-  }
+  void _showPromptSaveDialog() {}
 }
 
 class _ProfileModel extends AppBaseVm {
@@ -194,10 +199,17 @@ class _ProfileModel extends AppBaseVm {
 
   late User userInfo;
 
+  String? _selectAvatarPath;
+
   bool _infoChange = false;
 
   void initVm() {
     userInfo = User.copyUser(GlobalVm().userVmBox.userInfoOf.value!.user);
+  }
+
+  void onSelectAvatarPath(String selectAvatarPath) {
+    _selectAvatarPath = selectAvatarPath;
+    applyInfoChange();
   }
 
   //应用信息更改
@@ -210,8 +222,25 @@ class _ProfileModel extends AppBaseVm {
   }
 
   void save() {
+    if (_selectAvatarPath != null) {
+      showLoading(text: S.current.label_save_ing);
+      UserProfileServiceRepository.avatar(_selectAvatarPath!).then((IntensifyEntity<AvatarVo> value) {
+        AppToastBridge.showToast(msg: S.current.user_label_avatar_uploaded_success);
+        dismissLoading();
+        _saveProfile();
+      }, onError: (e) {
+        AppToastBridge.showToast(msg: S.current.user_label_avatar_upload_failed);
+        dismissLoading();
+      });
+      return;
+    }
+    _saveProfile();
     //上传文件，提交信息
     //保存成功后要设置 _infoChange=true
+  }
+
+  void _saveProfile() {
+    //上传用户信息
   }
 
   @override

@@ -4,18 +4,18 @@ import 'package:fluttertoast/fluttertoast.dart';
 /// @Author sunlunchang
 /// toast桥接类
 class AppToastBridge {
-  static void showToast({msg = String, ToastBridge? toastLength}) {
+  static void showToast({msg = String, ToastBridgeDuration? toastDuration}) {
     //BotToast.showText(text: msg);
     Fluttertoast.showToast(
         msg: msg,
         backgroundColor: Colors.black54,
-        toastLength: toastLength == ToastBridge.LENGTH_LONG
+        toastLength: toastDuration == ToastBridgeDuration.LENGTH_LONG
             ? Toast.LENGTH_LONG
             : Toast.LENGTH_SHORT);
   }
 }
 
-enum ToastBridge {
+enum ToastBridgeDuration {
   /// Show Short toast for 1 sec
   LENGTH_SHORT,
 

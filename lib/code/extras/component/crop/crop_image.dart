@@ -45,7 +45,7 @@ class CropState extends State<CropImage> {
             IconButton(
                 onPressed: () {
                   LoadingDialog.showLoadingDialog(
-                      context, barrierDismissible: false, text: S.current.label_save_ing);
+                      context, barrierDismissible: false, text: S.current.user_label_avatar_crop);
                   _controller.crop();
                 },
                 icon: const Icon(Icons.save))
@@ -63,8 +63,8 @@ class CropState extends State<CropImage> {
                   File saveCropPath = File(applicationCacheDirectory.path +
                       SlcFileUtils.getFileNameByTime(prefix: "IMG_", suffix: ".png"));
                   saveCropPath.writeAsBytesSync(image);
-                  LogUtil.d(saveCropPath.path, tag: "裁剪文件保存");
-                  Navigator.pop(context);
+                  //关闭对话框
+                  LoadingDialog.dismissLoadingDialog(context);
                   Navigator.pop(context,saveCropPath.path);
                   // do something with cropped image data
                 })));

@@ -74,7 +74,7 @@ class _DevJieEnvConfig extends EnvConfig {
   }
 
   @override
-  String get apiUrl => "http://192.168.10.187:8080";
+  String get apiUrl => "http://192.168.10.79:8080";
 
   @override
   String get clientId => "428a8310cd442757ae699df5d894f051";

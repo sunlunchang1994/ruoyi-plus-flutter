@@ -312,6 +312,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "user_label_all_dept": MessageLookupByLibrary.simpleMessage("所有部门"),
         "user_label_auto_login": MessageLookupByLibrary.simpleMessage("自动登录"),
         "user_label_avatar": MessageLookupByLibrary.simpleMessage("头像"),
+        "user_label_avatar_are_uploading":
+            MessageLookupByLibrary.simpleMessage("正在上传头像"),
+        "user_label_avatar_crop":
+            MessageLookupByLibrary.simpleMessage("正在裁剪头像..."),
+        "user_label_avatar_upload_failed":
+            MessageLookupByLibrary.simpleMessage("上传头像失败"),
+        "user_label_avatar_uploaded_success":
+            MessageLookupByLibrary.simpleMessage("上传头像成功"),
         "user_label_captcha_code": MessageLookupByLibrary.simpleMessage("验证码"),
         "user_label_captcha_code_empty_hint":
             MessageLookupByLibrary.simpleMessage("验证码不能为空"),

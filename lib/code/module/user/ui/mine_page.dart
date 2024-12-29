@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
@@ -67,13 +68,15 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                             ])),
                             ClipRRect(
                                 borderRadius: BorderRadius.all(Radius.circular(AppDimens.appAvatarRadius)),
-                                child: FadeInImage(
+                                child: CachedNetworkImage(
                                     width: 80,
                                     height: 80,
-                                    placeholder:
-                                        const AssetImage("assets/images/slc/app_ic_def_user_head.png"),
-                                    image: NetworkImage(getVm().userInfoVo?.user.avatar ?? ""),
-                                    imageErrorBuilder: (
+                                    imageUrl: getVm().userInfoVo?.user.avatar ?? "",
+                                    placeholder: (context, url) {
+                                      return Image.asset("assets/images/slc/app_ic_def_user_head.png",
+                                          width: 80, height: 80);
+                                    },
+                                    errorWidget: (
                                       context,
                                       error,
                                       stackTrace,

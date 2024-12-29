@@ -90,6 +90,8 @@ dependencies:
   file_picker: ^8.1.4
   # 路径访问
   path_provider: ^2.1.5
+  # 图片缓存加载
+  cached_network_image: ^3.4.1
 
   # 其他---------------------------------------
   #权限处理

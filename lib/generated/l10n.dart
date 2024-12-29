@@ -2610,6 +2610,46 @@ class S {
     );
   }
 
+  /// `正在裁剪头像...`
+  String get user_label_avatar_crop {
+    return Intl.message(
+      '正在裁剪头像...',
+      name: 'user_label_avatar_crop',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `正在上传头像`
+  String get user_label_avatar_are_uploading {
+    return Intl.message(
+      '正在上传头像',
+      name: 'user_label_avatar_are_uploading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `上传头像失败`
+  String get user_label_avatar_upload_failed {
+    return Intl.message(
+      '上传头像失败',
+      name: 'user_label_avatar_upload_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `上传头像成功`
+  String get user_label_avatar_uploaded_success {
+    return Intl.message(
+      '上传头像成功',
+      name: 'user_label_avatar_uploaded_success',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `-----------------------------`
   String get dict_divide_text {
     return Intl.message(
