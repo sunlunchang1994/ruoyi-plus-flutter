@@ -41,3 +41,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# JsonSerializableGenerator和RetrofitGenerator自动生成的文件
+**/*.g.dart

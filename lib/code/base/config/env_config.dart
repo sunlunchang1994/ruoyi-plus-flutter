@@ -93,7 +93,7 @@ class _ProdEnvConfig extends EnvConfig {
   }
 
   @override
-  String get apiUrl => "http://192.168.31.174:8080";
+  String get apiUrl => "http://106.119.167.29:90/prod-api";
 
   @override
   String get clientId => "428a8310cd442757ae699df5d894f051";
