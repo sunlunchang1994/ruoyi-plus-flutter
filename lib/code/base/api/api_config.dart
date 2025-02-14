@@ -1,6 +1,6 @@
 import 'package:ruoyi_plus_flutter/code/base/config/env_config.dart';
 
-import '../../extras/component/attachment/utils/attachment_config.dart';
+import '../../feature/component/attachment/utils/attachment_config.dart';
 import 'package:flutter_slc_boxes/flutter/slc/network/api_constant.dart';
 
 ///@Author sunlunchang

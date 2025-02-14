@@ -6,18 +6,18 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/vd/list_data_vd.dart';
-import 'package:ruoyi_plus_flutter/code/extras/system/repository/remote/dept_api.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_vd.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/remote/dept_api.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
-import '../../../../base/ui/vd/list_data_component.dart';
-import '../../../../base/ui/vd/refresh/content_empty.dart';
-import '../../../../extras/component/tree/entity/slc_tree_nav.dart';
-import '../../../../extras/component/tree/vmbox/tree_data_list_vm_vox.dart';
-import '../../../../extras/user/entity/dept.dart';
+import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
+import '../../../../feature/component/tree/vmbox/tree_data_list_vm_vox.dart';
+import '../../../../feature/bizapi/user/entity/dept.dart';
+import '../../../../lib/fast/vd/list_data_component.dart';
+import '../../../../lib/fast/vd/refresh/content_empty.dart';
 
 ///
 /// 部门浏览列表

@@ -1,4 +1,4 @@
-import '../../../base/ui/vd/list_data_component.dart';
+import '../../../lib/fast/vd/list_data_component.dart';
 
 import '../../api/api_config.dart';
 import '../../api/api_exception.dart';

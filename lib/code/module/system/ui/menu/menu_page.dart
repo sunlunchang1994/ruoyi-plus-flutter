@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/menu/menu_grid.dart';
 
-import '../../../../extras/system/entity/router_vo.dart';
+import '../../../../feature/bizapi/system/entity/router_vo.dart';
 
 class MenuPage extends AppBaseStatelessWidget<_MenuPageVm> {
 

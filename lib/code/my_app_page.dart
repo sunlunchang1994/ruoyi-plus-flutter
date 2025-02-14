@@ -9,7 +9,7 @@ import 'route/app_router.dart';
 import '../generated/l10n.dart';
 import '../res/styles.dart';
 import 'base/config/constant_base.dart';
-import 'module/system/ui/welcome_page.dart';
+import 'feature/welcome/ui/welcome_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

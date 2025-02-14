@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/router/slc_router.dart';
 import 'package:ruoyi_plus_flutter/code/module/biz_main/ui/main_page.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/welcome_page.dart';
+import 'package:ruoyi_plus_flutter/code/feature/welcome/ui/welcome_page.dart';
 
 import '../base/config/constant_base.dart';
 import '../module/system/ui/fof/no_found_page.dart';
 import '../module/system/ui/menu/menu_page.dart';
 import '../module/user/ui/dept/dept_list_browser_page.dart';
-import '../module/user/ui/login_page.dart';
+import '../feature/auth/ui/login_page.dart';
 import '../module/user/ui/profile_page.dart';
 
 // GoRouter configuration

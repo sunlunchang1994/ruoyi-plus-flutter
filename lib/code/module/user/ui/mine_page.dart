@@ -13,7 +13,7 @@ import '../../../base/ui/app_mvvm.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../generated/l10n.dart';
-import '../../../extras/user/entity/user_info_vo.dart';
+import '../../../feature/bizapi/user/entity/user_info_vo.dart';
 
 class MinePage extends StatefulWidget {
   const MinePage({super.key});

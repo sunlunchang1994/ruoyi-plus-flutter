@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 
-import '../../../../extras/system/entity/router_vo.dart';
+import '../../../../feature/bizapi/system/entity/router_vo.dart';
 
 /// @Author sunlunchang
 /// 菜单路由控件
