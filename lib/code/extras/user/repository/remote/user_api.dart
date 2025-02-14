@@ -52,7 +52,7 @@ class UserServiceRepository {
         .map(DateTransformUtils.checkErrorIe)
         .map((event) {
           UserInfoVo userInfoVo = event.data;
-          GlobalVm().userVmBox.userInfoOf.value = userInfoVo;
+          GlobalVm().userShareVm.userInfoOf.value = userInfoVo;
           return event;
         })
         .single;

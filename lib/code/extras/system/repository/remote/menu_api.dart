@@ -47,7 +47,7 @@ class MenuServiceRepository {
         .map(DateTransformUtils.checkErrorIe)
         .map((event) {
           List<RouterVo> routerVoList = event.data;
-          GlobalVm().userVmBox.routerVoOf.value = routerVoList;
+          GlobalVm().userShareVm.routerVoOf.value = routerVoList;
           return event;
         })
         .single;

@@ -10,7 +10,7 @@ import 'mix_method_channel_handler.dart';
 /// 混合开发可以用到
 /// 处理在此进入时刷新界面和切换界面
 class MixPageHandler {
-  final MixMethodChannelHandler mixMethodChannelVmBox;
+  final MixMethodChannelHandler mixMethodChannelHandler;
 
   //监听的渠道方法
   final MethodCallListener _methodCallListener = MethodCallListener([
@@ -18,7 +18,7 @@ class MixPageHandler {
     MixMethodChannelHandler.METHOD_ON_DETACH
   ]);
 
-  MixPageHandler(this.mixMethodChannelVmBox) {
+  MixPageHandler(this.mixMethodChannelHandler) {
     _methodCallListener.onMethodCall = (String method, dynamic arguments) {
       if (MixMethodChannelHandler.METHOD_ON_ATTACH == method) {
         _onAttach(arguments);
@@ -26,7 +26,7 @@ class MixPageHandler {
         _onDetach(arguments);
       }
     };
-    mixMethodChannelVmBox.addMethodCallListener(_methodCallListener);
+    mixMethodChannelHandler.addMethodCallListener(_methodCallListener);
   }
 
   void init() {}

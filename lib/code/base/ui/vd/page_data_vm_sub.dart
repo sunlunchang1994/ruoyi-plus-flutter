@@ -7,7 +7,7 @@ import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 /// 对基础列表分页数据管理进一步拓展、用户快速构建列表分页数据管理
 
 ///基础分页列表
-abstract class IBasePageDataCommonVmBox<T> extends IListDataVmBox<T> {
+abstract class IBasePageDataCommonVmSub<T> extends IListDataVmSub<T> {
   DateWrapper<PageModel<T>>? _dateWrapper;
 
   DateWrapper<PageModel<T>>? get dateWrapper => _dateWrapper;
@@ -18,7 +18,7 @@ abstract class IBasePageDataCommonVmBox<T> extends IListDataVmBox<T> {
 }
 
 ///基础分页列表拓展，实现异步加载更多数据、填充数据等
-abstract class BasePageDataVmBox<T> extends IBasePageDataCommonVmBox<T> {
+abstract class BasePageDataVmSub<T> extends IBasePageDataCommonVmSub<T> {
   final LoadMoreFormat<T> _loadMoreFormat = LoadMoreFormat<T>();
 
   LoadMoreFormat<T> getLoadMoreFormat() => _loadMoreFormat;
@@ -67,7 +67,7 @@ abstract class BasePageDataVmBox<T> extends IBasePageDataCommonVmBox<T> {
 }
 
 ///对基础分页列表进一步拓展、快速实现同步刷新、解决部分第三方库需要等待数据响应的场景
-class FastBaseListDataPageVmBox<T> extends BasePageDataVmBox<T>
+class FastBaseListDataPageVmSub<T> extends BasePageDataVmSub<T>
     with ListenerItemClick<T> {
 
   LoadMore<T>? _loadMore;

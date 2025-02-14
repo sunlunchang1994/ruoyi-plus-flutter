@@ -3,14 +3,14 @@ import 'dart:async';
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/widgets.dart';
 import 'refresh/header_footer_simple.dart';
-import 'page_data_vm_box.dart';
+import 'page_data_vm_sub.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/load_more_format.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/base_mvvm.dart';
 
 /// @Author sunlunchang
 /// 分页场景下的分页数据视图，基于EasyRefresh进行拓展，用与快速构建分页功能
 class PageDataVd extends StatefulWidget {
-  final FastBaseListDataPageVmBox vmBox;
+  final FastBaseListDataPageVmSub vmSub;
 
   final AbsoluteChangeNotifier changeNotifier;
 
@@ -62,7 +62,7 @@ class PageDataVd extends StatefulWidget {
 
   final Axis? triggerAxis;
 
-  const PageDataVd(this.vmBox,
+  const PageDataVd(this.vmSub,
       this.changeNotifier,
       {super.key,
       this.child,
@@ -116,7 +116,7 @@ class PageDataState extends State<PageDataVd> {
       refreshEventCallback = () {
         controllerByState!.callRefresh();
       };
-      widget.vmBox.refreshEvent.addListener(refreshEventCallback!);
+      widget.vmSub.refreshEvent.addListener(refreshEventCallback!);
     }
   }
 
@@ -124,7 +124,7 @@ class PageDataState extends State<PageDataVd> {
   void dispose() {
     if (controllerByState == null) {
       controllerByState?.dispose();
-      widget.vmBox.refreshEvent.removeListener(refreshEventCallback!);
+      widget.vmSub.refreshEvent.removeListener(refreshEventCallback!);
     }
     super.dispose();
   }
@@ -145,16 +145,16 @@ class PageDataState extends State<PageDataVd> {
         footer: widget.footer ?? HeaderFooterSimple.getDefFooter(),
         onRefresh: widget.onRefresh ??
             () async {
-              await widget.vmBox.refresh();
+              await widget.vmSub.refresh();
               _getErController().finishRefresh();
               _getErController().finishLoad();
               widget.changeNotifier.notifyListeners();
             },
         onLoad: widget.onLoad ??
             () async {
-              await widget.vmBox.loadMore();
+              await widget.vmSub.loadMore();
               _getErController().finishLoad(
-                  widget.vmBox.getLoadMoreFormat().refreshStatusOf.value ==
+                  widget.vmSub.getLoadMoreFormat().refreshStatusOf.value ==
                           LoadMoreStatus.noMore
                       ? IndicatorResult.noMore
                       : IndicatorResult.fail);

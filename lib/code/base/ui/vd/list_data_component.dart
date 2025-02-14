@@ -71,7 +71,7 @@ class DateWrapper<T> {
 }
 
 ///基础数据列表
-abstract class IListDataVmBox<T> {
+abstract class IListDataVmSub<T> {
   final List<T> dataList = List.empty(growable: true);
 
   final ObservableField<dynamic> _refreshEventOf = ObservableField();

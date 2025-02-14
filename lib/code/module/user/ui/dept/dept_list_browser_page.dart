@@ -95,23 +95,23 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
                       children: getNavWidget(themeData, value),
                     );
                   }, selector: (context, vm) {
-                    return vm.listVmBox.treeNacStacks;
+                    return vm.listVmSub.treeNacStacks;
                   }, shouldRebuild: (oldVal, newVal) {
                     return true;
                   }),
                   Expanded(
-                      child: ListDataVd(getVm().listVmBox, getVm(), refreshOnStart: true,
+                      child: ListDataVd(getVm().listVmSub, getVm(), refreshOnStart: true,
                           child: Consumer<_DeptListBrowserVm>(builder: (context, vm, child) {
-                    if (vm.listVmBox.dataList.isEmpty) {
+                    if (vm.listVmSub.dataList.isEmpty) {
                       return const ContentEmptyWrapper();
                     }
                     return ListView.builder(
                       clipBehavior: Clip.none,
                       scrollDirection: Axis.vertical,
                       padding: EdgeInsets.zero,
-                      itemCount: vm.listVmBox.dataList.length,
+                      itemCount: vm.listVmSub.dataList.length,
                       itemBuilder: (ctx, index) {
-                        Dept listItem = vm.listVmBox.dataList[index];
+                        Dept listItem = vm.listVmSub.dataList[index];
                         return Padding(
                             padding: const EdgeInsets.only(bottom: 1),
                             child: ListTile(
@@ -170,12 +170,12 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
 
 //TODO d点击列表直接切换数据 存储上级数据列表 返回时直接获取上级加载
 class _DeptListBrowserVm extends AppBaseVm {
-  final TreeFastBaseListDataVmBox<Dept> listVmBox = TreeFastBaseListDataVmBox();
+  final TreeFastBaseListDataVmSub<Dept> listVmSub = TreeFastBaseListDataVmSub();
 
   Dept _currentSearch = Dept(parentId: ConstantBase.VALUE_PARENT_ID_DEF);
 
   void initVm() {
-    listVmBox.setRefresh(() async {
+    listVmSub.setRefresh(() async {
       try {
         IntensifyEntity<List<Dept>> intensifyEntity = await DeptServiceRepository.list(_currentSearch);
         DateWrapper<List<Dept>> dateWrapper = DateTransformUtils.entity2LDWrapper(intensifyEntity);
@@ -203,7 +203,7 @@ class _DeptListBrowserVm extends AppBaseVm {
   ///下一个节点
   void next(SlcTreeNav treeNav, {bool notify = true}) {
     _currentSearch.parentId = treeNav.id;
-    listVmBox.next(treeNav, notify: notify);
+    listVmSub.next(treeNav, notify: notify);
     if (notify) {
       notifyListeners();
     }
@@ -211,7 +211,7 @@ class _DeptListBrowserVm extends AppBaseVm {
 
   ///自动上一级
   void autoPrevious() {
-    dynamic previousTreeId = listVmBox.getPreviousTreeId();
+    dynamic previousTreeId = listVmSub.getPreviousTreeId();
     if (previousTreeId != null) {
       previous(previousTreeId);
     }
@@ -220,11 +220,11 @@ class _DeptListBrowserVm extends AppBaseVm {
   ///上一级
   void previous(dynamic treeId) {
     _currentSearch.parentId = treeId;
-    listVmBox.previous(treeId);
+    listVmSub.previous(treeId);
     notifyListeners();
   }
 
   bool canPop() {
-    return !listVmBox.canPrevious();
+    return !listVmSub.canPrevious();
   }
 }

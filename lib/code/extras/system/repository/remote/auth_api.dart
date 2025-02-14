@@ -61,7 +61,7 @@ class AuthServiceRepository {
         .map((event) {
       LoginResult loginResult = event.data;
       ApiConfig().token = "Bearer ${loginResult.access_token!}";
-      GlobalVm().userVmBox.loginResult = loginResult;
+      GlobalVm().userShareVm.loginResult = loginResult;
       return event;
     }).single;
   }

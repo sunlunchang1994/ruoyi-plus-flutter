@@ -204,7 +204,7 @@ class _ProfileModel extends AppBaseVm {
   bool _infoChange = false;
 
   void initVm() {
-    userInfo = User.copyUser(GlobalVm().userVmBox.userInfoOf.value!.user);
+    userInfo = User.copyUser(GlobalVm().userShareVm.userInfoOf.value!.user);
   }
 
   void onSelectAvatarPath(String selectAvatarPath) {

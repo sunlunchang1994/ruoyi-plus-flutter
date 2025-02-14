@@ -31,7 +31,7 @@ class _WorkbenchState extends AppBaseState<WorkbenchPage, _WorkbenchVm> with Aut
       return Scaffold(
           appBar: AppBar(title: Text(title)),
           //图标滚动使用固定大小来解决
-          body: MenuGrid(GlobalVm().userVmBox.routerVoOf.value ?? [], null));
+          body: MenuGrid(GlobalVm().userShareVm.routerVoOf.value ?? [], null));
     });
   }
 

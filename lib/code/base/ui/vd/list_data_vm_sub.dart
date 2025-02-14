@@ -5,7 +5,7 @@ import 'list_data_component.dart';
 /// 对基础列表页数据管理进一步拓展、用户快速构建列表页数据管理
 
 ///基础列表
-abstract class IBaseListDataCommonVmBox<T> extends IListDataVmBox<T> {
+abstract class IBaseListDataCommonVmSub<T> extends IListDataVmSub<T> {
   DateWrapper<List<T>>? _dateWrapper;
 
   DateWrapper<List<T>>? get dateWrapper => _dateWrapper;
@@ -16,7 +16,7 @@ abstract class IBaseListDataCommonVmBox<T> extends IListDataVmBox<T> {
 }
 
 ///基础列表进一步拓展、实现异步刷新、更新数据
-abstract class BaseListDataVmBox<T> extends IBaseListDataCommonVmBox<T> {
+abstract class BaseListDataVmSub<T> extends IBaseListDataCommonVmSub<T> {
   @override
   void refreshAsync() {
     refresh().then((dateWrapper) {
@@ -42,7 +42,7 @@ abstract class BaseListDataVmBox<T> extends IBaseListDataCommonVmBox<T> {
 }
 
 ///对基础列表进一步拓展、快速实现同步刷新、解决部分第三方库需要等待数据响应的场景
-class FastBaseListDataVmBox<T> extends BaseListDataVmBox<T>
+class FastBaseListDataVmSub<T> extends BaseListDataVmSub<T>
     with ListenerItemClick<T> {
   Refresh<T>? _refresh;
 

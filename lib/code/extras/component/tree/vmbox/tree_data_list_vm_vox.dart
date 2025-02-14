@@ -1,7 +1,7 @@
-import '../../../../base/ui/vd/list_data_vm_box.dart';
+import '../../../../base/ui/vd/list_data_vm_sub.dart';
 import '../entity/slc_tree_nav.dart';
 
-class TreeFastBaseListDataVmBox<T> extends FastBaseListDataVmBox<T> {
+class TreeFastBaseListDataVmSub<T> extends FastBaseListDataVmSub<T> {
   //部门栈堆数据
   final Map<dynamic, List<T>> treeStacksDataMap = Map.identity();
 

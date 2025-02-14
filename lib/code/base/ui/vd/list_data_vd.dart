@@ -2,16 +2,16 @@ import 'dart:async';
 
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/widgets.dart';
-import 'list_data_vm_box.dart';
+import 'list_data_vm_sub.dart';
 import 'refresh/header_footer_simple.dart';
-import 'page_data_vm_box.dart';
+import 'page_data_vm_sub.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/load_more_format.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/base_mvvm.dart';
 
 /// @Author sunlunchang
 /// 列表场景下的列表数据视图，基于EasyRefresh进行拓展，用与快速构建列表功能
 class ListDataVd extends StatefulWidget {
-  final FastBaseListDataVmBox vmBox;
+  final FastBaseListDataVmSub vmSub;
 
   final AbsoluteChangeNotifier changeNotifier;
 
@@ -61,7 +61,7 @@ class ListDataVd extends StatefulWidget {
 
   final Axis? triggerAxis;
 
-  const ListDataVd(this.vmBox,
+  const ListDataVd(this.vmSub,
       this.changeNotifier,
       {super.key,
       this.child,
@@ -114,7 +114,7 @@ class PageDataState extends State<ListDataVd> {
       refreshEventCallback = () {
         controllerByState!.callRefresh();
       };
-      widget.vmBox.refreshEvent.addListener(refreshEventCallback!);
+      widget.vmSub.refreshEvent.addListener(refreshEventCallback!);
     }
   }
 
@@ -122,7 +122,7 @@ class PageDataState extends State<ListDataVd> {
   void dispose() {
     if (controllerByState == null) {
       controllerByState?.dispose();
-      widget.vmBox.refreshEvent.removeListener(refreshEventCallback!);
+      widget.vmSub.refreshEvent.removeListener(refreshEventCallback!);
     }
     super.dispose();
   }
@@ -142,7 +142,7 @@ class PageDataState extends State<ListDataVd> {
         header: widget.header ?? HeaderFooterSimple.getDefHeader(),
         onRefresh: widget.onRefresh ??
             () async {
-              await widget.vmBox.refresh();
+              await widget.vmSub.refresh();
               _getErController().finishRefresh();
               widget.changeNotifier.notifyListeners();
             },

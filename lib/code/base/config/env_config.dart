@@ -13,11 +13,12 @@ abstract class EnvConfig {
 
   String get defTenantId => "000000";
 
-  static const String _active = "devJie";
+  static const String _active = "demo";
   static final Map<String, EnvConfig> _envConfigMap = {
     "dev": _DevEnvConfig(),
     "devXb": _DevXbEnvConfig(),
     "devJie": _DevJieEnvConfig(),
+    "demo": _DemoEnvConfig(),
     "prod": _ProdEnvConfig(),
   };
 
@@ -83,6 +84,25 @@ class _DevJieEnvConfig extends EnvConfig {
   bool get tenantEnable => true;
 }
 
+class _DemoEnvConfig extends EnvConfig {
+  _DemoEnvConfig._privateConstructor() {}
+
+  static final _DemoEnvConfig _instance = _DemoEnvConfig._privateConstructor();
+
+  factory _DemoEnvConfig() {
+    return _instance;
+  }
+
+  @override
+  String get apiUrl => "http://106.119.167.29:90/prod-api";
+
+  @override
+  String get clientId => "428a8310cd442757ae699df5d894f051";
+
+  @override
+  bool get tenantEnable => true;
+}
+
 class _ProdEnvConfig extends EnvConfig {
   _ProdEnvConfig._privateConstructor() {}
 
@@ -93,7 +113,7 @@ class _ProdEnvConfig extends EnvConfig {
   }
 
   @override
-  String get apiUrl => "http://106.119.167.29:90/prod-api";
+  String get apiUrl => "http://192.168.31.174:8080";
 
   @override
   String get clientId => "428a8310cd442757ae699df5d894f051";

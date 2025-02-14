@@ -14,7 +14,7 @@ class GlobalVm {
 
   final Map<String, dynamic> globalCache = {};
 
-  final UserVmBox userVmBox = UserVmBox();
+  final UserShareVm userShareVm = UserShareVm();
 
   //final mixManager = MixManager();
 

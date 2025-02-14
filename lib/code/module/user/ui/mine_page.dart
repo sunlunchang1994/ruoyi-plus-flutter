@@ -114,11 +114,11 @@ class _MineVm extends AppBaseVm {
 
   void initVm() {
     _onUserInfoVoChange(notify: false);
-    GlobalVm().userVmBox.userInfoOf.addListener(_onUserInfoVoChange);
+    GlobalVm().userShareVm.userInfoOf.addListener(_onUserInfoVoChange);
   }
 
   void _onUserInfoVoChange({bool notify = true}) {
-    userInfoVo = GlobalVm().userVmBox.userInfoOf.value;
+    userInfoVo = GlobalVm().userShareVm.userInfoOf.value;
     if (notify) {
       notifyListeners();
     }
@@ -126,7 +126,7 @@ class _MineVm extends AppBaseVm {
 
   @override
   void dispose() {
-    GlobalVm().userVmBox.userInfoOf.removeListener(_onUserInfoVoChange);
+    GlobalVm().userShareVm.userInfoOf.removeListener(_onUserInfoVoChange);
     super.dispose();
   }
 }
