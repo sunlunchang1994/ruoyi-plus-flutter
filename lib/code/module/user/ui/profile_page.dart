@@ -2,6 +2,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/dialog/dialog_loading_vm.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
@@ -242,12 +243,26 @@ class _ProfileModel extends AppBaseVm {
     return !_infoChange;
   }
 
+  //检查保存参数
+  bool _checkSaveParams() {
+    return TextUtil.isNotEmpty(userInfo.nickName) &&
+        TextUtil.isNotEmpty(userInfo.email) &&
+        TextUtil.isNotEmpty(userInfo.phonenumber) &&
+        TextUtil.isNotEmpty(userInfo.sex);
+  }
+
   void save() {
+    if (!_checkSaveParams()) {
+      AppToastBridge.showToast(msg: S.current.app_label_required_information_cannot_be_empty);
+      return;
+    }
+    showLoading(text: S.current.label_save_ing);
     if (_selectAvatarPath != null) {
-      showLoading(text: S.current.label_save_ing);
       UserProfileServiceRepository.avatar(_selectAvatarPath!).then((IntensifyEntity<AvatarVo> value) {
-        AppToastBridge.showToast(msg: S.current.user_label_avatar_uploaded_success);
-        dismissLoading();
+        //提交成功了设置头像路径为空，防止后续提交信息时重复提交
+        _selectAvatarPath = null;
+        //AppToastBridge.showToast(msg: S.current.user_label_avatar_uploaded_success);
+        //dismissLoading();
         _saveProfile();
       }, onError: (e) {
         AppToastBridge.showToast(msg: S.current.user_label_avatar_upload_failed);
@@ -262,6 +277,17 @@ class _ProfileModel extends AppBaseVm {
 
   void _saveProfile() {
     //上传用户信息
+    UserProfileServiceRepository.updateProfile(
+            userInfo.nickName!, userInfo.email!, userInfo.phonenumber!, userInfo.sex!)
+        .then((result) {
+      //更新成功了把当前的值设置给全局（此处应该重新调用获取用户信息的接口重新赋值，暂时先这么写）
+      GlobalVm().userShareVm.userInfoOf.value!.user = userInfo;
+      AppToastBridge.showToast(msg: S.current.toast_edit_success);
+      dismissLoading();
+    }, onError: (e) {
+      AppToastBridge.showToast(msg: S.current.toast_edit_failure);
+      dismissLoading();
+    });
   }
 
   @override

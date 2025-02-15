@@ -16,4 +16,7 @@ class UserInfoVo {
 
   Map<String, dynamic> toJson() => _$UserInfoVoToJson(this);
 
+  static UserInfoVo copyUser(UserInfoVo user) {
+    return UserInfoVo.fromJson(user.toJson());
+  }
 }

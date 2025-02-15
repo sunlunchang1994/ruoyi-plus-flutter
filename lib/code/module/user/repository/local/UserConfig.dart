@@ -1,4 +1,3 @@
-import 'package:flutter_slc_boxes/flutter/slc/common/sp_util.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/db/dp_manager.dart';
 
 class UserConfig extends DpManager {
