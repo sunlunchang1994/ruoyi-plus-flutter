@@ -22,7 +22,7 @@ class EncryptInterceptor extends Interceptor {
       //String aesKey = "11111111111111111111111111111111";
       //加密aesKey
       String encryptAes = EncryptUtil.encodeBase64(aesKey);
-      dynamic rsaKeyParser = RSAKeyParser().parse(decorationPublicKey(apiConfig.rsaPublicKey));
+      dynamic rsaKeyParser = RSAKeyParser().parse(decorationPublicKey(ApiConfig.VALUE_RSA_PUBLIC_KEY));
       final publicKeyEncrypter = Encrypter(RSA(publicKey: rsaKeyParser));
       final encrypted = publicKeyEncrypter.encrypt(encryptAes);
       options.headers[ApiConfig.KEY_ENCRYPT_KEY] = encrypted.base64;

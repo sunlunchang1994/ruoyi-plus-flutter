@@ -9,6 +9,9 @@ import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:ruoyi_plus_flutter/code/base/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/repository/remote/user_profile_api.dart';
+import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
+import 'package:ruoyi_plus_flutter/code/feature/component/dict/repository/local/local_dict_lib.dart';
+import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/res/dimens.dart';
 import '../../../base/api/result_entity.dart';
 import '../../../base/ui/widget/form_builder_image_picker/form_builder_single_image_picker.dart';
@@ -48,7 +51,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                 return;
               }
               //没有保存则显示提示保存对话框
-              _showPromptSaveDialog();
+              _showPromptSaveDialog(context);
             },
             child: Scaffold(
                 appBar: AppBar(title: Text(title), actions: [
@@ -166,21 +169,17 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                             }),
                             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                             Selector<_ProfileModel, String?>(builder: (context, value, child) {
-                              return FormBuilderTextField(
-                                  name: "email",
+                              return MyFormBuilderSelect(
+                                  name: "sex",
                                   controller: TextEditingController(text: value),
-                                  decoration: MyInputDecoration(
-                                      contentPadding: EdgeInsets.zero,
+                                  onTap: () => _showSelectSexDialog(context),
+                                  decoration: MySelectDecoration(
                                       floatingLabelBehavior: FloatingLabelBehavior.always,
                                       labelText: S.of(context).user_label_sex,
                                       hintText: S.of(context).app_label_please_input,
-                                      border: const UnderlineInputBorder()),
-                                  onChanged: (value) {
-                                    getVm().applyInfoChange();
-                                    getVm().userInfo.sex = value;
-                                  });
+                                      border: const UnderlineInputBorder() /*border: InputBorder.none*/));
                             }, selector: (context, vm) {
-                              return vm.userInfo.sex;
+                              return vm.userInfo.sexName;
                             }, shouldRebuild: (oldVal, newVal) {
                               return oldVal != newVal;
                             }),
@@ -191,7 +190,21 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
   }
 
   ///显示提示保存对话框
-  void _showPromptSaveDialog() {}
+  void _showSelectSexDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          List<SimpleDialogOption> dialogItem =
+              DictUiUtils.dict2DialogItem(context, LocalDictLib.DICT_MAP[LocalDictLib.CODE_SEX]!, (value) {
+            //选择后设置性别
+            getVm().onSelectSex(value);
+          });
+          return SimpleDialog(title: Text(S.current.user_label_sex_select_prompt), children: dialogItem);
+        });
+  }
+
+  ///显示提示保存对话框
+  void _showPromptSaveDialog(BuildContext context) {}
 }
 
 class _ProfileModel extends AppBaseVm {
@@ -205,11 +218,19 @@ class _ProfileModel extends AppBaseVm {
 
   void initVm() {
     userInfo = User.copyUser(GlobalVm().userShareVm.userInfoOf.value!.user);
+    userInfo.sexName = LocalDictLib.findDictByCodeKey(LocalDictLib.CODE_SEX, userInfo.sex)?.tdDictLabel;
   }
 
   void onSelectAvatarPath(String selectAvatarPath) {
     _selectAvatarPath = selectAvatarPath;
     applyInfoChange();
+  }
+
+  //选择性别
+  void onSelectSex(ITreeDict<dynamic> item) {
+    userInfo.sex = item.tdDictValue!;
+    userInfo.sexName = item.tdDictLabel!;
+    notifyListeners();
   }
 
   //应用信息更改

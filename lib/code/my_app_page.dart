@@ -4,6 +4,7 @@ import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/sp_util.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/env_config.dart';
+import 'package:ruoyi_plus_flutter/code/base/startup/task_utils.dart';
 
 import 'route/app_router.dart';
 import '../generated/l10n.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    _init();
+    _init(context);
     return MaterialApp(
       initialRoute: WelcomePage.routeName,
       routes: router,
@@ -37,8 +38,9 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  void _init() {
-    LogUtil.init(isDebug: !EnvConfig.getEnvConfig().isRelease);
-    SpUtil.getInstance().then((value) => {LogUtil.d("初始化SpUtil成功")});
+  void _init(BuildContext context) {
+    TaskUtils.execFirstTask(context).then((value) {
+      LogUtil.d("初始化完毕", tag: "FirstTask");
+    });
   }
 }

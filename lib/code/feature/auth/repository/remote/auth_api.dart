@@ -18,7 +18,7 @@ part 'auth_api.g.dart';
 abstract class AuthApiClient {
   factory AuthApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _AuthApiClient(dio, baseUrl: baseUrl ?? ApiConfig().apiUrl);
+    return _AuthApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///用户登录
@@ -61,7 +61,7 @@ class AuthServiceRepository {
         .map(DateTransformUtils.checkErrorIe)
         .map((event) {
       LoginResult loginResult = event.data;
-      ApiConfig().token = "Bearer ${loginResult.access_token!}";
+      ApiConfig().setToken("Bearer ${loginResult.access_token!}");
       GlobalVm().userShareVm.loginResult = loginResult;
       return event;
     }).single;

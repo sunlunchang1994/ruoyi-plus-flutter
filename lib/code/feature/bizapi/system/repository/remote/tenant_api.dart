@@ -10,7 +10,7 @@ part 'tenant_api.g.dart';
 abstract class TenantApiClient {
   factory TenantApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _TenantApiClient(dio, baseUrl: baseUrl ?? ApiConfig().apiUrl);
+    return _TenantApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
 }

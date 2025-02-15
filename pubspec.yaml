@@ -93,6 +93,9 @@ dependencies:
   # 图片缓存加载
   cached_network_image: ^3.4.1
 
+  # 存储---------------------------------------
+  shared_preferences: ^2.5.2
+
   # 其他---------------------------------------
   #权限处理
   permission_handler: ^11.3.1
@@ -130,13 +133,13 @@ dev_dependencies:
   #json_serializable 生成新的命令 flutter pub run build_runner build
   json_serializable: ^6.8.0
   #路由
-  go_router_builder: ^2.7.1
+  # go_router_builder: ^2.7.1
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^3.0.0
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

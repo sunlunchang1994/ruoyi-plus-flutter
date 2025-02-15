@@ -256,6 +256,7 @@
   "user_label_phone_number": "手机号码",
   "user_label_mailbox": "邮箱",
   "user_label_sex": "性别",
+  "user_label_sex_select_prompt": "请选择性别",
 
   "user_label_avatar_crop": "正在裁剪头像...",
   "user_label_avatar_are_uploading": "正在上传头像",

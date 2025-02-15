@@ -7,7 +7,6 @@ import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/widget/fast_slc_ui_box.dart';
 import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/profile_page.dart';
-import '../../../../res/colors.dart';
 import '../../../../res/dimens.dart';
 import '../../../base/ui/app_mvvm.dart';
 import 'package:provider/provider.dart';

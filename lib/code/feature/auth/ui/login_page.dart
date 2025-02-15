@@ -11,6 +11,7 @@ import 'package:ruoyi_plus_flutter/code/feature/auth/repository/remote/auth_api.
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/remote/menu_api.dart';
 import '../../../base/api/base_dio.dart';
 import '../../../base/ui/widget/my_form_builder_text_field.dart';
+import '../../../module/user/repository/local/UserConfig.dart';
 import '../entity/captcha.dart';
 import '../../bizapi/system/entity/router_vo.dart';
 import '../../bizapi/system/entity/tenant_list_vo.dart';
@@ -26,7 +27,6 @@ import '../../../base/api/result_entity.dart';
 import '../../../base/ui/app_mvvm.dart';
 import '../../../lib/fast/utils/bar_utils.dart';
 import '../../../base/utils/app_toast.dart';
-import '../../../module/user/repository/local/sp_user_config.dart';
 import '../entity/login_tenant_vo.dart';
 
 class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
@@ -250,14 +250,14 @@ class _LoginModel extends AppBaseVm {
   final CancelToken cancelToken = CancelToken();
 
   //租户相关
-  String? tenantId = SpUserConfig.getTenantId();
-  String? tenantName = SpUserConfig.getTenantName();
+  String? tenantId = UserConfig().getTenantId();
+  String? tenantName = UserConfig().getTenantName();
 
   //用户名
-  String? userName = SpUserConfig.getAccount();
+  String? userName = UserConfig().getAccount();
 
   //密码
-  String? password = SpUserConfig.getPassword();
+  String? password = UserConfig().getPassword();
 
   //验证码输入结果
   String? codeResult;
@@ -268,8 +268,8 @@ class _LoginModel extends AppBaseVm {
   FocusNode captchaInputFocus = FocusNode();
 
   //是否保存密码和自动登录
-  bool _isSavePassword = SpUserConfig.isSavePassword();
-  bool _isAutoLogin = SpUserConfig.isAutoLogin();
+  bool _isSavePassword = UserConfig().isSavePassword();
+  bool _isAutoLogin = UserConfig().isAutoLogin();
 
   bool get isSavePassword => _isSavePassword;
 
@@ -351,8 +351,8 @@ class _LoginModel extends AppBaseVm {
     showLoading(text: S.current.user_label_logging_in);
     AuthServiceRepository.login(tenantId, userName!, password!, codeResult!, captcha?.uuid, cancelToken)
         .asStream()
-        .asyncMap((event) => UserServiceRepository.getInfo())
-        .asyncMap((event) => MenuServiceRepository.getRouters())
+        .asyncMap((event) => UserServiceRepository.getInfo(cancelToken))
+        .asyncMap((event) => MenuServiceRepository.getRouters(cancelToken))
         .single
         .then((IntensifyEntity<List<RouterVo>> value) {
       dismissLoading();
@@ -377,12 +377,12 @@ class _LoginModel extends AppBaseVm {
 
   ///保存登录状态
   void _saveLoginStatus() {
-    SpUserConfig.saveIsSavePassword(_isSavePassword);
-    SpUserConfig.saveIsAutoLogin(_isAutoLogin);
-    SpUserConfig.saveTenantId(tenantId);
-    SpUserConfig.saveTenantName(tenantName);
-    SpUserConfig.saveAccount(userName);
-    SpUserConfig.savePassword(password);
+    UserConfig().saveIsSavePassword(_isSavePassword);
+    UserConfig().saveIsAutoLogin(_isAutoLogin);
+    UserConfig().saveTenantId(tenantId);
+    UserConfig().saveTenantName(tenantName);
+    UserConfig().saveAccount(userName);
+    UserConfig().savePassword(password);
   }
 
   @override

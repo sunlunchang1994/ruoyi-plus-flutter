@@ -14,21 +14,21 @@ part 'menu_api.g.dart';
 abstract class MenuApiClient {
   factory MenuApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _MenuApiClient(dio, baseUrl: baseUrl ?? ApiConfig().apiUrl);
+    return _MenuApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取路由信息
   @GET("/system/menu/getRouters")
-  Future<ResultEntity> getRouters();
+  Future<ResultEntity> getRouters(@CancelRequest() CancelToken cancelToken);
 }
 
 ///菜单服务
 class MenuServiceRepository {
   static final MenuApiClient _menuApiClient = MenuApiClient();
 
-  static Future<IntensifyEntity<List<RouterVo>>> getRouters() {
+  static Future<IntensifyEntity<List<RouterVo>>> getRouters(CancelToken cancelToken) {
     return _menuApiClient
-        .getRouters()
+        .getRouters(cancelToken)
         .asStream()
         .map((event) {
           var intensifyEntity = IntensifyEntity<List<RouterVo>>(

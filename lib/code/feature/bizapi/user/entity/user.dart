@@ -28,6 +28,8 @@ class User {
   List<int>? roleIds;
   List<int>? postIds;
   List<int>? roleId;
+  //本地
+  String? sexName;
 
   User({this.userId,
     this.deptId,

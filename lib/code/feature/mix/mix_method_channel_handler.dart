@@ -29,8 +29,8 @@ class MixMethodChannelHandler {
   _onAttach(dynamic arguments) {
     Map paramsMap = arguments;
     ApiConfig config = ApiConfig();
-    config.setApiUrl(paramsMap["apiUrl"]);
-    config.token = paramsMap[ApiConfig.KEY_TOKEN];
+    config.setServiceApiAddress(paramsMap["apiUrl"]);
+    config.setToken(paramsMap[ApiConfig.KEY_TOKEN]);
     //下面填充用户信息等等
     //GlobalVm().userVmBox.userInfoOf.value = paramsMap["userId"];
   }

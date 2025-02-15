@@ -15,7 +15,7 @@ part 'oss_api.g.dart';
 abstract class OssApiClient {
   factory OssApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _OssApiClient(dio, baseUrl: baseUrl ?? ApiConfig().apiUrl);
+    return _OssApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///用户登录

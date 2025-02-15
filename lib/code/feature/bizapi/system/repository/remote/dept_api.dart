@@ -13,7 +13,7 @@ part 'dept_api.g.dart';
 abstract class DeptApiClient {
   factory DeptApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _DeptApiClient(dio, baseUrl: baseUrl ?? ApiConfig().apiUrl);
+    return _DeptApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取部门列表

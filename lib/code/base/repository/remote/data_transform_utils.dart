@@ -23,7 +23,7 @@ class DateTransformUtils {
     if (entity.isSuccess()) {
       return entity;
     }
-    throw ApiException(entity.code ?? ApiConfig.CODE_UNKNOWN_MISTAKE,
+    throw ApiException(entity.code ?? ApiConfig.VALUE_CODE_UNKNOWN_MISTAKE,
         message: entity.msg);
   }
 
@@ -31,7 +31,7 @@ class DateTransformUtils {
     if (entity.isSuccess()) {
       return entity;
     }
-    throw ApiException(entity.getCode() ?? ApiConfig.CODE_UNKNOWN_MISTAKE,
+    throw ApiException(entity.getCode() ?? ApiConfig.VALUE_CODE_UNKNOWN_MISTAKE,
         message: entity.getMsg());
   }
 }

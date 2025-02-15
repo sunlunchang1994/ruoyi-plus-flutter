@@ -11,8 +11,8 @@ class HeaderInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     ApiConfig apiConfig = ApiConfig();
-    if (options.headers[ApiConfig.KEY_TOKEN] == null && !TextUtil.isEmpty(apiConfig.token)) {
-      options.headers.addAll({ApiConfig.KEY_TOKEN: apiConfig.token});
+    if (options.headers[ApiConfig.KEY_TOKEN] == null && !TextUtil.isEmpty(apiConfig.getToken())) {
+      options.headers.addAll({ApiConfig.KEY_TOKEN: apiConfig.getToken()});
     }
 
     if (options.headers[ApiConfig.KEY_CLIENT_ID] == null && !TextUtil.isEmpty(apiConfig.clientid)) {

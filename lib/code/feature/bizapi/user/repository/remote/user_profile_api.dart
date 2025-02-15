@@ -16,7 +16,7 @@ part 'user_profile_api.g.dart';
 abstract class UserProfileApiClient {
   factory UserProfileApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _UserProfileApiClient(dio, baseUrl: baseUrl ?? ApiConfig().apiUrl);
+    return _UserProfileApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取个人信息
