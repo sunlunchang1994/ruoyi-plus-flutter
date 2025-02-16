@@ -1085,6 +1085,11 @@ class S {
     return Intl.message('公司：%s', name: 'label_company_x', desc: '', args: []);
   }
 
+  /// `无`
+  String get label_not {
+    return Intl.message('无', name: 'label_not', desc: '', args: []);
+  }
+
   /// `-----------------------------`
   String get label_refresh_divide_text {
     return Intl.message(
@@ -1193,6 +1198,11 @@ class S {
       desc: '',
       args: [],
     );
+  }
+
+  /// `附件`
+  String get app_label_attachment {
+    return Intl.message('附件', name: 'app_label_attachment', desc: '', args: []);
   }
 
   /// `未知文件`
@@ -1340,6 +1350,31 @@ class S {
     );
   }
 
+  /// `您的修改未保存，确认要退出吗？`
+  String get app_label_data_save_prompt {
+    return Intl.message(
+      '您的修改未保存，确认要退出吗？',
+      name: 'app_label_data_save_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `404`
+  String get app_label_404 {
+    return Intl.message('404', name: 'app_label_404', desc: '', args: []);
+  }
+
+  /// `抱歉，页面未找到！`
+  String get app_label_404_msg {
+    return Intl.message(
+      '抱歉，页面未找到！',
+      name: 'app_label_404_msg',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `同意`
   String get app_label_agree {
     return Intl.message('同意', name: 'app_label_agree', desc: '', args: []);
@@ -1373,16 +1408,6 @@ class S {
   /// `备注`
   String get app_label_remark {
     return Intl.message('备注', name: 'app_label_remark', desc: '', args: []);
-  }
-
-  /// `无`
-  String get app_label_not {
-    return Intl.message('无', name: 'app_label_not', desc: '', args: []);
-  }
-
-  /// `元`
-  String get app_label_yuan {
-    return Intl.message('元', name: 'app_label_yuan', desc: '', args: []);
   }
 
   /// `部门：%1$s`
@@ -1485,11 +1510,6 @@ class S {
     return Intl.message('结束时间', name: 'app_label_end_time', desc: '', args: []);
   }
 
-  /// `附件`
-  String get app_label_attachment {
-    return Intl.message('附件', name: 'app_label_attachment', desc: '', args: []);
-  }
-
   /// `个人信息`
   String get app_label_personal_information {
     return Intl.message(
@@ -1540,21 +1560,6 @@ class S {
     return Intl.message(
       '相册',
       name: 'app_label_photo_album',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `404`
-  String get app_label_404 {
-    return Intl.message('404', name: 'app_label_404', desc: '', args: []);
-  }
-
-  /// `抱歉，页面未找到！`
-  String get app_label_404_msg {
-    return Intl.message(
-      '抱歉，页面未找到！',
-      name: 'app_label_404_msg',
       desc: '',
       args: [],
     );
@@ -1930,6 +1935,26 @@ class S {
     return Intl.message(
       '顶级部门',
       name: 'user_label_top_dept',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `新增部门`
+  String get user_label_dept_add {
+    return Intl.message(
+      '新增部门',
+      name: 'user_label_dept_add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `修改部门信息`
+  String get user_label_dept_edit {
+    return Intl.message(
+      '修改部门信息',
+      name: 'user_label_dept_edit',
       desc: '',
       args: [],
     );

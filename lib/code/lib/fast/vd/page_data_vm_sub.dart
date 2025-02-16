@@ -8,13 +8,13 @@ import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 
 ///基础分页列表
 abstract class IBasePageDataCommonVmSub<T> extends IListDataVmSub<T> {
-  DateWrapper<PageModel<T>>? _dateWrapper;
+  DataWrapper<PageModel<T>>? _dateWrapper;
 
-  DateWrapper<PageModel<T>>? get dateWrapper => _dateWrapper;
+  DataWrapper<PageModel<T>>? get dateWrapper => _dateWrapper;
 
-  Future<DateWrapper<PageModel<T>>> refresh();
+  Future<DataWrapper<PageModel<T>>> refresh();
 
-  void onFailed(DateWrapper<PageModel<T>> dateWrapper) {}
+  void onFailed(DataWrapper<PageModel<T>> dateWrapper) {}
 }
 
 ///基础分页列表拓展，实现异步加载更多数据、填充数据等
@@ -30,7 +30,7 @@ abstract class BasePageDataVmSub<T> extends IBasePageDataCommonVmSub<T> {
   }
 
   @override
-  Future<DateWrapper<PageModel<T>>> refresh(
+  Future<DataWrapper<PageModel<T>>> refresh(
       {bool notificationUi = false}) async {
     _loadMoreFormat.refresh(notificationUi: notificationUi);
     return loadMore();
@@ -41,13 +41,13 @@ abstract class BasePageDataVmSub<T> extends IBasePageDataCommonVmSub<T> {
       handlerDateWrapper(dateWrapper);
     }, onError: (error) {
       //不应该让错误在这处理
-      handlerDateWrapper(DateWrapper.createFailed());
+      handlerDateWrapper(DataWrapper.createFailed());
     });
   }
 
-  Future<DateWrapper<PageModel<T>>> loadMore();
+  Future<DataWrapper<PageModel<T>>> loadMore();
 
-  void handlerDateWrapper(DateWrapper<PageModel<T>> dataWrapper) {
+  void handlerDateWrapper(DataWrapper<PageModel<T>> dataWrapper) {
     if (dataWrapper.isSuccess()) {
       onSucceed(dataWrapper.data ?? PageModel());
     } else {
@@ -60,7 +60,7 @@ abstract class BasePageDataVmSub<T> extends IBasePageDataCommonVmSub<T> {
   }
 
   @override
-  void onFailed(DateWrapper<PageModel<T>> dateWrapper) {
+  void onFailed(DataWrapper<PageModel<T>> dateWrapper) {
     super.onFailed(dateWrapper);
     _loadMoreFormat.loadMoreFail();
   }
@@ -82,8 +82,8 @@ class FastBaseListDataPageVmSub<T> extends BasePageDataVmSub<T>
   }
 
   @override
-  Future<DateWrapper<PageModel<T>>> loadMore() async {
-    DateWrapper<PageModel<T>> dateWrapper =
+  Future<DataWrapper<PageModel<T>>> loadMore() async {
+    DataWrapper<PageModel<T>> dateWrapper =
         await _loadMore!.call(_loadMoreFormat);
     handlerDateWrapper(dateWrapper);
     return dateWrapper;

@@ -3,30 +3,48 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/router/slc_router.dart';
 import 'package:ruoyi_plus_flutter/code/module/biz_main/ui/main_page.dart';
 import 'package:ruoyi_plus_flutter/code/feature/welcome/ui/welcome_page.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
 
 import '../base/config/constant_base.dart';
 import '../module/system/ui/fof/no_found_page.dart';
 import '../module/system/ui/menu/menu_page.dart';
+import '../module/user/ui/dept/dept_add_edit_page.dart';
 import '../module/user/ui/dept/dept_list_browser_page.dart';
 import '../feature/auth/ui/login_page.dart';
 import '../module/user/ui/profile_page.dart';
 
 // GoRouter configuration
 final Map<String, WidgetBuilder> router = {
-  WelcomePage.routeName: (BuildContext context) => WelcomePage(),
+  //404页面
   NotFoundPage.routeName: (BuildContext context) => NotFoundPage(),
+  //欢迎页
+  WelcomePage.routeName: (BuildContext context) => WelcomePage(),
+  //登录页面
   LoginPage.routeName: (BuildContext context) => LoginPage(),
-  ProfilePage.routeName: (BuildContext context) => ProfilePage(),
+  //主页
   MainPage.routeName: (BuildContext context) => MainPage(),
+  //菜单页
   MenuPage.routeName: (BuildContext context) {
-    SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo();
+    SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
     return MenuPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE],
         slcRouterInfo.arguments["routerList"], slcRouterInfo.arguments["parentPath"]);
   },
+  //个人信息
+  //个人信息：修改
+  ProfilePage.routeName: (BuildContext context) => ProfilePage(),
+  //部门
+  //部门：部门列表
   DeptListBrowserPage.routeName: (BuildContext context) {
-    SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo();
+    SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
     return DeptListBrowserPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
+  //部门：部门信息新增或删除
+  DeptAddEditPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return DeptAddEditPage(
+        deptInfo: slcRouterInfo?.arguments[ConstantUser.KEY_DEPT],
+        parentDept: slcRouterInfo?.arguments[ConstantUser.KEY_PARENT_DEPT]);
+  }
 };
 
 Route get404Route(RouteSettings settings) {

@@ -33,8 +33,7 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
       builder: (context, child) {
         ThemeData themeData = Theme.of(context);
         registerEvent(context);
-        final mainVm = Provider.of<_MineVm>(context, listen: false);
-        mainVm.initVm();
+        getVm().initVm();
         return Scaffold(
             appBar: AppBar(title: Text(title)),
             //图标滚动使用固定大小来解决
@@ -47,6 +46,7 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                       onTap: () {
                         getVm().pushNamed(ProfilePage.routeName);
                       },
+                      behavior: HitTestBehavior.opaque,
                       child: Padding(
                           padding: EdgeInsets.all(SlcDimens.appDimens16),
                           child: Row(children: [

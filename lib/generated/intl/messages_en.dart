@@ -84,6 +84,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "app_label_attachment": MessageLookupByLibrary.simpleMessage("附件"),
     "app_label_click_preview": MessageLookupByLibrary.simpleMessage("点击预览"),
     "app_label_compressed_file": MessageLookupByLibrary.simpleMessage("压缩文件"),
+    "app_label_data_save_prompt": MessageLookupByLibrary.simpleMessage(
+      "您的修改未保存，确认要退出吗？",
+    ),
     "app_label_department": MessageLookupByLibrary.simpleMessage("部门"),
     "app_label_department_x": MessageLookupByLibrary.simpleMessage("部门：%1\$s"),
     "app_label_end_time": MessageLookupByLibrary.simpleMessage("结束时间"),
@@ -104,7 +107,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "app_label_no_location_information": MessageLookupByLibrary.simpleMessage(
       "未获取到位置信息",
     ),
-    "app_label_not": MessageLookupByLibrary.simpleMessage("无"),
     "app_label_not_completed": MessageLookupByLibrary.simpleMessage("待完善"),
     "app_label_pass": MessageLookupByLibrary.simpleMessage("通过"),
     "app_label_personal_information": MessageLookupByLibrary.simpleMessage(
@@ -134,7 +136,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "app_label_unfilled": MessageLookupByLibrary.simpleMessage("未填写"),
     "app_label_unknown_file": MessageLookupByLibrary.simpleMessage("未知文件"),
     "app_label_unselect_all": MessageLookupByLibrary.simpleMessage("全不选"),
-    "app_label_yuan": MessageLookupByLibrary.simpleMessage("元"),
     "app_name": MessageLookupByLibrary.simpleMessage("ruoyi-plus-flutter"),
     "app_toast_login_login_failed": MessageLookupByLibrary.simpleMessage(
       "登录失败",
@@ -205,6 +206,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "label_loading_success": MessageLookupByLibrary.simpleMessage("加载成功"),
     "label_mailbox": MessageLookupByLibrary.simpleMessage("邮箱"),
     "label_mailbox_x": MessageLookupByLibrary.simpleMessage("邮箱：%s"),
+    "label_not": MessageLookupByLibrary.simpleMessage("无"),
     "label_operation_failed": MessageLookupByLibrary.simpleMessage("操作失败"),
     "label_params": m0,
     "label_permission_base_hint": MessageLookupByLibrary.simpleMessage(
@@ -362,6 +364,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "user_label_check_for_updates_ing": MessageLookupByLibrary.simpleMessage(
       "正在获取更新信息",
     ),
+    "user_label_dept_add": MessageLookupByLibrary.simpleMessage("新增部门"),
+    "user_label_dept_edit": MessageLookupByLibrary.simpleMessage("修改部门信息"),
     "user_label_dept_list": MessageLookupByLibrary.simpleMessage("部门列表"),
     "user_label_dept_not_found": MessageLookupByLibrary.simpleMessage(
       "没有获取到部门信息",

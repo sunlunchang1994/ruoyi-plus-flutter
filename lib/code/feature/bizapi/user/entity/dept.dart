@@ -7,6 +7,7 @@ part 'dept.g.dart';
 class Dept extends BaseEntity {
   int? deptId;
   int? parentId;
+  String? parentName;
   String? deptName;
   String? deptCategory;
   int? orderNum;
@@ -15,10 +16,12 @@ class Dept extends BaseEntity {
   String? phone;
   String? email;
   String? status;
+  String? ancestors;
 
   Dept(
       {this.deptId,
       this.parentId,
+      this.parentName,
       this.deptName,
       this.deptCategory,
       this.orderNum,
@@ -27,6 +30,7 @@ class Dept extends BaseEntity {
       this.phone,
       this.email,
       this.status,
+      this.ancestors,
       super.createDept,
       super.createBy,
       super.createTime,

@@ -3,11 +3,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/dialog/dialog_loading_vm.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
+import 'package:ruoyi_plus_flutter/code/base/ui/utils/fast_dialog_utils.dart';
 import 'package:ruoyi_plus_flutter/code/base/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/repository/remote/user_profile_api.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
@@ -205,7 +205,20 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
   }
 
   ///显示提示保存对话框
-  void _showPromptSaveDialog(BuildContext context) {}
+  void _showPromptSaveDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+              title: Text(S.current.label_prompt),
+              content: Text(S.current.app_label_data_save_prompt),
+              actions: FastDialogUtils.getCommonlyAction(context, positiveText: S.current.action_exit,
+                  positiveLister: () {
+                Navigator.pop(context);
+                getVm().abandonEdit();
+              }));
+        });
+  }
 }
 
 class _ProfileModel extends AppBaseVm {
@@ -232,11 +245,18 @@ class _ProfileModel extends AppBaseVm {
     userInfo.sex = item.tdDictValue!;
     userInfo.sexName = item.tdDictLabel!;
     notifyListeners();
+    applyInfoChange();
   }
 
   //应用信息更改
   void applyInfoChange() {
     _infoChange = true;
+  }
+
+  //放弃修改
+  void abandonEdit() {
+    _infoChange = false;
+    finish();
   }
 
   bool canPop() {
@@ -271,8 +291,6 @@ class _ProfileModel extends AppBaseVm {
       return;
     }
     _saveProfile();
-    //上传文件，提交信息
-    //保存成功后要设置 _infoChange=true
   }
 
   void _saveProfile() {
@@ -284,6 +302,8 @@ class _ProfileModel extends AppBaseVm {
       GlobalVm().userShareVm.userInfoOf.value!.user = userInfo;
       AppToastBridge.showToast(msg: S.current.toast_edit_success);
       dismissLoading();
+      //保存成功后要设置
+      _infoChange = false;
     }, onError: (e) {
       AppToastBridge.showToast(msg: S.current.toast_edit_failure);
       dismissLoading();

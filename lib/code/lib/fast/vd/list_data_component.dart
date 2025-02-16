@@ -9,9 +9,9 @@ import 'package:flutter_slc_boxes/flutter/slc/code/observable_field.dart';
 ///
 
 ///刷新
-typedef Refresh<T> = Future<DateWrapper<List<T>>> Function();
+typedef Refresh<T> = Future<DataWrapper<List<T>>> Function();
 ///加载更多
-typedef LoadMore<T> = Future<DateWrapper<PageModel<T>>> Function(
+typedef LoadMore<T> = Future<DataWrapper<PageModel<T>>> Function(
     LoadMoreFormat<T> loadMoreFormat);
 ///item的点击事件
 typedef ItemClick<T> = void Function(int index, T data);
@@ -43,7 +43,7 @@ mixin class ListenerItemClick<T> {
 }
 
 ///列表包装类型
-class DateWrapper<T> {
+class DataWrapper<T> {
   static const CODE_SUCCESS_200 = 200;
 
   static const CODE_SUCCESS = 0;
@@ -54,18 +54,18 @@ class DateWrapper<T> {
   String? msg;
   T? data;
 
-  DateWrapper({this.code, this.msg, this.data});
+  DataWrapper({this.code, this.msg, this.data});
 
   bool isSuccess() {
     return code == CODE_SUCCESS || code == CODE_SUCCESS_200;
   }
 
-  static DateWrapper<T> createSuccess<T>(T data) {
-    return DateWrapper(code: 200, data: data);
+  static DataWrapper<T> createSuccess<T>(T data) {
+    return DataWrapper(code: 200, data: data);
   }
 
-  static DateWrapper<T> createFailed<T>({int? code, String? msg}) {
-    return DateWrapper(
+  static DataWrapper<T> createFailed<T>({int? code, String? msg}) {
+    return DataWrapper(
         code: code ?? CODE_DEF_ERROR_CODE, msg: msg ?? "Failed to get data");
   }
 }

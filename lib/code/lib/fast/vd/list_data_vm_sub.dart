@@ -6,13 +6,13 @@ import 'list_data_component.dart';
 
 ///基础列表
 abstract class IBaseListDataCommonVmSub<T> extends IListDataVmSub<T> {
-  DateWrapper<List<T>>? _dateWrapper;
+  DataWrapper<List<T>>? _dateWrapper;
 
-  DateWrapper<List<T>>? get dateWrapper => _dateWrapper;
+  DataWrapper<List<T>>? get dateWrapper => _dateWrapper;
 
-  Future<DateWrapper<List<T>>> refresh();
+  Future<DataWrapper<List<T>>> refresh();
 
-  void onFailed(DateWrapper<List<T>> dateWrapper) {}
+  void onFailed(DataWrapper<List<T>> dateWrapper) {}
 }
 
 ///基础列表进一步拓展、实现异步刷新、更新数据
@@ -20,14 +20,14 @@ abstract class BaseListDataVmSub<T> extends IBaseListDataCommonVmSub<T> {
   @override
   void refreshAsync() {
     refresh().then((dateWrapper) {
-      handlerDateWrapper(dateWrapper);
+      handlerDataWrapper(dateWrapper);
     }, onError: (error) {
       //不应该让错误在这处理
-      handlerDateWrapper(DateWrapper.createFailed());
+      handlerDataWrapper(DataWrapper.createFailed());
     });
   }
 
-  void handlerDateWrapper(DateWrapper<List<T>> dataWrapper) {
+  void handlerDataWrapper(DataWrapper<List<T>> dataWrapper) {
     if (dataWrapper.isSuccess()) {
       onSucceed(dataWrapper.data ?? List.empty());
     } else {
@@ -51,9 +51,9 @@ class FastBaseListDataVmSub<T> extends BaseListDataVmSub<T>
   }
 
   @override
-  Future<DateWrapper<List<T>>> refresh() async {
-    DateWrapper<List<T>> dateWrapper = await _refresh!.call();
-    handlerDateWrapper(dateWrapper);
+  Future<DataWrapper<List<T>>> refresh() async {
+    DataWrapper<List<T>> dateWrapper = await _refresh!.call();
+    handlerDataWrapper(dateWrapper);
     return dateWrapper;
   }
 }

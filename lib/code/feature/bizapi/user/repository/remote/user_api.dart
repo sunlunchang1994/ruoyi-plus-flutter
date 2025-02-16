@@ -11,7 +11,7 @@ import '../../../../../base/api/api_config.dart';
 import '../../../../../base/api/base_dio.dart';
 import '../../../../../base/api/result_entity.dart';
 import '../../../../../base/repository/remote/page_transform_utils.dart';
-import '../../entity/dept_tree.dart';
+import '../../../../../module/user/entity/dept_tree.dart';
 import '../../entity/user_info_vo.dart';
 
 part 'user_api.g.dart';

@@ -7,7 +7,9 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_vd.dart';
-import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/remote/dept_api.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_add_edit_page.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
@@ -58,8 +60,10 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
                     SlcTreeNav lastItem = value.last;
                     return Row(
                       children: [
-                        SvgPicture.asset("assets/images/slc/user_ic_folder.svg",
-                            height: 16, color: themeData.primaryColor),
+                        Padding(
+                            padding: EdgeInsets.only(left: SlcDimens.appDimens16),
+                            child: SvgPicture.asset("assets/images/slc/user_ic_folder.svg",
+                                height: 16, color: themeData.primaryColor)),
                         Expanded(
                             child: SizedBox(
                                 height: 32,
@@ -122,6 +126,10 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
                                             child: const Icon(Icons.chevron_right, size: 24)),
                                         onTap: () {
                                           //点击事件
+                                          getVm().pushNamed(DeptAddEditPage.routeName,
+                                              arguments: {ConstantUser.KEY_DEPT: listItem}).then((value){
+                                                //TODO 修改结果
+                                          });
                                         })),
                                 contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
                                 title: Text(listItem.deptNameVo()),
@@ -177,12 +185,12 @@ class _DeptListBrowserVm extends AppBaseVm {
   void initVm() {
     listVmSub.setRefresh(() async {
       try {
-        IntensifyEntity<List<Dept>> intensifyEntity = await DeptServiceRepository.list(_currentSearch);
-        DateWrapper<List<Dept>> dateWrapper = DateTransformUtils.entity2LDWrapper(intensifyEntity);
+        IntensifyEntity<List<Dept>> intensifyEntity = await DeptRepository.list(_currentSearch);
+        DataWrapper<List<Dept>> dateWrapper = DateTransformUtils.entity2LDWrapper(intensifyEntity);
         return dateWrapper;
       } catch (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
-        return DateWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
+        return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
       }
     });
     //类似于Android的runPost

@@ -11,7 +11,7 @@ import 'package:ruoyi_plus_flutter/code/feature/auth/repository/remote/auth_api.
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/remote/menu_api.dart';
 import '../../../base/api/base_dio.dart';
 import '../../../base/ui/widget/my_form_builder_text_field.dart';
-import '../../../module/user/repository/local/UserConfig.dart';
+import '../../../module/user/repository/local/user_config.dart';
 import '../entity/captcha.dart';
 import '../../bizapi/system/entity/router_vo.dart';
 import '../../bizapi/system/entity/tenant_list_vo.dart';
