@@ -251,7 +251,7 @@ class MySelectDecoration extends InputDecoration {
     super.prefixStyle,
     super.prefixIconColor,
     super.suffixIcon = const Icon(Icons.chevron_right),
-    super.suffixIconConstraints = const BoxConstraints(minWidth: 24, maxHeight: 24),
+    super.suffixIconConstraints = const BoxConstraints(minWidth: 32, maxHeight: 32),
     super.suffix,
     super.suffixText,
     super.suffixStyle,

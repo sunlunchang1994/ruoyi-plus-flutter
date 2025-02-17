@@ -1960,6 +1960,86 @@ class S {
     );
   }
 
+  /// `上级部门`
+  String get user_label_dept_parent_name {
+    return Intl.message(
+      '上级部门',
+      name: 'user_label_dept_parent_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `部门名称`
+  String get user_label_dept_name {
+    return Intl.message(
+      '部门名称',
+      name: 'user_label_dept_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `类别编码`
+  String get user_label_dept_category {
+    return Intl.message(
+      '类别编码',
+      name: 'user_label_dept_category',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `显示排序`
+  String get user_label_dept_show_sort {
+    return Intl.message(
+      '显示排序',
+      name: 'user_label_dept_show_sort',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `负责人`
+  String get user_label_dept_leader {
+    return Intl.message(
+      '负责人',
+      name: 'user_label_dept_leader',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `联系电话`
+  String get user_label_dept_contact_number {
+    return Intl.message(
+      '联系电话',
+      name: 'user_label_dept_contact_number',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `邮箱`
+  String get user_label_dept_contact_email {
+    return Intl.message(
+      '邮箱',
+      name: 'user_label_dept_contact_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `部门状态`
+  String get user_label_dept_status {
+    return Intl.message(
+      '部门状态',
+      name: 'user_label_dept_status',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `选择%s`
   String get user_label_select_x {
     return Intl.message(

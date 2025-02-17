@@ -11,7 +11,7 @@ import '../module/system/ui/menu/menu_page.dart';
 import '../module/user/ui/dept/dept_add_edit_page.dart';
 import '../module/user/ui/dept/dept_list_browser_page.dart';
 import '../feature/auth/ui/login_page.dart';
-import '../module/user/ui/profile_page.dart';
+import '../module/user/ui/user/profile_page.dart';
 
 // GoRouter configuration
 final Map<String, WidgetBuilder> router = {

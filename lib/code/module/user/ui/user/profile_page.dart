@@ -14,17 +14,17 @@ import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/res/dimens.dart';
-import '../../../base/api/result_entity.dart';
-import '../../../base/ui/widget/form_builder_image_picker/form_builder_single_image_picker.dart';
-import '../../../base/ui/widget/my_form_builder_text_field.dart';
-import '../../../base/vm/global_vm.dart';
-import '../../../feature/component/crop/crop_image.dart';
-import '../../../feature/bizapi/user/entity/avatar_vo.dart';
-import '../../../feature/bizapi/user/entity/user.dart';
+import '../../../../base/api/result_entity.dart';
+import '../../../../lib/fast/widget/form/image_picker/form_builder_single_image_picker.dart';
+import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
+import '../../../../base/vm/global_vm.dart';
+import '../../../../feature/component/crop/crop_image.dart';
+import '../../../../feature/bizapi/user/entity/avatar_vo.dart';
+import '../../../../feature/bizapi/user/entity/user.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../generated/l10n.dart';
-import '../../../base/ui/app_mvvm.dart';
+import '../../../../../generated/l10n.dart';
+import '../../../../base/ui/app_mvvm.dart';
 
 class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
   static const String routeName = '/profile';

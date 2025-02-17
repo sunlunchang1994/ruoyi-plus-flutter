@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../base/ui/app_mvvm.dart';
 import '../../../lib/fast/utils/bar_utils.dart';
 import 'workbench_page.dart';
-import '../../user/ui/mine_page.dart';
+import '../../user/ui/user/mine_page.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../generated/l10n.dart';

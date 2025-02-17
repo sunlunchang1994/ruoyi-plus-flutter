@@ -106,11 +106,11 @@ dependencies:
 
   # 表单---------------------------------------
   # 表单相关
-  flutter_form_builder: ^9.5.0
+  flutter_form_builder: ^9.7.0
   form_builder_extra_fields: ^11.0.0
   form_builder_image_picker: ^4.1.0
   form_builder_file_picker: ^4.2.0
-  form_builder_validators: ^11.0.0
+  form_builder_validators: ^11.1.1
   form_builder_phone_field: ^2.0.1
   # form_builder_cupertino_fields: ^0.4.0 ios风格
 

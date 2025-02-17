@@ -244,10 +244,20 @@
   "user_label_x_people": "%s人",
   "user_label_dept_not_found": "没有获取到部门信息",
   "user_label_user_info_not_found": "没有获取到用户信息",
+
   "user_label_all_dept": "所有部门",
   "user_label_top_dept": "顶级部门",
   "user_label_dept_add": "新增部门",
   "user_label_dept_edit": "修改部门信息",
+  "user_label_dept_parent_name": "上级部门",
+  "user_label_dept_name": "部门名称",
+  "user_label_dept_category": "类别编码",
+  "user_label_dept_show_sort": "显示排序",
+  "user_label_dept_leader": "负责人",
+  "user_label_dept_contact_number": "联系电话",
+  "user_label_dept_contact_email": "邮箱",
+  "user_label_dept_status": "部门状态",
+
   "user_label_select_x": "选择%s",
   "user_label_tenant_not_empty_hint": "机构不能为空",
   "user_label_account_not_empty_hint": "账号不能为空",
@@ -265,6 +275,7 @@
   "user_label_avatar_are_uploading": "正在上传头像",
   "user_label_avatar_upload_failed": "上传头像失败",
   "user_label_avatar_uploaded_success": "上传头像成功",
+
   "dict_divide_text": "-----------------------------",
   "dict_label_ley": "字典名",
   "dict_label_name": "字典值",

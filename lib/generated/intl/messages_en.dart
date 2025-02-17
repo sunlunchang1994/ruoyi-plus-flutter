@@ -365,11 +365,21 @@ class MessageLookup extends MessageLookupByLibrary {
       "正在获取更新信息",
     ),
     "user_label_dept_add": MessageLookupByLibrary.simpleMessage("新增部门"),
+    "user_label_dept_category": MessageLookupByLibrary.simpleMessage("类别编码"),
+    "user_label_dept_contact_email": MessageLookupByLibrary.simpleMessage("邮箱"),
+    "user_label_dept_contact_number": MessageLookupByLibrary.simpleMessage(
+      "联系电话",
+    ),
     "user_label_dept_edit": MessageLookupByLibrary.simpleMessage("修改部门信息"),
+    "user_label_dept_leader": MessageLookupByLibrary.simpleMessage("负责人"),
     "user_label_dept_list": MessageLookupByLibrary.simpleMessage("部门列表"),
+    "user_label_dept_name": MessageLookupByLibrary.simpleMessage("部门名称"),
     "user_label_dept_not_found": MessageLookupByLibrary.simpleMessage(
       "没有获取到部门信息",
     ),
+    "user_label_dept_parent_name": MessageLookupByLibrary.simpleMessage("上级部门"),
+    "user_label_dept_show_sort": MessageLookupByLibrary.simpleMessage("显示排序"),
+    "user_label_dept_status": MessageLookupByLibrary.simpleMessage("部门状态"),
     "user_label_edit_pass_word": MessageLookupByLibrary.simpleMessage("修改密码"),
     "user_label_input_account": MessageLookupByLibrary.simpleMessage("请输入账号"),
     "user_label_input_captcha_code": MessageLookupByLibrary.simpleMessage(
