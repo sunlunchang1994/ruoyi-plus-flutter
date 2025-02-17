@@ -37,7 +37,7 @@ class OssServiceRepository {
               resultEntity: event, createData: (resultEntity) => OssUploadVo.fromJson(resultEntity.data));
           return intensifyEntity;
         })
-        .map(DateTransformUtils.checkErrorIe)
+        .map(DataTransformUtils.checkErrorIe)
         .single;
   }
 }

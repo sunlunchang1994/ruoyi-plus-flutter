@@ -42,7 +42,7 @@ class MenuServiceRepository {
               });
           return intensifyEntity;
         })
-        .map(DateTransformUtils.checkErrorIe)
+        .map(DataTransformUtils.checkErrorIe)
         .map((event) {
           List<RouterVo> routerVoList = event.data;
           GlobalVm().userShareVm.routerVoOf.value = routerVoList;

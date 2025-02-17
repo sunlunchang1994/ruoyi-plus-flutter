@@ -56,3 +56,22 @@ class DoubleConverter implements JsonConverter<double, String> {
     return object.toString();
   }
 }
+///整数
+///@IntConverter()
+class IntConverter implements JsonConverter<int, dynamic> {
+
+  const IntConverter();
+
+  @override
+  int fromJson(dynamic json) {
+    if(json is int){
+      return json;
+    }
+    return int.parse(json);
+  }
+
+  @override
+  String toJson(int object) {
+    return object.toString();
+  }
+}

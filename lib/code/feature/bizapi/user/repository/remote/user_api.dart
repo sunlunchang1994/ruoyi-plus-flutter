@@ -49,7 +49,7 @@ class UserServiceRepository {
               resultEntity: event, createData: (resultEntity) => UserInfoVo.fromJson(resultEntity.data));
           return intensifyEntity;
         })
-        .map(DateTransformUtils.checkErrorIe)
+        .map(DataTransformUtils.checkErrorIe)
         .map((event) {
           UserInfoVo userInfoVo = event.data;
           GlobalVm().userShareVm.userInfoOf.value = userInfoVo;
@@ -74,7 +74,7 @@ class UserServiceRepository {
               });
           return intensifyEntity;
         })
-        .map(DateTransformUtils.checkErrorIe)
+        .map(DataTransformUtils.checkErrorIe)
         .single;
   }
 
@@ -90,7 +90,7 @@ class UserServiceRepository {
               });
           return intensifyEntity;
         })
-        .map(DateTransformUtils.checkErrorIe)
+        .map(DataTransformUtils.checkErrorIe)
         .single;
   }
 }

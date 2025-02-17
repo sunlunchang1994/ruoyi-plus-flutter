@@ -6,7 +6,7 @@ import '../../api/result_entity.dart';
 
 ///@Author sunlunchang
 ///数据转换类，一般在网络返回时的异步中使用
-class DateTransformUtils {
+class DataTransformUtils {
   static DataWrapper<T> entity2LDWrapperShell<T>(IntensifyEntity entity,
       {T? data}) {
     return DataWrapper(

@@ -11,6 +11,7 @@ import '../module/system/ui/menu/menu_page.dart';
 import '../module/user/ui/dept/dept_add_edit_page.dart';
 import '../module/user/ui/dept/dept_list_browser_page.dart';
 import '../feature/auth/ui/login_page.dart';
+import '../module/user/ui/dept/dept_list_single_select_page.dart';
 import '../module/user/ui/user/profile_page.dart';
 
 // GoRouter configuration
@@ -37,6 +38,11 @@ final Map<String, WidgetBuilder> router = {
   DeptListBrowserPage.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
     return DeptListBrowserPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
+  },
+  //部门：部门单选列表
+  DeptListSingleSelectPage.routeName: (BuildContext context) {
+    SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
+    return DeptListSingleSelectPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //部门：部门信息新增或删除
   DeptAddEditPage.routeName: (BuildContext context) {

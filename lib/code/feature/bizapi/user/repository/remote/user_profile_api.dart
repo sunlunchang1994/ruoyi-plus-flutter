@@ -48,7 +48,7 @@ class UserProfileServiceRepository {
               });
           return intensifyEntity;
         })
-        .map(DateTransformUtils.checkErrorIe)
+        .map(DataTransformUtils.checkErrorIe)
         .single;
   }
 
@@ -66,7 +66,7 @@ class UserProfileServiceRepository {
           var intensifyEntity = IntensifyEntity(resultEntity: event);
           return intensifyEntity;
         })
-        .map(DateTransformUtils.checkErrorIe)
+        .map(DataTransformUtils.checkErrorIe)
         .single;
   }
 
@@ -79,7 +79,7 @@ class UserProfileServiceRepository {
               resultEntity: event, createData: (resultEntity) => AvatarVo.fromJson(resultEntity.data));
           return intensifyEntity;
         })
-        .map(DateTransformUtils.checkErrorIe)
+        .map(DataTransformUtils.checkErrorIe)
         .single;
   }
 }

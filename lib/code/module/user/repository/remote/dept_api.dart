@@ -13,42 +13,59 @@ part 'dept_api.g.dart';
 abstract class DeptApiClient {
   factory DeptApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _DeptApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _DeptApiClient(dio,
+        baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取部门列表
   @GET("/system/dept/list")
-  Future<ResultEntity> list(@Queries() Dept? data);
+  Future<ResultEntity> list(
+      @Queries() Dept? data, @CancelRequest() CancelToken cancelToken);
 
   ///获取部门信息
   @GET("/system/dept/{deptId}")
-  Future<ResultEntity> getInfo(@Path("deptId") int deptId, @CancelRequest() CancelToken cancelToken);
+  Future<ResultEntity> getInfo(
+      @Path("deptId") int deptId, @CancelRequest() CancelToken cancelToken);
+
+  ///添加部门
+  @POST("/system/dept")
+  Future<ResultEntity> add(
+      @Body() Dept? data, @CancelRequest() CancelToken cancelToken);
+
+  ///编辑部门
+  @PUT("/system/dept")
+  Future<ResultEntity> edit(
+      @Body() Dept? data, @CancelRequest() CancelToken cancelToken);
 }
 
 ///部门服务
 class DeptRepository {
+  //实例
   static final DeptApiClient _deptApiClient = DeptApiClient();
 
   ///获取部门列表
-  static Future<IntensifyEntity<List<Dept>>> list(Dept? dept) {
+  static Future<IntensifyEntity<List<Dept>>> list(
+      Dept? dept, CancelToken cancelToken) {
     return _deptApiClient
-        .list(dept)
+        .list(dept, cancelToken)
         .asStream()
         .map((event) {
           var intensifyEntity = IntensifyEntity<List<Dept>>(
               resultEntity: event,
               createData: (resultEntity) {
-                List<Dept> dataList = Dept.formJsonList(resultEntity.data); //列表为空时创建默认的
+                List<Dept> dataList =
+                    Dept.formJsonList(resultEntity.data); //列表为空时创建默认的
                 return dataList;
               });
           return intensifyEntity;
         })
-        .map(DateTransformUtils.checkErrorIe)
+        .map(DataTransformUtils.checkErrorIe)
         .single;
   }
 
   ///获取部门信息
-  static Future<IntensifyEntity<Dept>> getInfo(int deptId, CancelToken cancelToken) {
+  static Future<IntensifyEntity<Dept>> getInfo(
+      int deptId, CancelToken cancelToken) {
     return _deptApiClient
         .getInfo(deptId, cancelToken)
         .asStream()
@@ -60,7 +77,23 @@ class DeptRepository {
               });
           return intensifyEntity;
         })
-        .map(DateTransformUtils.checkErrorIe)
+        .map(DataTransformUtils.checkErrorIe)
+        .single;
+  }
+
+  ///提交部门信息
+  static Future<IntensifyEntity<Dept>> submit(
+      Dept dept, CancelToken cancelToken) {
+    Future<ResultEntity> resultFuture = dept.deptId == null
+        ? _deptApiClient.add(dept, cancelToken)
+        : _deptApiClient.edit(dept, cancelToken);
+    return resultFuture
+        .asStream()
+        .map((event) {
+          var intensifyEntity = IntensifyEntity<Dept>(resultEntity: event);
+          return intensifyEntity;
+        })
+        .map(DataTransformUtils.checkErrorIe)
         .single;
   }
 }

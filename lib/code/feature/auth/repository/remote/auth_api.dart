@@ -58,7 +58,7 @@ class AuthServiceRepository {
           resultEntity: event, createData: (resultEntity) => LoginResult.fromJson(resultEntity.data));
       return intensifyEntity;
     })
-        .map(DateTransformUtils.checkErrorIe)
+        .map(DataTransformUtils.checkErrorIe)
         .map((event) {
       LoginResult loginResult = event.data;
       ApiConfig().setToken("Bearer ${loginResult.access_token!}");
@@ -77,7 +77,7 @@ class AuthServiceRepository {
               resultEntity: event, createData: (resultEntity) => Captcha.fromJson(resultEntity.data));
           return intensifyEntity;
         })
-        .map(DateTransformUtils.checkErrorIe)
+        .map(DataTransformUtils.checkErrorIe)
         .single;
   }
 
@@ -91,7 +91,7 @@ class AuthServiceRepository {
               resultEntity: event, createData: (resultEntity) => LoginTenantVo.fromJson(resultEntity.data));
           return intensifyEntity;
         })
-        .map(DateTransformUtils.checkErrorIe)
+        .map(DataTransformUtils.checkErrorIe)
         .single;
   }
 }

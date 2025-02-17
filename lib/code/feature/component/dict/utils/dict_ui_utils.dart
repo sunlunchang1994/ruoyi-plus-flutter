@@ -6,7 +6,7 @@ import '../entity/tree_dict.dart';
 
 class DictUiUtils {
   ///字典列表转对话框选项
-  static List<SimpleDialogOption> dict2DialogItem(
+  static List<SimpleDialogOption> dictList2DialogItem(
       BuildContext context,
       List<ITreeDict<dynamic>> treeDictList,
       final void Function(ITreeDict<dynamic>) onPressed,
@@ -28,8 +28,8 @@ class DictUiUtils {
   }
 
   ///字典列表转表单选项
-  static List<FormBuilderFieldOption<OptionVL<String>>> dict2FromOption(
-      BuildContext context, List<ITreeDict<dynamic>> treeDictList) {
+  static List<FormBuilderFieldOption<OptionVL<String>>> dictList2FromOption(
+      List<ITreeDict<dynamic>> treeDictList) {
     if (treeDictList.isEmpty) {
       return [];
     }
@@ -37,5 +37,13 @@ class DictUiUtils {
       return VLFormBuilderFieldOption<String>(
           value: OptionVL<String>(item.tdDictValue!, item.tdDictLabel!));
     }).toList(growable: true);
+  }
+
+  ///字典转表单选项
+  static OptionVL<String>? dict2OptionVL(ITreeDict<dynamic>? treeDict) {
+    if (treeDict == null) {
+      return null;
+    }
+    return OptionVL<String>(treeDict.tdDictValue!, treeDict.tdDictLabel!);
   }
 }

@@ -14,30 +14,28 @@ typedef Refresh<T> = Future<DataWrapper<List<T>>> Function();
 typedef LoadMore<T> = Future<DataWrapper<PageModel<T>>> Function(
     LoadMoreFormat<T> loadMoreFormat);
 ///item的点击事件
-typedef ItemClick<T> = void Function(int index, T data);
+typedef OnItemClick<T> = void Function(int index, T data);
 ///item长按事件
-typedef ItemLongClick<T> = void Function(int index, T data);
+typedef OnItemLongClick<T> = void Function(int index, T data);
 
 ///点击响应
 mixin class ListenerItemClick<T> {
-  ItemClick<T>? _itemClick;
-  ItemLongClick<T>? _itemLongClick;
+  OnItemClick<T>? _itemClick;
+  OnItemLongClick<T>? _itemLongClick;
 
-  void setItemClick(ItemClick<T> itemClick) {
+  void setItemClick(OnItemClick<T> itemClick) {
     this._itemClick = itemClick;
   }
 
-  void setItemLongClick(ItemLongClick<T> itemLongClick) {
+  void setItemLongClick(OnItemLongClick<T> itemLongClick) {
     this._itemLongClick = itemLongClick;
   }
 
-  @override
-  void itemClick(int index, T data) {
+  void onItemClick(int index, T data) {
     _itemClick?.call(index, data);
   }
 
-  @override
-  void itemLongClick(int index, T data) {
+  void onItemLongClick(int index, T data) {
     _itemLongClick?.call(index, data);
   }
 }

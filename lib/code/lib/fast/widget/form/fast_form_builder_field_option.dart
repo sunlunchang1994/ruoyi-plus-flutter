@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+
 ///
 /// Value Label选项
 /// @author slc
@@ -22,4 +23,14 @@ class OptionVL<T> {
   final String label;
 
   OptionVL(this.value, this.label);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is OptionVL &&
+          runtimeType == other.runtimeType &&
+          value == other.value;
+
+  @override
+  int get hashCode => value.hashCode;
 }

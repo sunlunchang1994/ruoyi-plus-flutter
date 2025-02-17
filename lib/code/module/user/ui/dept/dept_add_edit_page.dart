@@ -16,6 +16,7 @@ import 'package:ruoyi_plus_flutter/code/feature/component/dict/repository/local/
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_single_select_page.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
@@ -78,9 +79,15 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
         child: Padding(
             padding: EdgeInsets.symmetric(horizontal: SlcDimens.appDimens16),
             child: FormBuilder(
+                key: getVm()._formKey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                onChanged: () {
+                  //这里要不要应该无所谓，因为本表单的数据存在vm的实例中
+                  //getVm()._formKey.currentState?.save();
+                },
                 child: Column(
-              children: getFormItem(),
-            ))));
+                  children: getFormItem(),
+                ))));
   }
 
   //获取表单的item
@@ -93,7 +100,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
         return MyFormBuilderSelect(
             name: "parentName",
             controller: TextEditingController(text: value),
-            onTap: () => getVm()._onSelectTopDept(),
+            onTap: () => getVm().onSelectTopDept(),
             decoration: MySelectDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.always,
                 labelText: S.current.user_label_dept_parent_name,
@@ -115,7 +122,6 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
       Selector<_DeptAddEditModel, String?>(builder: (context, value, child) {
         return FormBuilderTextField(
             name: "deptName",
-            autovalidateMode: AutovalidateMode.onUserInteraction,
             controller: TextEditingController(text: value),
             decoration: MyInputDecoration(
                 contentPadding: EdgeInsets.zero,
@@ -140,7 +146,6 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
       Selector<_DeptAddEditModel, String?>(builder: (context, value, child) {
         return FormBuilderTextField(
             name: "deptCategory",
-            autovalidateMode: AutovalidateMode.onUserInteraction,
             controller: TextEditingController(text: value),
             decoration: MyInputDecoration(
                 contentPadding: EdgeInsets.zero,
@@ -162,7 +167,6 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
       Selector<_DeptAddEditModel, String?>(builder: (context, value, child) {
         return FormBuilderTextField(
           name: "orderNum",
-          autovalidateMode: AutovalidateMode.onUserInteraction,
           controller: TextEditingController(text: value),
           decoration: MyInputDecoration(
               contentPadding: EdgeInsets.zero,
@@ -193,7 +197,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
         return MyFormBuilderSelect(
             name: "leaderName",
             controller: TextEditingController(text: value),
-            onTap: () => getVm()._onSelectTopDept(),
+            onTap: () => getVm().onSelectTopDept(),
             decoration: MySelectDecoration(
               floatingLabelBehavior: FloatingLabelBehavior.always,
               labelText: S.current.user_label_dept_leader,
@@ -208,7 +212,9 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
                       padding: EdgeInsets.zero,
                       icon: const Icon(Icons.close),
                       onPressed: () {
-                        //TODO 清除
+                        getVm().deptInfo?.leader = null;
+                        getVm().deptInfo?.leaderName = null;
+                        getVm().notifyListeners();
                       },
                     )
                   : const Icon(Icons.chevron_right),
@@ -223,7 +229,6 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
       Selector<_DeptAddEditModel, String?>(builder: (context, value, child) {
         return FormBuilderTextField(
             name: "phone",
-            autovalidateMode: AutovalidateMode.onUserInteraction,
             controller: TextEditingController(text: value),
             decoration: MyInputDecoration(
                 contentPadding: EdgeInsets.zero,
@@ -250,7 +255,6 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
       Selector<_DeptAddEditModel, String?>(builder: (context, value, child) {
         return FormBuilderTextField(
             name: "email",
-            autovalidateMode: AutovalidateMode.onUserInteraction,
             controller: TextEditingController(text: value),
             decoration: MyInputDecoration(
                 contentPadding: EdgeInsets.zero,
@@ -273,28 +277,29 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
       }, shouldRebuild: (oldVal, newVal) {
         return oldVal != newVal;
       }),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
+      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
       Selector<_DeptAddEditModel, String?>(builder: (context, value, child) {
         return FormBuilderRadioGroup<OptionVL<String>>(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration:
-              InputDecoration(labelText: S.current.user_label_dept_status),
+              MyInputDecoration(labelText: S.current.user_label_dept_status),
           name: "status",
-          // initialValue: const ['Dart'],
-          options: DictUiUtils.dict2FromOption(context, LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
+          initialValue: DictUiUtils.dict2OptionVL(
+              LocalDictLib.findDictByCodeKey(
+                  LocalDictLib.CODE_SYS_NORMAL_DISABLE, value)),
+          options: DictUiUtils.dictList2FromOption(
+              LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
           onChanged: (value) {
             //此处需改成选择的
             getVm().applyInfoChange();
-            getVm().deptInfo!.status = value?.label;
+            getVm().deptInfo!.status = value?.value;
           },
           /*separator: const VerticalDivider(
             width: 10,
             thickness: 5,
             color: Colors.red,
           ),*/
-          validator: FormBuilderValidators.compose([
-            FormBuilderValidators.required()
-          ]),
+          validator:
+              FormBuilderValidators.compose([FormBuilderValidators.required()]),
         );
       }, selector: (context, vm) {
         return vm.deptInfo!.status;
@@ -325,6 +330,8 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
 class _DeptAddEditModel extends AppBaseVm {
   final CancelToken cancelToken = CancelToken();
 
+  final _formKey = GlobalKey<FormBuilderState>();
+
   Dept? deptInfo;
 
   bool _infoChange = false;
@@ -338,8 +345,11 @@ class _DeptAddEditModel extends AppBaseVm {
     }
     if (deptInfo == null) {
       this.deptInfo = Dept();
-      this.deptInfo!.parentId = parentDept!.deptId;
-      this.deptInfo!.parentName = parentDept.deptName;
+      //父部门不是跟节点则不赋值，让用户选择
+      if (ConstantBase.VALUE_PARENT_ID_DEF != parentDept!.deptId) {
+        this.deptInfo!.parentId = parentDept.deptId;
+        this.deptInfo!.parentName = parentDept.deptName;
+      }
       setLoadingStatus(LoadingStatus.success);
     } else {
       DeptRepository.getInfo(deptInfo.deptId!, cancelToken).then((result) {
@@ -354,7 +364,20 @@ class _DeptAddEditModel extends AppBaseVm {
   }
 
   //选择父节点
-  void _onSelectTopDept() {}
+  void onSelectTopDept() {
+    pushNamed(DeptListSingleSelectPage.routeName, arguments: {
+      ConstantBase.KEY_INTENT_TITLE:
+          S.current.user_label_dept_parent_name_select
+    }).then((result) {
+      if (result != null) {
+        Dept parentDept = result;
+        deptInfo!.parentId = parentDept.deptId;
+        deptInfo!.parentName = parentDept.deptName;
+        applyInfoChange();
+        notifyListeners();
+      }
+    });
+  }
 
   //应用信息更改
   void applyInfoChange() {
@@ -373,34 +396,30 @@ class _DeptAddEditModel extends AppBaseVm {
 
   //检查保存参数
   bool _checkSaveParams() {
-    return true;
+    return _formKey.currentState?.validate() ?? false;
   }
 
   void save() {
     if (!_checkSaveParams()) {
-      AppToastBridge.showToast(
-          msg: S.current.app_label_required_information_cannot_be_empty);
+      AppToastBridge.showToast(msg: S.current.app_label_form_check_hint);
       return;
     }
     showLoading(text: S.current.label_save_ing);
-    /*UserProfileServiceRepository.updateProfile(
-            userInfo.nickName!, userInfo.email!, userInfo.phonenumber!, userInfo.sex!)
-        .then((result) {
-      //更新成功了把当前的值设置给全局（此处应该重新调用获取用户信息的接口重新赋值，暂时先这么写）
-      GlobalVm().userShareVm.userInfoOf.value!.user = userInfo;
+    DeptRepository.submit(deptInfo!, cancelToken).then((value) {
       AppToastBridge.showToast(msg: S.current.toast_edit_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;
-    }, onError: (e) {
-      AppToastBridge.showToast(msg: S.current.toast_edit_failure);
+      finish(result: deptInfo);
+    }, onError: (error) {
       dismissLoading();
-    });*/
+      AppToastBridge.showToast(msg: BaseDio.getError(error));
+    });
   }
 
   @override
   void dispose() {
-    cancelToken.cancel("cancelled");
+    cancelToken.cancel("dispose");
     super.dispose();
   }
 }

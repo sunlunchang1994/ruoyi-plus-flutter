@@ -387,7 +387,7 @@ class _LoginModel extends AppBaseVm {
 
   @override
   void dispose() {
-    cancelToken.cancel("cancelled");
+    cancelToken.cancel("dispose");
     super.dispose();
   }
 }

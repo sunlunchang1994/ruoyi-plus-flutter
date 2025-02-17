@@ -243,7 +243,7 @@ class MySelectDecoration extends InputDecoration {
     super.floatingLabelAlignment,
     super.isCollapsed,
     super.isDense,
-    super.contentPadding,
+    super.contentPadding = const EdgeInsets.only(bottom: 6),
     super.prefixIcon,
     super.prefixIconConstraints,
     super.prefix,

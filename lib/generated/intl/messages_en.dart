@@ -92,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "app_label_end_time": MessageLookupByLibrary.simpleMessage("结束时间"),
     "app_label_end_time_more_than_the_start_time":
         MessageLookupByLibrary.simpleMessage("结束时间必须大于开始时间"),
+    "app_label_form_check_hint": MessageLookupByLibrary.simpleMessage("请检查表单"),
     "app_label_get_attachments_error": MessageLookupByLibrary.simpleMessage(
       "附件获取失败",
     ),
@@ -378,6 +379,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "没有获取到部门信息",
     ),
     "user_label_dept_parent_name": MessageLookupByLibrary.simpleMessage("上级部门"),
+    "user_label_dept_parent_name_select": MessageLookupByLibrary.simpleMessage(
+      "选择上级部门",
+    ),
     "user_label_dept_show_sort": MessageLookupByLibrary.simpleMessage("显示排序"),
     "user_label_dept_status": MessageLookupByLibrary.simpleMessage("部门状态"),
     "user_label_edit_pass_word": MessageLookupByLibrary.simpleMessage("修改密码"),

@@ -1,11 +1,15 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:ruoyi_plus_flutter/code/base/entity/base_entity.dart';
 
+import '../../../../base/api/json_converter.dart';
+
 part 'dept.g.dart';
 
 @JsonSerializable()
 class Dept extends BaseEntity {
+  @IntConverter()
   int? deptId;
+  @IntConverter()
   int? parentId;
   String? parentName;
   String? deptName;

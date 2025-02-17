@@ -196,7 +196,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
         context: context,
         builder: (context) {
           List<SimpleDialogOption> dialogItem =
-              DictUiUtils.dict2DialogItem(context, LocalDictLib.DICT_MAP[LocalDictLib.CODE_SEX]!, (value) {
+              DictUiUtils.dictList2DialogItem(context, LocalDictLib.DICT_MAP[LocalDictLib.CODE_SEX]!, (value) {
             //选择后设置性别
             getVm().onSelectSex(value);
           });
@@ -312,7 +312,7 @@ class _ProfileModel extends AppBaseVm {
 
   @override
   void dispose() {
-    cancelToken.cancel("cancelled");
+    cancelToken.cancel("dispose");
     super.dispose();
   }
 }

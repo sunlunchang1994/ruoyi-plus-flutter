@@ -1350,6 +1350,16 @@ class S {
     );
   }
 
+  /// `请检查表单`
+  String get app_label_form_check_hint {
+    return Intl.message(
+      '请检查表单',
+      name: 'app_label_form_check_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `您的修改未保存，确认要退出吗？`
   String get app_label_data_save_prompt {
     return Intl.message(
@@ -1965,6 +1975,16 @@ class S {
     return Intl.message(
       '上级部门',
       name: 'user_label_dept_parent_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `选择上级部门`
+  String get user_label_dept_parent_name_select {
+    return Intl.message(
+      '选择上级部门',
+      name: 'user_label_dept_parent_name_select',
       desc: '',
       args: [],
     );
