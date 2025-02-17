@@ -84,7 +84,7 @@ class _MenuGridVm extends AppBaseVm {
       });
     } else {
       pushNamed(_targetPathByRouter(router),
-          arguments: {ConstantBase.KEY_INTENT_TITLE: S.current.user_label_all_dept});
+          arguments: {ConstantBase.KEY_INTENT_TITLE: router.meta?.title??S.current.app_name});
     }
   }
 

@@ -43,8 +43,8 @@ class DeptListSingleSelectPage
         getVm().initVm();
         return PopScope(
             canPop: false,
-            onPopInvokedWithResult: (canPop, result) {
-              if (canPop) {
+            onPopInvokedWithResult: (didPop, result) {
+              if (didPop) {
                 return;
               }
               if (getVm().listVmSub.canPop()) {
@@ -83,7 +83,7 @@ class DeptListSingleSelectPage
                                   child: const Icon(Icons.radio_button_off,
                                       size: 24)),
                               onTap: () {
-                                //选择事件
+                                //单选事件
                                 getVm()
                                     .listVmSub
                                     .onSuffixClick

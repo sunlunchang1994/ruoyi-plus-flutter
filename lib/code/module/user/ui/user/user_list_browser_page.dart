@@ -11,6 +11,7 @@ import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.d
 import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_add_edit_page.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_page_vd.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_list_page_vd.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
@@ -23,19 +24,19 @@ import '../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../lib/fast/vd/refresh/content_empty.dart';
 
 ///
-/// 部门浏览列表
+/// 用户浏览列表
 ///
-class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
-  static const String routeName = '/system/dept';
+class UserListBrowserPage extends AppBaseStatelessWidget<_UserListBrowserVm> {
+  static const String routeName = '/system/user';
 
   final String title;
 
-  DeptListBrowserPage(this.title, {super.key});
+  UserListBrowserPage(this.title, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => _DeptListBrowserVm(),
+      create: (BuildContext context) => _UserListBrowserVm(),
       builder: (context, child) {
         ThemeData themeData = Theme.of(context);
         registerEvent(context);
@@ -54,14 +55,13 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
             },
             child: Scaffold(
                 appBar: AppBar(title: Text(title)),
-                //图标滚动使用固定大小来解决
                 floatingActionButton: FloatingActionButton(
                     child: Icon(Icons.add),
                     onPressed: () {
-                      getVm().onAddDept();
+                      getVm().onAddUser();
                     }),
                 body: Column(children: [
-                  Selector<_DeptListBrowserVm, List<SlcTreeNav>>(
+                  Selector<_UserListBrowserVm, List<SlcTreeNav>>(
                       builder: (context, value, child) {
                     return DeptListPageWidget.getNavWidget(themeData, value,
                         (currentItem) {
@@ -75,24 +75,19 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
                   Expanded(
                       child: ListDataVd(getVm().listVmSub, getVm(),
                           refreshOnStart: true, child:
-                              Consumer<_DeptListBrowserVm>(
+                              Consumer<_UserListBrowserVm>(
                                   builder: (context, vm, child) {
-                    return DeptListPageWidget.getDataListWidget(
+                    return UserListPageVd.getUserListWidget(
                         themeData, getVm().listVmSub, (currentItem) {
-                      return Ink(
-                          child: InkWell(
-                              child: Padding(
-                                  padding:
-                                      EdgeInsets.all(SlcDimens.appDimens12),
-                                  child: const Icon(Icons.chevron_right,
-                                      size: 24)),
-                              onTap: () {
-                                //点击更多事件
-                                getVm()
-                                    .listVmSub
-                                    .onSuffixClick
-                                    ?.call(currentItem);
-                              }));
+                      if (currentItem is Dept) {
+                        //此处部门只需要更多图表，不需要事件
+                        return Padding(
+                            padding:
+                            EdgeInsets.all(SlcDimens.appDimens12),
+                            child: const Icon(Icons.chevron_right,
+                                size: 24));
+                      }
+                      return null;
                     });
                   })))
                 ])));
@@ -102,38 +97,22 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
 }
 
 //点击列表直接切换数据 存储上级数据列表 返回时直接获取上级加载
-class _DeptListBrowserVm extends AppBaseVm {
-  late DeptTreeListDataVmSub listVmSub;
+class _UserListBrowserVm extends AppBaseVm {
+  late UserTreeListDataVmSub listVmSub;
 
-  _DeptListBrowserVm() {
-    listVmSub = DeptTreeListDataVmSub(this);
+  _UserListBrowserVm() {
+    listVmSub = UserTreeListDataVmSub(this);
   }
 
   void initVm() {
-    listVmSub.onSuffixClick = (Dept data) {
-      pushNamed(DeptAddEditPage.routeName,
-          arguments: {ConstantUser.KEY_DEPT: data}).then((value) {
-        if (value != null) {
-          listVmSub.sendRefreshEvent();
-        }
-      });
+    listVmSub.onSuffixClick = (dynamic data) {
+      //选择更多按钮事件
     };
     SlcTreeNav slcTreeNav = SlcTreeNav(
         ConstantBase.VALUE_PARENT_ID_DEF, S.current.user_label_top_dept);
     listVmSub.next(slcTreeNav, notify: false);
   }
 
-  ///添加部门事件
-  void onAddDept() {
-    //此处刚好把_currentSearch作为参数进行赋值传输
-    pushNamed(DeptAddEditPage.routeName, arguments: {
-      ConstantUser.KEY_PARENT_DEPT: Dept(
-          deptId: listVmSub.currentSearch.parentId,
-          deptName: listVmSub.currentSearch.parentName)
-    }).then((value) {
-      if (value != null) {
-        listVmSub.sendRefreshEvent();
-      }
-    });
-  }
+  ///添加用户事件
+  void onAddUser() {}
 }

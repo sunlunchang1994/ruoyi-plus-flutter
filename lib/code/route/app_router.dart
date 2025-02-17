@@ -13,6 +13,7 @@ import '../module/user/ui/dept/dept_list_browser_page.dart';
 import '../feature/auth/ui/login_page.dart';
 import '../module/user/ui/dept/dept_list_single_select_page.dart';
 import '../module/user/ui/user/profile_page.dart';
+import '../module/user/ui/user/user_list_browser_page.dart';
 
 // GoRouter configuration
 final Map<String, WidgetBuilder> router = {
@@ -30,9 +31,14 @@ final Map<String, WidgetBuilder> router = {
     return MenuPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE],
         slcRouterInfo.arguments["routerList"], slcRouterInfo.arguments["parentPath"]);
   },
-  //个人信息
-  //个人信息：修改
+  //用户
+  //用户：修改个人信息
   ProfilePage.routeName: (BuildContext context) => ProfilePage(),
+  //用户：用户列表
+  UserListBrowserPage.routeName: (BuildContext context) {
+    SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
+    return UserListBrowserPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
+  },
   //部门
   //部门：部门列表
   DeptListBrowserPage.routeName: (BuildContext context) {
@@ -50,7 +56,7 @@ final Map<String, WidgetBuilder> router = {
     return DeptAddEditPage(
         deptInfo: slcRouterInfo?.arguments[ConstantUser.KEY_DEPT],
         parentDept: slcRouterInfo?.arguments[ConstantUser.KEY_PARENT_DEPT]);
-  }
+  },
 };
 
 Route get404Route(RouteSettings settings) {

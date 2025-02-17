@@ -23,4 +23,12 @@ class PageTransformUtils {
         size: appPageModel.size,
         total: appPageModel.total);
   }
+
+  //page转list
+  static List<T> page2List<T>(PageModel<T>? pageModel) {
+    if (pageModel == null) {
+      return List.empty(growable: true);
+    }
+    return pageModel.getListNoNull();
+  }
 }

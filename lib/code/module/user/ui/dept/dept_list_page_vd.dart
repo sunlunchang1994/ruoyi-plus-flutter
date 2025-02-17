@@ -83,9 +83,9 @@ class DeptListPageWidget {
           return Padding(
               padding: const EdgeInsets.only(bottom: 1),
               child: ListTile(
-                  trailing: buildTrailing.call(listItem),
                   contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
                   title: Text(listItem.deptNameVo()),
+                  trailing: buildTrailing.call(listItem),
                   visualDensity: VisualDensity.compact,
                   tileColor: SlcColors.getCardColorByTheme(themeData),
                   //根据card规则实现
@@ -100,9 +100,9 @@ class DeptListPageWidget {
 ///部门树数据VmSub
 class DeptTreeListDataVmSub extends TreeFastBaseListDataVmSub<Dept> {
   final FastVm fastVm;
-  final Dept _currentSearch = Dept(parentId: ConstantBase.VALUE_PARENT_ID_DEF);
+  final Dept _currentDeptSearch = Dept(parentId: ConstantBase.VALUE_PARENT_ID_DEF);
 
-  Dept get currentSearch => _currentSearch;
+  Dept get currentSearch => _currentDeptSearch;
 
   void Function(Dept data)? onSuffixClick;
 
@@ -112,9 +112,9 @@ class DeptTreeListDataVmSub extends TreeFastBaseListDataVmSub<Dept> {
       try {
         //此处的parentId就是创建cancelToken所需的treeId;
         CancelToken cancelToken =
-            createCancelTokenByTreeId(_currentSearch.parentId);
+            createCancelTokenByTreeId(_currentDeptSearch.parentId);
         IntensifyEntity<List<Dept>> intensifyEntity =
-            await DeptRepository.list(_currentSearch, cancelToken);
+            await DeptRepository.list(_currentDeptSearch, cancelToken);
         DataWrapper<List<Dept>> dateWrapper =
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
         return dateWrapper;
@@ -138,8 +138,8 @@ class DeptTreeListDataVmSub extends TreeFastBaseListDataVmSub<Dept> {
 
   ///下一个节点
   void next(SlcTreeNav treeNav, {bool notify = true}) {
-    _currentSearch.parentId = treeNav.id;
-    _currentSearch.parentName = treeNav.treeName;
+    _currentDeptSearch.parentId = treeNav.id;
+    _currentDeptSearch.parentName = treeNav.treeName;
     super.next(treeNav, notify: notify);
     if (notify) {
       fastVm.notifyListeners();
@@ -156,7 +156,7 @@ class DeptTreeListDataVmSub extends TreeFastBaseListDataVmSub<Dept> {
 
   ///跳转到指定的上一级
   void previous(dynamic treeId) {
-    _currentSearch.parentId = treeId;
+    _currentDeptSearch.parentId = treeId;
     super.previous(treeId);
     fastVm.notifyListeners();
   }
