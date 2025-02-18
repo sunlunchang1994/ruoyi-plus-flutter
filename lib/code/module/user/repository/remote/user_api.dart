@@ -57,6 +57,15 @@ class UserServiceRepository {
     if (TextUtil.isNotEmpty(user?.userName)) {
       queryParams["userName"] = user!.userName;
     }
+    if (TextUtil.isNotEmpty(user?.nickName)) {
+      queryParams["nickName"] = user!.nickName;
+    }
+    if (TextUtil.isNotEmpty(user?.phonenumber)) {
+      queryParams["phonenumber"] = user!.phonenumber;
+    }
+    if (TextUtil.isNotEmpty(user?.status)) {
+      queryParams["status"] = user!.status;
+    }
     return _userApiClient
         .list(queryParams, cancelToken)
         .asStream()

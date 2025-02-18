@@ -197,7 +197,7 @@ class MyInputDecoration extends InputDecoration {
     super.suffixText,
     super.suffixStyle,
     super.suffixIconColor,
-    super.suffixIconConstraints,
+    super.suffixIconConstraints = const BoxConstraints(minWidth: 32, maxHeight: 32),
     super.counter,
     super.counterText,
     super.counterStyle,

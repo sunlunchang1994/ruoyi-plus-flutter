@@ -1,18 +1,21 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
-import 'package:flutter_slc_boxes/flutter/slc/dialog/dialog_loading_vm.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/fast_mvvm.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/dept.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/user.dart';
+import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/user_api.dart';
 import 'package:dio/dio.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_page_vd.dart';
 
+import '../../../../../generated/l10n.dart';
+import '../../../../../res/dimens.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/config/constant_base.dart';
@@ -21,6 +24,7 @@ import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/component/tree/vmbox/tree_data_list_vm_vox.dart';
 import '../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../lib/fast/vd/refresh/content_empty.dart';
+import '../dept/dept_list_single_select_page.dart';
 
 class UserListPageVd {
   static Widget getUserListWidget(
@@ -73,8 +77,32 @@ class UserListPageVd {
         padding: const EdgeInsets.only(bottom: 1),
         child: ListTile(
             contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
-            //leading: CachedNetworkImage(imageUrl: listItem.avatar ?? ""),
-            title: Text(listItem.nickName ?? "?"),
+            leading: ClipRRect(
+                borderRadius: BorderRadius.all(
+                    Radius.circular(AppDimens.userItemAvatarRadius)),
+                child: CachedNetworkImage(
+                    width: AppDimens.userItemAvatarSize,
+                    height: AppDimens.userItemAvatarSize,
+                    imageUrl: listItem.avatar ?? "",
+                    placeholder: (context, url) {
+                      return Image.asset(
+                          "assets/images/slc/app_ic_def_user_head.png",
+                          width: AppDimens.userItemAvatarSize,
+                          height: AppDimens.userItemAvatarSize);
+                    },
+                    errorWidget: (
+                      context,
+                      error,
+                      stackTrace,
+                    ) {
+                      return Image.asset(
+                          "assets/images/slc/app_ic_def_user_head.png",
+                          width: AppDimens.userItemAvatarSize,
+                          height: AppDimens.userItemAvatarSize);
+                    })),
+            title: Text(listItem.nickName ?? "-"),
+            subtitle: Text(listItem.deptName ?? "-"),
+            minTileHeight: AppDimens.userItemAvatarSize + SlcDimens.appDimens16,
             trailing: buildTrailing.call(listItem),
             visualDensity: VisualDensity.compact,
             tileColor: SlcColors.getCardColorByTheme(themeData),
@@ -187,7 +215,10 @@ class UserTreeListDataVmSub extends TreeFastBaseListDataVmSub<dynamic> {
 
 class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> {
   final CancelToken cancelToken = CancelToken();
-  final User searchUser = User();
+
+  User _searchUser = User();
+
+  User get searchUser => _searchUser;
 
   UserPageDataVmSub() {
     setLoadData((loadingDialogVmSub) async {
@@ -205,5 +236,35 @@ class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> {
             code: resultEntity.code, msg: resultEntity.msg);
       }
     });
+  }
+
+  void onSelectDept() {
+    pushNamed(DeptListSingleSelectPage.routeName, arguments: {
+      ConstantBase.KEY_INTENT_TITLE: S.current.user_label_tenant_select
+    }).then((result) {
+      if (result != null) {
+        Dept parentDept = result;
+        searchUser.deptId = parentDept.deptId;
+        searchUser.deptName = parentDept.deptName;
+        notifyListeners();
+      }
+    });
+  }
+
+  void setSelectStatus(ITreeDict<dynamic> data) {
+    searchUser.status = data.tdDictValue;
+    searchUser.statusName = data.tdDictLabel;
+    notifyListeners();
+  }
+
+  //重置
+  void onResetSearch() {
+    _searchUser = User();
+    notifyListeners();
+  }
+
+  //搜索
+  void onSearch() {
+    sendRefreshEvent();
   }
 }

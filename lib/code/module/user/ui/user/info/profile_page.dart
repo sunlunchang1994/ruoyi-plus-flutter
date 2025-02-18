@@ -88,7 +88,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                               transformImageWidget: (context, child) {
                                 return ClipRRect(
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(AppDimens.appAvatarRadius)),
+                                        BorderRadius.all(Radius.circular(AppDimens.userMineAvatarRadius)),
                                     child: child);
                               },
                               decoration: InputDecoration(
@@ -112,7 +112,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                             Selector<_ProfileModel, String?>(builder: (context, value, child) {
                               return FormBuilderTextField(
                                   name: "nickName",
-                                  controller: TextEditingController(text: value),
+                                  initialValue: value,
                                   decoration: MyInputDecoration(
                                       contentPadding: EdgeInsets.zero,
                                       floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -132,7 +132,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                             Selector<_ProfileModel, String?>(builder: (context, value, child) {
                               return FormBuilderTextField(
                                   name: "phonenumber",
-                                  controller: TextEditingController(text: value),
+                                  initialValue: value,
                                   decoration: MyInputDecoration(
                                       contentPadding: EdgeInsets.zero,
                                       floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -152,7 +152,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                             Selector<_ProfileModel, String?>(builder: (context, value, child) {
                               return FormBuilderTextField(
                                   name: "email",
-                                  controller: TextEditingController(text: value),
+                                  initialValue: value,
                                   decoration: MyInputDecoration(
                                       contentPadding: EdgeInsets.zero,
                                       floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -172,7 +172,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                             Selector<_ProfileModel, String?>(builder: (context, value, child) {
                               return MyFormBuilderSelect(
                                   name: "sex",
-                                  controller: TextEditingController(text: value),
+                                  initialValue: value,
                                   onTap: () => _showSelectSexDialog(context),
                                   decoration: MySelectDecoration(
                                       floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -198,7 +198,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
           List<SimpleDialogOption> dialogItem =
               DictUiUtils.dictList2DialogItem(context, LocalDictLib.DICT_MAP[LocalDictLib.CODE_SEX]!, (value) {
             //选择后设置性别
-            getVm().onSelectSex(value);
+            getVm().setSelectSex(value);
           });
           return SimpleDialog(title: Text(S.current.user_label_sex_select_prompt), children: dialogItem);
         });
@@ -241,7 +241,7 @@ class _ProfileModel extends AppBaseVm {
   }
 
   //选择性别
-  void onSelectSex(ITreeDict<dynamic> item) {
+  void setSelectSex(ITreeDict<dynamic> item) {
     userInfo.sex = item.tdDictValue!;
     userInfo.sexName = item.tdDictLabel!;
     notifyListeners();

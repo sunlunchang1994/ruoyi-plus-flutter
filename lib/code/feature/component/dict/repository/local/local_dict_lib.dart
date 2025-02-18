@@ -4,9 +4,9 @@ class LocalDictLib {
 
   //系统状态
   static const String CODE_SYS_NORMAL_DISABLE = "sys_normal_disable";
-  //系统状态：男
+  //系统状态：正常
   static const KEY_SYS_NORMAL_DISABLE_NORMAL = "0";
-  //系统状态：女
+  //系统状态：停用
   static const KEY_SYS_NORMAL_DISABLE_STOP = "1";
 
   //性别

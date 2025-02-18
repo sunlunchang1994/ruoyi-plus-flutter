@@ -1605,10 +1605,10 @@ class S {
     return Intl.message('机构', name: 'user_label_tenant', desc: '', args: []);
   }
 
-  /// `请选择机构`
+  /// `请选择部门`
   String get user_label_select_tenant {
     return Intl.message(
-      '请选择机构',
+      '请选择部门',
       name: 'user_label_select_tenant',
       desc: '',
       args: [],
@@ -2110,21 +2110,41 @@ class S {
     );
   }
 
-  /// `选择机构`
+  /// `选择部门`
   String get user_label_tenant_select {
     return Intl.message(
-      '选择机构',
+      '选择部门',
       name: 'user_label_tenant_select',
       desc: '',
       args: [],
     );
   }
 
-  /// `获取机构信息失败`
+  /// `获取部门信息失败`
   String get user_label_tenant_get_info_error {
     return Intl.message(
-      '获取机构信息失败',
+      '获取部门信息失败',
       name: 'user_label_tenant_get_info_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `所属部门`
+  String get user_label_user_owner_dept {
+    return Intl.message(
+      '所属部门',
+      name: 'user_label_user_owner_dept',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `用户名称`
+  String get user_label_user_name {
+    return Intl.message(
+      '用户名称',
+      name: 'user_label_user_name',
       desc: '',
       args: [],
     );
@@ -2158,6 +2178,11 @@ class S {
   /// `性别`
   String get user_label_sex {
     return Intl.message('性别', name: 'user_label_sex', desc: '', args: []);
+  }
+
+  /// `状态`
+  String get user_label_status {
+    return Intl.message('状态', name: 'user_label_status', desc: '', args: []);
   }
 
   /// `请选择性别`
@@ -2205,6 +2230,16 @@ class S {
     return Intl.message(
       '上传头像成功',
       name: 'user_label_avatar_uploaded_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `搜索用户`
+  String get user_label_search_user {
+    return Intl.message(
+      '搜索用户',
+      name: 'user_label_search_user',
       desc: '',
       args: [],
     );

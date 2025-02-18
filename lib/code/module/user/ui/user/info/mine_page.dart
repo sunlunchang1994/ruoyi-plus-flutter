@@ -23,7 +23,8 @@ class MinePage extends StatefulWidget {
   }
 }
 
-class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAliveClientMixin {
+class _MineState extends AppBaseState<MinePage, _MineVm>
+    with AutomaticKeepAliveClientMixin {
   final String title = S.current.main_label_mine;
 
   @override
@@ -41,7 +42,8 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
               return Column(children: [
                 Card(
                   elevation: 0,
-                  margin: EdgeInsets.symmetric(horizontal: SlcDimens.appDimens16),
+                  margin:
+                      EdgeInsets.symmetric(horizontal: SlcDimens.appDimens16),
                   child: GestureDetector(
                       onTap: () {
                         getVm().pushNamed(ProfilePage.routeName);
@@ -51,37 +53,54 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                           padding: EdgeInsets.all(SlcDimens.appDimens16),
                           child: Row(children: [
                             Expanded(
-                                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                              Text(getVm().userInfoVo?.user.deptName ?? S.current.app_label_not_completed,
-                                  style: SlcStyles.getTextColorSecondaryStyleByTheme(themeData)),
-                              Text(
-                                  getVm().userInfoVo?.user.getRoleName() ??
-                                      S.current.app_label_not_completed,
-                                  style: SlcStyles.getTextColorSecondaryStyleByTheme(themeData)),
-                              Padding(
-                                  padding: EdgeInsets.only(top: SlcDimens.appDimens8),
-                                  child: Text(
-                                      getVm().userInfoVo?.user.nickName ??
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                  Text(
+                                      getVm().userInfoVo?.user.deptName ??
                                           S.current.app_label_not_completed,
-                                      style: themeData.textTheme.titleLarge)),
-                            ])),
+                                      style: SlcStyles
+                                          .getTextColorSecondaryStyleByTheme(
+                                              themeData)),
+                                  Text(
+                                      getVm().userInfoVo?.user.getRoleName() ??
+                                          S.current.app_label_not_completed,
+                                      style: SlcStyles
+                                          .getTextColorSecondaryStyleByTheme(
+                                              themeData)),
+                                  Padding(
+                                      padding: EdgeInsets.only(
+                                          top: SlcDimens.appDimens8),
+                                      child: Text(
+                                          getVm().userInfoVo?.user.nickName ??
+                                              S.current.app_label_not_completed,
+                                          style:
+                                              themeData.textTheme.titleLarge)),
+                                ])),
                             ClipRRect(
-                                borderRadius: BorderRadius.all(Radius.circular(AppDimens.appAvatarRadius)),
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(AppDimens.userMineAvatarRadius)),
                                 child: CachedNetworkImage(
-                                    width: 80,
-                                    height: 80,
-                                    imageUrl: getVm().userInfoVo?.user.avatar ?? "",
+                                    width: AppDimens.userMineAvatarSize,
+                                    height: AppDimens.userMineAvatarSize,
+                                    imageUrl:
+                                        getVm().userInfoVo?.user.avatar ?? "",
                                     placeholder: (context, url) {
-                                      return Image.asset("assets/images/slc/app_ic_def_user_head.png",
-                                          width: 80, height: 80);
+                                      return Image.asset(
+                                          "assets/images/slc/app_ic_def_user_head.png",
+                                          width: AppDimens.userMineAvatarSize,
+                                          height: AppDimens.userMineAvatarSize);
                                     },
                                     errorWidget: (
                                       context,
                                       error,
                                       stackTrace,
                                     ) {
-                                      return Image.asset("assets/images/slc/app_ic_def_user_head.png",
-                                          width: 80, height: 80);
+                                      return Image.asset(
+                                          "assets/images/slc/app_ic_def_user_head.png",
+                                          width: AppDimens.userMineAvatarSize,
+                                          height: AppDimens.userMineAvatarSize);
                                     }))
                           ]))),
                 ),
@@ -93,7 +112,8 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                               leading: const Icon(Icons.settings),
                               title: Text(S.current.user_label_setting),
                               visualDensity: VisualDensity.compact,
-                              tileColor: SlcColors.getCardColorByTheme(themeData),
+                              tileColor:
+                                  SlcColors.getCardColorByTheme(themeData),
                               //根据card规则实现
                               onTap: () {}),
                           SlcUiBoxStyleUtils.getDividerByBg(),

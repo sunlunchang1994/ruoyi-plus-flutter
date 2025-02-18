@@ -23,6 +23,7 @@ import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/ui/app_mvvm.dart';
 import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
+import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
 
 ///部门信息新增修改
 class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
@@ -99,7 +100,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
           builder: (context, value, child) {
         return MyFormBuilderSelect(
             name: "parentName",
-            controller: TextEditingController(text: value),
+            initialValue: value,
             onTap: () => getVm().onSelectTopDept(),
             decoration: MySelectDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -122,7 +123,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
       Selector<_DeptAddEditModel, String?>(builder: (context, value, child) {
         return FormBuilderTextField(
             name: "deptName",
-            controller: TextEditingController(text: value),
+            initialValue: value,
             decoration: MyInputDecoration(
                 contentPadding: EdgeInsets.zero,
                 floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -146,7 +147,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
       Selector<_DeptAddEditModel, String?>(builder: (context, value, child) {
         return FormBuilderTextField(
             name: "deptCategory",
-            controller: TextEditingController(text: value),
+            initialValue: value,
             decoration: MyInputDecoration(
                 contentPadding: EdgeInsets.zero,
                 floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -167,7 +168,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
       Selector<_DeptAddEditModel, String?>(builder: (context, value, child) {
         return FormBuilderTextField(
           name: "orderNum",
-          controller: TextEditingController(text: value),
+          initialValue: value,
           decoration: MyInputDecoration(
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -196,28 +197,20 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
       Selector<_DeptAddEditModel, String?>(builder: (context, value, child) {
         return MyFormBuilderSelect(
             name: "leaderName",
-            controller: TextEditingController(text: value),
+            initialValue: value,
             onTap: () => getVm().onSelectTopDept(),
             decoration: MySelectDecoration(
               floatingLabelBehavior: FloatingLabelBehavior.always,
               labelText: S.current.user_label_dept_leader,
               hintText: S.current.app_label_please_choose,
               border: const UnderlineInputBorder(),
-              suffixIcon: TextUtil.isNotEmpty(getVm().deptInfo!.leaderName)
-                  ? IconButton(
-                      constraints: BoxConstraints(),
-                      visualDensity: VisualDensity(
-                          horizontal: VisualDensity.minimumDensity,
-                          vertical: VisualDensity.minimumDensity),
-                      padding: EdgeInsets.zero,
-                      icon: const Icon(Icons.close),
-                      onPressed: () {
-                        getVm().deptInfo?.leader = null;
-                        getVm().deptInfo?.leaderName = null;
-                        getVm().notifyListeners();
-                      },
-                    )
-                  : const Icon(Icons.chevron_right),
+              suffixIcon: InputDecorationUtils.autoClearSuffixBySelect(
+                  TextUtil.isNotEmpty(getVm().deptInfo!.leaderName),
+                  onPressed: () {
+                getVm().deptInfo?.leader = null;
+                getVm().deptInfo?.leaderName = null;
+                getVm().notifyListeners();
+              }),
             ),
             textInputAction: TextInputAction.next);
       }, selector: (context, vm) {
@@ -229,7 +222,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
       Selector<_DeptAddEditModel, String?>(builder: (context, value, child) {
         return FormBuilderTextField(
             name: "phone",
-            controller: TextEditingController(text: value),
+            initialValue: value,
             decoration: MyInputDecoration(
                 contentPadding: EdgeInsets.zero,
                 floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -255,7 +248,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
       Selector<_DeptAddEditModel, String?>(builder: (context, value, child) {
         return FormBuilderTextField(
             name: "email",
-            controller: TextEditingController(text: value),
+            initialValue: value,
             decoration: MyInputDecoration(
                 contentPadding: EdgeInsets.zero,
                 floatingLabelBehavior: FloatingLabelBehavior.always,

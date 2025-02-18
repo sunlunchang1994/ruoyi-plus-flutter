@@ -8,7 +8,7 @@ class AppStyles extends SlcStyles {
 
   ///MD3
   static ThemeData getAppLightThemeMD3() {
-    _appLightTheme ??= SlcStyles.appTheme.copyWith();
+    _appLightTheme ??= SlcStyles.appTheme.copyWith(appBarTheme: AppBarTheme(toolbarHeight: AppDimens.appBarHeight));
     return _appLightTheme!;
   }
 

@@ -44,8 +44,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
       builder: (context, child) {
         ThemeData themeData = Theme.of(context);
         registerEvent(context);
-        var loginModel = Provider.of<_LoginModel>(context, listen: false);
-        loginModel.initVm();
+        getVm().initVm();
         return Scaffold(
             appBar: AppBar(title: Text(title)),
             body: KeyboardAvoider(
@@ -57,7 +56,8 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                         height: 160,
                         child: Center(
                             child: Image(
-                                image: AssetImage("assets/images/ic_launcher.png"),
+                                image:
+                                    AssetImage("assets/images/ic_launcher.png"),
                                 width: 72,
                                 height: 72))),
                     Padding(
@@ -67,18 +67,26 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                            SlcStyles.getSizedBox(
+                                height: SlcDimens.appDimens16),
                             Visibility(
                                 visible: EnvConfig.getEnvConfig().tenantEnable,
-                                child: Selector<_LoginModel, String?>(builder: (context, value, child) {
+                                child: Selector<_LoginModel, String?>(
+                                    builder: (context, value, child) {
                                   return MyFormBuilderSelect(
                                       name: "tenantName",
-                                      controller: TextEditingController(text: value),
-                                      onTap: () => _showSelectTenantDialog(context),
+                                      controller:
+                                          TextEditingController(text: value),
+                                      onTap: () =>
+                                          _showSelectTenantDialog(context),
                                       decoration: MySelectDecoration(
-                                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                                          labelText: S.of(context).user_label_tenant,
-                                          hintText: S.of(context).user_label_select_tenant,
+                                          floatingLabelBehavior:
+                                              FloatingLabelBehavior.always,
+                                          labelText:
+                                              S.of(context).user_label_tenant,
+                                          hintText: S
+                                              .of(context)
+                                              .user_label_select_tenant,
                                           border:
                                               const UnderlineInputBorder() /*border: InputBorder.none*/));
                                 }, selector: (context, vm) {
@@ -86,69 +94,97 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                 }, shouldRebuild: (oldVal, newVal) {
                                   return oldVal != newVal;
                                 })),
-                            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                            Selector<_LoginModel, String?>(builder: (context, value, child) {
+                            SlcStyles.getSizedBox(
+                                height: SlcDimens.appDimens16),
+                            Selector<_LoginModel, String?>(
+                                builder: (context, value, child) {
                               return FormBuilderTextField(
                                   name: "userName",
-                                  focusNode: loginModel.userNameInputFocus,
-                                  controller: TextEditingController(text: value),
+                                  focusNode: getVm().userNameInputFocus,
+                                  controller:
+                                      TextEditingController(text: value),
                                   decoration: MyInputDecoration(
                                       contentPadding: EdgeInsets.zero,
-                                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                                      labelText: S.of(context).user_label_account,
-                                      hintText: S.of(context).user_label_input_account,
-                                      border: const UnderlineInputBorder() /*border: InputBorder.none*/),
-                                  onChanged: (value) => loginModel.userName = value);
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always,
+                                      labelText:
+                                          S.of(context).user_label_account,
+                                      hintText: S
+                                          .of(context)
+                                          .user_label_input_account,
+                                      border:
+                                          const UnderlineInputBorder() /*border: InputBorder.none*/),
+                                  onChanged: (value) =>
+                                      getVm().userName = value);
                             }, selector: (context, vm) {
                               return vm.userName;
                             }, shouldRebuild: (oldVal, newVal) {
                               return oldVal != newVal;
                             }),
-                            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                            Selector<_LoginModel, String?>(builder: (context, value, child) {
+                            SlcStyles.getSizedBox(
+                                height: SlcDimens.appDimens16),
+                            Selector<_LoginModel, String?>(
+                                builder: (context, value, child) {
                               return FormBuilderTextField(
                                   name: "password",
-                                  focusNode: loginModel.passwordInputFocus,
+                                  focusNode: getVm().passwordInputFocus,
                                   obscureText: true,
-                                  controller: TextEditingController(text: value),
+                                  controller:
+                                      TextEditingController(text: value),
                                   decoration: MyInputDecoration(
-                                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                                      labelText: S.of(context).user_label_password,
-                                      hintText: S.of(context).user_label_input_password,
-                                      border: const UnderlineInputBorder() /*border: InputBorder.none*/),
-                                  onChanged: (value) => loginModel.password = value);
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always,
+                                      labelText:
+                                          S.of(context).user_label_password,
+                                      hintText: S
+                                          .of(context)
+                                          .user_label_input_password,
+                                      border:
+                                          const UnderlineInputBorder() /*border: InputBorder.none*/),
+                                  onChanged: (value) =>
+                                      getVm().password = value);
                             }, selector: (context, vm) {
                               return vm.password;
                             }, shouldRebuild: (oldVal, newVal) {
                               return oldVal != newVal;
                             }),
-                            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                            SlcStyles.getSizedBox(
+                                height: SlcDimens.appDimens16),
                             Row(children: [
                               Expanded(
                                   child: FormBuilderTextField(
                                       name: "captchaCode",
-                                      focusNode: loginModel.captchaInputFocus,
-                                      controller: TextEditingController(text: loginModel.codeResult),
+                                      focusNode: getVm().captchaInputFocus,
+                                      controller: TextEditingController(
+                                          text: getVm().codeResult),
                                       decoration: MyInputDecoration(
                                           //isDense: true,
-                                          labelText: S.of(context).user_label_captcha_code,
-                                          hintText: S.of(context).user_label_input_captcha_code,
+                                          labelText: S
+                                              .of(context)
+                                              .user_label_captcha_code,
+                                          hintText: S
+                                              .of(context)
+                                              .user_label_input_captcha_code,
                                           border:
                                               const UnderlineInputBorder() /*border: InputBorder.none*/),
-                                      onChanged: (value) => loginModel.codeResult = value)),
-                              SlcStyles.getSizedBox(width: SlcDimens.appDimens16),
+                                      onChanged: (value) {
+                                        getVm().codeResult = value;
+                                      })),
+                              SlcStyles.getSizedBox(
+                                  width: SlcDimens.appDimens16),
                               Selector<_LoginModel, Captcha?>(
                                   builder: (context, value, child) {
                                     return GestureDetector(
                                       onTap: () {
-                                        loginModel.refreshCaptcha();
+                                        getVm().refreshCaptcha();
                                       },
                                       child: SizedBox(
                                           height: 48,
                                           width: 120,
                                           child: Image.memory(
                                               gaplessPlayback: true,
-                                              base64Decode(value?.img ?? ""), errorBuilder: (
+                                              base64Decode(value?.img ?? ""),
+                                              errorBuilder: (
                                             BuildContext context,
                                             Object error,
                                             StackTrace? stackTrace,
@@ -157,7 +193,8 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                                 child: SizedBox(
                                               width: 24,
                                               height: 24,
-                                              child: CircularProgressIndicator(strokeWidth: 3),
+                                              child: CircularProgressIndicator(
+                                                  strokeWidth: 3),
                                             ));
                                           })),
                                     );
@@ -165,7 +202,8 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                   selector: (context, vm) {
                                     return vm.captcha;
                                   },
-                                  shouldRebuild: (oldVal, newVal) => oldVal != newVal),
+                                  shouldRebuild: (oldVal, newVal) =>
+                                      oldVal != newVal),
                             ]),
                             SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
                             Row(
@@ -175,9 +213,11 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                     return Checkbox(
                                         value: value,
                                         onChanged: (bool? isCheck) {
-                                          loginModel.setIsSavePassword(isCheck ?? false);
+                                          getVm().setIsSavePassword(
+                                              isCheck ?? false);
                                         },
-                                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap);
+                                        materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap);
                                   },
                                   selector: (context, value) {
                                     return value._isSavePassword;
@@ -187,15 +227,18 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                   },
                                 ),
                                 Text(S.of(context).user_label_save_password),
-                                SlcStyles.getSizedBox(width: SlcDimens.appDimens12),
+                                SlcStyles.getSizedBox(
+                                    width: SlcDimens.appDimens12),
                                 Selector<_LoginModel, bool>(
                                   builder: (context, value, child) {
                                     return Checkbox(
                                         value: value,
                                         onChanged: (bool? isCheck) {
-                                          loginModel.setIsAutoLogin(isCheck ?? false);
+                                          getVm()
+                                              .setIsAutoLogin(isCheck ?? false);
                                         },
-                                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap);
+                                        materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap);
                                   },
                                   selector: (context, value) {
                                     return value._isAutoLogin;
@@ -207,15 +250,17 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                 Text(S.of(context).user_label_auto_login)
                               ],
                             ),
-                            SlcStyles.getSizedBox(height: SlcDimens.appDimens36),
+                            SlcStyles.getSizedBox(
+                                height: SlcDimens.appDimens36),
                             SizedBox(
                                 width: double.infinity,
                                 child: FilledButton(
                                     onPressed: () {
-                                      loginModel.login();
+                                      getVm().login();
                                     },
                                     child: Text(S.of(context).user_label_login,
-                                        style: themeData.primaryTextTheme.titleMedium)))
+                                        style: themeData
+                                            .primaryTextTheme.titleMedium)))
                           ],
                         ))),
                     const SizedBox(height: 200)
@@ -231,7 +276,8 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
         context: context,
         builder: (context) {
           List<TenantListVo>? tenantList = getVm().loginTenant?.voList;
-          List<SimpleDialogOption> dialogItem = List.generate(tenantList?.length ?? 0, (index) {
+          List<SimpleDialogOption> dialogItem =
+              List.generate(tenantList?.length ?? 0, (index) {
             TenantListVo tenantItem = tenantList![index];
             return SimpleDialogOption(
               child: Text(tenantItem.companyName!),
@@ -241,7 +287,9 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
               },
             );
           });
-          return SimpleDialog(title: Text(S.current.user_label_tenant_select), children: dialogItem);
+          return SimpleDialog(
+              title: Text(S.current.user_label_tenant_select),
+              children: dialogItem);
         });
   }
 }
@@ -288,7 +336,11 @@ class _LoginModel extends AppBaseVm {
         return item.tenantId == tenantId;
       });
       onSelectTenant(targetTenantItem);
-    }, onError: (error) => {AppToastBridge.showToast(msg: S.current.user_label_tenant_get_info_error)});
+    },
+        onError: (error) => {
+              AppToastBridge.showToast(
+                  msg: S.current.user_label_tenant_get_info_error)
+            });
   }
 
   void onSelectTenant(TenantListVo? data) {
@@ -337,19 +389,23 @@ class _LoginModel extends AppBaseVm {
       return;
     }
     if (TextUtil.isEmpty(userName)) {
-      AppToastBridge.showToast(msg: S.current.user_label_account_not_empty_hint);
+      AppToastBridge.showToast(
+          msg: S.current.user_label_account_not_empty_hint);
       return;
     }
     if (TextUtil.isEmpty(password)) {
-      AppToastBridge.showToast(msg: S.current.user_label_password_bot_empty_hint);
+      AppToastBridge.showToast(
+          msg: S.current.user_label_password_bot_empty_hint);
       return;
     }
     if (TextUtil.isEmpty(codeResult)) {
-      AppToastBridge.showToast(msg: S.current.user_label_captcha_code_empty_hint);
+      AppToastBridge.showToast(
+          msg: S.current.user_label_captcha_code_empty_hint);
       return;
     }
     showLoading(text: S.current.user_label_logging_in);
-    AuthServiceRepository.login(tenantId, userName!, password!, codeResult!, captcha?.uuid, cancelToken)
+    AuthServiceRepository.login(tenantId, userName!, password!, codeResult!,
+            captcha?.uuid, cancelToken)
         .asStream()
         .asyncMap((event) => UserServiceRepository.getInfo(cancelToken))
         .asyncMap((event) => MenuServiceRepository.getRouters(cancelToken))
@@ -360,7 +416,8 @@ class _LoginModel extends AppBaseVm {
         if (_isSavePassword) {
           _saveLoginStatus();
         }
-        AppToastBridge.showToast(msg: S.current.user_toast_login_login_successful);
+        AppToastBridge.showToast(
+            msg: S.current.user_toast_login_login_successful);
         pushReplacementNamed(MainPage.routeName);
       } else if (!cancelToken.isCancelled) {
         AppToastBridge.showToast(msg: value.getMsg());

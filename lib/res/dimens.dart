@@ -1,6 +1,12 @@
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 
 class AppDimens extends SlcDimens {
+  //app
   static double appBarHeight = 48;
-  static double appAvatarRadius = 8;
+
+  //user模块
+  static double userMineAvatarRadius = 8;
+  static double userMineAvatarSize=80;
+  static double userItemAvatarSize=48;
+  static double userItemAvatarRadius = userItemAvatarSize/2;
 }

@@ -30,6 +30,7 @@ class User {
   List<int>? roleId;
   //本地
   String? sexName;
+  String? statusName;
 
   User({this.userId,
     this.deptId,
