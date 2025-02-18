@@ -70,7 +70,7 @@ class UserServiceRepository {
                     rows: event.rows,
                     total: event.total);
                 PageModel<User> pageModel =
-                    PageTransformUtils.appPageModel2PageModel(appPageModel,
+                    PageTransformUtils.appPm2Pm(appPageModel,
                         records: User.formJsonList(appPageModel.rows));
                 return pageModel;
               });

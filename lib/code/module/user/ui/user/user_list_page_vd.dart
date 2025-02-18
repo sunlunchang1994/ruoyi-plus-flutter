@@ -1,14 +1,17 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
+import 'package:flutter_slc_boxes/flutter/slc/dialog/dialog_loading_vm.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/fast_mvvm.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/dept.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/user.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/user_api.dart';
 import 'package:dio/dio.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_page_vd.dart';
 
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
@@ -35,6 +38,8 @@ class UserListPageVd {
         itemBuilder: (context, index) {
           dynamic listItem = listVmSub.dataList[index];
           if (listItem is Dept) {
+            return DeptListPageWidget.getDataListItem(
+                themeData, listVmSub, buildTrailing, index, listItem);
             return Padding(
                 padding: const EdgeInsets.only(bottom: 1),
                 child: ListTile(
@@ -51,24 +56,33 @@ class UserListPageVd {
                     }));
           }
           if (listItem is User) {
-            return Padding(
-                padding: const EdgeInsets.only(bottom: 1),
-                child: ListTile(
-                    contentPadding:
-                        EdgeInsets.only(left: SlcDimens.appDimens16),
-                    //leading: CachedNetworkImage(imageUrl: listItem.avatar ?? ""),
-                    title: Text(listItem.nickName ?? "?"),
-                    trailing: buildTrailing.call(listItem),
-                    visualDensity: VisualDensity.compact,
-                    tileColor: SlcColors.getCardColorByTheme(themeData),
-                    //根据card规则实现
-                    onTap: () {
-                      listVmSub.onItemClick(index, listItem);
-                      //getVm().nextByDept(listItem);
-                    }));
+            return getUserListItem(
+                themeData, listVmSub, buildTrailing, index, listItem);
           }
           throw Exception("listItem 类型错误");
         });
+  }
+
+  static Widget getUserListItem(
+      ThemeData themeData,
+      ListenerItemClick<dynamic> listenerItemClick,
+      Widget? Function(User currentItem) buildTrailing,
+      int index,
+      User listItem) {
+    return Padding(
+        padding: const EdgeInsets.only(bottom: 1),
+        child: ListTile(
+            contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
+            //leading: CachedNetworkImage(imageUrl: listItem.avatar ?? ""),
+            title: Text(listItem.nickName ?? "?"),
+            trailing: buildTrailing.call(listItem),
+            visualDensity: VisualDensity.compact,
+            tileColor: SlcColors.getCardColorByTheme(themeData),
+            //根据card规则实现
+            onTap: () {
+              listenerItemClick.onItemClick(index, listItem);
+              //getVm().nextByDept(listItem);
+            }));
   }
 }
 
@@ -91,7 +105,8 @@ class UserTreeListDataVmSub extends TreeFastBaseListDataVmSub<dynamic> {
     setRefresh(() async {
       try {
         //此处的parentId就是创建cancelToken所需的treeId;
-        CancelToken cancelToken = createCancelTokenByTreeId(_currentDeptSearch.parentId);
+        CancelToken cancelToken =
+            createCancelTokenByTreeId(_currentDeptSearch.parentId);
         //获取部门列表
         IntensifyEntity<List<Dept>> deptIntensifyEntity =
             await DeptRepository.list(_currentDeptSearch, cancelToken);
@@ -167,5 +182,28 @@ class UserTreeListDataVmSub extends TreeFastBaseListDataVmSub<dynamic> {
   ///可以直接pop吗
   bool canPop() {
     return !canPrevious();
+  }
+}
+
+class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> {
+  final CancelToken cancelToken = CancelToken();
+  final User searchUser = User();
+
+  UserPageDataVmSub() {
+    setLoadData((loadingDialogVmSub) async {
+      try {
+        IntensifyEntity<PageModel<User>> result =
+            await UserServiceRepository.list(getLoadMoreFormat().getOffset(),
+                getLoadMoreFormat().getSize(), searchUser, cancelToken);
+        //返回数据结构
+        DataWrapper<PageModel<User>> dateWrapper =
+            DataTransformUtils.entity2LDWrapper(result);
+        return dateWrapper;
+      } catch (e) {
+        ResultEntity resultEntity = BaseDio.getError(e);
+        return DataWrapper.createFailed(
+            code: resultEntity.code, msg: resultEntity.msg);
+      }
+    });
   }
 }

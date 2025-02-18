@@ -10,6 +10,8 @@ import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_add_edit_page.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_page_vd.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_list_page_vd.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
@@ -20,23 +22,21 @@ import '../../../../feature/component/tree/vmbox/tree_data_list_vm_vox.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';
 import '../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../lib/fast/vd/refresh/content_empty.dart';
-import 'dept_list_page_vd.dart';
 
 ///
-/// 部门单选列表
+/// 用户浏览列表
 ///
-class DeptListSingleSelectPage
-    extends AppBaseStatelessWidget<_DeptListSingleSelectVm> {
-  static const String routeName = '/system/dept/single';
+class UserListBrowserPage2 extends AppBaseStatelessWidget<_UserListBrowserVm> {
+  static const String routeName = '/system/user2';
 
   final String title;
 
-  DeptListSingleSelectPage(this.title, {super.key});
+  UserListBrowserPage2(this.title, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => _DeptListSingleSelectVm(),
+      create: (BuildContext context) => _UserListBrowserVm(),
       builder: (context, child) {
         ThemeData themeData = Theme.of(context);
         registerEvent(context);
@@ -55,9 +55,13 @@ class DeptListSingleSelectPage
             },
             child: Scaffold(
                 appBar: AppBar(title: Text(title)),
-                //图标滚动使用固定大小来解决
+                floatingActionButton: FloatingActionButton(
+                    child: Icon(Icons.add),
+                    onPressed: () {
+                      getVm().onAddUser();
+                    }),
                 body: Column(children: [
-                  Selector<_DeptListSingleSelectVm, List<SlcTreeNav>>(
+                  Selector<_UserListBrowserVm, List<SlcTreeNav>>(
                       builder: (context, value, child) {
                     return DeptListPageWidget.getNavWidget(themeData, value,
                         (currentItem) {
@@ -71,24 +75,19 @@ class DeptListSingleSelectPage
                   Expanded(
                       child: ListDataVd(getVm().listVmSub, getVm(),
                           refreshOnStart: true, child:
-                              Consumer<_DeptListSingleSelectVm>(
+                              Consumer<_UserListBrowserVm>(
                                   builder: (context, vm, child) {
-                    return DeptListPageWidget.getDataListWidget(
+                    return UserListPageVd.getUserListWidget(
                         themeData, getVm().listVmSub, (currentItem) {
-                      return Ink(
-                          child: InkWell(
-                              child: Padding(
-                                  padding:
-                                  EdgeInsets.all(SlcDimens.appDimens12),
-                                  child: const Icon(Icons.radio_button_off,
-                                      size: 24)),
-                              onTap: () {
-                                //单选事件
-                                getVm()
-                                    .listVmSub
-                                    .onSuffixClick
-                                    ?.call(currentItem);
-                              }));
+                      if (currentItem is Dept) {
+                        //此处部门只需要更多图表，不需要事件
+                        return Padding(
+                            padding:
+                            EdgeInsets.all(SlcDimens.appDimens12),
+                            child: const Icon(Icons.chevron_right,
+                                size: 24));
+                      }
+                      return null;
                     });
                   })))
                 ])));
@@ -98,21 +97,23 @@ class DeptListSingleSelectPage
 }
 
 //点击列表直接切换数据 存储上级数据列表 返回时直接获取上级加载
-class _DeptListSingleSelectVm extends AppBaseVm {
-  late DeptTreeListDataVmSub listVmSub;
+class _UserListBrowserVm extends AppBaseVm {
+  late UserTreeListDataVmSub listVmSub;
 
-  _DeptListSingleSelectVm() {
-    listVmSub = DeptTreeListDataVmSub(this);
+  _UserListBrowserVm() {
+    listVmSub = UserTreeListDataVmSub(this);
   }
 
   void initVm() {
     registerVmSub(listVmSub);
-    listVmSub.onSuffixClick = (Dept data) {
-      //选择了
-      finish(result: data);
+    listVmSub.onSuffixClick = (dynamic data) {
+      //选择更多按钮事件
     };
     SlcTreeNav slcTreeNav = SlcTreeNav(
         ConstantBase.VALUE_PARENT_ID_DEF, S.current.user_label_top_dept);
     listVmSub.next(slcTreeNav, notify: false);
   }
+
+  ///添加用户事件
+  void onAddUser() {}
 }

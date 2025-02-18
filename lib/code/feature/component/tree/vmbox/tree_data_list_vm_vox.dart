@@ -91,9 +91,14 @@ class TreeFastBaseListDataVmSub<T> extends FastBaseListDataVmSub<T> {
   }
 
   //执行取消
-  void execCancelToken(dynamic treeId) {
+  void execCancelToken(dynamic treeId, {bool remove = true}) {
     //此处获取CancelToken使用remove，意味着取消后就可以甩掉了，没用
-    CancelToken? oldCancelToken = treeStacksCancelTokenMap.remove(treeId);
+    CancelToken? oldCancelToken;
+    if (remove) {
+      oldCancelToken = treeStacksCancelTokenMap.remove(treeId);
+    } else {
+      oldCancelToken = treeStacksCancelTokenMap[treeId];
+    }
     if (oldCancelToken != null && !oldCancelToken.isCancelled) {
       oldCancelToken.cancel("pop");
     }
@@ -104,5 +109,13 @@ class TreeFastBaseListDataVmSub<T> extends FastBaseListDataVmSub<T> {
     super.onSucceed(dataList);
     SlcTreeNav slcTreeNav = treeNacStacks.last;
     treeStacksDataMap[slcTreeNav.id] = dataList;
+  }
+
+  @override
+  void onCleared() {
+    treeStacksCancelTokenMap.forEach((key, value) {
+      execCancelToken(key, remove: false);
+    });
+    super.onCleared();
   }
 }

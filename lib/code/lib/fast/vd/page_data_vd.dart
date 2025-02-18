@@ -147,7 +147,11 @@ class PageDataState extends State<PageDataVd> {
             () async {
               await widget.vmSub.refresh();
               _getErController().finishRefresh();
-              _getErController().finishLoad();
+              _getErController().finishLoad(
+                  widget.vmSub.getLoadMoreFormat().refreshStatusOf.value ==
+                      LoadMoreStatus.noMore
+                      ? IndicatorResult.noMore
+                      : IndicatorResult.fail);
               widget.changeNotifier.notifyListeners();
             },
         onLoad: widget.onLoad ??

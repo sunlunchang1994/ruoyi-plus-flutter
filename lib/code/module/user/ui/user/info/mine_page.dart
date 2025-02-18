@@ -7,12 +7,12 @@ import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/widget/fast_slc_ui_box.dart';
 import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import 'profile_page.dart';
-import '../../../../../res/dimens.dart';
-import '../../../../base/ui/app_mvvm.dart';
+import '../../../../../../res/dimens.dart';
+import '../../../../../base/ui/app_mvvm.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../generated/l10n.dart';
-import '../../../../feature/bizapi/user/entity/user_info_vo.dart';
+import '../../../../../../generated/l10n.dart';
+import '../../../../../feature/bizapi/user/entity/user_info_vo.dart';
 
 class MinePage extends StatefulWidget {
   const MinePage({super.key});

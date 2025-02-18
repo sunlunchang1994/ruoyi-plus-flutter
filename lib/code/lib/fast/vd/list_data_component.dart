@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/load_more_format.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 import 'package:flutter_slc_boxes/flutter/slc/code/observable_field.dart';
+import 'package:flutter_slc_boxes/flutter/slc/mvvm/fast_mvvm.dart';
 
 /// @Author sunlunchang
 /// mvvm接口数据拓展
@@ -69,7 +70,7 @@ class DataWrapper<T> {
 }
 
 ///基础数据列表
-abstract class IListDataVmSub<T> {
+abstract class IListDataVmSub<T> extends FastVmSub{
   final List<T> dataList = List.empty(growable: true);
 
   final ObservableField<dynamic> _refreshEventOf = ObservableField();

@@ -110,6 +110,7 @@ class _DeptListBrowserVm extends AppBaseVm {
   }
 
   void initVm() {
+    registerVmSub(listVmSub);
     listVmSub.onSuffixClick = (Dept data) {
       pushNamed(DeptAddEditPage.routeName,
           arguments: {ConstantUser.KEY_DEPT: data}).then((value) {

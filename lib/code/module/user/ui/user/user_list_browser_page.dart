@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_vd.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_add_edit_page.dart';
@@ -17,6 +18,7 @@ import '../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
+import '../../../../feature/bizapi/user/entity/user.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/component/tree/vmbox/tree_data_list_vm_vox.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';
@@ -41,56 +43,29 @@ class UserListBrowserPage extends AppBaseStatelessWidget<_UserListBrowserVm> {
         ThemeData themeData = Theme.of(context);
         registerEvent(context);
         getVm().initVm();
-        return PopScope(
-            canPop: false,
-            onPopInvokedWithResult: (didPop, result) {
-              if (didPop) {
-                return;
-              }
-              if (getVm().listVmSub.canPop()) {
-                Navigator.pop(context);
-                return;
-              }
-              getVm().listVmSub.autoPrevious();
-            },
-            child: Scaffold(
-                appBar: AppBar(title: Text(title)),
-                floatingActionButton: FloatingActionButton(
-                    child: Icon(Icons.add),
-                    onPressed: () {
-                      getVm().onAddUser();
-                    }),
-                body: Column(children: [
-                  Selector<_UserListBrowserVm, List<SlcTreeNav>>(
-                      builder: (context, value, child) {
-                    return DeptListPageWidget.getNavWidget(themeData, value,
-                        (currentItem) {
-                      getVm().listVmSub.previous(currentItem.id);
-                    });
-                  }, selector: (context, vm) {
-                    return vm.listVmSub.treeNacStacks;
-                  }, shouldRebuild: (oldVal, newVal) {
-                    return true;
-                  }),
-                  Expanded(
-                      child: ListDataVd(getVm().listVmSub, getVm(),
-                          refreshOnStart: true, child:
-                              Consumer<_UserListBrowserVm>(
-                                  builder: (context, vm, child) {
-                    return UserListPageVd.getUserListWidget(
+        return Scaffold(
+            appBar: AppBar(title: Text(title)),
+            floatingActionButton: FloatingActionButton(
+                child: Icon(Icons.add),
+                onPressed: () {
+                  getVm().onAddUser();
+                }),
+            body: PageDataVd(getVm().listVmSub, getVm(), refreshOnStart: true,
+                child: Consumer<_UserListBrowserVm>(builder: (context, vm, child) {
+              return ListView.builder(
+                  clipBehavior: Clip.none,
+                  scrollDirection: Axis.vertical,
+                  padding: EdgeInsets.zero,
+                  itemCount: getVm().listVmSub.dataList.length,
+                  itemBuilder: (context, index) {
+                    User listItem = getVm().listVmSub.dataList[index];
+                    return UserListPageVd.getUserListItem(
                         themeData, getVm().listVmSub, (currentItem) {
-                      if (currentItem is Dept) {
-                        //此处部门只需要更多图表，不需要事件
-                        return Padding(
-                            padding:
-                            EdgeInsets.all(SlcDimens.appDimens12),
-                            child: const Icon(Icons.chevron_right,
-                                size: 24));
-                      }
-                      return null;
-                    });
-                  })))
-                ])));
+                          //后缀视图
+                          return null;
+                    }, index, listItem);
+                  });
+            })));
       },
     );
   }
@@ -98,19 +73,14 @@ class UserListBrowserPage extends AppBaseStatelessWidget<_UserListBrowserVm> {
 
 //点击列表直接切换数据 存储上级数据列表 返回时直接获取上级加载
 class _UserListBrowserVm extends AppBaseVm {
-  late UserTreeListDataVmSub listVmSub;
+  late UserPageDataVmSub listVmSub;
 
   _UserListBrowserVm() {
-    listVmSub = UserTreeListDataVmSub(this);
+    listVmSub = UserPageDataVmSub();
   }
 
   void initVm() {
-    listVmSub.onSuffixClick = (dynamic data) {
-      //选择更多按钮事件
-    };
-    SlcTreeNav slcTreeNav = SlcTreeNav(
-        ConstantBase.VALUE_PARENT_ID_DEF, S.current.user_label_top_dept);
-    listVmSub.next(slcTreeNav, notify: false);
+    registerVmSub(listVmSub);
   }
 
   ///添加用户事件

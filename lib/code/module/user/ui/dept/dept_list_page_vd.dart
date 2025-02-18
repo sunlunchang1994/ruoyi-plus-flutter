@@ -80,27 +80,39 @@ class DeptListPageWidget {
         itemCount: listVmSub.dataList.length,
         itemBuilder: (ctx, index) {
           Dept listItem = listVmSub.dataList[index];
-          return Padding(
-              padding: const EdgeInsets.only(bottom: 1),
-              child: ListTile(
-                  contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
-                  title: Text(listItem.deptNameVo()),
-                  trailing: buildTrailing.call(listItem),
-                  visualDensity: VisualDensity.compact,
-                  tileColor: SlcColors.getCardColorByTheme(themeData),
-                  //根据card规则实现
-                  onTap: () {
-                    listVmSub.onItemClick(index, listItem);
-                    //getVm().nextByDept(listItem);
-                  }));
+          return getDataListItem(
+              themeData, listVmSub, buildTrailing, index, listItem);
         });
+  }
+
+  static Widget getDataListItem(
+    ThemeData themeData,
+    ListenerItemClick<dynamic> listenerItemClick,
+    Widget? Function(Dept currentItem) buildTrailing,
+    int index,
+    Dept listItem,
+  ) {
+    return Padding(
+        padding: const EdgeInsets.only(bottom: 1),
+        child: ListTile(
+            contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
+            title: Text(listItem.deptNameVo()),
+            trailing: buildTrailing.call(listItem),
+            visualDensity: VisualDensity.compact,
+            tileColor: SlcColors.getCardColorByTheme(themeData),
+            //根据card规则实现
+            onTap: () {
+              listenerItemClick.onItemClick(index, listItem);
+              //getVm().nextByDept(listItem);
+            }));
   }
 }
 
 ///部门树数据VmSub
 class DeptTreeListDataVmSub extends TreeFastBaseListDataVmSub<Dept> {
   final FastVm fastVm;
-  final Dept _currentDeptSearch = Dept(parentId: ConstantBase.VALUE_PARENT_ID_DEF);
+  final Dept _currentDeptSearch =
+      Dept(parentId: ConstantBase.VALUE_PARENT_ID_DEF);
 
   Dept get currentSearch => _currentDeptSearch;
 
