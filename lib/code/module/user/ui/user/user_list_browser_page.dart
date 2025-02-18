@@ -58,8 +58,7 @@ class UserListBrowserPage extends AppBaseStatelessWidget<_UserListBrowserVm> {
                 }),
             endDrawer: getEndDrawer(themeData),
             body: PageDataVd(getVm().listVmSub, getVm(), refreshOnStart: true,
-                child:
-                    Consumer<_UserListBrowserVm>(builder: (context, vm, child) {
+                child: Consumer<_UserListBrowserVm>(builder: (context, vm, child) {
               return ListView.builder(
                   clipBehavior: Clip.none,
                   scrollDirection: Axis.vertical,
@@ -67,8 +66,7 @@ class UserListBrowserPage extends AppBaseStatelessWidget<_UserListBrowserVm> {
                   itemCount: getVm().listVmSub.dataList.length,
                   itemBuilder: (context, index) {
                     User listItem = getVm().listVmSub.dataList[index];
-                    return UserListPageVd.getUserListItem(
-                        themeData, getVm().listVmSub, (currentItem) {
+                    return UserListPageVd.getUserListItem(themeData, getVm().listVmSub, (currentItem) {
                       //后缀视图
                       return null;
                     }, index, listItem);
@@ -89,135 +87,130 @@ class UserListBrowserPage extends AppBaseStatelessWidget<_UserListBrowserVm> {
             right: SlcDimens.appDimens16,
             bottom: SlcDimens.appDimens14),
         child: FormBuilder(
+            key: getVm().listVmSub.formOperate.formKey,
             child: Column(
-          children: [
-            Container(
-                alignment: Alignment.centerLeft,
-                height: themeData.appBarTheme.toolbarHeight,
-                child: Text(S.current.user_label_search_user,
-                    style: SlcStyles.getTitleTextStyle(themeData))),
-            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-            Selector<_UserListBrowserVm, String?>(
-                builder: (context, value, child) {
-              return MyFormBuilderSelect(
-                  name: "deptName",
-                  initialValue: value,
-                  onTap: () => getVm().listVmSub.onSelectDept(),
-                  decoration: MySelectDecoration(
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    labelText: S.current.user_label_user_owner_dept,
-                    hintText: S.current.app_label_please_choose,
-                    border: const UnderlineInputBorder(),
-                    suffixIcon: InputDecorationUtils.autoClearSuffixBySelectVal(
-                        value, onPressed: () {
-                      getVm().listVmSub.searchUser.deptId = null;
-                      getVm().listVmSub.searchUser.deptName = null;
-                      getVm().notifyListeners();
-                    }),
-                  ),
-                  textInputAction: TextInputAction.next);
-            }, selector: (context, vm) {
-              return vm.listVmSub.searchUser.deptName;
-            }, shouldRebuild: (oldVal, newVal) {
-              return oldVal != newVal;
-            }),
-            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-            Selector<_UserListBrowserVm, String?>(
-                builder: (context, value, child) {
-              return FormBuilderTextField(
-                  name: "userName",
-                  initialValue: value,
-                  decoration: MyInputDecoration(
-                      contentPadding: EdgeInsets.zero,
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      labelText: S.current.user_label_user_name,
-                      hintText: S.current.app_label_please_input,
-                      border: const UnderlineInputBorder(),
-                      suffixIcon:
-                          InputDecorationUtils.autoClearSuffixByInputVal(value,
-                              onPressed: () {
-                        getVm().listVmSub.searchUser.userName = '';
+              children: [
+                Container(
+                    alignment: Alignment.centerLeft,
+                    height: themeData.appBarTheme.toolbarHeight,
+                    child: Text(S.current.user_label_search_user,
+                        style: SlcStyles.getTitleTextStyle(themeData))),
+                SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                Selector<_UserListBrowserVm, String?>(builder: (context, value, child) {
+                  //getVm().listVmSub.formOperate.patchValue("deptName", value);
+                  return MyFormBuilderSelect(
+                      name: "deptName",
+                      initialValue: value,
+                      onTap: () => getVm().listVmSub.onSelectDept(),
+                      decoration: MySelectDecoration(
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        labelText: S.current.user_label_user_owner_dept,
+                        hintText: S.current.app_label_please_choose,
+                        border: const UnderlineInputBorder(),
+                        suffixIcon: InputDecorationUtils.autoClearSuffixBySelectVal(value, onPressed: () {
+                          getVm().listVmSub.setSelectDept(null);
+                        }),
+                      ),
+                      textInputAction: TextInputAction.next);
+                }, selector: (context, vm) {
+                  return vm.listVmSub.searchUser.deptName;
+                }, shouldRebuild: (oldVal, newVal) {
+                  return oldVal != newVal;
+                }),
+                SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                Selector<_UserListBrowserVm, String?>(builder: (context, value, child) {
+                  return FormBuilderTextField(
+                      name: "userName",
+                      initialValue: value,
+                      decoration: MyInputDecoration(
+                          contentPadding: EdgeInsets.zero,
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: S.current.user_label_user_name,
+                          hintText: S.current.app_label_please_input,
+                          border: const UnderlineInputBorder(),
+                          suffixIcon: InputDecorationUtils.autoClearSuffixByInputVal(value, onPressed: () {
+                            //getVm().listVmSub.searchUser.userName = null;
+                            getVm().listVmSub.formOperate.clearField("userName");
+                          })),
+                      onChanged: (value) {
+                        getVm().listVmSub.searchUser.userName = value;
                         getVm().notifyListeners();
-                      })),
-                  onChanged: (value) {
-                    getVm().listVmSub.searchUser.userName = value;
-                    getVm().notifyListeners();
-                  },
-                  textInputAction: TextInputAction.next);
-            }, selector: (context, vm) {
-              return vm.listVmSub.searchUser.userName;
-            }, shouldRebuild: (oldVal, newVal) {
-              return oldVal != newVal;
-            }),
-            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-            Selector<_UserListBrowserVm, String?>(
-                builder: (context, value, child) {
-              return FormBuilderTextField(
-                  name: "phonenumber",
-                  initialValue: value,
-                  decoration: MyInputDecoration(
-                      contentPadding: EdgeInsets.zero,
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      labelText: S.current.user_label_phone_number,
-                      hintText: S.current.app_label_please_input,
-                      border: const UnderlineInputBorder()),
-                  onChanged: (value) {
-                    getVm().listVmSub.searchUser.phonenumber = value;
-                  },
-                  textInputAction: TextInputAction.next);
-            }, selector: (context, vm) {
-              return vm.listVmSub.searchUser.phonenumber;
-            }, shouldRebuild: (oldVal, newVal) {
-              return oldVal != newVal;
-            }),
-            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-            Selector<_UserListBrowserVm, String?>(
-                builder: (context, value, child) {
-              return MyFormBuilderSelect(
-                  name: "status",
-                  initialValue: value,
-                  onTap: () => _onSelectUserStatus(context),
-                  decoration: MySelectDecoration(
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      labelText: S.current.user_label_status,
-                      hintText: S.current.app_label_please_choose,
-                      border: const UnderlineInputBorder(),
-                      suffixIcon:
-                          InputDecorationUtils.autoClearSuffixBySelectVal(value,
-                              onPressed: () {
-                        getVm().listVmSub.searchUser.status = null;
-                        getVm().listVmSub.searchUser.statusName = null;
+                      },
+                      textInputAction: TextInputAction.next);
+                }, selector: (context, vm) {
+                  return vm.listVmSub.searchUser.userName;
+                }, shouldRebuild: (oldVal, newVal) {
+                  return oldVal != newVal;
+                }),
+                SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                Selector<_UserListBrowserVm, String?>(builder: (context, value, child) {
+                  return FormBuilderTextField(
+                      name: "phonenumber",
+                      initialValue: value,
+                      decoration: MyInputDecoration(
+                          contentPadding: EdgeInsets.zero,
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: S.current.user_label_phone_number,
+                          hintText: S.current.app_label_please_input,
+                          border: const UnderlineInputBorder(),
+                          suffixIcon: InputDecorationUtils.autoClearSuffixByInputVal(value, onPressed: () {
+                            //getVm().listVmSub.searchUser.userName = null;
+                            getVm().listVmSub.formOperate.clearField("phonenumber");
+                          })),
+                      onChanged: (value) {
+                        getVm().listVmSub.searchUser.phonenumber = value;
                         getVm().notifyListeners();
-                      })),
-                  textInputAction: TextInputAction.next);
-            }, selector: (context, vm) {
-              return vm.listVmSub.searchUser.statusName;
-            }, shouldRebuild: (oldVal, newVal) {
-              return oldVal != newVal;
-            }),
-            Expanded(child: Builder(builder: (context) {
-              return Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded(
-                      child: OutlinedButton(
-                          onPressed: () {
-                            getVm().listVmSub.onResetSearch();
-                          },
-                          child: Text(S.current.action_reset))),
-                  SlcStyles.getSizedBox(width: SlcDimens.appDimens16),
-                  Expanded(
-                      child: FilledButton(
-                          onPressed: () {
-                            _autoHandlerDrawer(context);
-                            getVm().listVmSub.onSearch();
-                          },
-                          child: Text(S.current.action_search)))
-                ],
-              );
-            }))
-          ],
-        )));
+                      },
+                      textInputAction: TextInputAction.next);
+                }, selector: (context, vm) {
+                  return vm.listVmSub.searchUser.phonenumber;
+                }, shouldRebuild: (oldVal, newVal) {
+                  return oldVal != newVal;
+                }),
+                SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                Selector<_UserListBrowserVm, String?>(builder: (context, value, child) {
+                  //getVm().listVmSub.formOperate.patchValue("status", value);
+                  return MyFormBuilderSelect(
+                      name: "status",
+                      initialValue: value,
+                      onTap: () => _onSelectUserStatus(context),
+                      decoration: MySelectDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: S.current.user_label_status,
+                          hintText: S.current.app_label_please_choose,
+                          border: const UnderlineInputBorder(),
+                          suffixIcon: InputDecorationUtils.autoClearSuffixBySelectVal(value, onPressed: () {
+                            getVm().listVmSub.setSelectStatus(null);
+                          })),
+                      textInputAction: TextInputAction.next);
+                }, selector: (context, vm) {
+                  return vm.listVmSub.searchUser.statusName;
+                }, shouldRebuild: (oldVal, newVal) {
+                  return oldVal != newVal;
+                }),
+                Expanded(child: Builder(builder: (context) {
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Expanded(
+                          child: OutlinedButton(
+                              onPressed: () {
+                                getVm().listVmSub.onResetSearch();
+                              },
+                              child: Text(S.current.action_reset))),
+                      SlcStyles.getSizedBox(width: SlcDimens.appDimens16),
+                      Expanded(
+                          child: FilledButton(
+                              onPressed: () {
+                                _autoHandlerDrawer(context);
+                                getVm().listVmSub.onSearch();
+                              },
+                              child: Text(S.current.action_search)))
+                    ],
+                  );
+                }))
+              ],
+            )));
   }
 
   void _onSelectUserStatus(BuildContext context) {
@@ -225,15 +218,11 @@ class UserListBrowserPage extends AppBaseStatelessWidget<_UserListBrowserVm> {
         context: context,
         builder: (context) {
           List<SimpleDialogOption> dialogItem = DictUiUtils.dictList2DialogItem(
-              context,
-              LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!,
-              (value) {
+              context, LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!, (value) {
             //选择后设置性别
             getVm().listVmSub.setSelectStatus(value);
           });
-          return SimpleDialog(
-              title: Text(S.current.user_label_sex_select_prompt),
-              children: dialogItem);
+          return SimpleDialog(title: Text(S.current.user_label_sex_select_prompt), children: dialogItem);
         });
   }
 

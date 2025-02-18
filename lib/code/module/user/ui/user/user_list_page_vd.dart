@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/fast_mvvm.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
@@ -24,6 +25,7 @@ import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/component/tree/vmbox/tree_data_list_vm_vox.dart';
 import '../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../lib/fast/vd/refresh/content_empty.dart';
+import '../../../../lib/fast/widget/form/form_operate.dart';
 import '../dept/dept_list_single_select_page.dart';
 
 class UserListPageVd {
@@ -216,6 +218,8 @@ class UserTreeListDataVmSub extends TreeFastBaseListDataVmSub<dynamic> {
 class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> {
   final CancelToken cancelToken = CancelToken();
 
+  final FormOperate formOperate = FormOperate(GlobalKey<FormBuilderState>());
+
   User _searchUser = User();
 
   User get searchUser => _searchUser;
@@ -243,23 +247,29 @@ class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> {
       ConstantBase.KEY_INTENT_TITLE: S.current.user_label_tenant_select
     }).then((result) {
       if (result != null) {
-        Dept parentDept = result;
-        searchUser.deptId = parentDept.deptId;
-        searchUser.deptName = parentDept.deptName;
-        notifyListeners();
+        setSelectDept(result);
       }
     });
   }
 
-  void setSelectStatus(ITreeDict<dynamic> data) {
-    searchUser.status = data.tdDictValue;
-    searchUser.statusName = data.tdDictLabel;
+  void setSelectDept(Dept? dept){
+    searchUser.deptId = dept?.deptId;
+    searchUser.deptName = dept?.deptName;
+    formOperate.patchField("deptName", searchUser.deptName);
+    notifyListeners();
+  }
+
+  void setSelectStatus(ITreeDict<dynamic>? data) {
+    searchUser.status = data?.tdDictValue;
+    searchUser.statusName = data?.tdDictLabel;
+    formOperate.patchField("status", searchUser.statusName);
     notifyListeners();
   }
 
   //重置
   void onResetSearch() {
     _searchUser = User();
+    formOperate.clearAll();
     notifyListeners();
   }
 
