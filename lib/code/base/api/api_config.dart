@@ -29,7 +29,7 @@ class ApiConfig extends DpManager {
   static const String KEY_ENCRYPT_KEY = "encrypt-key"; //加密标记
   static const String KEY_APPLY_ENCRYPT = "applyEncrypt"; //应用加密
   //value
-  static const int VALUE_CODE_UNKNOWN_MISTAKE = 500;
+  static const int VALUE_CODE_SERVER_ERROR = 500;
   static const String VALUE_STR_UNKNOWN_MISTAKE = "Unknown mistake";
 
   static const String VALUE_RSA_PUBLIC_KEY =

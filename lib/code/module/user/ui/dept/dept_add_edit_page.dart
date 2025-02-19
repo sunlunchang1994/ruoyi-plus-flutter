@@ -12,9 +12,11 @@ import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/utils/fast_dialog_utils.dart';
 import 'package:ruoyi_plus_flutter/code/base/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/dept.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/user.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_single_select_page.dart';
 
@@ -24,6 +26,9 @@ import '../../../../base/api/result_entity.dart';
 import '../../../../base/ui/app_mvvm.dart';
 import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
 import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
+import '../../config/constant_user.dart';
+import '../user/user_list_select_by_dept_page.dart';
+import '../user/user_list_single_select_page.dart';
 
 ///部门信息新增修改
 class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
@@ -96,209 +101,159 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
     List<Widget> formItemArray = List.empty(growable: true);
     //父节点id不是顶级父节点则展示选择父节点控件
     if (ConstantBase.VALUE_PARENT_ID_DEF != getVm().deptInfo?.parentId) {
-      formItemArray.add(Selector<_DeptAddEditModel, String?>(
-          builder: (context, value, child) {
-        return MyFormBuilderSelect(
-            name: "parentName",
-            initialValue: value,
-            onTap: () => getVm().onSelectTopDept(),
-            decoration: MySelectDecoration(
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                labelText: S.current.user_label_dept_parent_name,
-                hintText: S.current.app_label_please_choose,
-                border:
-                    const UnderlineInputBorder() /*border: InputBorder.none*/),
-            validator: FormBuilderValidators.compose([
-              FormBuilderValidators.required(),
-            ]),
-            textInputAction: TextInputAction.next);
-      }, selector: (context, vm) {
-        return vm.deptInfo!.parentName;
-      }, shouldRebuild: (oldVal, newVal) {
-        return oldVal != newVal;
-      }));
+      formItemArray.add(MyFormBuilderSelect(
+          name: "parentName",
+          initialValue: getVm().deptInfo!.parentName,
+          onTap: () => getVm().onSelectTopDept(),
+          decoration: MySelectDecoration(
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              labelText: S.current.user_label_dept_parent_name,
+              hintText: S.current.app_label_please_choose,
+              border: const UnderlineInputBorder()),
+          validator: FormBuilderValidators.compose([
+            FormBuilderValidators.required(),
+          ]),
+          textInputAction: TextInputAction.next));
       formItemArray.add(SlcStyles.getSizedBox(height: SlcDimens.appDimens16));
     }
     formItemArray.addAll(<Widget>{
-      Selector<_DeptAddEditModel, String?>(builder: (context, value, child) {
-        return FormBuilderTextField(
-            name: "deptName",
-            initialValue: value,
-            decoration: MyInputDecoration(
-                contentPadding: EdgeInsets.zero,
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                labelText: S.current.user_label_nike_name,
-                hintText: S.current.app_label_please_input,
-                border: const UnderlineInputBorder()),
-            onChanged: (value) {
-              getVm().applyInfoChange();
-              getVm().deptInfo!.deptName = value;
-            },
-            validator: FormBuilderValidators.compose([
-              FormBuilderValidators.required(),
-            ]),
-            textInputAction: TextInputAction.next);
-      }, selector: (context, vm) {
-        return vm.deptInfo!.deptName;
-      }, shouldRebuild: (oldVal, newVal) {
-        return oldVal != newVal;
-      }),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-      Selector<_DeptAddEditModel, String?>(builder: (context, value, child) {
-        return FormBuilderTextField(
-            name: "deptCategory",
-            initialValue: value,
-            decoration: MyInputDecoration(
-                contentPadding: EdgeInsets.zero,
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                labelText: S.current.user_label_dept_category,
-                hintText: S.current.app_label_please_input,
-                border: const UnderlineInputBorder()),
-            onChanged: (value) {
-              getVm().applyInfoChange();
-              getVm().deptInfo!.deptCategory = value;
-            },
-            textInputAction: TextInputAction.next);
-      }, selector: (context, vm) {
-        return vm.deptInfo!.deptCategory;
-      }, shouldRebuild: (oldVal, newVal) {
-        return oldVal != newVal;
-      }),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-      Selector<_DeptAddEditModel, String?>(builder: (context, value, child) {
-        return FormBuilderTextField(
-          name: "orderNum",
-          initialValue: value,
+      FormBuilderTextField(
+          name: "deptName",
+          initialValue: getVm().deptInfo!.deptName,
           decoration: MyInputDecoration(
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
-              labelText: S.current.user_label_dept_show_sort,
+              labelText: S.current.user_label_nike_name,
               hintText: S.current.app_label_please_input,
               border: const UnderlineInputBorder()),
           onChanged: (value) {
             getVm().applyInfoChange();
-            getVm().deptInfo!.orderNum =
-                value == null ? null : int.tryParse(value);
+            getVm().deptInfo!.deptName = value;
           },
           validator: FormBuilderValidators.compose([
             FormBuilderValidators.required(),
-            FormBuilderValidators.numeric(),
           ]),
-          keyboardType: TextInputType.number,
-          textInputAction: TextInputAction.next,
-        );
-      }, selector: (context, vm) {
-        int? orderNum = vm.deptInfo!.orderNum;
-        return orderNum == null ? "0" : orderNum.toString();
-      }, shouldRebuild: (oldVal, newVal) {
-        return oldVal != newVal;
-      }),
+          textInputAction: TextInputAction.next),
       SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-      Selector<_DeptAddEditModel, String?>(builder: (context, value, child) {
-        return MyFormBuilderSelect(
-            name: "leaderName",
-            initialValue: value,
-            onTap: () => getVm().onSelectTopDept(),
-            decoration: MySelectDecoration(
+      FormBuilderTextField(
+          name: "deptCategory",
+          initialValue: getVm().deptInfo!.deptCategory,
+          decoration: MyInputDecoration(
+              contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
-              labelText: S.current.user_label_dept_leader,
-              hintText: S.current.app_label_please_choose,
-              border: const UnderlineInputBorder(),
-              suffixIcon: InputDecorationUtils.autoClearSuffixBySelect(
-                  TextUtil.isNotEmpty(getVm().deptInfo!.leaderName),
-                  onPressed: () {
-                getVm().deptInfo?.leader = null;
-                getVm().deptInfo?.leaderName = null;
-                getVm().notifyListeners();
-              }),
-            ),
-            textInputAction: TextInputAction.next);
-      }, selector: (context, vm) {
-        return vm.deptInfo!.leaderName;
-      }, shouldRebuild: (oldVal, newVal) {
-        return oldVal != newVal;
-      }),
+              labelText: S.current.user_label_dept_category,
+              hintText: S.current.app_label_please_input,
+              border: const UnderlineInputBorder()),
+          onChanged: (value) {
+            getVm().applyInfoChange();
+            getVm().deptInfo!.deptCategory = value;
+          },
+          textInputAction: TextInputAction.next),
       SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-      Selector<_DeptAddEditModel, String?>(builder: (context, value, child) {
-        return FormBuilderTextField(
-            name: "phone",
-            initialValue: value,
-            decoration: MyInputDecoration(
-                contentPadding: EdgeInsets.zero,
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                labelText: S.current.user_label_dept_contact_number,
-                hintText: S.current.app_label_please_input,
-                border: const UnderlineInputBorder()),
-            onChanged: (value) {
-              //此处需改成选择的
-              getVm().applyInfoChange();
-              getVm().deptInfo!.phone = value;
-            },
-            validator: FormBuilderValidators.compose([
-              FormBuilderValidators.phoneNumber(checkNullOrEmpty: false),
-            ]),
-            keyboardType: TextInputType.number,
-            textInputAction: TextInputAction.next);
-      }, selector: (context, vm) {
-        return vm.deptInfo!.phone;
-      }, shouldRebuild: (oldVal, newVal) {
-        return oldVal != newVal;
-      }),
+      FormBuilderTextField(
+        name: "orderNum",
+        initialValue: () {
+          int? orderNum = getVm().deptInfo!.orderNum;
+          return orderNum == null ? "0" : orderNum.toString();
+        }.call(),
+        decoration: MyInputDecoration(
+            contentPadding: EdgeInsets.zero,
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            labelText: S.current.user_label_dept_show_sort,
+            hintText: S.current.app_label_please_input,
+            border: const UnderlineInputBorder()),
+        onChanged: (value) {
+          getVm().applyInfoChange();
+          getVm().deptInfo!.orderNum =
+              value == null ? null : int.tryParse(value);
+        },
+        validator: FormBuilderValidators.compose([
+          FormBuilderValidators.required(),
+          FormBuilderValidators.numeric(),
+        ]),
+        keyboardType: TextInputType.number,
+        textInputAction: TextInputAction.next,
+      ),
       SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-      Selector<_DeptAddEditModel, String?>(builder: (context, value, child) {
-        return FormBuilderTextField(
-            name: "email",
-            initialValue: value,
-            decoration: MyInputDecoration(
-                contentPadding: EdgeInsets.zero,
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                labelText: S.current.user_label_dept_contact_email,
-                hintText: S.current.app_label_please_input,
-                border: const UnderlineInputBorder()),
-            onChanged: (value) {
-              //此处需改成选择的
-              getVm().applyInfoChange();
-              getVm().deptInfo!.email = value;
-            },
-            validator: FormBuilderValidators.compose([
-              FormBuilderValidators.email(checkNullOrEmpty: false),
-            ]),
-            keyboardType: TextInputType.emailAddress,
-            textInputAction: TextInputAction.next);
-      }, selector: (context, vm) {
-        return vm.deptInfo!.email;
-      }, shouldRebuild: (oldVal, newVal) {
-        return oldVal != newVal;
-      }),
+      MyFormBuilderSelect(
+          name: "leaderName",
+          initialValue: getVm().deptInfo!.leaderName,
+          onTap: () => getVm().onSelectLeaderUser(),
+          decoration: MySelectDecoration(
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            labelText: S.current.user_label_dept_leader,
+            hintText: S.current.app_label_please_choose,
+            border: const UnderlineInputBorder(),
+            suffixIcon: InputDecorationUtils.autoClearSuffixBySelect(
+                TextUtil.isNotEmpty(getVm().deptInfo!.leaderName),
+                onPressed: () {
+              getVm().deptInfo?.leader = null;
+              getVm().deptInfo?.leaderName = null;
+              getVm().notifyListeners();
+            }),
+          ),
+          textInputAction: TextInputAction.next),
       SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-      Selector<_DeptAddEditModel, String?>(builder: (context, value, child) {
-        return FormBuilderRadioGroup<OptionVL<String>>(
-          decoration:
-              MyInputDecoration(labelText: S.current.user_label_dept_status),
-          name: "status",
-          initialValue: DictUiUtils.dict2OptionVL(
-              LocalDictLib.findDictByCodeKey(
-                  LocalDictLib.CODE_SYS_NORMAL_DISABLE, value)),
-          options: DictUiUtils.dictList2FromOption(
-              LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
+      FormBuilderTextField(
+          name: "phone",
+          initialValue: getVm().deptInfo!.phone,
+          decoration: MyInputDecoration(
+              contentPadding: EdgeInsets.zero,
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              labelText: S.current.user_label_dept_contact_number,
+              hintText: S.current.app_label_please_input,
+              border: const UnderlineInputBorder()),
           onChanged: (value) {
             //此处需改成选择的
             getVm().applyInfoChange();
-            getVm().deptInfo!.status = value?.value;
+            getVm().deptInfo!.phone = value;
           },
-          /*separator: const VerticalDivider(
+          validator: FormBuilderValidators.compose([
+            FormBuilderValidators.phoneNumber(checkNullOrEmpty: false),
+          ]),
+          keyboardType: TextInputType.number,
+          textInputAction: TextInputAction.next),
+      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      FormBuilderTextField(
+          name: "email",
+          initialValue: getVm().deptInfo!.email,
+          decoration: MyInputDecoration(
+              contentPadding: EdgeInsets.zero,
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              labelText: S.current.user_label_dept_contact_email,
+              hintText: S.current.app_label_please_input,
+              border: const UnderlineInputBorder()),
+          onChanged: (value) {
+            //此处需改成选择的
+            getVm().applyInfoChange();
+            getVm().deptInfo!.email = value;
+          },
+          validator: FormBuilderValidators.compose([
+            FormBuilderValidators.email(checkNullOrEmpty: false),
+          ]),
+          keyboardType: TextInputType.emailAddress,
+          textInputAction: TextInputAction.next),
+      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      FormBuilderRadioGroup<OptionVL<String>>(
+        decoration:
+            MyInputDecoration(labelText: S.current.user_label_dept_status),
+        name: "status",
+        initialValue: DictUiUtils.dict2OptionVL(LocalDictLib.findDictByCodeKey(
+            LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().deptInfo!.status)),
+        options: DictUiUtils.dictList2FromOption(
+            LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
+        onChanged: (value) {
+          //此处需改成选择的
+          getVm().applyInfoChange();
+          getVm().deptInfo!.status = value?.value;
+        },
+        /*separator: const VerticalDivider(
             width: 10,
             thickness: 5,
             color: Colors.red,
           ),*/
-          validator:
-              FormBuilderValidators.compose([FormBuilderValidators.required()]),
-        );
-      }, selector: (context, vm) {
-        return vm.deptInfo!.status;
-      }, shouldRebuild: (oldVal, newVal) {
-        return oldVal != newVal;
-      })
+        validator: FormBuilderValidators.compose([FormBuilderValidators.required()]),
+      )
     });
     return formItemArray;
   }
@@ -366,8 +321,21 @@ class _DeptAddEditModel extends AppBaseVm {
         Dept parentDept = result;
         deptInfo!.parentId = parentDept.deptId;
         deptInfo!.parentName = parentDept.deptName;
-        applyInfoChange();
-        notifyListeners();
+        _formKey.currentState?.patchField("parentName", deptInfo!.parentName);
+      }
+    });
+  }
+
+  void onSelectLeaderUser() {
+    pushNamed(UserListSelectByDeptPage.routeName, arguments: {
+      ConstantBase.KEY_INTENT_TITLE: S.current.user_label_dept_leader_select,
+      ConstantUser.KEY_DEPT: deptInfo?.deptId ?? -1
+    }).then((result) {
+      if (result != null) {
+        User leaderUser = result;
+        deptInfo!.leader = leaderUser.userId;
+        deptInfo!.leaderName = leaderUser.nickName;
+        _formKey.currentState?.patchField("leaderName", deptInfo!.leaderName);
       }
     });
   }

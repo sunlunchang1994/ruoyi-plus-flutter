@@ -13,14 +13,8 @@ import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_add_edit_page.d
 import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_page_vd.dart';
 
 import '../../../../../generated/l10n.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/api/result_entity.dart';
-import '../../../../base/repository/remote/data_transform_utils.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
-import '../../../../feature/component/tree/vmbox/tree_data_list_vm_vox.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';
-import '../../../../lib/fast/vd/list_data_component.dart';
-import '../../../../lib/fast/vd/refresh/content_empty.dart';
 
 ///
 /// 部门浏览列表

@@ -1,3 +1,4 @@
+import '../../../../generated/l10n.dart';
 import '../../../lib/fast/vd/list_data_component.dart';
 
 import '../../api/api_config.dart';
@@ -23,7 +24,7 @@ class DataTransformUtils {
     if (entity.isSuccess()) {
       return entity;
     }
-    throw ApiException(entity.code ?? ApiConfig.VALUE_CODE_UNKNOWN_MISTAKE,
+    throw ApiException(entity.code ?? ApiConfig.VALUE_CODE_SERVER_ERROR,
         message: entity.msg);
   }
 
@@ -31,7 +32,25 @@ class DataTransformUtils {
     if (entity.isSuccess()) {
       return entity;
     }
-    throw ApiException(entity.getCode() ?? ApiConfig.VALUE_CODE_UNKNOWN_MISTAKE,
+    throw ApiException(entity.getCode() ?? ApiConfig.VALUE_CODE_SERVER_ERROR,
         message: entity.getMsg());
+  }
+
+  static ResultEntity checkNull<T>(ResultEntity entity) {
+    checkError(entity);
+    if (entity.data!=null) {
+      return entity;
+    }
+    throw ApiException(entity.code ?? ApiConfig.VALUE_CODE_SERVER_ERROR,
+        message: S.current.label_data_is_null);
+  }
+
+  static IntensifyEntity<T> checkNullIe<T>(IntensifyEntity<T> entity) {
+    checkErrorIe(entity);
+    if (entity.data!=null) {
+      return entity;
+    }
+    throw ApiException(entity.getCode() ?? ApiConfig.VALUE_CODE_SERVER_ERROR,
+        message: S.current.label_data_is_null);
   }
 }

@@ -2030,6 +2030,16 @@ class S {
     );
   }
 
+  /// `选择负责人`
+  String get user_label_dept_leader_select {
+    return Intl.message(
+      '选择负责人',
+      name: 'user_label_dept_leader_select',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `联系电话`
   String get user_label_dept_contact_number {
     return Intl.message(

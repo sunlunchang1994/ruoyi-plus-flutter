@@ -1,9 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../../base/api/json_converter.dart';
+
 part 'role.g.dart';
 
 @JsonSerializable()
 class Role {
+  @IntConverter()
   int? roleId;
   String? roleName;
   String? roleKey;

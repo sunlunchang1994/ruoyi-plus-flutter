@@ -1,11 +1,14 @@
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/dept.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/user_api.dart';
 
 import '../../../../base/api/api_config.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
+import '../../../../feature/bizapi/user/entity/my_user_info_vo.dart';
+import '../../../../feature/bizapi/user/entity/user_info_vo.dart';
 
 part 'dept_api.g.dart';
 
@@ -78,6 +81,20 @@ class DeptRepository {
           return intensifyEntity;
         })
         .map(DataTransformUtils.checkErrorIe)
+        .asyncMap<IntensifyEntity<Dept>>((deptIe) {
+          Dept? dept = deptIe.data;
+          if (dept?.leader != null) {
+            //获取用户信息
+            return UserServiceRepository.getUserById(dept!.leader!, cancelToken)
+                .asStream()
+                .map((event) {
+              UserInfoVo? userInfo = event.data;
+              dept.leaderName = userInfo?.user.nickName;
+              return deptIe;
+            }).single;
+          }
+          return deptIe;
+        })
         .single;
   }
 

@@ -373,6 +373,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "user_label_dept_edit": MessageLookupByLibrary.simpleMessage("修改部门信息"),
     "user_label_dept_leader": MessageLookupByLibrary.simpleMessage("负责人"),
+    "user_label_dept_leader_select": MessageLookupByLibrary.simpleMessage(
+      "选择负责人",
+    ),
     "user_label_dept_list": MessageLookupByLibrary.simpleMessage("部门列表"),
     "user_label_dept_name": MessageLookupByLibrary.simpleMessage("部门名称"),
     "user_label_dept_not_found": MessageLookupByLibrary.simpleMessage(

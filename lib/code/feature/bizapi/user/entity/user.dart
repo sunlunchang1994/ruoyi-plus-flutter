@@ -1,5 +1,6 @@
 import 'package:flutter_slc_boxes/flutter/slc/common/object_util.dart';
 
+import '../../../../base/api/json_converter.dart';
 import 'role.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -7,8 +8,10 @@ part 'user.g.dart';
 
 @JsonSerializable()
 class User {
+  @IntConverter()
   int? userId;
   String? tenantId;
+  @IntConverter()
   int? deptId;
   String? userName;
   String? nickName;

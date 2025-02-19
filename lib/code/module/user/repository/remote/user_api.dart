@@ -11,6 +11,8 @@ import '../../../../base/api/api_config.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/repository/remote/page_transform_utils.dart';
+import '../../../../feature/bizapi/user/entity/my_user_info_vo.dart';
+import '../../../../feature/bizapi/user/entity/user_info_vo.dart';
 import '../../entity/dept_tree.dart';
 
 part 'user_api.g.dart';
@@ -31,6 +33,16 @@ abstract class UserApiClient {
   ///获取部门树列表
   @GET("/system/user/deptTree")
   Future<ResultEntity> deptTree();
+
+  ///部门下的用户列表
+  @GET("/system/user/list/dept/{deptId}")
+  Future<ResultEntity> userListByDept(
+      @Path("deptId") int deptId, @CancelRequest() CancelToken cancelToken);
+
+  ///获取用户信息
+  @GET("/system/user/{userId}")
+  Future<ResultEntity> getUserById(
+      @Path("userId") int userId, @CancelRequest() CancelToken cancelToken);
 }
 
 ///用户服务
@@ -78,9 +90,9 @@ class UserServiceRepository {
                     size: size,
                     rows: event.rows,
                     total: event.total);
-                PageModel<User> pageModel =
-                    PageTransformUtils.appPm2Pm(appPageModel,
-                        records: User.formJsonList(appPageModel.rows));
+                PageModel<User> pageModel = PageTransformUtils.appPm2Pm(
+                    appPageModel,
+                    records: User.formJsonList(appPageModel.rows));
                 return pageModel;
               });
           return intensifyEntity;
@@ -93,6 +105,7 @@ class UserServiceRepository {
     return _userApiClient
         .deptTree()
         .asStream()
+        .map(DataTransformUtils.checkError)
         .map((event) {
           var intensifyEntity = IntensifyEntity<List<DeptTree>>(
               resultEntity: event,
@@ -101,7 +114,40 @@ class UserServiceRepository {
               });
           return intensifyEntity;
         })
-        .map(DataTransformUtils.checkErrorIe)
+        .single;
+  }
+
+  static Future<IntensifyEntity<List<User>>> userListByDept(
+      int deptId, CancelToken cancelToken) {
+    return _userApiClient
+        .userListByDept(deptId, cancelToken)
+        .asStream()
+        .map(DataTransformUtils.checkError)
+        .map((event) {
+          var intensifyEntity = IntensifyEntity<List<User>>(
+              resultEntity: event,
+              createData: (resultEntity) {
+                return User.formJsonList(resultEntity.data);
+              });
+          return intensifyEntity;
+        })
+        .single;
+  }
+
+  static Future<IntensifyEntity<UserInfoVo>> getUserById(
+      int userId, CancelToken cancelToken) {
+    return _userApiClient
+        .getUserById(userId, cancelToken)
+        .asStream()
+        .map(DataTransformUtils.checkError)
+        .map((event) {
+          var intensifyEntity = IntensifyEntity<UserInfoVo>(
+              resultEntity: event,
+              createData: (resultEntity) {
+                return UserInfoVo.fromJson(resultEntity.data);
+              });
+          return intensifyEntity;
+        })
         .single;
   }
 }

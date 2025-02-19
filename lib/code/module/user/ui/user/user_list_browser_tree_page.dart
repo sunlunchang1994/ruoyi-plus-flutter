@@ -1,30 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_vd.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_add_edit_page.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_page_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_list_page_vd.dart';
 
 import '../../../../../generated/l10n.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/api/result_entity.dart';
-import '../../../../base/repository/remote/data_transform_utils.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
-import '../../../../feature/component/tree/vmbox/tree_data_list_vm_vox.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';
-import '../../../../lib/fast/vd/list_data_component.dart';
-import '../../../../lib/fast/vd/refresh/content_empty.dart';
 
 ///
-/// 用户浏览列表
+/// 用户浏览列表：通讯录的形势
 ///
 class UserListBrowserPage2 extends AppBaseStatelessWidget<_UserListBrowserVm> {
   static const String routeName = '/system/user2';
@@ -77,7 +66,7 @@ class UserListBrowserPage2 extends AppBaseStatelessWidget<_UserListBrowserVm> {
                           refreshOnStart: true, child:
                               Consumer<_UserListBrowserVm>(
                                   builder: (context, vm, child) {
-                    return UserListPageVd.getUserListWidget(
+                    return UserListPageVd.getDeptUserListWidget(
                         themeData, getVm().listVmSub, (currentItem) {
                       if (currentItem is Dept) {
                         //此处部门只需要更多图表，不需要事件

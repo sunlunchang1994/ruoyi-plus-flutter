@@ -7,6 +7,7 @@ import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/api_config.dart';
 import 'package:ruoyi_plus_flutter/code/base/startup/task_utils.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/repository/local/user_config.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../base/api/result_entity.dart';
@@ -46,15 +47,20 @@ class WelcomePage extends AppBaseStatelessWidget<_WelcomeVm> {
                     children: [
                       const Center(
                           child: Image(
-                              image: AssetImage("assets/images/ic_launcher.png"), width: 56, height: 56)),
-                      Text(S.current.app_name, style: Theme.of(context).textTheme.titleMedium)
+                              image:
+                                  AssetImage("assets/images/ic_launcher.png"),
+                              width: 56,
+                              height: 56)),
+                      Text(S.current.app_name,
+                          style: Theme.of(context).textTheme.titleMedium)
                     ],
                   )),
               Expanded(
                   flex: 3,
                   child: Center(
                     child: Text(S.current.label_loading,
-                        style: SlcStyles.getTextColorHintStyleByTheme(themeData)),
+                        style:
+                            SlcStyles.getTextColorHintStyleByTheme(themeData)),
                   )),
               const Spacer(flex: 1),
             ],
@@ -74,14 +80,15 @@ class _WelcomeVm extends AppBaseVm {
   void init(BuildContext context) async {
     TaskUtils.execOtherTask(context).then((value) async {
       await Future.delayed(const Duration(milliseconds: 1200));
-      if (ApiConfig().getToken() == null) {
+      if (!UserConfig().isAutoLogin() || ApiConfig().getToken() == null) {
         pushReplacementNamed(LoginPage.routeName);
         return;
       }
       Timer? autoLoginTimeOutTimer;
       UserServiceRepository.getInfo(cancelAutoLoginToken)
           .asStream()
-          .asyncMap((event) => MenuServiceRepository.getRouters(cancelAutoLoginToken))
+          .asyncMap(
+              (event) => MenuServiceRepository.getRouters(cancelAutoLoginToken))
           .single
           .then((IntensifyEntity<List<RouterVo>> value) {
         //登录成功了就取消
@@ -90,7 +97,8 @@ class _WelcomeVm extends AppBaseVm {
         }
         if (value.isSuccess()) {
           //成功了跳转主界面
-          AppToastBridge.showToast(msg: S.current.user_toast_login_login_successful);
+          AppToastBridge.showToast(
+              msg: S.current.user_toast_login_login_successful);
           pushReplacementNamed(MainPage.routeName);
           return;
         }

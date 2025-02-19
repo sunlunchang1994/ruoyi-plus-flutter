@@ -256,6 +256,7 @@
   "user_label_dept_category": "类别编码",
   "user_label_dept_show_sort": "显示排序",
   "user_label_dept_leader": "负责人",
+  "user_label_dept_leader_select": "选择负责人",
   "user_label_dept_contact_number": "联系电话",
   "user_label_dept_contact_email": "邮箱",
   "user_label_dept_status": "部门状态",

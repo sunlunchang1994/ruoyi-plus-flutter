@@ -6,7 +6,7 @@ import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import '../../../../../base/api/api_config.dart';
 import '../../../../../base/api/base_dio.dart';
 import '../../../../../base/api/result_entity.dart';
-import '../../entity/user_info_vo.dart';
+import '../../entity/my_user_info_vo.dart';
 
 part 'user_api.g.dart';
 
@@ -27,18 +27,18 @@ abstract class UserApiClient {
 class UserServiceRepository {
   static final UserApiClient _userApiClient = UserApiClient();
 
-  static Future<IntensifyEntity<UserInfoVo>> getInfo(CancelToken cancelToken) {
+  static Future<IntensifyEntity<MyUserInfoVo>> getInfo(CancelToken cancelToken) {
     return _userApiClient
         .getInfo(cancelToken)
         .asStream()
         .map((event) {
-          var intensifyEntity = IntensifyEntity<UserInfoVo>(
-              resultEntity: event, createData: (resultEntity) => UserInfoVo.fromJson(resultEntity.data));
+          var intensifyEntity = IntensifyEntity<MyUserInfoVo>(
+              resultEntity: event, createData: (resultEntity) => MyUserInfoVo.fromJson(resultEntity.data));
           return intensifyEntity;
         })
         .map(DataTransformUtils.checkErrorIe)
         .map((event) {
-          UserInfoVo userInfoVo = event.data;
+      MyUserInfoVo userInfoVo = event.data;
           GlobalVm().userShareVm.userInfoOf.value = userInfoVo;
           return event;
         })

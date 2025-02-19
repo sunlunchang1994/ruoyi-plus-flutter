@@ -12,7 +12,7 @@ import '../../../../../base/ui/app_mvvm.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../generated/l10n.dart';
-import '../../../../../feature/bizapi/user/entity/user_info_vo.dart';
+import '../../../../../feature/bizapi/user/entity/my_user_info_vo.dart';
 
 class MinePage extends StatefulWidget {
   const MinePage({super.key});
@@ -129,7 +129,7 @@ class _MineState extends AppBaseState<MinePage, _MineVm>
 }
 
 class _MineVm extends AppBaseVm {
-  UserInfoVo? userInfoVo;
+  MyUserInfoVo? userInfoVo;
 
   void initVm() {
     _onUserInfoVoChange(notify: false);

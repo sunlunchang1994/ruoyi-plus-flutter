@@ -4,6 +4,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
+import 'input_decoration_utils.dart';
+
 /// A Material Design text field input.
 class MyFormBuilderTextField extends FormBuilderTextField {
   MyFormBuilderTextField({
@@ -197,7 +199,7 @@ class MyInputDecoration extends InputDecoration {
     super.suffixText,
     super.suffixStyle,
     super.suffixIconColor,
-    super.suffixIconConstraints = const BoxConstraints(minWidth: 32, maxHeight: 32),
+  super.suffixIconConstraints = InputDecorationUtils.defSuffixIconConstraints,
     super.counter,
     super.counterText,
     super.counterStyle,
@@ -250,8 +252,8 @@ class MySelectDecoration extends InputDecoration {
     super.prefixText,
     super.prefixStyle,
     super.prefixIconColor,
-    super.suffixIcon = const Icon(Icons.chevron_right),
-    super.suffixIconConstraints = const BoxConstraints(minWidth: 32, maxHeight: 32),
+    super.suffixIcon = InputDecorationUtils.moreIcon,
+    super.suffixIconConstraints = InputDecorationUtils.defSuffixIconConstraints,
     super.suffix,
     super.suffixText,
     super.suffixStyle,

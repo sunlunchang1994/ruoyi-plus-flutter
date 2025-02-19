@@ -3,9 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/fast_mvvm.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/dept.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/user.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
@@ -21,15 +24,21 @@ import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/config/constant_base.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
+import '../../../../feature/component/dict/repository/local/local_dict_lib.dart';
+import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/component/tree/vmbox/tree_data_list_vm_vox.dart';
+import '../../../../lib/fast/provider/fast_select.dart';
 import '../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../lib/fast/vd/refresh/content_empty.dart';
-import '../../../../lib/fast/widget/form/form_operate.dart';
+import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
+import '../../../../lib/fast/widget/form/form_operate_with_provider.dart';
+import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
 import '../dept/dept_list_single_select_page.dart';
 
 class UserListPageVd {
-  static Widget getUserListWidget(
+  ///部门和用户混合列表
+  static Widget getDeptUserListWidget(
       ThemeData themeData,
       UserTreeListDataVmSub listVmSub,
       Widget? Function(dynamic currentItem) buildTrailing) {
@@ -69,6 +78,29 @@ class UserListPageVd {
         });
   }
 
+  ///用户列表
+  static Widget getUserListWidget(
+      ThemeData themeData, IListDataVmSub<User> listVmSub) {
+    assert(listVmSub is ListenerItemClick<dynamic>);
+    if (listVmSub.dataList.isEmpty) {
+      return const ContentEmptyWrapper();
+    }
+    return ListView.builder(
+        clipBehavior: Clip.none,
+        scrollDirection: Axis.vertical,
+        padding: EdgeInsets.zero,
+        itemCount: listVmSub.dataList.length,
+        itemBuilder: (context, index) {
+          User listItem = listVmSub.dataList[index];
+          return UserListPageVd.getUserListItem(
+              themeData, listVmSub as ListenerItemClick<dynamic>,
+              (currentItem) {
+            return null;
+          }, index, listItem);
+        });
+  }
+
+  ///用户item
   static Widget getUserListItem(
       ThemeData themeData,
       ListenerItemClick<dynamic> listenerItemClick,
@@ -114,8 +146,200 @@ class UserListPageVd {
               //getVm().nextByDept(listItem);
             }));
   }
+
+  ///搜索侧滑栏视图
+  static Widget getSearchEndDrawer<A>(
+      BuildContext context, ThemeData themeData, UserPageDataVmSub listVmSub,
+      {List<Widget>? Function(String? name)? formItemSlot}) {
+    return Container(
+        color: themeData.colorScheme.surface,
+        width: ScreenUtil.getInstance().screenWidthDpr * 0.73,
+        padding: EdgeInsets.only(
+            top: ScreenUtil.getInstance().statusBarHeightDpr,
+            left: SlcDimens.appDimens16,
+            right: SlcDimens.appDimens16,
+            bottom: SlcDimens.appDimens14),
+        child: Selector0<User>(builder: (context, value, child) {
+          return FormBuilder(
+              key: listVmSub.formOperate.formKey,
+              child: Column(
+                children: [
+                  Container(
+                      alignment: Alignment.centerLeft,
+                      height: themeData.appBarTheme.toolbarHeight,
+                      child: Text(S.current.user_label_search_user,
+                          style: SlcStyles.getTitleTextStyle(themeData))),
+                  ...formItemSlot?.call("deptName") ??
+                      <Widget>[
+                        SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                        MyFormBuilderSelect(
+                            name: "deptName",
+                            initialValue: listVmSub.searchUser.deptName,
+                            onTap: () => listVmSub.onSelectDept(),
+                            decoration: MySelectDecoration(
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
+                              labelText: S.current.user_label_user_owner_dept,
+                              hintText: S.current.app_label_please_choose,
+                              border: const UnderlineInputBorder(),
+                              suffixIcon: NqNullSelector<A, String?>(
+                                  builder: (context, value, child) {
+                                return InputDecorationUtils
+                                    .autoClearSuffixBySelectVal(
+                                        listVmSub.searchUser.deptName,
+                                        onPressed: () {
+                                  listVmSub.setSelectDept(null);
+                                });
+                              }, selector: (context, vm) {
+                                return listVmSub.searchUser.deptName;
+                              }),
+                            ),
+                            textInputAction: TextInputAction.next)
+                      ],
+                  ...formItemSlot?.call("userName") ??
+                      <Widget>[
+                        SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                        FormBuilderTextField(
+                            name: "userName",
+                            initialValue: listVmSub.searchUser.userName,
+                            decoration: MyInputDecoration(
+                                contentPadding: EdgeInsets.zero,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
+                                labelText: S.current.user_label_user_name,
+                                hintText: S.current.app_label_please_input,
+                                border: const UnderlineInputBorder(),
+                                suffixIcon: NqNullSelector<A, String?>(
+                                    builder: (context, value, child) {
+                                  return InputDecorationUtils
+                                      .autoClearSuffixByInputVal(value,
+                                          formOperate: listVmSub.formOperate,
+                                          formFieldName: "userName");
+                                }, selector: (context, vm) {
+                                  return listVmSub.searchUser.userName;
+                                })),
+                            onChanged: (value) {
+                              listVmSub.searchUser.userName = value;
+                              listVmSub.notifyListeners();
+                            },
+                            textInputAction: TextInputAction.next)
+                      ],
+                  ...formItemSlot?.call("phonenumber") ??
+                      <Widget>[
+                        SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                        FormBuilderTextField(
+                            name: "phonenumber",
+                            initialValue: listVmSub.searchUser.phonenumber,
+                            decoration: MyInputDecoration(
+                                contentPadding: EdgeInsets.zero,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
+                                labelText: S.current.user_label_phone_number,
+                                hintText: S.current.app_label_please_input,
+                                border: const UnderlineInputBorder(),
+                                suffixIcon: NqNullSelector<A, String?>(
+                                    builder: (context, value, child) {
+                                  return InputDecorationUtils
+                                      .autoClearSuffixByInputVal(value,
+                                          formOperate: listVmSub.formOperate,
+                                          formFieldName: "phonenumber");
+                                }, selector: (context, vm) {
+                                  return listVmSub.searchUser.phonenumber;
+                                })),
+                            onChanged: (value) {
+                              listVmSub.searchUser.phonenumber = value;
+                              listVmSub.notifyListeners();
+                            },
+                            textInputAction: TextInputAction.next)
+                      ],
+                  ...formItemSlot?.call("status") ??
+                      <Widget>[
+                        SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                        MyFormBuilderSelect(
+                            name: "status",
+                            initialValue: listVmSub.searchUser.statusName,
+                            onTap: () =>
+                                _onSelectUserStatus(context, listVmSub),
+                            decoration: MySelectDecoration(
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
+                                labelText: S.current.user_label_status,
+                                hintText: S.current.app_label_please_choose,
+                                border: const UnderlineInputBorder(),
+                                suffixIcon: NqSelector<A, String?>(
+                                    builder: (context, value, child) {
+                                  return InputDecorationUtils
+                                      .autoClearSuffixBySelectVal(
+                                    value,
+                                    onPressed: () {
+                                      listVmSub.setSelectStatus(null);
+                                    },
+                                  );
+                                }, selector: (context, vm) {
+                                  return listVmSub.searchUser.statusName;
+                                })),
+                            textInputAction: TextInputAction.next)
+                      ],
+                  Expanded(child: Builder(builder: (context) {
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Expanded(
+                            child: OutlinedButton(
+                                onPressed: () {
+                                  listVmSub.onResetSearch();
+                                },
+                                child: Text(S.current.action_reset))),
+                        SlcStyles.getSizedBox(width: SlcDimens.appDimens16),
+                        Expanded(
+                            child: FilledButton(
+                                onPressed: () {
+                                  autoHandlerSearchDrawer(context);
+                                  listVmSub.onSearch();
+                                },
+                                child: Text(S.current.action_search)))
+                      ],
+                    );
+                  }))
+                ],
+              ));
+        }, selector: (context) {
+          return listVmSub.searchUser;
+        }, shouldRebuild: (oldVal, newVal) {
+          return false;
+        }));
+  }
+
+  static void _onSelectUserStatus(
+      BuildContext context, UserPageDataVmSub listVmSub) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          List<SimpleDialogOption> dialogItem = DictUiUtils.dictList2DialogItem(
+              context,
+              LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!,
+              (value) {
+            //选择后设置性别
+            listVmSub.setSelectStatus(value);
+          });
+          return SimpleDialog(
+              title: Text(S.current.user_label_sex_select_prompt),
+              children: dialogItem);
+        });
+  }
+
+  //传入Scaffold下级的context
+  static void autoHandlerSearchDrawer(BuildContext context) {
+    ScaffoldState scaffoldState = Scaffold.of(context);
+    if (scaffoldState.isEndDrawerOpen) {
+      scaffoldState.closeEndDrawer();
+    } else {
+      scaffoldState.openEndDrawer();
+    }
+  }
 }
 
+///用户树数据形势的VmSub
 class UserTreeListDataVmSub extends TreeFastBaseListDataVmSub<dynamic> {
   late FastVm fastVm;
 
@@ -215,10 +439,11 @@ class UserTreeListDataVmSub extends TreeFastBaseListDataVmSub<dynamic> {
   }
 }
 
+///用户分页加载列表
 class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> {
   final CancelToken cancelToken = CancelToken();
 
-  final FormOperate formOperate = FormOperate(GlobalKey<FormBuilderState>());
+  final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   User _searchUser = User();
 
@@ -252,7 +477,7 @@ class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> {
     });
   }
 
-  void setSelectDept(Dept? dept){
+  void setSelectDept(Dept? dept) {
     searchUser.deptId = dept?.deptId;
     searchUser.deptName = dept?.deptName;
     formOperate.patchField("deptName", searchUser.deptName);
@@ -275,6 +500,7 @@ class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> {
 
   //搜索
   void onSearch() {
+    formOperate.formBuilderState?.save();
     sendRefreshEvent();
   }
 }

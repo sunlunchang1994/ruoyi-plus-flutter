@@ -13,6 +13,7 @@ import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/repository/remote/us
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/res/dimens.dart';
 import '../../../../../base/api/result_entity.dart';
 import '../../../../../lib/fast/widget/form/image_picker/form_builder_single_image_picker.dart';
@@ -65,142 +66,152 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                 body: KeyboardAvoider(
                     autoScroll: true,
                     child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: SlcDimens.appDimens16),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: SlcDimens.appDimens16),
                         child: FormBuilder(
+                            key: getVm().formOperate.formKey,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             child: Column(
-                          children: [
-                            FormBuilderSingleImagePicker(
-                              name: 'avatar',
-                              initialValue: getVm().userInfo.avatar,
-                              previewWidth: 96,
-                              previewHeight: 96,
-                              placeholderImage:
-                                  const AssetImage("assets/images/slc/app_ic_def_user_head.png"),
-                              imageErrorBuilder: (
-                                context,
-                                error,
-                                stackTrace,
-                              ) {
-                                return Image.asset("assets/images/slc/app_ic_def_user_head.png",
-                                    width: 96, height: 96);
-                              },
-                              //TODO 此处加个缓存，内部的FadeInImage改成CachedNetworkImage
-                              transformImageWidget: (context, child) {
-                                return ClipRRect(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(AppDimens.userMineAvatarRadius)),
-                                    child: child);
-                              },
-                              decoration: InputDecoration(
-                                labelText: S.current.user_label_avatar,
-                                hintText: S.current.user_label_select_tenant,
-                              ),
-                              onImageSelect: (image) async {
-                                if (image == null) {
-                                  return Future.value(null);
-                                }
-                                String? cropImagePath =
-                                    await Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                  return CropImage(image);
-                                }));
-                                XFile imageXFile = cropImagePath == null ? image : XFile(cropImagePath);
-                                getVm().onSelectAvatarPath(imageXFile.path);
-                                return imageXFile;
-                              },
-                            ),
-                            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                            Selector<_ProfileModel, String?>(builder: (context, value, child) {
-                              return FormBuilderTextField(
-                                  name: "nickName",
-                                  initialValue: value,
-                                  decoration: MyInputDecoration(
-                                      contentPadding: EdgeInsets.zero,
-                                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                                      labelText: S.of(context).user_label_nike_name,
-                                      hintText: S.of(context).app_label_please_input,
-                                      border: const UnderlineInputBorder()),
-                                  onChanged: (value) {
-                                    getVm().applyInfoChange();
-                                    getVm().userInfo.nickName = value;
-                                  });
-                            }, selector: (context, vm) {
-                              return vm.userInfo.nickName;
-                            }, shouldRebuild: (oldVal, newVal) {
-                              return oldVal != newVal;
-                            }),
-                            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                            Selector<_ProfileModel, String?>(builder: (context, value, child) {
-                              return FormBuilderTextField(
-                                  name: "phonenumber",
-                                  initialValue: value,
-                                  decoration: MyInputDecoration(
-                                      contentPadding: EdgeInsets.zero,
-                                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                                      labelText: S.of(context).user_label_phone_number,
-                                      hintText: S.of(context).app_label_please_input,
-                                      border: const UnderlineInputBorder()),
-                                  onChanged: (value) {
-                                    getVm().applyInfoChange();
-                                    getVm().userInfo.phonenumber = value;
-                                  });
-                            }, selector: (context, vm) {
-                              return vm.userInfo.phonenumber;
-                            }, shouldRebuild: (oldVal, newVal) {
-                              return oldVal != newVal;
-                            }),
-                            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                            Selector<_ProfileModel, String?>(builder: (context, value, child) {
-                              return FormBuilderTextField(
-                                  name: "email",
-                                  initialValue: value,
-                                  decoration: MyInputDecoration(
-                                      contentPadding: EdgeInsets.zero,
-                                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                                      labelText: S.of(context).user_label_mailbox,
-                                      hintText: S.of(context).app_label_please_input,
-                                      border: const UnderlineInputBorder()),
-                                  onChanged: (value) {
-                                    getVm().applyInfoChange();
-                                    getVm().userInfo.email = value;
-                                  });
-                            }, selector: (context, vm) {
-                              return vm.userInfo.email;
-                            }, shouldRebuild: (oldVal, newVal) {
-                              return oldVal != newVal;
-                            }),
-                            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                            Selector<_ProfileModel, String?>(builder: (context, value, child) {
-                              return MyFormBuilderSelect(
-                                  name: "sex",
-                                  initialValue: value,
-                                  onTap: () => _showSelectSexDialog(context),
-                                  decoration: MySelectDecoration(
-                                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                                      labelText: S.of(context).user_label_sex,
-                                      hintText: S.of(context).app_label_please_input,
-                                      border: const UnderlineInputBorder() /*border: InputBorder.none*/));
-                            }, selector: (context, vm) {
-                              return vm.userInfo.sexName;
-                            }, shouldRebuild: (oldVal, newVal) {
-                              return oldVal != newVal;
-                            }),
-                          ],
-                        ))))));
+                              children: [
+                                FormBuilderSingleImagePicker(
+                                  name: 'avatar',
+                                  initialValue: getVm().userInfo.avatar,
+                                  previewWidth: 96,
+                                  previewHeight: 96,
+                                  placeholderImage: const AssetImage(
+                                      "assets/images/slc/app_ic_def_user_head.png"),
+                                  imageErrorBuilder: (
+                                    context,
+                                    error,
+                                    stackTrace,
+                                  ) {
+                                    return Image.asset(
+                                        "assets/images/slc/app_ic_def_user_head.png",
+                                        width: 96,
+                                        height: 96);
+                                  },
+                                  //TODO 此处应该加个缓存，内部的FadeInImage改成CachedNetworkImage
+                                  transformImageWidget: (context, child) {
+                                    return ClipRRect(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(AppDimens
+                                                .userMineAvatarRadius)),
+                                        child: child);
+                                  },
+                                  decoration: InputDecoration(
+                                    labelText: S.current.user_label_avatar,
+                                    hintText:
+                                        S.current.user_label_select_tenant,
+                                  ),
+                                  onImageSelect: (image) async {
+                                    if (image == null) {
+                                      return Future.value(null);
+                                    }
+                                    String? cropImagePath =
+                                        await Navigator.push(context,
+                                            MaterialPageRoute(
+                                                builder: (context) {
+                                      return CropImage(image);
+                                    }));
+                                    XFile imageXFile = cropImagePath == null
+                                        ? image
+                                        : XFile(cropImagePath);
+                                    getVm().onSelectAvatarPath(imageXFile.path);
+                                    return imageXFile;
+                                  },
+                                ),
+                                SlcStyles.getSizedBox(
+                                    height: SlcDimens.appDimens16),
+                                FormBuilderTextField(
+                                    name: "nickName",
+                                    initialValue: getVm().userInfo.nickName,
+                                    decoration: MyInputDecoration(
+                                        contentPadding: EdgeInsets.zero,
+                                        floatingLabelBehavior:
+                                            FloatingLabelBehavior.always,
+                                        labelText:
+                                            S.of(context).user_label_nike_name,
+                                        hintText: S
+                                            .of(context)
+                                            .app_label_please_input,
+                                        border: const UnderlineInputBorder()),
+                                    onChanged: (value) {
+                                      getVm().applyInfoChange();
+                                      getVm().userInfo.nickName = value;
+                                    }),
+                                SlcStyles.getSizedBox(
+                                    height: SlcDimens.appDimens16),
+                                FormBuilderTextField(
+                                    name: "phonenumber",
+                                    initialValue: getVm().userInfo.phonenumber,
+                                    decoration: MyInputDecoration(
+                                        contentPadding: EdgeInsets.zero,
+                                        floatingLabelBehavior:
+                                            FloatingLabelBehavior.always,
+                                        labelText: S
+                                            .of(context)
+                                            .user_label_phone_number,
+                                        hintText: S
+                                            .of(context)
+                                            .app_label_please_input,
+                                        border: const UnderlineInputBorder()),
+                                    onChanged: (value) {
+                                      getVm().applyInfoChange();
+                                      getVm().userInfo.phonenumber = value;
+                                    }),
+                                SlcStyles.getSizedBox(
+                                    height: SlcDimens.appDimens16),
+                                FormBuilderTextField(
+                                    name: "email",
+                                    initialValue: getVm().userInfo.email,
+                                    decoration: MyInputDecoration(
+                                        contentPadding: EdgeInsets.zero,
+                                        floatingLabelBehavior:
+                                            FloatingLabelBehavior.always,
+                                        labelText:
+                                            S.of(context).user_label_mailbox,
+                                        hintText: S
+                                            .of(context)
+                                            .app_label_please_input,
+                                        border: const UnderlineInputBorder()),
+                                    onChanged: (value) {
+                                      getVm().applyInfoChange();
+                                      getVm().userInfo.email = value;
+                                    }),
+                                SlcStyles.getSizedBox(
+                                    height: SlcDimens.appDimens16),
+                                MyFormBuilderSelect(
+                                    name: "sex",
+                                    initialValue: getVm().userInfo.sexName,
+                                    onTap: () => _showSelectSexDialog(context),
+                                    decoration: MySelectDecoration(
+                                        floatingLabelBehavior:
+                                            FloatingLabelBehavior.always,
+                                        labelText: S.of(context).user_label_sex,
+                                        hintText: S
+                                            .of(context)
+                                            .app_label_please_input,
+                                        border: const UnderlineInputBorder())),
+                              ],
+                            ))))));
       },
     );
   }
 
-  ///显示提示保存对话框
+  ///显示选择性别对话框
   void _showSelectSexDialog(BuildContext context) {
     showDialog(
         context: context,
         builder: (context) {
-          List<SimpleDialogOption> dialogItem =
-              DictUiUtils.dictList2DialogItem(context, LocalDictLib.DICT_MAP[LocalDictLib.CODE_SEX]!, (value) {
+          List<SimpleDialogOption> dialogItem = DictUiUtils.dictList2DialogItem(
+              context, LocalDictLib.DICT_MAP[LocalDictLib.CODE_SEX]!, (value) {
             //选择后设置性别
             getVm().setSelectSex(value);
           });
-          return SimpleDialog(title: Text(S.current.user_label_sex_select_prompt), children: dialogItem);
+          return SimpleDialog(
+              title: Text(S.current.user_label_sex_select_prompt),
+              children: dialogItem);
         });
   }
 
@@ -212,8 +223,8 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
           return AlertDialog(
               title: Text(S.current.label_prompt),
               content: Text(S.current.app_label_data_save_prompt),
-              actions: FastDialogUtils.getCommonlyAction(context, positiveText: S.current.action_exit,
-                  positiveLister: () {
+              actions: FastDialogUtils.getCommonlyAction(context,
+                  positiveText: S.current.action_exit, positiveLister: () {
                 Navigator.pop(context);
                 getVm().abandonEdit();
               }));
@@ -224,6 +235,8 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
 class _ProfileModel extends AppBaseVm {
   final CancelToken cancelToken = CancelToken();
 
+  final FormOperateWithProvider formOperate = FormOperateWithProvider();
+
   late User userInfo;
 
   String? _selectAvatarPath;
@@ -232,7 +245,9 @@ class _ProfileModel extends AppBaseVm {
 
   void initVm() {
     userInfo = User.copyUser(GlobalVm().userShareVm.userInfoOf.value!.user);
-    userInfo.sexName = LocalDictLib.findDictByCodeKey(LocalDictLib.CODE_SEX, userInfo.sex)?.tdDictLabel;
+    userInfo.sexName =
+        LocalDictLib.findDictByCodeKey(LocalDictLib.CODE_SEX, userInfo.sex)
+            ?.tdDictLabel;
   }
 
   void onSelectAvatarPath(String selectAvatarPath) {
@@ -244,7 +259,7 @@ class _ProfileModel extends AppBaseVm {
   void setSelectSex(ITreeDict<dynamic> item) {
     userInfo.sex = item.tdDictValue!;
     userInfo.sexName = item.tdDictLabel!;
-    notifyListeners();
+    formOperate.patchField("sex", userInfo.sexName);
     applyInfoChange();
   }
 
@@ -273,19 +288,22 @@ class _ProfileModel extends AppBaseVm {
 
   void save() {
     if (!_checkSaveParams()) {
-      AppToastBridge.showToast(msg: S.current.app_label_required_information_cannot_be_empty);
+      AppToastBridge.showToast(
+          msg: S.current.app_label_required_information_cannot_be_empty);
       return;
     }
     showLoading(text: S.current.label_save_ing);
     if (_selectAvatarPath != null) {
-      UserProfileServiceRepository.avatar(_selectAvatarPath!).then((IntensifyEntity<AvatarVo> value) {
+      UserProfileServiceRepository.avatar(_selectAvatarPath!).then(
+          (IntensifyEntity<AvatarVo> value) {
         //提交成功了设置头像路径为空，防止后续提交信息时重复提交
         _selectAvatarPath = null;
         //AppToastBridge.showToast(msg: S.current.user_label_avatar_uploaded_success);
         //dismissLoading();
         _saveProfile();
       }, onError: (e) {
-        AppToastBridge.showToast(msg: S.current.user_label_avatar_upload_failed);
+        AppToastBridge.showToast(
+            msg: S.current.user_label_avatar_upload_failed);
         dismissLoading();
       });
       return;
@@ -295,8 +313,8 @@ class _ProfileModel extends AppBaseVm {
 
   void _saveProfile() {
     //上传用户信息
-    UserProfileServiceRepository.updateProfile(
-            userInfo.nickName!, userInfo.email!, userInfo.phonenumber!, userInfo.sex!)
+    UserProfileServiceRepository.updateProfile(userInfo.nickName!,
+            userInfo.email!, userInfo.phonenumber!, userInfo.sex!)
         .then((result) {
       //更新成功了把当前的值设置给全局（此处应该重新调用获取用户信息的接口重新赋值，暂时先这么写）
       GlobalVm().userShareVm.userInfoOf.value!.user = userInfo;
