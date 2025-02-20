@@ -385,6 +385,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "user_label_dept_parent_name_select": MessageLookupByLibrary.simpleMessage(
       "选择上级部门",
     ),
+    "user_label_dept_select": MessageLookupByLibrary.simpleMessage("选择部门"),
     "user_label_dept_show_sort": MessageLookupByLibrary.simpleMessage("显示排序"),
     "user_label_dept_status": MessageLookupByLibrary.simpleMessage("部门状态"),
     "user_label_edit_pass_word": MessageLookupByLibrary.simpleMessage("修改密码"),
@@ -408,7 +409,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "user_label_phone_number": MessageLookupByLibrary.simpleMessage("手机号码"),
     "user_label_save_password": MessageLookupByLibrary.simpleMessage("保存密码"),
     "user_label_search_user": MessageLookupByLibrary.simpleMessage("搜索用户"),
-    "user_label_select_tenant": MessageLookupByLibrary.simpleMessage("请选择部门"),
+    "user_label_select_tenant": MessageLookupByLibrary.simpleMessage("请选择租户"),
     "user_label_select_x": MessageLookupByLibrary.simpleMessage("选择%s"),
     "user_label_setting": MessageLookupByLibrary.simpleMessage("设置"),
     "user_label_sex": MessageLookupByLibrary.simpleMessage("性别"),
@@ -418,21 +419,25 @@ class MessageLookup extends MessageLookupByLibrary {
     "user_label_sign_out": MessageLookupByLibrary.simpleMessage("退出登录"),
     "user_label_status": MessageLookupByLibrary.simpleMessage("状态"),
     "user_label_stay_tuned": MessageLookupByLibrary.simpleMessage("敬请期待"),
-    "user_label_tenant": MessageLookupByLibrary.simpleMessage("机构"),
+    "user_label_tenant": MessageLookupByLibrary.simpleMessage("租户"),
     "user_label_tenant_get_info_error": MessageLookupByLibrary.simpleMessage(
-      "获取部门信息失败",
+      "获取租户信息失败",
     ),
     "user_label_tenant_not_empty_hint": MessageLookupByLibrary.simpleMessage(
       "机构不能为空",
     ),
-    "user_label_tenant_select": MessageLookupByLibrary.simpleMessage("选择部门"),
     "user_label_top_dept": MessageLookupByLibrary.simpleMessage("顶级部门"),
+    "user_label_user_add": MessageLookupByLibrary.simpleMessage("新增用户"),
+    "user_label_user_edit": MessageLookupByLibrary.simpleMessage("修改用户信息"),
     "user_label_user_info_list": MessageLookupByLibrary.simpleMessage("用户列表"),
     "user_label_user_info_not_found": MessageLookupByLibrary.simpleMessage(
       "没有获取到用户信息",
     ),
     "user_label_user_name": MessageLookupByLibrary.simpleMessage("用户名称"),
     "user_label_user_owner_dept": MessageLookupByLibrary.simpleMessage("所属部门"),
+    "user_label_user_owner_dept_select": MessageLookupByLibrary.simpleMessage(
+      "选择所属部门",
+    ),
     "user_label_verify_new_password": MessageLookupByLibrary.simpleMessage(
       "确认新密码",
     ),

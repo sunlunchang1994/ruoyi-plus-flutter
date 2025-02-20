@@ -266,7 +266,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
             );
           });
           return SimpleDialog(
-              title: Text(S.current.user_label_tenant_select),
+              title: Text(S.current.user_label_select_tenant),
               children: dialogItem);
         });
   }

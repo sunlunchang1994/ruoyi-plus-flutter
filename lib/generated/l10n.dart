@@ -1600,16 +1600,26 @@ class S {
     return Intl.message('登录', name: 'user_label_login', desc: '', args: []);
   }
 
-  /// `机构`
+  /// `租户`
   String get user_label_tenant {
-    return Intl.message('机构', name: 'user_label_tenant', desc: '', args: []);
+    return Intl.message('租户', name: 'user_label_tenant', desc: '', args: []);
   }
 
-  /// `请选择部门`
+  /// `请选择租户`
   String get user_label_select_tenant {
     return Intl.message(
-      '请选择部门',
+      '请选择租户',
       name: 'user_label_select_tenant',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `获取租户信息失败`
+  String get user_label_tenant_get_info_error {
+    return Intl.message(
+      '获取租户信息失败',
+      name: 'user_label_tenant_get_info_error',
       desc: '',
       args: [],
     );
@@ -2121,20 +2131,10 @@ class S {
   }
 
   /// `选择部门`
-  String get user_label_tenant_select {
+  String get user_label_dept_select {
     return Intl.message(
       '选择部门',
-      name: 'user_label_tenant_select',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `获取部门信息失败`
-  String get user_label_tenant_get_info_error {
-    return Intl.message(
-      '获取部门信息失败',
-      name: 'user_label_tenant_get_info_error',
+      name: 'user_label_dept_select',
       desc: '',
       args: [],
     );
@@ -2145,6 +2145,16 @@ class S {
     return Intl.message(
       '所属部门',
       name: 'user_label_user_owner_dept',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `选择所属部门`
+  String get user_label_user_owner_dept_select {
+    return Intl.message(
+      '选择所属部门',
+      name: 'user_label_user_owner_dept_select',
       desc: '',
       args: [],
     );
@@ -2190,16 +2200,36 @@ class S {
     return Intl.message('性别', name: 'user_label_sex', desc: '', args: []);
   }
 
-  /// `状态`
-  String get user_label_status {
-    return Intl.message('状态', name: 'user_label_status', desc: '', args: []);
-  }
-
   /// `请选择性别`
   String get user_label_sex_select_prompt {
     return Intl.message(
       '请选择性别',
       name: 'user_label_sex_select_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `状态`
+  String get user_label_status {
+    return Intl.message('状态', name: 'user_label_status', desc: '', args: []);
+  }
+
+  /// `新增用户`
+  String get user_label_user_add {
+    return Intl.message(
+      '新增用户',
+      name: 'user_label_user_add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `修改用户信息`
+  String get user_label_user_edit {
+    return Intl.message(
+      '修改用户信息',
+      name: 'user_label_user_edit',
       desc: '',
       args: [],
     );

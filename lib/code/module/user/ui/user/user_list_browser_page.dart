@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_add_edit_page.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_list_page_vd.dart';
-
 
 ///
 /// 用户浏览列表
@@ -43,17 +43,15 @@ class UserListBrowserPage extends AppBaseStatelessWidget<_UserListBrowserVm> {
                 onPressed: () {
                   getVm().onAddUser();
                 }),
-            endDrawer: UserListPageVd.getSearchEndDrawer<_UserListBrowserVm>(context, themeData, getVm().listVmSub),
+            endDrawer: UserListPageVd.getSearchEndDrawer<_UserListBrowserVm>(
+                context, themeData, getVm().listVmSub),
             body: PageDataVd(getVm().listVmSub, getVm(), refreshOnStart: true,
-                child:
-                    Consumer<_UserListBrowserVm>(builder: (context, vm, child) {
-              return UserListPageVd.getUserListWidget(
-                  themeData, getVm().listVmSub);
+                child: Consumer<_UserListBrowserVm>(builder: (context, vm, child) {
+              return UserListPageVd.getUserListWidget(themeData, getVm().listVmSub);
             })));
       },
     );
   }
-
 }
 
 class _UserListBrowserVm extends AppBaseVm {
@@ -68,5 +66,11 @@ class _UserListBrowserVm extends AppBaseVm {
   }
 
   ///添加用户事件
-  void onAddUser() {}
+  void onAddUser() {
+    pushNamed(UserAddEditPage.routeName).then((result) {
+      if (result != null) {
+        listVmSub.sendRefreshEvent();
+      }
+    });
+  }
 }

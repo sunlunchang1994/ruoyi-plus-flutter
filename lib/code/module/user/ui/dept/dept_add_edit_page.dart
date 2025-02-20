@@ -68,7 +68,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
                     actions: [
                       IconButton(
                           onPressed: () {
-                            getVm().save();
+                            getVm().onSave();
                           },
                           icon: const Icon(Icons.save))
                     ]),
@@ -123,7 +123,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
           decoration: MyInputDecoration(
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
-              labelText: S.current.user_label_nike_name,
+              labelText: S.current.user_label_dept_name,
               hintText: S.current.app_label_please_input,
               border: const UnderlineInputBorder()),
           onChanged: (value) {
@@ -360,7 +360,7 @@ class _DeptAddEditModel extends AppBaseVm {
     return _formKey.currentState?.validate() ?? false;
   }
 
-  void save() {
+  void onSave() {
     if (!_checkSaveParams()) {
       AppToastBridge.showToast(msg: S.current.app_label_form_check_hint);
       return;

@@ -101,8 +101,6 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                   },
                                   decoration: InputDecoration(
                                     labelText: S.current.user_label_avatar,
-                                    hintText:
-                                        S.current.user_label_select_tenant,
                                   ),
                                   onImageSelect: (image) async {
                                     if (image == null) {

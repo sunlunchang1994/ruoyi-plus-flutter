@@ -199,7 +199,7 @@ class MyInputDecoration extends InputDecoration {
     super.suffixText,
     super.suffixStyle,
     super.suffixIconColor,
-  super.suffixIconConstraints = InputDecorationUtils.defSuffixIconConstraints,
+    super.suffixIconConstraints = InputDecorationUtils.defSuffixIconConstraints,
     super.counter,
     super.counterText,
     super.counterStyle,

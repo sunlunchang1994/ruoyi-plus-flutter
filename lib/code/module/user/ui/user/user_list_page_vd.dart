@@ -469,7 +469,7 @@ class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> {
 
   void onSelectDept() {
     pushNamed(DeptListSingleSelectPage.routeName, arguments: {
-      ConstantBase.KEY_INTENT_TITLE: S.current.user_label_tenant_select
+      ConstantBase.KEY_INTENT_TITLE: S.current.user_label_dept_select
     }).then((result) {
       if (result != null) {
         setSelectDept(result);
