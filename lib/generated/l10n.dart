@@ -2295,6 +2295,36 @@ class S {
     );
   }
 
+  /// `搜索角色`
+  String get user_label_search_role {
+    return Intl.message(
+      '搜索角色',
+      name: 'user_label_search_role',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `角色名称`
+  String get user_label_role_name {
+    return Intl.message(
+      '角色名称',
+      name: 'user_label_role_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `权限字符`
+  String get user_label_role_key {
+    return Intl.message(
+      '权限字符',
+      name: 'user_label_role_key',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `-----------------------------`
   String get dict_divide_text {
     return Intl.message(

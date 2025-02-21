@@ -8,7 +8,7 @@ import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/utils/fast_dialog_utils.dart';
-import 'package:ruoyi_plus_flutter/code/base/utils/app_toast.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/repository/remote/user_profile_api.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/repository/local/local_dict_lib.dart';

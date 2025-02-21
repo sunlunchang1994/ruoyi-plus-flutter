@@ -28,7 +28,7 @@ import '../../../../generated/l10n.dart';
 import '../../../base/api/result_entity.dart';
 import '../../../base/ui/app_mvvm.dart';
 import '../../../lib/fast/utils/bar_utils.dart';
-import '../../../base/utils/app_toast.dart';
+import '../../../lib/fast/utils/app_toast.dart';
 import '../entity/login_tenant_vo.dart';
 
 class LoginPage extends AppBaseStatelessWidget<_LoginModel> {

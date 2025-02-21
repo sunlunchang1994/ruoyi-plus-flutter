@@ -1,4 +1,5 @@
 import 'package:flutter_slc_boxes/flutter/slc/common/object_util.dart';
+import 'package:ruoyi_plus_flutter/code/base/entity/tenant_entity.dart';
 
 import '../../../../base/api/json_converter.dart';
 import 'role.dart';
@@ -7,10 +8,9 @@ import 'package:json_annotation/json_annotation.dart';
 part 'user.g.dart';
 
 @JsonSerializable()
-class User {
+class User extends TenantEntity{
   @IntConverter()
   int? userId;
-  String? tenantId;
   @IntConverter()
   int? deptId;
   String? userName;
@@ -25,7 +25,6 @@ class User {
   String? loginIp;
   String? loginDate;
   String? remark;
-  String? createTime;
   String? deptName;
   List<Role>? roles;
   List<int>? roleIds;
@@ -47,12 +46,19 @@ class User {
     this.status,
     this.loginIp,
     this.loginDate,
-    this.createTime,
     this.remark,
     this.roles,
     this.roleIds,
     this.postIds,
-    this.roleId});
+    this.roleId,
+    super.tenantId,
+    super.searchValue,
+    super.createDept,
+    super.createBy,
+    super.createTime,
+    super.updateBy,
+    super.updateTime,
+    super.params});
 
   String? getRoleName() {
     if (ObjectUtil.isEmptyList(roles)) {

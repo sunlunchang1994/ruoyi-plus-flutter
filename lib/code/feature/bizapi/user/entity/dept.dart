@@ -1,12 +1,13 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:ruoyi_plus_flutter/code/base/entity/base_entity.dart';
+import 'package:ruoyi_plus_flutter/code/base/entity/tenant_entity.dart';
 
 import '../../../../base/api/json_converter.dart';
 
 part 'dept.g.dart';
 
 @JsonSerializable()
-class Dept extends BaseEntity {
+class Dept extends TenantEntity {
   @IntConverter()
   int? deptId;
   @IntConverter()
@@ -35,11 +36,14 @@ class Dept extends BaseEntity {
       this.email,
       this.status,
       this.ancestors,
+      super.tenantId,
+      super.searchValue,
       super.createDept,
       super.createBy,
       super.createTime,
       super.updateBy,
-      super.updateTime});
+      super.updateTime,
+      super.params});
 
   String deptNameVo() {
     return deptName!;

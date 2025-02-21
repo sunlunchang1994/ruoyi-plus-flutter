@@ -4,6 +4,7 @@ import 'package:flutter_slc_boxes/flutter/slc/router/slc_router.dart';
 import 'package:ruoyi_plus_flutter/code/module/biz_main/ui/main_page.dart';
 import 'package:ruoyi_plus_flutter/code/feature/welcome/ui/welcome_page.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_browser_page.dart';
 
 import '../base/config/constant_base.dart';
 import '../module/system/ui/fof/no_found_page.dart';
@@ -12,6 +13,7 @@ import '../module/user/ui/dept/dept_add_edit_page.dart';
 import '../module/user/ui/dept/dept_list_browser_page.dart';
 import '../feature/auth/ui/login_page.dart';
 import '../module/user/ui/dept/dept_list_single_select_page.dart';
+import '../module/user/ui/role/role_list_single_select_page.dart';
 import '../module/user/ui/user/info/profile_page.dart';
 import '../module/user/ui/user/user_add_edit_page.dart';
 import '../module/user/ui/user/user_list_browser_page.dart';
@@ -83,6 +85,17 @@ final Map<String, WidgetBuilder> router = {
         deptInfo: slcRouterInfo?.arguments[ConstantUser.KEY_DEPT],
         parentDept: slcRouterInfo?.arguments[ConstantUser.KEY_PARENT_DEPT]);
   },
+  //角色
+  //角色：列表
+  RoleListBrowserPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return RoleListBrowserPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+  },
+  //角色：单选
+  RoleListSingleSelectPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return RoleListSingleSelectPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+  }
 };
 
 Route get404Route(RouteSettings settings) {

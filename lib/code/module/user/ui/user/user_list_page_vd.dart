@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/dept.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/user.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/utils/widget_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/user_api.dart';
@@ -294,7 +295,7 @@ class UserListPageVd {
                         Expanded(
                             child: FilledButton(
                                 onPressed: () {
-                                  autoHandlerSearchDrawer(context);
+                                  WidgetUtils.autoHandlerSearchDrawer(context);
                                   listVmSub.onSearch();
                                 },
                                 child: Text(S.current.action_search)))
@@ -328,15 +329,6 @@ class UserListPageVd {
         });
   }
 
-  //传入Scaffold下级的context
-  static void autoHandlerSearchDrawer(BuildContext context) {
-    ScaffoldState scaffoldState = Scaffold.of(context);
-    if (scaffoldState.isEndDrawerOpen) {
-      scaffoldState.closeEndDrawer();
-    } else {
-      scaffoldState.openEndDrawer();
-    }
-  }
 }
 
 ///用户树数据形势的VmSub

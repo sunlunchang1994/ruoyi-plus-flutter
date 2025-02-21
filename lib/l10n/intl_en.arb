@@ -290,6 +290,10 @@
   "user_label_avatar_uploaded_success": "上传头像成功",
 
   "user_label_search_user": "搜索用户",
+  "user_label_search_role": "搜索角色",
+
+  "user_label_role_name": "角色名称",
+  "user_label_role_key": "权限字符",
 
   "dict_divide_text": "-----------------------------",
   "dict_label_ley": "字典名",

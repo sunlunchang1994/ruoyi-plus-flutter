@@ -7,6 +7,8 @@ import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_add_edit_page.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_list_page_vd.dart';
 
+import '../../../../lib/fast/utils/widget_utils.dart';
+
 ///
 /// 用户浏览列表
 ///
@@ -33,7 +35,7 @@ class UserListBrowserPage extends AppBaseStatelessWidget<_UserListBrowserVm> {
                   return IconButton(
                     icon: const Icon(Icons.search),
                     onPressed: () {
-                      UserListPageVd.autoHandlerSearchDrawer(context);
+                      WidgetUtils.autoHandlerSearchDrawer(context);
                     },
                   );
                 })

@@ -1,11 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../../base/api/json_converter.dart';
+import '../../../../base/entity/tenant_entity.dart';
 
 part 'role.g.dart';
 
 @JsonSerializable()
-class Role {
+class Role extends TenantEntity {
   @IntConverter()
   int? roleId;
   String? roleName;
@@ -16,9 +17,9 @@ class Role {
   bool? deptCheckStrictly;
   String? status;
   String? remark;
-  String? createTime;
   bool flag;
 
+  String? statusName;
   Role(
       {this.roleId,
       this.roleName,
@@ -29,10 +30,22 @@ class Role {
       this.deptCheckStrictly,
       this.status,
       this.remark,
-      this.createTime,
-      this.flag = false});
+      this.flag = false,
+      this.statusName,
+      super.tenantId,
+      super.searchValue,
+      super.createDept,
+      super.createBy,
+      super.createTime,
+      super.updateBy,
+      super.updateTime,
+      super.params});
 
   factory Role.fromJson(Map<String, dynamic> json) => _$RoleFromJson(json);
 
   Map<String, dynamic> toJson() => _$RoleToJson(this);
+
+  static List<Role> formJsonList(List<dynamic>? data) {
+    return data?.map((json) => Role.fromJson(json)).toList() ?? List.empty();
+  }
 }

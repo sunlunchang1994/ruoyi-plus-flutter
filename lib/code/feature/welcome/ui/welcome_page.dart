@@ -12,7 +12,7 @@ import 'package:ruoyi_plus_flutter/code/module/user/repository/local/user_config
 import '../../../../generated/l10n.dart';
 import '../../../base/api/result_entity.dart';
 import '../../../base/ui/app_mvvm.dart';
-import '../../../base/utils/app_toast.dart';
+import '../../../lib/fast/utils/app_toast.dart';
 import '../../../lib/fast/utils/bar_utils.dart';
 import '../../../module/biz_main/ui/main_page.dart';
 import '../../auth/repository/remote/auth_api.dart';
