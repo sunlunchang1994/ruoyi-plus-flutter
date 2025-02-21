@@ -407,6 +407,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "user_label_pet_name": MessageLookupByLibrary.simpleMessage("昵称"),
     "user_label_phone_number": MessageLookupByLibrary.simpleMessage("手机号码"),
+    "user_label_post": MessageLookupByLibrary.simpleMessage("岗位"),
+    "user_label_role": MessageLookupByLibrary.simpleMessage("角色"),
     "user_label_save_password": MessageLookupByLibrary.simpleMessage("保存密码"),
     "user_label_search_user": MessageLookupByLibrary.simpleMessage("搜索用户"),
     "user_label_select_tenant": MessageLookupByLibrary.simpleMessage("请选择租户"),

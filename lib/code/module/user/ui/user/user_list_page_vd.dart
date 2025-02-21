@@ -184,7 +184,7 @@ class UserListPageVd {
                               border: const UnderlineInputBorder(),
                               suffixIcon: NqNullSelector<A, String?>(
                                   builder: (context, value, child) {
-                                return InputDecorationUtils
+                                return InputDecUtils
                                     .autoClearSuffixBySelectVal(
                                         listVmSub.searchUser.deptName,
                                         onPressed: () {
@@ -211,7 +211,7 @@ class UserListPageVd {
                                 border: const UnderlineInputBorder(),
                                 suffixIcon: NqNullSelector<A, String?>(
                                     builder: (context, value, child) {
-                                  return InputDecorationUtils
+                                  return InputDecUtils
                                       .autoClearSuffixByInputVal(value,
                                           formOperate: listVmSub.formOperate,
                                           formFieldName: "userName");
@@ -239,7 +239,7 @@ class UserListPageVd {
                                 border: const UnderlineInputBorder(),
                                 suffixIcon: NqNullSelector<A, String?>(
                                     builder: (context, value, child) {
-                                  return InputDecorationUtils
+                                  return InputDecUtils
                                       .autoClearSuffixByInputVal(value,
                                           formOperate: listVmSub.formOperate,
                                           formFieldName: "phonenumber");
@@ -268,7 +268,7 @@ class UserListPageVd {
                                 border: const UnderlineInputBorder(),
                                 suffixIcon: NqSelector<A, String?>(
                                     builder: (context, value, child) {
-                                  return InputDecorationUtils
+                                  return InputDecUtils
                                       .autoClearSuffixBySelectVal(
                                     value,
                                     onPressed: () {

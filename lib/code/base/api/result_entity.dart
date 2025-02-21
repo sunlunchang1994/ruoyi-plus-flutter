@@ -1,4 +1,8 @@
+import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../repository/remote/page_transform_utils.dart';
+import 'app_page_model.dart';
 
 part 'result_entity.g.dart';
 
@@ -10,8 +14,7 @@ class ResultEntity {
   String? msg;
   dynamic data;
 
-  ResultEntity(
-      {this.code, this.msg, this.data});
+  ResultEntity({this.code, this.msg, this.data});
 
   bool isSuccess() {
     return code == 0 || code == 200;
@@ -21,6 +24,48 @@ class ResultEntity {
       _$ResultEntityFromJson(json);
 
   Map<String, dynamic> toJson() => _$ResultEntityToJson(this);
+
+  IntensifyEntity<T> toIntensify<T>(
+      {bool succeedEntity = false,
+      T? data,
+      T? Function(ResultEntity)? createData}) {
+    return IntensifyEntity(
+        resultEntity: this,
+        succeedEntity: succeedEntity,
+        data: data,
+        createData: createData);
+  }
+}
+
+///后端返回的实体类基础结构
+@JsonSerializable()
+class ResultPageModel {
+  int? code;
+  String? msg;
+  dynamic rows;
+  int total;
+
+  ResultPageModel({this.code, this.msg, this.rows, this.total = 0});
+
+  bool isSuccess() {
+    return code == 0 || code == 200;
+  }
+
+  factory ResultPageModel.fromJson(Map<String, dynamic> json) =>
+      _$ResultPageModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ResultPageModelToJson(this);
+
+  IntensifyEntity<PageModel<T>> toIntensify<T>(
+      {bool succeedEntity = false,
+      PageModel<T>? data,
+      PageModel<T>? Function(ResultEntity)? createData}) {
+    return IntensifyEntity<PageModel<T>>(
+        resultEntity: ResultEntity(code: this.code, msg: this.msg),
+        succeedEntity: succeedEntity,
+        data: data,
+        createData: createData);
+  }
 }
 
 ///动态类型转为具体的泛型类型
@@ -28,16 +73,18 @@ class IntensifyEntity<T> {
   late ResultEntity _resultEntity;
   T? _data;
 
-  IntensifyEntity({ResultEntity? resultEntity,
-    bool succeedEntity = false,
-    T? data,
-    T Function(ResultEntity)? createData}) {
+  IntensifyEntity(
+      {ResultEntity? resultEntity,
+      bool succeedEntity = false,
+      T? data,
+      T? Function(ResultEntity)? createData}) {
     if (resultEntity == null && succeedEntity) {
       resultEntity = ResultEntity(code: 200);
     }
     this._resultEntity = resultEntity!;
     this._data = data;
-    if (this._resultEntity.isSuccess() && this._data == null &&
+    if (this._resultEntity.isSuccess() &&
+        this._data == null &&
         createData != null) {
       this._data = createData.call(this._resultEntity);
     }
@@ -62,25 +109,4 @@ class IntensifyEntity<T> {
   Map<String, dynamic> getSrcData() {
     return _resultEntity.data;
   }
-}
-
-///后端返回的实体类基础结构
-@JsonSerializable()
-class ResultPageModel {
-  int? code;
-  String? msg;
-  dynamic rows;
-  int total;
-
-  ResultPageModel(
-      {this.code, this.msg, this.rows, this.total = 0});
-
-  bool isSuccess() {
-    return code == 0 || code == 200;
-  }
-
-  factory ResultPageModel.fromJson(Map<String, dynamic> json) =>
-      _$ResultPageModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$ResultPageModelToJson(this);
 }

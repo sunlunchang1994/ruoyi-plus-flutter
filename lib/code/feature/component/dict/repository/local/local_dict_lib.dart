@@ -12,9 +12,9 @@ class LocalDictLib {
   //性别
   static const String CODE_SEX = "sec";
   //性别：男
-  static const KEY_SEX_MAN = "1";
+  static const KEY_SEX_MAN = "0";
   //性别：女
-  static const KEY_SEX_WOMAN = "2";
+  static const KEY_SEX_WOMAN = "1";
 
   static final Map<String, List<ITreeDict<dynamic>>> DICT_MAP = {
     CODE_SYS_NORMAL_DISABLE: [
@@ -31,7 +31,8 @@ class LocalDictLib {
   ///根据code查询字典
   ///如果服务端配置了规则，请不要用此本地方法
   ///
-  static ITreeDict<dynamic>? findDictByCodeKey(String code, String? dictKey) {
+  static ITreeDict<dynamic>? findDictByCodeKey(String code, String? dictKey,{String? defDictKey}) {
+    dictKey ??= defDictKey;
     if (dictKey == null) {
       return null;
     }

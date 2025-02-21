@@ -280,6 +280,10 @@
   "user_label_user_add": "新增用户",
   "user_label_user_edit": "修改用户信息",
 
+  "user_label_post": "岗位",
+
+  "user_label_role": "角色",
+
   "user_label_avatar_crop": "正在裁剪头像...",
   "user_label_avatar_are_uploading": "正在上传头像",
   "user_label_avatar_upload_failed": "上传头像失败",

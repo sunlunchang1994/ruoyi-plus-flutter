@@ -2235,6 +2235,16 @@ class S {
     );
   }
 
+  /// `岗位`
+  String get user_label_post {
+    return Intl.message('岗位', name: 'user_label_post', desc: '', args: []);
+  }
+
+  /// `角色`
+  String get user_label_role {
+    return Intl.message('角色', name: 'user_label_role', desc: '', args: []);
+  }
+
   /// `正在裁剪头像...`
   String get user_label_avatar_crop {
     return Intl.message(

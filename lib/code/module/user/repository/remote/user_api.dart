@@ -11,8 +11,8 @@ import '../../../../base/api/api_config.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/repository/remote/page_transform_utils.dart';
-import '../../../../feature/bizapi/user/entity/my_user_info_vo.dart';
 import '../../../../feature/bizapi/user/entity/user_info_vo.dart';
+import '../../../../feature/component/dict/repository/local/local_dict_lib.dart';
 import '../../entity/dept_tree.dart';
 
 part 'user_api.g.dart';
@@ -43,6 +43,16 @@ abstract class UserApiClient {
   @GET("/system/user/{userId}")
   Future<ResultEntity> getUserById(
       @Path("userId") int userId, @CancelRequest() CancelToken cancelToken);
+
+  ///新增用户
+  @POST("/system/user")
+  Future<ResultEntity> add(
+      @Body() User body, @CancelRequest() CancelToken cancelToken);
+
+  ///更新用户
+  @PUT("/system/user")
+  Future<ResultEntity> edit(
+      @Body() User body, @CancelRequest() CancelToken cancelToken);
 }
 
 ///用户服务
@@ -82,20 +92,17 @@ class UserServiceRepository {
         .list(queryParams, cancelToken)
         .asStream()
         .map((event) {
-          var intensifyEntity = IntensifyEntity<PageModel<User>>(
-              resultEntity: ResultEntity(code: event.code, msg: event.msg),
-              createData: (resultEntity) {
-                AppPageModel appPageModel = AppPageModel(
-                    current: offset,
-                    size: size,
-                    rows: event.rows,
-                    total: event.total);
-                PageModel<User> pageModel = PageTransformUtils.appPm2Pm(
-                    appPageModel,
-                    records: User.formJsonList(appPageModel.rows));
-                return pageModel;
-              });
-          return intensifyEntity;
+          return event.toIntensify(createData: (resultEntity) {
+            AppPageModel appPageModel = AppPageModel(
+                current: offset,
+                size: size,
+                rows: event.rows,
+                total: event.total);
+            PageModel<User> pageModel = PageTransformUtils.appPm2Pm(
+                appPageModel,
+                records: User.formJsonList(appPageModel.rows));
+            return pageModel;
+          });
         })
         .map(DataTransformUtils.checkErrorIe)
         .single;
@@ -107,14 +114,10 @@ class UserServiceRepository {
         .asStream()
         .map(DataTransformUtils.checkError)
         .map((event) {
-          var intensifyEntity = IntensifyEntity<List<DeptTree>>(
-              resultEntity: event,
-              createData: (resultEntity) {
-                return DeptTree.fromJsonList(resultEntity.data);
-              });
-          return intensifyEntity;
-        })
-        .single;
+      return event.toIntensify(createData: (resultEntity) {
+        return DeptTree.fromJsonList(resultEntity.data);
+      });
+    }).single;
   }
 
   static Future<IntensifyEntity<List<User>>> userListByDept(
@@ -124,14 +127,10 @@ class UserServiceRepository {
         .asStream()
         .map(DataTransformUtils.checkError)
         .map((event) {
-          var intensifyEntity = IntensifyEntity<List<User>>(
-              resultEntity: event,
-              createData: (resultEntity) {
-                return User.formJsonList(resultEntity.data);
-              });
-          return intensifyEntity;
-        })
-        .single;
+      return event.toIntensify(createData: (resultEntity) {
+        return User.formJsonList(resultEntity.data);
+      });
+    }).single;
   }
 
   static Future<IntensifyEntity<UserInfoVo>> getUserById(
@@ -141,13 +140,25 @@ class UserServiceRepository {
         .asStream()
         .map(DataTransformUtils.checkError)
         .map((event) {
-          var intensifyEntity = IntensifyEntity<UserInfoVo>(
-              resultEntity: event,
-              createData: (resultEntity) {
-                return UserInfoVo.fromJson(resultEntity.data);
-              });
-          return intensifyEntity;
-        })
-        .single;
+      return event.toIntensify<UserInfoVo>(createData: (resultEntity) {
+        UserInfoVo userInfo = UserInfoVo.fromJson(resultEntity.data);
+        userInfo.user.sexName = LocalDictLib.findDictByCodeKey(LocalDictLib.CODE_SEX, userInfo.user.sex)?.tdDictLabel;
+        userInfo.user.statusName = LocalDictLib.findDictByCodeKey(LocalDictLib.CODE_SYS_NORMAL_DISABLE, userInfo.user.status)?.tdDictLabel;
+        return userInfo;
+      });
+    }).single;
+  }
+
+  static Future<IntensifyEntity<dynamic>> submit(
+      User user, CancelToken cancelToken) {
+    Future<ResultEntity> resultFuture = user.userId == null
+        ? _userApiClient.add(user, cancelToken)
+        : _userApiClient.edit(user, cancelToken);
+    return resultFuture
+        .asStream()
+        .map(DataTransformUtils.checkError)
+        .map((event) {
+      return event.toIntensify();
+    }).single;
   }
 }

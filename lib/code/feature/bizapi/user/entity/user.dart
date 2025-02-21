@@ -30,7 +30,7 @@ class User {
   List<Role>? roles;
   List<int>? roleIds;
   List<int>? postIds;
-  List<int>? roleId;
+  int? roleId;
   //本地
   String? sexName;
   String? statusName;

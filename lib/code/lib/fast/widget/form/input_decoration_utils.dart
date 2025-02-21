@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 
 import 'form_operate_with_provider.dart';
 
 ///@author slc
 ///InputDecoration 工具
-class InputDecorationUtils {
+class InputDecUtils {
   static Widget getClearAction(VoidCallback? onPressed) {
     return IconButton(
       constraints: BoxConstraints(),
@@ -62,5 +63,20 @@ class InputDecorationUtils {
         onPressed: onPressed,
         formOperate: formOperate,
         formFieldName: formFieldName);
+  }
+
+  ///追加必填字符
+  static String additionalRequired(String text) {
+    return text + "*";
+  }
+
+  ///获取必填label
+  static Row getRequiredLabel(String text) {
+    return Row(
+      children: [
+        Text("* ", style: TextStyle(color: SlcColors.globalUiColorRed1)),
+        Text(text),
+      ],
+    );
   }
 }

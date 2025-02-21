@@ -86,7 +86,6 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
             padding: EdgeInsets.symmetric(horizontal: SlcDimens.appDimens16),
             child: FormBuilder(
                 key: getVm()._formKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
                 onChanged: () {
                   //这里要不要应该无所谓，因为本表单的数据存在vm的实例中
                   //getVm()._formKey.currentState?.save();
@@ -104,6 +103,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
       formItemArray.add(MyFormBuilderSelect(
           name: "parentName",
           initialValue: getVm().deptInfo!.parentName,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           onTap: () => getVm().onSelectTopDept(),
           decoration: MySelectDecoration(
               floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -120,6 +120,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
       FormBuilderTextField(
           name: "deptName",
           initialValue: getVm().deptInfo!.deptName,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: MyInputDecoration(
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -138,6 +139,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
       FormBuilderTextField(
           name: "deptCategory",
           initialValue: getVm().deptInfo!.deptCategory,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: MyInputDecoration(
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -156,6 +158,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
           int? orderNum = getVm().deptInfo!.orderNum;
           return orderNum == null ? "0" : orderNum.toString();
         }.call(),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: MyInputDecoration(
             contentPadding: EdgeInsets.zero,
             floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -178,13 +181,14 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
       MyFormBuilderSelect(
           name: "leaderName",
           initialValue: getVm().deptInfo!.leaderName,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           onTap: () => getVm().onSelectLeaderUser(),
           decoration: MySelectDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.always,
             labelText: S.current.user_label_dept_leader,
             hintText: S.current.app_label_please_choose,
             border: const UnderlineInputBorder(),
-            suffixIcon: InputDecorationUtils.autoClearSuffixBySelect(
+            suffixIcon: InputDecUtils.autoClearSuffixBySelect(
                 TextUtil.isNotEmpty(getVm().deptInfo!.leaderName),
                 onPressed: () {
               getVm().deptInfo?.leader = null;
@@ -197,6 +201,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
       FormBuilderTextField(
           name: "phone",
           initialValue: getVm().deptInfo!.phone,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: MyInputDecoration(
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -217,6 +222,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
       FormBuilderTextField(
           name: "email",
           initialValue: getVm().deptInfo!.email,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: MyInputDecoration(
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -240,6 +246,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
         name: "status",
         initialValue: DictUiUtils.dict2OptionVL(LocalDictLib.findDictByCodeKey(
             LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().deptInfo!.status)),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         options: DictUiUtils.dictList2FromOption(
             LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
         onChanged: (value) {
@@ -374,7 +381,7 @@ class _DeptAddEditModel extends AppBaseVm {
       finish(result: deptInfo);
     }, onError: (error) {
       dismissLoading();
-      AppToastBridge.showToast(msg: BaseDio.getError(error));
+      AppToastBridge.showToast(msg: BaseDio.getError(error).msg);
     });
   }
 
