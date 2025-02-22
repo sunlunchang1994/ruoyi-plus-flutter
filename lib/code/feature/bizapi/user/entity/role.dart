@@ -1,3 +1,4 @@
+import 'package:flutter_slc_boxes/flutter/slc/adapter/select_box.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../../base/api/json_converter.dart';
@@ -6,7 +7,7 @@ import '../../../../base/entity/tenant_entity.dart';
 part 'role.g.dart';
 
 @JsonSerializable()
-class Role extends TenantEntity {
+class Role extends TenantEntity with SelectBoxMixin<Role> {
   @IntConverter()
   int? roleId;
   String? roleName;
@@ -20,6 +21,7 @@ class Role extends TenantEntity {
   bool flag;
 
   String? statusName;
+
   Role(
       {this.roleId,
       this.roleName,

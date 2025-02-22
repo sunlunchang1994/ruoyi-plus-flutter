@@ -198,19 +198,20 @@ class RolePageDataVmSub extends FastBaseListDataPageVmSub<Role> {
 
   void Function(Role data)? onSuffixClick;
 
-  RolePageDataVmSub() {
-    setLoadData((loadMoreFormat) async {
-      try {
-        IntensifyEntity<PageModel<Role>> result = await RoleRepository.list(
-            getLoadMoreFormat().getOffset(), getLoadMoreFormat().getSize(), searchRole, cancelToken);
-        //返回数据结构
-        DataWrapper<PageModel<Role>> dateWrapper = DataTransformUtils.entity2LDWrapper(result);
-        return dateWrapper;
-      } catch (e) {
-        ResultEntity resultEntity = BaseDio.getError(e);
-        return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
-      }
-    });
+  RolePageDataVmSub({LoadMore<Role>? loadMore}) {
+    setLoadData(loadMore ??
+        (loadMoreFormat) async {
+          try {
+            IntensifyEntity<PageModel<Role>> result = await RoleRepository.list(
+                getLoadMoreFormat().getOffset(), getLoadMoreFormat().getSize(), searchRole, cancelToken);
+            //返回数据结构
+            DataWrapper<PageModel<Role>> dateWrapper = DataTransformUtils.entity2LDWrapper(result);
+            return dateWrapper;
+          } catch (e) {
+            ResultEntity resultEntity = BaseDio.getError(e);
+            return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
+          }
+        });
   }
 
   void setSelectStatus(ITreeDict<dynamic>? data) {

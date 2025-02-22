@@ -12,14 +12,14 @@ import '../module/system/ui/menu/menu_page.dart';
 import '../module/user/ui/dept/dept_add_edit_page.dart';
 import '../module/user/ui/dept/dept_list_browser_page.dart';
 import '../feature/auth/ui/login_page.dart';
-import '../module/user/ui/dept/dept_list_single_select_page.dart';
-import '../module/user/ui/role/role_list_single_select_page.dart';
+import '../module/user/ui/dept/dept_list_select_single_page.dart';
+import '../module/user/ui/role/role_list_select_single_page.dart';
 import '../module/user/ui/user/info/profile_page.dart';
 import '../module/user/ui/user/user_add_edit_page.dart';
 import '../module/user/ui/user/user_list_browser_page.dart';
 import '../module/user/ui/user/user_list_browser_tree_page.dart';
 import '../module/user/ui/user/user_list_select_by_dept_page.dart';
-import '../module/user/ui/user/user_list_single_select_page.dart';
+import '../module/user/ui/user/user_list_select_single_page.dart';
 
 // GoRouter configuration
 final Map<String, WidgetBuilder> router = {

@@ -411,6 +411,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "user_label_role": MessageLookupByLibrary.simpleMessage("角色"),
     "user_label_role_key": MessageLookupByLibrary.simpleMessage("权限字符"),
     "user_label_role_name": MessageLookupByLibrary.simpleMessage("角色名称"),
+    "user_label_role_name_select": MessageLookupByLibrary.simpleMessage("选择角色"),
     "user_label_save_password": MessageLookupByLibrary.simpleMessage("保存密码"),
     "user_label_search_role": MessageLookupByLibrary.simpleMessage("搜索角色"),
     "user_label_search_user": MessageLookupByLibrary.simpleMessage("搜索用户"),

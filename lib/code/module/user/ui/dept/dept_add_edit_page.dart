@@ -18,7 +18,7 @@ import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_uti
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_single_select_page.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_select_single_page.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
@@ -28,7 +28,7 @@ import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
 import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
 import '../../config/constant_user.dart';
 import '../user/user_list_select_by_dept_page.dart';
-import '../user/user_list_single_select_page.dart';
+import '../user/user_list_select_single_page.dart';
 
 ///部门信息新增修改
 class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {

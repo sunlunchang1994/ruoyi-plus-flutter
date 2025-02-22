@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/status_widget.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
@@ -18,17 +20,21 @@ import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_t
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/input_decoration_utils.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/user_api.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_single_select_page.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_select_single_page.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_select_multiple_page.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_select_single_page.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';
+import '../../../../feature/bizapi/user/entity/role.dart';
 import '../../../../feature/bizapi/user/entity/user.dart';
 import '../../../../feature/bizapi/user/entity/user_info_vo.dart';
 import '../../../../feature/component/dict/entity/tree_dict.dart';
 import '../../../../feature/component/dict/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
+import '../../../../lib/fast/widget/form/form_builder_flow_tag.dart';
 
 class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
   static const String routeName = '/system/user/add_edit';
@@ -60,9 +66,8 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
               },
               child: Scaffold(
                   appBar: AppBar(
-                    title: Text(user == null
-                        ? S.current.user_label_user_add
-                        : S.current.user_label_user_edit),
+                    title:
+                        Text(user == null ? S.current.user_label_user_add : S.current.user_label_user_edit),
                     actions: [
                       IconButton(
                           onPressed: () {
@@ -76,8 +81,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
   }
 
   @override
-  Widget getSuccessWidget(BuildContext context,
-      {Map<String, dynamic>? params}) {
+  Widget getSuccessWidget(BuildContext context, {Map<String, dynamic>? params}) {
     ThemeData themeData = Theme.of(context);
     return KeyboardAvoider(
         autoScroll: true,
@@ -97,8 +101,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.user_label_nike_name),
+                            label: InputDecUtils.getRequiredLabel(S.current.user_label_nike_name),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
@@ -119,8 +122,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                         },
                         decoration: MySelectDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.user_label_user_owner_dept),
+                            label: InputDecUtils.getRequiredLabel(S.current.user_label_user_owner_dept),
                             hintText: S.current.app_label_please_choose,
                             border: const UnderlineInputBorder()),
                         validator: FormBuilderValidators.compose([
@@ -142,8 +144,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                           getVm().applyInfoChange();
                         },
                         validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.phoneNumber(
-                              checkNullOrEmpty: false),
+                          FormBuilderValidators.phoneNumber(checkNullOrEmpty: false),
                         ]),
                         keyboardType: TextInputType.number,
                         textInputAction: TextInputAction.next),
@@ -172,13 +173,11 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                         initialValue: getVm().userInfo!.userName,
                         readOnly: getVm().userInfo?.userId != null,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        style: getVm().userInfo?.userId != null
-                            ? TextStyle(color: themeData.hintColor)
-                            : null,
+                        style:
+                            getVm().userInfo?.userId != null ? TextStyle(color: themeData.hintColor) : null,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.user_label_user_name),
+                            label: InputDecUtils.getRequiredLabel(S.current.user_label_user_name),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
@@ -193,19 +192,15 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                     ...() {
                       List<Widget> passwordWidget = List.empty(growable: true);
                       if (getVm().userInfo?.userId == null) {
-                        passwordWidget.add(SlcStyles.getSizedBox(
-                            height: SlcDimens.appDimens16));
+                        passwordWidget.add(SlcStyles.getSizedBox(height: SlcDimens.appDimens16));
                         passwordWidget.add(MyFormBuilderTextField(
                             name: "password",
                             initialValue: getVm().userInfo!.password,
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
                             obscureText: true,
                             decoration: MyInputDecoration(
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.always,
-                                label: InputDecUtils.getRequiredLabel(
-                                    S.current.user_label_password),
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                label: InputDecUtils.getRequiredLabel(S.current.user_label_password),
                                 hintText: S.current.app_label_please_input,
                                 border: const UnderlineInputBorder()),
                             onChanged: (value) {
@@ -233,10 +228,9 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                             labelText: S.current.user_label_sex,
                             hintText: S.current.app_label_please_choose,
                             border: const UnderlineInputBorder(),
-                            suffixIcon: NqSelector<_UserAddEditVm, String?>(
-                                builder: (context, value, child) {
-                              return InputDecUtils.autoClearSuffixBySelectVal(
-                                  value, onPressed: () {
+                            suffixIcon:
+                                NqSelector<_UserAddEditVm, String?>(builder: (context, value, child) {
+                              return InputDecUtils.autoClearSuffixBySelectVal(value, onPressed: () {
                                 getVm().setSelectSex(null);
                               });
                             }, selector: (context, vm) {
@@ -246,17 +240,13 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderRadioGroup<OptionVL<String>>(
                         name: "status",
-                        initialValue: DictUiUtils.dict2OptionVL(
-                            LocalDictLib.findDictByCodeKey(
-                                LocalDictLib.CODE_SYS_NORMAL_DISABLE,
-                                getVm().userInfo!.status,
-                                defDictKey: LocalDictLib
-                                    .KEY_SYS_NORMAL_DISABLE_NORMAL)),
+                        initialValue: DictUiUtils.dict2OptionVL(LocalDictLib.findDictByCodeKey(
+                            LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().userInfo!.status,
+                            defDictKey: LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL)),
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: MyInputDecoration(
-                            labelText: S.current.user_label_status),
-                        options: DictUiUtils.dictList2FromOption(LocalDictLib
-                            .DICT_MAP[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
+                        decoration: MyInputDecoration(labelText: S.current.user_label_status),
+                        options: DictUiUtils.dictList2FromOption(
+                            LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
                         onChanged: (value) {
                           //此处需改成选择的
                           getVm().applyInfoChange();
@@ -280,19 +270,26 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                               return vm.userInfo!.sex;
                             })),
                         textInputAction: TextInputAction.next),*/
-                    /*SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                    MyFormBuilderSelect(
-                        name: "role",
+                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    FormBuilderFlowTag<Role>(
+                        name: "roles",
+                        initialValue: getVm().userInfo!.roles,
+                        deleteIcon: Icon(Icons.clear),
+                        onDeleted: (role) {
+                          getVm().remoteSelectRole(role);
+                        },
+                        builderChipOption: (value) {
+                          return FormBuilderChipOption(value: value, child: Text(value.roleName!));
+                        },
+                        spacing: 10,
                         decoration: MySelectDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.user_label_role),
+                            label: InputDecUtils.getRequiredLabel(S.current.user_label_role),
                             hintText: S.current.app_label_please_choose,
-                            border: UnderlineInputBorder()),
-                        textInputAction: TextInputAction.next,
-                        validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(),
-                        ])),*/
+                            border: UnderlineInputBorder(),
+                            suffixIcon: InputDecUtils.getSuffixAction(InputDecUtils.moreIcon, () {
+                              _showSelectRoleDialog(context);
+                            }))),
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "remark",
@@ -324,10 +321,20 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
             //选择后设置性别
             getVm().setSelectSex(value);
           });
-          return SimpleDialog(
-              title: Text(S.current.user_label_sex_select_prompt),
-              children: dialogItem);
+          return SimpleDialog(title: Text(S.current.user_label_sex_select_prompt), children: dialogItem);
         });
+  }
+
+  void _showSelectRoleDialog(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return RoleListMultipleSelectDialog.getRoleListSelectDialog();
+        }).then((result) {
+      if (result != null) {
+        getVm().setSelectRole(result);
+      }
+    });
   }
 
   ///显示提示保存对话框
@@ -338,8 +345,8 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
           return AlertDialog(
               title: Text(S.current.label_prompt),
               content: Text(S.current.app_label_data_save_prompt),
-              actions: FastDialogUtils.getCommonlyAction(context,
-                  positiveText: S.current.action_exit, positiveLister: () {
+              actions: FastDialogUtils.getCommonlyAction(context, positiveText: S.current.action_exit,
+                  positiveLister: () {
                 Navigator.pop(context);
                 getVm().abandonEdit();
               }));
@@ -404,6 +411,22 @@ class _UserAddEditVm extends AppBaseVm {
     formOperate.patchField("sex", userInfo!.sexName);
     applyInfoChange();
     notifyListeners();
+  }
+
+  //移除某个角色
+  void remoteSelectRole(Role role) {
+    userInfo!.roles?.remove(role);
+    setSelectRole(userInfo!.roles!);
+    return;
+  }
+
+  //设置角色
+  void setSelectRole(List<Role> roleList) {
+    userInfo!.roles = roleList;
+    formOperate.patchField("roles", userInfo!.roles);
+    applyInfoChange();
+    //notifyListeners();
+    return;
   }
 
   //应用信息更改

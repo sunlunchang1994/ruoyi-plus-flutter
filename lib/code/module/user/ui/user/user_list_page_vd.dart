@@ -35,7 +35,7 @@ import '../../../../lib/fast/vd/refresh/content_empty.dart';
 import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
 import '../../../../lib/fast/widget/form/form_operate_with_provider.dart';
 import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
-import '../dept/dept_list_single_select_page.dart';
+import '../dept/dept_list_select_single_page.dart';
 
 class UserListPageVd {
   ///部门和用户混合列表
