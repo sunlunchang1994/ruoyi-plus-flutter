@@ -8,7 +8,11 @@ class AppStyles extends SlcStyles {
 
   ///MD3
   static ThemeData getAppLightThemeMD3() {
-    _appLightTheme ??= SlcStyles.appTheme.copyWith(appBarTheme: AppBarTheme(toolbarHeight: AppDimens.appBarHeight));
+    _appLightTheme ??= SlcStyles.appTheme.copyWith(
+        appBarTheme: AppBarTheme(
+      toolbarHeight: AppDimens.appBarHeight,
+      titleSpacing: 0,
+    ));
     return _appLightTheme!;
   }
 
@@ -16,7 +20,8 @@ class AppStyles extends SlcStyles {
   static ThemeData getAppLightTheme() {
     if (_appLightTheme == null) {
       ColorScheme colorScheme =
-          ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(surface: SlcColors.colorBackground);
+          ColorScheme.fromSwatch(primarySwatch: Colors.blue)
+              .copyWith(surface: SlcColors.colorBackground);
       _appLightTheme = ThemeData(
           useMaterial3: false,
           colorScheme: colorScheme,
@@ -38,4 +43,18 @@ class AppStyles extends SlcStyles {
 
   //全局appToolbarTextStyle 如果需要就在上面主题中用上
   static const TextStyle appToolbarTextStyle = TextStyle(fontSize: 18);
+
+  //基础控件
+  static const Divider defLightDivider = Divider(
+      height: 0.8, thickness: 0.8, color: SlcColors.globalDividerColorBlack);
+  static const Divider defDarkDivider = Divider(
+      height: 0.8, thickness: 0.8, color: SlcColors.globalDividerColorWhite);
+
+  static Divider getDefDividerByTheme(ThemeData themeData) {
+    return getDefDividerByDark(themeData.brightness == Brightness.dark);
+  }
+
+  static Divider getDefDividerByDark(bool isDark) {
+    return isDark ? defDarkDivider : defLightDivider;
+  }
 }

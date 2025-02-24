@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/menu/menu_grid.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/ui/router/router_grid.dart';
 
 import '../../../../feature/bizapi/system/entity/router_vo.dart';
 
 class MenuPage extends AppBaseStatelessWidget<_MenuPageVm> {
 
-  static const String routeName = '/menu_page';
+  static const String routeName = '/router_page';
 
   final String title;
   final List<RouterVo> routerList;

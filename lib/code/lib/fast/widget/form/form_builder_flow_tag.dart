@@ -12,6 +12,7 @@ class FormBuilderFlowTag<T> extends FormBuilderFieldDecoration<List<T>> {
   final OutlinedBorder? shape;
   final Widget? deleteIcon;
   final Function(T)? onDeleted;
+  final GestureTapCallback? onTap;
   final FormBuilderChipOption<T> Function(T) builderChipOption;
 
   // Wrap Settings
@@ -46,12 +47,13 @@ class FormBuilderFlowTag<T> extends FormBuilderFieldDecoration<List<T>> {
     super.restorationId,
     this.backgroundColor,
     this.shadowColor,
-    this.deleteIcon,
-    this.onDeleted,
     this.elevation,
     this.materialTapTargetSize,
     this.side,
     this.shape,
+    this.deleteIcon,
+    this.onDeleted,
+    this.onTap,
     required this.builderChipOption,
     this.direction = Axis.horizontal,
     this.showCheckmark = true,
@@ -72,58 +74,61 @@ class FormBuilderFlowTag<T> extends FormBuilderFieldDecoration<List<T>> {
     super.onChanged,
     super.valueTransformer,
     super.onReset,
-  })
-      : assert((maxChips == null) || ((initialValue ?? []).length <= maxChips)),
+  })  : assert((maxChips == null) || ((initialValue ?? []).length <= maxChips)),
         super(
-        builder: (FormFieldState<List<T>?> field) {
-          final state = field as _FormBuilderFlowTagState<T>;
-          final fieldValueList = field.value ?? [];
-          return Builder(builder: (context) {
-            if (fieldValueList.isEmpty) {
-              return TextField(restorationId: restorationId,
-                  decoration: state.decoration,
-                  readOnly: true);
-            }
-            ThemeData themeData = Theme.of(context);
-            return InputDecorator(
-              decoration: state.decoration,
-              child: Wrap(
-                direction: direction,
-                alignment: alignment,
-                crossAxisAlignment: crossAxisAlignment,
-                runAlignment: runAlignment,
-                runSpacing: runSpacing,
-                spacing: spacing,
-                textDirection: textDirection,
-                verticalDirection: verticalDirection,
-                children: fieldValueList.map<Widget>((option) {
-                  FormBuilderChipOption<T> chipOption = builderChipOption.call(option);
-                  return Chip(
-                    label: chipOption.build(context),
-                    avatar: chipOption.avatar,
-                    deleteIcon: deleteIcon,
-                    onDeleted: () => onDeleted?.call(option),
-                    backgroundColor: backgroundColor,
-                    shadowColor: shadowColor,
-                    elevation: elevation,
-                    materialTapTargetSize: materialTapTargetSize,
-                    padding: padding,
-                    side: side,
-                    shape: shape,
-                    clipBehavior: clipBehavior,
-                    labelStyle: labelStyle,
-                    labelPadding: labelPadding,
-                  );
-                }).toList(),
-              ),
-            );
-          });
-        },
-      );
+          builder: (FormFieldState<List<T>?> field) {
+            final state = field as _FormBuilderFlowTagState<T>;
+            final fieldValueList = field.value ?? [];
+            return Builder(builder: (context) {
+              if (fieldValueList.isEmpty) {
+                return TextField(
+                    restorationId: restorationId,
+                    decoration: state.decoration,
+                    readOnly: true,
+                    onTap: () => onTap?.call());
+              }
+              ThemeData themeData = Theme.of(context);
+              return InputDecorator(
+                decoration: state.decoration,
+                child: Wrap(
+                  direction: direction,
+                  alignment: alignment,
+                  crossAxisAlignment: crossAxisAlignment,
+                  runAlignment: runAlignment,
+                  runSpacing: runSpacing,
+                  spacing: spacing,
+                  textDirection: textDirection,
+                  verticalDirection: verticalDirection,
+                  children: fieldValueList.map<Widget>((option) {
+                    FormBuilderChipOption<T> chipOption =
+                        builderChipOption.call(option);
+                    return Chip(
+                      label: chipOption.build(context),
+                      avatar: chipOption.avatar,
+                      deleteIcon: deleteIcon,
+                      onDeleted: () => onDeleted?.call(option),
+                      backgroundColor: backgroundColor,
+                      shadowColor: shadowColor,
+                      elevation: elevation,
+                      materialTapTargetSize: materialTapTargetSize,
+                      padding: padding,
+                      side: side,
+                      shape: shape,
+                      clipBehavior: clipBehavior,
+                      labelStyle: labelStyle,
+                      labelPadding: labelPadding,
+                    );
+                  }).toList(),
+                ),
+              );
+            });
+          },
+        );
 
   @override
-  FormBuilderFieldDecorationState<FormBuilderFlowTag<T>, List<T>> createState() =>
-      _FormBuilderFlowTagState<T>();
+  FormBuilderFieldDecorationState<FormBuilderFlowTag<T>, List<T>>
+      createState() => _FormBuilderFlowTagState<T>();
 }
 
-class _FormBuilderFlowTagState<T> extends FormBuilderFieldDecorationState<FormBuilderFlowTag<T>, List<T>> {}
+class _FormBuilderFlowTagState<T>
+    extends FormBuilderFieldDecorationState<FormBuilderFlowTag<T>, List<T>> {}

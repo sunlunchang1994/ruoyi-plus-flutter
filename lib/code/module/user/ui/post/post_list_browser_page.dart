@@ -6,22 +6,23 @@ import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/widget_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_add_edit_page.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/ui/post/post_add_edit_page.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/ui/post/post_list_page_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_page_vd.dart';
 
 ///
 /// @author slc
-/// 角色列表
-class RoleListBrowserPage extends AppBaseStatelessWidget<_RoleListBrowserVm> {
-  static const String routeName = '/system/role';
+/// 岗位列表
+class PostListBrowserPage extends AppBaseStatelessWidget<_PostListBrowserVm> {
+  static const String routeName = '/system/post';
   final String title;
 
-  RoleListBrowserPage(this.title, {super.key});
+  PostListBrowserPage(this.title, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => _RoleListBrowserVm(),
+        create: (context) => _PostListBrowserVm(),
         builder: (context, child) {
           ThemeData themeData = Theme.of(context);
           registerEvent(context);
@@ -37,31 +38,31 @@ class RoleListBrowserPage extends AppBaseStatelessWidget<_RoleListBrowserVm> {
                   );
                 })
               ]),
-              endDrawer: RoleListPageVd.getSearchEndDrawer<_RoleListBrowserVm>(
+              endDrawer: PostListPageVd.getSearchEndDrawer<_PostListBrowserVm>(
                   context, themeData, getVm().listVmSub),
               floatingActionButton: FloatingActionButton(
                   child: Icon(Icons.add),
                   onPressed: () {
-                    getVm().onAddRole();
+                    getVm().onAddPost();
                   }),
               body: PageDataVd(getVm().listVmSub, getVm(), refreshOnStart: true,
-                  child: Consumer<_RoleListBrowserVm>(
+                  child: Consumer<_PostListBrowserVm>(
                       builder: (context, vm, child) {
-                return RoleListPageVd.getUserListWidget(
+                return PostListPageVd.getUserListWidget(
                     themeData, getVm().listVmSub);
               })));
         });
   }
 }
 
-class _RoleListBrowserVm extends AppBaseVm {
-  late RolePageDataVmSub listVmSub;
+class _PostListBrowserVm extends AppBaseVm {
+  late PostPageDataVmSub listVmSub;
 
-  _RoleListBrowserVm() {
-    listVmSub = RolePageDataVmSub();
-    listVmSub.setItemClick((index, role) {
-      pushNamed(RoleAddEditPage.routeName,
-          arguments: {ConstantUser.KEY_ROLE: role}).then((result) {
+  _PostListBrowserVm() {
+    listVmSub = PostPageDataVmSub();
+    listVmSub.setItemClick((index, itemData) {
+      pushNamed(PostAddEditPage.routeName,
+          arguments: {ConstantUser.KEY_POST: itemData}).then((result) {
         if (result != null) {
           listVmSub.sendRefreshEvent();
         }
@@ -73,9 +74,9 @@ class _RoleListBrowserVm extends AppBaseVm {
     registerVmSub(listVmSub);
   }
 
-  ///添加角色事件
-  void onAddRole() {
-    pushNamed(RoleAddEditPage.routeName).then((result) {
+  ///添加岗位事件
+  void onAddPost() {
+    pushNamed(PostAddEditPage.routeName).then((result) {
       if (result != null) {
         listVmSub.sendRefreshEvent();
       }

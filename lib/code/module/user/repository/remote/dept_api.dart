@@ -52,17 +52,14 @@ class DeptRepository {
     return _deptApiClient
         .list(dept, cancelToken)
         .asStream()
+        .map(DataTransformUtils.checkError)
         .map((event) {
-          var intensifyEntity = IntensifyEntity<List<Dept>>(
-              resultEntity: event,
-              createData: (resultEntity) {
-                List<Dept> dataList =
-                    Dept.formJsonList(resultEntity.data); //列表为空时创建默认的
-                return dataList;
-              });
-          return intensifyEntity;
+          return event.toIntensify(createData: (resultEntity) {
+            List<Dept> dataList =
+            Dept.formJsonList(resultEntity.data); //列表为空时创建默认的
+            return dataList;
+          });
         })
-        .map(DataTransformUtils.checkErrorIe)
         .single;
   }
 
@@ -89,7 +86,7 @@ class DeptRepository {
                 .asStream()
                 .map((event) {
               UserInfoVo? userInfo = event.data;
-              dept.leaderName = userInfo?.user.nickName;
+              dept.leaderName = userInfo?.user?.nickName;
               return deptIe;
             }).single;
           }

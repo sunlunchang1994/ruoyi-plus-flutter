@@ -6,10 +6,8 @@ import 'package:json_annotation/json_annotation.dart';
 ///@Author sunlunchang
 ///Json格式化工具，在实体类字段加加上相关类名注解，即可在序列化和反序列化是转换格式
 
-
 ///@DateTimeConverter
 class DateTimeConverter implements JsonConverter<DateTime, String> {
-
   const DateTimeConverter();
 
   @override
@@ -26,7 +24,6 @@ class DateTimeConverter implements JsonConverter<DateTime, String> {
 ///日期格式化
 ///@DateConverter()
 class DateConverter implements JsonConverter<DateTime, String> {
-
   const DateConverter();
 
   @override
@@ -43,7 +40,6 @@ class DateConverter implements JsonConverter<DateTime, String> {
 ///双精度
 ///@DoubleConverter()
 class DoubleConverter implements JsonConverter<double, String> {
-
   const DoubleConverter();
 
   @override
@@ -56,22 +52,53 @@ class DoubleConverter implements JsonConverter<double, String> {
     return object.toString();
   }
 }
+
 ///整数
 ///@IntConverter()
-class IntConverter implements JsonConverter<int, dynamic> {
-
+class IntConverter implements JsonConverter<int?, dynamic> {
   const IntConverter();
 
   @override
-  int fromJson(dynamic json) {
-    if(json is int){
+  int? fromJson(dynamic json) {
+    if (json == null) {
+      return null;
+    }
+    if (json is int) {
       return json;
     }
     return int.parse(json);
   }
 
   @override
-  String toJson(int object) {
-    return object.toString();
+  String? toJson(int? object) {
+    return object?.toString();
+  }
+}
+
+///整数列表
+///@IntConverter()
+class IntListConverter implements JsonConverter<List<int>?, dynamic> {
+  const IntListConverter();
+
+  @override
+  List<int>? fromJson(dynamic json) {
+    if (json == null) {
+      return null;
+    }
+    IntConverter intConverter = IntConverter();
+    if (json is List) {
+      return json.map((itemData){
+        return intConverter.fromJson(itemData)!;
+      }).toList();
+    }
+    List<String> jsonStrList = json;
+    return  jsonStrList.map((itemData){
+      return int.parse(json);
+    }).toList();
+  }
+
+  @override
+  List<int>? toJson(List<int>? object) {
+    return object;
   }
 }

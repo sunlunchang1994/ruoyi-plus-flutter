@@ -48,7 +48,9 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
         registerEvent(context);
         getVm().initVm();
         return Scaffold(
-            appBar: AppBar(title: Text(title)),
+            appBar: AppBar(
+                title: Text(title),
+                titleSpacing: NavigationToolbar.kMiddleSpacing),
             body: KeyboardAvoider(
                 autoScroll: true,
                 child: Column(
@@ -388,7 +390,7 @@ class _LoginModel extends AppBaseVm {
             captcha?.uuid, cancelToken)
         .asStream()
         .asyncMap((event) => UserServiceRepository.getInfo(cancelToken))
-        .asyncMap((event) => MenuServiceRepository.getRouters(cancelToken))
+        .asyncMap((event) => MenuPublicRepository.getRouters(cancelToken))
         .single
         .then((IntensifyEntity<List<RouterVo>> value) {
       dismissLoading();

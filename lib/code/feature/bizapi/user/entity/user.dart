@@ -1,5 +1,6 @@
 import 'package:flutter_slc_boxes/flutter/slc/common/object_util.dart';
 import 'package:ruoyi_plus_flutter/code/base/entity/tenant_entity.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/post.dart';
 
 import '../../../../base/api/json_converter.dart';
 import 'role.dart';
@@ -8,7 +9,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'user.g.dart';
 
 @JsonSerializable()
-class User extends TenantEntity{
+class User extends TenantEntity {
   @IntConverter()
   int? userId;
   @IntConverter()
@@ -27,38 +28,43 @@ class User extends TenantEntity{
   String? remark;
   String? deptName;
   List<Role>? roles;
+  @IntListConverter()
   List<int>? roleIds;
+  @IntListConverter()
   List<int>? postIds;
   int? roleId;
+
   //本地
   String? sexName;
   String? statusName;
+  List<Post>? posts;
 
-  User({this.userId,
-    this.deptId,
-    this.userName,
-    this.nickName,
-    this.email,
-    this.phonenumber,
-    this.sex,
-    this.avatar,
-    this.password,
-    this.status,
-    this.loginIp,
-    this.loginDate,
-    this.remark,
-    this.roles,
-    this.roleIds,
-    this.postIds,
-    this.roleId,
-    super.tenantId,
-    super.searchValue,
-    super.createDept,
-    super.createBy,
-    super.createTime,
-    super.updateBy,
-    super.updateTime,
-    super.params});
+  User(
+      {this.userId,
+      this.deptId,
+      this.userName,
+      this.nickName,
+      this.email,
+      this.phonenumber,
+      this.sex,
+      this.avatar,
+      this.password,
+      this.status,
+      this.loginIp,
+      this.loginDate,
+      this.remark,
+      this.roles,
+      this.roleIds,
+      this.postIds,
+      this.roleId,
+      super.tenantId,
+      super.searchValue,
+      super.createDept,
+      super.createBy,
+      super.createTime,
+      super.updateBy,
+      super.updateTime,
+      super.params});
 
   String? getRoleName() {
     if (ObjectUtil.isEmptyList(roles)) {

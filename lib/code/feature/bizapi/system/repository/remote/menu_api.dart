@@ -23,7 +23,7 @@ abstract class MenuApiClient {
 }
 
 ///菜单服务
-class MenuServiceRepository {
+class MenuPublicRepository {
   static final MenuApiClient _menuApiClient = MenuApiClient();
 
   static Future<IntensifyEntity<List<RouterVo>>> getRouters(CancelToken cancelToken) {

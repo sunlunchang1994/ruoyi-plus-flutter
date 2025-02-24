@@ -43,8 +43,9 @@ class CropState extends State<CropImage> {
           actions: [
             IconButton(
                 onPressed: () {
-                  LoadingDialog.showLoadingDialog(
-                      context, barrierDismissible: false, text: S.current.user_label_avatar_crop);
+                  LoadingDialog.showLoadingDialog(context,
+                      barrierDismissible: false,
+                      text: S.current.user_label_avatar_crop);
                   _controller.crop();
                 },
                 icon: const Icon(Icons.save))
@@ -54,18 +55,20 @@ class CropState extends State<CropImage> {
             child: imageData == null
                 ? const CircularProgressIndicator()
                 : Crop(
-                image: imageData!,
-                controller: _controller,
-                aspectRatio: 1.0,
-                onCropped: (image) async {
-                  Directory applicationCacheDirectory = await getApplicationCacheDirectory();
-                  File saveCropPath = File(applicationCacheDirectory.path +
-                      SlcFileUtils.getFileNameByTime(prefix: "IMG_", suffix: ".png"));
-                  saveCropPath.writeAsBytesSync(image);
-                  //关闭对话框
-                  LoadingDialog.dismissLoadingDialog(context);
-                  Navigator.pop(context,saveCropPath.path);
-                  // do something with cropped image data
-                })));
+                    image: imageData!,
+                    controller: _controller,
+                    aspectRatio: 1.0,
+                    onCropped: (image) async {
+                      Directory applicationCacheDirectory =
+                          await getApplicationCacheDirectory();
+                      File saveCropPath = File(applicationCacheDirectory.path +
+                          SlcFileUtils.getFileNameByTime(
+                              prefix: "IMG_", suffix: ".png"));
+                      saveCropPath.writeAsBytesSync(image);
+                      //关闭对话框
+                      LoadingDialog.dismissLoadingDialog(context);
+                      Navigator.pop(context, saveCropPath.path);
+                      // do something with cropped image data
+                    })));
   }
 }

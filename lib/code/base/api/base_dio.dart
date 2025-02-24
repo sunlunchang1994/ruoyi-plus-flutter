@@ -26,7 +26,8 @@ class BaseDio {
     dio.options = BaseOptions(
         receiveTimeout: const Duration(seconds: 15000),
         connectTimeout: const Duration(seconds: 15000)); // 设置超时时间等 ...
-    dio.interceptors.add(HeaderInterceptor()); // 添加header拦截器，如 token之类，需要全局使用的参数
+    dio.interceptors
+        .add(HeaderInterceptor()); // 添加header拦截器，如 token之类，需要全局使用的参数
     dio.interceptors.add(EncryptInterceptor()); // 添加加密拦截器
     /*dio.interceptors.add(SlcDioLogger(
         requestHeader: true,
@@ -66,6 +67,7 @@ class BaseDio {
 
   ///获取错误结果对象
   static ResultEntity getError(dynamic error, {String? defErrMsg}) {
+    LogUtil.e(error, tag: "getError");
     defErrMsg ??= S.current.label_unknown_exception;
     // 这里封装了一个 BaseError 类，会根据后端返回的code返回不同的错误类
     int defCode = 500;
@@ -118,7 +120,8 @@ class BaseDio {
             return ResultEntity(code: defCode, msg: defErrMsg);
           }
         case ApiException _:
-          return ResultEntity(code: error.code, msg: error.message ?? defErrMsg);
+          return ResultEntity(
+              code: error.code, msg: error.message ?? defErrMsg);
       }
     }
     return ResultEntity(code: defCode, msg: defErrMsg);

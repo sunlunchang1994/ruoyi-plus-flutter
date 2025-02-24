@@ -88,7 +88,7 @@ class _WelcomeVm extends AppBaseVm {
       UserServiceRepository.getInfo(cancelAutoLoginToken)
           .asStream()
           .asyncMap(
-              (event) => MenuServiceRepository.getRouters(cancelAutoLoginToken))
+              (event) => MenuPublicRepository.getRouters(cancelAutoLoginToken))
           .single
           .then((IntensifyEntity<List<RouterVo>> value) {
         //登录成功了就取消

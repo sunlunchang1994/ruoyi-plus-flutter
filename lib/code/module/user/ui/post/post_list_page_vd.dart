@@ -8,18 +8,22 @@ import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:provider/provider.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/post.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/role.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_component.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/refresh/content_empty.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/role_api.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/ui/post/post_list_select_single_page.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../../res/styles.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
+import '../../../../base/config/constant_base.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
+import '../../../../feature/bizapi/user/entity/dept.dart';
 import '../../../../feature/component/dict/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import '../../../../lib/fast/provider/fast_select.dart';
@@ -27,10 +31,13 @@ import '../../../../lib/fast/utils/widget_utils.dart';
 import '../../../../lib/fast/vd/page_data_vm_sub.dart';
 import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
 import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
+import '../../repository/remote/post_api.dart';
+import '../dept/dept_list_select_single_page.dart';
 
-class RoleListPageVd {
-  static Widget getUserListWidget(ThemeData themeData, IListDataVmSub<Role> listVmSub,
-      {Widget? Function(Role currentItem)? buildTrailing}) {
+class PostListPageVd {
+  static Widget getUserListWidget(
+      ThemeData themeData, IListDataVmSub<Post> listVmSub,
+      {Widget? Function(Post currentItem)? buildTrailing}) {
     assert(listVmSub is ListenerItemClick<dynamic>);
     if (listVmSub.dataList.isEmpty) {
       return const ContentEmptyWrapper();
@@ -41,8 +48,9 @@ class RoleListPageVd {
         padding: EdgeInsets.zero,
         itemCount: listVmSub.dataList.length,
         itemBuilder: (context, index) {
-          Role listItem = listVmSub.dataList[index];
-          return getUserListItem(themeData, listVmSub as ListenerItemClick<dynamic>, index, listItem,
+          Post listItem = listVmSub.dataList[index];
+          return getUserListItem(themeData,
+              listVmSub as ListenerItemClick<dynamic>, index, listItem,
               buildTrailing: buildTrailing);
         },
         separatorBuilder: (context, index) {
@@ -50,15 +58,20 @@ class RoleListPageVd {
         });
   }
 
-  static Widget getUserListItem(
-      ThemeData themeData, ListenerItemClick<dynamic> listenerItemClick, int index, Role listItem,
-      {Widget? Function(Role currentItem)? buildTrailing}) {
+  static Widget getUserListItem(ThemeData themeData,
+      ListenerItemClick<dynamic> listenerItemClick, int index, Post listItem,
+      {Widget? Function(Post currentItem)? buildTrailing}) {
     return ListTile(
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
-        title: Text(listItem.roleName!),
-        subtitle: Text(listItem.roleKey!),
+        title: Row(children: [
+          Text(listItem.postName!),
+          Text("·"),
+          Text(listItem.deptName!)
+        ]),
+        subtitle: Text(listItem.postCode!),
         trailing: buildTrailing?.call(listItem),
         visualDensity: VisualDensity.compact,
+        //tileColor: SlcColors.getCardColorByTheme(themeData),
         onTap: () {
           listenerItemClick.onItemClick(index, listItem);
         });
@@ -66,7 +79,7 @@ class RoleListPageVd {
 
   ///搜索侧滑栏视图
   static Widget getSearchEndDrawer<A>(
-      BuildContext context, ThemeData themeData, RolePageDataVmSub listVmSub,
+      BuildContext context, ThemeData themeData, PostPageDataVmSub listVmSub,
       {List<Widget>? Function(String? name)? formItemSlot}) {
     return Container(
         color: themeData.colorScheme.surface,
@@ -76,7 +89,7 @@ class RoleListPageVd {
             left: SlcDimens.appDimens16,
             right: SlcDimens.appDimens16,
             bottom: SlcDimens.appDimens14),
-        child: Selector0<Role>(builder: (context, value, child) {
+        child: Selector0<Post>(builder: (context, value, child) {
           return FormBuilder(
               key: listVmSub.formOperate.formKey,
               child: Column(
@@ -87,57 +100,85 @@ class RoleListPageVd {
                       child: Text(S.current.user_label_search_role,
                           style: SlcStyles.getTitleTextStyle(themeData))),
                   SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  MyFormBuilderSelect(
+                      name: "deptName",
+                      initialValue: listVmSub.searchPost.deptName,
+                      onTap: () => listVmSub.onSelectDept(),
+                      decoration: MySelectDecoration(
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        labelText: S.current.user_label_post_owner_dept,
+                        hintText: S.current.app_label_please_choose,
+                        border: const UnderlineInputBorder(),
+                        suffixIcon: NqNullSelector<A, String?>(
+                            builder: (context, value, child) {
+                          return InputDecUtils.autoClearSuffixBySelectVal(
+                              listVmSub.searchPost.deptName, onPressed: () {
+                            listVmSub.setSelectDept(null);
+                          });
+                        }, selector: (context, vm) {
+                          return listVmSub.searchPost.deptName;
+                        }),
+                      ),
+                      textInputAction: TextInputAction.next),
+                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
-                      name: "roleName",
-                      initialValue: listVmSub.searchRole.roleName,
+                      name: "postName",
+                      initialValue: listVmSub.searchPost.postName,
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.user_label_role_name,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixByInputVal(value,
-                                formOperate: listVmSub.formOperate, formFieldName: "roleName");
+                          suffixIcon: NqNullSelector<A, String?>(
+                              builder: (context, value, child) {
+                            return InputDecUtils.autoClearSuffixByInputVal(
+                                value,
+                                formOperate: listVmSub.formOperate,
+                                formFieldName: "postName");
                           }, selector: (context, vm) {
-                            return listVmSub.searchRole.roleName;
+                            return listVmSub.searchPost.postName;
                           })),
                       onChanged: (value) {
-                        listVmSub.searchRole.roleName = value;
+                        listVmSub.searchPost.postName = value;
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
                   SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                   FormBuilderTextField(
-                      name: "roleKey",
-                      initialValue: listVmSub.searchRole.roleKey,
+                      name: "postCode",
+                      initialValue: listVmSub.searchPost.postCode,
                       decoration: MyInputDecoration(
                           contentPadding: EdgeInsets.zero,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.user_label_role_key,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixByInputVal(value,
-                                formOperate: listVmSub.formOperate, formFieldName: "roleKey");
+                          suffixIcon: NqNullSelector<A, String?>(
+                              builder: (context, value, child) {
+                            return InputDecUtils.autoClearSuffixByInputVal(
+                                value,
+                                formOperate: listVmSub.formOperate,
+                                formFieldName: "postCode");
                           }, selector: (context, vm) {
-                            return listVmSub.searchRole.roleKey;
+                            return listVmSub.searchPost.postCode;
                           })),
                       onChanged: (value) {
-                        listVmSub.searchRole.roleKey = value;
+                        listVmSub.searchPost.postCode = value;
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
                   SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderSelect(
                       name: "status",
-                      initialValue: listVmSub.searchRole.statusName,
+                      initialValue: listVmSub.searchPost.statusName,
                       onTap: () => _onSelectUserStatus(context, listVmSub),
                       decoration: MySelectDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.user_label_status,
                           hintText: S.current.app_label_please_choose,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqSelector<A, String?>(builder: (context, value, child) {
+                          suffixIcon: NqSelector<A, String?>(
+                              builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixBySelectVal(
                               value,
                               onPressed: () {
@@ -145,7 +186,7 @@ class RoleListPageVd {
                               },
                             );
                           }, selector: (context, vm) {
-                            return listVmSub.searchRole.statusName;
+                            return listVmSub.searchPost.statusName;
                           })),
                       textInputAction: TextInputAction.next),
                   Expanded(child: Builder(builder: (context) {
@@ -172,59 +213,86 @@ class RoleListPageVd {
                 ],
               ));
         }, selector: (context) {
-          return listVmSub.searchRole;
+          return listVmSub.searchPost;
         }, shouldRebuild: (oldVal, newVal) {
           return false;
         }));
   }
 
-  static void _onSelectUserStatus(BuildContext context, RolePageDataVmSub listVmSub) {
+  static void _onSelectUserStatus(
+      BuildContext context, PostPageDataVmSub listVmSub) {
     showDialog(
         context: context,
         builder: (context) {
           List<SimpleDialogOption> dialogItem = DictUiUtils.dictList2DialogItem(
-              context, LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!, (value) {
+              context,
+              LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!,
+              (value) {
             //选择后设置性别
             listVmSub.setSelectStatus(value);
           });
-          return SimpleDialog(title: Text(S.current.user_label_sex_select_prompt), children: dialogItem);
+          return SimpleDialog(
+              title: Text(S.current.user_label_sex_select_prompt),
+              children: dialogItem);
         });
   }
 }
 
-class RolePageDataVmSub extends FastBaseListDataPageVmSub<Role> {
+class PostPageDataVmSub extends FastBaseListDataPageVmSub<Post> {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
   final CancelToken cancelToken = CancelToken();
-  Role searchRole = Role();
+  Post searchPost = Post();
 
-  void Function(Role data)? onSuffixClick;
+  void Function(Post data)? onSuffixClick;
 
-  RolePageDataVmSub({LoadMore<Role>? loadMore}) {
+  PostPageDataVmSub({LoadMore<Post>? loadMore}) {
     setLoadData(loadMore ??
         (loadMoreFormat) async {
           try {
-            IntensifyEntity<PageModel<Role>> result = await RoleRepository.list(
-                getLoadMoreFormat().getOffset(), getLoadMoreFormat().getSize(), searchRole, cancelToken);
+            IntensifyEntity<PageModel<Post>> result = await PostRepository.list(
+                getLoadMoreFormat().getOffset(),
+                getLoadMoreFormat().getSize(),
+                searchPost,
+                cancelToken);
             //返回数据结构
-            DataWrapper<PageModel<Role>> dateWrapper = DataTransformUtils.entity2LDWrapper(result);
+            DataWrapper<PageModel<Post>> dateWrapper =
+                DataTransformUtils.entity2LDWrapper(result);
             return dateWrapper;
           } catch (e) {
             ResultEntity resultEntity = BaseDio.getError(e);
-            return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
+            return DataWrapper.createFailed(
+                code: resultEntity.code, msg: resultEntity.msg);
           }
         });
   }
 
+  void onSelectDept() {
+    pushNamed(DeptListSingleSelectPage.routeName, arguments: {
+      ConstantBase.KEY_INTENT_TITLE: S.current.user_label_dept_select
+    }).then((result) {
+      if (result != null) {
+        setSelectDept(result);
+      }
+    });
+  }
+
+  void setSelectDept(Dept? dept) {
+    searchPost.deptId = dept?.deptId;
+    searchPost.deptName = dept?.deptName;
+    formOperate.patchField("deptName", searchPost.deptName);
+    notifyListeners();
+  }
+
   void setSelectStatus(ITreeDict<dynamic>? data) {
-    searchRole.status = data?.tdDictValue;
-    searchRole.statusName = data?.tdDictLabel;
-    formOperate.patchField("status", searchRole.statusName);
+    searchPost.status = data?.tdDictValue;
+    searchPost.statusName = data?.tdDictLabel;
+    formOperate.patchField("status", searchPost.statusName);
     notifyListeners();
   }
 
   //重置
   void onResetSearch() {
-    searchRole = Role();
+    searchPost = Post();
     formOperate.clearAll();
     notifyListeners();
   }

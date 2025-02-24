@@ -16,9 +16,6 @@ class TreeFastBaseListDataVmSub<T> extends FastBaseListDataVmSub<T> {
   //部门栈堆
   final List<SlcTreeNav> treeNacStacks = List.empty(growable: true);
 
-  //当前的树id
-  dynamic currentTreeId;
-
   void next(SlcTreeNav treeNav, {bool notify = false}) {
     treeNacStacks.add(treeNav);
     if (notify) {

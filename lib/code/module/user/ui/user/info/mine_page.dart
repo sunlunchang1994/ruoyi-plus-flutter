@@ -36,7 +36,9 @@ class _MineState extends AppBaseState<MinePage, _MineVm>
         registerEvent(context);
         getVm().initVm();
         return Scaffold(
-            appBar: AppBar(title: Text(title)),
+            appBar: AppBar(
+                title: Text(title),
+                titleSpacing: NavigationToolbar.kMiddleSpacing),
             //图标滚动使用固定大小来解决
             body: Consumer<_MineVm>(builder: (context, value, child) {
               return Column(children: [
@@ -79,8 +81,8 @@ class _MineState extends AppBaseState<MinePage, _MineVm>
                                               themeData.textTheme.titleLarge)),
                                 ])),
                             ClipRRect(
-                                borderRadius: BorderRadius.all(
-                                    Radius.circular(AppDimens.userMineAvatarRadius)),
+                                borderRadius: BorderRadius.all(Radius.circular(
+                                    AppDimens.userMineAvatarRadius)),
                                 child: CachedNetworkImage(
                                     width: AppDimens.userMineAvatarSize,
                                     height: AppDimens.userMineAvatarSize,

@@ -32,9 +32,7 @@ class UserServiceRepository {
         .getInfo(cancelToken)
         .asStream()
         .map((event) {
-          var intensifyEntity = IntensifyEntity<MyUserInfoVo>(
-              resultEntity: event, createData: (resultEntity) => MyUserInfoVo.fromJson(resultEntity.data));
-          return intensifyEntity;
+          return event.toIntensify(createData: (resultEntity) => MyUserInfoVo.fromJson(resultEntity.data));
         })
         .map(DataTransformUtils.checkErrorIe)
         .map((event) {

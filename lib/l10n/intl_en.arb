@@ -203,6 +203,9 @@
   "app_toast_login_login_successful": "登录成功",
   "app_toast_login_login_failed": "登录失败",
 
+  "app_label_show_sort": "显示排序",
+  "app_label_status": "状态",
+
   "app_label_photograph": "拍照",
   "app_label_photo_album": "相册",
   "app_label_image_crop": "裁剪",
@@ -247,6 +250,11 @@
   "user_label_dept_not_found": "没有获取到部门信息",
   "user_label_user_info_not_found": "没有获取到用户信息",
 
+  "user_label_avatar_crop": "正在裁剪头像...",
+  "user_label_avatar_are_uploading": "正在上传头像",
+  "user_label_avatar_upload_failed": "上传头像失败",
+  "user_label_avatar_uploaded_success": "上传头像成功",
+
   "user_label_all_dept": "所有部门",
   "user_label_top_dept": "顶级部门",
   "user_label_dept_add": "新增部门",
@@ -255,7 +263,6 @@
   "user_label_dept_parent_name_select": "选择上级部门",
   "user_label_dept_name": "部门名称",
   "user_label_dept_category": "类别编码",
-  "user_label_dept_show_sort": "显示排序",
   "user_label_dept_leader": "负责人",
   "user_label_dept_leader_select": "选择负责人",
   "user_label_dept_contact_number": "联系电话",
@@ -280,21 +287,29 @@
   "user_label_user_add": "新增用户",
   "user_label_user_edit": "修改用户信息",
   "user_label_role_name_select": "选择角色",
+  "user_label_post_name_select": "选择岗位",
+  "user_label_search_user": "搜索用户",
+
 
   "user_label_post": "岗位",
+  "user_label_post_owner_dept": "所属部门",
+  "user_label_post_owner_dept_select": "选择所属部门",
+  "user_label_post_info_not_found": "没有获取到岗位信息",
+  "user_label_post_add": "新增岗位",
+  "user_label_post_edit": "修改岗位信息",
+  "user_label_post_name": "岗位名称",
+  "user_label_post_code": "岗位编码",
+  "user_label_post_category": "类别编码",
 
   "user_label_role": "角色",
-
-  "user_label_avatar_crop": "正在裁剪头像...",
-  "user_label_avatar_are_uploading": "正在上传头像",
-  "user_label_avatar_upload_failed": "上传头像失败",
-  "user_label_avatar_uploaded_success": "上传头像成功",
-
-  "user_label_search_user": "搜索用户",
   "user_label_search_role": "搜索角色",
-
   "user_label_role_name": "角色名称",
   "user_label_role_key": "权限字符",
+  "user_label_menu_permission": "菜单权限",
+  "user_label_data_permission": "数据权限",
+  "user_label_role_add": "新增角色",
+  "user_label_role_edit": "修改角色信息",
+  "user_label_menu_permission_select": "配置菜单权限",
 
   "dict_divide_text": "-----------------------------",
   "dict_label_ley": "字典名",
@@ -306,5 +321,8 @@
 
   "main_divide_text": "-----------------------------",
   "main_label_workbench": "工作台",
-  "main_label_mine": "我的"
+  "main_label_mine": "我的",
+
+  "menu_label_root": "根目录",
+  "menu_label_menu_tree": "菜单树"
 }

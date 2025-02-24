@@ -3,16 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/router/slc_router.dart';
 import 'package:ruoyi_plus_flutter/code/module/biz_main/ui/main_page.dart';
 import 'package:ruoyi_plus_flutter/code/feature/welcome/ui/welcome_page.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/config/constant_sys.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_browser_page.dart';
 
 import '../base/config/constant_base.dart';
 import '../module/system/ui/fof/no_found_page.dart';
-import '../module/system/ui/menu/menu_page.dart';
+import '../module/system/ui/menu_tree/menu_tree_borwser_page.dart';
+import '../module/system/ui/router/router_page.dart';
 import '../module/user/ui/dept/dept_add_edit_page.dart';
 import '../module/user/ui/dept/dept_list_browser_page.dart';
 import '../feature/auth/ui/login_page.dart';
 import '../module/user/ui/dept/dept_list_select_single_page.dart';
+import '../module/user/ui/post/post_add_edit_page.dart';
+import '../module/user/ui/post/post_list_browser_page.dart';
+import '../module/user/ui/post/post_list_select_single_page.dart';
+import '../module/user/ui/role/role_add_edit_page.dart';
 import '../module/user/ui/role/role_list_select_single_page.dart';
 import '../module/user/ui/user/info/profile_page.dart';
 import '../module/user/ui/user/user_add_edit_page.dart';
@@ -31,11 +37,13 @@ final Map<String, WidgetBuilder> router = {
   LoginPage.routeName: (BuildContext context) => LoginPage(),
   //主页
   MainPage.routeName: (BuildContext context) => MainPage(),
-  //菜单页
+  //路由页
   MenuPage.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
-    return MenuPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE],
-        slcRouterInfo.arguments["routerList"], slcRouterInfo.arguments["parentPath"]);
+    return MenuPage(
+        slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE],
+        slcRouterInfo.arguments["routerList"],
+        slcRouterInfo.arguments["parentPath"]);
   },
   //用户
   //用户：修改个人信息
@@ -43,24 +51,28 @@ final Map<String, WidgetBuilder> router = {
   //用户：用户列表
   UserListBrowserPage.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
-    return UserListBrowserPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
+    return UserListBrowserPage(
+        slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //用户：单选用户列表
   UserListSingleSelectPage.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
-    return UserListSingleSelectPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE],
+    return UserListSingleSelectPage(
+        slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE],
         dept: slcRouterInfo.arguments[ConstantUser.KEY_DEPT]);
   },
   //用户：单选用户列表->仅指定部门下的
   UserListSelectByDeptPage.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
-    return UserListSelectByDeptPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE],
+    return UserListSelectByDeptPage(
+        slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE],
         slcRouterInfo.arguments[ConstantUser.KEY_DEPT]!);
   },
   //用户：树结构列表
   UserListBrowserPage2.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
-    return UserListBrowserPage2(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
+    return UserListBrowserPage2(
+        slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //用户：添加编辑用户信息
   UserAddEditPage.routeName: (BuildContext context) {
@@ -71,12 +83,14 @@ final Map<String, WidgetBuilder> router = {
   //部门：部门列表
   DeptListBrowserPage.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
-    return DeptListBrowserPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
+    return DeptListBrowserPage(
+        slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //部门：部门单选列表
   DeptListSingleSelectPage.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
-    return DeptListSingleSelectPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
+    return DeptListSingleSelectPage(
+        slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //部门：部门信息新增或删除
   DeptAddEditPage.routeName: (BuildContext context) {
@@ -89,13 +103,44 @@ final Map<String, WidgetBuilder> router = {
   //角色：列表
   RoleListBrowserPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
-    return RoleListBrowserPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+    return RoleListBrowserPage(
+        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //角色：单选
   RoleListSingleSelectPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
-    return RoleListSingleSelectPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
-  }
+    return RoleListSingleSelectPage(
+        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+  },
+  //角色：新增或编辑
+  RoleAddEditPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return RoleAddEditPage(slcRouterInfo?.arguments[ConstantUser.KEY_ROLE]);
+  },
+  //岗位
+  //岗位：列表
+  PostListBrowserPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return PostListBrowserPage(
+        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+  },
+  //岗位：单选
+  PostListSingleSelectPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return PostListSingleSelectPage(
+        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+  },
+  //岗位：新增或编辑
+  PostAddEditPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return PostAddEditPage(slcRouterInfo?.arguments[ConstantUser.KEY_POST]);
+  },
+  //菜单：菜单树列表
+  MenuTreeBrowserPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return MenuTreeBrowserPage(
+        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+  },
 };
 
 Route get404Route(RouteSettings settings) {

@@ -1560,6 +1560,21 @@ class S {
     );
   }
 
+  /// `显示排序`
+  String get app_label_show_sort {
+    return Intl.message(
+      '显示排序',
+      name: 'app_label_show_sort',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `状态`
+  String get app_label_status {
+    return Intl.message('状态', name: 'app_label_status', desc: '', args: []);
+  }
+
   /// `拍照`
   String get app_label_photograph {
     return Intl.message('拍照', name: 'app_label_photograph', desc: '', args: []);
@@ -1940,6 +1955,46 @@ class S {
     );
   }
 
+  /// `正在裁剪头像...`
+  String get user_label_avatar_crop {
+    return Intl.message(
+      '正在裁剪头像...',
+      name: 'user_label_avatar_crop',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `正在上传头像`
+  String get user_label_avatar_are_uploading {
+    return Intl.message(
+      '正在上传头像',
+      name: 'user_label_avatar_are_uploading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `上传头像失败`
+  String get user_label_avatar_upload_failed {
+    return Intl.message(
+      '上传头像失败',
+      name: 'user_label_avatar_upload_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `上传头像成功`
+  String get user_label_avatar_uploaded_success {
+    return Intl.message(
+      '上传头像成功',
+      name: 'user_label_avatar_uploaded_success',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `所有部门`
   String get user_label_all_dept {
     return Intl.message(
@@ -2015,16 +2070,6 @@ class S {
     return Intl.message(
       '类别编码',
       name: 'user_label_dept_category',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `显示排序`
-  String get user_label_dept_show_sort {
-    return Intl.message(
-      '显示排序',
-      name: 'user_label_dept_show_sort',
       desc: '',
       args: [],
     );
@@ -2245,51 +2290,11 @@ class S {
     );
   }
 
-  /// `岗位`
-  String get user_label_post {
-    return Intl.message('岗位', name: 'user_label_post', desc: '', args: []);
-  }
-
-  /// `角色`
-  String get user_label_role {
-    return Intl.message('角色', name: 'user_label_role', desc: '', args: []);
-  }
-
-  /// `正在裁剪头像...`
-  String get user_label_avatar_crop {
+  /// `选择岗位`
+  String get user_label_post_name_select {
     return Intl.message(
-      '正在裁剪头像...',
-      name: 'user_label_avatar_crop',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `正在上传头像`
-  String get user_label_avatar_are_uploading {
-    return Intl.message(
-      '正在上传头像',
-      name: 'user_label_avatar_are_uploading',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `上传头像失败`
-  String get user_label_avatar_upload_failed {
-    return Intl.message(
-      '上传头像失败',
-      name: 'user_label_avatar_upload_failed',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `上传头像成功`
-  String get user_label_avatar_uploaded_success {
-    return Intl.message(
-      '上传头像成功',
-      name: 'user_label_avatar_uploaded_success',
+      '选择岗位',
+      name: 'user_label_post_name_select',
       desc: '',
       args: [],
     );
@@ -2303,6 +2308,96 @@ class S {
       desc: '',
       args: [],
     );
+  }
+
+  /// `岗位`
+  String get user_label_post {
+    return Intl.message('岗位', name: 'user_label_post', desc: '', args: []);
+  }
+
+  /// `所属部门`
+  String get user_label_post_owner_dept {
+    return Intl.message(
+      '所属部门',
+      name: 'user_label_post_owner_dept',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `选择所属部门`
+  String get user_label_post_owner_dept_select {
+    return Intl.message(
+      '选择所属部门',
+      name: 'user_label_post_owner_dept_select',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `没有获取到岗位信息`
+  String get user_label_post_info_not_found {
+    return Intl.message(
+      '没有获取到岗位信息',
+      name: 'user_label_post_info_not_found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `新增岗位`
+  String get user_label_post_add {
+    return Intl.message(
+      '新增岗位',
+      name: 'user_label_post_add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `修改岗位信息`
+  String get user_label_post_edit {
+    return Intl.message(
+      '修改岗位信息',
+      name: 'user_label_post_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `岗位名称`
+  String get user_label_post_name {
+    return Intl.message(
+      '岗位名称',
+      name: 'user_label_post_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `岗位编码`
+  String get user_label_post_code {
+    return Intl.message(
+      '岗位编码',
+      name: 'user_label_post_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `类别编码`
+  String get user_label_post_category {
+    return Intl.message(
+      '类别编码',
+      name: 'user_label_post_category',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `角色`
+  String get user_label_role {
+    return Intl.message('角色', name: 'user_label_role', desc: '', args: []);
   }
 
   /// `搜索角色`
@@ -2330,6 +2425,56 @@ class S {
     return Intl.message(
       '权限字符',
       name: 'user_label_role_key',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `菜单权限`
+  String get user_label_menu_permission {
+    return Intl.message(
+      '菜单权限',
+      name: 'user_label_menu_permission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `数据权限`
+  String get user_label_data_permission {
+    return Intl.message(
+      '数据权限',
+      name: 'user_label_data_permission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `新增角色`
+  String get user_label_role_add {
+    return Intl.message(
+      '新增角色',
+      name: 'user_label_role_add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `修改角色信息`
+  String get user_label_role_edit {
+    return Intl.message(
+      '修改角色信息',
+      name: 'user_label_role_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `配置菜单权限`
+  String get user_label_menu_permission_select {
+    return Intl.message(
+      '配置菜单权限',
+      name: 'user_label_menu_permission_select',
       desc: '',
       args: [],
     );
@@ -2413,6 +2558,21 @@ class S {
   /// `我的`
   String get main_label_mine {
     return Intl.message('我的', name: 'main_label_mine', desc: '', args: []);
+  }
+
+  /// `根目录`
+  String get menu_label_root {
+    return Intl.message('根目录', name: 'menu_label_root', desc: '', args: []);
+  }
+
+  /// `菜单树`
+  String get menu_label_menu_tree {
+    return Intl.message(
+      '菜单树',
+      name: 'menu_label_menu_tree',
+      desc: '',
+      args: [],
+    );
   }
 }
 

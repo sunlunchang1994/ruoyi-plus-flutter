@@ -1,14 +1,19 @@
+import '../api/json_converter.dart';
+
 ///@Author sunlunchang
 ///后端数据实体类基础类
 class BaseEntity {
   String? searchValue;
 
+  @IntConverter()
   int? createDept;
 
+  @IntConverter()
   int? createBy;
 
   String? createTime;
 
+  @IntConverter()
   int? updateBy;
 
   String? updateTime;

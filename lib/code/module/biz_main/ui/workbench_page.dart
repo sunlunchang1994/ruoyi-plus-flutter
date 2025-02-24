@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/repository/remote/user_api.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/menu/menu_grid.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/ui/router/router_grid.dart';
 
 import '../../../../generated/l10n.dart';
 
@@ -29,7 +29,8 @@ class _WorkbenchState extends AppBaseState<WorkbenchPage, _WorkbenchVm> with Aut
       registerEvent(context);
       getVm().initVm();
       return Scaffold(
-          appBar: AppBar(title: Text(title)),
+          appBar: AppBar(title: Text(title),
+              titleSpacing: NavigationToolbar.kMiddleSpacing),
           //图标滚动使用固定大小来解决
           body: MenuGrid(GlobalVm().userShareVm.routerVoOf.value ?? [], null));
     });

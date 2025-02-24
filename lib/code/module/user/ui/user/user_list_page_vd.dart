@@ -18,6 +18,7 @@ import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.d
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/user_api.dart';
 import 'package:dio/dio.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_page_vd.dart';
+import 'package:ruoyi_plus_flutter/res/styles.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../../res/dimens.dart';
@@ -86,6 +87,22 @@ class UserListPageVd {
     if (listVmSub.dataList.isEmpty) {
       return const ContentEmptyWrapper();
     }
+    return ListView.separated(
+        clipBehavior: Clip.none,
+        scrollDirection: Axis.vertical,
+        padding: EdgeInsets.zero,
+        itemCount: listVmSub.dataList.length,
+        itemBuilder: (context, index) {
+          User listItem = listVmSub.dataList[index];
+          return UserListPageVd.getUserListItem(
+              themeData, listVmSub as ListenerItemClick<dynamic>,
+              (currentItem) {
+            return null;
+          }, index, listItem);
+        },
+        separatorBuilder: (context, index) {
+          return AppStyles.getDefDividerByTheme(themeData);
+        });
     return ListView.builder(
         clipBehavior: Clip.none,
         scrollDirection: Axis.vertical,
@@ -108,44 +125,41 @@ class UserListPageVd {
       Widget? Function(User currentItem) buildTrailing,
       int index,
       User listItem) {
-    return Padding(
-        padding: const EdgeInsets.only(bottom: 1),
-        child: ListTile(
-            contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
-            leading: ClipRRect(
-                borderRadius: BorderRadius.all(
-                    Radius.circular(AppDimens.userItemAvatarRadius)),
-                child: CachedNetworkImage(
-                    width: AppDimens.userItemAvatarSize,
-                    height: AppDimens.userItemAvatarSize,
-                    imageUrl: listItem.avatar ?? "",
-                    placeholder: (context, url) {
-                      return Image.asset(
-                          "assets/images/slc/app_ic_def_user_head.png",
-                          width: AppDimens.userItemAvatarSize,
-                          height: AppDimens.userItemAvatarSize);
-                    },
-                    errorWidget: (
-                      context,
-                      error,
-                      stackTrace,
-                    ) {
-                      return Image.asset(
-                          "assets/images/slc/app_ic_def_user_head.png",
-                          width: AppDimens.userItemAvatarSize,
-                          height: AppDimens.userItemAvatarSize);
-                    })),
-            title: Text(listItem.nickName ?? "-"),
-            subtitle: Text(listItem.deptName ?? "-"),
-            minTileHeight: AppDimens.userItemAvatarSize + SlcDimens.appDimens16,
-            trailing: buildTrailing.call(listItem),
-            visualDensity: VisualDensity.compact,
-            tileColor: SlcColors.getCardColorByTheme(themeData),
-            //根据card规则实现
-            onTap: () {
-              listenerItemClick.onItemClick(index, listItem);
-              //getVm().nextByDept(listItem);
-            }));
+    return ListTile(
+        contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
+        leading: ClipRRect(
+            borderRadius: BorderRadius.all(
+                Radius.circular(AppDimens.userItemAvatarRadius)),
+            child: CachedNetworkImage(
+                width: AppDimens.userItemAvatarSize,
+                height: AppDimens.userItemAvatarSize,
+                imageUrl: listItem.avatar ?? "",
+                placeholder: (context, url) {
+                  return Image.asset(
+                      "assets/images/slc/app_ic_def_user_head.png",
+                      width: AppDimens.userItemAvatarSize,
+                      height: AppDimens.userItemAvatarSize);
+                },
+                errorWidget: (
+                  context,
+                  error,
+                  stackTrace,
+                ) {
+                  return Image.asset(
+                      "assets/images/slc/app_ic_def_user_head.png",
+                      width: AppDimens.userItemAvatarSize,
+                      height: AppDimens.userItemAvatarSize);
+                })),
+        title: Text(listItem.nickName ?? "-"),
+        subtitle: Text(listItem.deptName ?? "-"),
+        minTileHeight: AppDimens.userItemAvatarSize + SlcDimens.appDimens16,
+        trailing: buildTrailing.call(listItem),
+        visualDensity: VisualDensity.compact,
+        //根据card规则实现
+        onTap: () {
+          listenerItemClick.onItemClick(index, listItem);
+          //getVm().nextByDept(listItem);
+        });
   }
 
   ///搜索侧滑栏视图
@@ -185,10 +199,9 @@ class UserListPageVd {
                               border: const UnderlineInputBorder(),
                               suffixIcon: NqNullSelector<A, String?>(
                                   builder: (context, value, child) {
-                                return InputDecUtils
-                                    .autoClearSuffixBySelectVal(
-                                        listVmSub.searchUser.deptName,
-                                        onPressed: () {
+                                return InputDecUtils.autoClearSuffixBySelectVal(
+                                    listVmSub.searchUser.deptName,
+                                    onPressed: () {
                                   listVmSub.setSelectDept(null);
                                 });
                               }, selector: (context, vm) {
@@ -328,7 +341,6 @@ class UserListPageVd {
               children: dialogItem);
         });
   }
-
 }
 
 ///用户树数据形势的VmSub

@@ -156,13 +156,13 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
         name: "orderNum",
         initialValue: () {
           int? orderNum = getVm().deptInfo!.orderNum;
-          return orderNum == null ? "0" : orderNum.toString();
+          return orderNum.toString();
         }.call(),
         autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: MyInputDecoration(
             contentPadding: EdgeInsets.zero,
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            labelText: S.current.user_label_dept_show_sort,
+            labelText: S.current.app_label_show_sort,
             hintText: S.current.app_label_please_input,
             border: const UnderlineInputBorder()),
         onChanged: (value) {
@@ -305,6 +305,7 @@ class _DeptAddEditModel extends AppBaseVm {
         this.deptInfo!.parentId = parentDept.deptId;
         this.deptInfo!.parentName = parentDept.deptName;
       }
+      this.deptInfo!.orderNum = 0;
       setLoadingStatus(LoadingStatus.success);
     } else {
       DeptRepository.getInfo(deptInfo.deptId!, cancelToken).then((result) {

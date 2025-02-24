@@ -47,7 +47,7 @@ dependencies:
 
   #----------------- 版本不要轻易改动  加上是因为上述包也用了这个
   #状态管理
-  provider: ^5.0.0
+  provider: ^6.1.2
   #框架
   flutter_slc_boxes:
     git:
