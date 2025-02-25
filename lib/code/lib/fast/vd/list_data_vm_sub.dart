@@ -36,6 +36,7 @@ abstract class BaseListDataVmSub<T> extends IBaseListDataCommonVmSub<T> {
   }
 
   void onSucceed(List<T> dataList) {
+    super.shouldSetState.updateVersion();
     this.dataList.clear();
     this.dataList.addAll(dataList);
   }

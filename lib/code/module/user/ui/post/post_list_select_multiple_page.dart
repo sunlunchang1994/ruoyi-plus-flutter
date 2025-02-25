@@ -40,8 +40,9 @@ class PostListMultipleSelectPage
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => _PostListMultipleSelectVm(
-            selectDataIds: selectDataId, dataSrc: dataSrc),
+        create: (context) =>
+            _PostListMultipleSelectVm(
+                selectDataIds: selectDataId, dataSrc: dataSrc),
         builder: (context, child) {
           ThemeData themeData = Theme.of(context);
           registerEvent(context);
@@ -55,27 +56,30 @@ class PostListMultipleSelectPage
                     icon: Icon(Icons.search))
               ]),
               endDrawer:
-                  PostListPageVd.getSearchEndDrawer<_PostListMultipleSelectVm>(
-                      context, themeData, getVm().listVmSub),
+              PostListPageVd.getSearchEndDrawer<_PostListMultipleSelectVm>(
+                  context, themeData, getVm().listVmSub),
               body: PageDataVd(getVm().listVmSub, getVm(), refreshOnStart: true,
                   child: Consumer<_PostListMultipleSelectVm>(
                       builder: (context, vm, child) {
-                return PostListPageVd.getUserListWidget(
-                    themeData, getVm().listVmSub, buildTrailing: (currentItem) {
-                  //选择按钮
-                  return NqSelector<_PostListMultipleSelectVm, bool>(
-                      builder: (context, value, child) {
-                    return Checkbox(
-                        value: value,
-                        onChanged: (checkValue) {
-                          currentItem.boxChecked = !currentItem.isBoxChecked();
-                          getVm().notifyListeners();
-                        });
-                  }, selector: (context, vm) {
-                    return currentItem.isBoxChecked();
-                  });
-                });
-              })));
+                        return PostListPageVd.getUserListWidget(
+                            themeData, getVm().listVmSub,
+                            buildTrailing: (currentItem) {
+                              //选择按钮
+                              return NqSelector<_PostListMultipleSelectVm,
+                                  bool>(
+                                  builder: (context, value, child) {
+                                    return Checkbox(
+                                        value: value,
+                                        onChanged: (checkValue) {
+                                          currentItem.boxChecked =
+                                          !currentItem.isBoxChecked();
+                                          getVm().notifyListeners();
+                                        });
+                                  }, selector: (context, vm) {
+                                return currentItem.isBoxChecked();
+                              });
+                            });
+                      })));
         });
   }
 }
@@ -128,26 +132,32 @@ class PostListMultipleSelectDialog
     registerEvent(context);
     getVm().initVm();
     return SizedBox(
-        width: ScreenUtil.getInstance().screenWidthDpr,
+        width: ScreenUtil
+            .getInstance()
+            .screenWidthDpr,
         child: PageDataVd(getVm().listVmSub, getVm(), refreshOnStart: true,
-            child: Consumer<_PostListMultipleSelectVm>(
+            child: NqSelector<_PostListMultipleSelectVm, int>(
                 builder: (context, vm, child) {
-          return PostListPageVd.getUserListWidget(themeData, getVm().listVmSub,
-              buildTrailing: (currentItem) {
-            //选择按钮
-            return NqSelector<_PostListMultipleSelectVm, bool>(
-                builder: (context, value, child) {
-              return Checkbox(
-                  value: value,
-                  onChanged: (checkValue) {
-                    currentItem.boxChecked = !currentItem.isBoxChecked();
-                    getVm().notifyListeners();
-                  });
-            }, selector: (context, vm) {
-              return currentItem.isBoxChecked();
-            });
-          });
-        })));
+                  return PostListPageVd.getUserListWidget(
+                      themeData, getVm().listVmSub,
+                      buildTrailing: (currentItem) {
+                        //选择按钮
+                        return NqSelector<_PostListMultipleSelectVm, bool>(
+                            builder: (context, value, child) {
+                              return Checkbox(
+                                  value: value,
+                                  onChanged: (checkValue) {
+                                    currentItem.boxChecked =
+                                    !currentItem.isBoxChecked();
+                                    getVm().notifyListeners();
+                                  });
+                            }, selector: (context, vm) {
+                          return currentItem.isBoxChecked();
+                        });
+                      });
+                }, selector: (context, vm) {
+              return vm.listVmSub.shouldSetState.version;
+            })));
   }
 }
 

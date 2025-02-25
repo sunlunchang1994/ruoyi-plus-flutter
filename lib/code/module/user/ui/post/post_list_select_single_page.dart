@@ -4,6 +4,7 @@ import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/post/post_list_page_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_page_vd.dart';
@@ -15,7 +16,8 @@ import '../../../../lib/fast/utils/widget_utils.dart';
 /// @author slc
 /// 岗位单选
 ///
-class PostListSingleSelectPage extends AppBaseStatelessWidget<_PostListSingleSelectVm> {
+class PostListSingleSelectPage
+    extends AppBaseStatelessWidget<_PostListSingleSelectVm> {
   static const String routeName = '/system/post/single';
   final String title;
 
@@ -37,12 +39,18 @@ class PostListSingleSelectPage extends AppBaseStatelessWidget<_PostListSingleSel
                     },
                     icon: Icon(Icons.search))
               ]),
-              endDrawer: PostListPageVd.getSearchEndDrawer<_PostListSingleSelectVm>(
-                  context, themeData, getVm().listVmSub),
-              body: PageDataVd(getVm().listVmSub, getVm(), refreshOnStart: true,
-                  child: Consumer<_PostListSingleSelectVm>(builder: (context, vm, child) {
-                return PostListPageVd.getUserListWidget(themeData, getVm().listVmSub);
-              })));
+              endDrawer:
+                  PostListPageVd.getSearchEndDrawer<_PostListSingleSelectVm>(
+                      context, themeData, getVm().listVmSub),
+              body: PageDataVd(getVm().listVmSub, getVm(),
+                  refreshOnStart: true,
+                  child: NqSelector<_PostListSingleSelectVm, int>(
+                      builder: (context, vm, child) {
+                    return PostListPageVd.getUserListWidget(
+                        themeData, getVm().listVmSub);
+                  }, selector: (context, vm) {
+                    return vm.listVmSub.shouldSetState.version;
+                  })));
         });
   }
 }
@@ -51,7 +59,8 @@ class PostListSingleSelectPage extends AppBaseStatelessWidget<_PostListSingleSel
 /// @author slc
 /// 岗位单选控件
 ///
-class PostListSingleSelectDialog extends AppBaseStatelessWidget<_PostListSingleSelectVm> {
+class PostListSingleSelectDialog
+    extends AppBaseStatelessWidget<_PostListSingleSelectVm> {
   PostListSingleSelectDialog({super.key});
 
   static Widget getRoleListSingleSelectDialog({String? title}) {
@@ -76,7 +85,8 @@ class PostListSingleSelectDialog extends AppBaseStatelessWidget<_PostListSingleS
     return SizedBox(
         width: ScreenUtil.getInstance().screenWidthDpr,
         child: PageDataVd(getVm().listVmSub, getVm(), refreshOnStart: true,
-            child: Consumer<_PostListSingleSelectVm>(builder: (context, vm, child) {
+            child: Consumer<_PostListSingleSelectVm>(
+                builder: (context, vm, child) {
           return PostListPageVd.getUserListWidget(themeData, getVm().listVmSub);
         })));
   }

@@ -4,8 +4,6 @@ import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/widgets.dart';
 import 'list_data_vm_sub.dart';
 import 'refresh/header_footer_simple.dart';
-import 'page_data_vm_sub.dart';
-import 'package:flutter_slc_boxes/flutter/slc/adapter/load_more_format.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/base_mvvm.dart';
 
 /// @Author sunlunchang

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_add_edit_page.dart';
@@ -48,12 +49,15 @@ class UserListBrowserPage extends AppBaseStatelessWidget<_UserListBrowserVm> {
                 }),
             endDrawer: UserListPageVd.getSearchEndDrawer<_UserListBrowserVm>(
                 context, themeData, getVm().listVmSub),
-            body: PageDataVd(getVm().listVmSub, getVm(), refreshOnStart: true,
-                child:
-                    Consumer<_UserListBrowserVm>(builder: (context, vm, child) {
-              return UserListPageVd.getUserListWidget(
-                  themeData, getVm().listVmSub);
-            })));
+            body: PageDataVd(getVm().listVmSub, getVm(),
+                refreshOnStart: true,
+                child: NqSelector<_UserListBrowserVm, int>(
+                    builder: (context, vm, child) {
+                  return UserListPageVd.getUserListWidget(
+                      themeData, getVm().listVmSub);
+                }, selector: (context, vm) {
+                  return vm.listVmSub.shouldSetState.version;
+                })));
       },
     );
   }

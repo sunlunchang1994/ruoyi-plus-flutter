@@ -53,25 +53,30 @@ class RoleListMultipleSelectPage
               endDrawer:
                   RoleListPageVd.getSearchEndDrawer<_RoleListMultipleSelectVm>(
                       context, themeData, getVm().listVmSub),
-              body: PageDataVd(getVm().listVmSub, getVm(), refreshOnStart: true,
-                  child: Consumer<_RoleListMultipleSelectVm>(
+              body: PageDataVd(getVm().listVmSub, getVm(),
+                  refreshOnStart: true,
+                  child: NqSelector<_RoleListMultipleSelectVm, int>(
                       builder: (context, vm, child) {
-                return RoleListPageVd.getUserListWidget(
-                    themeData, getVm().listVmSub, buildTrailing: (currentItem) {
-                  //选择按钮
-                  return NqSelector<_RoleListMultipleSelectVm, bool>(
-                      builder: (context, value, child) {
-                    return Checkbox(
-                        value: value,
-                        onChanged: (checkValue) {
-                          currentItem.boxChecked = !currentItem.isBoxChecked();
-                          getVm().notifyListeners();
-                        });
+                    return RoleListPageVd.getUserListWidget(
+                        themeData, getVm().listVmSub,
+                        buildTrailing: (currentItem) {
+                      //选择按钮
+                      return NqSelector<_RoleListMultipleSelectVm, bool>(
+                          builder: (context, value, child) {
+                        return Checkbox(
+                            value: value,
+                            onChanged: (checkValue) {
+                              currentItem.boxChecked =
+                                  !currentItem.isBoxChecked();
+                              getVm().notifyListeners();
+                            });
+                      }, selector: (context, vm) {
+                        return currentItem.isBoxChecked();
+                      });
+                    });
                   }, selector: (context, vm) {
-                    return currentItem.isBoxChecked();
-                  });
-                });
-              })));
+                    return vm.listVmSub.shouldSetState.version;
+                  })));
         });
   }
 }

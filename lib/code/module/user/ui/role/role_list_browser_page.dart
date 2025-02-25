@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/widget_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
@@ -44,12 +45,15 @@ class RoleListBrowserPage extends AppBaseStatelessWidget<_RoleListBrowserVm> {
                   onPressed: () {
                     getVm().onAddRole();
                   }),
-              body: PageDataVd(getVm().listVmSub, getVm(), refreshOnStart: true,
-                  child: Consumer<_RoleListBrowserVm>(
+              body: PageDataVd(getVm().listVmSub, getVm(),
+                  refreshOnStart: true,
+                  child: NqSelector<_RoleListBrowserVm, int>(
                       builder: (context, vm, child) {
-                return RoleListPageVd.getUserListWidget(
-                    themeData, getVm().listVmSub);
-              })));
+                    return RoleListPageVd.getUserListWidget(
+                        themeData, getVm().listVmSub);
+                  }, selector: (context, vm) {
+                    return vm.listVmSub.shouldSetState.version;
+                  })));
         });
   }
 }

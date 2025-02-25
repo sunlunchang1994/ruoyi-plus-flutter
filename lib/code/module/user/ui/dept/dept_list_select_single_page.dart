@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_vd.dart';
 
 import '../../../../../generated/l10n.dart';
@@ -62,27 +63,30 @@ class DeptListSingleSelectPage
                   }),
                   Expanded(
                       child: ListDataVd(getVm().listVmSub, getVm(),
-                          refreshOnStart: true, child:
-                              Consumer<_DeptListSingleSelectVm>(
-                                  builder: (context, vm, child) {
-                    return DeptListPageWidget.getDataListWidget(
-                        themeData, getVm().listVmSub, (currentItem) {
-                      return Ink(
-                          child: InkWell(
-                              child: Padding(
-                                  padding:
-                                  EdgeInsets.all(SlcDimens.appDimens12),
-                                  child: const Icon(Icons.radio_button_off,
-                                      size: 24)),
-                              onTap: () {
-                                //单选事件
-                                getVm()
-                                    .listVmSub
-                                    .onSuffixClick
-                                    ?.call(currentItem);
-                              }));
-                    });
-                  })))
+                          refreshOnStart: true,
+                          child: NqSelector<_DeptListSingleSelectVm, int>(
+                              builder: (context, vm, child) {
+                            return DeptListPageWidget.getDataListWidget(
+                                themeData, getVm().listVmSub, (currentItem) {
+                              return Ink(
+                                  child: InkWell(
+                                      child: Padding(
+                                          padding: EdgeInsets.all(
+                                              SlcDimens.appDimens12),
+                                          child: const Icon(
+                                              Icons.radio_button_off,
+                                              size: 24)),
+                                      onTap: () {
+                                        //单选事件
+                                        getVm()
+                                            .listVmSub
+                                            .onSuffixClick
+                                            ?.call(currentItem);
+                                      }));
+                            });
+                          }, selector: (context, vm) {
+                            return vm.listVmSub.shouldSetState.version;
+                          })))
                 ])));
       },
     );

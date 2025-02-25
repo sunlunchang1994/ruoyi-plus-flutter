@@ -1,11 +1,12 @@
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:ruoyi_plus_flutter/code/feature/component/adapter/app_select_box.dart';
 
 part 'sys_menu_tree.g.dart';
 ///@author slc
 ///菜单树结构
 @JsonSerializable()
-class SysMenuTree {
+class SysMenuTree with AppSelectBoxMixin{
   int id;
   int parentId;
   String label;

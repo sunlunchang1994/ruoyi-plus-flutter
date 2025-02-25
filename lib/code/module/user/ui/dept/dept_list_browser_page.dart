@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
@@ -68,27 +69,29 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
                   }),
                   Expanded(
                       child: ListDataVd(getVm().listVmSub, getVm(),
-                          refreshOnStart: true, child:
-                              Consumer<_DeptListBrowserVm>(
-                                  builder: (context, vm, child) {
-                    return DeptListPageWidget.getDataListWidget(
-                        themeData, getVm().listVmSub, (currentItem) {
-                      return Ink(
-                          child: InkWell(
-                              child: Padding(
-                                  padding:
-                                      EdgeInsets.all(SlcDimens.appDimens12),
-                                  child: const Icon(Icons.chevron_right,
-                                      size: 24)),
-                              onTap: () {
-                                //点击更多事件
-                                getVm()
-                                    .listVmSub
-                                    .onSuffixClick
-                                    ?.call(currentItem);
-                              }));
-                    });
-                  })))
+                          refreshOnStart: true,
+                          child: NqSelector<_DeptListBrowserVm, int>(
+                              builder: (context, vm, child) {
+                            return DeptListPageWidget.getDataListWidget(
+                                themeData, getVm().listVmSub, (currentItem) {
+                              return Ink(
+                                  child: InkWell(
+                                      child: Padding(
+                                          padding: EdgeInsets.all(
+                                              SlcDimens.appDimens12),
+                                          child: const Icon(Icons.chevron_right,
+                                              size: 24)),
+                                      onTap: () {
+                                        //点击更多事件
+                                        getVm()
+                                            .listVmSub
+                                            .onSuffixClick
+                                            ?.call(currentItem);
+                                      }));
+                            });
+                          }, selector: (context, vm) {
+                            return vm.listVmSub.shouldSetState.version;
+                          })))
                 ])));
       },
     );
