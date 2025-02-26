@@ -124,6 +124,10 @@ class MenuTreeListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
 
   SysMenuTree? currentClickItem;
 
+  List<SysMenuTree>? _allTreeList;
+
+  List<SysMenuTree>? get allTreeList => _allTreeList;
+
   void Function(SysMenuTree data)? onSuffixClick;
 
   MenuTreeListDataVmSub(this.fastVm) {
@@ -137,19 +141,21 @@ class MenuTreeListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
       //上一个树节点id不是空时
       if (previousTreeId != null) {
         //获取目标战队的数据列表
-        List<SysMenuTree>? previousTreeStacksData = treeStacksDataMap[previousTreeId];
+        List<SysMenuTree>? previousTreeStacksData =
+            treeStacksDataMap[previousTreeId];
         if (previousTreeStacksData != null) {
           //数据不为空时通过lastTreeId查找目标数据，lastTreeId就是当前点击的item的id;
 
           int? lastTreeId = getLastTreeId();
 
           SysMenuTree menuTreeByTreeId =
-          previousTreeStacksData.firstWhere((itemData) {
+              previousTreeStacksData.firstWhere((itemData) {
             return itemData.id == lastTreeId;
           });
           //获取目标数据的子节点
           DataWrapper<List<SysMenuTree>> dateWrapper =
-              DataWrapper.createSuccess(menuTreeByTreeId.children ?? List.empty());
+              DataWrapper.createSuccess(
+                  menuTreeByTreeId.children ?? List.empty());
           return dateWrapper;
         }
       }
@@ -161,6 +167,7 @@ class MenuTreeListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
             await MenuRepository.treeselect(_currentDeptSearch, cancelToken);
         DataWrapper<List<SysMenuTree>> dateWrapper =
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
+        _allTreeList = dateWrapper.data;
         return dateWrapper;
       } catch (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
@@ -173,7 +180,7 @@ class MenuTreeListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
       //当菜单类型为目录或菜单时可跳转到下一级
       if (LocalDictLib.KEY_MENU_TYPE_MULU == data.menuType ||
           LocalDictLib.KEY_MENU_TYPE_CAIDAN == data.menuType) {
-        this.currentClickItem = data;
+        currentClickItem = data;
         nextByDept(data);
       }
     });
@@ -213,5 +220,10 @@ class MenuTreeListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
   ///可以直接pop吗
   bool canPop() {
     return !canPrevious();
+  }
+
+  @override
+  void sendRefreshEvent({CallRefreshParams? callRefreshParams}) {
+    super.sendRefreshEvent(callRefreshParams: callRefreshParams??CallRefreshParams(overOffset: 0,duration: Duration.zero));
   }
 }

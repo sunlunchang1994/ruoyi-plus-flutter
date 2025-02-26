@@ -401,6 +401,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "user_label_logging_in": MessageLookupByLibrary.simpleMessage("正在登录"),
     "user_label_login": MessageLookupByLibrary.simpleMessage("登录"),
     "user_label_mailbox": MessageLookupByLibrary.simpleMessage("邮箱"),
+    "user_label_menu": MessageLookupByLibrary.simpleMessage("菜单"),
+    "user_label_menu_father_son_linkage": MessageLookupByLibrary.simpleMessage(
+      "父子联动",
+    ),
     "user_label_menu_permission": MessageLookupByLibrary.simpleMessage("菜单权限"),
     "user_label_menu_permission_select": MessageLookupByLibrary.simpleMessage(
       "配置菜单权限",

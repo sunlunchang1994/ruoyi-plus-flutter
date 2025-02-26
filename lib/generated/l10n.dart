@@ -2480,6 +2480,21 @@ class S {
     );
   }
 
+  /// `菜单`
+  String get user_label_menu {
+    return Intl.message('菜单', name: 'user_label_menu', desc: '', args: []);
+  }
+
+  /// `父子联动`
+  String get user_label_menu_father_son_linkage {
+    return Intl.message(
+      '父子联动',
+      name: 'user_label_menu_father_son_linkage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `-----------------------------`
   String get dict_divide_text {
     return Intl.message(

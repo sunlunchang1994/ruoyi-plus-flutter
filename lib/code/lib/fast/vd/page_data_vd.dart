@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/widgets.dart';
+import 'list_data_component.dart';
 import 'refresh/header_footer_simple.dart';
 import 'page_data_vm_sub.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/load_more_format.dart';
@@ -114,7 +115,10 @@ class PageDataState extends State<PageDataVd> {
         controlFinishLoad: true,
       );
       refreshEventCallback = () {
-        controllerByState!.callRefresh();
+        CallRefreshParams? callRefreshParams = widget.vmSub.refreshEvent.value;
+        controllerByState!.callRefresh(
+            overOffset: callRefreshParams?.overOffset,
+            duration: callRefreshParams?.duration);
       };
       widget.vmSub.refreshEvent.addListener(refreshEventCallback!);
     }

@@ -25,6 +25,7 @@ import '../../../../feature/bizapi/user/entity/role.dart';
 import '../../../../feature/component/dict/entity/tree_dict.dart';
 import '../../../../feature/component/dict/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
+import '../../../system/ui/menu_tree/menu_tree_select_multiple_page.dart';
 import '../../repository/remote/role_api.dart';
 
 class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
@@ -265,7 +266,7 @@ class _PostAddEditVm extends AppBaseVm {
   }
 
   void onSelectMenu() {
-    pushNamed(MenuTreeBrowserPage.routeName, arguments: {
+    pushNamed(MenuTreeSelectMultiplePage.routeName, arguments: {
       ConstantBase.KEY_INTENT_TITLE: S.current.user_label_menu_permission_select
     }).then((result) {});
   }

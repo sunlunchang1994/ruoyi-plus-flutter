@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/widgets.dart';
+import 'list_data_component.dart';
 import 'list_data_vm_sub.dart';
 import 'refresh/header_footer_simple.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/base_mvvm.dart';
@@ -59,8 +60,7 @@ class ListDataVd extends StatefulWidget {
 
   final Axis? triggerAxis;
 
-  const ListDataVd(this.vmSub,
-      this.changeNotifier,
+  const ListDataVd(this.vmSub, this.changeNotifier,
       {super.key,
       this.child,
       this.childItemBuilder,
@@ -85,8 +85,7 @@ class ListDataVd extends StatefulWidget {
       this.scrollBehaviorBuilder,
       this.scrollController,
       this.triggerAxis})
-      :
-        assert(callRefreshOverOffset > 0,
+      : assert(callRefreshOverOffset > 0,
             'callRefreshOverOffset must be greater than 0.'),
         assert(callLoadOverOffset > 0,
             'callLoadOverOffset must be greater than 0.');
@@ -110,7 +109,10 @@ class PageDataState extends State<ListDataVd> {
         controlFinishLoad: false,
       );
       refreshEventCallback = () {
-        controllerByState!.callRefresh();
+        CallRefreshParams? callRefreshParams = widget.vmSub.refreshEvent.value;
+        controllerByState!.callRefresh(
+            overOffset: callRefreshParams?.overOffset,
+            duration: callRefreshParams?.duration);
       };
       widget.vmSub.refreshEvent.addListener(refreshEventCallback!);
     }

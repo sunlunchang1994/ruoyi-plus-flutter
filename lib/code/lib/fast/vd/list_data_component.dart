@@ -74,18 +74,26 @@ class DataWrapper<T> {
   }
 }
 
+class CallRefreshParams {
+  double? overOffset;
+  Duration? duration;
+
+  CallRefreshParams({this.overOffset, this.duration});
+}
+
 ///基础数据列表
 abstract class IListDataVmSub<T> extends FastVmSub {
   final List<T> dataList = List.empty(growable: true);
 
   final ShouldSetState shouldSetState = ShouldSetState();
 
-  final ObservableField<dynamic> _refreshEventOf = ObservableField();
+  @protected
+  final ObservableField<CallRefreshParams> _refreshEventOf = ObservableField();
 
-  Listenable get refreshEvent => _refreshEventOf;
+  ReadObservableField<CallRefreshParams> get refreshEvent => _refreshEventOf;
 
-  void sendRefreshEvent() {
-    _refreshEventOf.setValueAndNotify(true);
+  void sendRefreshEvent({CallRefreshParams? callRefreshParams}) {
+    _refreshEventOf.setValueForcedNotify(callRefreshParams);
   }
 
   void refreshAsync();

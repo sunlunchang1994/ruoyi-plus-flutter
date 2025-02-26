@@ -10,6 +10,7 @@ import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_browser_pa
 import '../base/config/constant_base.dart';
 import '../module/system/ui/fof/no_found_page.dart';
 import '../module/system/ui/menu_tree/menu_tree_borwser_page.dart';
+import '../module/system/ui/menu_tree/menu_tree_select_multiple_page.dart';
 import '../module/system/ui/router/router_page.dart';
 import '../module/user/ui/dept/dept_add_edit_page.dart';
 import '../module/user/ui/dept/dept_list_browser_page.dart';
@@ -139,6 +140,12 @@ final Map<String, WidgetBuilder> router = {
   MenuTreeBrowserPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
     return MenuTreeBrowserPage(
+        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+  },
+  //菜单：菜单树多选
+  MenuTreeSelectMultiplePage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return MenuTreeSelectMultiplePage(
         slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
 };

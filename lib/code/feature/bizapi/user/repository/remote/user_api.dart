@@ -37,7 +37,7 @@ class UserServiceRepository {
         .map(DataTransformUtils.checkErrorIe)
         .map((event) {
       MyUserInfoVo userInfoVo = event.data;
-          GlobalVm().userShareVm.userInfoOf.value = userInfoVo;
+          GlobalVm().userShareVm.userInfoOf.setValue(userInfoVo);
           return event;
         })
         .single;

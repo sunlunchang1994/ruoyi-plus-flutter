@@ -311,6 +311,9 @@
   "user_label_role_edit": "修改角色信息",
   "user_label_menu_permission_select": "配置菜单权限",
 
+  "user_label_menu": "菜单",
+  "user_label_menu_father_son_linkage": "父子联动",
+
   "dict_divide_text": "-----------------------------",
   "dict_label_ley": "字典名",
   "dict_label_name": "字典值",

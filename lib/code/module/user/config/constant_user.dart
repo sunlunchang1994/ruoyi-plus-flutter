@@ -22,7 +22,7 @@ class ConstantUser extends ConstantBase {
     UserConfig().saveIsAutoLogin(false);
     ApiConfig().setToken(null);
     GlobalVm globalVm = GlobalVm();
-    globalVm.userShareVm.userInfoOf.value = null;
+    globalVm.userShareVm.userInfoOf.setValue(null);
     routerSub.pushReplacementPage(LoginPage());
   }
 }

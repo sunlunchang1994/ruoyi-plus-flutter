@@ -6,13 +6,12 @@ import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../base/config/constant_base.dart';
-import '../../../../feature/bizapi/system/entity/sys_menu_tree.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../lib/fast/vd/list_data_vd.dart';
 import 'menu_tree_page_vd.dart';
 
 class MenuTreeBrowserPage extends AppBaseStatelessWidget<_MenuTreeBrowserVm> {
-  static const String routeName = '/system/menu/menu_tree';
+  static const String routeName = '/system/menu';
 
   final String title;
 
