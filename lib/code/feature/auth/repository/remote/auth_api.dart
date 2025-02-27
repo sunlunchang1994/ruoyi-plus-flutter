@@ -60,7 +60,7 @@ class AuthServiceRepository {
     })
         .map(DataTransformUtils.checkErrorIe)
         .map((event) {
-      LoginResult loginResult = event.data;
+      LoginResult loginResult = event.data!;
       ApiConfig().setToken("Bearer ${loginResult.access_token!}");
       GlobalVm().userShareVm.loginResult = loginResult;
       return event;

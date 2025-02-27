@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slc_boxes/flutter/slc/adapter/select_box.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/fast_mvvm.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_menu_tree.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu_tree.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_menu_vo.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/repository/local/local_dict_lib.dart';
 
+import '../../../../../generated/l10n.dart';
 import '../../../../../res/styles.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
@@ -118,6 +121,11 @@ class MenuTreePageWidget {
 ///菜单树数据VmSub
 class MenuTreeListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
   final FastVm fastVm;
+
+  final int? roleId;
+
+  final List<int>? checkedIds;
+
   final SysMenuVo _currentDeptSearch = SysMenuVo();
 
   SysMenuVo get currentSearch => _currentDeptSearch;
@@ -130,7 +138,7 @@ class MenuTreeListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
 
   void Function(SysMenuTree data)? onSuffixClick;
 
-  MenuTreeListDataVmSub(this.fastVm) {
+  MenuTreeListDataVmSub(this.fastVm, {this.roleId, this.checkedIds}) {
     //设置刷新方法主体
     setRefresh(() async {
       //大致逻辑：
@@ -163,8 +171,27 @@ class MenuTreeListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
         //此处的parentId就是创建cancelToken所需的treeId;
         CancelToken cancelToken =
             createCancelTokenByTreeId(_currentDeptSearch.parentId);
-        IntensifyEntity<List<SysMenuTree>> intensifyEntity =
-            await MenuRepository.treeselect(_currentDeptSearch, cancelToken);
+        IntensifyEntity<List<SysMenuTree>> intensifyEntity;
+        //定义填充CheckedIds的Map
+        fillCheckedIdsMap(IntensifyEntity<List<SysMenuTree>> event) {
+          //填充传输过来的数据
+          SelectUtils.fillSelect(event.data, checkedIds,
+              predicate: (src, beCompared) {
+                return src!.id == beCompared;
+              }, maintain: false, penetrate: true);
+          return event;
+        }
+        if (roleId != null) {
+          intensifyEntity =
+              await MenuRepository.roleMenuTreeselect(roleId, cancelToken)
+                  .asStream()
+                  .map(fillCheckedIdsMap).single;
+        } else {
+          intensifyEntity =
+              await MenuRepository.treeselect(_currentDeptSearch, cancelToken)
+                  .asStream()
+                  .map(fillCheckedIdsMap).single;
+        }
         DataWrapper<List<SysMenuTree>> dateWrapper =
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
         _allTreeList = dateWrapper.data;
@@ -182,6 +209,8 @@ class MenuTreeListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
           LocalDictLib.KEY_MENU_TYPE_CAIDAN == data.menuType) {
         currentClickItem = data;
         nextByDept(data);
+      } else {
+        AppToastBridge.showToast(msg: S.current.user_label_menu_down_donot);
       }
     });
   }
@@ -224,6 +253,8 @@ class MenuTreeListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
 
   @override
   void sendRefreshEvent({CallRefreshParams? callRefreshParams}) {
-    super.sendRefreshEvent(callRefreshParams: callRefreshParams??CallRefreshParams(overOffset: 0,duration: Duration.zero));
+    super.sendRefreshEvent(
+        callRefreshParams: callRefreshParams ??
+            CallRefreshParams(overOffset: 0, duration: Duration.zero));
   }
 }

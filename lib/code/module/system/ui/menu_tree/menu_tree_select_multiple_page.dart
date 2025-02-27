@@ -9,7 +9,7 @@ import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../base/config/constant_base.dart';
-import '../../../../feature/bizapi/system/entity/sys_menu_tree.dart';
+import '../../entity/sys_menu_tree.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../lib/fast/provider/fast_select.dart';
 import '../../../../lib/fast/vd/list_data_vd.dart';
@@ -21,8 +21,11 @@ class MenuTreeSelectMultiplePage
   static const String routeName = '/system/menu/tree_multiple_select';
 
   final String title;
+  final int? roleId;
+  final List<int>? checkedIds;
 
-  MenuTreeSelectMultiplePage(this.title, {super.key});
+  MenuTreeSelectMultiplePage(this.title,
+      {super.key, this.roleId, this.checkedIds});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class MenuTreeSelectMultiplePage
         builder: (context, child) {
           ThemeData themeData = Theme.of(context);
           registerEvent(context);
-          getVm().initVm();
+          getVm().initVm(roleId: roleId, checkedIds: checkedIds);
           return PopScope(
             canPop: false,
             onPopInvokedWithResult: (didPop, result) {
@@ -53,7 +56,8 @@ class MenuTreeSelectMultiplePage
                           List<int> collection = List.empty(growable: true);
                           SysMenuTree.getSelectAll2Ids(
                               collection, getVm().listVmSub.dataList,
-                              penetrate: true);
+                              penetrate: true,
+                              linkageEnable: getVm().linkageEnable.data!);
                           getVm().finish(result: collection);
                         },
                         icon: Icon(Icons.save)),
@@ -86,6 +90,8 @@ class MenuTreeSelectMultiplePage
                         getVm().onSelectAllAction(value.data!);
                       } else if (value == getVm().linkageEnable) {
                         //联动
+                        getVm().listVmSub.shouldSetState.updateVersion();
+                        getVm().notifyListeners();
                       }
                     })
                   ],
@@ -110,15 +116,19 @@ class MenuTreeSelectMultiplePage
                                 themeData, getVm().listVmSub, (currentItem) {
                               //选择按钮
                               return NqSelector<_MenuTreeSelectMultipleVm,
-                                  bool>(builder: (context, value, child) {
+                                  bool?>(builder: (context, value, child) {
                                 return Checkbox(
                                     value: value,
+                                    tristate: true,
                                     onChanged: (checkValue) {
                                       getVm().onSelectItem(
-                                          currentItem, checkValue!);
+                                          currentItem, checkValue ?? false);
                                     });
                               }, selector: (context, vm) {
-                                return currentItem.isBoxChecked();
+                                return SelectUtils.getSelectFromSingle(
+                                    currentItem,
+                                    linkage: vm.linkageEnable.data!);
+                                //return currentItem.isBoxChecked();
                               });
                             });
                           }, selector: (context, vm) {
@@ -136,8 +146,10 @@ class _MenuTreeSelectMultipleVm extends AppBaseVm {
   final ValueWrap<bool> selectAllEnable = ValueWrap(data: false);
   final ValueWrap<bool> linkageEnable = ValueWrap(data: true);
 
-  void initVm() {
-    listVmSub = MenuTreeListDataVmSub(this);
+  void initVm({int? roleId, List<int>? checkedIds}) {
+    listVmSub =
+        MenuTreeListDataVmSub(this, roleId: roleId, checkedIds: checkedIds);
+    registerVmSub(listVmSub);
 
     SlcTreeNav slcTreeNav =
         SlcTreeNav(ConstantBase.VALUE_PARENT_ID_DEF, S.current.menu_label_root);
@@ -146,14 +158,14 @@ class _MenuTreeSelectMultipleVm extends AppBaseVm {
 
   //选择所有item事件
   void onSelectAllAction(bool isSelected) {
-    SysMenuTree.selectAll(listVmSub.allTreeList!, isSelected,
+    SelectUtils.selectAll(listVmSub.allTreeList!, isSelected,
         penetrate: linkageEnable.data!);
     notifyListeners();
   }
 
   //选择单个item
   void onSelectItem(SysMenuTree sysMenuTree, bool isSelected) {
-    SysMenuTree.selectAll([sysMenuTree], isSelected,
+    SelectUtils.selectAll([sysMenuTree], isSelected,
         penetrate: linkageEnable.data!);
     notifyListeners();
   }

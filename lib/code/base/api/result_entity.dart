@@ -90,7 +90,7 @@ class IntensifyEntity<T> {
     }
   }
 
-  get data => this._data;
+  T? get data => this._data;
 
   bool isSuccess() {
     return _resultEntity.isSuccess();

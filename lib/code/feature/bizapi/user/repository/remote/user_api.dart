@@ -14,33 +14,35 @@ part 'user_api.g.dart';
 abstract class UserApiClient {
   factory UserApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _UserApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _UserApiClient(dio,
+        baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///用户信息
   @GET("/system/user/getInfo")
   Future<ResultEntity> getInfo(@CancelRequest() CancelToken cancelToken);
-
 }
 
 ///用户服务
 class UserServiceRepository {
   static final UserApiClient _userApiClient = UserApiClient();
 
-  static Future<IntensifyEntity<MyUserInfoVo>> getInfo(CancelToken cancelToken) {
+  static Future<IntensifyEntity<MyUserInfoVo>> getInfo(
+      CancelToken cancelToken) {
     return _userApiClient
         .getInfo(cancelToken)
         .asStream()
         .map((event) {
-          return event.toIntensify(createData: (resultEntity) => MyUserInfoVo.fromJson(resultEntity.data));
+          return event.toIntensify(
+              createData: (resultEntity) =>
+                  MyUserInfoVo.fromJson(resultEntity.data));
         })
         .map(DataTransformUtils.checkErrorIe)
         .map((event) {
-      MyUserInfoVo userInfoVo = event.data;
+          MyUserInfoVo userInfoVo = event.data!;
           GlobalVm().userShareVm.userInfoOf.setValue(userInfoVo);
           return event;
         })
         .single;
   }
-
 }

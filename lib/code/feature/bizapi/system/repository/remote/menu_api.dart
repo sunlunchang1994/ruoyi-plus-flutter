@@ -44,7 +44,7 @@ class MenuPublicRepository {
         })
         .map(DataTransformUtils.checkErrorIe)
         .map((event) {
-          List<RouterVo> routerVoList = event.data;
+          List<RouterVo> routerVoList = event.data??List.empty(growable: true);
           GlobalVm().userShareVm.routerVoOf.setValue(routerVoList);
           return event;
         })

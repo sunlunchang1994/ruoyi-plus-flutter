@@ -146,7 +146,10 @@ final Map<String, WidgetBuilder> router = {
   MenuTreeSelectMultiplePage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
     return MenuTreeSelectMultiplePage(
-        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE],
+        roleId: slcRouterInfo?.arguments[ConstantSys.KEY_MENU_ID],
+        checkedIds:
+            slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_SELECT_DATA]);
   },
 };
 

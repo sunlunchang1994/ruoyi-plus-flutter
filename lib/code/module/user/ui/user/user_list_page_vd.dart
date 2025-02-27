@@ -380,8 +380,11 @@ class UserTreeListDataVmSub extends TreeFastBaseListDataVmSub<dynamic> {
         IntensifyEntity<List<dynamic>> intensifyEntity =
             IntensifyEntity<List<dynamic>>(
                 succeedEntity: deptIntensifyEntity.isSuccess(),
-                data: List.of(deptIntensifyEntity.data, growable: true));
-        List<dynamic> allList = intensifyEntity.data;
+                data: List.of(
+                    deptIntensifyEntity.data ?? List.empty(growable: true),
+                    growable: true));
+        List<dynamic> allList =
+            intensifyEntity.data ?? List.empty(growable: true);
         //合并用户
         if (userIntensifyEntity?.data != null) {
           allList.addAll(userIntensifyEntity!.data!);

@@ -6,11 +6,11 @@ mixin AppSelectBoxMixin<T> implements ISelectBox<T> {
   // 使用 late 延迟初始化，由混入类负责初始化
 
   @JsonKey(includeFromJson: false, includeToJson: false)
-  final Map<String, dynamic> _map = {};
+  final Map<String, dynamic> _boxMap = {};
 
   // 初始化方法（由混入类调用）
   void initSelectBox({int index = -1, bool checked = false}) {
-    _map.addAll({
+    _boxMap.addAll({
       'selectIndex': index,
       'checked': checked,
     });
@@ -28,28 +28,36 @@ mixin AppSelectBoxMixin<T> implements ISelectBox<T> {
     //此处什么都不用做
   }
 
-  //此处可以是空是为了防止json序列化报错
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int? get boxSelectIndex => _map['selectIndex'] as int? ?? -1;
+  int? get boxSelectIndex => _boxMap['selectIndex'] as int?;
 
+  @override
+  set boxSelectIndex(int? value) => _boxMap['selectIndex'] = value;
+
+  @override
   int getBoxSelectIndex() {
-    //因为上面代码表示selectIndex不会为空，故有此方法
-    return boxSelectIndex!;
+    return boxSelectIndex ?? -1;
   }
-
-  @override
-  set boxSelectIndex(int? value) => _map['selectIndex'] = value;
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  bool get boxChecked => _map['checked'] as bool? ?? false;
+  bool? get boxChecked => _boxMap['checked'] as bool?;
 
+  @override
+  set boxChecked(bool? value) => _boxMap['checked'] = value;
+
+  @override
   bool isBoxChecked() {
-    //因为上面代码表示selectIndex不会为空，故有此方法
-    return boxChecked!;
+    return boxChecked ?? false;
   }
 
   @override
-  set boxChecked(bool value) => _map['checked'] = value;
+  set boxChildren(List<T>? value) {
+    //此处什么都不用做
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  List<T>? get boxChildren => null;
 }

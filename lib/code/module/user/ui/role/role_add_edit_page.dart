@@ -25,6 +25,7 @@ import '../../../../feature/bizapi/user/entity/role.dart';
 import '../../../../feature/component/dict/entity/tree_dict.dart';
 import '../../../../feature/component/dict/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
+import '../../../system/config/constant_sys.dart';
 import '../../../system/ui/menu_tree/menu_tree_select_multiple_page.dart';
 import '../../repository/remote/role_api.dart';
 
@@ -176,12 +177,12 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                     MyFormBuilderSelect(
                       name: "menuIds",
                       autovalidateMode: AutovalidateMode.onUserInteraction,
+                      initialValue: getVm().getMenuTextField(),
                       onTap: () {
                         //选择菜单
                         getVm().onSelectMenu();
                       },
                       decoration: MySelectDecoration(
-                          contentPadding: EdgeInsets.zero,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           label: InputDecUtils.getRequiredLabel(
                               S.current.user_label_menu_permission),
@@ -267,8 +268,25 @@ class _PostAddEditVm extends AppBaseVm {
 
   void onSelectMenu() {
     pushNamed(MenuTreeSelectMultiplePage.routeName, arguments: {
-      ConstantBase.KEY_INTENT_TITLE: S.current.user_label_menu_permission_select
-    }).then((result) {});
+      ConstantBase.KEY_INTENT_TITLE:
+          S.current.user_label_menu_permission_select,
+      ConstantSys.KEY_MENU_ID: roleInfo!.roleId,
+      ConstantBase.KEY_INTENT_SELECT_DATA: roleInfo!.menuIds,
+    }).then((result) {
+      if (result != null) {
+        roleInfo?.menuIds = result;
+        formOperate.patchField("menuIds", getMenuTextField());
+      }
+    });
+  }
+
+  String getMenuTextField() {
+    if (roleInfo?.menuIds?.isEmpty ?? true) {
+      return "";
+    } else {
+      return S.current.user_label_menu_permission_select_result
+          .replaceAll("%s", roleInfo!.menuIds!.length.toString());
+    }
   }
 
   //应用信息更改

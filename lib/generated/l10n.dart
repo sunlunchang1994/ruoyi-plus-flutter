@@ -2480,6 +2480,16 @@ class S {
     );
   }
 
+  /// `已配置%s项菜单，点击查看`
+  String get user_label_menu_permission_select_result {
+    return Intl.message(
+      '已配置%s项菜单，点击查看',
+      name: 'user_label_menu_permission_select_result',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `菜单`
   String get user_label_menu {
     return Intl.message('菜单', name: 'user_label_menu', desc: '', args: []);
@@ -2490,6 +2500,16 @@ class S {
     return Intl.message(
       '父子联动',
       name: 'user_label_menu_father_son_linkage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `没有子菜单了`
+  String get user_label_menu_down_donot {
+    return Intl.message(
+      '没有子菜单了',
+      name: 'user_label_menu_down_donot',
       desc: '',
       args: [],
     );

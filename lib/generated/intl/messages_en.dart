@@ -402,6 +402,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "user_label_login": MessageLookupByLibrary.simpleMessage("登录"),
     "user_label_mailbox": MessageLookupByLibrary.simpleMessage("邮箱"),
     "user_label_menu": MessageLookupByLibrary.simpleMessage("菜单"),
+    "user_label_menu_down_donot": MessageLookupByLibrary.simpleMessage(
+      "没有子菜单了",
+    ),
     "user_label_menu_father_son_linkage": MessageLookupByLibrary.simpleMessage(
       "父子联动",
     ),
@@ -409,6 +412,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "user_label_menu_permission_select": MessageLookupByLibrary.simpleMessage(
       "配置菜单权限",
     ),
+    "user_label_menu_permission_select_result":
+        MessageLookupByLibrary.simpleMessage("已配置%s项菜单，点击查看"),
     "user_label_my_qr_code": MessageLookupByLibrary.simpleMessage("我的二维码"),
     "user_label_new_password": MessageLookupByLibrary.simpleMessage("新密码"),
     "user_label_nike_name": MessageLookupByLibrary.simpleMessage("用户昵称"),
