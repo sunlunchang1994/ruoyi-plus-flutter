@@ -90,6 +90,7 @@ class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                 },
                 child: Column(
                   children: [
+                    SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
                     MyFormBuilderTextField(
                         name: "postName",
                         initialValue: getVm().postInfo!.postName,
@@ -133,7 +134,8 @@ class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(S.current.user_label_post_code),
+                            label: InputDecUtils.getRequiredLabel(
+                                S.current.user_label_post_code),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
@@ -61,9 +60,16 @@ class RoleListBrowserPage extends AppBaseStatelessWidget<_RoleListBrowserVm> {
 class _RoleListBrowserVm extends AppBaseVm {
   late RolePageDataVmSub listVmSub;
 
-  _RoleListBrowserVm() {
+  _RoleListBrowserVm();
+
+  void initVm() {
     listVmSub = RolePageDataVmSub();
+    registerVmSub(listVmSub);
     listVmSub.setItemClick((index, role) {
+      if (role.roleId == ConstantUser.VALUE_ROLE_SUPER_ADMIN) {
+        //是超管则不允许做更改
+        return;
+      }
       pushNamed(RoleAddEditPage.routeName,
           arguments: {ConstantUser.KEY_ROLE: role}).then((result) {
         if (result != null) {
@@ -71,10 +77,6 @@ class _RoleListBrowserVm extends AppBaseVm {
         }
       });
     });
-  }
-
-  void initVm() {
-    registerVmSub(listVmSub);
   }
 
   ///添加角色事件

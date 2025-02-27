@@ -75,7 +75,8 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                 FormBuilderSingleImagePicker(
                                   name: 'avatar',
                                   initialValue: getVm().userInfo.avatar,
-                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
                                   previewWidth: 96,
                                   previewHeight: 96,
                                   placeholderImage: const AssetImage(
@@ -123,9 +124,9 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                 FormBuilderTextField(
                                     name: "nickName",
                                     initialValue: getVm().userInfo.nickName,
-                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
                                     decoration: MyInputDecoration(
-                                        contentPadding: EdgeInsets.zero,
                                         floatingLabelBehavior:
                                             FloatingLabelBehavior.always,
                                         labelText:
@@ -143,9 +144,9 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                 FormBuilderTextField(
                                     name: "phonenumber",
                                     initialValue: getVm().userInfo.phonenumber,
-                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
                                     decoration: MyInputDecoration(
-                                        contentPadding: EdgeInsets.zero,
                                         floatingLabelBehavior:
                                             FloatingLabelBehavior.always,
                                         labelText: S
@@ -164,9 +165,9 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                 FormBuilderTextField(
                                     name: "email",
                                     initialValue: getVm().userInfo.email,
-                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
                                     decoration: MyInputDecoration(
-                                        contentPadding: EdgeInsets.zero,
                                         floatingLabelBehavior:
                                             FloatingLabelBehavior.always,
                                         labelText:
@@ -184,7 +185,8 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                 MyFormBuilderSelect(
                                     name: "sex",
                                     initialValue: getVm().userInfo.sexName,
-                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
                                     onTap: () => _showSelectSexDialog(context),
                                     decoration: MySelectDecoration(
                                         floatingLabelBehavior:

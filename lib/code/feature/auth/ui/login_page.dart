@@ -100,7 +100,6 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                     initialValue: getVm().userName,
                                     focusNode: getVm().userNameInputFocus,
                                     decoration: MyInputDecoration(
-                                        contentPadding: EdgeInsets.zero,
                                         floatingLabelBehavior:
                                             FloatingLabelBehavior.always,
                                         labelText:

@@ -3,24 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu_vo.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../base/config/constant_base.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../lib/fast/vd/list_data_vd.dart';
+import '../../config/constant_sys.dart';
+import 'menu_add_edit_page.dart';
+import 'menu_list_page_vd.dart';
 import 'menu_tree_page_vd.dart';
 
-class MenuTreeBrowserPage extends AppBaseStatelessWidget<_MenuTreeBrowserVm> {
-  static const String routeName = '/system/menu/browser';
+class MenuListBrowserPage extends AppBaseStatelessWidget<_MenuListBrowserVm> {
+  static const String routeName = '/system/menu';
 
   final String title;
 
-  MenuTreeBrowserPage(this.title, {super.key});
+  MenuListBrowserPage(this.title, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => _MenuTreeBrowserVm(),
+        create: (context) => _MenuListBrowserVm(),
         builder: (context, child) {
           ThemeData themeData = Theme.of(context);
           registerEvent(context);
@@ -40,7 +44,7 @@ class MenuTreeBrowserPage extends AppBaseStatelessWidget<_MenuTreeBrowserVm> {
             child: Scaffold(
                 appBar: AppBar(title: Text(title)),
                 body: Column(children: [
-                  Selector<_MenuTreeBrowserVm, List<SlcTreeNav>>(
+                  Selector<_MenuListBrowserVm, List<SlcTreeNav>>(
                     builder: (context, value, child) {
                       return MenuTreePageWidget.getNavWidget(themeData, value,
                           (currentItem) {
@@ -57,9 +61,9 @@ class MenuTreeBrowserPage extends AppBaseStatelessWidget<_MenuTreeBrowserVm> {
                   Expanded(
                       child: ListDataVd(getVm().listVmSub, getVm(),
                           refreshOnStart: true, child:
-                              Consumer<_MenuTreeBrowserVm>(
+                              Consumer<_MenuListBrowserVm>(
                                   builder: (context, vm, child) {
-                    return MenuTreePageWidget.getDataListWidget(
+                    return MenuListPageWidget.getDataListWidget(
                         themeData, getVm().listVmSub, (currentItem) {
                       return Ink(
                           child: InkWell(
@@ -83,12 +87,25 @@ class MenuTreeBrowserPage extends AppBaseStatelessWidget<_MenuTreeBrowserVm> {
   }
 }
 
-class _MenuTreeBrowserVm extends AppBaseVm {
-  late MenuTreeListDataVmSub listVmSub;
+class _MenuListBrowserVm extends AppBaseVm {
+  late MenuListDataVmSub listVmSub;
+
+  _MenuListBrowserVm() {
+    listVmSub = MenuListDataVmSub(this);
+  }
 
   void initVm() {
-    listVmSub = MenuTreeListDataVmSub(this);
     registerVmSub(listVmSub);
+
+    listVmSub.onSuffixClick = (SysMenuVo data) {
+      pushNamed(MenuAddEditPage.routeName,
+          arguments: {ConstantSys.KEY_MENU: data}).then((value) {
+        if (value != null) {
+          listVmSub.sendRefreshEvent();
+        }
+      });
+    };
+
     SlcTreeNav slcTreeNav =
         SlcTreeNav(ConstantBase.VALUE_PARENT_ID_DEF, S.current.menu_label_root);
     listVmSub.next(slcTreeNav, notify: false);

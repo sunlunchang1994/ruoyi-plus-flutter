@@ -90,6 +90,7 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                 },
                 child: Column(
                   children: [
+                    SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
                     MyFormBuilderTextField(
                         name: "roleName",
                         initialValue: getVm().roleInfo!.roleName,
@@ -284,8 +285,8 @@ class _PostAddEditVm extends AppBaseVm {
     if (roleInfo?.menuIds?.isEmpty ?? true) {
       return "";
     } else {
-      return S.current.user_label_menu_permission_select_result
-          .replaceAll("%s", roleInfo!.menuIds!.length.toString());
+      //return S.current.user_label_menu_permission_select_result.replaceAll("%s", roleInfo!.menuIds!.length.toString());
+      return S.current.user_label_menu_permission_select_result2;
     }
   }
 

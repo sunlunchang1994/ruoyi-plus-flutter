@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:ruoyi_plus_flutter/code/base/entity/tenant_entity.dart';
 
-import '../../../../base/api/json_converter.dart';
+import '../../../base/api/json_converter.dart';
 
 part 'sys_menu_vo.g.dart';
 ///@author slc
@@ -9,9 +9,11 @@ part 'sys_menu_vo.g.dart';
 @JsonSerializable()
 class SysMenuVo extends TenantEntity {
   //菜单ID
+  @IntConverter()
   int? menuId;
 
   //父菜单ID
+  @IntConverter()
   int? parentId;
 
   //菜单名称

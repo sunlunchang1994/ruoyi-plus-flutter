@@ -2490,9 +2490,39 @@ class S {
     );
   }
 
+  /// `已配置多个菜单项，点击查看`
+  String get user_label_menu_permission_select_result2 {
+    return Intl.message(
+      '已配置多个菜单项，点击查看',
+      name: 'user_label_menu_permission_select_result2',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `菜单`
   String get user_label_menu {
     return Intl.message('菜单', name: 'user_label_menu', desc: '', args: []);
+  }
+
+  /// `新增菜单`
+  String get user_label_menu_add {
+    return Intl.message(
+      '新增菜单',
+      name: 'user_label_menu_add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `修改菜单信息`
+  String get user_label_menu_edit {
+    return Intl.message(
+      '修改菜单信息',
+      name: 'user_label_menu_edit',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `父子联动`
@@ -2510,6 +2540,126 @@ class S {
     return Intl.message(
       '没有子菜单了',
       name: 'user_label_menu_down_donot',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `上级菜单`
+  String get user_label_menu_parent_name {
+    return Intl.message(
+      '上级菜单',
+      name: 'user_label_menu_parent_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `选择上级菜单`
+  String get user_label_menu_parent_name_select {
+    return Intl.message(
+      '选择上级菜单',
+      name: 'user_label_menu_parent_name_select',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `菜单类型`
+  String get user_label_menu_type {
+    return Intl.message(
+      '菜单类型',
+      name: 'user_label_menu_type',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `菜单名称`
+  String get user_label_menu_name {
+    return Intl.message(
+      '菜单名称',
+      name: 'user_label_menu_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `是否外链`
+  String get user_label_menu_is_frame {
+    return Intl.message(
+      '是否外链',
+      name: 'user_label_menu_is_frame',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `路由地址`
+  String get user_label_menu_path {
+    return Intl.message(
+      '路由地址',
+      name: 'user_label_menu_path',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `组件路径`
+  String get user_label_menu_component_path {
+    return Intl.message(
+      '组件路径',
+      name: 'user_label_menu_component_path',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `权限字符`
+  String get user_label_menu_permission_characters {
+    return Intl.message(
+      '权限字符',
+      name: 'user_label_menu_permission_characters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `路由参数`
+  String get user_label_menu_route_parameters {
+    return Intl.message(
+      '路由参数',
+      name: 'user_label_menu_route_parameters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `是否缓存`
+  String get user_label_menu_cache_status {
+    return Intl.message(
+      '是否缓存',
+      name: 'user_label_menu_cache_status',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `显示状态`
+  String get user_label_menu_display_status {
+    return Intl.message(
+      '显示状态',
+      name: 'user_label_menu_display_status',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `菜单状态`
+  String get user_label_menu_menu_status {
+    return Intl.message(
+      '菜单状态',
+      name: 'user_label_menu_menu_status',
       desc: '',
       args: [],
     );

@@ -9,6 +9,9 @@ import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_browser_pa
 
 import '../base/config/constant_base.dart';
 import '../module/system/ui/fof/no_found_page.dart';
+import '../module/system/ui/menu_tree/menu_add_edit_page.dart';
+import '../module/system/ui/menu_tree/menu_list_borwser_page.dart';
+import '../module/system/ui/menu_tree/menu_list_select_single_page.dart';
 import '../module/system/ui/menu_tree/menu_tree_borwser_page.dart';
 import '../module/system/ui/menu_tree/menu_tree_select_multiple_page.dart';
 import '../module/system/ui/router/router_page.dart';
@@ -135,6 +138,25 @@ final Map<String, WidgetBuilder> router = {
   PostAddEditPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
     return PostAddEditPage(slcRouterInfo?.arguments[ConstantUser.KEY_POST]);
+  },
+  //菜单：菜单列表-操作列表
+  MenuListBrowserPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return MenuListBrowserPage(
+        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+  },
+  //菜单：菜单列表-操作列表
+  MenuListSelectSinglePage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return MenuListSelectSinglePage(
+        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+  },
+  //菜单：新增或编辑
+  MenuAddEditPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return MenuAddEditPage(
+        sysMenuInfo: slcRouterInfo?.arguments[ConstantSys.KEY_MENU],
+        parentSysMenu: slcRouterInfo?.arguments[ConstantSys.KEY_MENU_PARENT]);
   },
   //菜单：菜单树列表
   MenuTreeBrowserPage.routeName: (BuildContext context) {

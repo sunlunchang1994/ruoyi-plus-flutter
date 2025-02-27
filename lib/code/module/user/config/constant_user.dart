@@ -18,6 +18,9 @@ class ConstantUser extends ConstantBase {
   static const String KEY_DEPT = "dept";
   static const String KEY_PARENT_DEPT = "parentDept";
 
+  //超级管理员角色
+  static const int VALUE_ROLE_SUPER_ADMIN = 1;
+
   static void logOut(RouterVmSub routerSub) {
     UserConfig().saveIsAutoLogin(false);
     ApiConfig().setToken(null);

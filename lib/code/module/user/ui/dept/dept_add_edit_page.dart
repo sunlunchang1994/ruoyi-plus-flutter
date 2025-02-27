@@ -98,6 +98,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
   //获取表单的item
   List<Widget> getFormItem() {
     List<Widget> formItemArray = List.empty(growable: true);
+    formItemArray.add(SlcStyles.getSizedBox(height: SlcDimens.appDimens8));
     //父节点id不是顶级父节点则展示选择父节点控件
     if (ConstantBase.VALUE_PARENT_ID_DEF != getVm().deptInfo?.parentId) {
       formItemArray.add(MyFormBuilderSelect(
@@ -245,7 +246,8 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
             MyInputDecoration(labelText: S.current.user_label_dept_status),
         name: "status",
         initialValue: DictUiUtils.dict2OptionVL(LocalDictLib.findDictByCodeKey(
-            LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().deptInfo!.status)),
+            LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().deptInfo!.status,
+            defDictKey: LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL)),
         autovalidateMode: AutovalidateMode.onUserInteraction,
         options: DictUiUtils.dictList2FromOption(
             LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
@@ -259,7 +261,8 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
             thickness: 5,
             color: Colors.red,
           ),*/
-        validator: FormBuilderValidators.compose([FormBuilderValidators.required()]),
+        validator:
+            FormBuilderValidators.compose([FormBuilderValidators.required()]),
       )
     });
     return formItemArray;
@@ -306,6 +309,7 @@ class _DeptAddEditModel extends AppBaseVm {
         this.deptInfo!.parentName = parentDept.deptName;
       }
       this.deptInfo!.orderNum = 0;
+      this.deptInfo!.status = LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL;
       setLoadingStatus(LoadingStatus.success);
     } else {
       DeptRepository.getInfo(deptInfo.deptId!, cancelToken).then((result) {

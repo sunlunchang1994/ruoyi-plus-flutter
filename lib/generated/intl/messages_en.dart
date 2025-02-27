@@ -402,18 +402,45 @@ class MessageLookup extends MessageLookupByLibrary {
     "user_label_login": MessageLookupByLibrary.simpleMessage("登录"),
     "user_label_mailbox": MessageLookupByLibrary.simpleMessage("邮箱"),
     "user_label_menu": MessageLookupByLibrary.simpleMessage("菜单"),
+    "user_label_menu_add": MessageLookupByLibrary.simpleMessage("新增菜单"),
+    "user_label_menu_cache_status": MessageLookupByLibrary.simpleMessage(
+      "是否缓存",
+    ),
+    "user_label_menu_component_path": MessageLookupByLibrary.simpleMessage(
+      "组件路径",
+    ),
+    "user_label_menu_display_status": MessageLookupByLibrary.simpleMessage(
+      "显示状态",
+    ),
     "user_label_menu_down_donot": MessageLookupByLibrary.simpleMessage(
       "没有子菜单了",
     ),
+    "user_label_menu_edit": MessageLookupByLibrary.simpleMessage("修改菜单信息"),
     "user_label_menu_father_son_linkage": MessageLookupByLibrary.simpleMessage(
       "父子联动",
     ),
+    "user_label_menu_is_frame": MessageLookupByLibrary.simpleMessage("是否外链"),
+    "user_label_menu_menu_status": MessageLookupByLibrary.simpleMessage("菜单状态"),
+    "user_label_menu_name": MessageLookupByLibrary.simpleMessage("菜单名称"),
+    "user_label_menu_parent_name": MessageLookupByLibrary.simpleMessage("上级菜单"),
+    "user_label_menu_parent_name_select": MessageLookupByLibrary.simpleMessage(
+      "选择上级菜单",
+    ),
+    "user_label_menu_path": MessageLookupByLibrary.simpleMessage("路由地址"),
     "user_label_menu_permission": MessageLookupByLibrary.simpleMessage("菜单权限"),
+    "user_label_menu_permission_characters":
+        MessageLookupByLibrary.simpleMessage("权限字符"),
     "user_label_menu_permission_select": MessageLookupByLibrary.simpleMessage(
       "配置菜单权限",
     ),
     "user_label_menu_permission_select_result":
         MessageLookupByLibrary.simpleMessage("已配置%s项菜单，点击查看"),
+    "user_label_menu_permission_select_result2":
+        MessageLookupByLibrary.simpleMessage("已配置多个菜单项，点击查看"),
+    "user_label_menu_route_parameters": MessageLookupByLibrary.simpleMessage(
+      "路由参数",
+    ),
+    "user_label_menu_type": MessageLookupByLibrary.simpleMessage("菜单类型"),
     "user_label_my_qr_code": MessageLookupByLibrary.simpleMessage("我的二维码"),
     "user_label_new_password": MessageLookupByLibrary.simpleMessage("新密码"),
     "user_label_nike_name": MessageLookupByLibrary.simpleMessage("用户昵称"),

@@ -95,6 +95,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                 },
                 child: Column(
                   children: [
+                    SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
                     MyFormBuilderTextField(
                         name: "nikeName",
                         initialValue: getVm().userInfo!.nickName,
