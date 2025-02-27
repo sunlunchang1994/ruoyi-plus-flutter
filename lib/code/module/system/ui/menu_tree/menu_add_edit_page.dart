@@ -122,9 +122,6 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
               return vm.sysMenuInfo!.parentName;
             }),
           ),
-          validator: FormBuilderValidators.compose([
-            FormBuilderValidators.required(),
-          ]),
           textInputAction: TextInputAction.next),
       SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderRadioGroup<OptionVL<String>>(
@@ -462,8 +459,8 @@ class _MenuAddEditModel extends AppBaseVm {
   }
 
   void setSelectParentMenu(SysMenuVo? sysMenu) {
-    sysMenuInfo!.parentId = sysMenu?.parentId;
-    sysMenuInfo!.parentName = sysMenu?.parentName;
+    sysMenuInfo!.parentId = sysMenu?.menuId;
+    sysMenuInfo!.parentName = sysMenu?.menuName;
     _formKey.currentState?.patchField("parentName", sysMenuInfo!.parentName);
   }
 

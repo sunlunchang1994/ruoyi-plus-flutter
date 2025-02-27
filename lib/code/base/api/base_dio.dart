@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
+import 'package:flutter_slc_boxes/flutter/slc/network/api_constant.dart';
 
 import '../../../generated/l10n.dart';
 import '../api/result_entity.dart';
