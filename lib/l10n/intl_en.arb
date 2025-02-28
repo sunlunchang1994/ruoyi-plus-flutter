@@ -332,12 +332,14 @@
   "user_label_menu_menu_status": "菜单状态",
 
   "dict_divide_text": "-----------------------------",
-  "dict_label_ley": "字典名",
-  "dict_label_name": "字典值",
+  "dict_label_type": "字典类型",
+  "dict_label_name": "字典名称",
   "dict_label_child_node": "子节点",
   "dict_label_details": "字典详情",
   "dict_label_system_dict_edit_hint": "系统字典不允许修改",
   "dict_label_system_dict_remove_hint": "系统字典不允许删除",
+  "dict_label_dict_type_add": "新增字典类型",
+  "dict_label_dict_type_edit": "修改字典类型",
 
   "main_divide_text": "-----------------------------",
   "main_label_workbench": "工作台",

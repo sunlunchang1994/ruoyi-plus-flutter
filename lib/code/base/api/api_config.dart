@@ -2,7 +2,6 @@ import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/env_config.dart';
 
 import '../../feature/component/attachment/utils/attachment_config.dart';
-import 'package:flutter_slc_boxes/flutter/slc/network/api_constant.dart';
 
 import '../../lib/fast/db/dp_manager.dart';
 
@@ -28,9 +27,16 @@ class ApiConfig extends DpManager {
   static const String KEY_CLIENT_ID = "clientid"; //客户端id
   static const String KEY_ENCRYPT_KEY = "encrypt-key"; //加密标记
   static const String KEY_APPLY_ENCRYPT = "applyEncrypt"; //应用加密
+
   //value
-  static const int VALUE_CODE_SERVER_ERROR = 500;
+  static const int VALUE_CODE_SUCCEED = 200;//成功
+  static const int VALUE_CODE_ERROR_REQUEST = 400;//错误请求
+  static const int VALUE_CODE_NORMAL_UNAUTHORIZED = 401;//请求未授权
+  static const int VALUE_CODE_SERVER_ERROR = 500;//服务器内部错误
+  static const int VALUE_CODE_NOT_IMPLEMENTED = 501;//尚未实施
   static const String VALUE_STR_UNKNOWN_MISTAKE = "Unknown mistake";
+  //客户端定义
+  static const int VALUE_CODE_RESULT_UPLOAD_FAILURE = 30003;//上传文件失败
 
   static const String VALUE_RSA_PUBLIC_KEY =
       "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKoR8mX0rGKLqzcWmOzbfj64K8ZIgOdHnzkXSOVOZbFu/TJhZ7rFAN+eaGkl3C4buccQd/EjEsj9ir7ijT7h96MCAwEAAQ==";

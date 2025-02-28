@@ -151,14 +151,16 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "dict_label_child_node": MessageLookupByLibrary.simpleMessage("子节点"),
     "dict_label_details": MessageLookupByLibrary.simpleMessage("字典详情"),
-    "dict_label_ley": MessageLookupByLibrary.simpleMessage("字典名"),
-    "dict_label_name": MessageLookupByLibrary.simpleMessage("字典值"),
+    "dict_label_dict_type_add": MessageLookupByLibrary.simpleMessage("新增字典类型"),
+    "dict_label_dict_type_edit": MessageLookupByLibrary.simpleMessage("修改字典类型"),
+    "dict_label_name": MessageLookupByLibrary.simpleMessage("字典名称"),
     "dict_label_system_dict_edit_hint": MessageLookupByLibrary.simpleMessage(
       "系统字典不允许修改",
     ),
     "dict_label_system_dict_remove_hint": MessageLookupByLibrary.simpleMessage(
       "系统字典不允许删除",
     ),
+    "dict_label_type": MessageLookupByLibrary.simpleMessage("字典类型"),
     "label_address": MessageLookupByLibrary.simpleMessage("地址"),
     "label_address_x": MessageLookupByLibrary.simpleMessage("地址：%s"),
     "label_common_divide_text": MessageLookupByLibrary.simpleMessage(

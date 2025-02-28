@@ -6,7 +6,7 @@ import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu_tree.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu_vo.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/repository/local/local_dict_lib.dart';
 
 import '../../../../../generated/l10n.dart';
@@ -17,7 +17,7 @@ import '../../../../base/config/constant_base.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
-import '../../../../feature/component/tree/vmbox/tree_data_list_vm_vox.dart';
+import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
 import '../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../lib/fast/vd/refresh/content_empty.dart';
 import 'package:dio/dio.dart';
@@ -27,53 +27,6 @@ import '../../repository/remote/menu_api.dart';
 ///@author slc
 ///菜单树列表
 class MenuTreePageWidget {
-  ///获取导航视图
-  static Widget getNavWidget(ThemeData themeData, List<SlcTreeNav> treeNavList,
-      void Function(SlcTreeNav currentItem)? onTap) {
-    //最后一个
-    SlcTreeNav lastItem = treeNavList.last;
-    return Row(
-      children: [
-        Padding(
-            padding: EdgeInsets.only(left: SlcDimens.appDimens16),
-            child: SvgPicture.asset("assets/images/slc/user_ic_folder.svg",
-                height: 16, color: themeData.primaryColor)),
-        Expanded(
-            child: SizedBox(
-                height: 32,
-                child: ListView.builder(
-                    itemCount: treeNavList.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (ctx, index) {
-                      SlcTreeNav currentItem = treeNavList[index];
-                      if (lastItem == currentItem) {
-                        return Row(children: [
-                          Icon(Icons.arrow_right,
-                              color: themeData.primaryColor),
-                          Text(currentItem.treeName,
-                              style: TextStyle(color: themeData.primaryColor))
-                        ]);
-                      } else {
-                        return GestureDetector(
-                            onTap: () {
-                              onTap?.call(currentItem);
-                            },
-                            //getVm().previous(currentItem.id)
-                            child: Row(children: [
-                              Icon(Icons.arrow_right,
-                                  color: SlcColors.getTextColorSecondaryByTheme(
-                                      themeData)),
-                              Text(currentItem.treeName,
-                                  style: TextStyle(
-                                      color: SlcColors
-                                          .getTextColorSecondaryByTheme(
-                                              themeData)))
-                            ]));
-                      }
-                    })))
-      ],
-    );
-  }
 
   ///数据列表控件
   static Widget getDataListWidget(
@@ -126,9 +79,9 @@ class MenuTreeListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
 
   final List<int>? checkedIds;
 
-  final SysMenuVo _currentDeptSearch = SysMenuVo();
+  final SysMenu _currentMenuSearch = SysMenu();
 
-  SysMenuVo get currentSearch => _currentDeptSearch;
+  SysMenu get currentSearch => _currentMenuSearch;
 
   SysMenuTree? currentClickItem;
 
@@ -170,7 +123,7 @@ class MenuTreeListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
       try {
         //此处的parentId就是创建cancelToken所需的treeId;
         CancelToken cancelToken =
-            createCancelTokenByTreeId(_currentDeptSearch.parentId);
+            createCancelTokenByTreeId(_currentMenuSearch.parentId);
         IntensifyEntity<List<SysMenuTree>> intensifyEntity;
         //定义填充CheckedIds的Map
         fillCheckedIdsMap(IntensifyEntity<List<SysMenuTree>> event) {
@@ -188,7 +141,7 @@ class MenuTreeListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
                   .map(fillCheckedIdsMap).single;
         } else {
           intensifyEntity =
-              await MenuRepository.treeselect(_currentDeptSearch, cancelToken)
+              await MenuRepository.treeselect(_currentMenuSearch, cancelToken)
                   .asStream()
                   .map(fillCheckedIdsMap).single;
         }
@@ -223,8 +176,8 @@ class MenuTreeListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
 
   ///下一个节点
   void next(SlcTreeNav treeNav, {bool notify = true}) {
-    _currentDeptSearch.parentId = treeNav.id;
-    _currentDeptSearch.parentName = treeNav.treeName;
+    _currentMenuSearch.parentId = treeNav.id;
+    _currentMenuSearch.parentName = treeNav.treeName;
     super.next(treeNav, notify: notify);
     if (notify) {
       fastVm.notifyListeners();
@@ -241,7 +194,7 @@ class MenuTreeListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
 
   ///跳转到指定的上一级
   void previous(dynamic treeId) {
-    _currentDeptSearch.parentId = treeId;
+    _currentMenuSearch.parentId = treeId;
     super.previous(treeId);
     fastVm.notifyListeners();
   }

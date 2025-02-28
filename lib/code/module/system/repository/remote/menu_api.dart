@@ -9,7 +9,7 @@ import 'package:ruoyi_plus_flutter/code/base/repository/remote/data_transform_ut
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu_tree.dart';
 
 import '../../../../base/api/result_entity.dart';
-import '../../entity/sys_menu_vo.dart';
+import '../../entity/sys_menu.dart';
 
 part 'menu_api.g.dart';
 
@@ -23,7 +23,7 @@ abstract class MenuApiClient {
 
   ///获取菜单信息
   @GET("/system/menu/treeselect")
-  Future<ResultEntity> treeselect(@Queries() SysMenuVo? queryParams,
+  Future<ResultEntity> treeselect(@Queries() SysMenu? queryParams,
       @CancelRequest() CancelToken cancelToken);
 
   ///获取菜单信息
@@ -33,23 +33,23 @@ abstract class MenuApiClient {
 
   ///获取菜单列表
   @GET("/system/menu/list")
-  Future<ResultEntity> list(@Queries() SysMenuVo? queryParams,
+  Future<ResultEntity> list(@Queries() SysMenu? queryParams,
       @CancelRequest() CancelToken cancelToken);
 
   ///获取菜单信息
-  @GET("/system/menu/{deptId}")
+  @GET("/system/menu/{menuId}")
   Future<ResultEntity> getInfo(
-      @Path("deptId") int deptId, @CancelRequest() CancelToken cancelToken);
+      @Path("menuId") int menuId, @CancelRequest() CancelToken cancelToken);
 
   ///添加菜单
   @POST("/system/menu")
   Future<ResultEntity> add(
-      @Body() SysMenuVo? data, @CancelRequest() CancelToken cancelToken);
+      @Body() SysMenu? data, @CancelRequest() CancelToken cancelToken);
 
   ///编辑菜单
   @PUT("/system/menu")
   Future<ResultEntity> edit(
-      @Body() SysMenuVo? data, @CancelRequest() CancelToken cancelToken);
+      @Body() SysMenu? data, @CancelRequest() CancelToken cancelToken);
 }
 
 class MenuRepository {
@@ -57,7 +57,7 @@ class MenuRepository {
   static final MenuApiClient _menuApiClient = MenuApiClient();
 
   static Future<IntensifyEntity<List<SysMenuTree>>> treeselect(
-      SysMenuVo? queryParams, CancelToken cancelToken) {
+      SysMenu? queryParams, CancelToken cancelToken) {
     return _menuApiClient
         .treeselect(queryParams, cancelToken)
         .asStream()
@@ -104,37 +104,34 @@ class MenuRepository {
     }).single;
   }
 
-  static Future<IntensifyEntity<List<SysMenuVo>>> list(
-      SysMenuVo? sysMenuVo, CancelToken cancelToken) {
+  static Future<IntensifyEntity<List<SysMenu>>> list(
+      SysMenu? sysMenuVo, CancelToken cancelToken) {
     return _menuApiClient
         .list(sysMenuVo, cancelToken)
         .asStream()
         .map(DataTransformUtils.checkError)
         .map((event) {
       return event.toIntensify(createData: (resultEntity) {
-        List<SysMenuVo> sysMenuTreeWrapper =
-            SysMenuVo.fromJsonList(resultEntity.data);
+        List<SysMenu> sysMenuTreeWrapper =
+            SysMenu.fromJsonList(resultEntity.data);
         return sysMenuTreeWrapper;
       });
     }).single;
   }
 
-  ///获取部门信息
-  static Future<IntensifyEntity<SysMenuVo?>> getInfo(
-      int deptId, CancelToken cancelToken,
+  ///获取菜单信息
+  static Future<IntensifyEntity<SysMenu?>> getInfo(
+      int menuId, CancelToken cancelToken,
       {bool fillParentName = false}) {
     return _menuApiClient
-        .getInfo(deptId, cancelToken)
+        .getInfo(menuId, cancelToken)
         .asStream()
         .map(DataTransformUtils.checkError)
         .map((event) {
-      var intensifyEntity = IntensifyEntity<SysMenuVo>(
-          resultEntity: event,
-          createData: (resultEntity) {
-            return SysMenuVo.fromJson(resultEntity.data);
-          });
-      return intensifyEntity;
-    }).asyncMap<IntensifyEntity<SysMenuVo?>>((event) {
+      return event.toIntensify(createData: (resultEntity) {
+        return SysMenu.fromJson(resultEntity.data);
+      });
+    }).asyncMap<IntensifyEntity<SysMenu?>>((event) {
       if (fillParentName && event.data != null) {
         return MenuRepository.getInfo(event.data!.parentId!, cancelToken)
             .asStream()
@@ -147,17 +144,16 @@ class MenuRepository {
     }).single;
   }
 
-  ///提交部门信息
-  static Future<IntensifyEntity<SysMenuVo>> submit(
-      SysMenuVo body, CancelToken cancelToken) {
+  ///提交菜单信息
+  static Future<IntensifyEntity<SysMenu>> submit(
+      SysMenu body, CancelToken cancelToken) {
     Future<ResultEntity> resultFuture = body.menuId == null
         ? _menuApiClient.add(body, cancelToken)
         : _menuApiClient.edit(body, cancelToken);
     return resultFuture
         .asStream()
         .map((event) {
-          var intensifyEntity = IntensifyEntity<SysMenuVo>(resultEntity: event);
-          return intensifyEntity;
+          return event.toIntensify<SysMenu>();
         })
         .map(DataTransformUtils.checkErrorIe)
         .single;

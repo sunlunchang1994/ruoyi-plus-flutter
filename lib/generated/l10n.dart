@@ -2675,14 +2675,14 @@ class S {
     );
   }
 
-  /// `字典名`
-  String get dict_label_ley {
-    return Intl.message('字典名', name: 'dict_label_ley', desc: '', args: []);
+  /// `字典类型`
+  String get dict_label_type {
+    return Intl.message('字典类型', name: 'dict_label_type', desc: '', args: []);
   }
 
-  /// `字典值`
+  /// `字典名称`
   String get dict_label_name {
-    return Intl.message('字典值', name: 'dict_label_name', desc: '', args: []);
+    return Intl.message('字典名称', name: 'dict_label_name', desc: '', args: []);
   }
 
   /// `子节点`
@@ -2715,6 +2715,26 @@ class S {
     return Intl.message(
       '系统字典不允许删除',
       name: 'dict_label_system_dict_remove_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `新增字典类型`
+  String get dict_label_dict_type_add {
+    return Intl.message(
+      '新增字典类型',
+      name: 'dict_label_dict_type_add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `修改字典类型`
+  String get dict_label_dict_type_edit {
+    return Intl.message(
+      '修改字典类型',
+      name: 'dict_label_dict_type_edit',
       desc: '',
       args: [],
     );

@@ -9,6 +9,7 @@ import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../base/config/constant_base.dart';
+import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
 import '../../entity/sys_menu_tree.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../lib/fast/provider/fast_select.dart';
@@ -99,7 +100,7 @@ class MenuTreeSelectMultiplePage
                 body: Column(children: [
                   NqSelector<_MenuTreeSelectMultipleVm, int>(
                       builder: (context, value, child) {
-                    return MenuTreePageWidget.getNavWidget(
+                    return TreeNavVd.getNavWidget(
                         themeData, getVm().listVmSub.treeNacStacks,
                         (currentItem) {
                       getVm().listVmSub.previous(currentItem.id);

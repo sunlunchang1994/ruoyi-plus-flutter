@@ -16,6 +16,7 @@ import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_page_vd.da
 import '../../../../../generated/l10n.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';
+import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
 
 ///
 /// 部门浏览列表
@@ -58,7 +59,7 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
                 body: Column(children: [
                   Selector<_DeptListBrowserVm, List<SlcTreeNav>>(
                       builder: (context, value, child) {
-                    return DeptListPageWidget.getNavWidget(themeData, value,
+                    return TreeNavVd.getNavWidget(themeData, value,
                         (currentItem) {
                       getVm().listVmSub.previous(currentItem.id);
                     });

@@ -20,7 +20,7 @@ class DataTransformUtils {
     return dateWrapper;
   }
 
-  static ResultEntity checkError<T>(ResultEntity entity) {
+  static T checkError<T extends IResultEntity>(T entity) {
     if (entity.isSuccess()) {
       return entity;
     }
@@ -36,9 +36,9 @@ class DataTransformUtils {
         message: entity.getMsg());
   }
 
-  static ResultEntity checkNull<T>(ResultEntity entity) {
+  static T checkNull<T extends IResultEntity>(T entity) {
     checkError(entity);
-    if (entity.data!=null) {
+    if (entity.data != null) {
       return entity;
     }
     throw ApiException(entity.code ?? ApiConfig.VALUE_CODE_SERVER_ERROR,
@@ -47,7 +47,7 @@ class DataTransformUtils {
 
   static IntensifyEntity<T> checkNullIe<T>(IntensifyEntity<T> entity) {
     checkErrorIe(entity);
-    if (entity.data!=null) {
+    if (entity.data != null) {
       return entity;
     }
     throw ApiException(entity.getCode() ?? ApiConfig.VALUE_CODE_SERVER_ERROR,

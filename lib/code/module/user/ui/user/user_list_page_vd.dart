@@ -29,7 +29,7 @@ import '../../../../base/repository/remote/data_transform_utils.dart';
 import '../../../../feature/component/dict/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
-import '../../../../feature/component/tree/vmbox/tree_data_list_vm_vox.dart';
+import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
 import '../../../../lib/fast/provider/fast_select.dart';
 import '../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../lib/fast/vd/refresh/content_empty.dart';

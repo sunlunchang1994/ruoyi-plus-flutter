@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/network/api_constant.dart';
+import 'package:ruoyi_plus_flutter/code/base/api/api_config.dart';
 
 import '../../../generated/l10n.dart';
 import '../api/result_entity.dart';
@@ -71,7 +72,7 @@ class BaseDio {
     LogUtil.e(error, tag: "getError");
     defErrMsg ??= S.current.label_unknown_exception;
     // 这里封装了一个 BaseError 类，会根据后端返回的code返回不同的错误类
-    int defCode = 500;
+    int defCode = ApiConfig.VALUE_CODE_SERVER_ERROR;
     if (error is Error) {
       return ResultEntity(code: defCode, msg: error.toString());
     } else if (error is Exception) {

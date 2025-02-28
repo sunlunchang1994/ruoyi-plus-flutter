@@ -1,11 +1,66 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
+import 'package:flutter_svg/svg.dart';
+
 import '../../../../lib/fast/vd/list_data_vm_sub.dart';
 import '../entity/slc_tree_nav.dart';
 import 'package:dio/dio.dart';
 
 ///
 /// @Author sunlunchang
-/// 树级列表VmSub
+class TreeNavVd{
 
+  ///获取导航视图
+  static Widget getNavWidget(ThemeData themeData, List<SlcTreeNav> treeNavList,
+      void Function(SlcTreeNav currentItem)? onTap) {
+    //最后一个
+    SlcTreeNav lastItem = treeNavList.last;
+    return Row(
+      children: [
+        Padding(
+            padding: EdgeInsets.only(left: SlcDimens.appDimens16),
+            child: SvgPicture.asset("assets/images/slc/user_ic_folder.svg",
+                height: 16, color: themeData.primaryColor)),
+        Expanded(
+            child: SizedBox(
+                height: 32,
+                child: ListView.builder(
+                    itemCount: treeNavList.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (ctx, index) {
+                      SlcTreeNav currentItem = treeNavList[index];
+                      if (lastItem == currentItem) {
+                        return Row(children: [
+                          Icon(Icons.arrow_right,
+                              color: themeData.primaryColor),
+                          Text(currentItem.treeName,
+                              style: TextStyle(color: themeData.primaryColor))
+                        ]);
+                      } else {
+                        return GestureDetector(
+                            onTap: () {
+                              onTap?.call(currentItem);
+                            },
+                            //getVm().previous(currentItem.id)
+                            child: Row(children: [
+                              Icon(Icons.arrow_right,
+                                  color: SlcColors.getTextColorSecondaryByTheme(
+                                      themeData)),
+                              Text(currentItem.treeName,
+                                  style: TextStyle(
+                                      color: SlcColors
+                                          .getTextColorSecondaryByTheme(
+                                          themeData)))
+                            ]));
+                      }
+                    })))
+      ],
+    );
+  }
+}
+
+/// 树级列表VmSub
 class TreeFastBaseListDataVmSub<T> extends FastBaseListDataVmSub<T> {
   //部门栈堆数据
   final Map<dynamic, List<T>> treeStacksDataMap = Map.identity();

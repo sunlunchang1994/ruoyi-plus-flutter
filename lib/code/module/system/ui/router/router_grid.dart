@@ -3,7 +3,7 @@ import 'package:flutter_slc_boxes/flutter/slc/common/object_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
-import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/config/constant_sys.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/config/constant_sys_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/router/router_page.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../base/ui/app_mvvm.dart';

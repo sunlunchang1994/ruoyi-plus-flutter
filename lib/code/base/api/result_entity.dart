@@ -1,15 +1,12 @@
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../repository/remote/page_transform_utils.dart';
-import 'app_page_model.dart';
+import 'api_config.dart';
 
 part 'result_entity.g.dart';
 
 ///@Author sunlunchang
 abstract class IResultEntity {
-  static const CODE_SUCCESS = 200;
-
   int? get code;
 
   String? get msg;
@@ -17,7 +14,7 @@ abstract class IResultEntity {
   dynamic get data;
 
   bool isSuccess() {
-    return code == 0 || code == IResultEntity.CODE_SUCCESS;
+    return code == 0 || code == ApiConfig.VALUE_CODE_SUCCEED;
   }
 }
 
@@ -35,29 +32,41 @@ class ResultEntity extends IResultEntity {
 
   ResultEntity({this.code, this.msg, this.data});
 
-  factory ResultEntity.fromJson(Map<String, dynamic> json) => _$ResultEntityFromJson(json);
+  factory ResultEntity.fromJson(Map<String, dynamic> json) =>
+      _$ResultEntityFromJson(json);
 
   Map<String, dynamic> toJson() => _$ResultEntityToJson(this);
-
-  static ResultEntity createSucceedEntity() {
-    return ResultEntity(code: IResultEntity.CODE_SUCCESS);
-  }
 
   IntensifyEntity<T> toIntensify<T>(
       {bool succeedEntity = false,
       T? data,
-      T? Function(IResultEntity)? createData,
+      T? Function(ResultEntity)? createData,
       bool createNull = false}) {
     return IntensifyEntity(
         resultEntity: this,
-        createSucceed: succeedEntity ? () => ResultEntity(code: IResultEntity.CODE_SUCCESS) : null,
+        createSucceed: succeedEntity ? () => createSucceedEntity() : null,
         data: data,
-        createData: createData,
+        createData: createData != null
+            ? (resultEntity) => createData.call(resultEntity as ResultEntity)
+            : null,
         createNull: createNull);
   }
+
+  ///创建成功的ResultEntity
+  static ResultEntity createSucceedEntity() {
+    return ResultEntity(code: ApiConfig.VALUE_CODE_SUCCEED);
+  }
+
+  ///创建失败的的ResultEntity
+  static ResultEntity createSucceedFail(String msg,
+      {int code = ApiConfig.VALUE_CODE_SERVER_ERROR}) {
+    return ResultEntity(code: code, msg: msg);
+  }
+
 }
 
 ///后端返回的实体类基础结构
+///根据后端返回的数据结构定义，可更改toPageModel、resultToPageModel方法实现转换
 @JsonSerializable()
 class ResultPageModel extends IResultEntity {
   @override
@@ -75,25 +84,72 @@ class ResultPageModel extends IResultEntity {
 
   ResultPageModel({this.code, this.msg, this.rows, this.total = 0});
 
-  factory ResultPageModel.fromJson(Map<String, dynamic> json) => _$ResultPageModelFromJson(json);
+  factory ResultPageModel.fromJson(Map<String, dynamic> json) =>
+      _$ResultPageModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ResultPageModelToJson(this);
 
-  static ResultPageModel createSucceedEntity() {
-    return ResultPageModel(code: IResultEntity.CODE_SUCCESS);
-  }
-
+  ///转车呢个PageModel IntensifyEntity
   IntensifyEntity<PageModel<T>> toIntensify<T>(
       {bool succeedEntity = false,
       PageModel<T>? data,
-      PageModel<T>? Function(IResultEntity)? createData,
+      PageModel<T>? Function(ResultPageModel)? createData,
       bool createNull = false}) {
     return IntensifyEntity<PageModel<T>>(
         resultEntity: this,
-        createSucceed: succeedEntity ? () => ResultPageModel(code: IResultEntity.CODE_SUCCESS) : null,
+        createSucceed: succeedEntity ? () => createSucceedEntity() : null,
         data: data,
-        createData: createData,
+        createData: createData != null
+            ? (resultEntity) => createData.call(resultEntity as ResultPageModel)
+            : null,
         createNull: createNull);
+  }
+
+  ///只获取list
+  IntensifyEntity<List<T>> toListIntensify<T>(
+      {bool succeedEntity = false,
+      List<T>? data,
+      List<T>? Function(ResultPageModel)? createData,
+      bool createNull = false}) {
+    return IntensifyEntity<List<T>>(
+        resultEntity: this,
+        createSucceed: succeedEntity ? () => createSucceedEntity() : null,
+        data: data,
+        createData: createData != null
+            ? (resultEntity) => createData.call(resultEntity as ResultPageModel)
+            : null,
+        createNull: createNull);
+  }
+
+  ///转成PageModel
+  PageModel<T> toPageModel<T>(int current, int size,
+      {List<T>? Function(dynamic)? createRecords}) {
+    return ResultPageModel.resultToPageModel(current, size, this,
+        createRecords: createRecords);
+  }
+
+  ///创建成功的ResultPageModel
+  static ResultPageModel createSucceedEntity() {
+    return ResultPageModel(code: ApiConfig.VALUE_CODE_SUCCEED);
+  }
+
+  ///创建成功的ResultPageModel
+  static ResultPageModel createSucceedFail(String msg,
+      {int code = ApiConfig.VALUE_CODE_SERVER_ERROR}) {
+    return ResultPageModel(code: code, msg: msg);
+  }
+
+  ///结果转PageModel
+  static PageModel<T> resultToPageModel<T>(
+      int current, int size, ResultPageModel resultPageModel,
+      {List<T>? Function(dynamic)? createRecords}) {
+    PageModel<T> pageModel = PageModel(
+        current: current,
+        size: size,
+        pages: PageUtils.totalPage(resultPageModel.total, size),
+        total: resultPageModel.total,
+        records: createRecords?.call(resultPageModel.data));
+    return pageModel;
   }
 }
 

@@ -8,7 +8,7 @@ import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_vm_sub.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu_tree.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu_vo.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/repository/local/local_dict_lib.dart';
 
 import '../../../../../generated/l10n.dart';
@@ -19,7 +19,7 @@ import '../../../../base/config/constant_base.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
-import '../../../../feature/component/tree/vmbox/tree_data_list_vm_vox.dart';
+import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
 import '../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../lib/fast/vd/refresh/content_empty.dart';
 import 'package:dio/dio.dart';
@@ -29,59 +29,12 @@ import '../../repository/remote/menu_api.dart';
 ///@author slc
 ///菜单树列表
 class MenuListPageWidget {
-  ///获取导航视图
-  static Widget getNavWidget(ThemeData themeData, List<SlcTreeNav> treeNavList,
-      void Function(SlcTreeNav currentItem)? onTap) {
-    //最后一个
-    SlcTreeNav lastItem = treeNavList.last;
-    return Row(
-      children: [
-        Padding(
-            padding: EdgeInsets.only(left: SlcDimens.appDimens16),
-            child: SvgPicture.asset("assets/images/slc/user_ic_folder.svg",
-                height: 16, color: themeData.primaryColor)),
-        Expanded(
-            child: SizedBox(
-                height: 32,
-                child: ListView.builder(
-                    itemCount: treeNavList.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (ctx, index) {
-                      SlcTreeNav currentItem = treeNavList[index];
-                      if (lastItem == currentItem) {
-                        return Row(children: [
-                          Icon(Icons.arrow_right,
-                              color: themeData.primaryColor),
-                          Text(currentItem.treeName,
-                              style: TextStyle(color: themeData.primaryColor))
-                        ]);
-                      } else {
-                        return GestureDetector(
-                            onTap: () {
-                              onTap?.call(currentItem);
-                            },
-                            //getVm().previous(currentItem.id)
-                            child: Row(children: [
-                              Icon(Icons.arrow_right,
-                                  color: SlcColors.getTextColorSecondaryByTheme(
-                                      themeData)),
-                              Text(currentItem.treeName,
-                                  style: TextStyle(
-                                      color: SlcColors
-                                          .getTextColorSecondaryByTheme(
-                                              themeData)))
-                            ]));
-                      }
-                    })))
-      ],
-    );
-  }
 
   ///数据列表控件
   static Widget getDataListWidget(
       ThemeData themeData,
       MenuListDataVmSub listVmSub,
-      Widget Function(SysMenuVo currentItem) buildTrailing) {
+      Widget Function(SysMenu currentItem) buildTrailing) {
     if (listVmSub.dataList.isEmpty) {
       return const ContentEmptyWrapper();
     }
@@ -91,7 +44,7 @@ class MenuListPageWidget {
         padding: EdgeInsets.zero,
         itemCount: listVmSub.dataList.length,
         itemBuilder: (ctx, index) {
-          SysMenuVo listItem = listVmSub.dataList[index];
+          SysMenu listItem = listVmSub.dataList[index];
           return getDataListItem(
               themeData, listVmSub, buildTrailing, index, listItem);
         },
@@ -103,9 +56,9 @@ class MenuListPageWidget {
   static Widget getDataListItem(
     ThemeData themeData,
     ListenerItemClick<dynamic> listenerItemClick,
-    Widget? Function(SysMenuVo currentItem) buildTrailing,
+    Widget? Function(SysMenu currentItem) buildTrailing,
     int index,
-    SysMenuVo listItem,
+    SysMenu listItem,
   ) {
     return ListTile(
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
@@ -118,23 +71,24 @@ class MenuListPageWidget {
           //getVm().nextByDept(listItem);
         });
   }
+
 }
 
 ///菜单树数据VmSub
-class MenuListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuVo> {
+class MenuListDataVmSub extends TreeFastBaseListDataVmSub<SysMenu> {
   final FastVm fastVm;
 
-  final SysMenuVo _currentDeptSearch = SysMenuVo();
+  final SysMenu _currentDeptSearch = SysMenu();
 
-  SysMenuVo get currentSearch => _currentDeptSearch;
+  SysMenu get currentSearch => _currentDeptSearch;
 
-  SysMenuVo? currentClickItem;
+  SysMenu? currentClickItem;
 
-  List<SysMenuVo>? _allTreeList;
+  List<SysMenu>? _allTreeList;
 
-  List<SysMenuVo>? get allTreeList => _allTreeList;
+  List<SysMenu>? get allTreeList => _allTreeList;
 
-  void Function(SysMenuVo data)? onSuffixClick;
+  void Function(SysMenu data)? onSuffixClick;
 
   MenuListDataVmSub(this.fastVm) {
     //设置刷新方法主体
@@ -147,18 +101,18 @@ class MenuListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuVo> {
       //上一个树节点id不是空时
       if (previousTreeId != null) {
         //获取目标栈堆的数据列表
-        List<SysMenuVo>? previousTreeStacksData =
+        List<SysMenu>? previousTreeStacksData =
             treeStacksDataMap[previousTreeId];
         if (previousTreeStacksData != null) {
           //数据不为空时通过lastTreeId查找目标数据，lastTreeId就是当前点击的item的id;
 
           int? lastTreeId = getLastTreeId();
 
-          List<SysMenuVo>? resultList = _allTreeList?.where((item) {
+          List<SysMenu>? resultList = _allTreeList?.where((item) {
             return lastTreeId == item.parentId;
           }).toList();
           //获取目标数据的子节点
-          DataWrapper<List<SysMenuVo>> dateWrapper =
+          DataWrapper<List<SysMenu>> dateWrapper =
               DataWrapper.createSuccess(resultList ?? List.empty());
           return dateWrapper;
         }
@@ -167,13 +121,13 @@ class MenuListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuVo> {
         //此处的parentId就是创建cancelToken所需的treeId;
         CancelToken cancelToken =
             createCancelTokenByTreeId(_currentDeptSearch.parentId);
-        IntensifyEntity<List<SysMenuVo>> intensifyEntity =
+        IntensifyEntity<List<SysMenu>> intensifyEntity =
             await MenuRepository.list(_currentDeptSearch, cancelToken)
                 .asStream()
                 .single;
         _allTreeList = intensifyEntity.data;
 
-        DataWrapper<List<SysMenuVo>> dateWrapper =
+        DataWrapper<List<SysMenu>> dateWrapper =
             DataTransformUtils.entity2LDWrapperShell(intensifyEntity,
                 data: _allTreeList?.where((item) {
                   return ConstantBase.VALUE_PARENT_ID_DEF == item.parentId;
@@ -199,7 +153,7 @@ class MenuListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuVo> {
   }
 
   ///根据部门信息获取下一个节点
-  void nextByTree(SysMenuVo treeItem) {
+  void nextByTree(SysMenu treeItem) {
     SlcTreeNav slcTreeNav = SlcTreeNav(treeItem.menuId, treeItem.menuName!);
     next(slcTreeNav, notify: true);
   }

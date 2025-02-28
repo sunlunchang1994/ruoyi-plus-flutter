@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu_vo.dart';
+import 'package:ruoyi_plus_flutter/code/feature/component/tree/vd/tree_data_list_vd.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../base/config/constant_base.dart';
@@ -46,7 +47,7 @@ class MenuListBrowserPage extends AppBaseStatelessWidget<_MenuListBrowserVm> {
                 body: Column(children: [
                   Selector<_MenuListBrowserVm, List<SlcTreeNav>>(
                     builder: (context, value, child) {
-                      return MenuTreePageWidget.getNavWidget(themeData, value,
+                      return TreeNavVd.getNavWidget(themeData, value,
                           (currentItem) {
                         getVm().listVmSub.previous(currentItem.id);
                       });
@@ -97,7 +98,7 @@ class _MenuListBrowserVm extends AppBaseVm {
   void initVm() {
     registerVmSub(listVmSub);
 
-    listVmSub.onSuffixClick = (SysMenuVo data) {
+    listVmSub.onSuffixClick = (SysMenu data) {
       pushNamed(MenuAddEditPage.routeName,
           arguments: {ConstantSys.KEY_MENU: data}).then((value) {
         if (value != null) {

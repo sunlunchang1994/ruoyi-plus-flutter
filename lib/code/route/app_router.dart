@@ -8,6 +8,8 @@ import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_browser_page.dart';
 
 import '../base/config/constant_base.dart';
+import '../module/system/ui/dict/type/dict_type_add_edit_page.dart';
+import '../module/system/ui/dict/type/dict_type_list_browser_page.dart';
 import '../module/system/ui/fof/no_found_page.dart';
 import '../module/system/ui/menu_tree/menu_add_edit_page.dart';
 import '../module/system/ui/menu_tree/menu_list_borwser_page.dart';
@@ -172,6 +174,19 @@ final Map<String, WidgetBuilder> router = {
         roleId: slcRouterInfo?.arguments[ConstantSys.KEY_MENU_ID],
         checkedIds:
             slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_SELECT_DATA]);
+  },
+  //字典类型
+  //字典类型：新增或编辑
+  DictTypeAddEditPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return DictTypeAddEditPage(
+        slcRouterInfo?.arguments[ConstantSys.KEY_DICT_TYPE]);
+  },
+  //字典类型：类型列表
+  DictTypeListBrowserPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return DictTypeListBrowserPage(
+        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
 };
 

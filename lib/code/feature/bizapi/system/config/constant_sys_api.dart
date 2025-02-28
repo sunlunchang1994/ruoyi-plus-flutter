@@ -1,8 +1,6 @@
-import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
-
 ///@Author sunlunchang
 ///系统层常量
-class ConstantSys extends ConstantBase {
+class ConstantSys {
   ///value
   ///路由相关
   static const String VALUE_COMPONENT_LAYOUT = "Layout"; //Layout组件标识

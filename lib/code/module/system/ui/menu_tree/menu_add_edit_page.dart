@@ -15,7 +15,7 @@ import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_uti
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/input_decoration_utils.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu_vo.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
@@ -31,8 +31,8 @@ import 'menu_list_select_single_page.dart';
 class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
   static const String routeName = '/system/menu/add_edit';
 
-  final SysMenuVo? sysMenuInfo;
-  final SysMenuVo? parentSysMenu;
+  final SysMenu? sysMenuInfo;
+  final SysMenu? parentSysMenu;
 
   MenuAddEditPage({super.key, this.sysMenuInfo, this.parentSysMenu});
 
@@ -259,9 +259,6 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
                 getVm().applyInfoChange();
                 getVm().sysMenuInfo!.component = value;
               },
-              validator: FormBuilderValidators.compose([
-                FormBuilderValidators.required(),
-              ]),
               textInputAction: TextInputAction.next,
             )
           ]);
@@ -287,9 +284,6 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
                 getVm().applyInfoChange();
                 getVm().sysMenuInfo!.perms = value;
               },
-              validator: FormBuilderValidators.compose([
-                FormBuilderValidators.required(),
-              ]),
               textInputAction: TextInputAction.next,
             )
           ]);
@@ -313,9 +307,6 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
                 getVm().applyInfoChange();
                 getVm().sysMenuInfo!.queryParam = value;
               },
-              validator: FormBuilderValidators.compose([
-                FormBuilderValidators.required(),
-              ]),
               textInputAction: TextInputAction.next,
             ),
             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
@@ -381,8 +372,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
           getVm().applyInfoChange();
           getVm().sysMenuInfo!.status = value?.value;
         },
-        validator:
-            FormBuilderValidators.compose([FormBuilderValidators.required()]),
+        validator: FormBuilderValidators.compose([FormBuilderValidators.required()]),
       )
     });
     return formItemArray;
@@ -410,11 +400,11 @@ class _MenuAddEditModel extends AppBaseVm {
 
   final _formKey = GlobalKey<FormBuilderState>();
 
-  SysMenuVo? sysMenuInfo;
+  SysMenu? sysMenuInfo;
 
   bool _infoChange = false;
 
-  void initVm(SysMenuVo? menuInfo, SysMenuVo? parentMenu) {
+  void initVm(SysMenu? menuInfo, SysMenu? parentMenu) {
     if (menuInfo == null && parentMenu == null) {
       AppToastBridge.showToast(
           msg: S.current.label_select_parameter_is_missing);
@@ -422,7 +412,7 @@ class _MenuAddEditModel extends AppBaseVm {
       return;
     }
     if (menuInfo == null) {
-      sysMenuInfo = SysMenuVo();
+      sysMenuInfo = SysMenu();
       //父部门不是跟节点则不赋值，让用户选择
       sysMenuInfo!.menuType = LocalDictLib.KEY_MENU_TYPE_MULU;
       sysMenuInfo!.isFrame = LocalDictLib.KEY_SYS_YES_NO_INT_N;
@@ -458,7 +448,7 @@ class _MenuAddEditModel extends AppBaseVm {
     });
   }
 
-  void setSelectParentMenu(SysMenuVo? sysMenu) {
+  void setSelectParentMenu(SysMenu? sysMenu) {
     sysMenuInfo!.parentId = sysMenu?.menuId;
     sysMenuInfo!.parentName = sysMenu?.menuName;
     _formKey.currentState?.patchField("parentName", sysMenuInfo!.parentName);

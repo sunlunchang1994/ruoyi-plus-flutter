@@ -2,7 +2,6 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:ruoyi_plus_flutter/code/base/api/app_page_model.dart';
 import 'package:ruoyi_plus_flutter/code/base/repository/remote/data_transform_utils.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/dept.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/user.dart';
@@ -88,11 +87,8 @@ class UserServiceRepository {
         .asStream()
         .map((event) {
           return event.toIntensify(createData: (resultEntity) {
-            AppPageModel appPageModel =
-                AppPageModel(current: offset, size: size, rows: event.rows, total: event.total);
-            PageModel<User> pageModel =
-                PageTransformUtils.appPm2Pm(appPageModel, records: User.formJsonList(appPageModel.rows));
-            return pageModel;
+            return resultEntity.toPageModel(offset, size,
+                createRecords: (rows) => User.formJsonList(rows));
           });
         })
         .map(DataTransformUtils.checkErrorIe)

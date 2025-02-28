@@ -50,9 +50,7 @@ class EncryptInterceptor extends Interceptor {
     return resultStr;
   }
 
-  /**
-   * 装饰公钥
-   */
+  ///装饰公钥
   String decorationPublicKey(String publicKey) {
     String decorationPublicKey = "";
     decorationPublicKey += "-----BEGIN PUBLIC KEY-----";

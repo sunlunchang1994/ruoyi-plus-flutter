@@ -1,3 +1,4 @@
+import 'api_config.dart';
 import 'result_entity.dart';
 
 ///@Author sunlunchang
@@ -9,7 +10,7 @@ class ApiException implements Exception {
   ApiException(this.code, {this.message});
 
   factory ApiException.of(ResultEntity resultEntity) {
-    return ApiException(resultEntity.code ?? 500,
+    return ApiException(resultEntity.code ?? ApiConfig.VALUE_CODE_SERVER_ERROR,
         message: resultEntity.msg);
   }
 }

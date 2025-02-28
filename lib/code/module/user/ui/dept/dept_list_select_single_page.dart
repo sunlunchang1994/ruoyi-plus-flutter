@@ -11,7 +11,7 @@ import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_vd.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
-import '../../../../feature/component/tree/vmbox/tree_data_list_vm_vox.dart';
+import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';
 import 'dept_list_page_vd.dart';
 
@@ -52,7 +52,7 @@ class DeptListSingleSelectPage
                 body: Column(children: [
                   Selector<_DeptListSingleSelectVm, List<SlcTreeNav>>(
                       builder: (context, value, child) {
-                    return DeptListPageWidget.getNavWidget(themeData, value,
+                    return TreeNavVd.getNavWidget(themeData, value,
                         (currentItem) {
                       getVm().listVmSub.previous(currentItem.id);
                     });

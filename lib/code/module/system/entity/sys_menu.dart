@@ -3,11 +3,11 @@ import 'package:ruoyi_plus_flutter/code/base/entity/tenant_entity.dart';
 
 import '../../../base/api/json_converter.dart';
 
-part 'sys_menu_vo.g.dart';
+part 'sys_menu.g.dart';
 ///@author slc
 ///菜单实体类
 @JsonSerializable()
-class SysMenuVo extends TenantEntity {
+class SysMenu extends TenantEntity {
   //菜单ID
   @IntConverter()
   int? menuId;
@@ -59,9 +59,9 @@ class SysMenuVo extends TenantEntity {
   String? parentName;
 
   //子菜单
-  List<SysMenuVo>? children;
+  List<SysMenu>? children;
 
-  SysMenuVo(
+  SysMenu(
       {this.menuId,
       this.parentId,
       this.menuName,
@@ -80,14 +80,14 @@ class SysMenuVo extends TenantEntity {
       this.parentName,
       this.children});
 
-  factory SysMenuVo.fromJson(Map<String, dynamic> json) =>
-      _$SysMenuVoFromJson(json);
+  factory SysMenu.fromJson(Map<String, dynamic> json) =>
+      _$SysMenuFromJson(json);
 
-  Map<String, dynamic> toJson() => _$SysMenuVoToJson(this);
+  Map<String, dynamic> toJson() => _$SysMenuToJson(this);
 
 
-  static List<SysMenuVo> fromJsonList(List<dynamic>? data){
-    return data?.map((json) => SysMenuVo.fromJson(json)).toList() ??
+  static List<SysMenu> fromJsonList(List<dynamic>? data){
+    return data?.map((json) => SysMenu.fromJson(json)).toList() ??
         List.empty();
   }
 }
