@@ -5,38 +5,35 @@ import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_dict_type.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_config.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/repository/remote/dict_type_api.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/dict/type/dict_type_add_edit_page.dart';
 
 import '../../../../../../generated/l10n.dart';
 import '../../../../../../res/styles.dart';
-import '../../../../../base/api/base_dio.dart';
-import '../../../../../base/api/result_entity.dart';
-import '../../../../../base/repository/remote/data_transform_utils.dart';
-import '../../../../../feature/bizapi/system/entity/sys_dict_data.dart';
-import '../../../../../lib/fast/provider/fast_select.dart';
-import '../../../../../lib/fast/utils/widget_utils.dart';
-import '../../../../../lib/fast/vd/list_data_component.dart';
-import '../../../../../lib/fast/vd/refresh/content_empty.dart';
+import '../../../../base/api/base_dio.dart';
+import '../../../../base/api/result_entity.dart';
+import '../../../../base/repository/remote/data_transform_utils.dart';
+import '../../../../lib/fast/provider/fast_select.dart';
+import '../../../../lib/fast/utils/widget_utils.dart';
+import '../../../../lib/fast/vd/list_data_component.dart';
+import '../../../../lib/fast/vd/refresh/content_empty.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
-import '../../../../../lib/fast/widget/form/form_operate_with_provider.dart';
-import '../../../../../lib/fast/widget/form/input_decoration_utils.dart';
-import '../../../config/constant_sys.dart';
-import '../../../repository/remote/dict_data_api.dart';
-import 'dict_data_add_edit_page.dart';
+import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
+import '../../../../lib/fast/widget/form/form_operate_with_provider.dart';
+import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
+import '../../config/constant_sys.dart';
+import '../../repository/remote/sys_config_api.dart';
+import 'config_add_edit_page.dart';
 
 ///@author slc
-///字典数据列表
-class DictTypeListPageWidget {
+///参数配置列表
+class ConfigListPageWidget {
   ///数据列表控件
   static Widget getDataListWidget(
       ThemeData themeData,
-      DictDataListDataVmSub listVmSub,
-      Widget Function(SysDictData currentItem) buildTrailing) {
+      ConfigListDataVmSub listVmSub,
+      Widget Function(SysConfig currentItem) buildTrailing) {
     if (listVmSub.dataList.isEmpty) {
       return const ContentEmptyWrapper();
     }
@@ -46,7 +43,7 @@ class DictTypeListPageWidget {
         padding: EdgeInsets.zero,
         itemCount: listVmSub.dataList.length,
         itemBuilder: (ctx, index) {
-          SysDictData listItem = listVmSub.dataList[index];
+          SysConfig listItem = listVmSub.dataList[index];
           return getDataListItem(
               themeData, listVmSub, buildTrailing, index, listItem);
         },
@@ -58,14 +55,14 @@ class DictTypeListPageWidget {
   static Widget getDataListItem(
     ThemeData themeData,
     ListenerItemClick<dynamic> listenerItemClick,
-    Widget? Function(SysDictData currentItem) buildTrailing,
+    Widget? Function(SysConfig currentItem) buildTrailing,
     int index,
-    SysDictData listItem,
+      SysConfig listItem,
   ) {
     return ListTile(
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
-        title: Text(listItem.dictLabel!),
-        subtitle: Text(listItem.dictValue!),
+        title: Text(listItem.configName!),
+        subtitle: Text(listItem.configKey!),
         trailing: buildTrailing.call(listItem),
         visualDensity: VisualDensity.compact,
         //根据card规则实现
@@ -77,7 +74,7 @@ class DictTypeListPageWidget {
 
   ///搜索侧滑栏视图
   static Widget getSearchEndDrawer<A>(BuildContext context, ThemeData themeData,
-      DictDataListDataVmSub listVmSub,
+      ConfigListDataVmSub listVmSub,
       {List<Widget>? Function(String? name)? formItemSlot}) {
     return Container(
         color: themeData.colorScheme.surface,
@@ -87,7 +84,7 @@ class DictTypeListPageWidget {
             left: SlcDimens.appDimens16,
             right: SlcDimens.appDimens16,
             bottom: SlcDimens.appDimens14),
-        child: Selector0<SysDictData>(builder: (context, value, child) {
+        child: Selector0<SysConfig>(builder: (context, value, child) {
           return FormBuilder(
               key: listVmSub.formOperate.formKey,
               child: Column(
@@ -99,8 +96,8 @@ class DictTypeListPageWidget {
                           style: SlcStyles.getTitleTextStyle(themeData))),
                   SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
-                      name: "dictLabel",
-                      initialValue: listVmSub.currentSearch.dictLabel,
+                      name: "configName",
+                      initialValue: listVmSub.currentSearch.configName,
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_dict_data_label,
@@ -111,12 +108,35 @@ class DictTypeListPageWidget {
                             return InputDecUtils.autoClearSuffixByInputVal(
                                 value,
                                 formOperate: listVmSub.formOperate,
-                                formFieldName: "dictLabel");
+                                formFieldName: "configName");
                           }, selector: (context, vm) {
-                            return listVmSub.currentSearch.dictLabel;
+                            return listVmSub.currentSearch.configName;
                           })),
                       onChanged: (value) {
-                        listVmSub.currentSearch.dictLabel = value;
+                        listVmSub.currentSearch.configName = value;
+                        listVmSub.notifyListeners();
+                      },
+                      textInputAction: TextInputAction.next),
+                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  MyFormBuilderTextField(
+                      name: "configKey",
+                      initialValue: listVmSub.currentSearch.configKey,
+                      decoration: MyInputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: S.current.sys_label_dict_data_label,
+                          hintText: S.current.app_label_please_input,
+                          border: const UnderlineInputBorder(),
+                          suffixIcon: NqNullSelector<A, String?>(
+                              builder: (context, value, child) {
+                            return InputDecUtils.autoClearSuffixByInputVal(
+                                value,
+                                formOperate: listVmSub.formOperate,
+                                formFieldName: "configKey");
+                          }, selector: (context, vm) {
+                            return listVmSub.currentSearch.configKey;
+                          })),
+                      onChanged: (value) {
+                        listVmSub.currentSearch.configKey = value;
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
@@ -152,31 +172,31 @@ class DictTypeListPageWidget {
   }
 }
 
-///字典数据数据VmSub
-class DictDataListDataVmSub extends FastBaseListDataPageVmSub<SysDictData> {
+///参数配置数据VmSub
+class ConfigListDataVmSub extends FastBaseListDataPageVmSub<SysConfig> {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   final CancelToken cancelToken = CancelToken();
 
-  SysDictData _currentDictTypeSearch = SysDictData();
+  SysConfig _currentSysConfigSearch = SysConfig();
 
-  SysDictData get currentSearch => _currentDictTypeSearch;
+  SysConfig get currentSearch => _currentSysConfigSearch;
 
-  void Function(SysDictData data)? onSuffixClick;
+  void Function(SysConfig data)? onSuffixClick;
 
-  DictDataListDataVmSub() {
+  ConfigListDataVmSub() {
     //设置刷新方法主体
     setLoadData((loadMoreFormat) async {
       try {
-        IntensifyEntity<PageModel<SysDictData>> intensifyEntity =
-            await DictDataRepository.list(
+        IntensifyEntity<PageModel<SysConfig>> intensifyEntity =
+            await SysConfigRepository.list(
                     loadMoreFormat.getOffset(),
                     loadMoreFormat.getSize(),
-                    _currentDictTypeSearch,
+                currentSearch,
                     cancelToken)
                 .asStream()
                 .single;
-        DataWrapper<PageModel<SysDictData>> dateWrapper =
+        DataWrapper<PageModel<SysConfig>> dateWrapper =
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
         return dateWrapper;
       } catch (e) {
@@ -199,9 +219,7 @@ class DictDataListDataVmSub extends FastBaseListDataPageVmSub<SysDictData> {
 
   //重置
   void onResetSearch() {
-    String? dictType = _currentDictTypeSearch.dictType;
-    _currentDictTypeSearch = SysDictData();
-    _currentDictTypeSearch.dictType = dictType;
+    _currentSysConfigSearch = SysConfig();
     formOperate.clearAll();
     notifyListeners();
   }

@@ -146,29 +146,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "app_toast_login_login_successful": MessageLookupByLibrary.simpleMessage(
       "登录成功",
     ),
-    "dict_divide_text": MessageLookupByLibrary.simpleMessage(
-      "-----------------------------",
-    ),
-    "dict_label_child_node": MessageLookupByLibrary.simpleMessage("子节点"),
-    "dict_label_data_css_class": MessageLookupByLibrary.simpleMessage("样式属性"),
-    "dict_label_data_label": MessageLookupByLibrary.simpleMessage("数据标签"),
-    "dict_label_data_list": MessageLookupByLibrary.simpleMessage("数据列表"),
-    "dict_label_data_list_style": MessageLookupByLibrary.simpleMessage("回显样式"),
-    "dict_label_data_order_num": MessageLookupByLibrary.simpleMessage("显示顺序"),
-    "dict_label_data_value": MessageLookupByLibrary.simpleMessage("数据键值"),
-    "dict_label_details": MessageLookupByLibrary.simpleMessage("字典详情"),
-    "dict_label_dict_data_add": MessageLookupByLibrary.simpleMessage("新增字典数据"),
-    "dict_label_dict_data_edit": MessageLookupByLibrary.simpleMessage("修改字典数据"),
-    "dict_label_dict_type_add": MessageLookupByLibrary.simpleMessage("新增字典类型"),
-    "dict_label_dict_type_edit": MessageLookupByLibrary.simpleMessage("修改字典类型"),
-    "dict_label_name": MessageLookupByLibrary.simpleMessage("字典名称"),
-    "dict_label_system_dict_edit_hint": MessageLookupByLibrary.simpleMessage(
-      "系统字典不允许修改",
-    ),
-    "dict_label_system_dict_remove_hint": MessageLookupByLibrary.simpleMessage(
-      "系统字典不允许删除",
-    ),
-    "dict_label_type": MessageLookupByLibrary.simpleMessage("字典类型"),
     "label_address": MessageLookupByLibrary.simpleMessage("地址"),
     "label_address_x": MessageLookupByLibrary.simpleMessage("地址：%s"),
     "label_common_divide_text": MessageLookupByLibrary.simpleMessage(
@@ -338,6 +315,70 @@ class MessageLookup extends MessageLookupByLibrary {
     "main_label_workbench": MessageLookupByLibrary.simpleMessage("工作台"),
     "menu_label_menu_tree": MessageLookupByLibrary.simpleMessage("菜单树"),
     "menu_label_root": MessageLookupByLibrary.simpleMessage("根目录"),
+    "sys_divide_text": MessageLookupByLibrary.simpleMessage(
+      "-----------------------------",
+    ),
+    "sys_label_config_add": MessageLookupByLibrary.simpleMessage("新增参数配置"),
+    "sys_label_config_edit": MessageLookupByLibrary.simpleMessage("修改参数配置"),
+    "sys_label_config_key": MessageLookupByLibrary.simpleMessage("参数键名"),
+    "sys_label_config_list": MessageLookupByLibrary.simpleMessage("参数列表"),
+    "sys_label_config_name": MessageLookupByLibrary.simpleMessage("参数名称"),
+    "sys_label_config_type": MessageLookupByLibrary.simpleMessage("系统内置"),
+    "sys_label_config_value": MessageLookupByLibrary.simpleMessage("参数键值"),
+    "sys_label_dict_child_node": MessageLookupByLibrary.simpleMessage("子节点"),
+    "sys_label_dict_data_add": MessageLookupByLibrary.simpleMessage("新增字典数据"),
+    "sys_label_dict_data_css_class": MessageLookupByLibrary.simpleMessage(
+      "样式属性",
+    ),
+    "sys_label_dict_data_edit": MessageLookupByLibrary.simpleMessage("修改字典数据"),
+    "sys_label_dict_data_label": MessageLookupByLibrary.simpleMessage("数据标签"),
+    "sys_label_dict_data_list": MessageLookupByLibrary.simpleMessage("数据列表"),
+    "sys_label_dict_data_list_style": MessageLookupByLibrary.simpleMessage(
+      "回显样式",
+    ),
+    "sys_label_dict_data_order_num": MessageLookupByLibrary.simpleMessage(
+      "显示顺序",
+    ),
+    "sys_label_dict_data_value": MessageLookupByLibrary.simpleMessage("数据键值"),
+    "sys_label_dict_details": MessageLookupByLibrary.simpleMessage("字典详情"),
+    "sys_label_dict_name": MessageLookupByLibrary.simpleMessage("字典名称"),
+    "sys_label_dict_type": MessageLookupByLibrary.simpleMessage("字典类型"),
+    "sys_label_dict_type_add": MessageLookupByLibrary.simpleMessage("新增字典类型"),
+    "sys_label_dict_type_edit": MessageLookupByLibrary.simpleMessage("修改字典类型"),
+    "sys_label_menu": MessageLookupByLibrary.simpleMessage("菜单"),
+    "sys_label_menu_add": MessageLookupByLibrary.simpleMessage("新增菜单"),
+    "sys_label_menu_cache_status": MessageLookupByLibrary.simpleMessage("是否缓存"),
+    "sys_label_menu_component_path": MessageLookupByLibrary.simpleMessage(
+      "组件路径",
+    ),
+    "sys_label_menu_display_status": MessageLookupByLibrary.simpleMessage(
+      "显示状态",
+    ),
+    "sys_label_menu_down_donot": MessageLookupByLibrary.simpleMessage("没有子菜单了"),
+    "sys_label_menu_edit": MessageLookupByLibrary.simpleMessage("修改菜单信息"),
+    "sys_label_menu_father_son_linkage": MessageLookupByLibrary.simpleMessage(
+      "父子联动",
+    ),
+    "sys_label_menu_is_frame": MessageLookupByLibrary.simpleMessage("是否外链"),
+    "sys_label_menu_menu_status": MessageLookupByLibrary.simpleMessage("菜单状态"),
+    "sys_label_menu_name": MessageLookupByLibrary.simpleMessage("菜单名称"),
+    "sys_label_menu_parent_name": MessageLookupByLibrary.simpleMessage("上级菜单"),
+    "sys_label_menu_parent_name_select": MessageLookupByLibrary.simpleMessage(
+      "选择上级菜单",
+    ),
+    "sys_label_menu_path": MessageLookupByLibrary.simpleMessage("路由地址"),
+    "sys_label_menu_permission_characters":
+        MessageLookupByLibrary.simpleMessage("权限字符"),
+    "sys_label_menu_route_parameters": MessageLookupByLibrary.simpleMessage(
+      "路由参数",
+    ),
+    "sys_label_menu_type": MessageLookupByLibrary.simpleMessage("菜单类型"),
+    "sys_label_system_dict_edit_hint": MessageLookupByLibrary.simpleMessage(
+      "系统字典不允许修改",
+    ),
+    "sys_label_system_dict_remove_hint": MessageLookupByLibrary.simpleMessage(
+      "系统字典不允许删除",
+    ),
     "title_already_the_latest_version": MessageLookupByLibrary.simpleMessage(
       "已是最新版本",
     ),
@@ -411,35 +452,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "user_label_logging_in": MessageLookupByLibrary.simpleMessage("正在登录"),
     "user_label_login": MessageLookupByLibrary.simpleMessage("登录"),
     "user_label_mailbox": MessageLookupByLibrary.simpleMessage("邮箱"),
-    "user_label_menu": MessageLookupByLibrary.simpleMessage("菜单"),
-    "user_label_menu_add": MessageLookupByLibrary.simpleMessage("新增菜单"),
-    "user_label_menu_cache_status": MessageLookupByLibrary.simpleMessage(
-      "是否缓存",
-    ),
-    "user_label_menu_component_path": MessageLookupByLibrary.simpleMessage(
-      "组件路径",
-    ),
-    "user_label_menu_display_status": MessageLookupByLibrary.simpleMessage(
-      "显示状态",
-    ),
-    "user_label_menu_down_donot": MessageLookupByLibrary.simpleMessage(
-      "没有子菜单了",
-    ),
-    "user_label_menu_edit": MessageLookupByLibrary.simpleMessage("修改菜单信息"),
-    "user_label_menu_father_son_linkage": MessageLookupByLibrary.simpleMessage(
-      "父子联动",
-    ),
-    "user_label_menu_is_frame": MessageLookupByLibrary.simpleMessage("是否外链"),
-    "user_label_menu_menu_status": MessageLookupByLibrary.simpleMessage("菜单状态"),
-    "user_label_menu_name": MessageLookupByLibrary.simpleMessage("菜单名称"),
-    "user_label_menu_parent_name": MessageLookupByLibrary.simpleMessage("上级菜单"),
-    "user_label_menu_parent_name_select": MessageLookupByLibrary.simpleMessage(
-      "选择上级菜单",
-    ),
-    "user_label_menu_path": MessageLookupByLibrary.simpleMessage("路由地址"),
     "user_label_menu_permission": MessageLookupByLibrary.simpleMessage("菜单权限"),
-    "user_label_menu_permission_characters":
-        MessageLookupByLibrary.simpleMessage("权限字符"),
     "user_label_menu_permission_select": MessageLookupByLibrary.simpleMessage(
       "配置菜单权限",
     ),
@@ -447,10 +460,6 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage("已配置%s项菜单，点击查看"),
     "user_label_menu_permission_select_result2":
         MessageLookupByLibrary.simpleMessage("已配置多个菜单项，点击查看"),
-    "user_label_menu_route_parameters": MessageLookupByLibrary.simpleMessage(
-      "路由参数",
-    ),
-    "user_label_menu_type": MessageLookupByLibrary.simpleMessage("菜单类型"),
     "user_label_my_qr_code": MessageLookupByLibrary.simpleMessage("我的二维码"),
     "user_label_new_password": MessageLookupByLibrary.simpleMessage("新密码"),
     "user_label_nike_name": MessageLookupByLibrary.simpleMessage("用户昵称"),

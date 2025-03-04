@@ -80,7 +80,7 @@ class MenuTreeSelectMultiplePage
                             child: Row(
                               children: [
                                 Text(S
-                                    .current.user_label_menu_father_son_linkage)
+                                    .current.sys_label_menu_father_son_linkage)
                               ],
                             )),
                       ];

@@ -1,4 +1,4 @@
-///@Author sunlunchang
+///@author sunlunchang
 ///环境配置
 abstract class EnvConfig {
   final bool _release = false;

@@ -7,7 +7,7 @@ import 'list_data_vm_sub.dart';
 import 'refresh/header_footer_simple.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/base_mvvm.dart';
 
-/// @Author sunlunchang
+/// @author sunlunchang
 /// 列表场景下的列表数据视图，基于EasyRefresh进行拓展，用与快速构建列表功能
 class ListDataVd extends StatefulWidget {
   final FastBaseListDataVmSub vmSub;

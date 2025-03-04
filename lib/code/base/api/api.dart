@@ -5,7 +5,7 @@ import '../api/base_dio.dart';
 
 part 'api.g.dart';
 
-///@Author sunlunchang
+///@author sunlunchang
 ///api客户端基础类
 @RestApi()
 abstract class ApiClient {

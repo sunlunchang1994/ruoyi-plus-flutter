@@ -2500,321 +2500,401 @@ class S {
     );
   }
 
-  /// `菜单`
-  String get user_label_menu {
-    return Intl.message('菜单', name: 'user_label_menu', desc: '', args: []);
-  }
-
-  /// `新增菜单`
-  String get user_label_menu_add {
+  /// `-----------------------------`
+  String get sys_divide_text {
     return Intl.message(
-      '新增菜单',
-      name: 'user_label_menu_add',
+      '-----------------------------',
+      name: 'sys_divide_text',
       desc: '',
       args: [],
     );
   }
 
+  /// `菜单`
+  String get sys_label_menu {
+    return Intl.message('菜单', name: 'sys_label_menu', desc: '', args: []);
+  }
+
+  /// `新增菜单`
+  String get sys_label_menu_add {
+    return Intl.message('新增菜单', name: 'sys_label_menu_add', desc: '', args: []);
+  }
+
   /// `修改菜单信息`
-  String get user_label_menu_edit {
+  String get sys_label_menu_edit {
     return Intl.message(
       '修改菜单信息',
-      name: 'user_label_menu_edit',
+      name: 'sys_label_menu_edit',
       desc: '',
       args: [],
     );
   }
 
   /// `父子联动`
-  String get user_label_menu_father_son_linkage {
+  String get sys_label_menu_father_son_linkage {
     return Intl.message(
       '父子联动',
-      name: 'user_label_menu_father_son_linkage',
+      name: 'sys_label_menu_father_son_linkage',
       desc: '',
       args: [],
     );
   }
 
   /// `没有子菜单了`
-  String get user_label_menu_down_donot {
+  String get sys_label_menu_down_donot {
     return Intl.message(
       '没有子菜单了',
-      name: 'user_label_menu_down_donot',
+      name: 'sys_label_menu_down_donot',
       desc: '',
       args: [],
     );
   }
 
   /// `上级菜单`
-  String get user_label_menu_parent_name {
+  String get sys_label_menu_parent_name {
     return Intl.message(
       '上级菜单',
-      name: 'user_label_menu_parent_name',
+      name: 'sys_label_menu_parent_name',
       desc: '',
       args: [],
     );
   }
 
   /// `选择上级菜单`
-  String get user_label_menu_parent_name_select {
+  String get sys_label_menu_parent_name_select {
     return Intl.message(
       '选择上级菜单',
-      name: 'user_label_menu_parent_name_select',
+      name: 'sys_label_menu_parent_name_select',
       desc: '',
       args: [],
     );
   }
 
   /// `菜单类型`
-  String get user_label_menu_type {
+  String get sys_label_menu_type {
     return Intl.message(
       '菜单类型',
-      name: 'user_label_menu_type',
+      name: 'sys_label_menu_type',
       desc: '',
       args: [],
     );
   }
 
   /// `菜单名称`
-  String get user_label_menu_name {
+  String get sys_label_menu_name {
     return Intl.message(
       '菜单名称',
-      name: 'user_label_menu_name',
+      name: 'sys_label_menu_name',
       desc: '',
       args: [],
     );
   }
 
   /// `是否外链`
-  String get user_label_menu_is_frame {
+  String get sys_label_menu_is_frame {
     return Intl.message(
       '是否外链',
-      name: 'user_label_menu_is_frame',
+      name: 'sys_label_menu_is_frame',
       desc: '',
       args: [],
     );
   }
 
   /// `路由地址`
-  String get user_label_menu_path {
+  String get sys_label_menu_path {
     return Intl.message(
       '路由地址',
-      name: 'user_label_menu_path',
+      name: 'sys_label_menu_path',
       desc: '',
       args: [],
     );
   }
 
   /// `组件路径`
-  String get user_label_menu_component_path {
+  String get sys_label_menu_component_path {
     return Intl.message(
       '组件路径',
-      name: 'user_label_menu_component_path',
+      name: 'sys_label_menu_component_path',
       desc: '',
       args: [],
     );
   }
 
   /// `权限字符`
-  String get user_label_menu_permission_characters {
+  String get sys_label_menu_permission_characters {
     return Intl.message(
       '权限字符',
-      name: 'user_label_menu_permission_characters',
+      name: 'sys_label_menu_permission_characters',
       desc: '',
       args: [],
     );
   }
 
   /// `路由参数`
-  String get user_label_menu_route_parameters {
+  String get sys_label_menu_route_parameters {
     return Intl.message(
       '路由参数',
-      name: 'user_label_menu_route_parameters',
+      name: 'sys_label_menu_route_parameters',
       desc: '',
       args: [],
     );
   }
 
   /// `是否缓存`
-  String get user_label_menu_cache_status {
+  String get sys_label_menu_cache_status {
     return Intl.message(
       '是否缓存',
-      name: 'user_label_menu_cache_status',
+      name: 'sys_label_menu_cache_status',
       desc: '',
       args: [],
     );
   }
 
   /// `显示状态`
-  String get user_label_menu_display_status {
+  String get sys_label_menu_display_status {
     return Intl.message(
       '显示状态',
-      name: 'user_label_menu_display_status',
+      name: 'sys_label_menu_display_status',
       desc: '',
       args: [],
     );
   }
 
   /// `菜单状态`
-  String get user_label_menu_menu_status {
+  String get sys_label_menu_menu_status {
     return Intl.message(
       '菜单状态',
-      name: 'user_label_menu_menu_status',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `-----------------------------`
-  String get dict_divide_text {
-    return Intl.message(
-      '-----------------------------',
-      name: 'dict_divide_text',
+      name: 'sys_label_menu_menu_status',
       desc: '',
       args: [],
     );
   }
 
   /// `字典类型`
-  String get dict_label_type {
-    return Intl.message('字典类型', name: 'dict_label_type', desc: '', args: []);
+  String get sys_label_dict_type {
+    return Intl.message(
+      '字典类型',
+      name: 'sys_label_dict_type',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `字典名称`
-  String get dict_label_name {
-    return Intl.message('字典名称', name: 'dict_label_name', desc: '', args: []);
+  String get sys_label_dict_name {
+    return Intl.message(
+      '字典名称',
+      name: 'sys_label_dict_name',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `子节点`
-  String get dict_label_child_node {
+  String get sys_label_dict_child_node {
     return Intl.message(
       '子节点',
-      name: 'dict_label_child_node',
+      name: 'sys_label_dict_child_node',
       desc: '',
       args: [],
     );
   }
 
   /// `字典详情`
-  String get dict_label_details {
-    return Intl.message('字典详情', name: 'dict_label_details', desc: '', args: []);
+  String get sys_label_dict_details {
+    return Intl.message(
+      '字典详情',
+      name: 'sys_label_dict_details',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `系统字典不允许修改`
-  String get dict_label_system_dict_edit_hint {
+  String get sys_label_system_dict_edit_hint {
     return Intl.message(
       '系统字典不允许修改',
-      name: 'dict_label_system_dict_edit_hint',
+      name: 'sys_label_system_dict_edit_hint',
       desc: '',
       args: [],
     );
   }
 
   /// `系统字典不允许删除`
-  String get dict_label_system_dict_remove_hint {
+  String get sys_label_system_dict_remove_hint {
     return Intl.message(
       '系统字典不允许删除',
-      name: 'dict_label_system_dict_remove_hint',
+      name: 'sys_label_system_dict_remove_hint',
       desc: '',
       args: [],
     );
   }
 
   /// `新增字典类型`
-  String get dict_label_dict_type_add {
+  String get sys_label_dict_type_add {
     return Intl.message(
       '新增字典类型',
-      name: 'dict_label_dict_type_add',
+      name: 'sys_label_dict_type_add',
       desc: '',
       args: [],
     );
   }
 
   /// `修改字典类型`
-  String get dict_label_dict_type_edit {
+  String get sys_label_dict_type_edit {
     return Intl.message(
       '修改字典类型',
-      name: 'dict_label_dict_type_edit',
+      name: 'sys_label_dict_type_edit',
       desc: '',
       args: [],
     );
   }
 
   /// `数据列表`
-  String get dict_label_data_list {
+  String get sys_label_dict_data_list {
     return Intl.message(
       '数据列表',
-      name: 'dict_label_data_list',
+      name: 'sys_label_dict_data_list',
       desc: '',
       args: [],
     );
   }
 
   /// `数据标签`
-  String get dict_label_data_label {
+  String get sys_label_dict_data_label {
     return Intl.message(
       '数据标签',
-      name: 'dict_label_data_label',
+      name: 'sys_label_dict_data_label',
       desc: '',
       args: [],
     );
   }
 
   /// `数据键值`
-  String get dict_label_data_value {
+  String get sys_label_dict_data_value {
     return Intl.message(
       '数据键值',
-      name: 'dict_label_data_value',
+      name: 'sys_label_dict_data_value',
       desc: '',
       args: [],
     );
   }
 
   /// `样式属性`
-  String get dict_label_data_css_class {
+  String get sys_label_dict_data_css_class {
     return Intl.message(
       '样式属性',
-      name: 'dict_label_data_css_class',
+      name: 'sys_label_dict_data_css_class',
       desc: '',
       args: [],
     );
   }
 
   /// `回显样式`
-  String get dict_label_data_list_style {
+  String get sys_label_dict_data_list_style {
     return Intl.message(
       '回显样式',
-      name: 'dict_label_data_list_style',
+      name: 'sys_label_dict_data_list_style',
       desc: '',
       args: [],
     );
   }
 
   /// `显示顺序`
-  String get dict_label_data_order_num {
+  String get sys_label_dict_data_order_num {
     return Intl.message(
       '显示顺序',
-      name: 'dict_label_data_order_num',
+      name: 'sys_label_dict_data_order_num',
       desc: '',
       args: [],
     );
   }
 
   /// `新增字典数据`
-  String get dict_label_dict_data_add {
+  String get sys_label_dict_data_add {
     return Intl.message(
       '新增字典数据',
-      name: 'dict_label_dict_data_add',
+      name: 'sys_label_dict_data_add',
       desc: '',
       args: [],
     );
   }
 
   /// `修改字典数据`
-  String get dict_label_dict_data_edit {
+  String get sys_label_dict_data_edit {
     return Intl.message(
       '修改字典数据',
-      name: 'dict_label_dict_data_edit',
+      name: 'sys_label_dict_data_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `参数列表`
+  String get sys_label_config_list {
+    return Intl.message(
+      '参数列表',
+      name: 'sys_label_config_list',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `参数名称`
+  String get sys_label_config_name {
+    return Intl.message(
+      '参数名称',
+      name: 'sys_label_config_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `参数键名`
+  String get sys_label_config_key {
+    return Intl.message(
+      '参数键名',
+      name: 'sys_label_config_key',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `参数键值`
+  String get sys_label_config_value {
+    return Intl.message(
+      '参数键值',
+      name: 'sys_label_config_value',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `系统内置`
+  String get sys_label_config_type {
+    return Intl.message(
+      '系统内置',
+      name: 'sys_label_config_type',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `新增参数配置`
+  String get sys_label_config_add {
+    return Intl.message(
+      '新增参数配置',
+      name: 'sys_label_config_add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `修改参数配置`
+  String get sys_label_config_edit {
+    return Intl.message(
+      '修改参数配置',
+      name: 'sys_label_config_edit',
       desc: '',
       args: [],
     );

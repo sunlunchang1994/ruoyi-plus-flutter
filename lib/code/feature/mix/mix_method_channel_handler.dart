@@ -2,7 +2,7 @@ import 'package:flutter/services.dart';
 import '../../base/api/api_config.dart';
 
 ///
-/// @Author sunlunchang
+/// @author sunlunchang
 /// 嵌入在原生应用上的消息盒子用于接收消息
 /// 混合开发可以用到
 ///

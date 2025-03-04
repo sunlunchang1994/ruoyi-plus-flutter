@@ -8,7 +8,7 @@ import 'package:retrofit/http.dart';
 
 import '../api/api_config.dart';
 
-///@Author sunlunchang
+///@author sunlunchang
 ///加密拦截器
 class EncryptInterceptor extends Interceptor {
   @override

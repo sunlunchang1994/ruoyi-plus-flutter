@@ -6,29 +6,25 @@ import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/widget_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/post/post_add_edit_page.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/post/post_list_page_vd.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_page_vd.dart';
 
-import '../../../config/constant_sys.dart';
-import 'dict_type_add_edit_page.dart';
-import 'dict_type_list_page_vd.dart';
+import '../../config/constant_sys.dart';
+import 'config_add_edit_page.dart';
+import 'config_list_page_vd.dart';
 
 ///
 /// @author slc
-/// 字典类型列表
-class DictTypeListBrowserPage
-    extends AppBaseStatelessWidget<_DictTypeListBrowserVm> {
-  static const String routeName = '/system/dict';
+/// 参数配置列表
+class ConfigListBrowserPage
+    extends AppBaseStatelessWidget<_ConfigListBrowserVm> {
+  static const String routeName = '/system/config';
   final String title;
 
-  DictTypeListBrowserPage(this.title, {super.key});
+  ConfigListBrowserPage(this.title, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => _DictTypeListBrowserVm(),
+        create: (context) => _ConfigListBrowserVm(),
         builder: (context, child) {
           ThemeData themeData = Theme.of(context);
           registerEvent(context);
@@ -44,9 +40,9 @@ class DictTypeListBrowserPage
                   );
                 })
               ]),
-              endDrawer: DictTypeListPageWidget.getSearchEndDrawer<
-                      _DictTypeListBrowserVm>(
-                  context, themeData, getVm().listVmSub),
+              endDrawer:
+                  ConfigListPageWidget.getSearchEndDrawer<_ConfigListBrowserVm>(
+                      context, themeData, getVm().listVmSub),
               floatingActionButton: FloatingActionButton(
                   child: Icon(Icons.add),
                   onPressed: () {
@@ -54,9 +50,9 @@ class DictTypeListBrowserPage
                   }),
               body: PageDataVd(getVm().listVmSub, getVm(),
                   refreshOnStart: true,
-                  child: NqSelector<_DictTypeListBrowserVm, int>(
+                  child: NqSelector<_ConfigListBrowserVm, int>(
                       builder: (context, vm, child) {
-                    return DictTypeListPageWidget.getDataListWidget(
+                    return ConfigListPageWidget.getDataListWidget(
                         themeData, getVm().listVmSub, (currentItem) {
                       return Ink(
                           child: InkWell(
@@ -80,14 +76,14 @@ class DictTypeListBrowserPage
   }
 }
 
-class _DictTypeListBrowserVm extends AppBaseVm {
-  late DictTypeListDataVmSub listVmSub;
+class _ConfigListBrowserVm extends AppBaseVm {
+  late ConfigListDataVmSub listVmSub;
 
-  _DictTypeListBrowserVm() {
-    listVmSub = DictTypeListDataVmSub();
+  _ConfigListBrowserVm() {
+    listVmSub = ConfigListDataVmSub();
     listVmSub.onSuffixClick = (itemData) {
-      pushNamed(DictTypeAddEditPage.routeName,
-          arguments: {ConstantSys.KEY_DICT_TYPE: itemData}).then((result) {
+      pushNamed(DictDataAddEditPage.routeName,
+          arguments: {ConstantSys.KEY_SYS_CONFIG: itemData}).then((result) {
         if (result != null) {
           //更新列表
           listVmSub.sendRefreshEvent();
@@ -100,11 +96,10 @@ class _DictTypeListBrowserVm extends AppBaseVm {
     registerVmSub(listVmSub);
   }
 
-  ///添加字典类型事件
+  ///添加参数配置事件
   void onAddItem() {
-    pushNamed(DictTypeAddEditPage.routeName).then((result) {
+    pushNamed(DictDataAddEditPage.routeName).then((result) {
       if (result != null) {
-        //更新列表
         listVmSub.sendRefreshEvent();
       }
     });

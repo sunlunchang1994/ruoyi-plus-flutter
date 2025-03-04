@@ -1,6 +1,6 @@
 import '../api/json_converter.dart';
 
-///@Author sunlunchang
+///@author sunlunchang
 ///后端数据实体类基础类
 class BaseEntity {
   String? searchValue;

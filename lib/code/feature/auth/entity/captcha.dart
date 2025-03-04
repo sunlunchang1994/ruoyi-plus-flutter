@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'captcha.g.dart';
 
-///@Author sunlunchang
+///@author sunlunchang
 ///验证码信息
 @JsonSerializable()
 class Captcha {

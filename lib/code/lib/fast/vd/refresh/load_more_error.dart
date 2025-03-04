@@ -3,7 +3,7 @@ import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 
 import '../../../../../generated/l10n.dart';
 
-/// @Author sunlunchang
+/// @author sunlunchang
 /// 列表页 状态为加载错误时展示
 class LoadMoreErrorWidget extends StatelessWidget {
   const LoadMoreErrorWidget({super.key});

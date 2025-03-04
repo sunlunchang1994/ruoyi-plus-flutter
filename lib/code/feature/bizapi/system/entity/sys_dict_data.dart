@@ -6,7 +6,7 @@ import '../../../../base/api/json_converter.dart';
 
 part 'sys_dict_data.g.dart';
 
-///@Author sunlunchang
+///@author sunlunchang
 ///字典类型
 @JsonSerializable()
 class SysDictData extends TenantEntity {

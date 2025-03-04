@@ -8,7 +8,7 @@ import 'load_more_succeed.dart';
 import 'no_more.dart';
 
 ///
-/// @Author sunlunchang
+/// @author sunlunchang
 /// 分页加载的底部视图根据easy的默认实现进行更改
 ///
 class FooterSimple extends Footer {

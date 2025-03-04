@@ -163,7 +163,7 @@ class MenuTreeListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
         currentClickItem = data;
         nextByDept(data);
       } else {
-        AppToastBridge.showToast(msg: S.current.user_label_menu_down_donot);
+        AppToastBridge.showToast(msg: S.current.sys_label_menu_down_donot);
       }
     });
   }

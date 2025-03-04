@@ -52,8 +52,8 @@ class DictTypeAddEditPage extends AppBaseStatelessWidget<_DictTypeAddEditVm> {
               child: Scaffold(
                   appBar: AppBar(
                     title: Text(dictType == null
-                        ? S.current.dict_label_dict_type_add
-                        : S.current.dict_label_dict_type_edit),
+                        ? S.current.sys_label_dict_type_add
+                        : S.current.sys_label_dict_type_edit),
                     actions: [
                       IconButton(
                           onPressed: () {
@@ -90,7 +90,7 @@ class DictTypeAddEditPage extends AppBaseStatelessWidget<_DictTypeAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
-                                S.current.dict_label_name),
+                                S.current.sys_label_dict_name),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
@@ -109,7 +109,7 @@ class DictTypeAddEditPage extends AppBaseStatelessWidget<_DictTypeAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
-                                S.current.dict_label_type),
+                                S.current.sys_label_dict_type),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {

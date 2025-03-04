@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'meta_vo.g.dart';
 
-///@Author sunlunchang
+///@author sunlunchang
 ///路由显示信息
 @JsonSerializable()
 class MetaVo {

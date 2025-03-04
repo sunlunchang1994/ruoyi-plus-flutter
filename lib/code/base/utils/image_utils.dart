@@ -10,7 +10,7 @@ import 'dart:ui' as ui;
 
 import '../api/result_entity.dart';
 
-/// @Author sunlunchang
+/// @author sunlunchang
 /// 图像工具类
 class ImageUtils {
   ///将控件转为图片

@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 
-/// @Author sunlunchang
+/// @author sunlunchang
 /// 数字输入格式化，用于Input组件
 class DecimalTextInputFormatter extends FilteringTextInputFormatter {
   DecimalTextInputFormatter() : super(RegExp(r'[0-9.]'), allow: true);

@@ -47,7 +47,7 @@ class DictDataListBrowserPage
               floatingActionButton: FloatingActionButton(
                   child: Icon(Icons.add),
                   onPressed: () {
-                    getVm().onAddPost();
+                    getVm().onAddItem();
                   }),
               body: PageDataVd(getVm().listVmSub, getVm(),
                   refreshOnStart: true,
@@ -99,7 +99,7 @@ class _DictDataListBrowserVm extends AppBaseVm {
   }
 
   ///添加字典数据事件
-  void onAddPost() {
+  void onAddItem() {
     pushNamed(DictDataAddEditPage.routeName, arguments: {
       ConstantSys.KEY_DICT_PARENT_TYPE: listVmSub.currentSearch.dictType
     }).then((result) {

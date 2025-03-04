@@ -8,7 +8,7 @@ import '../entity/slc_tree_nav.dart';
 import 'package:dio/dio.dart';
 
 ///
-/// @Author sunlunchang
+/// @author sunlunchang
 class TreeNavVd{
 
   ///获取导航视图

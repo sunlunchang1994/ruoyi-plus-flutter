@@ -5,7 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'sys_dict_type.g.dart';
 
-///@Author sunlunchang
+///@author sunlunchang
 ///字典类型
 @JsonSerializable()
 class SysDictType extends TenantEntity {

@@ -5,7 +5,7 @@ import '../../feature/component/attachment/utils/attachment_config.dart';
 
 import '../../lib/fast/db/dp_manager.dart';
 
-///@Author sunlunchang
+///@author sunlunchang
 ///Api配置类、配置url、token等，可根据需要再此拓展
 class ApiConfig extends DpManager {
   //config

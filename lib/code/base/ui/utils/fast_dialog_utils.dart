@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../generated/l10n.dart';
 
-///@Author sunlunchang
+///@author sunlunchang
 ///快速dialog工具
 class FastDialogUtils {
   ///获取常用的action

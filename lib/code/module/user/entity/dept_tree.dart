@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'dept_tree.g.dart';
 
-///@Author sunlunchang
+///@author sunlunchang
 ///部门树信息
 @JsonSerializable()
 class DeptTree {

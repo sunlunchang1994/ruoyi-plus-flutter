@@ -60,8 +60,8 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
             child: Scaffold(
                 appBar: AppBar(
                     title: Text(sysMenuInfo == null
-                        ? S.current.user_label_menu_add
-                        : S.current.user_label_menu_edit),
+                        ? S.current.sys_label_menu_add
+                        : S.current.sys_label_menu_edit),
                     actions: [
                       IconButton(
                           onPressed: () {
@@ -109,7 +109,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
           onTap: () => getVm().onSelectParentMenu(),
           decoration: MySelectDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            labelText: S.current.user_label_menu_parent_name,
+            labelText: S.current.sys_label_menu_parent_name,
             hintText: S.current.app_label_please_choose,
             border: const UnderlineInputBorder(),
             suffixIcon: NqNullSelector<_MenuAddEditModel, String?>(
@@ -126,7 +126,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
       SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderRadioGroup<OptionVL<String>>(
         decoration:
-            MyInputDecoration(labelText: S.current.user_label_menu_type),
+            MyInputDecoration(labelText: S.current.sys_label_menu_type),
         name: "menuType",
         initialValue: DictUiUtils.dict2OptionVL(LocalDictLib.findDictByCodeKey(
             LocalDictLib.CODE_MENU_TYPE, getVm().sysMenuInfo!.menuType,
@@ -150,7 +150,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
               label: InputDecUtils.getRequiredLabel(
-                  S.current.user_label_menu_name),
+                  S.current.sys_label_menu_name),
               hintText: S.current.app_label_please_input,
               border: const UnderlineInputBorder()),
           onChanged: (value) {
@@ -205,7 +205,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
               options: DictUiUtils.dictList2FromOption(
                   LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_YES_NO_INT]!),
               decoration: MyInputDecoration(
-                labelText: S.current.user_label_menu_is_frame,
+                labelText: S.current.sys_label_menu_is_frame,
               ),
               onChanged: (value) {
                 getVm().applyInfoChange();
@@ -226,7 +226,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
         decoration: MyInputDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.always,
             label:
-                InputDecUtils.getRequiredLabel(S.current.user_label_menu_path),
+                InputDecUtils.getRequiredLabel(S.current.sys_label_menu_path),
             hintText: S.current.app_label_please_input,
             border: const UnderlineInputBorder()),
         onChanged: (value) {
@@ -252,7 +252,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
               autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: MyInputDecoration(
                   floatingLabelBehavior: FloatingLabelBehavior.always,
-                  labelText: S.current.user_label_menu_component_path,
+                  labelText: S.current.sys_label_menu_component_path,
                   hintText: S.current.app_label_please_input,
                   border: const UnderlineInputBorder()),
               onChanged: (value) {
@@ -277,7 +277,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
               autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: MyInputDecoration(
                   floatingLabelBehavior: FloatingLabelBehavior.always,
-                  labelText: S.current.user_label_menu_permission_characters,
+                  labelText: S.current.sys_label_menu_permission_characters,
                   hintText: S.current.app_label_please_input,
                   border: const UnderlineInputBorder()),
               onChanged: (value) {
@@ -300,7 +300,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
               autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: MyInputDecoration(
                   floatingLabelBehavior: FloatingLabelBehavior.always,
-                  labelText: S.current.user_label_menu_route_parameters,
+                  labelText: S.current.sys_label_menu_route_parameters,
                   hintText: S.current.app_label_please_input,
                   border: const UnderlineInputBorder()),
               onChanged: (value) {
@@ -321,7 +321,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
               options: DictUiUtils.dictList2FromOption(
                   LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_YES_NO_INT]!),
               decoration: MyInputDecoration(
-                labelText: S.current.user_label_menu_cache_status,
+                labelText: S.current.sys_label_menu_cache_status,
               ),
               onChanged: (value) {
                 getVm().applyInfoChange();
@@ -346,7 +346,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
               options: DictUiUtils.dictList2FromOption(
                   LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_SHOW_HIDE]!),
               decoration: MyInputDecoration(
-                labelText: S.current.user_label_menu_display_status,
+                labelText: S.current.sys_label_menu_display_status,
               ),
               onChanged: (value) {
                 getVm().applyInfoChange();
@@ -439,7 +439,7 @@ class _MenuAddEditModel extends AppBaseVm {
   void onSelectParentMenu() {
     pushNamed(MenuListSelectSinglePage.routeName, arguments: {
       ConstantBase.KEY_INTENT_TITLE:
-          S.current.user_label_menu_parent_name_select,
+          S.current.sys_label_menu_parent_name_select,
       ConstantSys.KEY_MENU_ID: sysMenuInfo?.menuId ?? -1
     }).then((result) {
       if (result != null) {

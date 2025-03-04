@@ -4,7 +4,7 @@ import 'package:flutter_slc_boxes/flutter/slc/network/api_constant.dart';
 
 import '../api/api_config.dart';
 
-///@Author sunlunchang
+///@author sunlunchang
 ///header拦截器，可在此处完善token等
 class HeaderInterceptor extends Interceptor {
 

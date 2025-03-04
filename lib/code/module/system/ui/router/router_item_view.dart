@@ -4,7 +4,7 @@ import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 
 import '../../../../feature/bizapi/system/entity/router_vo.dart';
 
-/// @Author sunlunchang
+/// @author sunlunchang
 /// 菜单路由控件
 class MenuItemView extends StatelessWidget {
   final RouterVo router;

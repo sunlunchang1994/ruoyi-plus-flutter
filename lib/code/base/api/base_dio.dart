@@ -9,7 +9,7 @@ import 'api_exception.dart';
 import 'interceptor_encrypt.dart';
 import 'interceptor_header.dart';
 
-///@Author sunlunchang
+///@author sunlunchang
 ///基础dio工具，单例模式
 class BaseDio {
   static final BaseDio _instance = BaseDio._();

@@ -2,7 +2,7 @@ import 'list_data_component.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/load_more_format.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 
-/// @Author sunlunchang
+/// @author sunlunchang
 /// mvvm接口数据拓展
 /// 对基础列表分页数据管理进一步拓展、用户快速构建列表分页数据管理
 

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-///@Author sunlunchang
+///@author sunlunchang
 ///基础常量
 class ConstantBase {
   ///key

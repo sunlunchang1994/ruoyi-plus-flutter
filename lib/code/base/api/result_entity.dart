@@ -5,7 +5,7 @@ import 'api_config.dart';
 
 part 'result_entity.g.dart';
 
-///@Author sunlunchang
+///@author sunlunchang
 abstract class IResultEntity {
   int? get code;
 

@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'oss_upload_vo.g.dart';
 
-///@Author sunlunchang
+///@author sunlunchang
 ///文件上传返回信息
 @JsonSerializable()
 class OssUploadVo {

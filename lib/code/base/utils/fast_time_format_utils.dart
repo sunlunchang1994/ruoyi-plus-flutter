@@ -4,7 +4,7 @@ import '../config/constant_base.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:intl/intl.dart';
 
-/// @Author sunlunchang
+/// @author sunlunchang
 /// 快速时间格式化，方便格式化日期数据
 class FastTimeFormatUtils {
   ///

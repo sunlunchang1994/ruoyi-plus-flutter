@@ -3,7 +3,7 @@ import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/tenant_list
 
 part 'login_tenant_vo.g.dart';
 
-///@Author sunlunchang
+///@author sunlunchang
 ///登录租户对象
 @JsonSerializable()
 class LoginTenantVo {

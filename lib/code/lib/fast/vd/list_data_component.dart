@@ -6,7 +6,7 @@ import 'package:flutter_slc_boxes/flutter/slc/mvvm/fast_mvvm.dart';
 
 import '../provider/should_set_state.dart';
 
-/// @Author sunlunchang
+/// @author sunlunchang
 /// mvvm接口数据拓展
 /// 数据列表页、分页界面数据管理基础类
 ///

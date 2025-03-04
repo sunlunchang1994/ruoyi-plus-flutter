@@ -1,6 +1,6 @@
 import 'list_data_component.dart';
 
-/// @Author sunlunchang
+/// @author sunlunchang
 /// mvvm接口数据拓展
 /// 对基础列表页数据管理进一步拓展、用户快速构建列表页数据管理
 

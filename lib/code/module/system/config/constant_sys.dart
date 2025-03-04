@@ -8,4 +8,6 @@ class ConstantSys {
   static const String KEY_DICT_TYPE = "dictType";
   static const String KEY_DICT_PARENT_TYPE = "dictParentType";
   static const String KEY_DICT_DATA = "dictData";
+  //参数配置
+  static const String KEY_SYS_CONFIG = "sysConfig";
 }

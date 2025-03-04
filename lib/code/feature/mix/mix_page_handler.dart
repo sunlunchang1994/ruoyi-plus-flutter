@@ -6,7 +6,7 @@ import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
 
 import 'mix_method_channel_handler.dart';
 
-/// @Author sunlunchang
+/// @author sunlunchang
 /// 混合开发可以用到
 /// 处理在此进入时刷新界面和切换界面
 class MixPageHandler {

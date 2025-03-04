@@ -102,7 +102,7 @@ class DictTypeListPageWidget {
                       initialValue: listVmSub.currentSearch.dictName,
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          labelText: S.current.dict_label_name,
+                          labelText: S.current.sys_label_dict_name,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(
@@ -126,7 +126,7 @@ class DictTypeListPageWidget {
                       decoration: MyInputDecoration(
                           contentPadding: EdgeInsets.zero,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          labelText: S.current.dict_label_type,
+                          labelText: S.current.sys_label_dict_type,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(
@@ -211,7 +211,7 @@ class DictTypeListDataVmSub extends FastBaseListDataPageVmSub<SysDictType> {
     //设置点击item事件主体
     setItemClick((index, data) {
       pushNamed(DictDataListBrowserPage.routeName,
-          arguments: {ConstantBase.KEY_INTENT_TITLE: S.current.dict_label_data_list,ConstantSys.KEY_DICT_TYPE: data.dictType});
+          arguments: {ConstantBase.KEY_INTENT_TITLE: S.current.sys_label_dict_data_list,ConstantSys.KEY_DICT_TYPE: data.dictType});
     });
   }
 

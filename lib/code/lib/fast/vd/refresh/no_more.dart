@@ -3,7 +3,7 @@ import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 
 import '../../../../../generated/l10n.dart';
 
-/// @Author sunlunchang
+/// @author sunlunchang
 /// 列表页 没有更多数据了控件
 class NoMoreWidget extends StatelessWidget {
   const NoMoreWidget({super.key});

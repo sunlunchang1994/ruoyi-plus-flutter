@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'tenant_list_vo.g.dart';
 
-///@Author sunlunchang
+///@author sunlunchang
 ///租户列表信息
 @JsonSerializable()
 class TenantListVo {

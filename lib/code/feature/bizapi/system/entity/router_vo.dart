@@ -4,7 +4,7 @@ import 'meta_vo.dart';
 
 part 'router_vo.g.dart';
 
-///@Author sunlunchang
+///@author sunlunchang
 ///路由配信息
 @JsonSerializable()
 class RouterVo {
