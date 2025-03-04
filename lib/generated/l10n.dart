@@ -2740,6 +2740,86 @@ class S {
     );
   }
 
+  /// `数据列表`
+  String get dict_label_data_list {
+    return Intl.message(
+      '数据列表',
+      name: 'dict_label_data_list',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `数据标签`
+  String get dict_label_data_label {
+    return Intl.message(
+      '数据标签',
+      name: 'dict_label_data_label',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `数据键值`
+  String get dict_label_data_value {
+    return Intl.message(
+      '数据键值',
+      name: 'dict_label_data_value',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `样式属性`
+  String get dict_label_data_css_class {
+    return Intl.message(
+      '样式属性',
+      name: 'dict_label_data_css_class',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `回显样式`
+  String get dict_label_data_list_style {
+    return Intl.message(
+      '回显样式',
+      name: 'dict_label_data_list_style',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `显示顺序`
+  String get dict_label_data_order_num {
+    return Intl.message(
+      '显示顺序',
+      name: 'dict_label_data_order_num',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `新增字典数据`
+  String get dict_label_dict_data_add {
+    return Intl.message(
+      '新增字典数据',
+      name: 'dict_label_dict_data_add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `修改字典数据`
+  String get dict_label_dict_data_edit {
+    return Intl.message(
+      '修改字典数据',
+      name: 'dict_label_dict_data_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `-----------------------------`
   String get main_divide_text {
     return Intl.message(

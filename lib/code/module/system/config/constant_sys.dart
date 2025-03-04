@@ -6,4 +6,6 @@ class ConstantSys {
 
   //字典
   static const String KEY_DICT_TYPE = "dictType";
+  static const String KEY_DICT_PARENT_TYPE = "dictParentType";
+  static const String KEY_DICT_DATA = "dictData";
 }

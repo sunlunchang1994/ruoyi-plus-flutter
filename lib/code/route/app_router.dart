@@ -8,6 +8,8 @@ import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_browser_page.dart';
 
 import '../base/config/constant_base.dart';
+import '../module/system/ui/dict/data/dict_data_add_edit_page.dart';
+import '../module/system/ui/dict/data/dict_data_list_browser_page.dart';
 import '../module/system/ui/dict/type/dict_type_add_edit_page.dart';
 import '../module/system/ui/dict/type/dict_type_list_browser_page.dart';
 import '../module/system/ui/fof/no_found_page.dart';
@@ -187,6 +189,21 @@ final Map<String, WidgetBuilder> router = {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
     return DictTypeListBrowserPage(
         slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+  },
+  //字典数据
+  //字典数据：新增或编辑
+  DictDataAddEditPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return DictDataAddEditPage(
+        dictData: slcRouterInfo?.arguments[ConstantSys.KEY_DICT_DATA],
+        parentType: slcRouterInfo?.arguments[ConstantSys.KEY_DICT_PARENT_TYPE]);
+  },
+  //字典数据：数据列表
+  DictDataListBrowserPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return DictDataListBrowserPage(
+        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE],
+        slcRouterInfo?.arguments[ConstantSys.KEY_DICT_TYPE]);
   },
 };
 
