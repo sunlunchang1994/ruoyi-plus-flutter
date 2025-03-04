@@ -2880,6 +2880,16 @@ class S {
     );
   }
 
+  /// `请选择是否系统内置`
+  String get sys_label_config_type_select {
+    return Intl.message(
+      '请选择是否系统内置',
+      name: 'sys_label_config_type_select',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `新增参数配置`
   String get sys_label_config_add {
     return Intl.message(

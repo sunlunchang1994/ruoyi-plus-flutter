@@ -82,7 +82,7 @@ class _ConfigListBrowserVm extends AppBaseVm {
   _ConfigListBrowserVm() {
     listVmSub = ConfigListDataVmSub();
     listVmSub.onSuffixClick = (itemData) {
-      pushNamed(DictDataAddEditPage.routeName,
+      pushNamed(ConfigAddEditPage.routeName,
           arguments: {ConstantSys.KEY_SYS_CONFIG: itemData}).then((result) {
         if (result != null) {
           //更新列表
@@ -98,7 +98,7 @@ class _ConfigListBrowserVm extends AppBaseVm {
 
   ///添加参数配置事件
   void onAddItem() {
-    pushNamed(DictDataAddEditPage.routeName).then((result) {
+    pushNamed(ConfigAddEditPage.routeName).then((result) {
       if (result != null) {
         listVmSub.sendRefreshEvent();
       }

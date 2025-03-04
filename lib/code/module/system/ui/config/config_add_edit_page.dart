@@ -9,36 +9,36 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_dict_data.dart';
-import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_dict_type.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_config.dart';
+import 'package:ruoyi_plus_flutter/code/feature/component/dict/repository/local/local_dict_lib.dart';
+import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_text_field.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/input_decoration_utils.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/repository/remote/dict_data_api.dart';
 
 import '../../../../../../generated/l10n.dart';
-import '../../../../../base/api/base_dio.dart';
-import '../../../../../base/api/result_entity.dart';
-import '../../../../../base/ui/utils/fast_dialog_utils.dart';
-import '../../../repository/remote/dict_type_api.dart';
+import '../../../../base/api/base_dio.dart';
+import '../../../../base/api/result_entity.dart';
+import '../../../../base/ui/utils/fast_dialog_utils.dart';
+import '../../repository/remote/sys_config_api.dart';
 
-class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
-  static const String routeName = '/system/dict/data/add_edit';
+class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
+  static const String routeName = '/system/config/add_edit';
 
-  final SysDictData? dictData;
-  final String? parentType;
+  final SysConfig? sysConfig;
 
-  DictDataAddEditPage({super.key, this.dictData, this.parentType});
+  ConfigAddEditPage({super.key, this.sysConfig});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => _DictDataAddEditVm(),
+        create: (context) => _ConfigAddEditVm(),
         builder: (context, child) {
           ThemeData themeData = Theme.of(context);
           registerEvent(context);
-          getVm().initVm(dictData: dictData, parentType: parentType);
+          getVm().initVm(sysConfig: sysConfig);
           return PopScope(
               canPop: false,
               onPopInvokedWithResult: (canPop, result) {
@@ -54,9 +54,9 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
               },
               child: Scaffold(
                   appBar: AppBar(
-                    title: Text(dictData == null
-                        ? S.current.sys_label_dict_data_add
-                        : S.current.sys_label_dict_data_edit),
+                    title: Text(sysConfig == null
+                        ? S.current.sys_label_config_add
+                        : S.current.sys_label_config_edit),
                     actions: [
                       IconButton(
                           onPressed: () {
@@ -70,8 +70,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
   }
 
   @override
-  Widget getSuccessWidget(BuildContext context,
-      {Map<String, dynamic>? params}) {
+  Widget getSuccessWidget(BuildContext context, {Map<String, dynamic>? params}) {
     ThemeData themeData = Theme.of(context);
     return KeyboardAvoider(
         autoScroll: true,
@@ -87,30 +86,16 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                   children: [
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
                     MyFormBuilderTextField(
-                        name: "dictType",
-                        initialValue: getVm().sysDictData!.dictType,
-                        readOnly: true,
+                        name: "configName",
+                        initialValue: getVm().sysConfig!.configName,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.sys_label_dict_type),
-                            hintText: S.current.app_label_please_input,
-                            border: const UnderlineInputBorder()),
-                        textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                    MyFormBuilderTextField(
-                        name: "dictLabel",
-                        initialValue: getVm().sysDictData!.dictLabel,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: MyInputDecoration(
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.sys_label_dict_data_label),
+                            label: InputDecUtils.getRequiredLabel(S.current.sys_label_config_name),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
-                          getVm().sysDictData!.dictLabel = value;
+                          getVm().sysConfig!.configName = value;
                           getVm().applyInfoChange();
                         },
                         validator: FormBuilderValidators.compose([
@@ -119,17 +104,16 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                         textInputAction: TextInputAction.next),
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
-                        name: "dictValue",
-                        initialValue: getVm().sysDictData!.dictValue,
+                        name: "configKey",
+                        initialValue: getVm().sysConfig!.configKey,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.sys_label_dict_data_value),
+                            label: InputDecUtils.getRequiredLabel(S.current.sys_label_config_key),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
-                          getVm().sysDictData!.dictValue = value;
+                          getVm().sysConfig!.configKey = value;
                           getVm().applyInfoChange();
                         },
                         validator: FormBuilderValidators.compose([
@@ -138,61 +122,44 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                         textInputAction: TextInputAction.next),
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
-                        name: "cssClass",
-                        initialValue: getVm().sysDictData!.cssClass,
+                        name: "configValue",
+                        initialValue: getVm().sysConfig!.configValue,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelText: S.current.sys_label_dict_data_css_class,
+                            label: InputDecUtils.getRequiredLabel(S.current.sys_label_config_value),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
-                          getVm().sysDictData!.cssClass = value;
-                          getVm().applyInfoChange();
-                        },
-                        textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                    MyFormBuilderTextField(
-                        name: "listClass",
-                        initialValue: getVm().sysDictData!.listClass,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: MyInputDecoration(
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelText: S.current.sys_label_dict_data_list_style,
-                            hintText: S.current.app_label_please_input,
-                            border: const UnderlineInputBorder()),
-                        onChanged: (value) {
-                          getVm().sysDictData!.listClass = value;
-                          getVm().applyInfoChange();
-                        },
-                        textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                    MyFormBuilderTextField(
-                        name: "dictSort",
-                        initialValue: () {
-                          int? orderNum = getVm().sysDictData!.dictSort;
-                          return orderNum.toString();
-                        }.call(),
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: MyInputDecoration(
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.sys_label_dict_data_order_num),
-                            hintText: S.current.app_label_please_input,
-                            border: const UnderlineInputBorder()),
-                        onChanged: (value) {
-                          getVm().sysDictData!.dictSort =
-                              value == null ? null : int.tryParse(value);
+                          getVm().sysConfig!.configValue = value;
                           getVm().applyInfoChange();
                         },
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(),
                         ]),
                         textInputAction: TextInputAction.next),
+                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    FormBuilderRadioGroup<OptionVL<String>>(
+                        name: "configTypeName",
+                        initialValue: DictUiUtils.dict2OptionVL(LocalDictLib.findDictByCodeKey(
+                            LocalDictLib.CODE_SYS_YES_NO, getVm().sysConfig!.configType,
+                            defDictKey: LocalDictLib.KEY_SYS_YES_NO_N)),
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        options: DictUiUtils.dictList2FromOption(
+                            LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_YES_NO]!),
+                        decoration: MyInputDecoration(labelText: S.current.sys_label_config_value),
+                        onChanged: (value) {
+                          getVm().applyInfoChange();
+                          getVm().sysConfig!.configType = value?.value;
+                          getVm().notifyListeners();
+                        },
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(),
+                        ])),
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "remark",
-                        initialValue: getVm().sysDictData!.remark,
+                        initialValue: getVm().sysConfig!.remark,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -203,7 +170,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                         onChanged: (value) {
                           //此处需改成选择的
                           getVm().applyInfoChange();
-                          getVm().sysDictData!.remark = value;
+                          getVm().sysConfig!.remark = value;
                         }),
                   ],
                 ))));
@@ -217,8 +184,8 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
           return AlertDialog(
               title: Text(S.current.label_prompt),
               content: Text(S.current.app_label_data_save_prompt),
-              actions: FastDialogUtils.getCommonlyAction(context,
-                  positiveText: S.current.action_exit, positiveLister: () {
+              actions: FastDialogUtils.getCommonlyAction(context, positiveText: S.current.action_exit,
+                  positiveLister: () {
                 Navigator.pop(context);
                 getVm().abandonEdit();
               }));
@@ -226,34 +193,27 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
   }
 }
 
-class _DictDataAddEditVm extends AppBaseVm {
+class _ConfigAddEditVm extends AppBaseVm {
   final CancelToken cancelToken = CancelToken();
 
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
-  SysDictData? sysDictData;
+  SysConfig? sysConfig;
 
   bool _infoChange = false;
 
-  void initVm({SysDictData? dictData, String? parentType}) {
-    if (dictData == null && parentType == null) {
-      throw Exception(S.current.label_select_parameter_is_missing);
-    }
-    if (this.sysDictData != null) {
+  void initVm({SysConfig? sysConfig}) {
+    if (this.sysConfig != null) {
       return;
     }
-    if (dictData == null) {
-      dictData = SysDictData();
-      dictData.dictType = parentType;
-      dictData.dictSort = 0;
-      this.sysDictData = dictData;
+    if (sysConfig == null) {
+      sysConfig = SysConfig();
+      this.sysConfig = sysConfig;
       setLoadingStatus(LoadingStatus.success);
     } else {
-      DictDataRepository.getInfo(dictData.dictCode!, cancelToken)
-          .asStream()
-          .single
-          .then((intensifyEntity) {
-        this.sysDictData = intensifyEntity.data;
+      SysConfigRepository.getInfo(sysConfig.configId!, cancelToken).asStream().single.then(
+          (intensifyEntity) {
+        this.sysConfig = intensifyEntity.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
@@ -289,12 +249,12 @@ class _DictDataAddEditVm extends AppBaseVm {
       return;
     }
     showLoading(text: S.current.label_save_ing);
-    DictDataRepository.submit(sysDictData!, cancelToken).then((value) {
+    SysConfigRepository.submit(sysConfig!, cancelToken).then((value) {
       AppToastBridge.showToast(msg: S.current.toast_edit_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;
-      finish(result: sysDictData);
+      finish(result: sysConfig);
     }, onError: (error) {
       dismissLoading();
       AppToastBridge.showToast(msg: BaseDio.getError(error).msg);

@@ -10,6 +10,7 @@ part 'sys_config.g.dart';
 @JsonSerializable()
 class SysConfig extends TenantEntity {
   ///参数主键
+  @IntConverter()
   int? configId;
 
   ///参数名称
@@ -26,6 +27,9 @@ class SysConfig extends TenantEntity {
 
   ///备注
   String? remark;
+
+  //本地的
+  String? configTypeName;
 
   SysConfig(
       {this.configId,

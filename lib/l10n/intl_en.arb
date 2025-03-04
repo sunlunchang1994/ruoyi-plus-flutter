@@ -355,6 +355,7 @@
   "sys_label_config_key": "参数键名",
   "sys_label_config_value": "参数键值",
   "sys_label_config_type": "系统内置",
+  "sys_label_config_type_select": "请选择是否系统内置",
   "sys_label_config_add": "新增参数配置",
   "sys_label_config_edit": "修改参数配置",
 

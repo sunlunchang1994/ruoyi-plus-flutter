@@ -324,6 +324,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "sys_label_config_list": MessageLookupByLibrary.simpleMessage("参数列表"),
     "sys_label_config_name": MessageLookupByLibrary.simpleMessage("参数名称"),
     "sys_label_config_type": MessageLookupByLibrary.simpleMessage("系统内置"),
+    "sys_label_config_type_select": MessageLookupByLibrary.simpleMessage(
+      "请选择是否系统内置",
+    ),
     "sys_label_config_value": MessageLookupByLibrary.simpleMessage("参数键值"),
     "sys_label_dict_child_node": MessageLookupByLibrary.simpleMessage("子节点"),
     "sys_label_dict_data_add": MessageLookupByLibrary.simpleMessage("新增字典数据"),
