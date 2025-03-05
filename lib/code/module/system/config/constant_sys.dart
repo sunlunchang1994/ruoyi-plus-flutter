@@ -10,4 +10,6 @@ class ConstantSys {
   static const String KEY_DICT_DATA = "dictData";
   //参数配置
   static const String KEY_SYS_CONFIG = "sysConfig";
+  //系统通知
+  static const String KEY_SYS_NOTICE = "sysNotice";
 }

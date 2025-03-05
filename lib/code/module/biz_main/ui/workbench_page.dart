@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
-import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/repository/remote/user_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/router/router_grid.dart';
 
 import '../../../../generated/l10n.dart';

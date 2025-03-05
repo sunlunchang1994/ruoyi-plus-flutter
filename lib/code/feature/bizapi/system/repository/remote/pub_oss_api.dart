@@ -9,13 +9,13 @@ import '../../../../../base/api/result_entity.dart';
 import '../../../../../base/repository/remote/data_transform_utils.dart';
 import '../../entity/oss_upload_vo.dart';
 
-part 'oss_api.g.dart';
+part 'pub_oss_api.g.dart';
 
 @RestApi()
-abstract class OssApiClient {
-  factory OssApiClient({Dio? dio, String? baseUrl}) {
+abstract class PubOssApiClient {
+  factory PubOssApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _OssApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _PubOssApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///用户登录
@@ -24,8 +24,8 @@ abstract class OssApiClient {
 }
 
 ///OSS存储服务
-class OssServiceRepository {
-  static final OssApiClient _ossApiClient = OssApiClient();
+class PubOssRepository {
+  static final PubOssApiClient _ossApiClient = PubOssApiClient();
 
   ///用户登录
   static Future<IntensifyEntity<OssUploadVo>> upload(String filePath) async {

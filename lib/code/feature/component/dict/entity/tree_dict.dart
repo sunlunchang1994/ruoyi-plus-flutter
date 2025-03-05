@@ -20,6 +20,8 @@ abstract class ITreeDict<T extends ITreeDict<T>> {
   String? get tdParentName => null;
 
   List<T>? get tdChildren => null;
+
+  bool get tdIsDefault => false;
 }
 
 class TreeDict extends ITreeDict<TreeDict> {

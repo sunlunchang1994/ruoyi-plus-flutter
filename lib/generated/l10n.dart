@@ -2670,6 +2670,16 @@ class S {
     );
   }
 
+  /// `搜索字典类型`
+  String get sys_label_dict_type_search_title {
+    return Intl.message(
+      '搜索字典类型',
+      name: 'sys_label_dict_type_search_title',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `字典类型`
   String get sys_label_dict_type {
     return Intl.message(
@@ -2745,6 +2755,16 @@ class S {
     return Intl.message(
       '修改字典类型',
       name: 'sys_label_dict_type_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `搜索字典数据`
+  String get sys_label_dict_data_search_title {
+    return Intl.message(
+      '搜索字典数据',
+      name: 'sys_label_dict_data_search_title',
       desc: '',
       args: [],
     );
@@ -2830,6 +2850,16 @@ class S {
     );
   }
 
+  /// `搜索配置参数`
+  String get sys_label_config_search_title {
+    return Intl.message(
+      '搜索配置参数',
+      name: 'sys_label_config_search_title',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `参数列表`
   String get sys_label_config_list {
     return Intl.message(
@@ -2905,6 +2935,196 @@ class S {
     return Intl.message(
       '修改参数配置',
       name: 'sys_label_config_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请选择公告类型`
+  String get sys_label_notice_type_select {
+    return Intl.message(
+      '请选择公告类型',
+      name: 'sys_label_notice_type_select',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `公告标题`
+  String get sys_label_notice_title {
+    return Intl.message(
+      '公告标题',
+      name: 'sys_label_notice_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `公告内容`
+  String get sys_label_notice_context {
+    return Intl.message(
+      '公告内容',
+      name: 'sys_label_notice_context',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `公告类型`
+  String get sys_label_notice_type {
+    return Intl.message(
+      '公告类型',
+      name: 'sys_label_notice_type',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `公告状态`
+  String get sys_label_notice_status {
+    return Intl.message(
+      '公告状态',
+      name: 'sys_label_notice_status',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `新增公告`
+  String get sys_label_notice_add {
+    return Intl.message(
+      '新增公告',
+      name: 'sys_label_notice_add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `修改公告`
+  String get sys_label_notice_edit {
+    return Intl.message(
+      '修改公告',
+      name: 'sys_label_notice_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `搜索操作日志`
+  String get sys_label_oper_search {
+    return Intl.message(
+      '搜索操作日志',
+      name: 'sys_label_oper_search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `日志编号`
+  String get sys_label_oper_id {
+    return Intl.message('日志编号', name: 'sys_label_oper_id', desc: '', args: []);
+  }
+
+  /// `操作地址`
+  String get sys_label_oper_ip {
+    return Intl.message('操作地址', name: 'sys_label_oper_ip', desc: '', args: []);
+  }
+
+  /// `系统模块`
+  String get sys_label_oper_title {
+    return Intl.message(
+      '系统模块',
+      name: 'sys_label_oper_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `操作人员`
+  String get sys_label_oper_name {
+    return Intl.message(
+      '操作人员',
+      name: 'sys_label_oper_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `类型`
+  String get sys_label_oper_business_type {
+    return Intl.message(
+      '类型',
+      name: 'sys_label_oper_business_type',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `状态`
+  String get sys_label_oper_status {
+    return Intl.message(
+      '状态',
+      name: 'sys_label_oper_status',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `搜索登录日志`
+  String get sys_label_logininfor_search {
+    return Intl.message(
+      '搜索登录日志',
+      name: 'sys_label_logininfor_search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `访问编号`
+  String get sys_label_logininfor_id {
+    return Intl.message(
+      '访问编号',
+      name: 'sys_label_logininfor_id',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `登录地址`
+  String get sys_label_logininfor_ip {
+    return Intl.message(
+      '登录地址',
+      name: 'sys_label_logininfor_ip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `登录地点`
+  String get sys_label_logininfor_location {
+    return Intl.message(
+      '登录地点',
+      name: 'sys_label_logininfor_location',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `操作系统`
+  String get sys_label_logininfor_os {
+    return Intl.message(
+      '操作系统',
+      name: 'sys_label_logininfor_os',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `状态`
+  String get sys_label_logininfor_status {
+    return Intl.message(
+      '状态',
+      name: 'sys_label_logininfor_status',
       desc: '',
       args: [],
     );

@@ -8,13 +8,13 @@ import '../../../../../base/api/base_dio.dart';
 import '../../../../../base/api/result_entity.dart';
 import '../../entity/my_user_info_vo.dart';
 
-part 'user_api.g.dart';
+part 'pub_user_api.g.dart';
 
 @RestApi()
-abstract class UserApiClient {
-  factory UserApiClient({Dio? dio, String? baseUrl}) {
+abstract class PubUserApiClient {
+  factory PubUserApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _UserApiClient(dio,
+    return _PubUserApiClient(dio,
         baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
@@ -24,8 +24,8 @@ abstract class UserApiClient {
 }
 
 ///用户服务
-class UserServiceRepository {
-  static final UserApiClient _userApiClient = UserApiClient();
+class PubUserRepository {
+  static final PubUserApiClient _userApiClient = PubUserApiClient();
 
   static Future<IntensifyEntity<MyUserInfoVo>> getInfo(
       CancelToken cancelToken) {

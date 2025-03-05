@@ -19,7 +19,7 @@ import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_list_page_vd.da
 
 import '../../../../../generated/l10n.dart';
 import '../../../../feature/bizapi/user/entity/user.dart';
-import '../../../../feature/component/dict/repository/local/local_dict_lib.dart';
+import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import '../../../../lib/fast/provider/fast_select.dart';
 import '../../../../lib/fast/vd/refresh/content_empty.dart';

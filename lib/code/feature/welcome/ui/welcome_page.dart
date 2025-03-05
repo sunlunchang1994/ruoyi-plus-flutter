@@ -7,6 +7,7 @@ import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/api_config.dart';
 import 'package:ruoyi_plus_flutter/code/base/startup/task_utils.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/remote/pub_dict_data_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/local/user_config.dart';
 
 import '../../../../generated/l10n.dart';
@@ -18,8 +19,8 @@ import '../../../module/biz_main/ui/main_page.dart';
 import '../../auth/repository/remote/auth_api.dart';
 import '../../auth/ui/login_page.dart';
 import '../../bizapi/system/entity/router_vo.dart';
-import '../../bizapi/system/repository/remote/menu_api.dart';
-import '../../bizapi/user/repository/remote/user_api.dart';
+import '../../bizapi/system/repository/remote/pub_menu_api.dart';
+import '../../bizapi/user/repository/remote/pub_user_api.dart';
 
 class WelcomePage extends AppBaseStatelessWidget<_WelcomeVm> {
   static const String routeName = '/';
@@ -85,10 +86,15 @@ class _WelcomeVm extends AppBaseVm {
         return;
       }
       Timer? autoLoginTimeOutTimer;
-      UserServiceRepository.getInfo(cancelAutoLoginToken)
+      PubUserRepository.getInfo(cancelAutoLoginToken)
           .asStream()
-          .asyncMap(
-              (event) => MenuPublicRepository.getRouters(cancelAutoLoginToken))
+          .asyncMap((event) =>
+              PubMenuPublicRepository.getRouters(cancelAutoLoginToken))
+          .asyncMap((event) =>
+              PubDictDataRepository.cacheDict(cancelAutoLoginToken)
+                  .asStream()
+                  .map((cacheDictEvent) => event)
+                  .single)
           .single
           .then((IntensifyEntity<List<RouterVo>> value) {
         //登录成功了就取消

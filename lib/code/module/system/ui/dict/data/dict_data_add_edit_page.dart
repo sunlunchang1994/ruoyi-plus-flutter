@@ -97,6 +97,9 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                                 S.current.sys_label_dict_type),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(),
+                        ]),
                         textInputAction: TextInputAction.next),
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(

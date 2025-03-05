@@ -5,37 +5,39 @@ import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_dict_type.dart';
+import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/repository/remote/dict_type_api.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/dict/data/dict_data_list_browser_page.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/dict/type/dict_type_add_edit_page.dart';
 
 import '../../../../../../generated/l10n.dart';
 import '../../../../../../res/styles.dart';
-import '../../../../../base/api/base_dio.dart';
-import '../../../../../base/api/result_entity.dart';
-import '../../../../../base/config/constant_base.dart';
-import '../../../../../base/repository/remote/data_transform_utils.dart';
-import '../../../../../lib/fast/provider/fast_select.dart';
-import '../../../../../lib/fast/utils/widget_utils.dart';
-import '../../../../../lib/fast/vd/list_data_component.dart';
-import '../../../../../lib/fast/vd/refresh/content_empty.dart';
+import '../../../../base/api/base_dio.dart';
+import '../../../../base/api/result_entity.dart';
+import '../../../../base/repository/remote/data_transform_utils.dart';
+import '../../../../base/vm/global_vm.dart';
+import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
+import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
+import '../../../../lib/fast/provider/fast_select.dart';
+import '../../../../lib/fast/utils/widget_utils.dart';
+import '../../../../lib/fast/vd/list_data_component.dart';
+import '../../../../lib/fast/vd/refresh/content_empty.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
-import '../../../../../lib/fast/widget/form/form_operate_with_provider.dart';
-import '../../../../../lib/fast/widget/form/input_decoration_utils.dart';
-import '../../../config/constant_sys.dart';
+import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
+import '../../../../lib/fast/widget/form/form_operate_with_provider.dart';
+import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
+import '../../config/constant_sys.dart';
+import '../../entity/sys_notice.dart';
+import '../../repository/remote/sys_notice_api.dart';
+import 'notice_add_edit_page.dart';
 
 ///@author slc
-///字典类型列表
-class DictTypeListPageWidget {
+///通知公告列表
+class NoticeListPageWidget {
   ///数据列表控件
   static Widget getDataListWidget(
       ThemeData themeData,
-      DictTypeListDataVmSub listVmSub,
-      Widget Function(SysDictType currentItem) buildTrailing) {
+      NoticeListDataVmSub listVmSub,
+      Widget Function(SysNotice currentItem) buildTrailing) {
     if (listVmSub.dataList.isEmpty) {
       return const ContentEmptyWrapper();
     }
@@ -45,7 +47,7 @@ class DictTypeListPageWidget {
         padding: EdgeInsets.zero,
         itemCount: listVmSub.dataList.length,
         itemBuilder: (ctx, index) {
-          SysDictType listItem = listVmSub.dataList[index];
+          SysNotice listItem = listVmSub.dataList[index];
           return getDataListItem(
               themeData, listVmSub, buildTrailing, index, listItem);
         },
@@ -57,14 +59,13 @@ class DictTypeListPageWidget {
   static Widget getDataListItem(
     ThemeData themeData,
     ListenerItemClick<dynamic> listenerItemClick,
-    Widget? Function(SysDictType currentItem) buildTrailing,
+    Widget? Function(SysNotice currentItem) buildTrailing,
     int index,
-    SysDictType listItem,
+    SysNotice listItem,
   ) {
     return ListTile(
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
-        title: Text(listItem.dictName!),
-        subtitle: Text(listItem.dictType!),
+        title: Text(listItem.noticeTitle!),
         trailing: buildTrailing.call(listItem),
         visualDensity: VisualDensity.compact,
         //根据card规则实现
@@ -75,8 +76,8 @@ class DictTypeListPageWidget {
   }
 
   ///搜索侧滑栏视图
-  static Widget getSearchEndDrawer<A>(BuildContext context, ThemeData themeData,
-      DictTypeListDataVmSub listVmSub,
+  static Widget getSearchEndDrawer<A>(
+      BuildContext context, ThemeData themeData, NoticeListDataVmSub listVmSub,
       {List<Widget>? Function(String? name)? formItemSlot}) {
     return Container(
         color: themeData.colorScheme.surface,
@@ -86,7 +87,7 @@ class DictTypeListPageWidget {
             left: SlcDimens.appDimens16,
             right: SlcDimens.appDimens16,
             bottom: SlcDimens.appDimens14),
-        child: Selector0<SysDictType>(builder: (context, value, child) {
+        child: Selector0<SysNotice>(builder: (context, value, child) {
           return FormBuilder(
               key: listVmSub.formOperate.formKey,
               child: Column(
@@ -94,15 +95,15 @@ class DictTypeListPageWidget {
                   Container(
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
-                      child: Text(S.current.sys_label_dict_type_search_title,
+                      child: Text(S.current.sys_label_config_search_title,
                           style: SlcStyles.getTitleTextStyle(themeData))),
                   SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
-                      name: "dictName",
-                      initialValue: listVmSub.currentSearch.dictName,
+                      name: "noticeTitle",
+                      initialValue: listVmSub.currentSearch.noticeTitle,
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          labelText: S.current.sys_label_dict_name,
+                          labelText: S.current.sys_label_notice_title,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(
@@ -110,38 +111,40 @@ class DictTypeListPageWidget {
                             return InputDecUtils.autoClearSuffixByInputVal(
                                 value,
                                 formOperate: listVmSub.formOperate,
-                                formFieldName: "dictName");
+                                formFieldName: "noticeTitle");
                           }, selector: (context, vm) {
-                            return listVmSub.currentSearch.dictName;
+                            return listVmSub.currentSearch.noticeTitle;
                           })),
                       onChanged: (value) {
-                        listVmSub.currentSearch.dictName = value;
+                        listVmSub.currentSearch.noticeTitle = value;
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
                   SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                  FormBuilderTextField(
-                      name: "dictType",
-                      initialValue: listVmSub.currentSearch.dictType,
+                  MyFormBuilderSelect(
+                      name: "noticeTypeName",
+                      initialValue: listVmSub.currentSearch.noticeTypeName,
+                      onTap: () {
+                        DictUiUtils.showSelectDialog(
+                            context, LocalDictLib.CODE_SYS_NOTICE_TYPE, (value) {
+                          //选择后设置性别
+                          listVmSub.setSelectNoticeType(value);
+                        }, title: S.current.sys_label_notice_type_select);
+                      },
                       decoration: MyInputDecoration(
-                          contentPadding: EdgeInsets.zero,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          labelText: S.current.sys_label_dict_type,
-                          hintText: S.current.app_label_please_input,
+                          labelText: S.current.sys_label_config_type,
+                          hintText: S.current.app_label_please_choose,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(
                               builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixByInputVal(
-                                value,
-                                formOperate: listVmSub.formOperate,
-                                formFieldName: "dictType");
+                            return InputDecUtils.autoClearSuffixBySelectVal(
+                                value, onPressed: () {
+                              listVmSub.setSelectNoticeType(null);
+                            });
                           }, selector: (context, vm) {
-                            return listVmSub.currentSearch.dictType;
+                            return listVmSub.currentSearch.noticeTypeName;
                           })),
-                      onChanged: (value) {
-                        listVmSub.currentSearch.dictType = value;
-                        listVmSub.notifyListeners();
-                      },
                       textInputAction: TextInputAction.next),
                   SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                   Expanded(child: Builder(builder: (context) {
@@ -175,31 +178,28 @@ class DictTypeListPageWidget {
   }
 }
 
-///字典类型数据VmSub
-class DictTypeListDataVmSub extends FastBaseListDataPageVmSub<SysDictType> {
+///通知公告数据VmSub
+class NoticeListDataVmSub extends FastBaseListDataPageVmSub<SysNotice> {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   final CancelToken cancelToken = CancelToken();
 
-  SysDictType _currentDictTypeSearch = SysDictType();
+  SysNotice _currentSysNoticeSearch = SysNotice();
 
-  SysDictType get currentSearch => _currentDictTypeSearch;
+  SysNotice get currentSearch => _currentSysNoticeSearch;
 
-  void Function(SysDictType data)? onSuffixClick;
+  void Function(SysNotice data)? onSuffixClick;
 
-  DictTypeListDataVmSub() {
+  NoticeListDataVmSub() {
     //设置刷新方法主体
     setLoadData((loadMoreFormat) async {
       try {
-        IntensifyEntity<PageModel<SysDictType>> intensifyEntity =
-            await DictTypeRepository.list(
-                    loadMoreFormat.getOffset(),
-                    loadMoreFormat.getSize(),
-                    _currentDictTypeSearch,
-                    cancelToken)
+        IntensifyEntity<PageModel<SysNotice>> intensifyEntity =
+            await SysNoticeRepository.list(loadMoreFormat.getOffset(),
+                    loadMoreFormat.getSize(), currentSearch, cancelToken)
                 .asStream()
                 .single;
-        DataWrapper<PageModel<SysDictType>> dateWrapper =
+        DataWrapper<PageModel<SysNotice>> dateWrapper =
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
         return dateWrapper;
       } catch (e) {
@@ -210,14 +210,27 @@ class DictTypeListDataVmSub extends FastBaseListDataPageVmSub<SysDictType> {
     });
     //设置点击item事件主体
     setItemClick((index, data) {
-      pushNamed(DictDataListBrowserPage.routeName,
-          arguments: {ConstantBase.KEY_INTENT_TITLE: S.current.sys_label_dict_data_list,ConstantSys.KEY_DICT_TYPE: data.dictType});
+      pushNamed(NoticeAddEditPage.routeName,
+          arguments: {ConstantSys.KEY_SYS_NOTICE: data}).then((result) {
+        if (result != null) {
+          //更新列表
+          sendRefreshEvent();
+        }
+      });
     });
+  }
+
+  void setSelectNoticeType(ITreeDict<dynamic>? data) {
+    _currentSysNoticeSearch.noticeType = data?.tdDictValue;
+    _currentSysNoticeSearch.noticeTypeName = data?.tdDictLabel;
+    formOperate.patchField(
+        "noticeTypeName", _currentSysNoticeSearch.noticeTypeName);
+    notifyListeners();
   }
 
   //重置
   void onResetSearch() {
-    _currentDictTypeSearch = SysDictType();
+    _currentSysNoticeSearch = SysNotice();
     formOperate.clearAll();
     notifyListeners();
   }

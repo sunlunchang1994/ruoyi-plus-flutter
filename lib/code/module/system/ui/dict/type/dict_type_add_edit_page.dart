@@ -124,7 +124,6 @@ class DictTypeAddEditPage extends AppBaseStatelessWidget<_DictTypeAddEditVm> {
                     MyFormBuilderTextField(
                         name: "remark",
                         initialValue: getVm().sysDictType!.remark,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.app_label_remark,

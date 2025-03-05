@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
 
+import '../../../../../generated/l10n.dart';
 import '../entity/tree_dict.dart';
 
 class DictUiUtils {
@@ -10,7 +12,8 @@ class DictUiUtils {
       BuildContext context,
       List<ITreeDict<dynamic>> treeDictList,
       final void Function(ITreeDict<dynamic>) onPressed,
-      {bool autoPopDialog = true}) {
+      {bool autoPopDialog = true,
+      bool resultGrowable = true}) {
     if (treeDictList.isEmpty) {
       return [];
     }
@@ -24,7 +27,21 @@ class DictUiUtils {
           }
         },
       );
-    }).toList(growable: true);
+    }).toList(growable: resultGrowable);
+  }
+
+  ///显示选择对话框
+  static Future<T?> showSelectDialog<T>(BuildContext context,
+      String dictType, final void Function(ITreeDict<dynamic>) onPressed,
+      {String? title,bool autoPopDialog = true, bool resultGrowable = false}) {
+    return showDialog<T?>(
+        context: context,
+        builder: (context) {
+          List<SimpleDialogOption> dialogItem = dictList2DialogItem(
+              context, GlobalVm().dictShareVm.dictMap[dictType]!, onPressed,
+              autoPopDialog: autoPopDialog, resultGrowable: resultGrowable);
+          return SimpleDialog(title: Text(title??S.current.app_label_please_choose), children: dialogItem);
+        });
   }
 
   ///字典列表转表单选项

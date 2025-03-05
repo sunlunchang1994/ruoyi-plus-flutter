@@ -8,16 +8,17 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/env_config.dart';
 import 'package:ruoyi_plus_flutter/code/feature/auth/repository/remote/auth_api.dart';
-import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/remote/menu_api.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/remote/pub_menu_api.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 import '../../../base/api/base_dio.dart';
 import '../../../lib/fast/provider/fast_select.dart';
 import '../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
 import '../../../module/user/repository/local/user_config.dart';
+import '../../bizapi/system/repository/remote/pub_dict_data_api.dart';
 import '../entity/captcha.dart';
 import '../../bizapi/system/entity/router_vo.dart';
 import '../../bizapi/system/entity/tenant_list_vo.dart';
-import '../../bizapi/user/repository/remote/user_api.dart';
+import '../../bizapi/user/repository/remote/pub_user_api.dart';
 import '../../../module/biz_main/ui/main_page.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
@@ -388,8 +389,13 @@ class _LoginModel extends AppBaseVm {
     AuthServiceRepository.login(tenantId, userName!, password!, codeResult!,
             captcha?.uuid, cancelToken)
         .asStream()
-        .asyncMap((event) => UserServiceRepository.getInfo(cancelToken))
-        .asyncMap((event) => MenuPublicRepository.getRouters(cancelToken))
+        .asyncMap((event) => PubUserRepository.getInfo(cancelToken))
+        .asyncMap((event) => PubMenuPublicRepository.getRouters(cancelToken))
+        .asyncMap((event) =>
+            PubDictDataRepository.cacheDict(cancelToken)
+                .asStream()
+                .map((cacheDictEvent) => event)
+                .single)
         .single
         .then((IntensifyEntity<List<RouterVo>> value) {
       dismissLoading();

@@ -333,6 +333,7 @@
   "sys_label_menu_display_status": "显示状态",
   "sys_label_menu_menu_status": "菜单状态",
 
+  "sys_label_dict_type_search_title": "搜索字典类型",
   "sys_label_dict_type": "字典类型",
   "sys_label_dict_name": "字典名称",
   "sys_label_dict_child_node": "子节点",
@@ -341,6 +342,7 @@
   "sys_label_system_dict_remove_hint": "系统字典不允许删除",
   "sys_label_dict_type_add": "新增字典类型",
   "sys_label_dict_type_edit": "修改字典类型",
+  "sys_label_dict_data_search_title": "搜索字典数据",
   "sys_label_dict_data_list": "数据列表",
   "sys_label_dict_data_label": "数据标签",
   "sys_label_dict_data_value": "数据键值",
@@ -350,6 +352,7 @@
   "sys_label_dict_data_add": "新增字典数据",
   "sys_label_dict_data_edit": "修改字典数据",
 
+  "sys_label_config_search_title": "搜索配置参数",
   "sys_label_config_list": "参数列表",
   "sys_label_config_name": "参数名称",
   "sys_label_config_key": "参数键名",
@@ -358,6 +361,30 @@
   "sys_label_config_type_select": "请选择是否系统内置",
   "sys_label_config_add": "新增参数配置",
   "sys_label_config_edit": "修改参数配置",
+
+
+  "sys_label_notice_type_select": "请选择公告类型",
+  "sys_label_notice_title": "公告标题",
+  "sys_label_notice_context": "公告内容",
+  "sys_label_notice_type": "公告类型",
+  "sys_label_notice_status": "公告状态",
+  "sys_label_notice_add": "新增公告",
+  "sys_label_notice_edit": "修改公告",
+
+  "sys_label_oper_search": "搜索操作日志",
+  "sys_label_oper_id": "日志编号",
+  "sys_label_oper_ip": "操作地址",
+  "sys_label_oper_title": "系统模块",
+  "sys_label_oper_name": "操作人员",
+  "sys_label_oper_business_type": "类型",
+  "sys_label_oper_status": "状态",
+
+  "sys_label_logininfor_search": "搜索登录日志",
+  "sys_label_logininfor_id": "访问编号",
+  "sys_label_logininfor_ip": "登录地址",
+  "sys_label_logininfor_location": "登录地点",
+  "sys_label_logininfor_os": "操作系统",
+  "sys_label_logininfor_status": "状态",
 
   "main_divide_text": "-----------------------------",
   "main_label_workbench": "工作台",

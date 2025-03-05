@@ -21,9 +21,10 @@ import '../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
+import '../../../../base/vm/global_vm.dart';
 import '../../../../feature/bizapi/user/entity/role.dart';
 import '../../../../feature/component/dict/entity/tree_dict.dart';
-import '../../../../feature/component/dict/repository/local/local_dict_lib.dart';
+import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import '../../../system/config/constant_sys.dart';
 import '../../../system/ui/menu_tree/menu_tree_select_multiple_page.dart';
@@ -158,17 +159,18 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderRadioGroup<OptionVL<String>>(
                         name: "status",
-                        initialValue: DictUiUtils.dict2OptionVL(
-                            LocalDictLib.findDictByCodeKey(
-                                LocalDictLib.CODE_SYS_NORMAL_DISABLE,
+                        initialValue: DictUiUtils.dict2OptionVL(GlobalVm()
+                            .dictShareVm
+                            .findDict(LocalDictLib.CODE_SYS_NORMAL_DISABLE,
                                 getVm().roleInfo!.status,
                                 defDictKey: LocalDictLib
                                     .KEY_SYS_NORMAL_DISABLE_NORMAL)),
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             labelText: S.current.app_label_status),
-                        options: DictUiUtils.dictList2FromOption(LocalDictLib
-                            .DICT_MAP[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
+                        options: DictUiUtils.dictList2FromOption(globalVm
+                            .dictShareVm
+                            .dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
                         onChanged: (value) {
                           //此处需改成选择的
                           getVm().applyInfoChange();
@@ -246,7 +248,7 @@ class _PostAddEditVm extends AppBaseVm {
     }
     if (role == null) {
       role = Role();
-      ITreeDict<dynamic> treeDict = LocalDictLib.findDictByCodeKey(
+      ITreeDict<dynamic> treeDict = GlobalVm().dictShareVm.findDict(
           LocalDictLib.CODE_SYS_NORMAL_DISABLE,
           LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL)!;
       role.status = treeDict.tdDictValue;

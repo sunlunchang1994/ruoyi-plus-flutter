@@ -117,6 +117,9 @@ dependencies:
   #加解密
   encrypt: ^5.0.3
 
+  #WebView
+  webview_flutter: ^4.10.0
+
 dependency_overrides:
   image_gallery_saver:
     git:

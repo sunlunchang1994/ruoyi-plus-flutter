@@ -8,13 +8,13 @@ import '../../../../../base/api/result_entity.dart';
 import '../../../../../base/repository/remote/data_transform_utils.dart';
 import '../../../../../base/vm/global_vm.dart';
 
-part 'menu_api.g.dart';
+part 'pub_menu_api.g.dart';
 
 @RestApi()
-abstract class MenuApiClient {
-  factory MenuApiClient({Dio? dio, String? baseUrl}) {
+abstract class PubMenuApiClient {
+  factory PubMenuApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _MenuApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _PubMenuApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取路由信息
@@ -23,8 +23,8 @@ abstract class MenuApiClient {
 }
 
 ///菜单服务
-class MenuPublicRepository {
-  static final MenuApiClient _menuApiClient = MenuApiClient();
+class PubMenuPublicRepository {
+  static final PubMenuApiClient _menuApiClient = PubMenuApiClient();
 
   static Future<IntensifyEntity<List<RouterVo>>> getRouters(CancelToken cancelToken) {
     return _menuApiClient

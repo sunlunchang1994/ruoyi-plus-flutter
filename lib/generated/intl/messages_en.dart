@@ -323,6 +323,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "sys_label_config_key": MessageLookupByLibrary.simpleMessage("参数键名"),
     "sys_label_config_list": MessageLookupByLibrary.simpleMessage("参数列表"),
     "sys_label_config_name": MessageLookupByLibrary.simpleMessage("参数名称"),
+    "sys_label_config_search_title": MessageLookupByLibrary.simpleMessage(
+      "搜索配置参数",
+    ),
     "sys_label_config_type": MessageLookupByLibrary.simpleMessage("系统内置"),
     "sys_label_config_type_select": MessageLookupByLibrary.simpleMessage(
       "请选择是否系统内置",
@@ -342,12 +345,28 @@ class MessageLookup extends MessageLookupByLibrary {
     "sys_label_dict_data_order_num": MessageLookupByLibrary.simpleMessage(
       "显示顺序",
     ),
+    "sys_label_dict_data_search_title": MessageLookupByLibrary.simpleMessage(
+      "搜索字典数据",
+    ),
     "sys_label_dict_data_value": MessageLookupByLibrary.simpleMessage("数据键值"),
     "sys_label_dict_details": MessageLookupByLibrary.simpleMessage("字典详情"),
     "sys_label_dict_name": MessageLookupByLibrary.simpleMessage("字典名称"),
     "sys_label_dict_type": MessageLookupByLibrary.simpleMessage("字典类型"),
     "sys_label_dict_type_add": MessageLookupByLibrary.simpleMessage("新增字典类型"),
     "sys_label_dict_type_edit": MessageLookupByLibrary.simpleMessage("修改字典类型"),
+    "sys_label_dict_type_search_title": MessageLookupByLibrary.simpleMessage(
+      "搜索字典类型",
+    ),
+    "sys_label_logininfor_id": MessageLookupByLibrary.simpleMessage("访问编号"),
+    "sys_label_logininfor_ip": MessageLookupByLibrary.simpleMessage("登录地址"),
+    "sys_label_logininfor_location": MessageLookupByLibrary.simpleMessage(
+      "登录地点",
+    ),
+    "sys_label_logininfor_os": MessageLookupByLibrary.simpleMessage("操作系统"),
+    "sys_label_logininfor_search": MessageLookupByLibrary.simpleMessage(
+      "搜索登录日志",
+    ),
+    "sys_label_logininfor_status": MessageLookupByLibrary.simpleMessage("状态"),
     "sys_label_menu": MessageLookupByLibrary.simpleMessage("菜单"),
     "sys_label_menu_add": MessageLookupByLibrary.simpleMessage("新增菜单"),
     "sys_label_menu_cache_status": MessageLookupByLibrary.simpleMessage("是否缓存"),
@@ -376,6 +395,22 @@ class MessageLookup extends MessageLookupByLibrary {
       "路由参数",
     ),
     "sys_label_menu_type": MessageLookupByLibrary.simpleMessage("菜单类型"),
+    "sys_label_notice_add": MessageLookupByLibrary.simpleMessage("新增公告"),
+    "sys_label_notice_context": MessageLookupByLibrary.simpleMessage("公告内容"),
+    "sys_label_notice_edit": MessageLookupByLibrary.simpleMessage("修改公告"),
+    "sys_label_notice_status": MessageLookupByLibrary.simpleMessage("公告状态"),
+    "sys_label_notice_title": MessageLookupByLibrary.simpleMessage("公告标题"),
+    "sys_label_notice_type": MessageLookupByLibrary.simpleMessage("公告类型"),
+    "sys_label_notice_type_select": MessageLookupByLibrary.simpleMessage(
+      "请选择公告类型",
+    ),
+    "sys_label_oper_business_type": MessageLookupByLibrary.simpleMessage("类型"),
+    "sys_label_oper_id": MessageLookupByLibrary.simpleMessage("日志编号"),
+    "sys_label_oper_ip": MessageLookupByLibrary.simpleMessage("操作地址"),
+    "sys_label_oper_name": MessageLookupByLibrary.simpleMessage("操作人员"),
+    "sys_label_oper_search": MessageLookupByLibrary.simpleMessage("搜索操作日志"),
+    "sys_label_oper_status": MessageLookupByLibrary.simpleMessage("状态"),
+    "sys_label_oper_title": MessageLookupByLibrary.simpleMessage("系统模块"),
     "sys_label_system_dict_edit_hint": MessageLookupByLibrary.simpleMessage(
       "系统字典不允许修改",
     ),

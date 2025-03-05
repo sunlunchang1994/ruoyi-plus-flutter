@@ -6,6 +6,28 @@ import 'package:json_annotation/json_annotation.dart';
 ///@author sunlunchang
 ///Json格式化工具，在实体类字段加加上相关类名注解，即可在序列化和反序列化是转换格式
 
+///字符串
+///@StringConverter()
+class StringConverter implements JsonConverter<String?, dynamic> {
+  const StringConverter();
+
+  @override
+  String? fromJson(dynamic json) {
+    if (json == null) {
+      return null;
+    }
+    if (json is String) {
+      return json;
+    }
+    return json?.toString();
+  }
+
+  @override
+  dynamic toJson(String? object) {
+    return object;
+  }
+}
+
 ///@DateTimeConverter
 class DateTimeConverter implements JsonConverter<DateTime, String> {
   const DateTimeConverter();

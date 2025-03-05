@@ -21,8 +21,9 @@ import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/config/constant_base.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
+import '../../../../base/vm/global_vm.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';
-import '../../../../feature/component/dict/repository/local/local_dict_lib.dart';
+import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import '../../../../lib/fast/provider/fast_select.dart';
 import '../../../../lib/fast/utils/widget_utils.dart';
@@ -169,7 +170,14 @@ class PostListPageVd {
                   MyFormBuilderSelect(
                       name: "status",
                       initialValue: listVmSub.searchPost.statusName,
-                      onTap: () => _onSelectUserStatus(context, listVmSub),
+                      onTap: () {
+                        DictUiUtils.showSelectDialog(
+                            context, LocalDictLib.CODE_SYS_NORMAL_DISABLE,
+                            (value) {
+                          //选择后设置性别
+                          listVmSub.setSelectStatus(value);
+                        });
+                      },
                       decoration: MySelectDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.user_label_status,
@@ -215,24 +223,6 @@ class PostListPageVd {
         }, shouldRebuild: (oldVal, newVal) {
           return false;
         }));
-  }
-
-  static void _onSelectUserStatus(
-      BuildContext context, PostPageDataVmSub listVmSub) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          List<SimpleDialogOption> dialogItem = DictUiUtils.dictList2DialogItem(
-              context,
-              LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!,
-              (value) {
-            //选择后设置性别
-            listVmSub.setSelectStatus(value);
-          });
-          return SimpleDialog(
-              title: Text(S.current.user_label_sex_select_prompt),
-              children: dialogItem);
-        });
   }
 }
 

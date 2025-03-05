@@ -75,16 +75,22 @@ class _MenuGridVm extends AppBaseVm {
   }
 
   void onRouterClick(RouterVo router) {
-    if (ConstantSys.VALUE_COMPONENT_LAYOUT == router.component &&
+    if (ConstantSysApi.VALUE_COMPONENT_LAYOUT == router.component &&
         !ObjectUtil.isEmptyList(router.children)) {
       pushNamed(MenuPage.routeName, arguments: {
         ConstantBase.KEY_INTENT_TITLE: router.getRouterTitle(),
         "routerList": router.children,
         "parentPath": _targetPathByRouter(router)
       });
+    } else if (ConstantSysApi.VALUE_COMPONENT_PARENT_VIEW == router.component) {
+      pushNamed(_targetPathByRouter(router), arguments: {
+        ConstantBase.KEY_INTENT_TITLE: router.meta?.title ?? S.current.app_name,
+        ConstantSysApi.INTENT_KEY_ROUTER: router
+      });
     } else {
-      pushNamed(_targetPathByRouter(router),
-          arguments: {ConstantBase.KEY_INTENT_TITLE: router.meta?.title??S.current.app_name});
+      pushNamed(_targetPathByRouter(router), arguments: {
+        ConstantBase.KEY_INTENT_TITLE: router.meta?.title ?? S.current.app_name
+      });
     }
   }
 

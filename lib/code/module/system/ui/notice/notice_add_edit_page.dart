@@ -9,8 +9,6 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
-import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_config.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
@@ -18,28 +16,32 @@ import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_f
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_text_field.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/input_decoration_utils.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_notice.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
-import '../../repository/remote/sys_config_api.dart';
+import '../../../../base/vm/global_vm.dart';
+import '../../../../feature/component/dict/entity/tree_dict.dart';
+import '../../repository/remote/sys_notice_api.dart';
 
-class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
-  static const String routeName = '/system/config/add_edit';
+class NoticeAddEditPage extends AppBaseStatelessWidget<_NoticeAddEditVm> {
+  static const String routeName = '/system/notice/add_edit';
 
-  final SysConfig? sysConfig;
+  final SysNotice? sysNotice;
 
-  ConfigAddEditPage({super.key, this.sysConfig});
+  NoticeAddEditPage({super.key, this.sysNotice});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => _ConfigAddEditVm(),
+        create: (context) => _NoticeAddEditVm(),
         builder: (context, child) {
           ThemeData themeData = Theme.of(context);
           registerEvent(context);
-          getVm().initVm(sysConfig: sysConfig);
+          getVm().initVm(sysNotice: sysNotice);
           return PopScope(
               canPop: false,
               onPopInvokedWithResult: (canPop, result) {
@@ -55,9 +57,9 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
               },
               child: Scaffold(
                   appBar: AppBar(
-                    title: Text(sysConfig == null
-                        ? S.current.sys_label_config_add
-                        : S.current.sys_label_config_edit),
+                    title: Text(sysNotice == null
+                        ? S.current.sys_label_notice_add
+                        : S.current.sys_label_notice_edit),
                     actions: [
                       IconButton(
                           onPressed: () {
@@ -88,17 +90,18 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
                   children: [
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
                     MyFormBuilderTextField(
-                        name: "configName",
-                        initialValue: getVm().sysConfig!.configName,
+                        name: "noticeTitle",
+                        initialValue: getVm().sysNotice!.noticeTitle,
+                        readOnly: true,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
-                                S.current.sys_label_config_name),
+                                S.current.sys_label_notice_title),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
-                          getVm().sysConfig!.configName = value;
+                          getVm().sysNotice!.noticeTitle = value;
                           getVm().applyInfoChange();
                         },
                         validator: FormBuilderValidators.compose([
@@ -106,78 +109,61 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
                         ]),
                         textInputAction: TextInputAction.next),
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                    MyFormBuilderTextField(
-                        name: "configKey",
-                        initialValue: getVm().sysConfig!.configKey,
+                    MyFormBuilderSelect(
+                        name: "noticeTypeName",
+                        initialValue: getVm().sysNotice!.noticeTypeName,
+                        readOnly: true,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: MyInputDecoration(
+                        onTap: () {
+                          /*DictUiUtils.showSelectDialog(
+                              context, LocalDictLib.CODE_NOTICE_TYPE, (value) {
+                            getVm().setSelectNoticeType(value);
+                          }, title: S.current.sys_label_notice_type_select);*/
+                        },
+                        decoration: MySelectDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
-                                S.current.sys_label_config_key),
-                            hintText: S.current.app_label_please_input,
+                                S.current.sys_label_config_type),
+                            hintText: S.current.app_label_please_choose,
                             border: const UnderlineInputBorder()),
-                        onChanged: (value) {
-                          getVm().sysConfig!.configKey = value;
-                          getVm().applyInfoChange();
-                        },
-                        validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(),
-                        ]),
-                        textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                    MyFormBuilderTextField(
-                        name: "configValue",
-                        initialValue: getVm().sysConfig!.configValue,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: MyInputDecoration(
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.sys_label_config_value),
-                            hintText: S.current.app_label_please_input,
-                            border: const UnderlineInputBorder()),
-                        onChanged: (value) {
-                          getVm().sysConfig!.configValue = value;
-                          getVm().applyInfoChange();
-                        },
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(),
                         ]),
                         textInputAction: TextInputAction.next),
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderRadioGroup<OptionVL<String>>(
-                        name: "configTypeName",
+                        name: "status",
+                        enabled: false,
                         initialValue: DictUiUtils.dict2OptionVL(GlobalVm()
                             .dictShareVm
-                            .findDict(LocalDictLib.CODE_SYS_YES_NO,
-                                getVm().sysConfig!.configType,
-                                defDictKey: LocalDictLib.KEY_SYS_YES_NO_N)),
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        options: DictUiUtils.dictList2FromOption(globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_YES_NO]!),
+                            .findDict(LocalDictLib.CODE_SYS_NORMAL_DISABLE,
+                                getVm().sysNotice!.status,
+                                defDictKey: LocalDictLib
+                                    .KEY_SYS_NORMAL_DISABLE_NORMAL)),
+                        options: DictUiUtils.dictList2FromOption(
+                            globalVm.dictShareVm.dictMap[
+                                LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
                         decoration: MyInputDecoration(
-                            labelText: S.current.sys_label_config_value),
+                            labelText: S.current.sys_label_notice_status),
                         onChanged: (value) {
                           getVm().applyInfoChange();
-                          getVm().sysConfig!.configType = value?.value;
+                          getVm().sysNotice!.status = value?.value;
                           getVm().notifyListeners();
-                        },
-                        validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(),
-                        ])),
+                        }),
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                    MyFormBuilderTextField(
-                        name: "remark",
-                        initialValue: getVm().sysConfig!.remark,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                    FormBuilderFieldDecoration<String>(
                         decoration: MyInputDecoration(
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelText: S.current.app_label_remark,
-                            hintText: S.current.app_label_please_input,
-                            border: const UnderlineInputBorder()),
-                        textInputAction: TextInputAction.next,
-                        onChanged: (value) {
-                          //此处需改成选择的
-                          getVm().applyInfoChange();
-                          getVm().sysConfig!.remark = value;
+                            labelText: S.current.sys_label_notice_context),
+                        name: "name",
+                        builder: (field) {
+                          return InputDecorator(
+                              decoration:
+                                  (field as FormBuilderFieldDecorationState)
+                                      .decoration,
+                              child: SizedBox(
+                                  height: 540,
+                                  child: WebViewWidget(
+                                      controller: getVm().controller)));
                         }),
                   ],
                 ))));
@@ -200,29 +186,56 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
   }
 }
 
-class _ConfigAddEditVm extends AppBaseVm {
+class _NoticeAddEditVm extends AppBaseVm {
   final CancelToken cancelToken = CancelToken();
 
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
-  SysConfig? sysConfig;
+  SysNotice? sysNotice;
 
   bool _infoChange = false;
 
-  void initVm({SysConfig? sysConfig}) {
-    if (this.sysConfig != null) {
+  WebViewController controller = WebViewController()
+    ..setJavaScriptMode(JavaScriptMode.unrestricted)
+    ..enableZoom(true)
+    ..setNavigationDelegate(
+      NavigationDelegate(
+        onProgress: (int progress) {
+          // Update loading bar.
+        },
+        onPageStarted: (String url) {},
+        onPageFinished: (String url) {},
+        onHttpError: (HttpResponseError error) {},
+        onWebResourceError: (WebResourceError error) {},
+        /*onNavigationRequest: (NavigationRequest request) {
+          if (request.url.startsWith('https://www.youtube.com/')) {
+            return NavigationDecision.prevent;
+          }
+          return NavigationDecision.navigate;
+        },*/
+      ),
+    );
+
+  void initVm({SysNotice? sysNotice}) {
+    if (this.sysNotice != null) {
       return;
     }
-    if (sysConfig == null) {
-      sysConfig = SysConfig();
-      this.sysConfig = sysConfig;
+    if (sysNotice == null) {
+      sysNotice = SysNotice();
+      this.sysNotice = sysNotice;
+
+      controller.loadHtmlString("");
+
       setLoadingStatus(LoadingStatus.success);
     } else {
-      SysConfigRepository.getInfo(sysConfig.configId!, cancelToken)
+      SysNoticeRepository.getInfo(sysNotice.noticeId!, cancelToken)
           .asStream()
           .single
           .then((intensifyEntity) {
-        this.sysConfig = intensifyEntity.data;
+        this.sysNotice = intensifyEntity.data;
+
+        this.controller.loadHtmlString(this.sysNotice?.noticeContent ?? "");
+
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
@@ -230,6 +243,13 @@ class _ConfigAddEditVm extends AppBaseVm {
         finish();
       });
     }
+  }
+
+  void setSelectNoticeType(ITreeDict<dynamic>? data) {
+    sysNotice?.noticeType = data?.tdDictValue;
+    sysNotice?.noticeTypeName = data?.tdDictLabel;
+    formOperate.patchField("noticeTypeName", sysNotice?.noticeTypeName);
+    notifyListeners();
   }
 
   //应用信息更改
@@ -258,12 +278,12 @@ class _ConfigAddEditVm extends AppBaseVm {
       return;
     }
     showLoading(text: S.current.label_save_ing);
-    SysConfigRepository.submit(sysConfig!, cancelToken).then((value) {
+    SysNoticeRepository.submit(sysNotice!, cancelToken).then((value) {
       AppToastBridge.showToast(msg: S.current.toast_edit_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;
-      finish(result: sysConfig);
+      finish(result: sysNotice);
     }, onError: (error) {
       dismissLoading();
       AppToastBridge.showToast(msg: BaseDio.getError(error).msg);

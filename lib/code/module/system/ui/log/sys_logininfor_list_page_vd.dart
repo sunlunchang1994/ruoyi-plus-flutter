@@ -5,37 +5,33 @@ import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_dict_type.dart';
+import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/repository/remote/dict_type_api.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/dict/data/dict_data_list_browser_page.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/dict/type/dict_type_add_edit_page.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_logininfor.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/ui/log/sys_log_page.dart';
 
 import '../../../../../../generated/l10n.dart';
 import '../../../../../../res/styles.dart';
-import '../../../../../base/api/base_dio.dart';
-import '../../../../../base/api/result_entity.dart';
-import '../../../../../base/config/constant_base.dart';
-import '../../../../../base/repository/remote/data_transform_utils.dart';
-import '../../../../../lib/fast/provider/fast_select.dart';
-import '../../../../../lib/fast/utils/widget_utils.dart';
-import '../../../../../lib/fast/vd/list_data_component.dart';
-import '../../../../../lib/fast/vd/refresh/content_empty.dart';
+import '../../../../base/api/base_dio.dart';
+import '../../../../base/api/result_entity.dart';
+import '../../../../base/repository/remote/data_transform_utils.dart';
+import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
+import '../../../../lib/fast/provider/fast_select.dart';
+import '../../../../lib/fast/utils/widget_utils.dart';
+import '../../../../lib/fast/vd/list_data_component.dart';
+import '../../../../lib/fast/vd/refresh/content_empty.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
-import '../../../../../lib/fast/widget/form/form_operate_with_provider.dart';
-import '../../../../../lib/fast/widget/form/input_decoration_utils.dart';
-import '../../../config/constant_sys.dart';
+import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
+import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
+import '../../repository/remote/sys_logininfor_api.dart';
 
 ///@author slc
-///字典类型列表
-class DictTypeListPageWidget {
+///登录日志列表
+class SysLogininforListPageWidget {
   ///数据列表控件
   static Widget getDataListWidget(
-      ThemeData themeData,
-      DictTypeListDataVmSub listVmSub,
-      Widget Function(SysDictType currentItem) buildTrailing) {
+      ThemeData themeData, LogininforListDataVmSub listVmSub) {
     if (listVmSub.dataList.isEmpty) {
       return const ContentEmptyWrapper();
     }
@@ -45,9 +41,8 @@ class DictTypeListPageWidget {
         padding: EdgeInsets.zero,
         itemCount: listVmSub.dataList.length,
         itemBuilder: (ctx, index) {
-          SysDictType listItem = listVmSub.dataList[index];
-          return getDataListItem(
-              themeData, listVmSub, buildTrailing, index, listItem);
+          SysLogininfor listItem = listVmSub.dataList[index];
+          return getDataListItem(themeData, listVmSub, index, listItem);
         },
         separatorBuilder: (context, index) {
           return AppStyles.getDefDividerByTheme(themeData);
@@ -57,15 +52,13 @@ class DictTypeListPageWidget {
   static Widget getDataListItem(
     ThemeData themeData,
     ListenerItemClick<dynamic> listenerItemClick,
-    Widget? Function(SysDictType currentItem) buildTrailing,
     int index,
-    SysDictType listItem,
+    SysLogininfor listItem,
   ) {
     return ListTile(
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
-        title: Text(listItem.dictName!),
-        subtitle: Text(listItem.dictType!),
-        trailing: buildTrailing.call(listItem),
+        title: Text(listItem.userName!),
+        subtitle: Text("${listItem.ipaddr}·${listItem.loginLocation}"),
         visualDensity: VisualDensity.compact,
         //根据card规则实现
         onTap: () {
@@ -75,9 +68,9 @@ class DictTypeListPageWidget {
   }
 
   ///搜索侧滑栏视图
-  static Widget getSearchEndDrawer<A>(BuildContext context, ThemeData themeData,
-      DictTypeListDataVmSub listVmSub,
+  static Widget getSearchEndDrawer(BuildContext context, ThemeData themeData,
       {List<Widget>? Function(String? name)? formItemSlot}) {
+    LogLoginSearchVm searchVm = Provider.of<LogLoginSearchVm>(context);
     return Container(
         color: themeData.colorScheme.surface,
         width: ScreenUtil.getInstance().screenWidthDpr * 0.73,
@@ -86,62 +79,87 @@ class DictTypeListPageWidget {
             left: SlcDimens.appDimens16,
             right: SlcDimens.appDimens16,
             bottom: SlcDimens.appDimens14),
-        child: Selector0<SysDictType>(builder: (context, value, child) {
+        child: Selector0<SysLogininfor>(builder: (context, value, child) {
           return FormBuilder(
-              key: listVmSub.formOperate.formKey,
+              key: searchVm.formOperate.formKey,
               child: Column(
                 children: [
                   Container(
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
-                      child: Text(S.current.sys_label_dict_type_search_title,
+                      child: Text(S.current.sys_label_logininfor_search,
                           style: SlcStyles.getTitleTextStyle(themeData))),
                   SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
-                      name: "dictName",
-                      initialValue: listVmSub.currentSearch.dictName,
+                      name: "ipaddr",
+                      initialValue: searchVm.currentSearch.ipaddr,
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          labelText: S.current.sys_label_dict_name,
+                          labelText: S.current.sys_label_logininfor_ip,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqNullSelector<A, String?>(
+                          suffixIcon: NqNullSelector<LogLoginSearchVm, String?>(
                               builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(
                                 value,
-                                formOperate: listVmSub.formOperate,
-                                formFieldName: "dictName");
+                                formOperate: searchVm.formOperate,
+                                formFieldName: "ipaddr");
                           }, selector: (context, vm) {
-                            return listVmSub.currentSearch.dictName;
+                            return searchVm.currentSearch.ipaddr;
                           })),
                       onChanged: (value) {
-                        listVmSub.currentSearch.dictName = value;
-                        listVmSub.notifyListeners();
+                        searchVm.currentSearch.ipaddr = value;
+                        searchVm.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
                   SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                  FormBuilderTextField(
-                      name: "dictType",
-                      initialValue: listVmSub.currentSearch.dictType,
+                  MyFormBuilderTextField(
+                      name: "userName",
+                      initialValue: searchVm.currentSearch.userName,
                       decoration: MyInputDecoration(
-                          contentPadding: EdgeInsets.zero,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          labelText: S.current.sys_label_dict_type,
+                          labelText: S.current.sys_label_oper_name,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqNullSelector<A, String?>(
+                          suffixIcon: NqNullSelector<LogLoginSearchVm, String?>(
                               builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(
                                 value,
-                                formOperate: listVmSub.formOperate,
-                                formFieldName: "dictType");
+                                formOperate: searchVm.formOperate,
+                                formFieldName: "userName");
                           }, selector: (context, vm) {
-                            return listVmSub.currentSearch.dictType;
+                            return searchVm.currentSearch.userName;
                           })),
                       onChanged: (value) {
-                        listVmSub.currentSearch.dictType = value;
-                        listVmSub.notifyListeners();
+                        searchVm.currentSearch.userName = value;
+                        searchVm.notifyListeners();
                       },
+                      textInputAction: TextInputAction.next),
+                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  MyFormBuilderSelect(
+                      name: "statusName",
+                      initialValue: searchVm.currentSearch.statusName,
+                      onTap: () {
+                        DictUiUtils.showSelectDialog(
+                            context, LocalDictLib.CODE_SYS_COMMON_STATUS,
+                            (value) {
+                          searchVm.setSelectStatus(value);
+                        });
+                      },
+                      decoration: MySelectDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: S.current.sys_label_logininfor_status,
+                          hintText: S.current.app_label_please_choose,
+                          border: const UnderlineInputBorder(),
+                          suffixIcon: NqNullSelector<LogLoginSearchVm, String?>(
+                              builder: (context, value, child) {
+                            return InputDecUtils.autoClearSuffixBySelectVal(
+                                value, onPressed: () {
+                              searchVm.setSelectStatus(null);
+                            });
+                          }, selector: (context, vm) {
+                            return searchVm.currentSearch.statusName;
+                          })),
                       textInputAction: TextInputAction.next),
                   SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                   Expanded(child: Builder(builder: (context) {
@@ -151,7 +169,7 @@ class DictTypeListPageWidget {
                         Expanded(
                             child: OutlinedButton(
                                 onPressed: () {
-                                  listVmSub.onResetSearch();
+                                  searchVm.onResetSearch();
                                 },
                                 child: Text(S.current.action_reset))),
                         SlcStyles.getSizedBox(width: SlcDimens.appDimens16),
@@ -159,7 +177,7 @@ class DictTypeListPageWidget {
                             child: FilledButton(
                                 onPressed: () {
                                   WidgetUtils.autoHandlerSearchDrawer(context);
-                                  listVmSub.onSearch();
+                                  searchVm.onSearch();
                                 },
                                 child: Text(S.current.action_search)))
                       ],
@@ -168,38 +186,31 @@ class DictTypeListPageWidget {
                 ],
               ));
         }, selector: (context) {
-          return listVmSub.currentSearch;
+          return searchVm.currentSearch;
         }, shouldRebuild: (oldVal, newVal) {
           return false;
         }));
   }
 }
 
-///字典类型数据VmSub
-class DictTypeListDataVmSub extends FastBaseListDataPageVmSub<SysDictType> {
-  final FormOperateWithProvider formOperate = FormOperateWithProvider();
-
+///登录日志数据VmSub
+class LogininforListDataVmSub extends FastBaseListDataPageVmSub<SysLogininfor> {
   final CancelToken cancelToken = CancelToken();
 
-  SysDictType _currentDictTypeSearch = SysDictType();
+  SysLogininfor currentSearch = SysLogininfor();
 
-  SysDictType get currentSearch => _currentDictTypeSearch;
+  void Function(SysLogininfor data)? onSuffixClick;
 
-  void Function(SysDictType data)? onSuffixClick;
-
-  DictTypeListDataVmSub() {
+  LogininforListDataVmSub() {
     //设置刷新方法主体
     setLoadData((loadMoreFormat) async {
       try {
-        IntensifyEntity<PageModel<SysDictType>> intensifyEntity =
-            await DictTypeRepository.list(
-                    loadMoreFormat.getOffset(),
-                    loadMoreFormat.getSize(),
-                    _currentDictTypeSearch,
-                    cancelToken)
+        IntensifyEntity<PageModel<SysLogininfor>> intensifyEntity =
+            await SysLogininforRepository.list(loadMoreFormat.getOffset(),
+                    loadMoreFormat.getSize(), currentSearch, cancelToken)
                 .asStream()
                 .single;
-        DataWrapper<PageModel<SysDictType>> dateWrapper =
+        DataWrapper<PageModel<SysLogininfor>> dateWrapper =
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
         return dateWrapper;
       } catch (e) {
@@ -210,21 +221,13 @@ class DictTypeListDataVmSub extends FastBaseListDataPageVmSub<SysDictType> {
     });
     //设置点击item事件主体
     setItemClick((index, data) {
-      pushNamed(DictDataListBrowserPage.routeName,
-          arguments: {ConstantBase.KEY_INTENT_TITLE: S.current.sys_label_dict_data_list,ConstantSys.KEY_DICT_TYPE: data.dictType});
+      /*pushNamed(NoticeAddEditPage.routeName,
+          arguments: {ConstantSys.KEY_SYS_NOTICE: data}).then((result) {
+        if (result != null) {
+          //更新列表
+          sendRefreshEvent();
+        }
+      });*/
     });
-  }
-
-  //重置
-  void onResetSearch() {
-    _currentDictTypeSearch = SysDictType();
-    formOperate.clearAll();
-    notifyListeners();
-  }
-
-  //搜索
-  void onSearch() {
-    formOperate.formBuilderState?.save();
-    sendRefreshEvent();
   }
 }

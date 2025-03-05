@@ -9,9 +9,9 @@ import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/utils/fast_dialog_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
-import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/repository/remote/user_profile_api.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/repository/remote/pub_user_profile_api.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
-import 'package:ruoyi_plus_flutter/code/feature/component/dict/repository/local/local_dict_lib.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/res/dimens.dart';
@@ -187,7 +187,16 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                     initialValue: getVm().userInfo.sexName,
                                     autovalidateMode:
                                         AutovalidateMode.onUserInteraction,
-                                    onTap: () => _showSelectSexDialog(context),
+                                    onTap: () {
+                                      DictUiUtils.showSelectDialog(context,
+                                          LocalDictLib.CODE_SYS_USER_SEX,
+                                          (value) {
+                                        //选择后设置性别
+                                        getVm().setSelectSex(value);
+                                      },
+                                          title: S.current
+                                              .user_label_sex_select_prompt);
+                                    },
                                     decoration: MySelectDecoration(
                                         floatingLabelBehavior:
                                             FloatingLabelBehavior.always,
@@ -200,22 +209,6 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                             ))))));
       },
     );
-  }
-
-  ///显示选择性别对话框
-  void _showSelectSexDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          List<SimpleDialogOption> dialogItem = DictUiUtils.dictList2DialogItem(
-              context, LocalDictLib.DICT_MAP[LocalDictLib.CODE_SEX]!, (value) {
-            //选择后设置性别
-            getVm().setSelectSex(value);
-          });
-          return SimpleDialog(
-              title: Text(S.current.user_label_sex_select_prompt),
-              children: dialogItem);
-        });
   }
 
   ///显示提示保存对话框
@@ -248,9 +241,10 @@ class _ProfileModel extends AppBaseVm {
 
   void initVm() {
     userInfo = User.copyUser(GlobalVm().userShareVm.userInfoOf.value!.user);
-    userInfo.sexName =
-        LocalDictLib.findDictByCodeKey(LocalDictLib.CODE_SEX, userInfo.sex)
-            ?.tdDictLabel;
+    userInfo.sexName = GlobalVm()
+        .dictShareVm
+        .findDict(LocalDictLib.CODE_SYS_USER_SEX, userInfo.sex)
+        ?.tdDictLabel;
   }
 
   void onSelectAvatarPath(String selectAvatarPath) {
@@ -297,7 +291,7 @@ class _ProfileModel extends AppBaseVm {
     }
     showLoading(text: S.current.label_save_ing);
     if (_selectAvatarPath != null) {
-      UserProfileServiceRepository.avatar(_selectAvatarPath!).then(
+      PubUserProfileRepository.avatar(_selectAvatarPath!).then(
           (IntensifyEntity<AvatarVo> value) {
         //提交成功了设置头像路径为空，防止后续提交信息时重复提交
         _selectAvatarPath = null;
@@ -316,8 +310,8 @@ class _ProfileModel extends AppBaseVm {
 
   void _saveProfile() {
     //上传用户信息
-    UserProfileServiceRepository.updateProfile(userInfo.nickName!,
-            userInfo.email!, userInfo.phonenumber!, userInfo.sex!)
+    PubUserProfileRepository.updateProfile(userInfo.nickName!, userInfo.email!,
+            userInfo.phonenumber!, userInfo.sex!)
         .then((result) {
       //更新成功了把当前的值设置给全局（此处应该重新调用获取用户信息的接口重新赋值，暂时先这么写）
       GlobalVm().userShareVm.userInfoOf.value!.user = userInfo;

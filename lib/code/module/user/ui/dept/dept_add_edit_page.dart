@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/slc_num_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/status_widget.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
@@ -13,7 +14,7 @@ import 'package:ruoyi_plus_flutter/code/base/ui/utils/fast_dialog_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/dept.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/user.dart';
-import 'package:ruoyi_plus_flutter/code/feature/component/dict/repository/local/local_dict_lib.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
@@ -24,6 +25,7 @@ import '../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/ui/app_mvvm.dart';
+import '../../../../base/vm/global_vm.dart';
 import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
 import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
 import '../../config/constant_user.dart';
@@ -169,7 +171,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
         onChanged: (value) {
           getVm().applyInfoChange();
           getVm().deptInfo!.orderNum =
-              value == null ? null : int.tryParse(value);
+              SlcNumUtil.getIntByValueStr(value, defValue: null);
         },
         validator: FormBuilderValidators.compose([
           FormBuilderValidators.required(),
@@ -245,12 +247,12 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
         decoration:
             MyInputDecoration(labelText: S.current.user_label_dept_status),
         name: "status",
-        initialValue: DictUiUtils.dict2OptionVL(LocalDictLib.findDictByCodeKey(
+        initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
             LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().deptInfo!.status,
             defDictKey: LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL)),
         autovalidateMode: AutovalidateMode.onUserInteraction,
         options: DictUiUtils.dictList2FromOption(
-            LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
+            globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
         onChanged: (value) {
           //此处需改成选择的
           getVm().applyInfoChange();

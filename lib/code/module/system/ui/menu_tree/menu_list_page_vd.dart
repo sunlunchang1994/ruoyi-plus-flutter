@@ -9,7 +9,7 @@ import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_vm_sub.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu_tree.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu.dart';
-import 'package:ruoyi_plus_flutter/code/feature/component/dict/repository/local/local_dict_lib.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../../res/styles.dart';

@@ -23,13 +23,14 @@ import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_select_mul
 import '../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
+import '../../../../base/vm/global_vm.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';
 import '../../../../feature/bizapi/user/entity/post.dart';
 import '../../../../feature/bizapi/user/entity/role.dart';
 import '../../../../feature/bizapi/user/entity/user.dart';
 import '../../../../feature/bizapi/user/entity/user_info_vo.dart';
 import '../../../../feature/component/dict/entity/tree_dict.dart';
-import '../../../../feature/component/dict/repository/local/local_dict_lib.dart';
+import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import '../../../../lib/fast/widget/form/form_builder_flow_tag.dart';
 import '../post/post_list_select_multiple_page.dart';
@@ -231,7 +232,11 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                         initialValue: getVm().userInfo!.sexName,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         onTap: () {
-                          _showSelectSexDialog(context);
+                          DictUiUtils.showSelectDialog(
+                              context, LocalDictLib.CODE_SYS_USER_SEX, (value) {
+                            //选择后设置性别
+                            getVm().setSelectSex(value);
+                          }, title: S.current.user_label_sex_select_prompt);
                         },
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -251,17 +256,18 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderRadioGroup<OptionVL<String>>(
                         name: "status",
-                        initialValue: DictUiUtils.dict2OptionVL(
-                            LocalDictLib.findDictByCodeKey(
-                                LocalDictLib.CODE_SYS_NORMAL_DISABLE,
+                        initialValue: DictUiUtils.dict2OptionVL(GlobalVm()
+                            .dictShareVm
+                            .findDict(LocalDictLib.CODE_SYS_NORMAL_DISABLE,
                                 getVm().userInfo!.status,
                                 defDictKey: LocalDictLib
                                     .KEY_SYS_NORMAL_DISABLE_NORMAL)),
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             labelText: S.current.app_label_status),
-                        options: DictUiUtils.dictList2FromOption(LocalDictLib
-                            .DICT_MAP[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
+                        options: DictUiUtils.dictList2FromOption(globalVm
+                            .dictShareVm
+                            .dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
                         onChanged: (value) {
                           //此处需改成选择的
                           getVm().applyInfoChange();
@@ -341,22 +347,6 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                   ],
                 ))));
-  }
-
-  ///显示选择性别对话框
-  void _showSelectSexDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          List<SimpleDialogOption> dialogItem = DictUiUtils.dictList2DialogItem(
-              context, LocalDictLib.DICT_MAP[LocalDictLib.CODE_SEX]!, (value) {
-            //选择后设置性别
-            getVm().setSelectSex(value);
-          });
-          return SimpleDialog(
-              title: Text(S.current.user_label_sex_select_prompt),
-              children: dialogItem);
-        });
   }
 
   void _showSelectRoleDialog(BuildContext context) {

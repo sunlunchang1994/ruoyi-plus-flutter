@@ -26,7 +26,8 @@ import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/config/constant_base.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
-import '../../../../feature/component/dict/repository/local/local_dict_lib.dart';
+import '../../../../base/vm/global_vm.dart';
+import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
@@ -40,7 +41,9 @@ import '../dept/dept_list_select_single_page.dart';
 
 class UserListPageVd {
   ///部门和用户混合列表
-  static Widget getDeptUserListWidget(ThemeData themeData, UserTreeListDataVmSub listVmSub,
+  static Widget getDeptUserListWidget(
+      ThemeData themeData,
+      UserTreeListDataVmSub listVmSub,
       Widget? Function(dynamic currentItem) buildTrailing) {
     if (listVmSub.dataList.isEmpty) {
       return const ContentEmptyWrapper();
@@ -53,11 +56,13 @@ class UserListPageVd {
         itemBuilder: (context, index) {
           dynamic listItem = listVmSub.dataList[index];
           if (listItem is Dept) {
-            return DeptListPageWidget.getDataListItem(themeData, listVmSub, buildTrailing, index, listItem);
+            return DeptListPageWidget.getDataListItem(
+                themeData, listVmSub, buildTrailing, index, listItem);
             return Padding(
                 padding: const EdgeInsets.only(bottom: 1),
                 child: ListTile(
-                    contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
+                    contentPadding:
+                        EdgeInsets.only(left: SlcDimens.appDimens16),
                     title: Text(listItem.deptNameVo()),
                     trailing: buildTrailing.call(listItem),
                     visualDensity: VisualDensity.compact,
@@ -69,14 +74,16 @@ class UserListPageVd {
                     }));
           }
           if (listItem is User) {
-            return getUserListItem(themeData, listVmSub, buildTrailing, index, listItem);
+            return getUserListItem(
+                themeData, listVmSub, buildTrailing, index, listItem);
           }
           throw Exception("listItem 类型错误");
         });
   }
 
   ///用户列表
-  static Widget getUserListWidget(ThemeData themeData, IListDataVmSub<User> listVmSub) {
+  static Widget getUserListWidget(
+      ThemeData themeData, IListDataVmSub<User> listVmSub) {
     assert(listVmSub is ListenerItemClick<dynamic>);
     if (listVmSub.dataList.isEmpty) {
       return const ContentEmptyWrapper();
@@ -88,7 +95,8 @@ class UserListPageVd {
         itemCount: listVmSub.dataList.length,
         itemBuilder: (context, index) {
           User listItem = listVmSub.dataList[index];
-          return UserListPageVd.getUserListItem(themeData, listVmSub as ListenerItemClick<dynamic>,
+          return UserListPageVd.getUserListItem(
+              themeData, listVmSub as ListenerItemClick<dynamic>,
               (currentItem) {
             return null;
           }, index, listItem);
@@ -103,7 +111,8 @@ class UserListPageVd {
         itemCount: listVmSub.dataList.length,
         itemBuilder: (context, index) {
           User listItem = listVmSub.dataList[index];
-          return UserListPageVd.getUserListItem(themeData, listVmSub as ListenerItemClick<dynamic>,
+          return UserListPageVd.getUserListItem(
+              themeData, listVmSub as ListenerItemClick<dynamic>,
               (currentItem) {
             return null;
           }, index, listItem);
@@ -111,27 +120,36 @@ class UserListPageVd {
   }
 
   ///用户item
-  static Widget getUserListItem(ThemeData themeData, ListenerItemClick<dynamic> listenerItemClick,
-      Widget? Function(User currentItem) buildTrailing, int index, User listItem) {
+  static Widget getUserListItem(
+      ThemeData themeData,
+      ListenerItemClick<dynamic> listenerItemClick,
+      Widget? Function(User currentItem) buildTrailing,
+      int index,
+      User listItem) {
     return ListTile(
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
         leading: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(AppDimens.userItemAvatarRadius)),
+            borderRadius: BorderRadius.all(
+                Radius.circular(AppDimens.userItemAvatarRadius)),
             child: CachedNetworkImage(
                 width: AppDimens.userItemAvatarSize,
                 height: AppDimens.userItemAvatarSize,
                 imageUrl: listItem.avatar ?? "",
                 placeholder: (context, url) {
-                  return Image.asset("assets/images/slc/app_ic_def_user_head.png",
-                      width: AppDimens.userItemAvatarSize, height: AppDimens.userItemAvatarSize);
+                  return Image.asset(
+                      "assets/images/slc/app_ic_def_user_head.png",
+                      width: AppDimens.userItemAvatarSize,
+                      height: AppDimens.userItemAvatarSize);
                 },
                 errorWidget: (
                   context,
                   error,
                   stackTrace,
                 ) {
-                  return Image.asset("assets/images/slc/app_ic_def_user_head.png",
-                      width: AppDimens.userItemAvatarSize, height: AppDimens.userItemAvatarSize);
+                  return Image.asset(
+                      "assets/images/slc/app_ic_def_user_head.png",
+                      width: AppDimens.userItemAvatarSize,
+                      height: AppDimens.userItemAvatarSize);
                 })),
         title: Text(listItem.nickName ?? "-"),
         subtitle: Text(listItem.deptName ?? "-"),
@@ -175,13 +193,16 @@ class UserListPageVd {
                             initialValue: listVmSub.searchUser.deptName,
                             onTap: () => listVmSub.onSelectDept(),
                             decoration: MySelectDecoration(
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
                               labelText: S.current.user_label_user_owner_dept,
                               hintText: S.current.app_label_please_choose,
                               border: const UnderlineInputBorder(),
-                              suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
+                              suffixIcon: NqNullSelector<A, String?>(
+                                  builder: (context, value, child) {
                                 return InputDecUtils.autoClearSuffixBySelectVal(
-                                    listVmSub.searchUser.deptName, onPressed: () {
+                                    listVmSub.searchUser.deptName,
+                                    onPressed: () {
                                   listVmSub.setSelectDept(null);
                                 });
                               }, selector: (context, vm) {
@@ -198,13 +219,17 @@ class UserListPageVd {
                             initialValue: listVmSub.searchUser.userName,
                             decoration: MyInputDecoration(
                                 contentPadding: EdgeInsets.zero,
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 labelText: S.current.user_label_user_name,
                                 hintText: S.current.app_label_please_input,
                                 border: const UnderlineInputBorder(),
-                                suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
-                                  return InputDecUtils.autoClearSuffixByInputVal(value,
-                                      formOperate: listVmSub.formOperate, formFieldName: "userName");
+                                suffixIcon: NqNullSelector<A, String?>(
+                                    builder: (context, value, child) {
+                                  return InputDecUtils
+                                      .autoClearSuffixByInputVal(value,
+                                          formOperate: listVmSub.formOperate,
+                                          formFieldName: "userName");
                                 }, selector: (context, vm) {
                                   return listVmSub.searchUser.userName;
                                 })),
@@ -222,13 +247,17 @@ class UserListPageVd {
                             initialValue: listVmSub.searchUser.phonenumber,
                             decoration: MyInputDecoration(
                                 contentPadding: EdgeInsets.zero,
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 labelText: S.current.user_label_phone_number,
                                 hintText: S.current.app_label_please_input,
                                 border: const UnderlineInputBorder(),
-                                suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
-                                  return InputDecUtils.autoClearSuffixByInputVal(value,
-                                      formOperate: listVmSub.formOperate, formFieldName: "phonenumber");
+                                suffixIcon: NqNullSelector<A, String?>(
+                                    builder: (context, value, child) {
+                                  return InputDecUtils
+                                      .autoClearSuffixByInputVal(value,
+                                          formOperate: listVmSub.formOperate,
+                                          formFieldName: "phonenumber");
                                 }, selector: (context, vm) {
                                   return listVmSub.searchUser.phonenumber;
                                 })),
@@ -244,14 +273,23 @@ class UserListPageVd {
                         MyFormBuilderSelect(
                             name: "status",
                             initialValue: listVmSub.searchUser.statusName,
-                            onTap: () => _onSelectUserStatus(context, listVmSub),
+                            onTap: () {
+                              DictUiUtils.showSelectDialog(
+                                  context, LocalDictLib.CODE_SYS_NORMAL_DISABLE,
+                                  (value) {
+                                listVmSub.setSelectStatus(value);
+                              });
+                            },
                             decoration: MySelectDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 labelText: S.current.user_label_status,
                                 hintText: S.current.app_label_please_choose,
                                 border: const UnderlineInputBorder(),
-                                suffixIcon: NqSelector<A, String?>(builder: (context, value, child) {
-                                  return InputDecUtils.autoClearSuffixBySelectVal(
+                                suffixIcon: NqSelector<A, String?>(
+                                    builder: (context, value, child) {
+                                  return InputDecUtils
+                                      .autoClearSuffixBySelectVal(
                                     value,
                                     onPressed: () {
                                       listVmSub.setSelectStatus(null);
@@ -291,26 +329,14 @@ class UserListPageVd {
           return false;
         }));
   }
-
-  static void _onSelectUserStatus(BuildContext context, UserPageDataVmSub listVmSub) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          List<SimpleDialogOption> dialogItem = DictUiUtils.dictList2DialogItem(
-              context, LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!, (value) {
-            //选择后设置性别
-            listVmSub.setSelectStatus(value);
-          });
-          return SimpleDialog(title: Text(S.current.user_label_sex_select_prompt), children: dialogItem);
-        });
-  }
 }
 
 ///用户树数据形势的VmSub
 class UserTreeListDataVmSub extends TreeFastBaseListDataVmSub<dynamic> {
   late FastVm fastVm;
 
-  final Dept _currentDeptSearch = Dept(parentId: ConstantBase.VALUE_PARENT_ID_DEF);
+  final Dept _currentDeptSearch =
+      Dept(parentId: ConstantBase.VALUE_PARENT_ID_DEF);
 
   final User _searchUser = User();
 
@@ -325,7 +351,8 @@ class UserTreeListDataVmSub extends TreeFastBaseListDataVmSub<dynamic> {
     setRefresh(() async {
       try {
         //此处的parentId就是创建cancelToken所需的treeId;
-        CancelToken cancelToken = createCancelTokenByTreeId(_currentDeptSearch.parentId);
+        CancelToken cancelToken =
+            createCancelTokenByTreeId(_currentDeptSearch.parentId);
         //获取部门列表
         IntensifyEntity<List<Dept>> deptIntensifyEntity =
             await DeptRepository.list(_currentDeptSearch, cancelToken);
@@ -334,25 +361,32 @@ class UserTreeListDataVmSub extends TreeFastBaseListDataVmSub<dynamic> {
         IntensifyEntity<List<User>>? userIntensifyEntity;
         if (deptIntensifyEntity.isSuccess()) {
           //获取该部门下的用户列表
-          userIntensifyEntity = await UserServiceRepository.queryNoPage(_searchUser, cancelToken);
+          userIntensifyEntity =
+              await UserServiceRepository.queryNoPage(_searchUser, cancelToken);
         }
         //创建动态返回类型并添加部门信息
-        IntensifyEntity<List<dynamic>> intensifyEntity = IntensifyEntity<List<dynamic>>(
-            createSucceed: deptIntensifyEntity.isSuccess()
-                ? () => ResultEntity.createSucceedEntity()
-                : null,
-            data: List.of(deptIntensifyEntity.data ?? List.empty(growable: true), growable: true));
-        List<dynamic> allList = intensifyEntity.data ?? List.empty(growable: true);
+        IntensifyEntity<List<dynamic>> intensifyEntity =
+            IntensifyEntity<List<dynamic>>(
+                createSucceed: deptIntensifyEntity.isSuccess()
+                    ? () => ResultEntity.createSucceedEntity()
+                    : null,
+                data: List.of(
+                    deptIntensifyEntity.data ?? List.empty(growable: true),
+                    growable: true));
+        List<dynamic> allList =
+            intensifyEntity.data ?? List.empty(growable: true);
         //合并用户
         if (userIntensifyEntity?.data != null) {
           allList.addAll(userIntensifyEntity!.data!);
         }
         //返回数据结构
-        DataWrapper<List<dynamic>> dateWrapper = DataTransformUtils.entity2LDWrapper(intensifyEntity);
+        DataWrapper<List<dynamic>> dateWrapper =
+            DataTransformUtils.entity2LDWrapper(intensifyEntity);
         return dateWrapper;
       } catch (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
-        return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
+        return DataWrapper.createFailed(
+            code: resultEntity.code, msg: resultEntity.msg);
       }
     });
     //设置点击item事件主体
@@ -415,21 +449,25 @@ class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> {
   UserPageDataVmSub() {
     setLoadData((loadingDialogVmSub) async {
       try {
-        IntensifyEntity<PageModel<User>> result = await UserServiceRepository.list(
-            getLoadMoreFormat().getOffset(), getLoadMoreFormat().getSize(), searchUser, cancelToken);
+        IntensifyEntity<PageModel<User>> result =
+            await UserServiceRepository.list(getLoadMoreFormat().getOffset(),
+                getLoadMoreFormat().getSize(), searchUser, cancelToken);
         //返回数据结构
-        DataWrapper<PageModel<User>> dateWrapper = DataTransformUtils.entity2LDWrapper(result);
+        DataWrapper<PageModel<User>> dateWrapper =
+            DataTransformUtils.entity2LDWrapper(result);
         return dateWrapper;
       } catch (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
-        return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
+        return DataWrapper.createFailed(
+            code: resultEntity.code, msg: resultEntity.msg);
       }
     });
   }
 
   void onSelectDept() {
-    pushNamed(DeptListSingleSelectPage.routeName,
-        arguments: {ConstantBase.KEY_INTENT_TITLE: S.current.user_label_dept_select}).then((result) {
+    pushNamed(DeptListSingleSelectPage.routeName, arguments: {
+      ConstantBase.KEY_INTENT_TITLE: S.current.user_label_dept_select
+    }).then((result) {
       if (result != null) {
         setSelectDept(result);
       }

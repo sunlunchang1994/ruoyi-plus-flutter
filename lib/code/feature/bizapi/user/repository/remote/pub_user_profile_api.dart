@@ -10,13 +10,13 @@ import '../../../../../base/api/base_dio.dart';
 import '../../../../../base/api/result_entity.dart';
 import '../../entity/avatar_vo.dart';
 
-part 'user_profile_api.g.dart';
+part 'pub_user_profile_api.g.dart';
 
 @RestApi()
-abstract class UserProfileApiClient {
-  factory UserProfileApiClient({Dio? dio, String? baseUrl}) {
+abstract class PubUserProfileApiClient {
+  factory PubUserProfileApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _UserProfileApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _PubUserProfileApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取个人信息
@@ -33,8 +33,8 @@ abstract class UserProfileApiClient {
 }
 
 ///用户服务
-class UserProfileServiceRepository {
-  static final UserProfileApiClient _userProfileApiClient = UserProfileApiClient();
+class PubUserProfileRepository {
+  static final PubUserProfileApiClient _userProfileApiClient = PubUserProfileApiClient();
 
   static Future<IntensifyEntity<ProfileVo>> profile() {
     return _userProfileApiClient

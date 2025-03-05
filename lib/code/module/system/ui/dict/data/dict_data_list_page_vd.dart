@@ -95,7 +95,7 @@ class DictTypeListPageWidget {
                   Container(
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
-                      child: Text(S.current.user_label_search_role,
+                      child: Text(S.current.sys_label_dict_data_search_title,
                           style: SlcStyles.getTitleTextStyle(themeData))),
                   SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(

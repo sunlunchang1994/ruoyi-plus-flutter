@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/utils/fast_dialog_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
-import 'package:ruoyi_plus_flutter/code/feature/component/dict/repository/local/local_dict_lib.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
@@ -21,6 +21,7 @@ import '../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/ui/app_mvvm.dart';
+import '../../../../base/vm/global_vm.dart';
 import '../../../../lib/fast/provider/fast_select.dart';
 import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
 import '../../config/constant_sys.dart';
@@ -125,15 +126,14 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
           textInputAction: TextInputAction.next),
       SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderRadioGroup<OptionVL<String>>(
-        decoration:
-            MyInputDecoration(labelText: S.current.sys_label_menu_type),
+        decoration: MyInputDecoration(labelText: S.current.sys_label_menu_type),
         name: "menuType",
-        initialValue: DictUiUtils.dict2OptionVL(LocalDictLib.findDictByCodeKey(
+        initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
             LocalDictLib.CODE_MENU_TYPE, getVm().sysMenuInfo!.menuType,
             defDictKey: LocalDictLib.KEY_MENU_TYPE_MULU)),
         autovalidateMode: AutovalidateMode.onUserInteraction,
         options: DictUiUtils.dictList2FromOption(
-            LocalDictLib.DICT_MAP[LocalDictLib.CODE_MENU_TYPE]!),
+            globalVm.dictShareVm.dictMap[LocalDictLib.CODE_MENU_TYPE]!),
         onChanged: (value) {
           //此处需改成选择的
           getVm().applyInfoChange();
@@ -149,8 +149,8 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
           decoration: MyInputDecoration(
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
-              label: InputDecUtils.getRequiredLabel(
-                  S.current.sys_label_menu_name),
+              label:
+                  InputDecUtils.getRequiredLabel(S.current.sys_label_menu_name),
               hintText: S.current.app_label_please_input,
               border: const UnderlineInputBorder()),
           onChanged: (value) {
@@ -196,14 +196,14 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
             FormBuilderRadioGroup<OptionVL<String>>(
               name: "isFrame",
-              initialValue: DictUiUtils.dict2OptionVL(
-                  LocalDictLib.findDictByCodeKey(
-                      LocalDictLib.CODE_SYS_YES_NO_INT,
+              initialValue: DictUiUtils.dict2OptionVL(GlobalVm()
+                  .dictShareVm
+                  .findDict(LocalDictLib.CODE_SYS_YES_NO_INT,
                       getVm().sysMenuInfo!.isFrame,
                       defDictKey: LocalDictLib.KEY_SYS_YES_NO_INT_N)),
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              options: DictUiUtils.dictList2FromOption(
-                  LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_YES_NO_INT]!),
+              options: DictUiUtils.dictList2FromOption(globalVm
+                  .dictShareVm.dictMap[LocalDictLib.CODE_SYS_YES_NO_INT]!),
               decoration: MyInputDecoration(
                 labelText: S.current.sys_label_menu_is_frame,
               ),
@@ -312,14 +312,14 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
             FormBuilderRadioGroup<OptionVL<String>>(
               name: "isCache",
-              initialValue: DictUiUtils.dict2OptionVL(
-                  LocalDictLib.findDictByCodeKey(
-                      LocalDictLib.CODE_SYS_YES_NO_INT,
+              initialValue: DictUiUtils.dict2OptionVL(GlobalVm()
+                  .dictShareVm
+                  .findDict(LocalDictLib.CODE_SYS_YES_NO_INT,
                       getVm().sysMenuInfo!.isCache,
                       defDictKey: LocalDictLib.KEY_SYS_YES_NO_Y)),
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              options: DictUiUtils.dictList2FromOption(
-                  LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_YES_NO_INT]!),
+              options: DictUiUtils.dictList2FromOption(globalVm
+                  .dictShareVm.dictMap[LocalDictLib.CODE_SYS_YES_NO_INT]!),
               decoration: MyInputDecoration(
                 labelText: S.current.sys_label_menu_cache_status,
               ),
@@ -337,14 +337,14 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
             FormBuilderRadioGroup<OptionVL<String>>(
               name: "visible",
-              initialValue: DictUiUtils.dict2OptionVL(
-                  LocalDictLib.findDictByCodeKey(
-                      LocalDictLib.CODE_SYS_SHOW_HIDE,
+              initialValue: DictUiUtils.dict2OptionVL(GlobalVm()
+                  .dictShareVm
+                  .findDict(LocalDictLib.CODE_SYS_SHOW_HIDE,
                       getVm().sysMenuInfo!.visible,
                       defDictKey: LocalDictLib.KEY_SYS_SHOW_HIDE_S)),
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              options: DictUiUtils.dictList2FromOption(
-                  LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_SHOW_HIDE]!),
+              options: DictUiUtils.dictList2FromOption(globalVm
+                  .dictShareVm.dictMap[LocalDictLib.CODE_SYS_SHOW_HIDE]!),
               decoration: MyInputDecoration(
                 labelText: S.current.sys_label_menu_display_status,
               ),
@@ -362,17 +362,18 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
         decoration:
             MyInputDecoration(labelText: S.current.user_label_dept_status),
         name: "status",
-        initialValue: DictUiUtils.dict2OptionVL(LocalDictLib.findDictByCodeKey(
+        initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
             LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().sysMenuInfo!.status)),
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        options: DictUiUtils.dictList2FromOption(
-            LocalDictLib.DICT_MAP[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
+        options: DictUiUtils.dictList2FromOption(globalVm
+            .dictShareVm.dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
         onChanged: (value) {
           //此处需改成选择的
           getVm().applyInfoChange();
           getVm().sysMenuInfo!.status = value?.value;
         },
-        validator: FormBuilderValidators.compose([FormBuilderValidators.required()]),
+        validator:
+            FormBuilderValidators.compose([FormBuilderValidators.required()]),
       )
     });
     return formItemArray;
