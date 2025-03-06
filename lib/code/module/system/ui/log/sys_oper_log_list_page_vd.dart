@@ -1,13 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/log/sys_log_page.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/ui/log/sys_oper_log_details_page.dart';
 
 import '../../../../../../generated/l10n.dart';
 import '../../../../../../res/styles.dart';
@@ -23,6 +26,7 @@ import 'package:dio/dio.dart';
 
 import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
 import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
+import '../../config/constant_sys.dart';
 import '../../entity/sys_oper_log.dart';
 import '../../repository/remote/sys_oper_log_api.dart';
 
@@ -50,15 +54,59 @@ class SysOperLogListPageWidget {
   }
 
   static Widget getDataListItem(
-    ThemeData themeData,
-    ListenerItemClick<dynamic> listenerItemClick,
-    int index,
-    SysOperLog listItem,
-  ) {
+      ThemeData themeData,
+      ListenerItemClick<dynamic> listenerItemClick,
+      int index,
+      SysOperLog listItem) {
+    Color statusColor = DictUiUtils.getDictStyle(
+        LocalDictLib.CODE_SYS_COMMON_STATUS, listItem.status);
     return ListTile(
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
-        title: Text("${listItem.operId.toString()}·${listItem.title!}"),
-        subtitle: Text("${listItem.deptName}·${listItem.operName}"),
+        //title: Text("${listItem.operId.toString()}·${listItem.title!}"),
+        title: Row(
+          children: [
+            RichText(
+                text: TextSpan(
+                    style: AppStyles.getItemTitleStyleByThemeData(themeData),
+                    children: [
+                  TextSpan(text: listItem.title!),
+                  TextSpan(text: "·"),
+                  TextSpan(
+                      text: listItem.businessTypeName,
+                      style: TextStyle(
+                          color: DictUiUtils.getDictStyle(
+                              LocalDictLib.CODE_SYS_OPER_TYPE,
+                              listItem.businessType?.toString())))
+                ])),
+            Spacer(),
+            Container(
+                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+                decoration: BoxDecoration(
+                    border: Border.all(color: statusColor, width: 1),
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.all(Radius.circular(4))),
+                child: Text(
+                  listItem.statusName ?? "-",
+                  style: TextStyle(
+                    height: 1,
+                    color: statusColor,
+                    fontSize: 12,
+                  ),
+                )),
+            SlcStyles.getSizedBox(width: SlcDimens.appDimens16)
+          ],
+        ),
+        subtitle: Padding(
+            padding: EdgeInsets.only(right: SlcDimens.appDimens16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                    "${listItem.operName} / ${listItem.deptName} / ${listItem.operIp} / ${listItem.operLocation} ",
+                    softWrap: true),
+                Text(listItem.operTime ?? "--"),
+              ],
+            )),
         visualDensity: VisualDensity.compact,
         //根据card规则实现
         onTap: () {
@@ -190,9 +238,9 @@ class SysOperLogListPageWidget {
                       onTap: () {
                         DictUiUtils.showSelectDialog(
                             context, LocalDictLib.CODE_SYS_COMMON_STATUS,
-                                (value) {
-                              searchVm.setSelectStatus(value);
-                            });
+                            (value) {
+                          searchVm.setSelectStatus(value);
+                        });
                       },
                       decoration: MySelectDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -201,11 +249,11 @@ class SysOperLogListPageWidget {
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<LogLoginSearchVm, String?>(
                               builder: (context, value, child) {
-                                return InputDecUtils.autoClearSuffixBySelectVal(
-                                    value, onPressed: () {
-                                  searchVm.setSelectStatus(null);
-                                });
-                              }, selector: (context, vm) {
+                            return InputDecUtils.autoClearSuffixBySelectVal(
+                                value, onPressed: () {
+                              searchVm.setSelectStatus(null);
+                            });
+                          }, selector: (context, vm) {
                             return searchVm.currentSearch.statusName;
                           })),
                       textInputAction: TextInputAction.next),
@@ -269,13 +317,8 @@ class SysOperLogListDataVmSub extends FastBaseListDataPageVmSub<SysOperLog> {
     });
     //设置点击item事件主体
     setItemClick((index, data) {
-      /*pushNamed(NoticeAddEditPage.routeName,
-          arguments: {ConstantSys.KEY_SYS_NOTICE: data}).then((result) {
-        if (result != null) {
-          //更新列表
-          sendRefreshEvent();
-        }
-      });*/
+      pushNamed(SysOperLogDetailsPage.routeName,
+          arguments: {ConstantSys.KEY_SYS_LOG: data});
     });
   }
 }

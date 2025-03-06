@@ -3010,6 +3010,16 @@ class S {
     );
   }
 
+  /// `日志详情`
+  String get sys_label_log_details {
+    return Intl.message(
+      '日志详情',
+      name: 'sys_label_log_details',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `搜索操作日志`
   String get sys_label_oper_search {
     return Intl.message(
@@ -3060,11 +3070,91 @@ class S {
     );
   }
 
-  /// `状态`
+  /// `操作状态`
   String get sys_label_oper_status {
     return Intl.message(
-      '状态',
+      '操作状态',
       name: 'sys_label_oper_status',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `登录信息`
+  String get sys_label_oper_login_info {
+    return Intl.message(
+      '登录信息',
+      name: 'sys_label_oper_login_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请求参数`
+  String get sys_label_oper_request_params {
+    return Intl.message(
+      '请求参数',
+      name: 'sys_label_oper_request_params',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `操作模块`
+  String get sys_label_oper_module {
+    return Intl.message(
+      '操作模块',
+      name: 'sys_label_oper_module',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `操作方法`
+  String get sys_label_oper_method {
+    return Intl.message(
+      '操作方法',
+      name: 'sys_label_oper_method',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请求信息`
+  String get sys_label_oper_request_info {
+    return Intl.message(
+      '请求信息',
+      name: 'sys_label_oper_request_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `返回参数`
+  String get sys_label_oper_result {
+    return Intl.message(
+      '返回参数',
+      name: 'sys_label_oper_result',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `消耗时间`
+  String get sys_label_oper_cost_time {
+    return Intl.message(
+      '消耗时间',
+      name: 'sys_label_oper_cost_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `操作时间`
+  String get sys_label_oper_time {
+    return Intl.message(
+      '操作时间',
+      name: 'sys_label_oper_time',
       desc: '',
       args: [],
     );

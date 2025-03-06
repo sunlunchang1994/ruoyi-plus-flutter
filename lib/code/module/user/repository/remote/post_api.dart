@@ -2,6 +2,7 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:ruoyi_plus_flutter/code/base/api/request_utils.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/post.dart';
 
 import '../../../../base/api/api_config.dart';
@@ -48,24 +49,8 @@ class PostRepository {
   ///获取岗位列表
   static Future<IntensifyEntity<PageModel<Post>>> list(
       int offset, int size, Post? post, CancelToken cancelToken) {
-    Map<String, dynamic> queryParams = Map.identity();
-    queryParams["pageNum"] = offset;
-    queryParams["pageSize"] = size;
-    if (post?.postId != null) {
-      queryParams["postId"] = post!.postId;
-    }
-    if (TextUtil.isNotEmpty(post?.postName)) {
-      queryParams["postName"] = post!.postName;
-    }
-    if (TextUtil.isNotEmpty(post?.postCode)) {
-      queryParams["postCode"] = post!.postCode;
-    }
-    if (post?.deptId != null) {
-      queryParams["deptId"] = post!.deptId;
-    }
-    if (TextUtil.isNotEmpty(post?.status)) {
-      queryParams["status"] = post!.status;
-    }
+    Map<String, dynamic> queryParams =
+        RequestUtils.toPageQuery(post?.toJson(), offset, size);
     queryParams["orderByColumn"] = "deptId,postId";
     queryParams["isAsc"] = "asc";
     return _deptApiClient

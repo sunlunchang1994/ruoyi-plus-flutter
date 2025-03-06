@@ -55,10 +55,41 @@ class SysLogininforListPageWidget {
     int index,
     SysLogininfor listItem,
   ) {
+    Color statusColor = DictUiUtils.getDictStyle(LocalDictLib.CODE_SYS_COMMON_STATUS, listItem.status);
     return ListTile(
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
-        title: Text(listItem.userName!),
-        subtitle: Text("${listItem.ipaddr}·${listItem.loginLocation}"),
+        title: Row(
+          children: [
+            Text(listItem.userName!),
+            Spacer(),
+            Container(
+                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+                decoration: BoxDecoration(
+                    border: Border.all(color: statusColor, width: 1),
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.all(Radius.circular(4))),
+                child: Text(
+                  listItem.statusName ?? "-",
+                  style: TextStyle(
+                    height: 1,
+                    color: statusColor,
+                    fontSize: 12,
+                  ),
+                )),
+            SlcStyles.getSizedBox(width: SlcDimens.appDimens16)
+          ],
+        ),
+        subtitle: Padding(
+            padding: EdgeInsets.only(right: SlcDimens.appDimens16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                    "${listItem.ipaddr} / ${listItem.loginLocation} / ${listItem.os} / ${listItem.browser}",
+                    softWrap: true),
+                Text(listItem.loginTime ?? "--"),
+              ],
+            )),
         visualDensity: VisualDensity.compact,
         //根据card规则实现
         onTap: () {

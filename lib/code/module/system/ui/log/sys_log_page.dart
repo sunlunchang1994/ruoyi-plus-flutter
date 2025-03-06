@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/slc_color_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/slc_num_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/base_mvvm.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
+import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/log/sys_logininfor_list_browser_page.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/log/sys_logininfor_list_page_vd.dart';
@@ -165,7 +169,6 @@ class LogLoginSearchVm extends AbsoluteChangeNotifier {
         ?.patchField("statusName", _currentSysLogininforSearch.statusName);
   }
 
-
   //重置
   void onResetSearch() {
     _currentSysLogininforSearch = SysLogininfor();
@@ -178,5 +181,32 @@ class LogLoginSearchVm extends AbsoluteChangeNotifier {
   void onSearch() {
     formOperate.formBuilderState?.save();
     onSearchEvent?.call();
+  }
+}
+
+///请使用AppColor中的颜色
+///AppColors.getStatusColorByTag()
+@deprecated
+class LogStyleHelper {
+  late List<ITreeDict<dynamic>> _sysOperTypeList;
+
+  late List<int> _colorArray;
+
+  LogStyleHelper() {
+    _sysOperTypeList =
+        GlobalVm().dictShareVm.dictMap[LocalDictLib.CODE_SYS_OPER_TYPE] ??
+            List.empty(growable: true);
+    _colorArray = SlcColorUtil.getColorByAverageSafety(
+        _sysOperTypeList.length, SlcColorUtil.COLOR_ARRAY_MD);
+  }
+
+  Color getColorByBusinessType(int? businessType) {
+    int targetIndex = _sysOperTypeList.indexWhere((item) {
+      return item.tdDictValue == businessType?.toString();
+    });
+    if (targetIndex >= 0) {
+      return Color(_colorArray[targetIndex]);
+    }
+    return Colors.black;
   }
 }

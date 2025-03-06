@@ -8,6 +8,7 @@ import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/user.dart';
 
 import '../../../../base/api/api_config.dart';
 import '../../../../base/api/base_dio.dart';
+import '../../../../base/api/request_utils.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/repository/remote/page_transform_utils.dart';
 import '../../../../base/vm/global_vm.dart';
@@ -65,24 +66,7 @@ class UserServiceRepository {
 
   static Future<IntensifyEntity<PageModel<User>>> list(
       int offset, int size, User? user, CancelToken cancelToken) {
-    Map<String, dynamic> queryParams = Map.identity();
-    queryParams["pageNum"] = offset;
-    queryParams["pageSize"] = size;
-    if (user?.deptId != null) {
-      queryParams["deptId"] = user!.deptId;
-    }
-    if (TextUtil.isNotEmpty(user?.userName)) {
-      queryParams["userName"] = user!.userName;
-    }
-    if (TextUtil.isNotEmpty(user?.nickName)) {
-      queryParams["nickName"] = user!.nickName;
-    }
-    if (TextUtil.isNotEmpty(user?.phonenumber)) {
-      queryParams["phonenumber"] = user!.phonenumber;
-    }
-    if (TextUtil.isNotEmpty(user?.status)) {
-      queryParams["status"] = user!.status;
-    }
+    Map<String, dynamic> queryParams = RequestUtils.toPageQuery(user?.toJson(), offset, size);
     return _userApiClient
         .list(queryParams, cancelToken)
         .asStream()

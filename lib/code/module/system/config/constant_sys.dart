@@ -12,4 +12,6 @@ class ConstantSys {
   static const String KEY_SYS_CONFIG = "sysConfig";
   //系统通知
   static const String KEY_SYS_NOTICE = "sysNotice";
+  //系统日志信息
+  static const String KEY_SYS_LOG = "sysLog";
 }

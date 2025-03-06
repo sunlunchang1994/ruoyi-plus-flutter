@@ -5,6 +5,7 @@ import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/api_config.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/base_dio.dart';
+import 'package:ruoyi_plus_flutter/code/base/api/request_utils.dart';
 import 'package:ruoyi_plus_flutter/code/base/repository/remote/data_transform_utils.dart';
 import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
@@ -25,7 +26,7 @@ abstract class SysNoticeApiClient {
 
   ///获取通知公告列表
   @GET("/system/notice/list")
-  Future<ResultPageModel> list(@Queries() SysNotice? queryParams,
+  Future<ResultPageModel> list(@Queries() Map<String,dynamic>? queryParams,
       @CancelRequest() CancelToken cancelToken);
 
   ///获取通知公告信息
@@ -51,7 +52,7 @@ class SysNoticeRepository {
   static Future<IntensifyEntity<PageModel<SysNotice>>> list(
       int offset, int size, SysNotice? sysConfig, CancelToken cancelToken) {
     return _sysConfigApiClient
-        .list(sysConfig, cancelToken)
+        .list(RequestUtils.toPageQuery(sysConfig?.toJson(), offset, size), cancelToken)
         .asStream()
         .map(DataTransformUtils.checkError)
         .map((event) {

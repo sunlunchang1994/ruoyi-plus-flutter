@@ -57,4 +57,25 @@ class AppStyles extends SlcStyles {
   static Divider getDefDividerByDark(bool isDark) {
     return isDark ? defDarkDivider : defLightDivider;
   }
+
+  //List
+  static TextStyle getItemTitleStyleByContext(BuildContext context) {
+    return getItemTitleStyleByThemeData(Theme.of(context));
+  }
+
+  static TextStyle getItemTitleStyleByThemeData(ThemeData themeData) {
+    return themeData.listTileTheme.titleTextStyle ??
+        themeData.textTheme.bodyLarge!
+            .copyWith(color: themeData.colorScheme.onSurface);
+  }
+
+  static TextStyle getItemSubTitleStyleByContext(BuildContext context) {
+    return getItemSubTitleStyleByThemeData(Theme.of(context));
+  }
+
+  static TextStyle getItemSubTitleStyleByThemeData(ThemeData themeData) {
+    return themeData.listTileTheme.subtitleTextStyle ??
+        themeData.textTheme.bodyMedium!
+            .copyWith(color: themeData.colorScheme.onSurfaceVariant);
+  }
 }

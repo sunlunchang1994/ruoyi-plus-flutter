@@ -357,6 +357,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "sys_label_dict_type_search_title": MessageLookupByLibrary.simpleMessage(
       "搜索字典类型",
     ),
+    "sys_label_log_details": MessageLookupByLibrary.simpleMessage("日志详情"),
     "sys_label_logininfor_id": MessageLookupByLibrary.simpleMessage("访问编号"),
     "sys_label_logininfor_ip": MessageLookupByLibrary.simpleMessage("登录地址"),
     "sys_label_logininfor_location": MessageLookupByLibrary.simpleMessage(
@@ -405,11 +406,21 @@ class MessageLookup extends MessageLookupByLibrary {
       "请选择公告类型",
     ),
     "sys_label_oper_business_type": MessageLookupByLibrary.simpleMessage("类型"),
+    "sys_label_oper_cost_time": MessageLookupByLibrary.simpleMessage("消耗时间"),
     "sys_label_oper_id": MessageLookupByLibrary.simpleMessage("日志编号"),
     "sys_label_oper_ip": MessageLookupByLibrary.simpleMessage("操作地址"),
+    "sys_label_oper_login_info": MessageLookupByLibrary.simpleMessage("登录信息"),
+    "sys_label_oper_method": MessageLookupByLibrary.simpleMessage("操作方法"),
+    "sys_label_oper_module": MessageLookupByLibrary.simpleMessage("操作模块"),
     "sys_label_oper_name": MessageLookupByLibrary.simpleMessage("操作人员"),
+    "sys_label_oper_request_info": MessageLookupByLibrary.simpleMessage("请求信息"),
+    "sys_label_oper_request_params": MessageLookupByLibrary.simpleMessage(
+      "请求参数",
+    ),
+    "sys_label_oper_result": MessageLookupByLibrary.simpleMessage("返回参数"),
     "sys_label_oper_search": MessageLookupByLibrary.simpleMessage("搜索操作日志"),
-    "sys_label_oper_status": MessageLookupByLibrary.simpleMessage("状态"),
+    "sys_label_oper_status": MessageLookupByLibrary.simpleMessage("操作状态"),
+    "sys_label_oper_time": MessageLookupByLibrary.simpleMessage("操作时间"),
     "sys_label_oper_title": MessageLookupByLibrary.simpleMessage("系统模块"),
     "sys_label_system_dict_edit_hint": MessageLookupByLibrary.simpleMessage(
       "系统字典不允许修改",

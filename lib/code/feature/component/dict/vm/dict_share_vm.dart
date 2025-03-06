@@ -4,7 +4,7 @@ import '../entity/tree_dict.dart';
 
 ///@author slc
 class DictShareVm {
-  final Map<String, List<ITreeDict<dynamic>>> dictMap = {};
+  final Map<String, List<ITreeDict<dynamic>>?> dictMap = {};
 
   DictShareVm() {}
 

@@ -4,6 +4,7 @@ import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
 
 import '../../../../../generated/l10n.dart';
+import '../../../../../res/colors.dart';
 import '../entity/tree_dict.dart';
 
 class DictUiUtils {
@@ -31,16 +32,18 @@ class DictUiUtils {
   }
 
   ///显示选择对话框
-  static Future<T?> showSelectDialog<T>(BuildContext context,
-      String dictType, final void Function(ITreeDict<dynamic>) onPressed,
-      {String? title,bool autoPopDialog = true, bool resultGrowable = false}) {
+  static Future<T?> showSelectDialog<T>(BuildContext context, String dictType,
+      final void Function(ITreeDict<dynamic>) onPressed,
+      {String? title, bool autoPopDialog = true, bool resultGrowable = false}) {
     return showDialog<T?>(
         context: context,
         builder: (context) {
           List<SimpleDialogOption> dialogItem = dictList2DialogItem(
               context, GlobalVm().dictShareVm.dictMap[dictType]!, onPressed,
               autoPopDialog: autoPopDialog, resultGrowable: resultGrowable);
-          return SimpleDialog(title: Text(title??S.current.app_label_please_choose), children: dialogItem);
+          return SimpleDialog(
+              title: Text(title ?? S.current.app_label_please_choose),
+              children: dialogItem);
         });
   }
 
@@ -62,5 +65,13 @@ class DictUiUtils {
       return null;
     }
     return OptionVL<String>(treeDict.tdDictValue!, treeDict.tdDictLabel!);
+  }
+
+  static Color getDictStyle(String dictType, String? dictKey) {
+    ITreeDict<dynamic>? dictData = GlobalVm().dictShareVm.findDict(dictType, dictKey);
+    if (dictData == null) {
+      AppColors.getStatusColorByTag(AppColors.STATUS_TAG_DEFAULT);
+    }
+    return AppColors.getStatusColorByTag(dictData!.tdListStyle);
   }
 }

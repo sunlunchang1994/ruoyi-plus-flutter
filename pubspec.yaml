@@ -120,6 +120,11 @@ dependencies:
   #WebView
   webview_flutter: ^4.10.0
 
+  #markdown
+  flutter_markdown: ^0.7.6+2
+  #Json格式化
+  interactive_json_preview: ^0.1.0
+
 dependency_overrides:
   image_gallery_saver:
     git:

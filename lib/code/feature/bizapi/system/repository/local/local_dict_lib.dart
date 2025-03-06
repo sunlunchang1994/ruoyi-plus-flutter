@@ -1,3 +1,7 @@
+import 'dart:ui';
+
+import 'package:ruoyi_plus_flutter/res/colors.dart';
+
 import '../../../../component/dict/entity/tree_dict.dart';
 
 class LocalDictLib {
@@ -60,6 +64,12 @@ class LocalDictLib {
 
   //系统状态
   static const String CODE_SYS_COMMON_STATUS = "sys_common_status";
+
+  //系统状态：成功
+  static const KEY_SYS_COMMON_STATUS_SUCCEED = "0";
+
+  //系统状态：失败
+  static const KEY_SYS_COMMON_STATUS_FAILED = "1";
 
   static final Map<String, List<ITreeDict<dynamic>>> LOCAL_DICT_MAP = {
     CODE_SYS_YES_NO: [

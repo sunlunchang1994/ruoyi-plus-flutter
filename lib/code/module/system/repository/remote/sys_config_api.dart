@@ -7,6 +7,7 @@ import 'package:ruoyi_plus_flutter/code/base/api/api_config.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/base_dio.dart';
 import 'package:ruoyi_plus_flutter/code/base/repository/remote/data_transform_utils.dart';
 
+import '../../../../base/api/request_utils.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../feature/bizapi/system/entity/sys_config.dart';
 
@@ -22,7 +23,7 @@ abstract class SysConfigApiClient {
 
   ///获取参数配置列表
   @GET("/system/config/list")
-  Future<ResultPageModel> list(@Queries() SysConfig? queryParams,
+  Future<ResultPageModel> list(@Queries() Map<String,dynamic>? queryParams,
       @CancelRequest() CancelToken cancelToken);
 
   ///获取参数配置信息
@@ -48,7 +49,7 @@ class SysConfigRepository {
   static Future<IntensifyEntity<PageModel<SysConfig>>> list(
       int offset, int size, SysConfig? sysConfig, CancelToken cancelToken) {
     return _sysConfigApiClient
-        .list(sysConfig, cancelToken)
+        .list(RequestUtils.toPageQuery(sysConfig?.toJson(), offset, size), cancelToken)
         .asStream()
         .map(DataTransformUtils.checkError)
         .map((event) {

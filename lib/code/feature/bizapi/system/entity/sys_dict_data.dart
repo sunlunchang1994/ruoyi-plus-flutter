@@ -11,6 +11,8 @@ part 'sys_dict_data.g.dart';
 ///字典类型
 @JsonSerializable()
 class SysDictData extends TenantEntity implements ITreeDict<SysDictData> {
+  static const String DEF_TAG = "Y";
+
   ///字典编码
   @IntConverter()
   int? dictCode;
@@ -76,11 +78,13 @@ class SysDictData extends TenantEntity implements ITreeDict<SysDictData> {
   String? get tdDictValue => dictValue;
 
   @override
-  // TODO: implement tdId
   String? get tdId => dictCode?.toString();
 
   @override
-  bool get tdIsDefault => isDefault == "Y";
+  bool get tdIsDefault => isDefault == DEF_TAG;
+
+  @override
+  String? get tdListStyle => listClass;
 
   @override
   int? get tdIsDeleted => null;

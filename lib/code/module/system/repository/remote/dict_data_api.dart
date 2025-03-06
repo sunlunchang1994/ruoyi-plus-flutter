@@ -5,6 +5,7 @@ import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/api_config.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/base_dio.dart';
+import 'package:ruoyi_plus_flutter/code/base/api/request_utils.dart';
 import 'package:ruoyi_plus_flutter/code/base/repository/remote/data_transform_utils.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_dict_type.dart';
 
@@ -23,7 +24,7 @@ abstract class DictDataApiClient {
 
   ///获取字典数据列表
   @GET("/system/dict/data/list")
-  Future<ResultPageModel> list(@Queries() SysDictData? queryParams,
+  Future<ResultPageModel> list(@Queries() Map<String, dynamic>? queryParams,
       @CancelRequest() CancelToken cancelToken);
 
   ///获取字典数据信息
@@ -49,7 +50,8 @@ class DictDataRepository {
   static Future<IntensifyEntity<PageModel<SysDictData>>> list(
       int offset, int size, SysDictData? sysDictType, CancelToken cancelToken) {
     return _dictDataApiClient
-        .list(sysDictType, cancelToken)
+        .list(RequestUtils.toPageQuery(sysDictType?.toJson(), offset, size),
+            cancelToken)
         .asStream()
         .map(DataTransformUtils.checkError)
         .map((event) {

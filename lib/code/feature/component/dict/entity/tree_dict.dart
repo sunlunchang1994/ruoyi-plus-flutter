@@ -22,6 +22,8 @@ abstract class ITreeDict<T extends ITreeDict<T>> {
   List<T>? get tdChildren => null;
 
   bool get tdIsDefault => false;
+
+  String? get tdListStyle => null;
 }
 
 class TreeDict extends ITreeDict<TreeDict> {

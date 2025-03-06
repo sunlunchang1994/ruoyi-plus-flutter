@@ -17,6 +17,7 @@ import '../module/system/ui/dict/type/dict_type_add_edit_page.dart';
 import '../module/system/ui/dict/type/dict_type_list_browser_page.dart';
 import '../module/system/ui/fof/no_found_page.dart';
 import '../module/system/ui/log/sys_log_page.dart';
+import '../module/system/ui/log/sys_oper_log_details_page.dart';
 import '../module/system/ui/menu_tree/menu_add_edit_page.dart';
 import '../module/system/ui/menu_tree/menu_list_borwser_page.dart';
 import '../module/system/ui/menu_tree/menu_list_select_single_page.dart';
@@ -242,6 +243,12 @@ final Map<String, WidgetBuilder> router = {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
     return SysLogPage(
         slcRouterInfo?.arguments[ConstantSysApi.INTENT_KEY_ROUTER]);
+  },
+  //日志：操作日志
+  SysOperLogDetailsPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return SysOperLogDetailsPage(
+        slcRouterInfo?.arguments[ConstantSys.KEY_SYS_LOG]);
   },
 };
 

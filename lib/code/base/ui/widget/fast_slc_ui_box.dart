@@ -2,60 +2,28 @@ import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:ruoyi_plus_flutter/res/styles.dart';
 
 /// @author sunlunchang
 /// 简单的UI风格工具，用于构建标准的表单页、数据列表页
 /// 对于不喜欢MD风格的场景非常实用
 class SlcUiBoxStyleUtils {
-  ///列表
-  static const TextStyle itemLabelTextStyleByDay =
-  TextStyle(color: Colors.black87, fontSize: 16);
-  static const TextStyle itemLabelTextStyleByNight =
-  TextStyle(color: Colors.white, fontSize: 16);
-  static const TextStyle itemPrimaryTextStyleByDay =
-  TextStyle(color: Colors.black87, fontSize: 16);
-  static const TextStyle itemPrimaryTextStyleByNight =
-  TextStyle(color: Colors.white, fontSize: 16);
-
-  static TextStyle getItemLabelTextStyleByContext(BuildContext context) {
-    return getItemLabelTextStyleByThemeData(Theme.of(context));
-  }
-
-  static TextStyle getItemLabelTextStyleByThemeData(ThemeData themeData) {
-    if (themeData.brightness == Brightness.dark) {
-      return itemLabelTextStyleByNight;
-    } else {
-      return itemLabelTextStyleByDay;
-    }
-  }
-
-  static TextStyle getItemPrimaryTextStyleByContext(BuildContext context) {
-    return getItemPrimaryTextStyleByThemeData(Theme.of(context));
-  }
-
-  static TextStyle getItemPrimaryTextStyleByThemeData(ThemeData themeData) {
-    if (themeData.brightness == Brightness.dark) {
-      return itemPrimaryTextStyleByNight;
-    } else {
-      return itemPrimaryTextStyleByDay;
-    }
-  }
 
   ///icon边距
   static const EdgeInsets itemPrefixWidgetMargin =
-  EdgeInsets.fromLTRB(16, 12, 0, 12);
+      EdgeInsets.fromLTRB(16, 12, 0, 12);
   static const EdgeInsets itemSuffixItemHMargin =
-  EdgeInsets.fromLTRB(0, 12, 16, 12);
+      EdgeInsets.fromLTRB(0, 12, 16, 12);
 
   ///表单
   static const TextStyle variantFormLabelTextStyleByDay =
-  TextStyle(color: Colors.black87, fontSize: 16);
+      TextStyle(color: Colors.black87, fontSize: 16);
   static const TextStyle variantFormLabelTextStyleByNight =
-  TextStyle(color: Colors.white, fontSize: 16);
+      TextStyle(color: Colors.white, fontSize: 16);
   static const TextStyle variantFormPrimaryTextStyleByDay =
-  TextStyle(color: Colors.black87, fontSize: 16);
+      TextStyle(color: Colors.black87, fontSize: 16);
   static const TextStyle variantFormPrimaryTextStyleByNight =
-  TextStyle(color: Colors.white, fontSize: 16);
+      TextStyle(color: Colors.white, fontSize: 16);
 
   static TextStyle getVariantFormLabelTextStyleByContext(BuildContext context) {
     return getVariantFormLabelTextStyleByThemeData(Theme.of(context));
@@ -86,33 +54,33 @@ class SlcUiBoxStyleUtils {
 
   ///单行labelMargin
   static const EdgeInsets variantFormLabelHMargin =
-  EdgeInsets.fromLTRB(16, 12, 0, 12);
+      EdgeInsets.fromLTRB(16, 12, 0, 12);
 
   ///多行labelMargin
   static const EdgeInsets variantFormLabelVMargin =
-  EdgeInsets.fromLTRB(16, 12, 0, 0);
+      EdgeInsets.fromLTRB(16, 12, 0, 0);
 
   ///单行ContentMargin
   static const EdgeInsets variantFormContentHMargin =
-  EdgeInsets.fromLTRB(16, 10, 16, 10);
+      EdgeInsets.fromLTRB(16, 10, 16, 10);
 
   ///单行ContentMargin结束间隔容忍宽度
   static const EdgeInsets variantFormContentHMarginByEndHumility =
-  EdgeInsets.fromLTRB(16, 10, 8, 10);
+      EdgeInsets.fromLTRB(16, 10, 8, 10);
 
   ///多行ContentMargin
   static const EdgeInsets variantFormContentVMargin =
-  EdgeInsets.fromLTRB(16, 0, 16, 10);
+      EdgeInsets.fromLTRB(16, 0, 16, 10);
 
   ///多行ContentMargin结束间隔容忍宽度
   static const EdgeInsets variantFormContentVMarginByEndHumility =
-  EdgeInsets.fromLTRB(16, 0, 8, 10);
+      EdgeInsets.fromLTRB(16, 0, 8, 10);
 
   ///icon边距
   static const EdgeInsets variantFormPrefixWidgetMargin =
-  EdgeInsets.fromLTRB(16, 12, 0, 12);
+      EdgeInsets.fromLTRB(16, 12, 0, 12);
   static const EdgeInsets variantFormSuffixItemHMargin =
-  EdgeInsets.fromLTRB(0, 12, 16, 12);
+      EdgeInsets.fromLTRB(0, 12, 16, 12);
 
   ///
   /// 使用笔记
@@ -122,21 +90,21 @@ class SlcUiBoxStyleUtils {
   ///
   static InputDecoration getSimpleInputDecoration(
       {EdgeInsetsGeometry? contentPadding,
-        String? hintText,
-        TextStyle? hintStyle}) {
+      String? hintText,
+      TextStyle? hintStyle}) {
     return InputDecoration.collapsed(
-        hintText: hintText, hintStyle: hintStyle ??= const TextStyle())
+            hintText: hintText, hintStyle: hintStyle ??= const TextStyle())
         .copyWith(
-        contentPadding:
-        contentPadding ?? const EdgeInsets.symmetric(vertical: 2));
+            contentPadding:
+                contentPadding ?? const EdgeInsets.symmetric(vertical: 2));
   }
 
   static Divider getDividerByBg(
       {double height = 1,
-        double thickness = 0,
-        double? indent,
-        double? endIndent,
-        Color color = Colors.transparent}) {
+      double thickness = 0,
+      double? indent,
+      double? endIndent,
+      Color color = Colors.transparent}) {
     return Divider(
       height: height,
       thickness: thickness,
@@ -148,10 +116,10 @@ class SlcUiBoxStyleUtils {
 
   static VerticalDivider getVerticalDividerByBg(
       {double width = 1,
-        double thickness = 0,
-        double? indent,
-        double? endIndent,
-        Color color = Colors.transparent}) {
+      double thickness = 0,
+      double? indent,
+      double? endIndent,
+      Color color = Colors.transparent}) {
     return VerticalDivider(
       color: color,
       thickness: thickness,
@@ -249,7 +217,7 @@ class SimpleVariantFormLayout extends StatelessWidget {
         labelChildren.add(DefaultTextStyle(
             style: labelTextStyle?.copyWith(color: Colors.red.shade500) ??
                 SlcUiBoxStyleUtils.getVariantFormLabelTextStyleByThemeData(
-                    themeData)
+                        themeData)
                     .copyWith(color: Colors.red.shade500),
             child: emphasize!));
       }
@@ -264,11 +232,11 @@ class SimpleVariantFormLayout extends StatelessWidget {
         padding: contentMargin ??
             (singleLine
                 ? contentHumility
-                ? SlcUiBoxStyleUtils.variantFormContentHMarginByEndHumility
-                : SlcUiBoxStyleUtils.variantFormContentHMargin
+                    ? SlcUiBoxStyleUtils.variantFormContentHMarginByEndHumility
+                    : SlcUiBoxStyleUtils.variantFormContentHMargin
                 : contentHumility
-                ? SlcUiBoxStyleUtils.variantFormContentVMarginByEndHumility
-                : SlcUiBoxStyleUtils.variantFormContentVMargin),
+                    ? SlcUiBoxStyleUtils.variantFormContentVMarginByEndHumility
+                    : SlcUiBoxStyleUtils.variantFormContentVMargin),
         child: content);
     children.add(singleLine ? Expanded(child: contentPadding) : contentPadding);
     return children;
@@ -285,10 +253,10 @@ class SimpleListItemLayout extends StatelessWidget {
 
   SimpleListItemLayout(
       {this.prefix,
-        this.suffix,
-        this.child,
-        this.prefixWidgetMargin,
-        this.suffixWidgetMargin});
+      this.suffix,
+      this.child,
+      this.prefixWidgetMargin,
+      this.suffixWidgetMargin});
 
   @override
   Widget build(BuildContext context) {
@@ -296,30 +264,29 @@ class SimpleListItemLayout extends StatelessWidget {
     if (this.prefix != null) {
       children.add(Padding(
           padding:
-          prefixWidgetMargin ?? SlcUiBoxStyleUtils.itemPrefixWidgetMargin,
+              prefixWidgetMargin ?? SlcUiBoxStyleUtils.itemPrefixWidgetMargin,
           child: IconTheme(
             child: this.prefix!,
             data: IconThemeData(
                 color: SlcStyles.getTextColorSecondaryStyleByTheme(
-                    Theme.of(context))
+                        Theme.of(context))
                     .color),
           )));
     }
     if (this.child != null) {
       children.add(DefaultTextStyle(
-          style: SlcUiBoxStyleUtils.getVariantFormLabelTextStyleByThemeData(
-              Theme.of(context)),
+          style: AppStyles.getItemTitleStyleByContext(context),
           child: this.child!));
     }
     if (this.suffix != null) {
       children.add(Padding(
           padding:
-          suffixWidgetMargin ?? SlcUiBoxStyleUtils.itemSuffixItemHMargin,
+              suffixWidgetMargin ?? SlcUiBoxStyleUtils.itemSuffixItemHMargin,
           child: IconTheme(
             child: this.suffix!,
             data: IconThemeData(
                 color: SlcStyles.getTextColorSecondaryStyleByTheme(
-                    Theme.of(context))
+                        Theme.of(context))
                     .color),
           )));
     }
@@ -334,11 +301,11 @@ class SuperEasyListItemLayout extends SimpleListItemLayout {
   SuperEasyListItemLayout(
       {IconData? prefixIcon, IconData? suffixIcon, String? labelText})
       : super(
-      prefix: prefixIcon == null ? null : Icon(prefixIcon),
-      suffix: suffixIcon == null ? null : Icon(suffixIcon),
-      child: labelText == null
-          ? null
-          : Padding(
-          padding: EdgeInsets.fromLTRB(16, 12, 0, 12),
-          child: Text(labelText)));
+            prefix: prefixIcon == null ? null : Icon(prefixIcon),
+            suffix: suffixIcon == null ? null : Icon(suffixIcon),
+            child: labelText == null
+                ? null
+                : Padding(
+                    padding: EdgeInsets.fromLTRB(16, 12, 0, 12),
+                    child: Text(labelText)));
 }
