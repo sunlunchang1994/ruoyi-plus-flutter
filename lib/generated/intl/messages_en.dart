@@ -422,6 +422,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "sys_label_oper_status": MessageLookupByLibrary.simpleMessage("操作状态"),
     "sys_label_oper_time": MessageLookupByLibrary.simpleMessage("操作时间"),
     "sys_label_oper_title": MessageLookupByLibrary.simpleMessage("系统模块"),
+    "sys_label_oss_file_name": MessageLookupByLibrary.simpleMessage("文件名"),
+    "sys_label_oss_file_suffix": MessageLookupByLibrary.simpleMessage("文件后缀"),
+    "sys_label_oss_original_name": MessageLookupByLibrary.simpleMessage("原名"),
+    "sys_label_oss_service": MessageLookupByLibrary.simpleMessage("服务商"),
     "sys_label_system_dict_edit_hint": MessageLookupByLibrary.simpleMessage(
       "系统字典不允许修改",
     ),

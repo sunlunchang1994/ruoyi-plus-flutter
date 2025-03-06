@@ -396,6 +396,11 @@
   "sys_label_logininfor_os": "操作系统",
   "sys_label_logininfor_status": "状态",
 
+  "sys_label_oss_file_name": "文件名",
+  "sys_label_oss_original_name": "原名",
+  "sys_label_oss_file_suffix": "文件后缀",
+  "sys_label_oss_service": "服务商",
+
   "main_divide_text": "-----------------------------",
   "main_label_workbench": "工作台",
   "main_label_mine": "我的",

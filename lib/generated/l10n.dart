@@ -3220,6 +3220,46 @@ class S {
     );
   }
 
+  /// `文件名`
+  String get sys_label_oss_file_name {
+    return Intl.message(
+      '文件名',
+      name: 'sys_label_oss_file_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `原名`
+  String get sys_label_oss_original_name {
+    return Intl.message(
+      '原名',
+      name: 'sys_label_oss_original_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `文件后缀`
+  String get sys_label_oss_file_suffix {
+    return Intl.message(
+      '文件后缀',
+      name: 'sys_label_oss_file_suffix',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `服务商`
+  String get sys_label_oss_service {
+    return Intl.message(
+      '服务商',
+      name: 'sys_label_oss_service',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `-----------------------------`
   String get main_divide_text {
     return Intl.message(

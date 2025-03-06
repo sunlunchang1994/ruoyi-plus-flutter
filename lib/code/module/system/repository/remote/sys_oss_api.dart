@@ -19,7 +19,7 @@ abstract class SysOssApiClient {
   }
 
   ///获取上传文件列表
-  @POST("/resource/oss/list")
+  @GET("/resource/oss/list")
   Future<ResultPageModel> list(
       @Queries() Map<String, dynamic>? queryParams, @CancelRequest() CancelToken cancelToken);
 }

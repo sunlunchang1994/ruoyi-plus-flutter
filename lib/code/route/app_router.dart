@@ -25,6 +25,7 @@ import '../module/system/ui/menu_tree/menu_tree_borwser_page.dart';
 import '../module/system/ui/menu_tree/menu_tree_select_multiple_page.dart';
 import '../module/system/ui/notice/notice_add_edit_page.dart';
 import '../module/system/ui/notice/notice_list_browser_page.dart';
+import '../module/system/ui/oss/oss_list_browser_page.dart';
 import '../module/system/ui/router/router_page.dart';
 import '../module/user/ui/dept/dept_add_edit_page.dart';
 import '../module/user/ui/dept/dept_list_browser_page.dart';
@@ -55,10 +56,8 @@ final Map<String, WidgetBuilder> router = {
   //路由页
   MenuPage.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
-    return MenuPage(
-        slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE],
-        slcRouterInfo.arguments["routerList"],
-        slcRouterInfo.arguments["parentPath"]);
+    return MenuPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE],
+        slcRouterInfo.arguments["routerList"], slcRouterInfo.arguments["parentPath"]);
   },
   //用户
   //用户：修改个人信息
@@ -66,28 +65,24 @@ final Map<String, WidgetBuilder> router = {
   //用户：用户列表
   UserListBrowserPage.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
-    return UserListBrowserPage(
-        slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
+    return UserListBrowserPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //用户：单选用户列表
   UserListSingleSelectPage.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
-    return UserListSingleSelectPage(
-        slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE],
+    return UserListSingleSelectPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE],
         dept: slcRouterInfo.arguments[ConstantUser.KEY_DEPT]);
   },
   //用户：单选用户列表->仅指定部门下的
   UserListSelectByDeptPage.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
-    return UserListSelectByDeptPage(
-        slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE],
+    return UserListSelectByDeptPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE],
         slcRouterInfo.arguments[ConstantUser.KEY_DEPT]!);
   },
   //用户：树结构列表
   UserListBrowserPage2.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
-    return UserListBrowserPage2(
-        slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
+    return UserListBrowserPage2(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //用户：添加编辑用户信息
   UserAddEditPage.routeName: (BuildContext context) {
@@ -98,14 +93,12 @@ final Map<String, WidgetBuilder> router = {
   //部门：部门列表
   DeptListBrowserPage.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
-    return DeptListBrowserPage(
-        slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
+    return DeptListBrowserPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //部门：部门单选列表
   DeptListSingleSelectPage.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
-    return DeptListSingleSelectPage(
-        slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
+    return DeptListSingleSelectPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //部门：部门信息新增或删除
   DeptAddEditPage.routeName: (BuildContext context) {
@@ -118,14 +111,12 @@ final Map<String, WidgetBuilder> router = {
   //角色：列表
   RoleListBrowserPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
-    return RoleListBrowserPage(
-        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+    return RoleListBrowserPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //角色：单选
   RoleListSingleSelectPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
-    return RoleListSingleSelectPage(
-        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+    return RoleListSingleSelectPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //角色：新增或编辑
   RoleAddEditPage.routeName: (BuildContext context) {
@@ -136,14 +127,12 @@ final Map<String, WidgetBuilder> router = {
   //岗位：列表
   PostListBrowserPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
-    return PostListBrowserPage(
-        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+    return PostListBrowserPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //岗位：单选
   PostListSingleSelectPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
-    return PostListSingleSelectPage(
-        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+    return PostListSingleSelectPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //岗位：新增或编辑
   PostAddEditPage.routeName: (BuildContext context) {
@@ -153,14 +142,12 @@ final Map<String, WidgetBuilder> router = {
   //菜单：菜单列表-操作列表
   MenuListBrowserPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
-    return MenuListBrowserPage(
-        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+    return MenuListBrowserPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //菜单：菜单列表-操作列表
   MenuListSelectSinglePage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
-    return MenuListSelectSinglePage(
-        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+    return MenuListSelectSinglePage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //菜单：新增或编辑
   MenuAddEditPage.routeName: (BuildContext context) {
@@ -172,30 +159,25 @@ final Map<String, WidgetBuilder> router = {
   //菜单：菜单树列表
   MenuTreeBrowserPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
-    return MenuTreeBrowserPage(
-        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+    return MenuTreeBrowserPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //菜单：菜单树多选
   MenuTreeSelectMultiplePage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
-    return MenuTreeSelectMultiplePage(
-        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE],
+    return MenuTreeSelectMultiplePage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE],
         roleId: slcRouterInfo?.arguments[ConstantSys.KEY_MENU_ID],
-        checkedIds:
-            slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_SELECT_DATA]);
+        checkedIds: slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_SELECT_DATA]);
   },
   //字典类型
   //字典类型：新增或编辑
   DictTypeAddEditPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
-    return DictTypeAddEditPage(
-        slcRouterInfo?.arguments[ConstantSys.KEY_DICT_TYPE]);
+    return DictTypeAddEditPage(slcRouterInfo?.arguments[ConstantSys.KEY_DICT_TYPE]);
   },
   //字典类型：类型列表
   DictTypeListBrowserPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
-    return DictTypeListBrowserPage(
-        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+    return DictTypeListBrowserPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //字典数据
   //字典数据：新增或编辑
@@ -208,47 +190,46 @@ final Map<String, WidgetBuilder> router = {
   //字典数据：数据列表
   DictDataListBrowserPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
-    return DictDataListBrowserPage(
-        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE],
+    return DictDataListBrowserPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE],
         slcRouterInfo?.arguments[ConstantSys.KEY_DICT_TYPE]);
   },
   //系统配置参数
   //系统配置参数：列表
   ConfigListBrowserPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
-    return ConfigListBrowserPage(
-        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+    return ConfigListBrowserPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //系统配置参数：列表
   ConfigAddEditPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
-    return ConfigAddEditPage(
-        sysConfig: slcRouterInfo?.arguments[ConstantSys.KEY_SYS_CONFIG]);
+    return ConfigAddEditPage(sysConfig: slcRouterInfo?.arguments[ConstantSys.KEY_SYS_CONFIG]);
   },
   //系统通知公告
   //系统通知公告：列表
   NoticeListBrowserPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
-    return NoticeListBrowserPage(
-        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+    return NoticeListBrowserPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //系统通知公告：新增编辑
   NoticeAddEditPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
-    return NoticeAddEditPage(
-        sysNotice: slcRouterInfo?.arguments[ConstantSys.KEY_SYS_NOTICE]);
+    return NoticeAddEditPage(sysNotice: slcRouterInfo?.arguments[ConstantSys.KEY_SYS_NOTICE]);
   },
   //日志
   SysLogPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
-    return SysLogPage(
-        slcRouterInfo?.arguments[ConstantSysApi.INTENT_KEY_ROUTER]);
+    return SysLogPage(slcRouterInfo?.arguments[ConstantSysApi.INTENT_KEY_ROUTER]);
   },
   //日志：操作日志
   SysOperLogDetailsPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
-    return SysOperLogDetailsPage(
-        slcRouterInfo?.arguments[ConstantSys.KEY_SYS_LOG]);
+    return SysOperLogDetailsPage(slcRouterInfo?.arguments[ConstantSys.KEY_SYS_LOG]);
+  },
+  //oss
+  //oss列表
+  OssListBrowserPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return OssListBrowserPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
 };
 
