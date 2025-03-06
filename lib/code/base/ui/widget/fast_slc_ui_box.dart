@@ -8,7 +8,6 @@ import 'package:ruoyi_plus_flutter/res/styles.dart';
 /// 简单的UI风格工具，用于构建标准的表单页、数据列表页
 /// 对于不喜欢MD风格的场景非常实用
 class SlcUiBoxStyleUtils {
-
   ///icon边距
   static const EdgeInsets itemPrefixWidgetMargin =
       EdgeInsets.fromLTRB(16, 12, 0, 12);
@@ -268,14 +267,14 @@ class SimpleListItemLayout extends StatelessWidget {
           child: IconTheme(
             child: this.prefix!,
             data: IconThemeData(
-                color: SlcStyles.getTextColorSecondaryStyleByTheme(
-                        Theme.of(context))
+                color: SlcStyles.tidyUpStyle
+                    .getTextColorSecondaryStyleByTheme(Theme.of(context))!
                     .color),
           )));
     }
     if (this.child != null) {
       children.add(DefaultTextStyle(
-          style: AppStyles.getItemTitleStyleByContext(context),
+          style: SlcStyles.listTileStyle.getItemTitleStyleByContext(context),
           child: this.child!));
     }
     if (this.suffix != null) {
@@ -285,8 +284,8 @@ class SimpleListItemLayout extends StatelessWidget {
           child: IconTheme(
             child: this.suffix!,
             data: IconThemeData(
-                color: SlcStyles.getTextColorSecondaryStyleByTheme(
-                        Theme.of(context))
+                color: SlcStyles.tidyUpStyle
+                    .getTextColorSecondaryStyleByTheme(Theme.of(context))!
                     .color),
           )));
     }

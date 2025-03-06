@@ -58,7 +58,7 @@ class UserListPageVd {
           if (listItem is Dept) {
             return DeptListPageWidget.getDataListItem(
                 themeData, listVmSub, buildTrailing, index, listItem);
-            return Padding(
+            /*return Padding(
                 padding: const EdgeInsets.only(bottom: 1),
                 child: ListTile(
                     contentPadding:
@@ -71,7 +71,7 @@ class UserListPageVd {
                     onTap: () {
                       listVmSub.onItemClick(index, listItem);
                       //getVm().nextByDept(listItem);
-                    }));
+                    }));*/
           }
           if (listItem is User) {
             return getUserListItem(
@@ -102,7 +102,7 @@ class UserListPageVd {
           }, index, listItem);
         },
         separatorBuilder: (context, index) {
-          return AppStyles.getDefDividerByTheme(themeData);
+          return SlcStyles.tidyUpStyle.getDefDividerByTheme(themeData);
         });
     return ListView.builder(
         clipBehavior: Clip.none,
@@ -184,7 +184,7 @@ class UserListPageVd {
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
                       child: Text(S.current.user_label_search_user,
-                          style: SlcStyles.getTitleTextStyle(themeData))),
+                          style: SlcStyles.tidyUpStyle.getTitleTextStyle(themeData))),
                   ...formItemSlot?.call("deptName") ??
                       <Widget>[
                         SlcStyles.getSizedBox(height: SlcDimens.appDimens16),

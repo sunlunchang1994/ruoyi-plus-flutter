@@ -14,8 +14,8 @@ class LoadMoreWidget extends StatelessWidget {
         child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: Text(S.current.label_refresh_loading,
-          style:
-              SlcStyles.getTextColorSecondaryStyleByTheme(Theme.of(context))),
+          style: SlcStyles.tidyUpStyle
+              .getTextColorSecondaryStyleByTheme(Theme.of(context))),
     ));
   }
 }

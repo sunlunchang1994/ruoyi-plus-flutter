@@ -14,7 +14,7 @@ class NoMoreWidget extends StatelessWidget {
         child: Padding(
             padding: EdgeInsets.all(8),
             child: Text(S.current.label_refresh_loading_no_more,
-                style: SlcStyles.getTextColorHintStyleByTheme(
-                    Theme.of(context)))));
+                style: SlcStyles.tidyUpStyle
+                    .getTextColorHintStyleByTheme(Theme.of(context)))));
   }
 }

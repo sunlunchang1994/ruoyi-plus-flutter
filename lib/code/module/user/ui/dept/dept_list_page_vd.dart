@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/fast_mvvm.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../../res/styles.dart';
@@ -37,7 +38,7 @@ class DeptListPageWidget {
               themeData, listVmSub, buildTrailing, index, listItem);
         },
         separatorBuilder: (context, index) {
-          return AppStyles.getDefDividerByTheme(themeData);
+          return SlcStyles.tidyUpStyle.getDefDividerByTheme(themeData);
         });
   }
 

@@ -36,46 +36,8 @@ class AppStyles extends SlcStyles {
               backgroundColor: Colors.white,
               elevation: 0),
           scaffoldBackgroundColor: SlcColors.colorBackground,
-          hintColor: SlcColors.globalHintTextColorBlack);
+          hintColor: SlcTidyUpColor.globalHintTextColorBlack);
     }
     return _appLightTheme!;
-  }
-
-  //全局appToolbarTextStyle 如果需要就在上面主题中用上
-  static const TextStyle appToolbarTextStyle = TextStyle(fontSize: 18);
-
-  //基础控件
-  static const Divider defLightDivider = Divider(
-      height: 0.8, thickness: 0.8, color: SlcColors.globalDividerColorBlack);
-  static const Divider defDarkDivider = Divider(
-      height: 0.8, thickness: 0.8, color: SlcColors.globalDividerColorWhite);
-
-  static Divider getDefDividerByTheme(ThemeData themeData) {
-    return getDefDividerByDark(themeData.brightness == Brightness.dark);
-  }
-
-  static Divider getDefDividerByDark(bool isDark) {
-    return isDark ? defDarkDivider : defLightDivider;
-  }
-
-  //List
-  static TextStyle getItemTitleStyleByContext(BuildContext context) {
-    return getItemTitleStyleByThemeData(Theme.of(context));
-  }
-
-  static TextStyle getItemTitleStyleByThemeData(ThemeData themeData) {
-    return themeData.listTileTheme.titleTextStyle ??
-        themeData.textTheme.bodyLarge!
-            .copyWith(color: themeData.colorScheme.onSurface);
-  }
-
-  static TextStyle getItemSubTitleStyleByContext(BuildContext context) {
-    return getItemSubTitleStyleByThemeData(Theme.of(context));
-  }
-
-  static TextStyle getItemSubTitleStyleByThemeData(ThemeData themeData) {
-    return themeData.listTileTheme.subtitleTextStyle ??
-        themeData.textTheme.bodyMedium!
-            .copyWith(color: themeData.colorScheme.onSurfaceVariant);
   }
 }

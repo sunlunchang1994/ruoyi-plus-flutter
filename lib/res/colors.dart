@@ -42,3 +42,4 @@ class AppColors extends SlcColors {
     return defColor;
   }
 }
+

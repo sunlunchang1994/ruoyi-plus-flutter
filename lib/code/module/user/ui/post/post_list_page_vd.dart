@@ -53,7 +53,7 @@ class PostListPageVd {
               buildTrailing: buildTrailing);
         },
         separatorBuilder: (context, index) {
-          return AppStyles.getDefDividerByTheme(themeData);
+          return SlcStyles.tidyUpStyle.getDefDividerByTheme(themeData);
         });
   }
 
@@ -97,7 +97,7 @@ class PostListPageVd {
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
                       child: Text(S.current.user_label_search_role,
-                          style: SlcStyles.getTitleTextStyle(themeData))),
+                          style: SlcStyles.tidyUpStyle.getTitleTextStyle(themeData))),
                   SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderSelect(
                       name: "deptName",

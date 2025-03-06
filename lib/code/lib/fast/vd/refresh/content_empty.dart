@@ -22,11 +22,11 @@ class ContentEmptyWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
           SvgPicture.asset("assets/images/slc/ic_no_date.svg",
-              height: 72, color: SlcColors.getTextColorHintByTheme(themeData)),
+              height: 72, color: SlcColors.tidyUpColor.getTextColorHintByTheme(themeData)),
           Padding(
               padding: EdgeInsets.only(top: SlcDimens.appDimens8),
               child: Text(S.current.label_data_is_null,
-                  style: SlcStyles.getTextColorHintStyleByTheme(Theme.of(context))))
+                  style: SlcStyles.tidyUpStyle.getTextColorHintStyleByTheme(Theme.of(context))))
         ]));
   }
 

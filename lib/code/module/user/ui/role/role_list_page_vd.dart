@@ -49,7 +49,7 @@ class RoleListPageVd {
               buildTrailing: buildTrailing);
         },
         separatorBuilder: (context, index) {
-          return AppStyles.getDefDividerByTheme(themeData);
+          return SlcStyles.tidyUpStyle.getDefDividerByTheme(themeData);
         });
   }
 
@@ -88,7 +88,7 @@ class RoleListPageVd {
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
                       child: Text(S.current.user_label_search_role,
-                          style: SlcStyles.getTitleTextStyle(themeData))),
+                          style: SlcStyles.tidyUpStyle.getTitleTextStyle(themeData))),
                   SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "roleName",

@@ -16,17 +16,18 @@ class LoadMoreLoadingWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           const SizedBox(
-            width: 16,
-            height: 16,
-            child: CircularProgressIndicator(strokeWidth: 2,)
-          ),
+              width: 16,
+              height: 16,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              )),
           Padding(
               padding: const EdgeInsets.only(
                 left: 16,
               ),
               child: new Text(S.current.label_refresh_loading,
-                  style: SlcStyles.getTextColorSecondaryStyleByTheme(
-                      Theme.of(context)))),
+                  style: SlcStyles.tidyUpStyle
+                      .getTextColorSecondaryStyleByTheme(Theme.of(context)))),
         ],
       ),
     );

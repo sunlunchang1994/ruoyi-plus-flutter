@@ -62,13 +62,13 @@ class _MineState extends AppBaseState<MinePage, _MineVm>
                                   Text(
                                       getVm().userInfoVo?.user.deptName ??
                                           S.current.app_label_not_completed,
-                                      style: SlcStyles
+                                      style: SlcStyles.tidyUpStyle
                                           .getTextColorSecondaryStyleByTheme(
                                               themeData)),
                                   Text(
                                       getVm().userInfoVo?.user.getRoleName() ??
                                           S.current.app_label_not_completed,
-                                      style: SlcStyles
+                                      style: SlcStyles.tidyUpStyle
                                           .getTextColorSecondaryStyleByTheme(
                                               themeData)),
                                   Padding(
@@ -115,7 +115,7 @@ class _MineState extends AppBaseState<MinePage, _MineVm>
                               title: Text(S.current.user_label_setting),
                               visualDensity: VisualDensity.compact,
                               tileColor:
-                                  SlcColors.getCardColorByTheme(themeData),
+                                  SlcColors.tidyUpColor.getCardColorByTheme(themeData),
                               //根据card规则实现
                               onTap: () {}),
                           SlcUiBoxStyleUtils.getDividerByBg(),

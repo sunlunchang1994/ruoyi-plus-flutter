@@ -9,8 +9,7 @@ import 'package:dio/dio.dart';
 
 ///
 /// @author sunlunchang
-class TreeNavVd{
-
+class TreeNavVd {
   ///获取导航视图
   static Widget getNavWidget(ThemeData themeData, List<SlcTreeNav> treeNavList,
       void Function(SlcTreeNav currentItem)? onTap) {
@@ -45,13 +44,13 @@ class TreeNavVd{
                             //getVm().previous(currentItem.id)
                             child: Row(children: [
                               Icon(Icons.arrow_right,
-                                  color: SlcColors.getTextColorSecondaryByTheme(
-                                      themeData)),
+                                  color: SlcColors.tidyUpColor
+                                      .getTextColorSecondaryByTheme(themeData)),
                               Text(currentItem.treeName,
                                   style: TextStyle(
-                                      color: SlcColors
+                                      color: SlcColors.tidyUpColor
                                           .getTextColorSecondaryByTheme(
-                                          themeData)))
+                                              themeData)))
                             ]));
                       }
                     })))

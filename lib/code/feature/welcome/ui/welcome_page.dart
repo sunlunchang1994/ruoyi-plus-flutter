@@ -60,8 +60,8 @@ class WelcomePage extends AppBaseStatelessWidget<_WelcomeVm> {
                   flex: 3,
                   child: Center(
                     child: Text(S.current.label_loading,
-                        style:
-                            SlcStyles.getTextColorHintStyleByTheme(themeData)),
+                        style: SlcStyles.tidyUpStyle
+                            .getTextColorHintStyleByTheme(themeData)),
                   )),
               const Spacer(flex: 1),
             ],

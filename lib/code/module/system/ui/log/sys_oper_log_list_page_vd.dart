@@ -49,7 +49,7 @@ class SysOperLogListPageWidget {
           return getDataListItem(themeData, listVmSub, index, listItem);
         },
         separatorBuilder: (context, index) {
-          return AppStyles.getDefDividerByTheme(themeData);
+          return SlcStyles.tidyUpStyle.getDefDividerByTheme(themeData);
         });
   }
 
@@ -67,7 +67,7 @@ class SysOperLogListPageWidget {
           children: [
             RichText(
                 text: TextSpan(
-                    style: AppStyles.getItemTitleStyleByThemeData(themeData),
+                    style: SlcStyles.listTileStyle.getItemTitleStyleByThemeData(themeData),
                     children: [
                   TextSpan(text: listItem.title!),
                   TextSpan(text: "·"),
@@ -136,7 +136,7 @@ class SysOperLogListPageWidget {
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
                       child: Text(S.current.sys_label_oper_search,
-                          style: SlcStyles.getTitleTextStyle(themeData))),
+                          style: SlcStyles.tidyUpStyle.getTitleTextStyle(themeData))),
                   SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "operIp",

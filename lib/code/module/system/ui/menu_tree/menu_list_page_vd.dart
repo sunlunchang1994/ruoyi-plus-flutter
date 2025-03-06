@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slc_boxes/flutter/slc/adapter/select_box.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/fast_mvvm.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_vm_sub.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu_tree.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 
 import '../../../../../generated/l10n.dart';
-import '../../../../../res/styles.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/config/constant_base.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
-import '../../../../feature/bizapi/user/entity/dept.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
 import '../../../../lib/fast/vd/list_data_component.dart';
@@ -49,7 +42,7 @@ class MenuListPageWidget {
               themeData, listVmSub, buildTrailing, index, listItem);
         },
         separatorBuilder: (context, index) {
-          return AppStyles.getDefDividerByTheme(themeData);
+          return SlcStyles.tidyUpStyle.getDefDividerByTheme(themeData);
         });
   }
 

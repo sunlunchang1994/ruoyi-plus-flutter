@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
-import 'package:ruoyi_plus_flutter/code/base/config/env_config.dart';
 import 'package:ruoyi_plus_flutter/code/base/startup/task_utils.dart';
 
 import 'route/app_router.dart';
 import '../generated/l10n.dart';
 import '../res/styles.dart';
-import 'base/config/constant_base.dart';
 import 'feature/welcome/ui/welcome_page.dart';
 
 class MyApp extends StatelessWidget {

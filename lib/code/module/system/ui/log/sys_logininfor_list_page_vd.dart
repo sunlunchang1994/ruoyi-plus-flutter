@@ -45,7 +45,7 @@ class SysLogininforListPageWidget {
           return getDataListItem(themeData, listVmSub, index, listItem);
         },
         separatorBuilder: (context, index) {
-          return AppStyles.getDefDividerByTheme(themeData);
+          return SlcStyles.tidyUpStyle.getDefDividerByTheme(themeData);
         });
   }
 
@@ -119,7 +119,7 @@ class SysLogininforListPageWidget {
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
                       child: Text(S.current.sys_label_logininfor_search,
-                          style: SlcStyles.getTitleTextStyle(themeData))),
+                          style: SlcStyles.tidyUpStyle.getTitleTextStyle(themeData))),
                   SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "ipaddr",

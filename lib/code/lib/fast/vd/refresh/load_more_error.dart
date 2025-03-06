@@ -14,7 +14,7 @@ class LoadMoreErrorWidget extends StatelessWidget {
         child: Padding(
             padding: EdgeInsets.all(8),
             child: Text(S.current.label_refresh_load_failed,
-                style: SlcStyles.getTextColorSecondaryStyleByTheme(
-                    Theme.of(context)))));
+                style: SlcStyles.tidyUpStyle
+                    .getTextColorSecondaryStyleByTheme(Theme.of(context)))));
   }
 }
