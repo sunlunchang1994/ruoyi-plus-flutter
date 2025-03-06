@@ -7,7 +7,7 @@ import '../../../../../base/api/api_config.dart';
 import '../../../../../base/api/base_dio.dart';
 import '../../../../../base/api/result_entity.dart';
 import '../../../../../base/repository/remote/data_transform_utils.dart';
-import '../../entity/oss_upload_vo.dart';
+import '../../entity/sys_oss_upload_vo.dart';
 
 part 'pub_oss_api.g.dart';
 
@@ -18,7 +18,7 @@ abstract class PubOssApiClient {
     return _PubOssApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
-  ///用户登录
+  ///上传文件
   @POST("/resource/oss/upload")
   Future<ResultEntity> upload(@Part(name: "file") File file);
 }
@@ -27,14 +27,14 @@ abstract class PubOssApiClient {
 class PubOssRepository {
   static final PubOssApiClient _ossApiClient = PubOssApiClient();
 
-  ///用户登录
-  static Future<IntensifyEntity<OssUploadVo>> upload(String filePath) async {
+  ///上传文件
+  static Future<IntensifyEntity<SysOssUploadVo>> upload(String filePath) async {
     return _ossApiClient
         .upload(File(filePath))
         .asStream()
         .map((event) {
-          var intensifyEntity = IntensifyEntity<OssUploadVo>(
-              resultEntity: event, createData: (resultEntity) => OssUploadVo.fromJson(resultEntity.data));
+          var intensifyEntity = IntensifyEntity<SysOssUploadVo>(
+              resultEntity: event, createData: (resultEntity) => SysOssUploadVo.fromJson(resultEntity.data));
           return intensifyEntity;
         })
         .map(DataTransformUtils.checkErrorIe)

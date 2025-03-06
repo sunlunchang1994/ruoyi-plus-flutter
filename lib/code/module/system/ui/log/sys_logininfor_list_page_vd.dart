@@ -70,11 +70,8 @@ class SysLogininforListPageWidget {
                     borderRadius: BorderRadius.all(Radius.circular(4))),
                 child: Text(
                   listItem.statusName ?? "-",
-                  style: TextStyle(
-                    height: 1,
-                    color: statusColor,
-                    fontSize: 12,
-                  ),
+                  style: SysStyle.sysLogListStatusText.copyWith(color: statusColor),
+                  strutStyle: SysStyle.sysLogListStatusTextStrutStyle,
                 )),
             SlcStyles.getSizedBox(width: SlcDimens.appDimens16)
           ],

@@ -20,8 +20,7 @@ class AppStyles extends SlcStyles {
   static ThemeData getAppLightTheme() {
     if (_appLightTheme == null) {
       ColorScheme colorScheme =
-          ColorScheme.fromSwatch(primarySwatch: Colors.blue)
-              .copyWith(surface: SlcColors.colorBackground);
+          ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(surface: SlcColors.colorBackground);
       _appLightTheme = ThemeData(
           useMaterial3: false,
           colorScheme: colorScheme,
@@ -40,4 +39,10 @@ class AppStyles extends SlcStyles {
     }
     return _appLightTheme!;
   }
+}
+
+class SysStyle {
+  //日志状态
+  static const TextStyle sysLogListStatusText = TextStyle(fontSize: 12);
+  static const StrutStyle sysLogListStatusTextStrutStyle = StrutStyle(forceStrutHeight: true, height: 0.9);
 }
