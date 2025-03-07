@@ -1,37 +1,33 @@
 ///数据持久化接口
 ///@author slc
 abstract class DataPersistence<T extends DataPersistence<T>> {
-  int getInt(String key, {int? defValue, bool? autoSaveDefValue}) {
+  int? getInt(String key, {int? defValue = -1, bool? autoSaveDefValue}) {
     autoSaveDefValue ??= defValue != null;
-    defValue ??= -1;
     return getIntInternal(key, defValue, autoSaveDefValue);
   }
 
-  int getIntInternal(String key, int defValue, bool autoSaveDefValue);
+  int? getIntInternal(String key, int? defValue, bool autoSaveDefValue);
 
-  double getDouble(String key, {double? defValue, bool? autoSaveDefValue}) {
+  double? getDouble(String key, {double? defValue = -1.0, bool? autoSaveDefValue}) {
     autoSaveDefValue ??= defValue != null;
-    defValue ??= -1.0;
     return getDoubleInternal(key, defValue, autoSaveDefValue);
   }
 
-  double getDoubleInternal(String key, double defValue, bool autoSaveDefValue);
+  double? getDoubleInternal(String key, double? defValue, bool autoSaveDefValue);
 
-  bool getBool(String key, {bool? defValue, bool? autoSaveDefValue}) {
+  bool? getBool(String key, {bool? defValue, bool? autoSaveDefValue = false}) {
     autoSaveDefValue ??= defValue != null;
-    defValue ??= false;
     return getBoolInternal(key, defValue, autoSaveDefValue);
   }
 
-  bool getBoolInternal(String key, bool defValue, bool autoSaveDefValue);
+  bool? getBoolInternal(String key, bool? defValue, bool autoSaveDefValue);
 
-  String getString(String key, {String? defValue, bool? autoSaveDefValue}) {
+  String? getString(String key, {String? defValue = "", bool? autoSaveDefValue}) {
     autoSaveDefValue ??= defValue != null;
-    defValue ??= '';
     return getStringInternal(key, defValue, autoSaveDefValue);
   }
 
-  String getStringInternal(String key, String defValue, bool autoSaveDefValue);
+  String? getStringInternal(String key, String? defValue, bool autoSaveDefValue);
 
   List<String>? getStringList(String key, {List<String>? defValue, bool? autoSaveDefValue}) {
     autoSaveDefValue ??= defValue != null;
@@ -51,6 +47,8 @@ abstract class DataPersistence<T extends DataPersistence<T>> {
     }
     return this;
   }
+
+  void remove(String key);
 
   void clear();
 
@@ -79,7 +77,11 @@ abstract class DataPersistence<T extends DataPersistence<T>> {
 
   static bool checkValueType(dynamic value) {
     if (value == null) return true;
-    if (value is int || value is double || value is bool || value is String || value is List<String>) {
+    if (value is int ||
+        value is double ||
+        value is bool ||
+        value is String ||
+        value is List<String>) {
       return true;
     }
     throw Exception('不允许的类型');

@@ -87,9 +87,11 @@ dependencies:
   # 图片裁剪
   crop_your_image: ^1.1.0
   # 文件选择
-  file_picker: ^8.1.4
+  file_picker: ^9.0.2
   # 路径访问
   path_provider: ^2.1.5
+  # 打开文件
+  open_file: ^3.5.10
   # 图片缓存加载
   cached_network_image: ^3.4.1
 
@@ -109,7 +111,7 @@ dependencies:
   flutter_form_builder: ^9.7.0
   form_builder_extra_fields: ^11.0.0
   form_builder_image_picker: ^4.1.0
-  form_builder_file_picker: ^4.2.0
+  # form_builder_file_picker: ^4.2.0
   form_builder_validators: ^11.1.1
   form_builder_phone_field: ^2.0.1
   # form_builder_cupertino_fields: ^0.4.0 ios风格
@@ -125,6 +127,8 @@ dependencies:
   #Json格式化
   interactive_json_preview: ^0.1.0
 
+  #
+  #universal_html: ^2.2.4
 dependency_overrides:
   image_gallery_saver:
     git:
@@ -172,6 +176,20 @@ flutter:
     - assets/images/slc/ic_loading.png
     - assets/images/slc/app_ic_def_user_head.png
     - assets/images/slc/user_ic_folder.svg
+
+    - assets/images/mp/slc_mp_ic_android.png
+    - assets/images/mp/slc_mp_ic_audiotrack.png
+    - assets/images/mp/slc_mp_ic_cs.png
+    - assets/images/mp/slc_mp_ic_excel.png
+    - assets/images/mp/slc_mp_ic_folder.png
+    - assets/images/mp/slc_mp_ic_html.png
+    - assets/images/mp/slc_mp_ic_image.png
+    - assets/images/mp/slc_mp_ic_pdf.png
+    - assets/images/mp/slc_mp_ic_powerpoint.png
+    - assets/images/mp/slc_mp_ic_text.png
+    - assets/images/mp/slc_mp_ic_unknown.png
+    - assets/images/mp/slc_mp_ic_videocam.png
+    - assets/images/mp/slc_mp_ic_word.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -363,6 +363,7 @@
   "sys_label_config_edit": "修改参数配置",
 
 
+  "sys_label_notice_search_title": "搜索配置参数",
   "sys_label_notice_type_select": "请选择公告类型",
   "sys_label_notice_title": "公告标题",
   "sys_label_notice_context": "公告内容",
@@ -396,10 +397,17 @@
   "sys_label_logininfor_os": "操作系统",
   "sys_label_logininfor_status": "状态",
 
+  "sys_label_oss_search": "搜索文件",
+  "sys_label_oss_view_file": "查看文件",
   "sys_label_oss_file_name": "文件名",
   "sys_label_oss_original_name": "原名",
   "sys_label_oss_file_suffix": "文件后缀",
+  "sys_label_oss_create_by": "上传人",
   "sys_label_oss_service": "服务商",
+  "sys_label_oss_create_tile": "创建时间",
+  "sys_label_oss_details": "文件详情",
+  "sys_label_permission_file_download_hint": "下载并保存文件需要文件管理权限，请授予！",
+  "sys_label_get_file_download_hint": "获取下载路径失败，请检查相关权限！",
 
   "main_divide_text": "-----------------------------",
   "main_label_workbench": "工作台",

@@ -357,6 +357,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "sys_label_dict_type_search_title": MessageLookupByLibrary.simpleMessage(
       "搜索字典类型",
     ),
+    "sys_label_get_file_download_hint": MessageLookupByLibrary.simpleMessage(
+      "获取下载路径失败，请检查相关权限！",
+    ),
     "sys_label_log_details": MessageLookupByLibrary.simpleMessage("日志详情"),
     "sys_label_logininfor_id": MessageLookupByLibrary.simpleMessage("访问编号"),
     "sys_label_logininfor_ip": MessageLookupByLibrary.simpleMessage("登录地址"),
@@ -399,6 +402,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "sys_label_notice_add": MessageLookupByLibrary.simpleMessage("新增公告"),
     "sys_label_notice_context": MessageLookupByLibrary.simpleMessage("公告内容"),
     "sys_label_notice_edit": MessageLookupByLibrary.simpleMessage("修改公告"),
+    "sys_label_notice_search_title": MessageLookupByLibrary.simpleMessage(
+      "搜索配置参数",
+    ),
     "sys_label_notice_status": MessageLookupByLibrary.simpleMessage("公告状态"),
     "sys_label_notice_title": MessageLookupByLibrary.simpleMessage("公告标题"),
     "sys_label_notice_type": MessageLookupByLibrary.simpleMessage("公告类型"),
@@ -422,10 +428,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "sys_label_oper_status": MessageLookupByLibrary.simpleMessage("操作状态"),
     "sys_label_oper_time": MessageLookupByLibrary.simpleMessage("操作时间"),
     "sys_label_oper_title": MessageLookupByLibrary.simpleMessage("系统模块"),
+    "sys_label_oss_create_by": MessageLookupByLibrary.simpleMessage("上传人"),
+    "sys_label_oss_create_tile": MessageLookupByLibrary.simpleMessage("创建时间"),
+    "sys_label_oss_details": MessageLookupByLibrary.simpleMessage("文件详情"),
     "sys_label_oss_file_name": MessageLookupByLibrary.simpleMessage("文件名"),
     "sys_label_oss_file_suffix": MessageLookupByLibrary.simpleMessage("文件后缀"),
     "sys_label_oss_original_name": MessageLookupByLibrary.simpleMessage("原名"),
+    "sys_label_oss_search": MessageLookupByLibrary.simpleMessage("搜索文件"),
     "sys_label_oss_service": MessageLookupByLibrary.simpleMessage("服务商"),
+    "sys_label_oss_view_file": MessageLookupByLibrary.simpleMessage("查看文件"),
+    "sys_label_permission_file_download_hint":
+        MessageLookupByLibrary.simpleMessage("下载并保存文件需要文件管理权限，请授予！"),
     "sys_label_system_dict_edit_hint": MessageLookupByLibrary.simpleMessage(
       "系统字典不允许修改",
     ),

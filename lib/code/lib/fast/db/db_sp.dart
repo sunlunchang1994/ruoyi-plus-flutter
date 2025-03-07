@@ -17,56 +17,52 @@ class DbSp extends DataPersistence<DbSp> {
   }
 
   @override
-  bool getBoolInternal(String key, bool defValue, bool autoSaveDefValue) {
+  bool? getBoolInternal(String key, bool? defValue, bool autoSaveDefValue) {
     bool? value = spUtils.getBool(_formatKey(key));
-    value ??= defValue;
-    if (autoSaveDefValue) {
-      spUtils.setBool(_formatKey(key), value);
+    if (autoSaveDefValue && value == null && defValue != null) {
+      spUtils.setBool(_formatKey(key), defValue);
     }
+    value ??= defValue;
     return value;
   }
 
   @override
-  double getDoubleInternal(String key, double defValue, bool autoSaveDefValue) {
+  double? getDoubleInternal(String key, double? defValue, bool autoSaveDefValue) {
     double? value = spUtils.getDouble(_formatKey(key));
-    value ??= defValue;
-    if (autoSaveDefValue) {
-      spUtils.setDouble(_formatKey(key), value);
+    if (autoSaveDefValue && value == null && defValue != null) {
+      spUtils.setDouble(_formatKey(key), defValue);
     }
+    value ??= defValue;
     return value;
   }
 
   @override
-  int getIntInternal(String key, int defValue, bool autoSaveDefValue) {
+  int? getIntInternal(String key, int? defValue, bool autoSaveDefValue) {
     int? value = spUtils.getInt(_formatKey(key));
-    value ??= defValue;
-    if (autoSaveDefValue) {
-      spUtils.setInt(_formatKey(key), value);
+    if (autoSaveDefValue && value == null && defValue != null) {
+      spUtils.setInt(_formatKey(key), defValue);
     }
+    value ??= defValue;
     return value;
   }
 
   @override
-  String getStringInternal(String key, String defValue, bool autoSaveDefValue) {
+  String? getStringInternal(String key, String? defValue, bool autoSaveDefValue) {
     String? value = spUtils.getString(_formatKey(key));
-    value ??= defValue;
-    if (autoSaveDefValue) {
-      spUtils.setString(_formatKey(key), value);
+    if (autoSaveDefValue && value == null && defValue != null) {
+      spUtils.setString(_formatKey(key), defValue);
     }
+    value ??= defValue;
     return value;
   }
 
   @override
   List<String>? getStringListInternal(String key, List<String>? defValue, bool autoSaveDefValue) {
     List<String>? value = spUtils.getStringList(_formatKey(key));
-    value ??= defValue;
-    if (autoSaveDefValue) {
-      if (value == null) {
-        spUtils.remove(_formatKey(key));
-      } else {
-        spUtils.setStringList(_formatKey(key), value);
-      }
+    if (autoSaveDefValue && value == null && defValue != null) {
+      spUtils.setStringList(_formatKey(key), defValue);
     }
+    value ??= defValue;
     return value;
   }
 
@@ -78,7 +74,7 @@ class DbSp extends DataPersistence<DbSp> {
   @override
   DataPersistence<dynamic> putValue(String key, dynamic value, {bool submit = true}) {
     if (value == null) {
-      spUtils.remove(key);
+      remove(key);
     }
     DataPersistence.checkValueType(value);
     if (value is int) {
@@ -104,6 +100,11 @@ class DbSp extends DataPersistence<DbSp> {
     return this;
   }
 
+  @override
+  void remove(String key){
+    spUtils.remove(key);
+  }
+  
   @override
   void clear() {
     Set<String> keys = spUtils.keys;

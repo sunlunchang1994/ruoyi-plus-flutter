@@ -20,6 +20,10 @@ class BaseEntity {
 
   Map<String, dynamic>? params;
 
+  String? createDeptName;
+  String? createByName;
+  String? updateByName;
+
   BaseEntity(
       {this.searchValue,
       this.createDept,
@@ -27,5 +31,8 @@ class BaseEntity {
       this.createTime,
       this.updateBy,
       this.updateTime,
-      this.params});
+      this.params,
+      this.createDeptName,
+      this.createByName,
+      this.updateByName});
 }

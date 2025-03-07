@@ -94,7 +94,7 @@ class NoticeListPageWidget {
                   Container(
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
-                      child: Text(S.current.sys_label_config_search_title,
+                      child: Text(S.current.sys_label_notice_search_title,
                           style: SlcStyles.tidyUpStyle.getTitleTextStyle(themeData))),
                   SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(

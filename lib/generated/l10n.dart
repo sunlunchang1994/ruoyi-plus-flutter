@@ -2940,6 +2940,16 @@ class S {
     );
   }
 
+  /// `搜索配置参数`
+  String get sys_label_notice_search_title {
+    return Intl.message(
+      '搜索配置参数',
+      name: 'sys_label_notice_search_title',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `请选择公告类型`
   String get sys_label_notice_type_select {
     return Intl.message(
@@ -3220,6 +3230,26 @@ class S {
     );
   }
 
+  /// `搜索文件`
+  String get sys_label_oss_search {
+    return Intl.message(
+      '搜索文件',
+      name: 'sys_label_oss_search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `查看文件`
+  String get sys_label_oss_view_file {
+    return Intl.message(
+      '查看文件',
+      name: 'sys_label_oss_view_file',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `文件名`
   String get sys_label_oss_file_name {
     return Intl.message(
@@ -3250,11 +3280,61 @@ class S {
     );
   }
 
+  /// `上传人`
+  String get sys_label_oss_create_by {
+    return Intl.message(
+      '上传人',
+      name: 'sys_label_oss_create_by',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `服务商`
   String get sys_label_oss_service {
     return Intl.message(
       '服务商',
       name: 'sys_label_oss_service',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `创建时间`
+  String get sys_label_oss_create_tile {
+    return Intl.message(
+      '创建时间',
+      name: 'sys_label_oss_create_tile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `文件详情`
+  String get sys_label_oss_details {
+    return Intl.message(
+      '文件详情',
+      name: 'sys_label_oss_details',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `下载并保存文件需要文件管理权限，请授予！`
+  String get sys_label_permission_file_download_hint {
+    return Intl.message(
+      '下载并保存文件需要文件管理权限，请授予！',
+      name: 'sys_label_permission_file_download_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `获取下载路径失败，请检查相关权限！`
+  String get sys_label_get_file_download_hint {
+    return Intl.message(
+      '获取下载路径失败，请检查相关权限！',
+      name: 'sys_label_get_file_download_hint',
       desc: '',
       args: [],
     );

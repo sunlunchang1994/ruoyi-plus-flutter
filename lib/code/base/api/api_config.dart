@@ -29,14 +29,15 @@ class ApiConfig extends DpManager {
   static const String KEY_APPLY_ENCRYPT = "applyEncrypt"; //应用加密
 
   //value
-  static const int VALUE_CODE_SUCCEED = 200;//成功
-  static const int VALUE_CODE_ERROR_REQUEST = 400;//错误请求
-  static const int VALUE_CODE_NORMAL_UNAUTHORIZED = 401;//请求未授权
-  static const int VALUE_CODE_SERVER_ERROR = 500;//服务器内部错误
-  static const int VALUE_CODE_NOT_IMPLEMENTED = 501;//尚未实施
+  static const int VALUE_CODE_SUCCEED = 200; //成功
+  static const int VALUE_CODE_ERROR_REQUEST = 400; //错误请求
+  static const int VALUE_CODE_NORMAL_UNAUTHORIZED = 401; //请求未授权
+  static const int VALUE_CODE_SERVER_ERROR = 500; //服务器内部错误
+  static const int VALUE_CODE_NOT_IMPLEMENTED = 501; //尚未实施
   static const String VALUE_STR_UNKNOWN_MISTAKE = "Unknown mistake";
+
   //客户端定义
-  static const int VALUE_CODE_RESULT_UPLOAD_FAILURE = 30003;//上传文件失败
+  static const int VALUE_CODE_RESULT_UPLOAD_FAILURE = 30003; //上传文件失败
 
   static const String VALUE_RSA_PUBLIC_KEY =
       "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKoR8mX0rGKLqzcWmOzbfj64K8ZIgOdHnzkXSOVOZbFu/TJhZ7rFAN+eaGkl3C4buccQd/EjEsj9ir7ijT7h96MCAwEAAQ==";
@@ -88,7 +89,7 @@ class ApiConfig extends DpManager {
 
   //apply
   bool isApplyCacheApi() {
-    return getDp().getBool(CONFIG_K_APPLY_CACHE_API);
+    return getDp().getBool(CONFIG_K_APPLY_CACHE_API, defValue: false)!;
   }
 
   void setApplyCacheApi(bool applyCacheApi) {
@@ -98,19 +99,19 @@ class ApiConfig extends DpManager {
   //service
 
   int getServiceMode({int defValue = CONFIG_V_MODE_HM}) {
-    return getDp().getInt(CONFIG_K_SERVICE_MODE, defValue: defValue);
+    return getDp().getInt(CONFIG_K_SERVICE_MODE, defValue: defValue)!;
   }
 
   void setServiceMode(int value) {
     getDp().putValue(CONFIG_K_SERVICE_MODE, value);
   }
 
-  String getServiceApiAddressByDp({String? defValue}) {
-    return getDp().getString(CONFIG_K_SERVICE_API_ADDRESS, defValue: defValue);
+  String getServiceApiAddressByDp({String defValue = ""}) {
+    return getDp().getString(CONFIG_K_SERVICE_API_ADDRESS, defValue: defValue)!;
   }
 
-  void setServiceApiAddressByDp(String value, {bool forceSave = true}) async {
-    if (forceSave || TextUtil.isEmpty(await getServiceApiAddressByDp())) {
+  void setServiceApiAddressByDp(String value, {bool forceSave = true}) {
+    if (forceSave || TextUtil.isEmpty(getServiceApiAddressByDp())) {
       getDp().putValue(CONFIG_K_SERVICE_API_ADDRESS, value);
     }
   }

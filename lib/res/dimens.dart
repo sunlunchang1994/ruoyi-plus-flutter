@@ -9,4 +9,8 @@ class AppDimens extends SlcDimens {
   static double userMineAvatarSize=80;
   static double userItemAvatarSize=48;
   static double userItemAvatarRadius = userItemAvatarSize/2;
+
+  //系统
+  static double sysDetailsOssImgSize=72;
+  static double sysItemOssImgSize=36;
 }
