@@ -44,14 +44,12 @@ dependencies:
   intl: ^0.19.0
 
   #基础框架
-
-  #----------------- 版本不要轻易改动  加上是因为上述包也用了这个
-  #状态管理
-  provider: ^6.1.2
-  #框架
   flutter_slc_boxes:
     git:
       url: https://gitee.com/slcpublic/flutter_slc_boxes.git
+  #----------------- 版本不要轻易改动  加上是因为上述包也用了这个
+  #状态管理
+  provider: ^6.1.2
   #路由
   # go_router: ^14.2.7
   # UI工具---------------------------------------
@@ -100,10 +98,12 @@ dependencies:
 
   # 其他---------------------------------------
   #权限处理
-  permission_handler: ^11.3.1
+  permission_handler: ^11.4.0
+  #设备信息 会影响编译和冲突，暂不加入
+  # device_info_plus: ^11.3.3
   #UUID
   uuid: ^4.4.0
-  #解决键盘被遮挡 暂时用不上
+  #解决键盘被遮挡
   keyboard_avoider: ^0.2.0
 
   # 表单---------------------------------------

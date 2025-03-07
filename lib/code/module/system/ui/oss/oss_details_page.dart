@@ -20,6 +20,7 @@ import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/remote/
 import 'package:ruoyi_plus_flutter/code/feature/component/attachment/repository/local/attachment_config.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/attachment/utils/attachment_utils.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/attachment/utils/media_type_constant.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/permission/permission_compat.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_text_field.dart';
@@ -70,8 +71,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                   initialValue: getVm().sysOssVo.url,
                                   decoration: MyInputDecoration(
                                       floatingLabelBehavior: FloatingLabelBehavior.always,
-                                      label: InputDecUtils.getRequiredLabel(
-                                          S.current.sys_label_oss_view_file),
+                                      labelText: S.current.sys_label_oss_view_file,
                                       border: const UnderlineInputBorder()),
                                   builder: (field) {
                                     var decorationState =
@@ -165,7 +165,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                                   ],
                                                 );
                                               }
-                                              if (value.status == DownloadStatus.waiting) {
+                                              if (value.status == DownloadStatus.finish) {
                                                 return IconButton(
                                                     onPressed: () {
                                                       getVm().onOpenFile(value.filePath!);
@@ -202,8 +202,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
-                                    label: InputDecUtils.getRequiredLabel(
-                                        S.current.sys_label_oss_file_name),
+                                    labelText: S.current.sys_label_oss_file_name,
                                     hintText: S.current.app_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
@@ -215,8 +214,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
-                                    label: InputDecUtils.getRequiredLabel(
-                                        S.current.sys_label_oss_original_name),
+                                    labelText: S.current.sys_label_oss_original_name,
                                     hintText: S.current.app_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
@@ -228,8 +226,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
-                                    label: InputDecUtils.getRequiredLabel(
-                                        S.current.sys_label_oss_file_suffix),
+                                    labelText: S.current.sys_label_oss_file_suffix,
                                     hintText: S.current.app_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
@@ -241,8 +238,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
-                                    label: InputDecUtils.getRequiredLabel(
-                                        S.current.sys_label_oss_create_by),
+                                    labelText: S.current.sys_label_oss_create_by,
                                     hintText: S.current.app_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
@@ -254,8 +250,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
-                                    label: InputDecUtils.getRequiredLabel(
-                                        S.current.sys_label_oss_service),
+                                    labelText: S.current.sys_label_oss_service,
                                     hintText: S.current.app_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
@@ -267,8 +262,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
-                                    label: InputDecUtils.getRequiredLabel(
-                                        S.current.sys_label_oss_create_tile),
+                                    labelText: S.current.sys_label_oss_create_tile,
                                     hintText: S.current.app_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
@@ -296,10 +290,12 @@ class _OssAddEditVm extends AppBaseVm {
   //开始下载文件
   void onDownloadFile() async {
     // 请求存储权限
-    final status = await Permission.storage.request();
-    if (!status.isGranted) {
-      AppToastBridge.showToast(msg: S.current.sys_label_permission_file_download_hint);
-      return;
+    if(Platform.isAndroid){
+      final status = await PermissionCompat.requestStorage;
+      if (!status.isGranted) {
+        AppToastBridge.showToast(msg: S.current.sys_label_permission_file_download_hint);
+        return;
+      }
     }
     //获取下载路径
     String? filePath = AttachmentConfig().getDownloadPath() ??
