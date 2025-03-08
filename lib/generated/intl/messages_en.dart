@@ -428,6 +428,30 @@ class MessageLookup extends MessageLookupByLibrary {
     "sys_label_oper_status": MessageLookupByLibrary.simpleMessage("操作状态"),
     "sys_label_oper_time": MessageLookupByLibrary.simpleMessage("操作时间"),
     "sys_label_oper_title": MessageLookupByLibrary.simpleMessage("系统模块"),
+    "sys_label_oss_config_access_key": MessageLookupByLibrary.simpleMessage(
+      "accessKey",
+    ),
+    "sys_label_oss_config_bucket_name": MessageLookupByLibrary.simpleMessage(
+      "桶名称",
+    ),
+    "sys_label_oss_config_bucket_permissions_name":
+        MessageLookupByLibrary.simpleMessage("桶权限类型"),
+    "sys_label_oss_config_custom_domain": MessageLookupByLibrary.simpleMessage(
+      "自定义域名",
+    ),
+    "sys_label_oss_config_is_https": MessageLookupByLibrary.simpleMessage(
+      "是否HTTPS",
+    ),
+    "sys_label_oss_config_key": MessageLookupByLibrary.simpleMessage("配置key"),
+    "sys_label_oss_config_name": MessageLookupByLibrary.simpleMessage("配置管理"),
+    "sys_label_oss_config_region": MessageLookupByLibrary.simpleMessage("域"),
+    "sys_label_oss_config_remark": MessageLookupByLibrary.simpleMessage("备注"),
+    "sys_label_oss_config_secret_key": MessageLookupByLibrary.simpleMessage(
+      "secretKey",
+    ),
+    "sys_label_oss_config_visit_site": MessageLookupByLibrary.simpleMessage(
+      "访问站点",
+    ),
     "sys_label_oss_create_by": MessageLookupByLibrary.simpleMessage("上传人"),
     "sys_label_oss_create_tile": MessageLookupByLibrary.simpleMessage("创建时间"),
     "sys_label_oss_details": MessageLookupByLibrary.simpleMessage("文件详情"),

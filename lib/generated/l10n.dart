@@ -3340,6 +3340,116 @@ class S {
     );
   }
 
+  /// `配置管理`
+  String get sys_label_oss_config_name {
+    return Intl.message(
+      '配置管理',
+      name: 'sys_label_oss_config_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `配置key`
+  String get sys_label_oss_config_key {
+    return Intl.message(
+      '配置key',
+      name: 'sys_label_oss_config_key',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `访问站点`
+  String get sys_label_oss_config_visit_site {
+    return Intl.message(
+      '访问站点',
+      name: 'sys_label_oss_config_visit_site',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `自定义域名`
+  String get sys_label_oss_config_custom_domain {
+    return Intl.message(
+      '自定义域名',
+      name: 'sys_label_oss_config_custom_domain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `accessKey`
+  String get sys_label_oss_config_access_key {
+    return Intl.message(
+      'accessKey',
+      name: 'sys_label_oss_config_access_key',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `secretKey`
+  String get sys_label_oss_config_secret_key {
+    return Intl.message(
+      'secretKey',
+      name: 'sys_label_oss_config_secret_key',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `桶名称`
+  String get sys_label_oss_config_bucket_name {
+    return Intl.message(
+      '桶名称',
+      name: 'sys_label_oss_config_bucket_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `是否HTTPS`
+  String get sys_label_oss_config_is_https {
+    return Intl.message(
+      '是否HTTPS',
+      name: 'sys_label_oss_config_is_https',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `桶权限类型`
+  String get sys_label_oss_config_bucket_permissions_name {
+    return Intl.message(
+      '桶权限类型',
+      name: 'sys_label_oss_config_bucket_permissions_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `域`
+  String get sys_label_oss_config_region {
+    return Intl.message(
+      '域',
+      name: 'sys_label_oss_config_region',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `备注`
+  String get sys_label_oss_config_remark {
+    return Intl.message(
+      '备注',
+      name: 'sys_label_oss_config_remark',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `-----------------------------`
   String get main_divide_text {
     return Intl.message(

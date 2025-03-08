@@ -56,7 +56,7 @@ abstract class BasePageDataVmSub<T> extends IBasePageDataCommonVmSub<T> {
   }
 
   void onSucceed(PageModel<T> pageModel) {
-    super.shouldSetState.updateVersion();
+    shouldSetState.updateVersion();
     _loadMoreFormat.formatByPageModel(dataList, pageModel);
   }
 

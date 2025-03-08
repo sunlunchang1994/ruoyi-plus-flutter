@@ -25,6 +25,7 @@ import '../module/system/ui/menu_tree/menu_tree_borwser_page.dart';
 import '../module/system/ui/menu_tree/menu_tree_select_multiple_page.dart';
 import '../module/system/ui/notice/notice_add_edit_page.dart';
 import '../module/system/ui/notice/notice_list_browser_page.dart';
+import '../module/system/ui/oss/config/oss_config_list_browser_page.dart';
 import '../module/system/ui/oss/oss_details_page.dart';
 import '../module/system/ui/oss/oss_list_browser_page.dart';
 import '../module/system/ui/router/router_page.dart';
@@ -236,6 +237,10 @@ final Map<String, WidgetBuilder> router = {
   OssDetailsPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
     return OssDetailsPage(slcRouterInfo?.arguments[ConstantSys.KEY_SYS_OSS]);
+  },
+  //oss config
+  OssConfigListBrowserPage.routeName: (BuildContext context) {
+    return OssConfigListBrowserPage();
   },
 };
 

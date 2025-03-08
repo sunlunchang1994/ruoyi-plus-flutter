@@ -409,6 +409,18 @@
   "sys_label_permission_file_download_hint": "下载并保存文件需要文件管理权限，请授予！",
   "sys_label_get_file_download_hint": "获取下载路径失败，请检查相关权限！",
 
+  "sys_label_oss_config_name": "配置管理",
+  "sys_label_oss_config_key": "配置key",
+  "sys_label_oss_config_visit_site": "访问站点",
+  "sys_label_oss_config_custom_domain": "自定义域名",
+  "sys_label_oss_config_access_key": "accessKey",
+  "sys_label_oss_config_secret_key": "secretKey",
+  "sys_label_oss_config_bucket_name": "桶名称",
+  "sys_label_oss_config_is_https": "是否HTTPS",
+  "sys_label_oss_config_bucket_permissions_name": "桶权限类型",
+  "sys_label_oss_config_region": "域",
+  "sys_label_oss_config_remark": "备注",
+
   "main_divide_text": "-----------------------------",
   "main_label_workbench": "工作台",
   "main_label_mine": "我的",

@@ -3,32 +3,30 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/utils/widget_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
 
-import '../../../../../generated/l10n.dart';
-import 'config/oss_config_list_browser_page.dart';
-import 'oss_list_page_vd.dart';
+import '../../../../../../generated/l10n.dart';
+import '../../../../../lib/fast/utils/widget_utils.dart';
+import 'oss_list_config_page_vd.dart';
 
 ///
 /// @author slc
-/// Oss列表
-class OssListBrowserPage extends AppBaseStatelessWidget<_OssListBrowserVm> {
-  static const String routeName = '/system/oss';
-  final String title;
+/// OssConfig列表
+class OssConfigListBrowserPage extends AppBaseStatelessWidget<_OssConfigListBrowserVm> {
+  static const String routeName = '/system/oss/config';
 
-  OssListBrowserPage(this.title, {super.key});
+  OssConfigListBrowserPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => _OssListBrowserVm(),
+        create: (context) => _OssConfigListBrowserVm(),
         builder: (context, child) {
           ThemeData themeData = Theme.of(context);
           registerEvent(context);
           getVm().initVm();
           return Scaffold(
-              appBar: AppBar(title: Text(title), actions: [
+              appBar: AppBar(title: Text(S.current.sys_label_oss_config_name), actions: [
                 Builder(builder: (context) {
                   return IconButton(
                     icon: const Icon(Icons.search),
@@ -36,28 +34,14 @@ class OssListBrowserPage extends AppBaseStatelessWidget<_OssListBrowserVm> {
                       WidgetUtils.autoHandlerSearchDrawer(context);
                     },
                   );
-                }),
-                PopupMenuButton<String>(itemBuilder: (context) {
-                  return [
-                    PopupMenuItem(
-                        value: OssConfigListBrowserPage.routeName,
-                        child: Text(S.current.sys_label_oss_config_name))
-                  ];
-                }, onSelected: (value) {
-                  getVm().pushNamed(OssConfigListBrowserPage.routeName);
                 })
               ]),
-              endDrawer: OssListPageWidget.getSearchEndDrawer<_OssListBrowserVm>(
+              endDrawer: OssConfigListPageWidget.getSearchEndDrawer<_OssConfigListBrowserVm>(
                   context, themeData, getVm().listVmSub),
-              /*floatingActionButton: FloatingActionButton(
-                  child: Icon(Icons.add),
-                  onPressed: () {
-                    getVm().onAddItem();
-                  }),*/
               body: PageDataVd(getVm().listVmSub, getVm(),
                   refreshOnStart: true,
-                  child: NqSelector<_OssListBrowserVm, int>(builder: (context, vm, child) {
-                    return OssListPageWidget.getDataListWidget(themeData, getVm().listVmSub);
+                  child: NqSelector<_OssConfigListBrowserVm, int>(builder: (context, vm, child) {
+                    return OssConfigListPageWidget.getDataListWidget(themeData, getVm().listVmSub);
                   }, selector: (context, vm) {
                     return vm.listVmSub.shouldSetState.version;
                   })));
@@ -65,11 +49,11 @@ class OssListBrowserPage extends AppBaseStatelessWidget<_OssListBrowserVm> {
   }
 }
 
-class _OssListBrowserVm extends AppBaseVm {
-  late OssListDataVmSub listVmSub;
+class _OssConfigListBrowserVm extends AppBaseVm {
+  late OssConfigListDataVmSub listVmSub;
 
-  _OssListBrowserVm() {
-    listVmSub = OssListDataVmSub();
+  _OssConfigListBrowserVm() {
+    listVmSub = OssConfigListDataVmSub();
     listVmSub.onSuffixClick = (itemData) {
       /*pushNamed(NoticeAddEditPage.routeName,
           arguments: {ConstantSys.KEY_SYS_NOTICE: itemData}).then((result) {
