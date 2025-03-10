@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 
 import '../../../../lib/fast/vd/list_data_vm_sub.dart';
 import '../entity/slc_tree_nav.dart';
@@ -31,8 +32,7 @@ class TreeNavVd {
                       SlcTreeNav currentItem = treeNavList[index];
                       if (lastItem == currentItem) {
                         return Row(children: [
-                          Icon(Icons.arrow_right,
-                              color: themeData.primaryColor),
+                          Icon(Icons.arrow_right, color: themeData.primaryColor),
                           Text(currentItem.treeName,
                               style: TextStyle(color: themeData.primaryColor))
                         ]);
@@ -49,8 +49,7 @@ class TreeNavVd {
                               Text(currentItem.treeName,
                                   style: TextStyle(
                                       color: SlcColors.tidyUpColor
-                                          .getTextColorSecondaryByTheme(
-                                              themeData)))
+                                          .getTextColorSecondaryByTheme(themeData)))
                             ]));
                       }
                     })))
@@ -60,12 +59,9 @@ class TreeNavVd {
 }
 
 /// 树级列表VmSub
-class TreeFastBaseListDataVmSub<T> extends FastBaseListDataVmSub<T> {
+class TreeFastBaseListDataVmSub<T> extends FastBaseListDataVmSub<T> with CancelTokenAssist {
   //部门栈堆数据
   final Map<dynamic, List<T>> treeStacksDataMap = Map.identity();
-
-  //取消token栈堆数据
-  final Map<dynamic, CancelToken> treeStacksCancelTokenMap = Map.identity();
 
   //部门栈堆
   final List<SlcTreeNav> treeNacStacks = List.empty(growable: true);
@@ -123,8 +119,7 @@ class TreeFastBaseListDataVmSub<T> extends FastBaseListDataVmSub<T> {
       treeStacksDataMap.remove(item.id);
     }
     //设置当前的数据
-    List<T>? treStackData =
-        treeStacksDataMap[targetTreeId] ?? List.empty(growable: true);
+    List<T>? treStackData = treeStacksDataMap[targetTreeId] ?? List.empty(growable: true);
     onSucceed(treStackData);
   }
 
@@ -135,24 +130,14 @@ class TreeFastBaseListDataVmSub<T> extends FastBaseListDataVmSub<T> {
 
   //根据treeId创建CancelToken
   CancelToken createCancelTokenByTreeId(dynamic treeId) {
-    CancelToken cancelToken = CancelToken();
     execCancelToken(treeId);
-    treeStacksCancelTokenMap[treeId] = cancelToken;
-    return cancelToken;
+    return getOrCreateCancelToken(treeId);
   }
 
   //执行取消
   void execCancelToken(dynamic treeId, {bool remove = true}) {
     //此处获取CancelToken使用remove，意味着取消后就可以甩掉了，没用
-    CancelToken? oldCancelToken;
-    if (remove) {
-      oldCancelToken = treeStacksCancelTokenMap.remove(treeId);
-    } else {
-      oldCancelToken = treeStacksCancelTokenMap[treeId];
-    }
-    if (oldCancelToken != null && !oldCancelToken.isCancelled) {
-      oldCancelToken.cancel("pop");
-    }
+    cancelTokenByKey(treeId, reason: "pop", remove: remove);
   }
 
   @override
@@ -160,13 +145,5 @@ class TreeFastBaseListDataVmSub<T> extends FastBaseListDataVmSub<T> {
     super.onSucceed(dataList);
     SlcTreeNav slcTreeNav = treeNacStacks.last;
     treeStacksDataMap[slcTreeNav.id] = dataList;
-  }
-
-  @override
-  void onCleared() {
-    treeStacksCancelTokenMap.forEach((key, value) {
-      execCancelToken(key, remove: false);
-    });
-    super.onCleared();
   }
 }

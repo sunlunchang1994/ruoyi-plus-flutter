@@ -24,6 +24,7 @@ import 'package:ruoyi_plus_flutter/code/feature/component/attachment/utils/media
 import 'package:ruoyi_plus_flutter/code/lib/fast/permission/permission_compat.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_text_field.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/input_decoration_utils.dart';
@@ -274,9 +275,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
   }
 }
 
-class _OssAddEditVm extends AppBaseVm {
-  final CancelToken cancelToken = CancelToken();
-
+class _OssAddEditVm extends AppBaseVm with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   late SysOssVo sysOssVo;
@@ -322,7 +321,7 @@ class _OssAddEditVm extends AppBaseVm {
     }
 
     //开始下载
-    PubOssRepository.download(sysOssVo.ossId!.toString(), filePath, cancelToken,
+    PubOssRepository.download(sysOssVo.ossId!.toString(), filePath, defCancelToken,
         onReceiveProgress: (progress) {
       //更新下载进度
       this._downloadProgress = progress;
@@ -335,7 +334,7 @@ class _OssAddEditVm extends AppBaseVm {
       AppToastBridge.showToast(msg: S.current.action_download_on_success);
       onOpenFile(result.filePath!);
     }, onError: (e) {
-      AppToastBridge.showToast(msg: BaseDio.getError(e).msg);
+      BaseDio.showToastByError(e);
     });
   }
 

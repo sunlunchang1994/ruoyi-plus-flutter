@@ -15,6 +15,7 @@ import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_text_field.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_builder_flow_tag.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
@@ -223,17 +224,13 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderRadioGroup<OptionVL<String>>(
                         name: "status",
-                        initialValue: DictUiUtils.dict2OptionVL(GlobalVm()
-                            .dictShareVm
-                            .findDict(LocalDictLib.CODE_SYS_NORMAL_DISABLE,
-                            getVm().sysClient!.status,
-                            defDictKey: LocalDictLib
-                                .KEY_SYS_NORMAL_DISABLE_NORMAL)),
+                        initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
+                            LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().sysClient!.status,
+                            defDictKey: LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL)),
                         options: DictUiUtils.dictList2FromOption(
-                            globalVm.dictShareVm.dictMap[
-                            LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
-                        decoration: MyInputDecoration(
-                            labelText: S.current.sys_label_sys_client_status),
+                            globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
+                        decoration:
+                            MyInputDecoration(labelText: S.current.sys_label_sys_client_status),
                         onChanged: (value) {
                           getVm().applyInfoChange();
                           getVm().sysClient!.status = value?.value;
@@ -287,9 +284,7 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
   }
 }
 
-class _SysClientAddEditVm extends AppBaseVm {
-  final CancelToken cancelToken = CancelToken();
-
+class _SysClientAddEditVm extends AppBaseVm with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   SysClient? sysClient;
@@ -310,15 +305,14 @@ class _SysClientAddEditVm extends AppBaseVm {
       sysClient = SysClient();
       sysClient.status = LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL;
       this.sysClient = sysClient;
-      setLoadingStatusWithNotify(LoadingStatus.success,notify: false);
+      setLoadingStatusWithNotify(LoadingStatus.success, notify: false);
     } else {
-      SysClientRepository.getInfo(sysClient.id!, cancelToken).asStream().single.then(
+      SysClientRepository.getInfo(sysClient.id!, defCancelToken).asStream().single.then(
           (intensifyEntity) {
         this.sysClient = intensifyEntity.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        ResultEntity resultEntity = BaseDio.getError(e);
-        AppToastBridge.showToast(msg: resultEntity.msg);
+        BaseDio.showToastByError(e);
         finish();
       });
     }
@@ -383,14 +377,14 @@ class _SysClientAddEditVm extends AppBaseVm {
       return;
     }
     showLoading(text: S.current.label_save_ing);
-    SysClientRepository.submit(sysClient!, cancelToken).then((value) {
+    SysClientRepository.submit(sysClient!, defCancelToken).then((value) {
       AppToastBridge.showToast(msg: S.current.toast_edit_success);
       dismissLoading();
       _infoChange = false;
       finish(result: sysClient);
     }, onError: (error) {
       dismissLoading();
-      AppToastBridge.showToast(msg: BaseDio.getError(error).msg);
+      BaseDio.showToastByError(error);
     });
   }
 }

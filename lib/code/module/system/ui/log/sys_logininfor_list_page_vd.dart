@@ -7,6 +7,7 @@ import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_logininfor.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/log/sys_log_page.dart';
 
@@ -30,8 +31,7 @@ import '../../repository/remote/sys_logininfor_api.dart';
 ///登录日志列表
 class SysLogininforListPageWidget {
   ///数据列表控件
-  static Widget getDataListWidget(
-      ThemeData themeData, LogininforListDataVmSub listVmSub) {
+  static Widget getDataListWidget(ThemeData themeData, LogininforListDataVmSub listVmSub) {
     if (listVmSub.dataList.isEmpty) {
       return const ContentEmptyWrapper();
     }
@@ -55,7 +55,8 @@ class SysLogininforListPageWidget {
     int index,
     SysLogininfor listItem,
   ) {
-    Color statusColor = DictUiUtils.getDictStyle(LocalDictLib.CODE_SYS_COMMON_STATUS, listItem.status);
+    Color statusColor =
+        DictUiUtils.getDictStyle(LocalDictLib.CODE_SYS_COMMON_STATUS, listItem.status);
     return ListTile(
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
         title: Row(
@@ -128,10 +129,8 @@ class SysLogininforListPageWidget {
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<LogLoginSearchVm, String?>(
                               builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixByInputVal(
-                                value,
-                                formOperate: searchVm.formOperate,
-                                formFieldName: "ipaddr");
+                            return InputDecUtils.autoClearSuffixByInputVal(value,
+                                formOperate: searchVm.formOperate, formFieldName: "ipaddr");
                           }, selector: (context, vm) {
                             return searchVm.currentSearch.ipaddr;
                           })),
@@ -151,10 +150,8 @@ class SysLogininforListPageWidget {
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<LogLoginSearchVm, String?>(
                               builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixByInputVal(
-                                value,
-                                formOperate: searchVm.formOperate,
-                                formFieldName: "userName");
+                            return InputDecUtils.autoClearSuffixByInputVal(value,
+                                formOperate: searchVm.formOperate, formFieldName: "userName");
                           }, selector: (context, vm) {
                             return searchVm.currentSearch.userName;
                           })),
@@ -168,8 +165,7 @@ class SysLogininforListPageWidget {
                       name: "statusName",
                       initialValue: searchVm.currentSearch.statusName,
                       onTap: () {
-                        DictUiUtils.showSelectDialog(
-                            context, LocalDictLib.CODE_SYS_COMMON_STATUS,
+                        DictUiUtils.showSelectDialog(context, LocalDictLib.CODE_SYS_COMMON_STATUS,
                             (value) {
                           searchVm.setSelectStatus(value);
                         });
@@ -181,8 +177,7 @@ class SysLogininforListPageWidget {
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<LogLoginSearchVm, String?>(
                               builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixBySelectVal(
-                                value, onPressed: () {
+                            return InputDecUtils.autoClearSuffixBySelectVal(value, onPressed: () {
                               searchVm.setSelectStatus(null);
                             });
                           }, selector: (context, vm) {
@@ -222,9 +217,8 @@ class SysLogininforListPageWidget {
 }
 
 ///登录日志数据VmSub
-class LogininforListDataVmSub extends FastBaseListDataPageVmSub<SysLogininfor> {
-  final CancelToken cancelToken = CancelToken();
-
+class LogininforListDataVmSub extends FastBaseListDataPageVmSub<SysLogininfor>
+    with CancelTokenAssist {
   SysLogininfor currentSearch = SysLogininfor();
 
   void Function(SysLogininfor data)? onSuffixClick;
@@ -234,8 +228,8 @@ class LogininforListDataVmSub extends FastBaseListDataPageVmSub<SysLogininfor> {
     setLoadData((loadMoreFormat) async {
       try {
         IntensifyEntity<PageModel<SysLogininfor>> intensifyEntity =
-            await SysLogininforRepository.list(loadMoreFormat.getOffset(),
-                    loadMoreFormat.getSize(), currentSearch, cancelToken)
+            await SysLogininforRepository.list(loadMoreFormat.getOffset(), loadMoreFormat.getSize(),
+                    currentSearch, defCancelToken)
                 .asStream()
                 .single;
         DataWrapper<PageModel<SysLogininfor>> dataWrapper =
@@ -243,8 +237,7 @@ class LogininforListDataVmSub extends FastBaseListDataPageVmSub<SysLogininfor> {
         return dataWrapper;
       } catch (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
-        return DataWrapper.createFailed(
-            code: resultEntity.code, msg: resultEntity.msg);
+        return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
       }
     });
     //设置点击item事件主体

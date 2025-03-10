@@ -29,6 +29,7 @@ class ApiConfig extends DpManager {
   static const String KEY_APPLY_ENCRYPT = "applyEncrypt"; //应用加密
 
   //value
+  static const int VALUE_CODE_CANCEL = -100; //客户端取消
   static const int VALUE_CODE_SUCCEED = 200; //成功
   static const int VALUE_CODE_ERROR_REQUEST = 400; //错误请求
   static const int VALUE_CODE_NORMAL_UNAUTHORIZED = 401; //请求未授权

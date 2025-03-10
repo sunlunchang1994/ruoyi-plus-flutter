@@ -16,8 +16,7 @@ import '../../../../lib/fast/utils/widget_utils.dart';
 /// @author slc
 /// 岗位单选
 ///
-class PostListSingleSelectPage
-    extends AppBaseStatelessWidget<_PostListSingleSelectVm> {
+class PostListSingleSelectPage extends AppBaseStatelessWidget<_PostListSingleSelectVm> {
   static const String routeName = '/system/post/single';
   final String title;
 
@@ -39,15 +38,12 @@ class PostListSingleSelectPage
                     },
                     icon: Icon(Icons.search))
               ]),
-              endDrawer:
-                  PostListPageVd.getSearchEndDrawer<_PostListSingleSelectVm>(
-                      context, themeData, getVm().listVmSub),
+              endDrawer: PostListPageVd.getSearchEndDrawer<_PostListSingleSelectVm>(
+                  context, themeData, getVm().listVmSub),
               body: PageDataVd(getVm().listVmSub, getVm(),
                   refreshOnStart: true,
-                  child: NqSelector<_PostListSingleSelectVm, int>(
-                      builder: (context, vm, child) {
-                    return PostListPageVd.getUserListWidget(
-                        themeData, getVm().listVmSub);
+                  child: NqSelector<_PostListSingleSelectVm, int>(builder: (context, vm, child) {
+                    return PostListPageVd.getUserListWidget(themeData, getVm().listVmSub);
                   }, selector: (context, vm) {
                     return vm.listVmSub.shouldSetState.version;
                   })));
@@ -59,8 +55,7 @@ class PostListSingleSelectPage
 /// @author slc
 /// 岗位单选控件
 ///
-class PostListSingleSelectDialog
-    extends AppBaseStatelessWidget<_PostListSingleSelectVm> {
+class PostListSingleSelectDialog extends AppBaseStatelessWidget<_PostListSingleSelectVm> {
   PostListSingleSelectDialog({super.key});
 
   static Widget getRoleListSingleSelectDialog({String? title}) {
@@ -85,8 +80,7 @@ class PostListSingleSelectDialog
     return SizedBox(
         width: ScreenUtil.getInstance().screenWidthDpr,
         child: PageDataVd(getVm().listVmSub, getVm(), refreshOnStart: true,
-            child: Consumer<_PostListSingleSelectVm>(
-                builder: (context, vm, child) {
+            child: Consumer<_PostListSingleSelectVm>(builder: (context, vm, child) {
           return PostListPageVd.getUserListWidget(themeData, getVm().listVmSub);
         })));
   }

@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/repository/remote/page_transform_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_vm_sub.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 
 import '../../../../../../generated/l10n.dart';
 import '../../../../../../res/styles.dart';
@@ -150,10 +151,8 @@ class DictTypeListPageWidget {
 }
 
 ///字典数据分页VmSub
-class DictDataPageVmSub extends FastBaseListDataPageVmSub<SysDictData> {
+class DictDataPageVmSub extends FastBaseListDataPageVmSub<SysDictData> with CancelTokenAssist{
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
-
-  final CancelToken cancelToken = CancelToken();
 
   SysDictData _currentDictTypeSearch = SysDictData();
 
@@ -170,7 +169,7 @@ class DictDataPageVmSub extends FastBaseListDataPageVmSub<SysDictData> {
                     loadMoreFormat.getOffset(),
                     loadMoreFormat.getSize(),
                     _currentDictTypeSearch,
-                    cancelToken)
+                    defCancelToken)
                 .asStream()
                 .single;
             DataWrapper<PageModel<SysDictData>> dataWrapper =
@@ -210,10 +209,8 @@ class DictDataPageVmSub extends FastBaseListDataPageVmSub<SysDictData> {
 }
 
 ///字典数据分页VmSub
-class DictDataListVmSub extends FastBaseListDataVmSub<SysDictData> {
+class DictDataListVmSub extends FastBaseListDataVmSub<SysDictData> with CancelTokenAssist{
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
-
-  final CancelToken cancelToken = CancelToken();
 
   SysDictData _currentDictTypeSearch = SysDictData();
 
@@ -227,7 +224,7 @@ class DictDataListVmSub extends FastBaseListDataVmSub<SysDictData> {
         () async {
           try {
             IntensifyEntity<List<SysDictData>> intensifyEntity = await DictDataRepository.list(
-                    LoadMoreFormat.DEF_OFFICE, 9999, _currentDictTypeSearch, cancelToken)
+                    LoadMoreFormat.DEF_OFFICE, 9999, _currentDictTypeSearch, defCancelToken)
                 .asStream()
                 .map((event) {
               return IntensifyEntity(

@@ -7,6 +7,7 @@ import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_dict_type.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/repository/remote/dict_type_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/dict/data/dict_data_list_browser_page.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/dict/type/dict_type_add_edit_page.dart';
@@ -176,10 +177,8 @@ class DictTypeListPageWidget {
 }
 
 ///字典类型数据VmSub
-class DictTypeListDataVmSub extends FastBaseListDataPageVmSub<SysDictType> {
+class DictTypeListDataVmSub extends FastBaseListDataPageVmSub<SysDictType> with CancelTokenAssist{
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
-
-  final CancelToken cancelToken = CancelToken();
 
   SysDictType _currentDictTypeSearch = SysDictType();
 
@@ -196,7 +195,7 @@ class DictTypeListDataVmSub extends FastBaseListDataPageVmSub<SysDictType> {
                     loadMoreFormat.getOffset(),
                     loadMoreFormat.getSize(),
                     _currentDictTypeSearch,
-                    cancelToken)
+                    defCancelToken)
                 .asStream()
                 .single;
         DataWrapper<PageModel<SysDictType>> dataWrapper =

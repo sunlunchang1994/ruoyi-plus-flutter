@@ -13,6 +13,7 @@ import 'package:ruoyi_plus_flutter/code/lib/fast/utils/widget_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
 
 import '../../../../../generated/l10n.dart';
+import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../feature/bizapi/system/entity/sys_oss_upload_vo.dart';
 import '../../../../feature/bizapi/system/repository/remote/pub_oss_api.dart';
@@ -190,7 +191,7 @@ class _OssListBrowserVm extends AppBaseVm {
       dismissLoading();
       listVmSub.sendRefreshEvent();
     }, onError: (e) {
-      AppToastBridge.showToast(msg: S.current.label_file_upload_by_file_failed);
+      BaseDio.showToastByError(e,defErrMsg: S.current.label_file_upload_by_file_failed);
       dismissLoading();
     });
   }

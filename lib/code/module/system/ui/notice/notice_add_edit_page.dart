@@ -12,6 +12,7 @@ import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_text_field.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
@@ -186,8 +187,7 @@ class NoticeAddEditPage extends AppBaseStatelessWidget<_NoticeAddEditVm> {
   }
 }
 
-class _NoticeAddEditVm extends AppBaseVm {
-  final CancelToken cancelToken = CancelToken();
+class _NoticeAddEditVm extends AppBaseVm with CancelTokenAssist{
 
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
@@ -228,7 +228,7 @@ class _NoticeAddEditVm extends AppBaseVm {
 
       setLoadingStatusWithNotify(LoadingStatus.success,notify: false);
     } else {
-      SysNoticeRepository.getInfo(sysNotice.noticeId!, cancelToken)
+      SysNoticeRepository.getInfo(sysNotice.noticeId!, defCancelToken)
           .asStream()
           .single
           .then((intensifyEntity) {
@@ -238,8 +238,7 @@ class _NoticeAddEditVm extends AppBaseVm {
 
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        ResultEntity resultEntity = BaseDio.getError(e);
-        AppToastBridge.showToast(msg: resultEntity.msg);
+        BaseDio.showToastByError(e);
         finish();
       });
     }
@@ -278,7 +277,7 @@ class _NoticeAddEditVm extends AppBaseVm {
       return;
     }
     showLoading(text: S.current.label_save_ing);
-    SysNoticeRepository.submit(sysNotice!, cancelToken).then((value) {
+    SysNoticeRepository.submit(sysNotice!, defCancelToken).then((value) {
       AppToastBridge.showToast(msg: S.current.toast_edit_success);
       dismissLoading();
       //保存成功后要设置
@@ -286,7 +285,7 @@ class _NoticeAddEditVm extends AppBaseVm {
       finish(result: sysNotice);
     }, onError: (error) {
       dismissLoading();
-      AppToastBridge.showToast(msg: BaseDio.getError(error).msg);
+      BaseDio.showToastByError(error);
     });
   }
 }

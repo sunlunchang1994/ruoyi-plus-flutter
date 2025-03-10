@@ -3,6 +3,7 @@ import 'package:flutter_slc_boxes/flutter/slc/adapter/load_more_format.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 import 'package:flutter_slc_boxes/flutter/slc/code/observable_field.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/fast_mvvm.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 
 import '../provider/should_set_state.dart';
 
@@ -15,8 +16,7 @@ import '../provider/should_set_state.dart';
 typedef Refresh<T> = Future<DataWrapper<List<T>>> Function();
 
 ///加载更多
-typedef LoadMore<T> = Future<DataWrapper<PageModel<T>>> Function(
-    LoadMoreFormat<T> loadMoreFormat);
+typedef LoadMore<T> = Future<DataWrapper<PageModel<T>>> Function(LoadMoreFormat<T> loadMoreFormat);
 
 ///item的点击事件
 typedef OnItemClick<T> = void Function(int index, T data);
@@ -69,8 +69,7 @@ class DataWrapper<T> {
   }
 
   static DataWrapper<T> createFailed<T>({int? code, String? msg}) {
-    return DataWrapper(
-        code: code ?? CODE_DEF_ERROR_CODE, msg: msg ?? "Failed to get data");
+    return DataWrapper(code: code ?? CODE_DEF_ERROR_CODE, msg: msg ?? "Failed to get data");
   }
 }
 
@@ -101,4 +100,10 @@ abstract class IListDataVmSub<T> extends FastVmSub {
   void itemClick(int index, T data) {}
 
   void itemLongClick(int index, T data) {}
+
+  @override
+  void onCleared() {
+    CancelTokenAssist.cancelAllIf(this, "VmBox cleared");
+    super.onCleared();
+  }
 }

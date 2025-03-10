@@ -12,6 +12,7 @@ import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_text_field.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
@@ -394,8 +395,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
   }
 }
 
-class _UserAddEditVm extends AppBaseVm {
-  final CancelToken cancelToken = CancelToken();
+class _UserAddEditVm extends AppBaseVm with CancelTokenAssist{
 
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
@@ -409,7 +409,7 @@ class _UserAddEditVm extends AppBaseVm {
     if (userInfoVo != null) {
       return;
     }
-    UserServiceRepository.getUserById(user?.userId, cancelToken)
+    UserServiceRepository.getUserById(user?.userId, defCancelToken)
         .asStream()
         .single
         .then((intensifyEntity) {
@@ -417,7 +417,7 @@ class _UserAddEditVm extends AppBaseVm {
       userInfoVo!.user = userInfoVo!.user ?? User();
       setLoadingStatus(LoadingStatus.success);
     }, onError: (e) {
-      AppToastBridge.showToast(msg: BaseDio.getErrorMsg(e));
+      BaseDio.showToastByError(e);
       finish();
     });
   }
@@ -504,7 +504,7 @@ class _UserAddEditVm extends AppBaseVm {
       return;
     }
     showLoading(text: S.current.label_save_ing);
-    UserServiceRepository.submit(userInfo!, cancelToken).then((value) {
+    UserServiceRepository.submit(userInfo!, defCancelToken).then((value) {
       AppToastBridge.showToast(msg: S.current.toast_edit_success);
       dismissLoading();
       //保存成功后要设置
@@ -512,7 +512,7 @@ class _UserAddEditVm extends AppBaseVm {
       finish(result: userInfo);
     }, onError: (error) {
       dismissLoading();
-      AppToastBridge.showToast(msg: BaseDio.getError(error).msg);
+      BaseDio.showToastByError(error);
     });
   }
 }

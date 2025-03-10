@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_config.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 
 import '../../../../../../generated/l10n.dart';
 import '../../../../../../res/styles.dart';
@@ -203,10 +204,8 @@ class ConfigListPageWidget {
 }
 
 ///参数配置数据VmSub
-class ConfigListDataVmSub extends FastBaseListDataPageVmSub<SysConfig> {
+class ConfigListDataVmSub extends FastBaseListDataPageVmSub<SysConfig> with CancelTokenAssist{
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
-
-  final CancelToken cancelToken = CancelToken();
 
   SysConfig _currentSysConfigSearch = SysConfig();
 
@@ -220,7 +219,7 @@ class ConfigListDataVmSub extends FastBaseListDataPageVmSub<SysConfig> {
       try {
         IntensifyEntity<PageModel<SysConfig>> intensifyEntity =
             await SysConfigRepository.list(loadMoreFormat.getOffset(),
-                    loadMoreFormat.getSize(), currentSearch, cancelToken)
+                    loadMoreFormat.getSize(), currentSearch, defCancelToken)
                 .asStream()
                 .single;
         DataWrapper<PageModel<SysConfig>> dataWrapper =

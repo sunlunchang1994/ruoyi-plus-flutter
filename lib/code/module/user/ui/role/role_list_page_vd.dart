@@ -12,6 +12,7 @@ import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/role.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_component.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/refresh/content_empty.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/role_api.dart';
 
@@ -30,8 +31,7 @@ import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
 import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
 
 class RoleListPageVd {
-  static Widget getUserListWidget(
-      ThemeData themeData, IListDataVmSub<Role> listVmSub,
+  static Widget getUserListWidget(ThemeData themeData, IListDataVmSub<Role> listVmSub,
       {Widget? Function(Role currentItem)? buildTrailing}) {
     assert(listVmSub is ListenerItemClick<dynamic>);
     if (listVmSub.dataList.isEmpty) {
@@ -44,8 +44,8 @@ class RoleListPageVd {
         itemCount: listVmSub.dataList.length,
         itemBuilder: (context, index) {
           Role listItem = listVmSub.dataList[index];
-          return getUserListItem(themeData,
-              listVmSub as ListenerItemClick<dynamic>, index, listItem,
+          return getUserListItem(
+              themeData, listVmSub as ListenerItemClick<dynamic>, index, listItem,
               buildTrailing: buildTrailing);
         },
         separatorBuilder: (context, index) {
@@ -53,8 +53,8 @@ class RoleListPageVd {
         });
   }
 
-  static Widget getUserListItem(ThemeData themeData,
-      ListenerItemClick<dynamic> listenerItemClick, int index, Role listItem,
+  static Widget getUserListItem(
+      ThemeData themeData, ListenerItemClick<dynamic> listenerItemClick, int index, Role listItem,
       {Widget? Function(Role currentItem)? buildTrailing}) {
     return ListTile(
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
@@ -98,12 +98,9 @@ class RoleListPageVd {
                           labelText: S.current.user_label_role_name,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqNullSelector<A, String?>(
-                              builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixByInputVal(
-                                value,
-                                formOperate: listVmSub.formOperate,
-                                formFieldName: "roleName");
+                          suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
+                            return InputDecUtils.autoClearSuffixByInputVal(value,
+                                formOperate: listVmSub.formOperate, formFieldName: "roleName");
                           }, selector: (context, vm) {
                             return listVmSub.searchRole.roleName;
                           })),
@@ -122,12 +119,9 @@ class RoleListPageVd {
                           labelText: S.current.user_label_role_key,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqNullSelector<A, String?>(
-                              builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixByInputVal(
-                                value,
-                                formOperate: listVmSub.formOperate,
-                                formFieldName: "roleKey");
+                          suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
+                            return InputDecUtils.autoClearSuffixByInputVal(value,
+                                formOperate: listVmSub.formOperate, formFieldName: "roleKey");
                           }, selector: (context, vm) {
                             return listVmSub.searchRole.roleKey;
                           })),
@@ -141,20 +135,18 @@ class RoleListPageVd {
                       name: "status",
                       initialValue: listVmSub.searchRole.statusName,
                       onTap: () {
-                        DictUiUtils.showSelectDialog(
-                            context, LocalDictLib.CODE_SYS_NORMAL_DISABLE,
-                                (value) {
-                              //选择后设置性别
-                              listVmSub.setSelectStatus(value);
-                            });
-                      } ,
+                        DictUiUtils.showSelectDialog(context, LocalDictLib.CODE_SYS_NORMAL_DISABLE,
+                            (value) {
+                          //选择后设置性别
+                          listVmSub.setSelectStatus(value);
+                        });
+                      },
                       decoration: MySelectDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.user_label_status,
                           hintText: S.current.app_label_please_choose,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqSelector<A, String?>(
-                              builder: (context, value, child) {
+                          suffixIcon: NqSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixBySelectVal(
                               value,
                               onPressed: () {
@@ -194,12 +186,10 @@ class RoleListPageVd {
           return false;
         }));
   }
-
 }
 
-class RolePageDataVmSub extends FastBaseListDataPageVmSub<Role> {
+class RolePageDataVmSub extends FastBaseListDataPageVmSub<Role> with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
-  final CancelToken cancelToken = CancelToken();
   Role searchRole = Role();
 
   void Function(Role data)? onSuffixClick;
@@ -212,15 +202,13 @@ class RolePageDataVmSub extends FastBaseListDataPageVmSub<Role> {
                 getLoadMoreFormat().getOffset(),
                 getLoadMoreFormat().getSize(),
                 searchRole,
-                cancelToken);
+                defCancelToken);
             //返回数据结构
-            DataWrapper<PageModel<Role>> dataWrapper =
-                DataTransformUtils.entity2LDWrapper(result);
+            DataWrapper<PageModel<Role>> dataWrapper = DataTransformUtils.entity2LDWrapper(result);
             return dataWrapper;
           } catch (e) {
             ResultEntity resultEntity = BaseDio.getError(e);
-            return DataWrapper.createFailed(
-                code: resultEntity.code, msg: resultEntity.msg);
+            return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
           }
         });
   }

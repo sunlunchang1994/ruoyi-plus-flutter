@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -11,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_dict_type.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_text_field.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/input_decoration_utils.dart';
@@ -156,8 +156,7 @@ class DictTypeAddEditPage extends AppBaseStatelessWidget<_DictTypeAddEditVm> {
   }
 }
 
-class _DictTypeAddEditVm extends AppBaseVm {
-  final CancelToken cancelToken = CancelToken();
+class _DictTypeAddEditVm extends AppBaseVm with CancelTokenAssist{
 
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
@@ -175,15 +174,14 @@ class _DictTypeAddEditVm extends AppBaseVm {
       this.sysDictType = sysDictType;
       setLoadingStatusWithNotify(LoadingStatus.success,notify: false);
     } else {
-      DictTypeRepository.getInfo(sysDictType.dictId!, cancelToken)
+      DictTypeRepository.getInfo(sysDictType.dictId!, defCancelToken)
           .asStream()
           .single
           .then((intensifyEntity) {
         this.sysDictType = intensifyEntity.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        ResultEntity resultEntity = BaseDio.getError(e);
-        AppToastBridge.showToast(msg: resultEntity.msg);
+        BaseDio.showToastByError(e);
         finish();
       });
     }
@@ -215,7 +213,7 @@ class _DictTypeAddEditVm extends AppBaseVm {
       return;
     }
     showLoading(text: S.current.label_save_ing);
-    DictTypeRepository.submit(sysDictType!, cancelToken).then((value) {
+    DictTypeRepository.submit(sysDictType!, defCancelToken).then((value) {
       AppToastBridge.showToast(msg: S.current.toast_edit_success);
       dismissLoading();
       //保存成功后要设置
@@ -223,7 +221,7 @@ class _DictTypeAddEditVm extends AppBaseVm {
       finish(result: sysDictType);
     }, onError: (error) {
       dismissLoading();
-      AppToastBridge.showToast(msg: BaseDio.getError(error).msg);
+      BaseDio.showToastByError(error);
     });
   }
 }

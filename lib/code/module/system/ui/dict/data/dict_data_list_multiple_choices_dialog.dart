@@ -109,7 +109,7 @@ class _DictDataListMultipleChoicesVm extends AppBaseVm {
     listVmSub = DictDataListVmSub(refresh: () async {
       try {
         IntensifyEntity<List<SysDictData>> intensifyEntity = await DictDataRepository.list(
-                LoadMoreFormat.DEF_OFFICE, 9999, listVmSub.currentSearch, listVmSub.cancelToken)
+                LoadMoreFormat.DEF_OFFICE, 9999, listVmSub.currentSearch, listVmSub.defCancelToken)
             .asStream()
             .map((event) {
           IntensifyEntity<List<SysDictData>> intensifyEntity = IntensifyEntity(

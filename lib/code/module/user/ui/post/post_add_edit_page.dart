@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_text_field.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
@@ -76,8 +77,7 @@ class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
   }
 
   @override
-  Widget getSuccessWidget(BuildContext context,
-      {Map<String, dynamic>? params}) {
+  Widget getSuccessWidget(BuildContext context, {Map<String, dynamic>? params}) {
     ThemeData themeData = Theme.of(context);
     return KeyboardAvoider(
         autoScroll: true,
@@ -98,8 +98,7 @@ class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.user_label_post_name),
+                            label: InputDecUtils.getRequiredLabel(S.current.user_label_post_name),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
@@ -135,8 +134,7 @@ class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.user_label_post_code),
+                            label: InputDecUtils.getRequiredLabel(S.current.user_label_post_code),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
@@ -167,18 +165,13 @@ class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderRadioGroup<OptionVL<String>>(
                         name: "status",
-                        initialValue: DictUiUtils.dict2OptionVL(GlobalVm()
-                            .dictShareVm
-                            .findDict(LocalDictLib.CODE_SYS_NORMAL_DISABLE,
-                                getVm().postInfo!.status,
-                                defDictKey: LocalDictLib
-                                    .KEY_SYS_NORMAL_DISABLE_NORMAL)),
+                        initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
+                            LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().postInfo!.status,
+                            defDictKey: LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL)),
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: MyInputDecoration(
-                            labelText: S.current.app_label_status),
-                        options: DictUiUtils.dictList2FromOption(globalVm
-                            .dictShareVm
-                            .dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
+                        decoration: MyInputDecoration(labelText: S.current.app_label_status),
+                        options: DictUiUtils.dictList2FromOption(
+                            globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
                         onChanged: (value) {
                           //此处需改成选择的
                           getVm().applyInfoChange();
@@ -195,14 +188,12 @@ class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                       decoration: MyInputDecoration(
                           contentPadding: EdgeInsets.zero,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          label: InputDecUtils.getRequiredLabel(
-                              S.current.app_label_show_sort),
+                          label: InputDecUtils.getRequiredLabel(S.current.app_label_show_sort),
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder()),
                       onChanged: (value) {
                         getVm().applyInfoChange();
-                        getVm().postInfo!.postSort =
-                            value == null ? null : int.tryParse(value);
+                        getVm().postInfo!.postSort = value == null ? null : int.tryParse(value);
                       },
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(),
@@ -248,9 +239,7 @@ class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
   }
 }
 
-class _PostAddEditVm extends AppBaseVm {
-  final CancelToken cancelToken = CancelToken();
-
+class _PostAddEditVm extends AppBaseVm with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   Post? postInfo;
@@ -264,21 +253,19 @@ class _PostAddEditVm extends AppBaseVm {
     if (post == null) {
       post = Post();
       ITreeDict<dynamic> treeDict = GlobalVm().dictShareVm.findDict(
-          LocalDictLib.CODE_SYS_NORMAL_DISABLE,
-          LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL)!;
+          LocalDictLib.CODE_SYS_NORMAL_DISABLE, LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL)!;
       post.status = treeDict.tdDictValue;
       post.statusName = treeDict.tdDictLabel;
       post.postSort = 0;
       postInfo = post;
-      setLoadingStatusWithNotify(LoadingStatus.success,notify: false);
+      setLoadingStatusWithNotify(LoadingStatus.success, notify: false);
     } else {
-      PostRepository.getInfo(post.postId!, cancelToken).asStream().single.then(
+      PostRepository.getInfo(post.postId!, defCancelToken).asStream().single.then(
           (intensifyEntity) {
         postInfo = intensifyEntity.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        ResultEntity resultEntity = BaseDio.getError(e);
-        AppToastBridge.showToast(msg: resultEntity.msg);
+        BaseDio.showToastByError(e);
         finish();
       });
     }
@@ -327,7 +314,7 @@ class _PostAddEditVm extends AppBaseVm {
       return;
     }
     showLoading(text: S.current.label_save_ing);
-    PostRepository.submit(postInfo!, cancelToken).then((value) {
+    PostRepository.submit(postInfo!, defCancelToken).then((value) {
       AppToastBridge.showToast(msg: S.current.toast_edit_success);
       dismissLoading();
       //保存成功后要设置
@@ -335,7 +322,7 @@ class _PostAddEditVm extends AppBaseVm {
       finish(result: postInfo);
     }, onError: (error) {
       dismissLoading();
-      AppToastBridge.showToast(msg: BaseDio.getError(error).msg);
+      BaseDio.showToastByError(error);
     });
   }
 }

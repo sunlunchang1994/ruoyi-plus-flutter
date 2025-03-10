@@ -170,7 +170,7 @@ class _RoleListMultipleSelectVm extends AppBaseVm {
               loadMoreFormat.getOffset(),
               loadMoreFormat.getSize(),
               listVmSub.searchRole,
-              listVmSub.cancelToken);
+              listVmSub.defCancelToken);
           //返回数据结构
           dataWrapper = DataTransformUtils.entity2LDWrapper(result);
         } catch (e) {

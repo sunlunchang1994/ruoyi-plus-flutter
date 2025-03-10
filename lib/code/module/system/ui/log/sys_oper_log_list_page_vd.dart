@@ -9,6 +9,7 @@ import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/log/sys_log_page.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/log/sys_oper_log_details_page.dart';
 
@@ -52,9 +53,10 @@ class SysOperLogListPageWidget {
         });
   }
 
-  static Widget getDataListItem(
-      ThemeData themeData, ListenerItemClick<dynamic> listenerItemClick, int index, SysOperLog listItem) {
-    Color statusColor = DictUiUtils.getDictStyle(LocalDictLib.CODE_SYS_COMMON_STATUS, listItem.status);
+  static Widget getDataListItem(ThemeData themeData, ListenerItemClick<dynamic> listenerItemClick,
+      int index, SysOperLog listItem) {
+    Color statusColor =
+        DictUiUtils.getDictStyle(LocalDictLib.CODE_SYS_COMMON_STATUS, listItem.status);
     return ListTile(
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
         //title: Text("${listItem.operId.toString()}·${listItem.title!}"),
@@ -138,8 +140,8 @@ class SysOperLogListPageWidget {
                           labelText: S.current.sys_label_oper_ip,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
-                          suffixIcon:
-                              NqNullSelector<LogOperSearchVm, String?>(builder: (context, value, child) {
+                          suffixIcon: NqNullSelector<LogOperSearchVm, String?>(
+                              builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
                                 formOperate: searchVm.formOperate, formFieldName: "operIp");
                           }, selector: (context, vm) {
@@ -159,8 +161,8 @@ class SysOperLogListPageWidget {
                           labelText: S.current.sys_label_oper_title,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
-                          suffixIcon:
-                              NqNullSelector<LogOperSearchVm, String?>(builder: (context, value, child) {
+                          suffixIcon: NqNullSelector<LogOperSearchVm, String?>(
+                              builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
                                 formOperate: searchVm.formOperate, formFieldName: "title");
                           }, selector: (context, vm) {
@@ -180,8 +182,8 @@ class SysOperLogListPageWidget {
                           labelText: S.current.sys_label_oper_name,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
-                          suffixIcon:
-                              NqNullSelector<LogOperSearchVm, String?>(builder: (context, value, child) {
+                          suffixIcon: NqNullSelector<LogOperSearchVm, String?>(
+                              builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
                                 formOperate: searchVm.formOperate, formFieldName: "operName");
                           }, selector: (context, vm) {
@@ -197,7 +199,8 @@ class SysOperLogListPageWidget {
                       name: "businessType",
                       initialValue: searchVm.currentSearch.businessTypeName,
                       onTap: () {
-                        DictUiUtils.showSelectDialog(context, LocalDictLib.CODE_SYS_OPER_TYPE, (value) {
+                        DictUiUtils.showSelectDialog(context, LocalDictLib.CODE_SYS_OPER_TYPE,
+                            (value) {
                           searchVm.setSelectBusinessType(value);
                         });
                       },
@@ -206,8 +209,8 @@ class SysOperLogListPageWidget {
                           labelText: S.current.sys_label_oper_business_type,
                           hintText: S.current.app_label_please_choose,
                           border: const UnderlineInputBorder(),
-                          suffixIcon:
-                              NqSelector<LogOperSearchVm, String?>(builder: (context, value, child) {
+                          suffixIcon: NqSelector<LogOperSearchVm, String?>(
+                              builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixBySelectVal(value, onPressed: () {
                               searchVm.setSelectBusinessType(null);
                             });
@@ -220,7 +223,8 @@ class SysOperLogListPageWidget {
                       name: "statusName",
                       initialValue: searchVm.currentSearch.statusName,
                       onTap: () {
-                        DictUiUtils.showSelectDialog(context, LocalDictLib.CODE_SYS_COMMON_STATUS, (value) {
+                        DictUiUtils.showSelectDialog(context, LocalDictLib.CODE_SYS_COMMON_STATUS,
+                            (value) {
                           searchVm.setSelectStatus(value);
                         });
                       },
@@ -229,8 +233,8 @@ class SysOperLogListPageWidget {
                           labelText: S.current.sys_label_logininfor_status,
                           hintText: S.current.app_label_please_choose,
                           border: const UnderlineInputBorder(),
-                          suffixIcon:
-                              NqNullSelector<LogLoginSearchVm, String?>(builder: (context, value, child) {
+                          suffixIcon: NqNullSelector<LogLoginSearchVm, String?>(
+                              builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixBySelectVal(value, onPressed: () {
                               searchVm.setSelectStatus(null);
                             });
@@ -271,9 +275,7 @@ class SysOperLogListPageWidget {
 }
 
 ///操作日志数据VmSub
-class SysOperLogListDataVmSub extends FastBaseListDataPageVmSub<SysOperLog> {
-  final CancelToken cancelToken = CancelToken();
-
+class SysOperLogListDataVmSub extends FastBaseListDataPageVmSub<SysOperLog> with CancelTokenAssist {
   SysOperLog currentSearch = SysOperLog();
 
   void Function(SysOperLog data)? onSuffixClick;
@@ -283,7 +285,7 @@ class SysOperLogListDataVmSub extends FastBaseListDataPageVmSub<SysOperLog> {
     setLoadData((loadMoreFormat) async {
       try {
         IntensifyEntity<PageModel<SysOperLog>> intensifyEntity = await SysOperLogRepository.list(
-                loadMoreFormat.getOffset(), loadMoreFormat.getSize(), currentSearch, cancelToken)
+                loadMoreFormat.getOffset(), loadMoreFormat.getSize(), currentSearch, defCancelToken)
             .asStream()
             .single;
         DataWrapper<PageModel<SysOperLog>> dataWrapper =

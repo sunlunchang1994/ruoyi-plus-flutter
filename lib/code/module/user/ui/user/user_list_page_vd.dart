@@ -14,6 +14,7 @@ import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/user.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/widget_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/user_api.dart';
 import 'package:dio/dio.dart';
@@ -438,8 +439,7 @@ class UserTreeListDataVmSub extends TreeFastBaseListDataVmSub<dynamic> {
 }
 
 ///用户分页加载列表
-class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> {
-  final CancelToken cancelToken = CancelToken();
+class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> with CancelTokenAssist{
 
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
@@ -452,7 +452,7 @@ class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> {
       try {
         IntensifyEntity<PageModel<User>> result =
             await UserServiceRepository.list(getLoadMoreFormat().getOffset(),
-                getLoadMoreFormat().getSize(), searchUser, cancelToken);
+                getLoadMoreFormat().getSize(), searchUser, defCancelToken);
         //返回数据结构
         DataWrapper<PageModel<User>> dataWrapper =
             DataTransformUtils.entity2LDWrapper(result);

@@ -13,8 +13,10 @@ import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/repository/remote/pu
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/res/dimens.dart';
+import '../../../../../base/api/base_dio.dart';
 import '../../../../../base/api/result_entity.dart';
 import '../../../../../lib/fast/widget/form/image_picker/form_builder_single_image_picker.dart';
 import '../../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
@@ -66,8 +68,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                 body: KeyboardAvoider(
                     autoScroll: true,
                     child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: SlcDimens.appDimens16),
+                        padding: EdgeInsets.symmetric(horizontal: SlcDimens.appDimens16),
                         child: FormBuilder(
                             key: getVm().formOperate.formKey,
                             child: Column(
@@ -75,8 +76,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                 FormBuilderSingleImagePicker(
                                   name: 'avatar',
                                   initialValue: getVm().userInfo.avatar,
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
                                   previewWidth: 96,
                                   previewHeight: 96,
                                   placeholderImage: const AssetImage(
@@ -86,17 +86,14 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                     error,
                                     stackTrace,
                                   ) {
-                                    return Image.asset(
-                                        "assets/images/slc/app_ic_def_user_head.png",
-                                        width: 96,
-                                        height: 96);
+                                    return Image.asset("assets/images/slc/app_ic_def_user_head.png",
+                                        width: 96, height: 96);
                                   },
                                   //TODO 此处应该加个缓存，内部的FadeInImage改成CachedNetworkImage
                                   transformImageWidget: (context, child) {
                                     return ClipRRect(
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(AppDimens
-                                                .userMineAvatarRadius)),
+                                            Radius.circular(AppDimens.userMineAvatarRadius)),
                                         child: child);
                                   },
                                   decoration: InputDecoration(
@@ -106,104 +103,74 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                     if (image == null) {
                                       return Future.value(null);
                                     }
-                                    String? cropImagePath =
-                                        await Navigator.push(context,
-                                            MaterialPageRoute(
-                                                builder: (context) {
+                                    String? cropImagePath = await Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
                                       return CropImage(image);
                                     }));
-                                    XFile imageXFile = cropImagePath == null
-                                        ? image
-                                        : XFile(cropImagePath);
+                                    XFile imageXFile =
+                                        cropImagePath == null ? image : XFile(cropImagePath);
                                     getVm().onSelectAvatarPath(imageXFile.path);
                                     return imageXFile;
                                   },
                                 ),
-                                SlcStyles.getSizedBox(
-                                    height: SlcDimens.appDimens16),
+                                SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                                 FormBuilderTextField(
                                     name: "nickName",
                                     initialValue: getVm().userInfo.nickName,
-                                    autovalidateMode:
-                                        AutovalidateMode.onUserInteraction,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
                                     decoration: MyInputDecoration(
-                                        floatingLabelBehavior:
-                                            FloatingLabelBehavior.always,
-                                        labelText:
-                                            S.of(context).user_label_nike_name,
-                                        hintText: S
-                                            .of(context)
-                                            .app_label_please_input,
+                                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                                        labelText: S.of(context).user_label_nike_name,
+                                        hintText: S.of(context).app_label_please_input,
                                         border: const UnderlineInputBorder()),
                                     onChanged: (value) {
                                       getVm().applyInfoChange();
                                       getVm().userInfo.nickName = value;
                                     }),
-                                SlcStyles.getSizedBox(
-                                    height: SlcDimens.appDimens16),
+                                SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                                 FormBuilderTextField(
                                     name: "phonenumber",
                                     initialValue: getVm().userInfo.phonenumber,
-                                    autovalidateMode:
-                                        AutovalidateMode.onUserInteraction,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
                                     decoration: MyInputDecoration(
-                                        floatingLabelBehavior:
-                                            FloatingLabelBehavior.always,
-                                        labelText: S
-                                            .of(context)
-                                            .user_label_phone_number,
-                                        hintText: S
-                                            .of(context)
-                                            .app_label_please_input,
+                                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                                        labelText: S.of(context).user_label_phone_number,
+                                        hintText: S.of(context).app_label_please_input,
                                         border: const UnderlineInputBorder()),
                                     onChanged: (value) {
                                       getVm().applyInfoChange();
                                       getVm().userInfo.phonenumber = value;
                                     }),
-                                SlcStyles.getSizedBox(
-                                    height: SlcDimens.appDimens16),
+                                SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                                 FormBuilderTextField(
                                     name: "email",
                                     initialValue: getVm().userInfo.email,
-                                    autovalidateMode:
-                                        AutovalidateMode.onUserInteraction,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
                                     decoration: MyInputDecoration(
-                                        floatingLabelBehavior:
-                                            FloatingLabelBehavior.always,
-                                        labelText:
-                                            S.of(context).user_label_mailbox,
-                                        hintText: S
-                                            .of(context)
-                                            .app_label_please_input,
+                                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                                        labelText: S.of(context).user_label_mailbox,
+                                        hintText: S.of(context).app_label_please_input,
                                         border: const UnderlineInputBorder()),
                                     onChanged: (value) {
                                       getVm().applyInfoChange();
                                       getVm().userInfo.email = value;
                                     }),
-                                SlcStyles.getSizedBox(
-                                    height: SlcDimens.appDimens16),
+                                SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                                 MyFormBuilderSelect(
                                     name: "sex",
                                     initialValue: getVm().userInfo.sexName,
-                                    autovalidateMode:
-                                        AutovalidateMode.onUserInteraction,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
                                     onTap: () {
-                                      DictUiUtils.showSelectDialog(context,
-                                          LocalDictLib.CODE_SYS_USER_SEX,
-                                          (value) {
+                                      DictUiUtils.showSelectDialog(
+                                          context, LocalDictLib.CODE_SYS_USER_SEX, (value) {
                                         //选择后设置性别
                                         getVm().setSelectSex(value);
-                                      },
-                                          title: S.current
-                                              .user_label_sex_select_prompt);
+                                      }, title: S.current.user_label_sex_select_prompt);
                                     },
                                     decoration: MySelectDecoration(
-                                        floatingLabelBehavior:
-                                            FloatingLabelBehavior.always,
+                                        floatingLabelBehavior: FloatingLabelBehavior.always,
                                         labelText: S.of(context).user_label_sex,
-                                        hintText: S
-                                            .of(context)
-                                            .app_label_please_input,
+                                        hintText: S.of(context).app_label_please_input,
                                         border: const UnderlineInputBorder())),
                               ],
                             ))))));
@@ -228,9 +195,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
   }
 }
 
-class _ProfileModel extends AppBaseVm {
-  final CancelToken cancelToken = CancelToken();
-
+class _ProfileModel extends AppBaseVm with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   late User userInfo;
@@ -241,10 +206,8 @@ class _ProfileModel extends AppBaseVm {
 
   void initVm() {
     userInfo = User.copyUser(GlobalVm().userShareVm.userInfoOf.value!.user);
-    userInfo.sexName = GlobalVm()
-        .dictShareVm
-        .findDict(LocalDictLib.CODE_SYS_USER_SEX, userInfo.sex)
-        ?.tdDictLabel;
+    userInfo.sexName =
+        GlobalVm().dictShareVm.findDict(LocalDictLib.CODE_SYS_USER_SEX, userInfo.sex)?.tdDictLabel;
   }
 
   void onSelectAvatarPath(String selectAvatarPath) {
@@ -285,22 +248,19 @@ class _ProfileModel extends AppBaseVm {
 
   void save() {
     if (!_checkSaveParams()) {
-      AppToastBridge.showToast(
-          msg: S.current.app_label_required_information_cannot_be_empty);
+      AppToastBridge.showToast(msg: S.current.app_label_required_information_cannot_be_empty);
       return;
     }
     showLoading(text: S.current.label_save_ing);
     if (_selectAvatarPath != null) {
-      PubUserProfileRepository.avatar(_selectAvatarPath!).then(
-          (IntensifyEntity<AvatarVo> value) {
+      PubUserProfileRepository.avatar(_selectAvatarPath!).then((IntensifyEntity<AvatarVo> value) {
         //提交成功了设置头像路径为空，防止后续提交信息时重复提交
         _selectAvatarPath = null;
         //AppToastBridge.showToast(msg: S.current.user_label_avatar_uploaded_success);
         //dismissLoading();
         _saveProfile();
       }, onError: (e) {
-        AppToastBridge.showToast(
-            msg: S.current.user_label_avatar_upload_failed);
+        BaseDio.showToastByError(e, defErrMsg: S.current.user_label_avatar_upload_failed);
         dismissLoading();
       });
       return;
@@ -310,8 +270,8 @@ class _ProfileModel extends AppBaseVm {
 
   void _saveProfile() {
     //上传用户信息
-    PubUserProfileRepository.updateProfile(userInfo.nickName!, userInfo.email!,
-            userInfo.phonenumber!, userInfo.sex!)
+    PubUserProfileRepository.updateProfile(
+            userInfo.nickName!, userInfo.email!, userInfo.phonenumber!, userInfo.sex!)
         .then((result) {
       //更新成功了把当前的值设置给全局（此处应该重新调用获取用户信息的接口重新赋值，暂时先这么写）
       GlobalVm().userShareVm.userInfoOf.value!.user = userInfo;
@@ -320,14 +280,8 @@ class _ProfileModel extends AppBaseVm {
       //保存成功后要设置
       _infoChange = false;
     }, onError: (e) {
-      AppToastBridge.showToast(msg: S.current.toast_edit_failure);
+      BaseDio.showToastByError(e, defErrMsg: S.current.toast_edit_failure);
       dismissLoading();
     });
-  }
-
-  @override
-  void dispose() {
-    cancelToken.cancel("dispose");
-    super.dispose();
   }
 }

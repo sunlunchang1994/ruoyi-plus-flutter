@@ -9,6 +9,7 @@ import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/env_config.dart';
 import 'package:ruoyi_plus_flutter/code/feature/auth/repository/remote/auth_api.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/remote/pub_menu_api.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 import '../../../base/api/base_dio.dart';
 import '../../../lib/fast/provider/fast_select.dart';
@@ -49,9 +50,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
         registerEvent(context);
         getVm().initVm();
         return Scaffold(
-            appBar: AppBar(
-                title: Text(title),
-                titleSpacing: NavigationToolbar.kMiddleSpacing),
+            appBar: AppBar(title: Text(title), titleSpacing: NavigationToolbar.kMiddleSpacing),
             body: KeyboardAvoider(
                 autoScroll: true,
                 child: Column(
@@ -61,8 +60,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                         height: 160,
                         child: Center(
                             child: Image(
-                                image:
-                                    AssetImage("assets/images/ic_launcher.png"),
+                                image: AssetImage("assets/images/ic_launcher.png"),
                                 width: 72,
                                 height: 72))),
                     Padding(
@@ -73,66 +71,45 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SlcStyles.getSizedBox(
-                                    height: SlcDimens.appDimens16),
+                                SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                                 Visibility(
-                                    visible:
-                                        EnvConfig.getEnvConfig().tenantEnable,
+                                    visible: EnvConfig.getEnvConfig().tenantEnable,
                                     child: MyFormBuilderSelect(
                                         name: "tenantName",
                                         initialValue: getVm().tenantName,
-                                        onTap: () =>
-                                            _showSelectTenantDialog(context),
+                                        onTap: () => _showSelectTenantDialog(context),
                                         decoration: MySelectDecoration(
-                                            floatingLabelBehavior:
-                                                FloatingLabelBehavior.always,
-                                            labelText:
-                                                S.of(context).user_label_tenant,
-                                            hintText: S
-                                                .of(context)
-                                                .user_label_select_tenant,
-                                            border:
-                                                const UnderlineInputBorder()),
+                                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                                            labelText: S.of(context).user_label_tenant,
+                                            hintText: S.of(context).user_label_select_tenant,
+                                            border: const UnderlineInputBorder()),
                                         textInputAction: TextInputAction.next)),
-                                SlcStyles.getSizedBox(
-                                    height: SlcDimens.appDimens16),
+                                SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                                 FormBuilderTextField(
                                     name: "userName",
                                     initialValue: getVm().userName,
                                     focusNode: getVm().userNameInputFocus,
                                     decoration: MyInputDecoration(
-                                        floatingLabelBehavior:
-                                            FloatingLabelBehavior.always,
-                                        labelText:
-                                            S.of(context).user_label_account,
-                                        hintText: S
-                                            .of(context)
-                                            .user_label_input_account,
+                                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                                        labelText: S.of(context).user_label_account,
+                                        hintText: S.of(context).user_label_input_account,
                                         border: const UnderlineInputBorder()),
-                                    onChanged: (value) =>
-                                        getVm().userName = value,
+                                    onChanged: (value) => getVm().userName = value,
                                     textInputAction: TextInputAction.next),
-                                SlcStyles.getSizedBox(
-                                    height: SlcDimens.appDimens16),
+                                SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                                 FormBuilderTextField(
                                     name: "password",
                                     initialValue: getVm().password,
                                     focusNode: getVm().passwordInputFocus,
                                     obscureText: true,
                                     decoration: MyInputDecoration(
-                                        floatingLabelBehavior:
-                                            FloatingLabelBehavior.always,
-                                        labelText:
-                                            S.of(context).user_label_password,
-                                        hintText: S
-                                            .of(context)
-                                            .user_label_input_password,
+                                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                                        labelText: S.of(context).user_label_password,
+                                        hintText: S.of(context).user_label_input_password,
                                         border: const UnderlineInputBorder()),
-                                    onChanged: (value) =>
-                                        getVm().password = value,
+                                    onChanged: (value) => getVm().password = value,
                                     textInputAction: TextInputAction.next),
-                                SlcStyles.getSizedBox(
-                                    height: SlcDimens.appDimens16),
+                                SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                                 Row(children: [
                                   Expanded(
                                       child: FormBuilderTextField(
@@ -141,21 +118,15 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                           focusNode: getVm().captchaInputFocus,
                                           decoration: MyInputDecoration(
                                               //isDense: true,
-                                              labelText: S
-                                                  .of(context)
-                                                  .user_label_captcha_code,
-                                              hintText: S
-                                                  .of(context)
-                                                  .user_label_input_captcha_code,
+                                              labelText: S.of(context).user_label_captcha_code,
+                                              hintText: S.of(context).user_label_input_captcha_code,
                                               border:
                                                   const UnderlineInputBorder() /*border: InputBorder.none*/),
                                           onChanged: (value) {
                                             getVm().codeResult = value;
                                           },
-                                          textInputAction:
-                                              TextInputAction.next)),
-                                  SlcStyles.getSizedBox(
-                                      width: SlcDimens.appDimens16),
+                                          textInputAction: TextInputAction.next)),
+                                  SlcStyles.getSizedBox(width: SlcDimens.appDimens16),
                                   NqSelector<_LoginModel, Captcha?>(
                                       builder: (context, value, child) {
                                     return GestureDetector(
@@ -167,8 +138,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                           width: 120,
                                           child: Image.memory(
                                               gaplessPlayback: true,
-                                              base64Decode(value?.img ?? ""),
-                                              errorBuilder: (
+                                              base64Decode(value?.img ?? ""), errorBuilder: (
                                             BuildContext context,
                                             Object error,
                                             StackTrace? stackTrace,
@@ -177,8 +147,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                                 child: SizedBox(
                                               width: 24,
                                               height: 24,
-                                              child: CircularProgressIndicator(
-                                                  strokeWidth: 3),
+                                              child: CircularProgressIndicator(strokeWidth: 3),
                                             ));
                                           })),
                                     );
@@ -186,8 +155,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                     return vm.captcha;
                                   }),
                                 ]),
-                                SlcStyles.getSizedBox(
-                                    height: SlcDimens.appDimens8),
+                                SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
                                 Row(
                                   children: [
                                     NqSelector<_LoginModel, bool>(
@@ -195,32 +163,26 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                         return Checkbox(
                                             value: value,
                                             onChanged: (bool? isCheck) {
-                                              getVm().setIsSavePassword(
-                                                  isCheck ?? false);
+                                              getVm().setIsSavePassword(isCheck ?? false);
                                             },
                                             materialTapTargetSize:
-                                                MaterialTapTargetSize
-                                                    .shrinkWrap);
+                                                MaterialTapTargetSize.shrinkWrap);
                                       },
                                       selector: (context, value) {
                                         return value._isSavePassword;
                                       },
                                     ),
-                                    Text(
-                                        S.of(context).user_label_save_password),
-                                    SlcStyles.getSizedBox(
-                                        width: SlcDimens.appDimens12),
+                                    Text(S.of(context).user_label_save_password),
+                                    SlcStyles.getSizedBox(width: SlcDimens.appDimens12),
                                     NqSelector<_LoginModel, bool>(
                                       builder: (context, value, child) {
                                         return Checkbox(
                                             value: value,
                                             onChanged: (bool? isCheck) {
-                                              getVm().setIsAutoLogin(
-                                                  isCheck ?? false);
+                                              getVm().setIsAutoLogin(isCheck ?? false);
                                             },
                                             materialTapTargetSize:
-                                                MaterialTapTargetSize
-                                                    .shrinkWrap);
+                                                MaterialTapTargetSize.shrinkWrap);
                                       },
                                       selector: (context, value) {
                                         return value._isAutoLogin;
@@ -229,18 +191,15 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                     Text(S.of(context).user_label_auto_login)
                                   ],
                                 ),
-                                SlcStyles.getSizedBox(
-                                    height: SlcDimens.appDimens36),
+                                SlcStyles.getSizedBox(height: SlcDimens.appDimens36),
                                 SizedBox(
                                     width: double.infinity,
                                     child: FilledButton(
                                         onPressed: () {
                                           getVm().login();
                                         },
-                                        child: Text(
-                                            S.of(context).user_label_login,
-                                            style: themeData
-                                                .primaryTextTheme.titleMedium)))
+                                        child: Text(S.of(context).user_label_login,
+                                            style: themeData.primaryTextTheme.titleMedium)))
                               ],
                             ))),
                     const SizedBox(height: 200)
@@ -256,8 +215,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
         context: context,
         builder: (context) {
           List<TenantListVo>? tenantList = getVm().loginTenant?.voList;
-          List<SimpleDialogOption> dialogItem =
-              List.generate(tenantList?.length ?? 0, (index) {
+          List<SimpleDialogOption> dialogItem = List.generate(tenantList?.length ?? 0, (index) {
             TenantListVo tenantItem = tenantList![index];
             return SimpleDialogOption(
               child: Text(tenantItem.companyName!),
@@ -268,14 +226,12 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
             );
           });
           return SimpleDialog(
-              title: Text(S.current.user_label_select_tenant),
-              children: dialogItem);
+              title: Text(S.current.user_label_select_tenant), children: dialogItem);
         });
   }
 }
 
-class _LoginModel extends AppBaseVm {
-  final CancelToken cancelToken = CancelToken();
+class _LoginModel extends AppBaseVm with CancelTokenAssist{
 
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
@@ -318,11 +274,9 @@ class _LoginModel extends AppBaseVm {
         return item.tenantId == tenantId;
       });
       onSelectTenant(targetTenantItem);
-    },
-        onError: (error) => {
-              AppToastBridge.showToast(
-                  msg: S.current.user_label_tenant_get_info_error)
-            });
+    }, onError: (error) {
+      BaseDio.showToastByError(error, defErrMsg: S.current.user_label_tenant_get_info_error);
+    });
   }
 
   void onSelectTenant(TenantListVo? data) {
@@ -340,8 +294,7 @@ class _LoginModel extends AppBaseVm {
       captcha = result.data;
       notifyListeners();
     }, onError: (e) {
-      ResultEntity resultEntity = BaseDio.getError(e);
-      AppToastBridge.showToast(msg: resultEntity.msg);
+      BaseDio.showToastByError(e);
     });
   }
 
@@ -371,31 +324,27 @@ class _LoginModel extends AppBaseVm {
       return;
     }
     if (TextUtil.isEmpty(userName)) {
-      AppToastBridge.showToast(
-          msg: S.current.user_label_account_not_empty_hint);
+      AppToastBridge.showToast(msg: S.current.user_label_account_not_empty_hint);
       return;
     }
     if (TextUtil.isEmpty(password)) {
-      AppToastBridge.showToast(
-          msg: S.current.user_label_password_bot_empty_hint);
+      AppToastBridge.showToast(msg: S.current.user_label_password_bot_empty_hint);
       return;
     }
     if (TextUtil.isEmpty(codeResult)) {
-      AppToastBridge.showToast(
-          msg: S.current.user_label_captcha_code_empty_hint);
+      AppToastBridge.showToast(msg: S.current.user_label_captcha_code_empty_hint);
       return;
     }
     showLoading(text: S.current.user_label_logging_in);
-    AuthServiceRepository.login(tenantId, userName!, password!, codeResult!,
-            captcha?.uuid, cancelToken)
+    AuthServiceRepository.login(
+            tenantId, userName!, password!, codeResult!, captcha?.uuid, defCancelToken)
         .asStream()
-        .asyncMap((event) => PubUserRepository.getInfo(cancelToken))
-        .asyncMap((event) => PubMenuPublicRepository.getRouters(cancelToken))
-        .asyncMap((event) =>
-            PubDictDataRepository.cacheDict(cancelToken)
-                .asStream()
-                .map((cacheDictEvent) => event)
-                .single)
+        .asyncMap((event) => PubUserRepository.getInfo(defCancelToken))
+        .asyncMap((event) => PubMenuPublicRepository.getRouters(defCancelToken))
+        .asyncMap((event) => PubDictDataRepository.cacheDict(defCancelToken)
+            .asStream()
+            .map((cacheDictEvent) => event)
+            .single)
         .single
         .then((IntensifyEntity<List<RouterVo>> value) {
       dismissLoading();
@@ -403,16 +352,16 @@ class _LoginModel extends AppBaseVm {
         if (_isSavePassword) {
           _saveLoginStatus();
         }
-        AppToastBridge.showToast(
-            msg: S.current.user_toast_login_login_successful);
+        AppToastBridge.showToast(msg: S.current.user_toast_login_login_successful);
         pushReplacementNamed(MainPage.routeName);
-      } else if (!cancelToken.isCancelled) {
+      } else if (!defCancelToken.isCancelled) {
         AppToastBridge.showToast(msg: value.getMsg());
       }
     }, onError: (e) {
       dismissLoading();
-      if (!cancelToken.isCancelled) {
-        AppToastBridge.showToast(msg: BaseDio.getErrorMsg(e));
+
+      if (!defCancelToken.isCancelled) {
+        BaseDio.showToastByError(e);
         //失败则刷新验证码
         refreshCaptcha();
       }
@@ -429,9 +378,4 @@ class _LoginModel extends AppBaseVm {
     UserConfig().savePassword(password);
   }
 
-  @override
-  void dispose() {
-    cancelToken.cancel("dispose");
-    super.dispose();
-  }
 }

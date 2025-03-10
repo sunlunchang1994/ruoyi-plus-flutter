@@ -83,7 +83,7 @@ class _DictDataListMultipleChoicesVm extends AppBaseVm {
                     loadMoreFormat.getOffset(),
                     loadMoreFormat.getSize(),
                     listVmSub.currentSearch,
-                    listVmSub.cancelToken)
+                    listVmSub.defCancelToken)
                 .asStream()
                 .single;
             DataWrapper<PageModel<SysDictData>> dataWrapper =

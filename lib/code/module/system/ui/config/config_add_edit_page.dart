@@ -14,6 +14,7 @@ import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_config.
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_text_field.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
@@ -200,8 +201,7 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
   }
 }
 
-class _ConfigAddEditVm extends AppBaseVm {
-  final CancelToken cancelToken = CancelToken();
+class _ConfigAddEditVm extends AppBaseVm with CancelTokenAssist{
 
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
@@ -218,15 +218,14 @@ class _ConfigAddEditVm extends AppBaseVm {
       this.sysConfig = sysConfig;
       setLoadingStatusWithNotify(LoadingStatus.success,notify: false);
     } else {
-      SysConfigRepository.getInfo(sysConfig.configId!, cancelToken)
+      SysConfigRepository.getInfo(sysConfig.configId!, defCancelToken)
           .asStream()
           .single
           .then((intensifyEntity) {
         this.sysConfig = intensifyEntity.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        ResultEntity resultEntity = BaseDio.getError(e);
-        AppToastBridge.showToast(msg: resultEntity.msg);
+        BaseDio.showToastByError(e);
         finish();
       });
     }
@@ -258,7 +257,7 @@ class _ConfigAddEditVm extends AppBaseVm {
       return;
     }
     showLoading(text: S.current.label_save_ing);
-    SysConfigRepository.submit(sysConfig!, cancelToken).then((value) {
+    SysConfigRepository.submit(sysConfig!, defCancelToken).then((value) {
       AppToastBridge.showToast(msg: S.current.toast_edit_success);
       dismissLoading();
       //保存成功后要设置
@@ -266,7 +265,7 @@ class _ConfigAddEditVm extends AppBaseVm {
       finish(result: sysConfig);
     }, onError: (error) {
       dismissLoading();
-      AppToastBridge.showToast(msg: BaseDio.getError(error).msg);
+      BaseDio.showToastByError(error);
     });
   }
 }

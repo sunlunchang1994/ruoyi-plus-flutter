@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/network/api_constant.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/api_config.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 
 import '../../../generated/l10n.dart';
 import '../api/result_entity.dart';
@@ -28,8 +29,7 @@ class BaseDio {
     dio.options = BaseOptions(
         receiveTimeout: const Duration(seconds: 15000),
         connectTimeout: const Duration(seconds: 15000)); // 设置超时时间等 ...
-    dio.interceptors
-        .add(HeaderInterceptor()); // 添加header拦截器，如 token之类，需要全局使用的参数
+    dio.interceptors.add(HeaderInterceptor()); // 添加header拦截器，如 token之类，需要全局使用的参数
     dio.interceptors.add(EncryptInterceptor()); // 添加加密拦截器
     /*dio.interceptors.add(SlcDioLogger(
         requestHeader: true,
@@ -78,7 +78,13 @@ class BaseDio {
     } else if (error is Exception) {
       switch (error) {
         case DioException _:
-          if (error.type == DioExceptionType.badResponse) {
+          if (error.type == DioExceptionType.cancel) {
+            ResultEntity baseEntity = ResultEntity.createSucceedFail(error.message ?? "Canceled",
+                code: ApiConfig.VALUE_CODE_CANCEL);
+            return baseEntity;
+          }
+          //if (error.type == DioExceptionType.badResponse) {//替换成了下面这句
+          else {
             final response = error.response;
             if (response != null) {
               //ResultEntity baseEntity = ResultEntity(code: response.statusCode);
@@ -122,10 +128,21 @@ class BaseDio {
             return ResultEntity(code: defCode, msg: defErrMsg);
           }
         case ApiException _:
-          return ResultEntity(
-              code: error.code, msg: error.message ?? defErrMsg);
+          return ResultEntity(code: error.code, msg: error.message ?? defErrMsg);
       }
     }
     return ResultEntity(code: defCode, msg: defErrMsg);
+  }
+
+  static void showToastByError(dynamic error, {String? defErrMsg}) {
+    showToast(getError(error, defErrMsg: defErrMsg));
+  }
+
+  static void showToast(ResultEntity resultEntity) {
+    if (resultEntity.code == ApiConfig.VALUE_CODE_CANCEL) {
+      //主动取消不显示提示
+      return;
+    }
+    AppToastBridge.showToast(msg: resultEntity.msg);
   }
 }

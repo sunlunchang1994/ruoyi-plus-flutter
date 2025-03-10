@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_dict_data.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_text_field.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/input_decoration_utils.dart';
@@ -227,8 +228,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
   }
 }
 
-class _DictDataAddEditVm extends AppBaseVm {
-  final CancelToken cancelToken = CancelToken();
+class _DictDataAddEditVm extends AppBaseVm with CancelTokenAssist{
 
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
@@ -250,15 +250,14 @@ class _DictDataAddEditVm extends AppBaseVm {
       this.sysDictData = dictData;
       setLoadingStatusWithNotify(LoadingStatus.success,notify: false);
     } else {
-      DictDataRepository.getInfo(dictData.dictCode!, cancelToken)
+      DictDataRepository.getInfo(dictData.dictCode!, defCancelToken)
           .asStream()
           .single
           .then((intensifyEntity) {
         this.sysDictData = intensifyEntity.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        ResultEntity resultEntity = BaseDio.getError(e);
-        AppToastBridge.showToast(msg: resultEntity.msg);
+        BaseDio.showToastByError(e);
         finish();
       });
     }
@@ -290,7 +289,7 @@ class _DictDataAddEditVm extends AppBaseVm {
       return;
     }
     showLoading(text: S.current.label_save_ing);
-    DictDataRepository.submit(sysDictData!, cancelToken).then((value) {
+    DictDataRepository.submit(sysDictData!, defCancelToken).then((value) {
       AppToastBridge.showToast(msg: S.current.toast_edit_success);
       dismissLoading();
       //保存成功后要设置
@@ -298,7 +297,7 @@ class _DictDataAddEditVm extends AppBaseVm {
       finish(result: sysDictData);
     }, onError: (error) {
       dismissLoading();
-      AppToastBridge.showToast(msg: BaseDio.getError(error).msg);
+      BaseDio.showToastByError(error);
     });
   }
 }

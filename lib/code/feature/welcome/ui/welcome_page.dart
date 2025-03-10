@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/api_config.dart';
 import 'package:ruoyi_plus_flutter/code/base/startup/task_utils.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/remote/pub_dict_data_api.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/local/user_config.dart';
 
 import '../../../../generated/l10n.dart';
@@ -48,20 +49,17 @@ class WelcomePage extends AppBaseStatelessWidget<_WelcomeVm> {
                     children: [
                       const Center(
                           child: Image(
-                              image:
-                                  AssetImage("assets/images/ic_launcher.png"),
+                              image: AssetImage("assets/images/ic_launcher.png"),
                               width: 56,
                               height: 56)),
-                      Text(S.current.app_name,
-                          style: Theme.of(context).textTheme.titleMedium)
+                      Text(S.current.app_name, style: Theme.of(context).textTheme.titleMedium)
                     ],
                   )),
               Expanded(
                   flex: 3,
                   child: Center(
                     child: Text(S.current.label_loading,
-                        style: SlcStyles.tidyUpStyle
-                            .getTextColorHintStyleByTheme(themeData)),
+                        style: SlcStyles.tidyUpStyle.getTextColorHintStyleByTheme(themeData)),
                   )),
               const Spacer(flex: 1),
             ],
@@ -72,10 +70,7 @@ class WelcomePage extends AppBaseStatelessWidget<_WelcomeVm> {
   }
 }
 
-class _WelcomeVm extends AppBaseVm {
-  final CancelToken cancelToken = CancelToken();
-  final CancelToken cancelAutoLoginToken = CancelToken();
-
+class _WelcomeVm extends AppBaseVm with CancelTokenAssist {
   _WelcomeVm() {}
 
   void init(BuildContext context) async {
@@ -86,15 +81,13 @@ class _WelcomeVm extends AppBaseVm {
         return;
       }
       Timer? autoLoginTimeOutTimer;
-      PubUserRepository.getInfo(cancelAutoLoginToken)
+      PubUserRepository.getInfo(defCancelToken)
           .asStream()
-          .asyncMap((event) =>
-              PubMenuPublicRepository.getRouters(cancelAutoLoginToken))
-          .asyncMap((event) =>
-              PubDictDataRepository.cacheDict(cancelAutoLoginToken)
-                  .asStream()
-                  .map((cacheDictEvent) => event)
-                  .single)
+          .asyncMap((event) => PubMenuPublicRepository.getRouters(defCancelToken))
+          .asyncMap((event) => PubDictDataRepository.cacheDict(defCancelToken)
+              .asStream()
+              .map((cacheDictEvent) => event)
+              .single)
           .single
           .then((IntensifyEntity<List<RouterVo>> value) {
         //登录成功了就取消
@@ -103,8 +96,7 @@ class _WelcomeVm extends AppBaseVm {
         }
         if (value.isSuccess()) {
           //成功了跳转主界面
-          AppToastBridge.showToast(
-              msg: S.current.user_toast_login_login_successful);
+          AppToastBridge.showToast(msg: S.current.user_toast_login_login_successful);
           pushReplacementNamed(MainPage.routeName);
           return;
         }
@@ -116,15 +108,8 @@ class _WelcomeVm extends AppBaseVm {
       });
       //两秒后取消，防止主界面显示时间太长
       autoLoginTimeOutTimer = Timer(Duration(milliseconds: 2000), () {
-        cancelAutoLoginToken.cancel();
+        defCancelToken.cancel();
       });
     });
-  }
-
-  @override
-  void dispose() {
-    cancelToken.cancel();
-    cancelAutoLoginToken.cancel();
-    super.dispose();
   }
 }

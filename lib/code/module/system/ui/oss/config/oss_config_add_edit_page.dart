@@ -319,8 +319,7 @@ class _OssConfigAddEditVm extends AppBaseVm {
         this.sysOssConfig = intensifyEntity.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        ResultEntity resultEntity = BaseDio.getError(e);
-        AppToastBridge.showToast(msg: resultEntity.msg);
+        BaseDio.showToastByError(e);
         finish();
       });
     }
@@ -360,7 +359,7 @@ class _OssConfigAddEditVm extends AppBaseVm {
       finish(result: sysOssConfig);
     }, onError: (error) {
       dismissLoading();
-      AppToastBridge.showToast(msg: BaseDio.getError(error).msg);
+      BaseDio.showToastByError(error);
     });
   }
 }

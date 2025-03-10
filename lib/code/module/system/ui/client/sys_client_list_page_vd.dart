@@ -10,6 +10,7 @@ import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/l
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_client.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/client/sys_client_add_edit_page.dart';
 
@@ -28,7 +29,6 @@ import 'package:dio/dio.dart';
 
 import '../../config/constant_sys.dart';
 import '../../repository/remote/sys_client_api.dart';
-import '../oss/config/oss_config_add_edit_page.dart';
 
 ///@author slc
 ///客户端列表
@@ -188,10 +188,8 @@ class OssConfigListPageWidget {
 }
 
 ///客户端VmSub
-class SysClientListDataVmSub extends FastBaseListDataPageVmSub<SysClient> {
+class SysClientListDataVmSub extends FastBaseListDataPageVmSub<SysClient> with CancelTokenAssist{
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
-
-  final CancelToken cancelToken = CancelToken();
 
   SysClient _currentSysClientSearch = SysClient();
 
@@ -204,7 +202,7 @@ class SysClientListDataVmSub extends FastBaseListDataPageVmSub<SysClient> {
     setLoadData((loadMoreFormat) async {
       try {
         IntensifyEntity<PageModel<SysClient>> intensifyEntity = await SysClientRepository.list(
-                loadMoreFormat.getOffset(), loadMoreFormat.getSize(), currentSearch, cancelToken)
+                loadMoreFormat.getOffset(), loadMoreFormat.getSize(), currentSearch, defCancelToken)
             .asStream()
             .single;
         DataWrapper<PageModel<SysClient>> dataWrapper =
@@ -245,4 +243,5 @@ class SysClientListDataVmSub extends FastBaseListDataPageVmSub<SysClient> {
     formOperate.formBuilderState?.save();
     sendRefreshEvent();
   }
+
 }

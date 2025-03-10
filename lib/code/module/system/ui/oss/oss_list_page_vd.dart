@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_oss_vo.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/attachment/utils/media_type_constant.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/oss/oss_details_page.dart';
 
 import '../../../../../../generated/l10n.dart';
@@ -238,10 +239,8 @@ class OssListPageWidget {
 }
 
 ///Oss数据VmSub
-class OssListDataVmSub extends FastBaseListDataPageVmSub<SysOssVo> {
+class OssListDataVmSub extends FastBaseListDataPageVmSub<SysOssVo> with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
-
-  final CancelToken cancelToken = CancelToken();
 
   SysOssVo _currentSysOssSearch = SysOssVo();
 
@@ -254,7 +253,7 @@ class OssListDataVmSub extends FastBaseListDataPageVmSub<SysOssVo> {
     setLoadData((loadMoreFormat) async {
       try {
         IntensifyEntity<PageModel<SysOssVo>> intensifyEntity = await SysOssRepository.list(
-                loadMoreFormat.getOffset(), loadMoreFormat.getSize(), currentSearch, cancelToken)
+                loadMoreFormat.getOffset(), loadMoreFormat.getSize(), currentSearch, defCancelToken)
             .asStream()
             .single;
         DataWrapper<PageModel<SysOssVo>> dataWrapper =

@@ -12,6 +12,7 @@ import 'package:ruoyi_plus_flutter/code/base/ui/utils/fast_dialog_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/input_decoration_utils.dart';
@@ -76,8 +77,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
   }
 
   @override
-  Widget getSuccessWidget(BuildContext context,
-      {Map<String, dynamic>? params}) {
+  Widget getSuccessWidget(BuildContext context, {Map<String, dynamic>? params}) {
     return KeyboardAvoider(
         autoScroll: true,
         child: Padding(
@@ -88,8 +88,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
                   //这里要不要应该无所谓，因为本表单的数据存在vm的实例中
                   //getVm()._formKey.currentState?.save();
                 },
-                child: NqSelector<_MenuAddEditModel, String>(
-                    builder: (context, value, child) {
+                child: NqSelector<_MenuAddEditModel, String>(builder: (context, value, child) {
                   return Column(
                     children: getFormItem(),
                   );
@@ -113,10 +112,10 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
             labelText: S.current.sys_label_menu_parent_name,
             hintText: S.current.app_label_please_choose,
             border: const UnderlineInputBorder(),
-            suffixIcon: NqNullSelector<_MenuAddEditModel, String?>(
-                builder: (context, value, child) {
-              return InputDecUtils.autoClearSuffixBySelectVal(
-                  getVm().sysMenuInfo!.parentName, onPressed: () {
+            suffixIcon:
+                NqNullSelector<_MenuAddEditModel, String?>(builder: (context, value, child) {
+              return InputDecUtils.autoClearSuffixBySelectVal(getVm().sysMenuInfo!.parentName,
+                  onPressed: () {
                 getVm().setSelectParentMenu(null);
               });
             }, selector: (context, vm) {
@@ -149,8 +148,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
           decoration: MyInputDecoration(
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
-              label:
-                  InputDecUtils.getRequiredLabel(S.current.sys_label_menu_name),
+              label: InputDecUtils.getRequiredLabel(S.current.sys_label_menu_name),
               hintText: S.current.app_label_please_input,
               border: const UnderlineInputBorder()),
           onChanged: (value) {
@@ -171,14 +169,12 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: MyInputDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            label:
-                InputDecUtils.getRequiredLabel(S.current.app_label_show_sort),
+            label: InputDecUtils.getRequiredLabel(S.current.app_label_show_sort),
             hintText: S.current.app_label_please_input,
             border: const UnderlineInputBorder()),
         onChanged: (value) {
           getVm().applyInfoChange();
-          getVm().sysMenuInfo!.orderNum =
-              value == null ? null : int.tryParse(value);
+          getVm().sysMenuInfo!.orderNum = value == null ? null : int.tryParse(value);
         },
         validator: FormBuilderValidators.compose([
           FormBuilderValidators.required(),
@@ -189,21 +185,18 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
       ),
       ...() {
         List<Widget> menuTypeWidgetList = List.empty(growable: true);
-        if (LocalDictLib.KEY_MENU_TYPE_CAIDAN ==
-                getVm().sysMenuInfo?.menuType ||
+        if (LocalDictLib.KEY_MENU_TYPE_CAIDAN == getVm().sysMenuInfo?.menuType ||
             LocalDictLib.KEY_MENU_TYPE_MULU == getVm().sysMenuInfo?.menuType) {
           menuTypeWidgetList.addAll([
             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
             FormBuilderRadioGroup<OptionVL<String>>(
               name: "isFrame",
-              initialValue: DictUiUtils.dict2OptionVL(GlobalVm()
-                  .dictShareVm
-                  .findDict(LocalDictLib.CODE_SYS_YES_NO_INT,
-                      getVm().sysMenuInfo!.isFrame,
-                      defDictKey: LocalDictLib.KEY_SYS_YES_NO_INT_N)),
+              initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
+                  LocalDictLib.CODE_SYS_YES_NO_INT, getVm().sysMenuInfo!.isFrame,
+                  defDictKey: LocalDictLib.KEY_SYS_YES_NO_INT_N)),
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              options: DictUiUtils.dictList2FromOption(globalVm
-                  .dictShareVm.dictMap[LocalDictLib.CODE_SYS_YES_NO_INT]!),
+              options: DictUiUtils.dictList2FromOption(
+                  globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_YES_NO_INT]!),
               decoration: MyInputDecoration(
                 labelText: S.current.sys_label_menu_is_frame,
               ),
@@ -225,8 +218,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: MyInputDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            label:
-                InputDecUtils.getRequiredLabel(S.current.sys_label_menu_path),
+            label: InputDecUtils.getRequiredLabel(S.current.sys_label_menu_path),
             hintText: S.current.app_label_please_input,
             border: const UnderlineInputBorder()),
         onChanged: (value) {
@@ -240,8 +232,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
       ),
       ...() {
         List<Widget> menuTypeWidgetList = List.empty(growable: true);
-        if (LocalDictLib.KEY_MENU_TYPE_CAIDAN ==
-            getVm().sysMenuInfo?.menuType) {
+        if (LocalDictLib.KEY_MENU_TYPE_CAIDAN == getVm().sysMenuInfo?.menuType) {
           menuTypeWidgetList.addAll([
             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
             FormBuilderTextField(
@@ -263,10 +254,8 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
             )
           ]);
         }
-        if (LocalDictLib.KEY_MENU_TYPE_CAIDAN ==
-                getVm().sysMenuInfo?.menuType ||
-            LocalDictLib.KEY_MENU_TYPE_ACTION ==
-                getVm().sysMenuInfo?.menuType) {
+        if (LocalDictLib.KEY_MENU_TYPE_CAIDAN == getVm().sysMenuInfo?.menuType ||
+            LocalDictLib.KEY_MENU_TYPE_ACTION == getVm().sysMenuInfo?.menuType) {
           menuTypeWidgetList.addAll([
             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
             FormBuilderTextField(
@@ -288,8 +277,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
             )
           ]);
         }
-        if (LocalDictLib.KEY_MENU_TYPE_CAIDAN ==
-            getVm().sysMenuInfo?.menuType) {
+        if (LocalDictLib.KEY_MENU_TYPE_CAIDAN == getVm().sysMenuInfo?.menuType) {
           menuTypeWidgetList.addAll([
             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
             FormBuilderTextField(
@@ -312,14 +300,12 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
             FormBuilderRadioGroup<OptionVL<String>>(
               name: "isCache",
-              initialValue: DictUiUtils.dict2OptionVL(GlobalVm()
-                  .dictShareVm
-                  .findDict(LocalDictLib.CODE_SYS_YES_NO_INT,
-                      getVm().sysMenuInfo!.isCache,
-                      defDictKey: LocalDictLib.KEY_SYS_YES_NO_Y)),
+              initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
+                  LocalDictLib.CODE_SYS_YES_NO_INT, getVm().sysMenuInfo!.isCache,
+                  defDictKey: LocalDictLib.KEY_SYS_YES_NO_Y)),
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              options: DictUiUtils.dictList2FromOption(globalVm
-                  .dictShareVm.dictMap[LocalDictLib.CODE_SYS_YES_NO_INT]!),
+              options: DictUiUtils.dictList2FromOption(
+                  globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_YES_NO_INT]!),
               decoration: MyInputDecoration(
                 labelText: S.current.sys_label_menu_cache_status,
               ),
@@ -330,21 +316,18 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
             )
           ]);
         }
-        if (LocalDictLib.KEY_MENU_TYPE_CAIDAN ==
-                getVm().sysMenuInfo?.menuType ||
+        if (LocalDictLib.KEY_MENU_TYPE_CAIDAN == getVm().sysMenuInfo?.menuType ||
             LocalDictLib.KEY_MENU_TYPE_MULU == getVm().sysMenuInfo?.menuType) {
           menuTypeWidgetList.addAll([
             SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
             FormBuilderRadioGroup<OptionVL<String>>(
               name: "visible",
-              initialValue: DictUiUtils.dict2OptionVL(GlobalVm()
-                  .dictShareVm
-                  .findDict(LocalDictLib.CODE_SYS_SHOW_HIDE,
-                      getVm().sysMenuInfo!.visible,
-                      defDictKey: LocalDictLib.KEY_SYS_SHOW_HIDE_S)),
+              initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
+                  LocalDictLib.CODE_SYS_SHOW_HIDE, getVm().sysMenuInfo!.visible,
+                  defDictKey: LocalDictLib.KEY_SYS_SHOW_HIDE_S)),
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              options: DictUiUtils.dictList2FromOption(globalVm
-                  .dictShareVm.dictMap[LocalDictLib.CODE_SYS_SHOW_HIDE]!),
+              options: DictUiUtils.dictList2FromOption(
+                  globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_SHOW_HIDE]!),
               decoration: MyInputDecoration(
                 labelText: S.current.sys_label_menu_display_status,
               ),
@@ -359,21 +342,20 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
       }.call(),
       SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderRadioGroup<OptionVL<String>>(
-        decoration:
-            MyInputDecoration(labelText: S.current.user_label_dept_status),
+        decoration: MyInputDecoration(labelText: S.current.user_label_dept_status),
         name: "status",
-        initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
-            LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().sysMenuInfo!.status)),
+        initialValue: DictUiUtils.dict2OptionVL(GlobalVm()
+            .dictShareVm
+            .findDict(LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().sysMenuInfo!.status)),
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        options: DictUiUtils.dictList2FromOption(globalVm
-            .dictShareVm.dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
+        options: DictUiUtils.dictList2FromOption(
+            globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
         onChanged: (value) {
           //此处需改成选择的
           getVm().applyInfoChange();
           getVm().sysMenuInfo!.status = value?.value;
         },
-        validator:
-            FormBuilderValidators.compose([FormBuilderValidators.required()]),
+        validator: FormBuilderValidators.compose([FormBuilderValidators.required()]),
       )
     });
     return formItemArray;
@@ -396,9 +378,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
   }
 }
 
-class _MenuAddEditModel extends AppBaseVm {
-  final CancelToken cancelToken = CancelToken();
-
+class _MenuAddEditModel extends AppBaseVm with CancelTokenAssist {
   final _formKey = GlobalKey<FormBuilderState>();
 
   SysMenu? sysMenuInfo;
@@ -407,8 +387,7 @@ class _MenuAddEditModel extends AppBaseVm {
 
   void initVm(SysMenu? menuInfo, SysMenu? parentMenu) {
     if (menuInfo == null && parentMenu == null) {
-      AppToastBridge.showToast(
-          msg: S.current.label_select_parameter_is_missing);
+      AppToastBridge.showToast(msg: S.current.label_select_parameter_is_missing);
       finish();
       return;
     }
@@ -421,16 +400,13 @@ class _MenuAddEditModel extends AppBaseVm {
       sysMenuInfo!.visible = LocalDictLib.KEY_SYS_SHOW_HIDE_S;
       sysMenuInfo!.status = LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL;
       sysMenuInfo!.orderNum = 0;
-      setLoadingStatusWithNotify(LoadingStatus.success,notify: false);
+      setLoadingStatusWithNotify(LoadingStatus.success, notify: false);
     } else {
-      MenuRepository.getInfo(menuInfo.menuId!, cancelToken,
-              fillParentName: true)
-          .then((result) {
+      MenuRepository.getInfo(menuInfo.menuId!, defCancelToken, fillParentName: true).then((result) {
         sysMenuInfo = result.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        ResultEntity resultEntity = BaseDio.getError(e);
-        AppToastBridge.showToast(msg: resultEntity.msg);
+        BaseDio.showToastByError(e);
         finish();
       });
     }
@@ -439,8 +415,7 @@ class _MenuAddEditModel extends AppBaseVm {
   //选择父节点
   void onSelectParentMenu() {
     pushNamed(MenuListSelectSinglePage.routeName, arguments: {
-      ConstantBase.KEY_INTENT_TITLE:
-          S.current.sys_label_menu_parent_name_select,
+      ConstantBase.KEY_INTENT_TITLE: S.current.sys_label_menu_parent_name_select,
       ConstantSys.KEY_MENU_ID: sysMenuInfo?.menuId ?? -1
     }).then((result) {
       if (result != null) {
@@ -481,7 +456,7 @@ class _MenuAddEditModel extends AppBaseVm {
       return;
     }
     showLoading(text: S.current.label_save_ing);
-    MenuRepository.submit(sysMenuInfo!, cancelToken).then((value) {
+    MenuRepository.submit(sysMenuInfo!, defCancelToken).then((value) {
       AppToastBridge.showToast(msg: S.current.toast_edit_success);
       dismissLoading();
       //保存成功后要设置
@@ -489,13 +464,7 @@ class _MenuAddEditModel extends AppBaseVm {
       finish(result: sysMenuInfo);
     }, onError: (error) {
       dismissLoading();
-      AppToastBridge.showToast(msg: BaseDio.getError(error).msg);
+      BaseDio.showToastByError(error);
     });
-  }
-
-  @override
-  void dispose() {
-    cancelToken.cancel("dispose");
-    super.dispose();
   }
 }

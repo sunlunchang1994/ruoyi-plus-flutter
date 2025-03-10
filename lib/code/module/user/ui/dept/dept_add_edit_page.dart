@@ -16,6 +16,7 @@ import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/dept.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/user.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.dart';
@@ -80,8 +81,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
   }
 
   @override
-  Widget getSuccessWidget(BuildContext context,
-      {Map<String, dynamic>? params}) {
+  Widget getSuccessWidget(BuildContext context, {Map<String, dynamic>? params}) {
     return KeyboardAvoider(
         autoScroll: true,
         child: Padding(
@@ -170,8 +170,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
             border: const UnderlineInputBorder()),
         onChanged: (value) {
           getVm().applyInfoChange();
-          getVm().deptInfo!.orderNum =
-              SlcNumUtil.getIntByValueStr(value, defValue: null);
+          getVm().deptInfo!.orderNum = SlcNumUtil.getIntByValueStr(value, defValue: null);
         },
         validator: FormBuilderValidators.compose([
           FormBuilderValidators.required(),
@@ -192,8 +191,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
             hintText: S.current.app_label_please_choose,
             border: const UnderlineInputBorder(),
             suffixIcon: InputDecUtils.autoClearSuffixBySelect(
-                TextUtil.isNotEmpty(getVm().deptInfo!.leaderName),
-                onPressed: () {
+                TextUtil.isNotEmpty(getVm().deptInfo!.leaderName), onPressed: () {
               getVm().deptInfo?.leader = null;
               getVm().deptInfo?.leaderName = null;
               getVm().notifyListeners();
@@ -244,8 +242,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
           textInputAction: TextInputAction.next),
       SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderRadioGroup<OptionVL<String>>(
-        decoration:
-            MyInputDecoration(labelText: S.current.user_label_dept_status),
+        decoration: MyInputDecoration(labelText: S.current.user_label_dept_status),
         name: "status",
         initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
             LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().deptInfo!.status,
@@ -263,8 +260,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
             thickness: 5,
             color: Colors.red,
           ),*/
-        validator:
-            FormBuilderValidators.compose([FormBuilderValidators.required()]),
+        validator: FormBuilderValidators.compose([FormBuilderValidators.required()]),
       )
     });
     return formItemArray;
@@ -287,9 +283,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
   }
 }
 
-class _DeptAddEditModel extends AppBaseVm {
-  final CancelToken cancelToken = CancelToken();
-
+class _DeptAddEditModel extends AppBaseVm with CancelTokenAssist {
   final _formKey = GlobalKey<FormBuilderState>();
 
   Dept? deptInfo;
@@ -298,8 +292,7 @@ class _DeptAddEditModel extends AppBaseVm {
 
   void initVm(Dept? deptInfo, Dept? parentDept) {
     if (deptInfo == null && parentDept == null) {
-      AppToastBridge.showToast(
-          msg: S.current.label_select_parameter_is_missing);
+      AppToastBridge.showToast(msg: S.current.label_select_parameter_is_missing);
       finish();
       return;
     }
@@ -312,14 +305,13 @@ class _DeptAddEditModel extends AppBaseVm {
       }
       this.deptInfo!.orderNum = 0;
       this.deptInfo!.status = LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL;
-      setLoadingStatusWithNotify(LoadingStatus.success,notify: false);
+      setLoadingStatusWithNotify(LoadingStatus.success, notify: false);
     } else {
-      DeptRepository.getInfo(deptInfo.deptId!, cancelToken).then((result) {
+      DeptRepository.getInfo(deptInfo.deptId!, defCancelToken).then((result) {
         this.deptInfo = result.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        ResultEntity resultEntity = BaseDio.getError(e);
-        AppToastBridge.showToast(msg: resultEntity.msg);
+        BaseDio.showToastByError(e);
         finish();
       });
     }
@@ -328,8 +320,7 @@ class _DeptAddEditModel extends AppBaseVm {
   //选择父节点
   void onSelectTopDept() {
     pushNamed(DeptListSingleSelectPage.routeName, arguments: {
-      ConstantBase.KEY_INTENT_TITLE:
-          S.current.user_label_dept_parent_name_select
+      ConstantBase.KEY_INTENT_TITLE: S.current.user_label_dept_parent_name_select
     }).then((result) {
       if (result != null) {
         Dept parentDept = result;
@@ -380,7 +371,7 @@ class _DeptAddEditModel extends AppBaseVm {
       return;
     }
     showLoading(text: S.current.label_save_ing);
-    DeptRepository.submit(deptInfo!, cancelToken).then((value) {
+    DeptRepository.submit(deptInfo!, defCancelToken).then((value) {
       AppToastBridge.showToast(msg: S.current.toast_edit_success);
       dismissLoading();
       //保存成功后要设置
@@ -388,13 +379,7 @@ class _DeptAddEditModel extends AppBaseVm {
       finish(result: deptInfo);
     }, onError: (error) {
       dismissLoading();
-      AppToastBridge.showToast(msg: BaseDio.getError(error).msg);
+      BaseDio.showToastByError(error);
     });
-  }
-
-  @override
-  void dispose() {
-    cancelToken.cancel("dispose");
-    super.dispose();
   }
 }

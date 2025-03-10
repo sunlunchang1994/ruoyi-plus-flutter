@@ -13,6 +13,7 @@ import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/role.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_component.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/refresh/content_empty.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 
 import '../../../../../generated/l10n.dart';
@@ -226,9 +227,8 @@ class PostListPageVd {
   }
 }
 
-class PostPageDataVmSub extends FastBaseListDataPageVmSub<Post> {
+class PostPageDataVmSub extends FastBaseListDataPageVmSub<Post> with CancelTokenAssist{
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
-  final CancelToken cancelToken = CancelToken();
   Post searchPost = Post();
 
   void Function(Post data)? onSuffixClick;
@@ -241,7 +241,7 @@ class PostPageDataVmSub extends FastBaseListDataPageVmSub<Post> {
                 getLoadMoreFormat().getOffset(),
                 getLoadMoreFormat().getSize(),
                 searchPost,
-                cancelToken);
+                defCancelToken);
             //返回数据结构
             DataWrapper<PageModel<Post>> dataWrapper =
                 DataTransformUtils.entity2LDWrapper(result);

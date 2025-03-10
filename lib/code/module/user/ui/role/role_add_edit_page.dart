@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_text_field.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
@@ -76,8 +77,7 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
   }
 
   @override
-  Widget getSuccessWidget(BuildContext context,
-      {Map<String, dynamic>? params}) {
+  Widget getSuccessWidget(BuildContext context, {Map<String, dynamic>? params}) {
     ThemeData themeData = Theme.of(context);
     return KeyboardAvoider(
         autoScroll: true,
@@ -98,8 +98,7 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.user_label_role_name),
+                            label: InputDecUtils.getRequiredLabel(S.current.user_label_role_name),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
@@ -117,8 +116,7 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.user_label_role_key),
+                            label: InputDecUtils.getRequiredLabel(S.current.user_label_role_key),
                             hintText: S.current.app_label_please_choose,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
@@ -140,14 +138,12 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                       decoration: MyInputDecoration(
                           contentPadding: EdgeInsets.zero,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          label: InputDecUtils.getRequiredLabel(
-                              S.current.app_label_show_sort),
+                          label: InputDecUtils.getRequiredLabel(S.current.app_label_show_sort),
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder()),
                       onChanged: (value) {
                         getVm().applyInfoChange();
-                        getVm().roleInfo!.roleSort =
-                            value == null ? null : int.tryParse(value);
+                        getVm().roleInfo!.roleSort = value == null ? null : int.tryParse(value);
                       },
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(),
@@ -159,18 +155,13 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderRadioGroup<OptionVL<String>>(
                         name: "status",
-                        initialValue: DictUiUtils.dict2OptionVL(GlobalVm()
-                            .dictShareVm
-                            .findDict(LocalDictLib.CODE_SYS_NORMAL_DISABLE,
-                                getVm().roleInfo!.status,
-                                defDictKey: LocalDictLib
-                                    .KEY_SYS_NORMAL_DISABLE_NORMAL)),
+                        initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
+                            LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().roleInfo!.status,
+                            defDictKey: LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL)),
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: MyInputDecoration(
-                            labelText: S.current.app_label_status),
-                        options: DictUiUtils.dictList2FromOption(globalVm
-                            .dictShareVm
-                            .dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
+                        decoration: MyInputDecoration(labelText: S.current.app_label_status),
+                        options: DictUiUtils.dictList2FromOption(
+                            globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
                         onChanged: (value) {
                           //此处需改成选择的
                           getVm().applyInfoChange();
@@ -187,8 +178,8 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                       },
                       decoration: MySelectDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          label: InputDecUtils.getRequiredLabel(
-                              S.current.user_label_menu_permission),
+                          label:
+                              InputDecUtils.getRequiredLabel(S.current.user_label_menu_permission),
                           hintText: S.current.app_label_please_choose,
                           border: const UnderlineInputBorder()),
                       onChanged: (value) {
@@ -233,9 +224,7 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
   }
 }
 
-class _PostAddEditVm extends AppBaseVm {
-  final CancelToken cancelToken = CancelToken();
-
+class _PostAddEditVm extends AppBaseVm with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   Role? roleInfo;
@@ -249,21 +238,19 @@ class _PostAddEditVm extends AppBaseVm {
     if (role == null) {
       role = Role();
       ITreeDict<dynamic> treeDict = GlobalVm().dictShareVm.findDict(
-          LocalDictLib.CODE_SYS_NORMAL_DISABLE,
-          LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL)!;
+          LocalDictLib.CODE_SYS_NORMAL_DISABLE, LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL)!;
       role.status = treeDict.tdDictValue;
       role.statusName = treeDict.tdDictLabel;
       role.roleSort = 0;
       roleInfo = role;
-      setLoadingStatusWithNotify(LoadingStatus.success,notify: false);
+      setLoadingStatusWithNotify(LoadingStatus.success, notify: false);
     } else {
-      RoleRepository.getInfo(role.roleId!, cancelToken).asStream().single.then(
+      RoleRepository.getInfo(role.roleId!, defCancelToken).asStream().single.then(
           (intensifyEntity) {
         roleInfo = intensifyEntity.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        ResultEntity resultEntity = BaseDio.getError(e);
-        AppToastBridge.showToast(msg: resultEntity.msg);
+        BaseDio.showToastByError(e);
         finish();
       });
     }
@@ -271,8 +258,7 @@ class _PostAddEditVm extends AppBaseVm {
 
   void onSelectMenu() {
     pushNamed(MenuTreeSelectMultiplePage.routeName, arguments: {
-      ConstantBase.KEY_INTENT_TITLE:
-          S.current.user_label_menu_permission_select,
+      ConstantBase.KEY_INTENT_TITLE: S.current.user_label_menu_permission_select,
       ConstantSys.KEY_MENU_ID: roleInfo!.roleId,
       ConstantBase.KEY_INTENT_SELECT_DATA: roleInfo!.menuIds,
     }).then((result) {
@@ -318,7 +304,7 @@ class _PostAddEditVm extends AppBaseVm {
       return;
     }
     showLoading(text: S.current.label_save_ing);
-    RoleRepository.submit(roleInfo!, cancelToken).then((value) {
+    RoleRepository.submit(roleInfo!, defCancelToken).then((value) {
       AppToastBridge.showToast(msg: S.current.toast_edit_success);
       dismissLoading();
       //保存成功后要设置
@@ -326,7 +312,7 @@ class _PostAddEditVm extends AppBaseVm {
       finish(result: roleInfo);
     }, onError: (error) {
       dismissLoading();
-      AppToastBridge.showToast(msg: BaseDio.getError(error).msg);
+      BaseDio.showToastByError(error);
     });
   }
 }

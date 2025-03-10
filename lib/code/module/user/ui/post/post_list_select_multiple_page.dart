@@ -23,22 +23,19 @@ import '../../repository/remote/post_api.dart';
 /// @author slc
 /// 岗位多选
 ///
-class PostListMultipleSelectPage
-    extends AppBaseStatelessWidget<_PostListMultipleSelectVm> {
+class PostListMultipleSelectPage extends AppBaseStatelessWidget<_PostListMultipleSelectVm> {
   static const String routeName = '/system/post/multiple';
   final String title;
   final List<int>? selectDataId;
   final List<Post>? dataSrc;
 
-  PostListMultipleSelectPage(this.title,
-      {super.key, this.selectDataId, this.dataSrc});
+  PostListMultipleSelectPage(this.title, {super.key, this.selectDataId, this.dataSrc});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
         create: (context) =>
-            _PostListMultipleSelectVm(
-                selectDataIds: selectDataId, dataSrc: dataSrc),
+            _PostListMultipleSelectVm(selectDataIds: selectDataId, dataSrc: dataSrc),
         builder: (context, child) {
           ThemeData themeData = Theme.of(context);
           registerEvent(context);
@@ -51,31 +48,26 @@ class PostListMultipleSelectPage
                     },
                     icon: Icon(Icons.search))
               ]),
-              endDrawer:
-              PostListPageVd.getSearchEndDrawer<_PostListMultipleSelectVm>(
+              endDrawer: PostListPageVd.getSearchEndDrawer<_PostListMultipleSelectVm>(
                   context, themeData, getVm().listVmSub),
               body: PageDataVd(getVm().listVmSub, getVm(), refreshOnStart: true,
-                  child: Consumer<_PostListMultipleSelectVm>(
-                      builder: (context, vm, child) {
-                        return PostListPageVd.getUserListWidget(
-                            themeData, getVm().listVmSub,
-                            buildTrailing: (currentItem) {
-                              //选择按钮
-                              return NqSelector<_PostListMultipleSelectVm,
-                                  bool>(
-                                  builder: (context, value, child) {
-                                    return Checkbox(
-                                        value: value,
-                                        onChanged: (checkValue) {
-                                          currentItem.boxChecked =
-                                          !currentItem.isBoxChecked();
-                                          getVm().notifyListeners();
-                                        });
-                                  }, selector: (context, vm) {
-                                return currentItem.isBoxChecked();
-                              });
-                            });
-                      })));
+                  child: Consumer<_PostListMultipleSelectVm>(builder: (context, vm, child) {
+                return PostListPageVd.getUserListWidget(themeData, getVm().listVmSub,
+                    buildTrailing: (currentItem) {
+                  //选择按钮
+                  return NqSelector<_PostListMultipleSelectVm, bool>(
+                      builder: (context, value, child) {
+                    return Checkbox(
+                        value: value,
+                        onChanged: (checkValue) {
+                          currentItem.boxChecked = !currentItem.isBoxChecked();
+                          getVm().notifyListeners();
+                        });
+                  }, selector: (context, vm) {
+                    return currentItem.isBoxChecked();
+                  });
+                });
+              })));
         });
   }
 }
@@ -84,14 +76,13 @@ class PostListMultipleSelectPage
 /// @author slc
 /// 岗位多选控件
 ///
-class PostListMultipleSelectDialog
-    extends AppBaseStatelessWidget<_PostListMultipleSelectVm> {
+class PostListMultipleSelectDialog extends AppBaseStatelessWidget<_PostListMultipleSelectVm> {
   PostListMultipleSelectDialog({super.key});
 
   static Widget getPostListSelectDialog(
       {String? title, List<int>? selectDataIds, List<Post>? dataSrc}) {
-    _PostListMultipleSelectVm vm = _PostListMultipleSelectVm(
-        selectDataIds: selectDataIds, dataSrc: dataSrc);
+    _PostListMultipleSelectVm vm =
+        _PostListMultipleSelectVm(selectDataIds: selectDataIds, dataSrc: dataSrc);
     return ChangeNotifierProvider(
         create: (context) => vm,
         builder: (context, child) {
@@ -113,8 +104,7 @@ class PostListMultipleSelectDialog
                   child: Text(S.current.action_cancel)),
               TextButton(
                   onPressed: () {
-                    vm.finish(
-                        result: SelectUtils.getSelect(vm.listVmSub.dataList));
+                    vm.finish(result: SelectUtils.getSelect(vm.listVmSub.dataList));
                   },
                   child: Text(S.current.action_ok))
             ],
@@ -128,30 +118,26 @@ class PostListMultipleSelectDialog
     registerEvent(context);
     getVm().initVm();
     return SizedBox(
-        width: ScreenUtil
-            .getInstance()
-            .screenWidthDpr,
-        child: PageDataVd(getVm().listVmSub, getVm(), refreshOnStart: true,
-            child: NqSelector<_PostListMultipleSelectVm, int>(
-                builder: (context, vm, child) {
-                  return PostListPageVd.getUserListWidget(
-                      themeData, getVm().listVmSub,
-                      buildTrailing: (currentItem) {
-                        //选择按钮
-                        return NqSelector<_PostListMultipleSelectVm, bool>(
-                            builder: (context, value, child) {
-                              return Checkbox(
-                                  value: value,
-                                  onChanged: (checkValue) {
-                                    currentItem.boxChecked =
-                                    !currentItem.isBoxChecked();
-                                    getVm().notifyListeners();
-                                  });
-                            }, selector: (context, vm) {
-                          return currentItem.isBoxChecked();
-                        });
+        width: ScreenUtil.getInstance().screenWidthDpr,
+        child: PageDataVd(getVm().listVmSub, getVm(),
+            refreshOnStart: true,
+            child: NqSelector<_PostListMultipleSelectVm, int>(builder: (context, vm, child) {
+              return PostListPageVd.getUserListWidget(themeData, getVm().listVmSub,
+                  buildTrailing: (currentItem) {
+                //选择按钮
+                return NqSelector<_PostListMultipleSelectVm, bool>(
+                    builder: (context, value, child) {
+                  return Checkbox(
+                      value: value,
+                      onChanged: (checkValue) {
+                        currentItem.boxChecked = !currentItem.isBoxChecked();
+                        getVm().notifyListeners();
                       });
                 }, selector: (context, vm) {
+                  return currentItem.isBoxChecked();
+                });
+              });
+            }, selector: (context, vm) {
               return vm.listVmSub.shouldSetState.version;
             })));
   }
@@ -175,13 +161,12 @@ class _PostListMultipleSelectVm extends AppBaseVm {
               loadMoreFormat.getOffset(),
               loadMoreFormat.getSize(),
               listVmSub.searchPost,
-              listVmSub.cancelToken);
+              listVmSub.defCancelToken);
           //返回数据结构
           dataWrapper = DataTransformUtils.entity2LDWrapper(result);
         } catch (e) {
           ResultEntity resultEntity = BaseDio.getError(e);
-          dataWrapper = DataWrapper.createFailed(
-              code: resultEntity.code, msg: resultEntity.msg);
+          dataWrapper = DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
         }
       }
       if (dataWrapper.isSuccess() && selectDataIds != null) {

@@ -218,7 +218,7 @@ class OssConfigListDataVmSub extends FastBaseListDataPageVmSub<SysOssConfig> {
       notifyListeners();
     }, onError: (e) {
       dismissLoading();
-      AppToastBridge.showToast(msg: BaseDio.getError(e).msg);
+      BaseDio.showToastByError(e);
     });
   }
 

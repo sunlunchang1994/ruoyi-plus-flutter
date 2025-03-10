@@ -7,6 +7,7 @@ import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 
 import '../../../../../../generated/l10n.dart';
 import '../../../../../../res/styles.dart';
@@ -178,10 +179,8 @@ class NoticeListPageWidget {
 }
 
 ///通知公告数据VmSub
-class NoticeListDataVmSub extends FastBaseListDataPageVmSub<SysNotice> {
+class NoticeListDataVmSub extends FastBaseListDataPageVmSub<SysNotice> with CancelTokenAssist{
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
-
-  final CancelToken cancelToken = CancelToken();
 
   SysNotice _currentSysNoticeSearch = SysNotice();
 
@@ -195,7 +194,7 @@ class NoticeListDataVmSub extends FastBaseListDataPageVmSub<SysNotice> {
       try {
         IntensifyEntity<PageModel<SysNotice>> intensifyEntity =
             await SysNoticeRepository.list(loadMoreFormat.getOffset(),
-                    loadMoreFormat.getSize(), currentSearch, cancelToken)
+                    loadMoreFormat.getSize(), currentSearch, defCancelToken)
                 .asStream()
                 .single;
         DataWrapper<PageModel<SysNotice>> dataWrapper =

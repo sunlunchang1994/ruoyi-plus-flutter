@@ -28,8 +28,7 @@ import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
 ///
 /// 用户选择列表
 ///
-class UserListSingleSelectPage
-    extends AppBaseStatelessWidget<_UserListSingleSelectVm> {
+class UserListSingleSelectPage extends AppBaseStatelessWidget<_UserListSingleSelectVm> {
   static const String routeName = '/system/user/single';
 
   final String title;
@@ -62,10 +61,8 @@ class UserListSingleSelectPage
             endDrawer: UserListPageVd.getSearchEndDrawer<_UserListSingleSelectVm>(
                 context, themeData, getVm().listVmSub),
             body: PageDataVd(getVm().listVmSub, getVm(), refreshOnStart: true,
-                child: Consumer<_UserListSingleSelectVm>(
-                    builder: (context, vm, child) {
-              return UserListPageVd.getUserListWidget(
-                  themeData, getVm().listVmSub);
+                child: Consumer<_UserListSingleSelectVm>(builder: (context, vm, child) {
+              return UserListPageVd.getUserListWidget(themeData, getVm().listVmSub);
             })));
       },
     );
