@@ -270,7 +270,7 @@ class _PostAddEditVm extends AppBaseVm {
       post.statusName = treeDict.tdDictLabel;
       post.postSort = 0;
       postInfo = post;
-      setLoadingStatus(LoadingStatus.success);
+      setLoadingStatusWithNotify(LoadingStatus.success,notify: false);
     } else {
       PostRepository.getInfo(post.postId!, cancelToken).asStream().single.then(
           (intensifyEntity) {

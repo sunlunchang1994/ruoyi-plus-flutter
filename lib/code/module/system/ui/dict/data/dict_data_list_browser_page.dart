@@ -14,8 +14,7 @@ import 'dict_data_list_page_vd.dart';
 ///
 /// @author slc
 /// 字典数据列表
-class DictDataListBrowserPage
-    extends AppBaseStatelessWidget<_DictDataListBrowserVm> {
+class DictDataListBrowserPage extends AppBaseStatelessWidget<_DictDataListBrowserVm> {
   static const String routeName = '/system/dict/data';
   final String title;
   final String dictType;
@@ -41,8 +40,7 @@ class DictDataListBrowserPage
                   );
                 })
               ]),
-              endDrawer: DictTypeListPageWidget.getSearchEndDrawer<
-                      _DictDataListBrowserVm>(
+              endDrawer: DictTypeListPageWidget.getSearchEndDrawer<_DictDataListBrowserVm>(
                   context, themeData, getVm().listVmSub),
               floatingActionButton: FloatingActionButton(
                   child: Icon(Icons.add),
@@ -51,23 +49,17 @@ class DictDataListBrowserPage
                   }),
               body: PageDataVd(getVm().listVmSub, getVm(),
                   refreshOnStart: true,
-                  child: NqSelector<_DictDataListBrowserVm, int>(
-                      builder: (context, vm, child) {
+                  child: NqSelector<_DictDataListBrowserVm, int>(builder: (context, vm, child) {
                     return DictTypeListPageWidget.getDataListWidget(
-                        themeData, getVm().listVmSub, (currentItem) {
+                        themeData, getVm().listVmSub.dataList, getVm().listVmSub, (currentItem) {
                       return Ink(
                           child: InkWell(
                               child: Padding(
-                                  padding:
-                                      EdgeInsets.all(SlcDimens.appDimens12),
-                                  child: const Icon(Icons.chevron_right,
-                                      size: 24)),
+                                  padding: EdgeInsets.all(SlcDimens.appDimens12),
+                                  child: const Icon(Icons.chevron_right, size: 24)),
                               onTap: () {
                                 //点击更多事件
-                                getVm()
-                                    .listVmSub
-                                    .onSuffixClick
-                                    ?.call(currentItem);
+                                getVm().listVmSub.onSuffixClick?.call(currentItem);
                               }));
                     });
                   }, selector: (context, vm) {
@@ -78,13 +70,13 @@ class DictDataListBrowserPage
 }
 
 class _DictDataListBrowserVm extends AppBaseVm {
-  late DictDataListDataVmSub listVmSub;
+  late DictDataPageVmSub listVmSub;
 
   _DictDataListBrowserVm() {
-    listVmSub = DictDataListDataVmSub();
+    listVmSub = DictDataPageVmSub();
     listVmSub.onSuffixClick = (itemData) {
-      pushNamed(DictDataAddEditPage.routeName,
-          arguments: {ConstantSys.KEY_DICT_DATA: itemData}).then((result) {
+      pushNamed(DictDataAddEditPage.routeName, arguments: {ConstantSys.KEY_DICT_DATA: itemData})
+          .then((result) {
         if (result != null) {
           //更新列表
           listVmSub.sendRefreshEvent();
@@ -100,9 +92,9 @@ class _DictDataListBrowserVm extends AppBaseVm {
 
   ///添加字典数据事件
   void onAddItem() {
-    pushNamed(DictDataAddEditPage.routeName, arguments: {
-      ConstantSys.KEY_DICT_PARENT_TYPE: listVmSub.currentSearch.dictType
-    }).then((result) {
+    pushNamed(DictDataAddEditPage.routeName,
+            arguments: {ConstantSys.KEY_DICT_PARENT_TYPE: listVmSub.currentSearch.dictType})
+        .then((result) {
       if (result != null) {
         listVmSub.sendRefreshEvent();
       }

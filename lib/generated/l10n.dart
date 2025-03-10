@@ -1595,6 +1595,16 @@ class S {
     return Intl.message('裁剪', name: 'app_label_image_crop', desc: '', args: []);
   }
 
+  /// `选择文件`
+  String get app_label_select_file {
+    return Intl.message(
+      '选择文件',
+      name: 'app_label_select_file',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `-----------------------------`
   String get user_divide_text {
     return Intl.message(
@@ -3410,6 +3420,16 @@ class S {
     );
   }
 
+  /// `前缀`
+  String get sys_label_oss_config_prefix {
+    return Intl.message(
+      '前缀',
+      name: 'sys_label_oss_config_prefix',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `是否HTTPS`
   String get sys_label_oss_config_is_https {
     return Intl.message(
@@ -3445,6 +3465,166 @@ class S {
     return Intl.message(
       '备注',
       name: 'sys_label_oss_config_remark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `新增Oss配置`
+  String get sys_label_oss_config_add {
+    return Intl.message(
+      '新增Oss配置',
+      name: 'sys_label_oss_config_add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `修改Oss配置`
+  String get sys_label_oss_config_edit {
+    return Intl.message(
+      '修改Oss配置',
+      name: 'sys_label_oss_config_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `新增客户端配置`
+  String get sys_label_sys_client_add {
+    return Intl.message(
+      '新增客户端配置',
+      name: 'sys_label_sys_client_add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `修改客户端配置`
+  String get sys_label_sys_client_edit {
+    return Intl.message(
+      '修改客户端配置',
+      name: 'sys_label_sys_client_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `配置管理`
+  String get sys_label_sys_client_name {
+    return Intl.message(
+      '配置管理',
+      name: 'sys_label_sys_client_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `客户端Id`
+  String get sys_label_sys_client_client_Id {
+    return Intl.message(
+      '客户端Id',
+      name: 'sys_label_sys_client_client_Id',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `客户端key`
+  String get sys_label_sys_client_client_key {
+    return Intl.message(
+      '客户端key',
+      name: 'sys_label_sys_client_client_key',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `客户端秘钥`
+  String get sys_label_sys_client_client_secret {
+    return Intl.message(
+      '客户端秘钥',
+      name: 'sys_label_sys_client_client_secret',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `授权类型`
+  String get sys_label_sys_client_grant_type {
+    return Intl.message(
+      '授权类型',
+      name: 'sys_label_sys_client_grant_type',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `选择授权类型`
+  String get sys_label_sys_client_grant_type_select {
+    return Intl.message(
+      '选择授权类型',
+      name: 'sys_label_sys_client_grant_type_select',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `设备类型`
+  String get sys_label_sys_client_device_type {
+    return Intl.message(
+      '设备类型',
+      name: 'sys_label_sys_client_device_type',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `选择设备类型`
+  String get sys_label_sys_client_device_type_select {
+    return Intl.message(
+      '选择设备类型',
+      name: 'sys_label_sys_client_device_type_select',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `token活跃超时时间`
+  String get sys_label_sys_client_active_timeout {
+    return Intl.message(
+      'token活跃超时时间',
+      name: 'sys_label_sys_client_active_timeout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `token固定超时时间`
+  String get sys_label_sys_client_timeout {
+    return Intl.message(
+      'token固定超时时间',
+      name: 'sys_label_sys_client_timeout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `状态`
+  String get sys_label_sys_client_status {
+    return Intl.message(
+      '状态',
+      name: 'sys_label_sys_client_status',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `删除标志`
+  String get sys_label_sys_client_del_flag {
+    return Intl.message(
+      '删除标志',
+      name: 'sys_label_sys_client_del_flag',
       desc: '',
       args: [],
     );

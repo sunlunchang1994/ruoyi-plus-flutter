@@ -192,4 +192,20 @@ class MediaTypeConstant {
         return "assets/images/mp/slc_mp_ic_text.png";
     }
   }
+
+  static List<String> getAllowedExtensions() {
+    return [
+      EXTENSION_JPEG,
+      EXTENSION_JPG,
+      EXTENSION_PNG,
+      EXTENSION_GIF,
+      EXTENSION_MP4,
+      EXTENSION_DOC,
+      EXTENSION_DOCX,
+      EXTENSION_XLS,
+      EXTENSION_XLSX,
+      EXTENSION_PPT,
+      EXTENSION_PPTX
+    ];
+  }
 }

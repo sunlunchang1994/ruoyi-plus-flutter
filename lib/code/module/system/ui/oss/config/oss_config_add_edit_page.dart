@@ -9,34 +9,38 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_dict_data.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
+import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_text_field.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/input_decoration_utils.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/repository/remote/dict_data_api.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_oss_config.dart';
 
 import '../../../../../../generated/l10n.dart';
 import '../../../../../base/api/base_dio.dart';
 import '../../../../../base/api/result_entity.dart';
 import '../../../../../base/ui/utils/fast_dialog_utils.dart';
+import '../../../../../base/vm/global_vm.dart';
+import '../../../../../feature/component/dict/entity/tree_dict.dart';
+import '../../../repository/remote/sys_oss_config_api.dart';
 
-class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
-  static const String routeName = '/system/dict/data/add_edit';
+class OssConfigAddEditPage extends AppBaseStatelessWidget<_OssConfigAddEditVm> {
+  static const String routeName = '/system/oss/config/add_edit';
 
-  final SysDictData? dictData;
-  final String? parentType;
+  final SysOssConfig? sysOssConfig;
 
-  DictDataAddEditPage({super.key, this.dictData, this.parentType});
+  OssConfigAddEditPage({super.key, this.sysOssConfig});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => _DictDataAddEditVm(),
+        create: (context) => _OssConfigAddEditVm(),
         builder: (context, child) {
           ThemeData themeData = Theme.of(context);
           registerEvent(context);
-          getVm().initVm(dictData: dictData, parentType: parentType);
+          getVm().initVm(sysOssConfig: sysOssConfig);
           return PopScope(
               canPop: false,
               onPopInvokedWithResult: (canPop, result) {
@@ -52,9 +56,9 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
               },
               child: Scaffold(
                   appBar: AppBar(
-                    title: Text(dictData == null
-                        ? S.current.sys_label_dict_data_add
-                        : S.current.sys_label_dict_data_edit),
+                    title: Text(sysOssConfig == null
+                        ? S.current.sys_label_oss_config_add
+                        : S.current.sys_label_oss_config_edit),
                     actions: [
                       IconButton(
                           onPressed: () {
@@ -68,8 +72,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
   }
 
   @override
-  Widget getSuccessWidget(BuildContext context,
-      {Map<String, dynamic>? params}) {
+  Widget getSuccessWidget(BuildContext context, {Map<String, dynamic>? params}) {
     ThemeData themeData = Theme.of(context);
     return KeyboardAvoider(
         autoScroll: true,
@@ -85,33 +88,17 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                   children: [
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
                     MyFormBuilderTextField(
-                        name: "dictType",
-                        initialValue: getVm().sysDictData!.dictType,
-                        readOnly: true,
+                        name: "configKey",
+                        initialValue: getVm().sysOssConfig!.configKey,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.sys_label_dict_type),
-                            hintText: S.current.app_label_please_input,
-                            border: const UnderlineInputBorder()),
-                        validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(),
-                        ]),
-                        textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                    MyFormBuilderTextField(
-                        name: "dictLabel",
-                        initialValue: getVm().sysDictData!.dictLabel,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: MyInputDecoration(
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.sys_label_dict_data_label),
+                            label:
+                                InputDecUtils.getRequiredLabel(S.current.sys_label_oss_config_key),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
-                          getVm().sysDictData!.dictLabel = value;
+                          getVm().sysOssConfig!.configKey = value;
                           getVm().applyInfoChange();
                         },
                         validator: FormBuilderValidators.compose([
@@ -120,17 +107,17 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                         textInputAction: TextInputAction.next),
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
-                        name: "dictValue",
-                        initialValue: getVm().sysDictData!.dictValue,
+                        name: "endpoint",
+                        initialValue: getVm().sysOssConfig!.endpoint,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
-                                S.current.sys_label_dict_data_value),
+                                S.current.sys_label_oss_config_visit_site),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
-                          getVm().sysDictData!.dictValue = value;
+                          getVm().sysOssConfig!.endpoint = value;
                           getVm().applyInfoChange();
                         },
                         validator: FormBuilderValidators.compose([
@@ -139,73 +126,150 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                         textInputAction: TextInputAction.next),
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
-                        name: "cssClass",
-                        initialValue: getVm().sysDictData!.cssClass,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        name: "domain",
+                        initialValue: getVm().sysOssConfig!.domain,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelText: S.current.sys_label_dict_data_css_class,
+                            labelText: S.current.sys_label_oss_config_custom_domain,
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
-                          getVm().sysDictData!.cssClass = value;
+                          getVm().sysOssConfig!.domain = value;
                           getVm().applyInfoChange();
                         },
                         textInputAction: TextInputAction.next),
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
-                        name: "listClass",
-                        initialValue: getVm().sysDictData!.listClass,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: MyInputDecoration(
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelText: S.current.sys_label_dict_data_list_style,
-                            hintText: S.current.app_label_please_input,
-                            border: const UnderlineInputBorder()),
-                        onChanged: (value) {
-                          getVm().sysDictData!.listClass = value;
-                          getVm().applyInfoChange();
-                        },
-                        textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                    MyFormBuilderTextField(
-                        name: "dictSort",
-                        initialValue: () {
-                          int? orderNum = getVm().sysDictData!.dictSort;
-                          return orderNum.toString();
-                        }.call(),
+                        name: "accessKey",
+                        initialValue: getVm().sysOssConfig!.accessKey,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
-                                S.current.sys_label_dict_data_order_num),
+                                S.current.sys_label_oss_config_access_key),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
-                          getVm().sysDictData!.dictSort =
-                              value == null ? null : int.tryParse(value);
+                          getVm().sysOssConfig!.accessKey = value;
                           getVm().applyInfoChange();
                         },
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(),
                         ]),
+                        textInputAction: TextInputAction.next),
+                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    MyFormBuilderTextField(
+                        name: "secretKey",
+                        initialValue: getVm().sysOssConfig!.secretKey,
+                        minLines: 1,
+                        maxLines: 5,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        decoration: MyInputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            label: InputDecUtils.getRequiredLabel(
+                                S.current.sys_label_oss_config_secret_key),
+                            hintText: S.current.app_label_please_input,
+                            border: const UnderlineInputBorder()),
+                        onChanged: (value) {
+                          getVm().sysOssConfig!.secretKey = value;
+                          getVm().applyInfoChange();
+                        },
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(),
+                        ]),
+                        textInputAction: TextInputAction.next),
+                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    MyFormBuilderTextField(
+                        name: "bucketName",
+                        initialValue: getVm().sysOssConfig!.bucketName,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        decoration: MyInputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            label: InputDecUtils.getRequiredLabel(
+                                S.current.sys_label_oss_config_bucket_name),
+                            hintText: S.current.app_label_please_input,
+                            border: const UnderlineInputBorder()),
+                        onChanged: (value) {
+                          getVm().sysOssConfig!.bucketName = value;
+                          getVm().applyInfoChange();
+                        },
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(),
+                        ]),
+                        textInputAction: TextInputAction.next),
+                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    MyFormBuilderTextField(
+                        name: "prefix",
+                        initialValue: getVm().sysOssConfig!.prefix,
+                        decoration: MyInputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            labelText: S.current.sys_label_oss_config_prefix,
+                            hintText: S.current.app_label_please_input,
+                            border: const UnderlineInputBorder()),
+                        onChanged: (value) {
+                          getVm().sysOssConfig!.prefix = value;
+                          getVm().applyInfoChange();
+                        },
+                        textInputAction: TextInputAction.next),
+                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    FormBuilderRadioGroup<OptionVL<String>>(
+                        name: "isHttps",
+                        initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
+                            LocalDictLib.CODE_SYS_YES_NO_INT, getVm().sysOssConfig!.isHttps,
+                            defDictKey: LocalDictLib.KEY_SYS_YES_NO_INT_N)),
+                        options: DictUiUtils.dictList2FromOption(
+                            globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_YES_NO_INT]!),
+                        decoration:
+                            MyInputDecoration(labelText: S.current.sys_label_oss_config_is_https),
+                        onChanged: (value) {
+                          getVm().applyInfoChange();
+                          getVm().sysOssConfig!.isHttps = value?.value;
+                          getVm().notifyListeners();
+                        }),
+                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    FormBuilderRadioGroup<OptionVL<String>>(
+                        name: "accessPolicy",
+                        initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
+                            LocalDictLib.CODE_ACCESS_POLICY_TYPE,
+                            getVm().sysOssConfig!.accessPolicy,
+                            defDictKey: LocalDictLib.KEY_ACCESS_POLICY_TYPE_PUBLIC)),
+                        options: DictUiUtils.dictList2FromOption(
+                            globalVm.dictShareVm.dictMap[LocalDictLib.CODE_ACCESS_POLICY_TYPE]!),
+                        decoration: MyInputDecoration(
+                            labelText: S.current.sys_label_oss_config_bucket_permissions_name),
+                        onChanged: (value) {
+                          getVm().applyInfoChange();
+                          getVm().sysOssConfig!.accessPolicy = value?.value;
+                          getVm().notifyListeners();
+                        }),
+                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    MyFormBuilderTextField(
+                        name: "region",
+                        initialValue: getVm().sysOssConfig!.region,
+                        decoration: MyInputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            labelText: S.current.sys_label_oss_config_region,
+                            hintText: S.current.app_label_please_input,
+                            border: const UnderlineInputBorder()),
+                        onChanged: (value) {
+                          getVm().sysOssConfig!.region = value;
+                          getVm().applyInfoChange();
+                        },
                         textInputAction: TextInputAction.next),
                     SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "remark",
-                        initialValue: getVm().sysDictData!.remark,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        initialValue: getVm().sysOssConfig!.remark,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelText: S.current.app_label_remark,
+                            labelText: S.current.sys_label_oss_config_remark,
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
-                        textInputAction: TextInputAction.next,
                         onChanged: (value) {
-                          //此处需改成选择的
+                          getVm().sysOssConfig!.remark = value;
                           getVm().applyInfoChange();
-                          getVm().sysDictData!.remark = value;
-                        }),
+                        },
+                        textInputAction: TextInputAction.next),
                   ],
                 ))));
   }
@@ -227,34 +291,32 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
   }
 }
 
-class _DictDataAddEditVm extends AppBaseVm {
+class _OssConfigAddEditVm extends AppBaseVm {
   final CancelToken cancelToken = CancelToken();
 
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
-  SysDictData? sysDictData;
+  SysOssConfig? sysOssConfig;
 
   bool _infoChange = false;
 
-  void initVm({SysDictData? dictData, String? parentType}) {
-    if (dictData == null && parentType == null) {
-      throw Exception(S.current.label_select_parameter_is_missing);
-    }
-    if (this.sysDictData != null) {
+  void initVm({SysOssConfig? sysOssConfig}) {
+    if (this.sysOssConfig != null) {
       return;
     }
-    if (dictData == null) {
-      dictData = SysDictData();
-      dictData.dictType = parentType;
-      dictData.dictSort = 0;
-      this.sysDictData = dictData;
+    if (sysOssConfig == null) {
+      sysOssConfig = SysOssConfig();
+      ITreeDict<dynamic>? statusDict = GlobalVm().dictShareVm.findDict(LocalDictLib.CODE_SYS_YES_NO_INT, LocalDictLib.KEY_SYS_YES_NO_INT_N);
+      sysOssConfig.isHttps = statusDict?.tdDictValue;
+      ITreeDict<dynamic>? accessPolicyDict = GlobalVm().dictShareVm.findDict(LocalDictLib.CODE_ACCESS_POLICY_TYPE, LocalDictLib.KEY_ACCESS_POLICY_TYPE_PUBLIC);
+      sysOssConfig.accessPolicy = accessPolicyDict?.tdDictValue;
+      this.sysOssConfig = sysOssConfig;
+
       setLoadingStatusWithNotify(LoadingStatus.success,notify: false);
     } else {
-      DictDataRepository.getInfo(dictData.dictCode!, cancelToken)
-          .asStream()
-          .single
-          .then((intensifyEntity) {
-        this.sysDictData = intensifyEntity.data;
+      SysOssConfigRepository.getInfo(sysOssConfig.ossConfigId!, cancelToken).asStream().single.then(
+          (intensifyEntity) {
+        this.sysOssConfig = intensifyEntity.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
@@ -290,12 +352,12 @@ class _DictDataAddEditVm extends AppBaseVm {
       return;
     }
     showLoading(text: S.current.label_save_ing);
-    DictDataRepository.submit(sysDictData!, cancelToken).then((value) {
+    SysOssConfigRepository.submit(sysOssConfig!, cancelToken).then((value) {
       AppToastBridge.showToast(msg: S.current.toast_edit_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;
-      finish(result: sysDictData);
+      finish(result: sysOssConfig);
     }, onError: (error) {
       dismissLoading();
       AppToastBridge.showToast(msg: BaseDio.getError(error).msg);

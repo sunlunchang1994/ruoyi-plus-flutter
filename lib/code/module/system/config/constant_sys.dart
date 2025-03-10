@@ -16,4 +16,8 @@ class ConstantSys {
   static const String KEY_SYS_LOG = "sysLog";
   //Oss
   static const String KEY_SYS_OSS = "sysOss";
+  //Oss Config
+  static const String KEY_SYS_OSS_CONFIG = "sysOssConfig";
+  //sysClient
+  static const String KEY_SYS_CLIENT = "sysClient";
 }

@@ -130,6 +130,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "app_label_required_information_cannot_be_empty":
         MessageLookupByLibrary.simpleMessage("必要信息不能为空"),
     "app_label_select_all": MessageLookupByLibrary.simpleMessage("全选"),
+    "app_label_select_file": MessageLookupByLibrary.simpleMessage("选择文件"),
     "app_label_show_sort": MessageLookupByLibrary.simpleMessage("显示排序"),
     "app_label_start_time_less_than_end_time":
         MessageLookupByLibrary.simpleMessage("开始时间必须小于结束时间"),
@@ -431,6 +432,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "sys_label_oss_config_access_key": MessageLookupByLibrary.simpleMessage(
       "accessKey",
     ),
+    "sys_label_oss_config_add": MessageLookupByLibrary.simpleMessage("新增Oss配置"),
     "sys_label_oss_config_bucket_name": MessageLookupByLibrary.simpleMessage(
       "桶名称",
     ),
@@ -439,11 +441,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "sys_label_oss_config_custom_domain": MessageLookupByLibrary.simpleMessage(
       "自定义域名",
     ),
+    "sys_label_oss_config_edit": MessageLookupByLibrary.simpleMessage(
+      "修改Oss配置",
+    ),
     "sys_label_oss_config_is_https": MessageLookupByLibrary.simpleMessage(
       "是否HTTPS",
     ),
     "sys_label_oss_config_key": MessageLookupByLibrary.simpleMessage("配置key"),
     "sys_label_oss_config_name": MessageLookupByLibrary.simpleMessage("配置管理"),
+    "sys_label_oss_config_prefix": MessageLookupByLibrary.simpleMessage("前缀"),
     "sys_label_oss_config_region": MessageLookupByLibrary.simpleMessage("域"),
     "sys_label_oss_config_remark": MessageLookupByLibrary.simpleMessage("备注"),
     "sys_label_oss_config_secret_key": MessageLookupByLibrary.simpleMessage(
@@ -463,6 +469,40 @@ class MessageLookup extends MessageLookupByLibrary {
     "sys_label_oss_view_file": MessageLookupByLibrary.simpleMessage("查看文件"),
     "sys_label_permission_file_download_hint":
         MessageLookupByLibrary.simpleMessage("下载并保存文件需要文件管理权限，请授予！"),
+    "sys_label_sys_client_active_timeout": MessageLookupByLibrary.simpleMessage(
+      "token活跃超时时间",
+    ),
+    "sys_label_sys_client_add": MessageLookupByLibrary.simpleMessage("新增客户端配置"),
+    "sys_label_sys_client_client_Id": MessageLookupByLibrary.simpleMessage(
+      "客户端Id",
+    ),
+    "sys_label_sys_client_client_key": MessageLookupByLibrary.simpleMessage(
+      "客户端key",
+    ),
+    "sys_label_sys_client_client_secret": MessageLookupByLibrary.simpleMessage(
+      "客户端秘钥",
+    ),
+    "sys_label_sys_client_del_flag": MessageLookupByLibrary.simpleMessage(
+      "删除标志",
+    ),
+    "sys_label_sys_client_device_type": MessageLookupByLibrary.simpleMessage(
+      "设备类型",
+    ),
+    "sys_label_sys_client_device_type_select":
+        MessageLookupByLibrary.simpleMessage("选择设备类型"),
+    "sys_label_sys_client_edit": MessageLookupByLibrary.simpleMessage(
+      "修改客户端配置",
+    ),
+    "sys_label_sys_client_grant_type": MessageLookupByLibrary.simpleMessage(
+      "授权类型",
+    ),
+    "sys_label_sys_client_grant_type_select":
+        MessageLookupByLibrary.simpleMessage("选择授权类型"),
+    "sys_label_sys_client_name": MessageLookupByLibrary.simpleMessage("配置管理"),
+    "sys_label_sys_client_status": MessageLookupByLibrary.simpleMessage("状态"),
+    "sys_label_sys_client_timeout": MessageLookupByLibrary.simpleMessage(
+      "token固定超时时间",
+    ),
     "sys_label_system_dict_edit_hint": MessageLookupByLibrary.simpleMessage(
       "系统字典不允许修改",
     ),

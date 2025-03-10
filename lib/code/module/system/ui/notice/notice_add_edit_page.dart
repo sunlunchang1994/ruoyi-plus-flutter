@@ -226,7 +226,7 @@ class _NoticeAddEditVm extends AppBaseVm {
 
       controller.loadHtmlString("");
 
-      setLoadingStatus(LoadingStatus.success);
+      setLoadingStatusWithNotify(LoadingStatus.success,notify: false);
     } else {
       SysNoticeRepository.getInfo(sysNotice.noticeId!, cancelToken)
           .asStream()

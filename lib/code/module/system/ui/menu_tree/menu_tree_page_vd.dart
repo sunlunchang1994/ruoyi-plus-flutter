@@ -111,10 +111,10 @@ class MenuTreeListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
             return itemData.id == lastTreeId;
           });
           //获取目标数据的子节点
-          DataWrapper<List<SysMenuTree>> dateWrapper =
+          DataWrapper<List<SysMenuTree>> dataWrapper =
               DataWrapper.createSuccess(
                   menuTreeByTreeId.children ?? List.empty());
-          return dateWrapper;
+          return dataWrapper;
         }
       }
       try {
@@ -143,9 +143,9 @@ class MenuTreeListDataVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
                   .map(fillCheckedIdsMap).single;
         }
         _allTreeList = intensifyEntity.data;
-        DataWrapper<List<SysMenuTree>> dateWrapper =
+        DataWrapper<List<SysMenuTree>> dataWrapper =
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
-        return dateWrapper;
+        return dataWrapper;
       } catch (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
         return DataWrapper.createFailed(

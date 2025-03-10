@@ -132,6 +132,7 @@ class UserListPageVd {
             borderRadius: BorderRadius.all(
                 Radius.circular(AppDimens.userItemAvatarRadius)),
             child: CachedNetworkImage(
+                fit: BoxFit.cover,
                 width: AppDimens.userItemAvatarSize,
                 height: AppDimens.userItemAvatarSize,
                 imageUrl: listItem.avatar ?? "",
@@ -380,9 +381,9 @@ class UserTreeListDataVmSub extends TreeFastBaseListDataVmSub<dynamic> {
           allList.addAll(userIntensifyEntity!.data!);
         }
         //返回数据结构
-        DataWrapper<List<dynamic>> dateWrapper =
+        DataWrapper<List<dynamic>> dataWrapper =
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
-        return dateWrapper;
+        return dataWrapper;
       } catch (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
         return DataWrapper.createFailed(
@@ -453,9 +454,9 @@ class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> {
             await UserServiceRepository.list(getLoadMoreFormat().getOffset(),
                 getLoadMoreFormat().getSize(), searchUser, cancelToken);
         //返回数据结构
-        DataWrapper<PageModel<User>> dateWrapper =
+        DataWrapper<PageModel<User>> dataWrapper =
             DataTransformUtils.entity2LDWrapper(result);
-        return dateWrapper;
+        return dataWrapper;
       } catch (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
         return DataWrapper.createFailed(

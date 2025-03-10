@@ -32,6 +32,14 @@ abstract class SysOssConfigApiClient {
   @PUT("/resource/oss/config/changeStatus")
   Future<ResultEntity> changeStatus(
       @Body() SysOssConfig body, @CancelRequest() CancelToken cancelToken);
+
+  ///添加Oss配置
+  @POST("/resource/oss/config")
+  Future<ResultEntity> add(@Body() SysOssConfig? data, @CancelRequest() CancelToken cancelToken);
+
+  ///编辑Oss配置
+  @PUT("/resource/oss/config")
+  Future<ResultEntity> edit(@Body() SysOssConfig? data, @CancelRequest() CancelToken cancelToken);
 }
 
 ///OSS存储配置服务
@@ -78,5 +86,20 @@ class SysOssConfigRepository {
         .map((event) {
       return event.toIntensify(succeedEntity: true);
     }).single;
+  }
+
+  ///提交Oss配置
+  static Future<IntensifyEntity<SysOssConfig>> submit(SysOssConfig body, CancelToken cancelToken) {
+    Future<ResultEntity> resultFuture = body.ossConfigId == null
+        ? _sysOssApiClient.add(body, cancelToken)
+        : _sysOssApiClient.edit(body, cancelToken);
+    return resultFuture
+        .asStream()
+        .map((event) {
+          var intensifyEntity = IntensifyEntity<SysOssConfig>(resultEntity: event);
+          return intensifyEntity;
+        })
+        .map(DataTransformUtils.checkErrorIe)
+        .single;
   }
 }

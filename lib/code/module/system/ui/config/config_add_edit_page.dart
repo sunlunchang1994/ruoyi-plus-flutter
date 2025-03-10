@@ -216,7 +216,7 @@ class _ConfigAddEditVm extends AppBaseVm {
     if (sysConfig == null) {
       sysConfig = SysConfig();
       this.sysConfig = sysConfig;
-      setLoadingStatus(LoadingStatus.success);
+      setLoadingStatusWithNotify(LoadingStatus.success,notify: false);
     } else {
       SysConfigRepository.getInfo(sysConfig.configId!, cancelToken)
           .asStream()

@@ -102,7 +102,7 @@ class DbSp extends DataPersistence<DbSp> {
 
   @override
   void remove(String key){
-    spUtils.remove(key);
+    spUtils.remove(_formatKey(key));
   }
   
   @override

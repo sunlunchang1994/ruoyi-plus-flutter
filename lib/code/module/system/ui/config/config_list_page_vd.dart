@@ -223,9 +223,9 @@ class ConfigListDataVmSub extends FastBaseListDataPageVmSub<SysConfig> {
                     loadMoreFormat.getSize(), currentSearch, cancelToken)
                 .asStream()
                 .single;
-        DataWrapper<PageModel<SysConfig>> dateWrapper =
+        DataWrapper<PageModel<SysConfig>> dataWrapper =
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
-        return dateWrapper;
+        return dataWrapper;
       } catch (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
         return DataWrapper.createFailed(

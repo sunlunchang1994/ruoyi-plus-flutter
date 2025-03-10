@@ -3,6 +3,7 @@ import 'package:ruoyi_plus_flutter/code/base/entity/tenant_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../../base/api/json_converter.dart';
+import '../../../component/adapter/app_select_box.dart';
 import '../../../component/dict/entity/tree_dict.dart';
 
 part 'sys_dict_data.g.dart';
@@ -10,7 +11,7 @@ part 'sys_dict_data.g.dart';
 ///@author sunlunchang
 ///字典类型
 @JsonSerializable()
-class SysDictData extends TenantEntity implements ITreeDict<SysDictData> {
+class SysDictData extends TenantEntity with AppSelectBoxMixin<SysDictData> implements ITreeDict<SysDictData> {
   static const String DEF_TAG = "Y";
 
   ///字典编码

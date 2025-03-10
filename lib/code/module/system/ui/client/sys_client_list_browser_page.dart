@@ -7,28 +7,29 @@ import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
 
 import '../../../../../../generated/l10n.dart';
 
-import '../../../../../lib/fast/utils/widget_utils.dart';
-import 'oss_config_add_edit_page.dart';
-import 'oss_config_list_page_vd.dart';
+import '../../../../lib/fast/utils/widget_utils.dart';
+import 'sys_client_add_edit_page.dart';
+import 'sys_client_list_page_vd.dart';
 
 ///
 /// @author slc
-/// OssConfig列表
-class OssConfigListBrowserPage extends AppBaseStatelessWidget<_OssConfigListBrowserVm> {
-  static const String routeName = '/system/oss/config';
+/// OssClient列表
+class SysClientListBrowserPage extends AppBaseStatelessWidget<_SysClientListBrowserVm> {
+  static const String routeName = '/system/client';
 
-  OssConfigListBrowserPage({super.key});
+  final String title;
+  SysClientListBrowserPage(this.title,{super.key});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => _OssConfigListBrowserVm(),
+        create: (context) => _SysClientListBrowserVm(),
         builder: (context, child) {
           ThemeData themeData = Theme.of(context);
           registerEvent(context);
           getVm().initVm();
           return Scaffold(
-              appBar: AppBar(title: Text(S.current.sys_label_oss_config_name), actions: [
+              appBar: AppBar(title: Text(title), actions: [
                 Builder(builder: (context) {
                   return IconButton(
                     icon: const Icon(Icons.search),
@@ -38,7 +39,7 @@ class OssConfigListBrowserPage extends AppBaseStatelessWidget<_OssConfigListBrow
                   );
                 })
               ]),
-              endDrawer: OssConfigListPageWidget.getSearchEndDrawer<_OssConfigListBrowserVm>(
+              endDrawer: OssConfigListPageWidget.getSearchEndDrawer<_SysClientListBrowserVm>(
                   context, themeData, getVm().listVmSub),
               floatingActionButton: FloatingActionButton(
                   child: Icon(Icons.add),
@@ -47,7 +48,7 @@ class OssConfigListBrowserPage extends AppBaseStatelessWidget<_OssConfigListBrow
                   }),
               body: PageDataVd(getVm().listVmSub, getVm(),
                   refreshOnStart: true,
-                  child: NqSelector<_OssConfigListBrowserVm, int>(builder: (context, vm, child) {
+                  child: NqSelector<_SysClientListBrowserVm, int>(builder: (context, vm, child) {
                     return OssConfigListPageWidget.getDataListWidget(themeData, getVm().listVmSub);
                   }, selector: (context, vm) {
                     return vm.listVmSub.shouldSetState.version;
@@ -56,11 +57,11 @@ class OssConfigListBrowserPage extends AppBaseStatelessWidget<_OssConfigListBrow
   }
 }
 
-class _OssConfigListBrowserVm extends AppBaseVm {
-  late OssConfigListDataVmSub listVmSub;
+class _SysClientListBrowserVm extends AppBaseVm {
+  late SysClientListDataVmSub listVmSub;
 
-  _OssConfigListBrowserVm() {
-    listVmSub = OssConfigListDataVmSub();
+  _SysClientListBrowserVm() {
+    listVmSub = SysClientListDataVmSub();
     listVmSub.onSuffixClick = (itemData) {
       /*pushNamed(NoticeAddEditPage.routeName,
           arguments: {ConstantSys.KEY_SYS_NOTICE: itemData}).then((result) {
@@ -76,9 +77,9 @@ class _OssConfigListBrowserVm extends AppBaseVm {
     registerVmSub(listVmSub);
   }
 
-  ///添加Oss事件
+  ///添加客户端事件
   void onAddItem() {
-    pushNamed(OssConfigAddEditPage.routeName).then((result) {
+    pushNamed(SysClientAddEditPage.routeName).then((result) {
       if (result != null) {
         //更新列表
         listVmSub.sendRefreshEvent();

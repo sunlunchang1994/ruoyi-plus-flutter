@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 /// @author sunlunchang
 class AttachmentUtils {
   ///构建文件保存路径
-  static Future<String?> buildSaveFilePath({String? fileName}) async {
+  static Future<String?> buildSaveFileDir() async {
     if (kIsWeb) {
       //web平台暂时先返回空
       return null;
@@ -16,7 +16,7 @@ class AttachmentUtils {
         return null;
       }
       //允许为空，为空表示放弃选择
-      return "$selectPath${Platform.pathSeparator}$fileName";
+      return selectPath;
       // 获取下载目录  下面获取的是app内置文件
       /*final directory = await getDownloadsDirectory();
       if (directory == null) {
@@ -32,7 +32,8 @@ class AttachmentUtils {
         return null;
       }
       //允许为空，为空表示放弃选择
-      return "$selectPath${Platform.pathSeparator}$fileName";
+      return selectPath;
     }
   }
+
 }

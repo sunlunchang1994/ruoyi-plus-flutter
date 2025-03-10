@@ -255,7 +255,7 @@ class _PostAddEditVm extends AppBaseVm {
       role.statusName = treeDict.tdDictLabel;
       role.roleSort = 0;
       roleInfo = role;
-      setLoadingStatus(LoadingStatus.success);
+      setLoadingStatusWithNotify(LoadingStatus.success,notify: false);
     } else {
       RoleRepository.getInfo(role.roleId!, cancelToken).asStream().single.then(
           (intensifyEntity) {

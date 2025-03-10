@@ -243,9 +243,9 @@ class PostPageDataVmSub extends FastBaseListDataPageVmSub<Post> {
                 searchPost,
                 cancelToken);
             //返回数据结构
-            DataWrapper<PageModel<Post>> dateWrapper =
+            DataWrapper<PageModel<Post>> dataWrapper =
                 DataTransformUtils.entity2LDWrapper(result);
-            return dateWrapper;
+            return dataWrapper;
           } catch (e) {
             ResultEntity resultEntity = BaseDio.getError(e);
             return DataWrapper.createFailed(

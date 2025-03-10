@@ -82,9 +82,9 @@ class _UserListDataVmSub extends FastBaseListDataVmSub<User> {
         IntensifyEntity<List<User>> result =
             await UserServiceRepository.userListByDept(deptId, cancelToken);
         //返回数据结构
-        DataWrapper<List<User>> dateWrapper =
+        DataWrapper<List<User>> dataWrapper =
             DataTransformUtils.entity2LDWrapper(result);
-        return dateWrapper;
+        return dataWrapper;
       } catch (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
         return DataWrapper.createFailed(

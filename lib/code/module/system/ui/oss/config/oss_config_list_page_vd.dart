@@ -27,6 +27,7 @@ import 'package:dio/dio.dart';
 
 import '../../../config/constant_sys.dart';
 import '../../../repository/remote/sys_oss_config_api.dart';
+import 'oss_config_add_edit_page.dart';
 
 ///@author slc
 ///Oss列表
@@ -187,9 +188,9 @@ class OssConfigListDataVmSub extends FastBaseListDataPageVmSub<SysOssConfig> {
                     currentSearch, cancelToken)
                 .asStream()
                 .single;
-        DataWrapper<PageModel<SysOssConfig>> dateWrapper =
+        DataWrapper<PageModel<SysOssConfig>> dataWrapper =
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
-        return dateWrapper;
+        return dataWrapper;
       } catch (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
         return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
@@ -197,7 +198,12 @@ class OssConfigListDataVmSub extends FastBaseListDataPageVmSub<SysOssConfig> {
     });
     //设置点击item事件主体
     setItemClick((index, data) {
-      pushNamed(OssDetailsPage.routeName, arguments: {ConstantSys.KEY_SYS_OSS: data});
+      pushNamed(OssConfigAddEditPage.routeName, arguments: {ConstantSys.KEY_SYS_OSS_CONFIG: data})
+          .then((result) {
+            if(result != null){
+              sendRefreshEvent();
+            }
+      });
     });
   }
 

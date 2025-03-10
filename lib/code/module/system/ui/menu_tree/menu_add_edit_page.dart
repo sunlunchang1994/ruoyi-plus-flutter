@@ -421,7 +421,7 @@ class _MenuAddEditModel extends AppBaseVm {
       sysMenuInfo!.visible = LocalDictLib.KEY_SYS_SHOW_HIDE_S;
       sysMenuInfo!.status = LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL;
       sysMenuInfo!.orderNum = 0;
-      setLoadingStatus(LoadingStatus.success);
+      setLoadingStatusWithNotify(LoadingStatus.success,notify: false);
     } else {
       MenuRepository.getInfo(menuInfo.menuId!, cancelToken,
               fillParentName: true)

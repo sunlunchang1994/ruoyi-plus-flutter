@@ -198,9 +198,9 @@ class NoticeListDataVmSub extends FastBaseListDataPageVmSub<SysNotice> {
                     loadMoreFormat.getSize(), currentSearch, cancelToken)
                 .asStream()
                 .single;
-        DataWrapper<PageModel<SysNotice>> dateWrapper =
+        DataWrapper<PageModel<SysNotice>> dataWrapper =
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
-        return dateWrapper;
+        return dataWrapper;
       } catch (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
         return DataWrapper.createFailed(

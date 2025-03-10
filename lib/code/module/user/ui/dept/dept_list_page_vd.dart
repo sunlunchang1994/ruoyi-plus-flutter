@@ -81,9 +81,9 @@ class DeptTreeListDataVmSub extends TreeFastBaseListDataVmSub<Dept> {
             createCancelTokenByTreeId(_currentDeptSearch.parentId);
         IntensifyEntity<List<Dept>> intensifyEntity =
             await DeptRepository.list(_currentDeptSearch, cancelToken);
-        DataWrapper<List<Dept>> dateWrapper =
+        DataWrapper<List<Dept>> dataWrapper =
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
-        return dateWrapper;
+        return dataWrapper;
       } catch (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
         return DataWrapper.createFailed(

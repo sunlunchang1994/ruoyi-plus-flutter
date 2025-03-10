@@ -1,39 +1,41 @@
-import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/role.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_oss_vo.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_component.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/refresh/content_empty.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/role_api.dart';
+import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_client.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/ui/client/sys_client_add_edit_page.dart';
 
-import '../../../../../generated/l10n.dart';
-import '../../../../../res/styles.dart';
+import '../../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
-import '../../../../base/vm/global_vm.dart';
-import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
-import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import '../../../../lib/fast/provider/fast_select.dart';
 import '../../../../lib/fast/utils/widget_utils.dart';
-import '../../../../lib/fast/vd/page_data_vm_sub.dart';
+import '../../../../lib/fast/vd/list_data_component.dart';
+import '../../../../lib/fast/vd/refresh/content_empty.dart';
 import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
+import '../../../../lib/fast/widget/form/form_operate_with_provider.dart';
 import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
+import 'package:dio/dio.dart';
 
-class RoleListPageVd {
-  static Widget getUserListWidget(
-      ThemeData themeData, IListDataVmSub<Role> listVmSub,
-      {Widget? Function(Role currentItem)? buildTrailing}) {
-    assert(listVmSub is ListenerItemClick<dynamic>);
+import '../../config/constant_sys.dart';
+import '../../repository/remote/sys_client_api.dart';
+import '../oss/config/oss_config_add_edit_page.dart';
+
+///@author slc
+///客户端列表
+class OssConfigListPageWidget {
+  ///数据列表控件
+  static Widget getDataListWidget(ThemeData themeData, SysClientListDataVmSub listVmSub,
+      {Widget? Function(SysClient currentItem)? buildTrailing}) {
     if (listVmSub.dataList.isEmpty) {
       return const ContentEmptyWrapper();
     }
@@ -42,10 +44,9 @@ class RoleListPageVd {
         scrollDirection: Axis.vertical,
         padding: EdgeInsets.zero,
         itemCount: listVmSub.dataList.length,
-        itemBuilder: (context, index) {
-          Role listItem = listVmSub.dataList[index];
-          return getUserListItem(themeData,
-              listVmSub as ListenerItemClick<dynamic>, index, listItem,
+        itemBuilder: (ctx, index) {
+          SysClient listItem = listVmSub.dataList[index];
+          return getDataListItem(themeData, listVmSub, index, listItem,
               buildTrailing: buildTrailing);
         },
         separatorBuilder: (context, index) {
@@ -53,14 +54,13 @@ class RoleListPageVd {
         });
   }
 
-  static Widget getUserListItem(ThemeData themeData,
-      ListenerItemClick<dynamic> listenerItemClick, int index, Role listItem,
-      {Widget? Function(Role currentItem)? buildTrailing}) {
+  static Widget getDataListItem(ThemeData themeData, ListenerItemClick<dynamic> listenerItemClick,
+      int index, SysClient listItem,
+      {Widget? Function(SysClient currentItem)? buildTrailing}) {
     return ListTile(
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
-        title: Text(listItem.roleName!),
-        subtitle: Text(listItem.roleKey!),
-        trailing: buildTrailing?.call(listItem),
+        title: Text(listItem.clientKey!),
+        subtitle: Text(listItem.clientId!),
         visualDensity: VisualDensity.compact,
         onTap: () {
           listenerItemClick.onItemClick(index, listItem);
@@ -69,7 +69,7 @@ class RoleListPageVd {
 
   ///搜索侧滑栏视图
   static Widget getSearchEndDrawer<A>(
-      BuildContext context, ThemeData themeData, RolePageDataVmSub listVmSub,
+      BuildContext context, ThemeData themeData, SysClientListDataVmSub listVmSub,
       {List<Widget>? Function(String? name)? formItemSlot}) {
     return Container(
         color: themeData.colorScheme.surface,
@@ -79,7 +79,7 @@ class RoleListPageVd {
             left: SlcDimens.appDimens16,
             right: SlcDimens.appDimens16,
             bottom: SlcDimens.appDimens14),
-        child: Selector0<Role>(builder: (context, value, child) {
+        child: Selector0<SysClient>(builder: (context, value, child) {
           return FormBuilder(
               key: listVmSub.formOperate.formKey,
               child: Column(
@@ -87,83 +87,74 @@ class RoleListPageVd {
                   Container(
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
-                      child: Text(S.current.user_label_search_role,
+                      child: Text(S.current.sys_label_oss_search,
                           style: SlcStyles.tidyUpStyle.getTitleTextStyle(themeData))),
                   SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
-                      name: "roleName",
-                      initialValue: listVmSub.searchRole.roleName,
+                      name: "clientKey",
+                      initialValue: listVmSub.currentSearch.clientKey,
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          labelText: S.current.user_label_role_name,
+                          labelText: S.current.sys_label_sys_client_client_key,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqNullSelector<A, String?>(
-                              builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixByInputVal(
-                                value,
-                                formOperate: listVmSub.formOperate,
-                                formFieldName: "roleName");
+                          suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
+                            return InputDecUtils.autoClearSuffixByInputVal(value,
+                                formOperate: listVmSub.formOperate, formFieldName: "clientKey");
                           }, selector: (context, vm) {
-                            return listVmSub.searchRole.roleName;
+                            return listVmSub.currentSearch.clientKey;
                           })),
                       onChanged: (value) {
-                        listVmSub.searchRole.roleName = value;
+                        listVmSub.currentSearch.clientKey = value;
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
                   SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
-                  FormBuilderTextField(
-                      name: "roleKey",
-                      initialValue: listVmSub.searchRole.roleKey,
+                  MyFormBuilderTextField(
+                      name: "clientSecret",
+                      initialValue: listVmSub.currentSearch.clientSecret,
                       decoration: MyInputDecoration(
-                          contentPadding: EdgeInsets.zero,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          labelText: S.current.user_label_role_key,
+                          labelText: S.current.sys_label_sys_client_client_secret,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqNullSelector<A, String?>(
-                              builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixByInputVal(
-                                value,
-                                formOperate: listVmSub.formOperate,
-                                formFieldName: "roleKey");
+                          suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
+                            return InputDecUtils.autoClearSuffixByInputVal(value,
+                                formOperate: listVmSub.formOperate, formFieldName: "clientSecret");
                           }, selector: (context, vm) {
-                            return listVmSub.searchRole.roleKey;
+                            return listVmSub.currentSearch.clientSecret;
                           })),
                       onChanged: (value) {
-                        listVmSub.searchRole.roleKey = value;
+                        listVmSub.currentSearch.clientSecret = value;
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
                   SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderSelect(
-                      name: "status",
-                      initialValue: listVmSub.searchRole.statusName,
+                      name: "statusName",
+                      initialValue: listVmSub.currentSearch.statusName,
                       onTap: () {
-                        DictUiUtils.showSelectDialog(
-                            context, LocalDictLib.CODE_SYS_NORMAL_DISABLE,
-                                (value) {
-                              //选择后设置性别
-                              listVmSub.setSelectStatus(value);
-                            });
-                      } ,
+                        DictUiUtils.showSelectDialog(context, LocalDictLib.CODE_SYS_NORMAL_DISABLE,
+                            (value) {
+                          listVmSub.onSelectStatus(value);
+                        });
+                      },
                       decoration: MySelectDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          labelText: S.current.user_label_status,
+                          labelText: S.current.sys_label_sys_client_status,
                           hintText: S.current.app_label_please_choose,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqSelector<A, String?>(
-                              builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixBySelectVal(
-                              value,
-                              onPressed: () {
-                                listVmSub.setSelectStatus(null);
-                              },
-                            );
+                          suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
+                            return InputDecUtils.autoClearSuffixBySelectVal(value, onPressed: () {
+                              listVmSub.onSelectStatus(null);
+                            });
                           }, selector: (context, vm) {
-                            return listVmSub.searchRole.statusName;
+                            return listVmSub.currentSearch.statusName;
                           })),
+                      onChanged: (value) {
+                        listVmSub.currentSearch.statusName = value;
+                        listVmSub.notifyListeners();
+                      },
                       textInputAction: TextInputAction.next),
                   Expanded(child: Builder(builder: (context) {
                     return Row(
@@ -189,52 +180,62 @@ class RoleListPageVd {
                 ],
               ));
         }, selector: (context) {
-          return listVmSub.searchRole;
+          return listVmSub.currentSearch;
         }, shouldRebuild: (oldVal, newVal) {
           return false;
         }));
   }
-
 }
 
-class RolePageDataVmSub extends FastBaseListDataPageVmSub<Role> {
+///客户端VmSub
+class SysClientListDataVmSub extends FastBaseListDataPageVmSub<SysClient> {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
+
   final CancelToken cancelToken = CancelToken();
-  Role searchRole = Role();
 
-  void Function(Role data)? onSuffixClick;
+  SysClient _currentSysClientSearch = SysClient();
 
-  RolePageDataVmSub({LoadMore<Role>? loadMore}) {
-    setLoadData(loadMore ??
-        (loadMoreFormat) async {
-          try {
-            IntensifyEntity<PageModel<Role>> result = await RoleRepository.list(
-                getLoadMoreFormat().getOffset(),
-                getLoadMoreFormat().getSize(),
-                searchRole,
-                cancelToken);
-            //返回数据结构
-            DataWrapper<PageModel<Role>> dataWrapper =
-                DataTransformUtils.entity2LDWrapper(result);
-            return dataWrapper;
-          } catch (e) {
-            ResultEntity resultEntity = BaseDio.getError(e);
-            return DataWrapper.createFailed(
-                code: resultEntity.code, msg: resultEntity.msg);
-          }
-        });
+  SysClient get currentSearch => _currentSysClientSearch;
+
+  void Function(SysOssVo data)? onSuffixClick;
+
+  SysClientListDataVmSub() {
+    //设置刷新方法主体
+    setLoadData((loadMoreFormat) async {
+      try {
+        IntensifyEntity<PageModel<SysClient>> intensifyEntity = await SysClientRepository.list(
+                loadMoreFormat.getOffset(), loadMoreFormat.getSize(), currentSearch, cancelToken)
+            .asStream()
+            .single;
+        DataWrapper<PageModel<SysClient>> dataWrapper =
+            DataTransformUtils.entity2LDWrapper(intensifyEntity);
+        return dataWrapper;
+      } catch (e) {
+        ResultEntity resultEntity = BaseDio.getError(e);
+        return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
+      }
+    });
+    //设置点击item事件主体
+    setItemClick((index, data) {
+      pushNamed(SysClientAddEditPage.routeName, arguments: {ConstantSys.KEY_SYS_CLIENT: data})
+          .then((result) {
+        if (result != null) {
+          sendRefreshEvent();
+        }
+      });
+    });
   }
 
-  void setSelectStatus(ITreeDict<dynamic>? data) {
-    searchRole.status = data?.tdDictValue;
-    searchRole.statusName = data?.tdDictLabel;
-    formOperate.patchField("status", searchRole.statusName);
+  void onSelectStatus(ITreeDict<dynamic>? dict) {
+    formOperate.formBuilderState?.save();
+    _currentSysClientSearch.status = dict?.tdDictValue;
+    _currentSysClientSearch.statusName = dict?.tdDictLabel;
     notifyListeners();
   }
 
   //重置
   void onResetSearch() {
-    searchRole = Role();
+    _currentSysClientSearch = SysClient();
     formOperate.clearAll();
     notifyListeners();
   }

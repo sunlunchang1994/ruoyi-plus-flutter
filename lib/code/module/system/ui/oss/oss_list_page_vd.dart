@@ -32,8 +32,7 @@ import '../../repository/remote/sys_oss_api.dart';
 ///Oss列表
 class OssListPageWidget {
   ///数据列表控件
-  static Widget getDataListWidget(
-      ThemeData themeData, OssListDataVmSub listVmSub,
+  static Widget getDataListWidget(ThemeData themeData, OssListDataVmSub listVmSub,
       {Widget? Function(SysOssVo currentItem)? buildTrailing}) {
     if (listVmSub.dataList.isEmpty) {
       return const ContentEmptyWrapper();
@@ -53,19 +52,15 @@ class OssListPageWidget {
         });
   }
 
-  static Widget getDataListItem(
-      ThemeData themeData,
-      ListenerItemClick<dynamic> listenerItemClick,
-      int index,
-      SysOssVo listItem,
+  static Widget getDataListItem(ThemeData themeData, ListenerItemClick<dynamic> listenerItemClick,
+      int index, SysOssVo listItem,
       {Widget? Function(SysOssVo currentItem)? buildTrailing}) {
     return ListTile(
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
         title: Text(listItem.originalName!),
         subtitle: Padding(
             padding: EdgeInsets.only(right: SlcDimens.appDimens16),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               /*Text(
                 listItem.fileName ?? "",
                 softWrap: true,
@@ -73,20 +68,18 @@ class OssListPageWidget {
               Text("${listItem.createByName} / ${listItem.service}"),
             ])),
         leading: () {
-          MediaType mediaType =
-              MediaTypeConstant.getMediaType(listItem.fileSuffix);
+          MediaType mediaType = MediaTypeConstant.getMediaType(listItem.fileSuffix);
           if (mediaType == MediaType.img) {
             return ClipRRect(
-                borderRadius:
-                    BorderRadius.all(Radius.circular(SlcDimens.appDimens6)),
+                borderRadius: BorderRadius.all(Radius.circular(SlcDimens.appDimens6)),
                 child: CachedNetworkImage(
+                    fit: BoxFit.cover,
                     width: AppDimens.sysItemOssImgSize,
                     height: AppDimens.sysItemOssImgSize,
                     imageUrl: listItem.url ?? "",
                     placeholder: (context, url) {
                       return Image.asset("assets/images/slc/ic_loading.png",
-                          width: AppDimens.sysItemOssImgSize,
-                          height: AppDimens.sysItemOssImgSize);
+                          width: AppDimens.sysItemOssImgSize, height: AppDimens.sysItemOssImgSize);
                     },
                     errorWidget: (
                       context,
@@ -94,13 +87,11 @@ class OssListPageWidget {
                       stackTrace,
                     ) {
                       return Image.asset("assets/images/mp/slc_mp_ic_image.png",
-                          width: AppDimens.sysItemOssImgSize,
-                          height: AppDimens.sysItemOssImgSize);
+                          width: AppDimens.sysItemOssImgSize, height: AppDimens.sysItemOssImgSize);
                     }));
           } else {
             return Image(
-                image: AssetImage(
-                    MediaTypeConstant.getIconByMediaType(mediaType)),
+                image: AssetImage(MediaTypeConstant.getIconByMediaType(mediaType)),
                 width: AppDimens.sysItemOssImgSize,
                 height: AppDimens.sysItemOssImgSize);
           }
@@ -133,8 +124,7 @@ class OssListPageWidget {
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
                       child: Text(S.current.sys_label_oss_search,
-                          style: SlcStyles.tidyUpStyle
-                              .getTitleTextStyle(themeData))),
+                          style: SlcStyles.tidyUpStyle.getTitleTextStyle(themeData))),
                   SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "fileName",
@@ -144,12 +134,9 @@ class OssListPageWidget {
                           labelText: S.current.sys_label_oss_file_name,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqNullSelector<A, String?>(
-                              builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixByInputVal(
-                                value,
-                                formOperate: listVmSub.formOperate,
-                                formFieldName: "fileName");
+                          suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
+                            return InputDecUtils.autoClearSuffixByInputVal(value,
+                                formOperate: listVmSub.formOperate, formFieldName: "fileName");
                           }, selector: (context, vm) {
                             return listVmSub.currentSearch.fileName;
                           })),
@@ -167,12 +154,9 @@ class OssListPageWidget {
                           labelText: S.current.sys_label_oss_original_name,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqNullSelector<A, String?>(
-                              builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixByInputVal(
-                                value,
-                                formOperate: listVmSub.formOperate,
-                                formFieldName: "originalName");
+                          suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
+                            return InputDecUtils.autoClearSuffixByInputVal(value,
+                                formOperate: listVmSub.formOperate, formFieldName: "originalName");
                           }, selector: (context, vm) {
                             return listVmSub.currentSearch.originalName;
                           })),
@@ -190,12 +174,9 @@ class OssListPageWidget {
                           labelText: S.current.sys_label_oss_file_suffix,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqNullSelector<A, String?>(
-                              builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixByInputVal(
-                                value,
-                                formOperate: listVmSub.formOperate,
-                                formFieldName: "fileSuffix");
+                          suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
+                            return InputDecUtils.autoClearSuffixByInputVal(value,
+                                formOperate: listVmSub.formOperate, formFieldName: "fileSuffix");
                           }, selector: (context, vm) {
                             return listVmSub.currentSearch.fileSuffix;
                           })),
@@ -213,12 +194,9 @@ class OssListPageWidget {
                           labelText: S.current.sys_label_oss_service,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqNullSelector<A, String?>(
-                              builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixByInputVal(
-                                value,
-                                formOperate: listVmSub.formOperate,
-                                formFieldName: "service");
+                          suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
+                            return InputDecUtils.autoClearSuffixByInputVal(value,
+                                formOperate: listVmSub.formOperate, formFieldName: "service");
                           }, selector: (context, vm) {
                             return listVmSub.currentSearch.service;
                           })),
@@ -275,24 +253,21 @@ class OssListDataVmSub extends FastBaseListDataPageVmSub<SysOssVo> {
     //设置刷新方法主体
     setLoadData((loadMoreFormat) async {
       try {
-        IntensifyEntity<PageModel<SysOssVo>> intensifyEntity =
-            await SysOssRepository.list(loadMoreFormat.getOffset(),
-                    loadMoreFormat.getSize(), currentSearch, cancelToken)
-                .asStream()
-                .single;
-        DataWrapper<PageModel<SysOssVo>> dateWrapper =
+        IntensifyEntity<PageModel<SysOssVo>> intensifyEntity = await SysOssRepository.list(
+                loadMoreFormat.getOffset(), loadMoreFormat.getSize(), currentSearch, cancelToken)
+            .asStream()
+            .single;
+        DataWrapper<PageModel<SysOssVo>> dataWrapper =
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
-        return dateWrapper;
+        return dataWrapper;
       } catch (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
-        return DataWrapper.createFailed(
-            code: resultEntity.code, msg: resultEntity.msg);
+        return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
       }
     });
     //设置点击item事件主体
     setItemClick((index, data) {
-      pushNamed(OssDetailsPage.routeName,
-          arguments: {ConstantSys.KEY_SYS_OSS: data});
+      pushNamed(OssDetailsPage.routeName, arguments: {ConstantSys.KEY_SYS_OSS: data});
     });
   }
 

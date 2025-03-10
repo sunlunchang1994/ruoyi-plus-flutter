@@ -7,6 +7,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/slc_file_util.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
@@ -89,6 +90,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                                     borderRadius: BorderRadius.all(
                                                         Radius.circular(SlcDimens.appDimens6)),
                                                     child: CachedNetworkImage(
+                                                        fit: BoxFit.cover,
                                                         width: AppDimens.sysDetailsOssImgSize,
                                                         height: AppDimens.sysDetailsOssImgSize,
                                                         imageUrl: field.value ?? "",
@@ -290,7 +292,7 @@ class _OssAddEditVm extends AppBaseVm {
   //开始下载文件
   void onDownloadFile() async {
     // 请求存储权限
-    if(Platform.isAndroid){
+    if (Platform.isAndroid) {
       final status = await PermissionCompat.requestStorage;
       if (!status.isGranted) {
         AppToastBridge.showToast(msg: S.current.sys_label_permission_file_download_hint);
@@ -298,15 +300,18 @@ class _OssAddEditVm extends AppBaseVm {
       }
     }
     //获取下载路径
-    String? filePath = AttachmentConfig().getDownloadPath() ??
-        await AttachmentUtils.buildSaveFilePath(fileName: sysOssVo.originalName!);
-    if (filePath == null) {
+    String? fileDir =
+        AttachmentConfig().getDownloadPath() ?? await AttachmentUtils.buildSaveFileDir();
+    if (fileDir == null) {
       if (Platform.isAndroid || Platform.isIOS) {
         AppToastBridge.showToast(msg: S.current.sys_label_get_file_download_hint);
       }
       return;
     }
-    AttachmentConfig().setDownloadPath(filePath);
+    //设置选择存储下载文件的位置
+    AttachmentConfig().setDownloadPath(fileDir);
+    String filePath =
+        "${TextUtil.addSuffixIfNot(fileDir, Platform.pathSeparator)}${sysOssVo.originalName!}";
     //问价存在
     if (SlcFileUtil.isFileExistsFromPath(filePath)) {
       //文件存在直接打开

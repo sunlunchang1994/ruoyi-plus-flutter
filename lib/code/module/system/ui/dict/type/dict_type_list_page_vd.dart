@@ -199,9 +199,9 @@ class DictTypeListDataVmSub extends FastBaseListDataPageVmSub<SysDictType> {
                     cancelToken)
                 .asStream()
                 .single;
-        DataWrapper<PageModel<SysDictType>> dateWrapper =
+        DataWrapper<PageModel<SysDictType>> dataWrapper =
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
-        return dateWrapper;
+        return dataWrapper;
       } catch (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
         return DataWrapper.createFailed(

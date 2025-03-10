@@ -286,9 +286,9 @@ class SysOperLogListDataVmSub extends FastBaseListDataPageVmSub<SysOperLog> {
                 loadMoreFormat.getOffset(), loadMoreFormat.getSize(), currentSearch, cancelToken)
             .asStream()
             .single;
-        DataWrapper<PageModel<SysOperLog>> dateWrapper =
+        DataWrapper<PageModel<SysOperLog>> dataWrapper =
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
-        return dateWrapper;
+        return dataWrapper;
       } catch (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
         return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);

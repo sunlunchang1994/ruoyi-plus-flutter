@@ -173,7 +173,7 @@ class _DictTypeAddEditVm extends AppBaseVm {
       sysDictType = SysDictType();
 
       this.sysDictType = sysDictType;
-      setLoadingStatus(LoadingStatus.success);
+      setLoadingStatusWithNotify(LoadingStatus.success,notify: false);
     } else {
       DictTypeRepository.getInfo(sysDictType.dictId!, cancelToken)
           .asStream()

@@ -15,9 +15,9 @@ class DataTransformUtils {
   }
 
   static DataWrapper<T> entity2LDWrapper<T>(IntensifyEntity<T> entity) {
-    DataWrapper<T> dateWrapper =
+    DataWrapper<T> dataWrapper =
         entity2LDWrapperShell(entity, data: entity.data);
-    return dateWrapper;
+    return dataWrapper;
   }
 
   static T checkError<T extends IResultEntity>(T entity) {

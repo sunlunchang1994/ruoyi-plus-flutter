@@ -452,7 +452,6 @@ class _UserAddEditVm extends AppBaseVm {
   void remoteSelectRole(Role role) {
     userInfo!.roles?.remove(role);
     setSelectRole(userInfo!.roles!);
-    return;
   }
 
   //设置角色
@@ -462,14 +461,12 @@ class _UserAddEditVm extends AppBaseVm {
     formOperate.patchField("roles", userInfo!.roles);
     applyInfoChange();
     //notifyListeners();
-    return;
   }
 
   //移除某个岗位
   void remoteSelectPost(Post post) {
     userInfo!.posts?.remove(post);
     setSelectPost(userInfo!.posts!);
-    return;
   }
 
   //设置岗位
@@ -479,7 +476,6 @@ class _UserAddEditVm extends AppBaseVm {
     formOperate.patchField("posts", userInfo!.posts);
     applyInfoChange();
     //notifyListeners();
-    return;
   }
 
   //应用信息更改

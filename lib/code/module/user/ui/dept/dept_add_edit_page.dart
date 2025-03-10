@@ -312,7 +312,7 @@ class _DeptAddEditModel extends AppBaseVm {
       }
       this.deptInfo!.orderNum = 0;
       this.deptInfo!.status = LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL;
-      setLoadingStatus(LoadingStatus.success);
+      setLoadingStatusWithNotify(LoadingStatus.success,notify: false);
     } else {
       DeptRepository.getInfo(deptInfo.deptId!, cancelToken).then((result) {
         this.deptInfo = result.data;

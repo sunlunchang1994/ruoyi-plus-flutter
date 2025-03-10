@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/object_util.dart';
 import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
 
@@ -73,5 +74,38 @@ class DictUiUtils {
       AppColors.getStatusColorByTag(AppColors.STATUS_TAG_DEFAULT);
     }
     return AppColors.getStatusColorByTag(dictData!.tdListStyle);
+  }
+
+  ///给出列表查找
+  static ITreeDict<dynamic>? findDictByDataList(List<ITreeDict<dynamic>>? dictDataList, String? dictKey,
+      {String? defDictKey}) {
+    if (ObjectUtil.isEmptyList(dictDataList)) {
+      //数据列表为空直接返回
+      return null;
+    }
+    if (dictKey != null) {
+      //指定的dictKey不为空时，直接查询，查询不到返回空
+      try {
+        return dictDataList!.firstWhere((item) {
+          return item.tdDictValue == dictKey;
+        });
+      } catch (e) {
+        return null;
+      }
+    }
+    try {
+      //先通过tdIsDefault查询
+      ITreeDict<dynamic>? targetDict = dictDataList!.firstWhere((item) {
+        return item.tdIsDefault;
+      }, orElse: () {
+        //查询不到通过defDictKey查询，查询不到返回空
+        return dictDataList.firstWhere((item) {
+          return item.tdDictValue == defDictKey;
+        });
+      });
+      return targetDict;
+    } catch (e) {
+      return null;
+    }
   }
 }

@@ -84,6 +84,7 @@ class _MineState extends AppBaseState<MinePage, _MineVm>
                                 borderRadius: BorderRadius.all(Radius.circular(
                                     AppDimens.userMineAvatarRadius)),
                                 child: CachedNetworkImage(
+                                  fit: BoxFit.cover,
                                     width: AppDimens.userMineAvatarSize,
                                     height: AppDimens.userMineAvatarSize,
                                     imageUrl:
