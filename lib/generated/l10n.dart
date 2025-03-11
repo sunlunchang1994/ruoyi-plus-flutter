@@ -330,6 +330,46 @@ class S {
     );
   }
 
+  /// `连接服务器失败！`
+  String get label_error_connection_error {
+    return Intl.message(
+      '连接服务器失败！',
+      name: 'label_error_connection_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `连接服务器超时，请检查网络！`
+  String get label_error_connection_timeout {
+    return Intl.message(
+      '连接服务器超时，请检查网络！',
+      name: 'label_error_connection_timeout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `服务器读取超时，请检查网络！`
+  String get label_error_send_timeout {
+    return Intl.message(
+      '服务器读取超时，请检查网络！',
+      name: 'label_error_send_timeout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `接收服务器数据超时，请检查网络！`
+  String get label_error_receive_timeout {
+    return Intl.message(
+      '接收服务器数据超时，请检查网络！',
+      name: 'label_error_receive_timeout',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `正在加载...`
   String get label_loading {
     return Intl.message('正在加载...', name: 'label_loading', desc: '', args: []);
@@ -1560,6 +1600,16 @@ class S {
     );
   }
 
+  /// `登录失效，请重新登录！`
+  String get app_label_login_normal_unauthorized {
+    return Intl.message(
+      '登录失效，请重新登录！',
+      name: 'app_label_login_normal_unauthorized',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `显示排序`
   String get app_label_show_sort {
     return Intl.message(
@@ -2505,6 +2555,16 @@ class S {
     return Intl.message(
       '已配置多个菜单项，点击查看',
       name: 'user_label_menu_permission_select_result2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `该角色不允许修改`
+  String get user_toast_menu_super_edit_refuse {
+    return Intl.message(
+      '该角色不允许修改',
+      name: 'user_toast_menu_super_edit_refuse',
       desc: '',
       args: [],
     );
@@ -3625,6 +3685,256 @@ class S {
     return Intl.message(
       '删除标志',
       name: 'sys_label_sys_client_del_flag',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `搜索租户套餐`
+  String get sys_label_sys_tenant_package_search {
+    return Intl.message(
+      '搜索租户套餐',
+      name: 'sys_label_sys_tenant_package_search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `套餐名称`
+  String get sys_label_sys_tenant_package_name {
+    return Intl.message(
+      '套餐名称',
+      name: 'sys_label_sys_tenant_package_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `关联菜单`
+  String get sys_label_sys_tenant_package_context_menu {
+    return Intl.message(
+      '关联菜单',
+      name: 'sys_label_sys_tenant_package_context_menu',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `备注`
+  String get sys_label_sys_tenant_package_remark {
+    return Intl.message(
+      '备注',
+      name: 'sys_label_sys_tenant_package_remark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `新增租户套餐`
+  String get sys_label_sys_tenant_package_add {
+    return Intl.message(
+      '新增租户套餐',
+      name: 'sys_label_sys_tenant_package_add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `编辑租户套餐`
+  String get sys_label_sys_tenant_package_edit {
+    return Intl.message(
+      '编辑租户套餐',
+      name: 'sys_label_sys_tenant_package_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `到期`
+  String get sys_label_sys_tenant_x_expire_time {
+    return Intl.message(
+      '到期',
+      name: 'sys_label_sys_tenant_x_expire_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `搜索租户`
+  String get sys_label_sys_tenant_search {
+    return Intl.message(
+      '搜索租户',
+      name: 'sys_label_sys_tenant_search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `租户编号`
+  String get sys_label_sys_tenant_id {
+    return Intl.message(
+      '租户编号',
+      name: 'sys_label_sys_tenant_id',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `企业名称`
+  String get sys_label_sys_tenant_company_name {
+    return Intl.message(
+      '企业名称',
+      name: 'sys_label_sys_tenant_company_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `联系人`
+  String get sys_label_sys_tenant_contact_user_name {
+    return Intl.message(
+      '联系人',
+      name: 'sys_label_sys_tenant_contact_user_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `联系电话`
+  String get sys_label_sys_tenant_contact_phone {
+    return Intl.message(
+      '联系电话',
+      name: 'sys_label_sys_tenant_contact_phone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `用户名`
+  String get sys_label_sys_tenant_user_name {
+    return Intl.message(
+      '用户名',
+      name: 'sys_label_sys_tenant_user_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `用户密码`
+  String get sys_label_sys_tenant_user_pw {
+    return Intl.message(
+      '用户密码',
+      name: 'sys_label_sys_tenant_user_pw',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `租户套餐`
+  String get sys_label_sys_tenant_package_id {
+    return Intl.message(
+      '租户套餐',
+      name: 'sys_label_sys_tenant_package_id',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `过期时间`
+  String get sys_label_sys_tenant_expire_time {
+    return Intl.message(
+      '过期时间',
+      name: 'sys_label_sys_tenant_expire_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `账户数量`
+  String get sys_label_sys_tenant_account_count {
+    return Intl.message(
+      '账户数量',
+      name: 'sys_label_sys_tenant_account_count',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `绑定域名`
+  String get sys_label_sys_tenant_domain {
+    return Intl.message(
+      '绑定域名',
+      name: 'sys_label_sys_tenant_domain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `企业地址`
+  String get sys_label_sys_tenant_address {
+    return Intl.message(
+      '企业地址',
+      name: 'sys_label_sys_tenant_address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `企业代码`
+  String get sys_label_sys_tenant_license_number {
+    return Intl.message(
+      '企业代码',
+      name: 'sys_label_sys_tenant_license_number',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `企业简介`
+  String get sys_label_sys_tenant_intro {
+    return Intl.message(
+      '企业简介',
+      name: 'sys_label_sys_tenant_intro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `备注`
+  String get sys_label_sys_tenant_remark {
+    return Intl.message(
+      '备注',
+      name: 'sys_label_sys_tenant_remark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `状态`
+  String get sys_label_sys_tenant_status {
+    return Intl.message(
+      '状态',
+      name: 'sys_label_sys_tenant_status',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `新增租户`
+  String get sys_label_sys_tenant_add {
+    return Intl.message(
+      '新增租户',
+      name: 'sys_label_sys_tenant_add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `编辑租户`
+  String get sys_label_sys_tenant_edit {
+    return Intl.message(
+      '编辑租户',
+      name: 'sys_label_sys_tenant_edit',
       desc: '',
       args: [],
     );

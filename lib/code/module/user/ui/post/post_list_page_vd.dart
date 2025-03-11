@@ -7,6 +7,8 @@ import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/post.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/role.dart';
@@ -35,8 +37,7 @@ import '../../repository/remote/post_api.dart';
 import '../dept/dept_list_select_single_page.dart';
 
 class PostListPageVd {
-  static Widget getUserListWidget(
-      ThemeData themeData, IListDataVmSub<Post> listVmSub,
+  static Widget getUserListWidget(ThemeData themeData, IListDataVmSub<Post> listVmSub,
       {Widget? Function(Post currentItem)? buildTrailing}) {
     assert(listVmSub is ListenerItemClick<dynamic>);
     if (listVmSub.dataList.isEmpty) {
@@ -49,25 +50,21 @@ class PostListPageVd {
         itemCount: listVmSub.dataList.length,
         itemBuilder: (context, index) {
           Post listItem = listVmSub.dataList[index];
-          return getUserListItem(themeData,
-              listVmSub as ListenerItemClick<dynamic>, index, listItem,
+          return getUserListItem(
+              themeData, listVmSub as ListenerItemClick<dynamic>, index, listItem,
               buildTrailing: buildTrailing);
         },
         separatorBuilder: (context, index) {
-          return SlcStyles.tidyUpStyle.getDefDividerByTheme(themeData);
+          return themeData.slcTidyUpStyle.getDefDividerByTheme(themeData);
         });
   }
 
-  static Widget getUserListItem(ThemeData themeData,
-      ListenerItemClick<dynamic> listenerItemClick, int index, Post listItem,
+  static Widget getUserListItem(
+      ThemeData themeData, ListenerItemClick<dynamic> listenerItemClick, int index, Post listItem,
       {Widget? Function(Post currentItem)? buildTrailing}) {
     return ListTile(
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
-        title: Row(children: [
-          Text(listItem.postName!),
-          Text("·"),
-          Text(listItem.deptName!)
-        ]),
+        title: Row(children: [Text(listItem.postName!), Text("·"), Text(listItem.deptName!)]),
         subtitle: Text(listItem.postCode!),
         trailing: buildTrailing?.call(listItem),
         visualDensity: VisualDensity.compact,
@@ -98,8 +95,8 @@ class PostListPageVd {
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
                       child: Text(S.current.user_label_search_role,
-                          style: SlcStyles.tidyUpStyle.getTitleTextStyle(themeData))),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                          style: themeData.slcTidyUpStyle.getTitleTextStyle(themeData))),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderSelect(
                       name: "deptName",
                       initialValue: listVmSub.searchPost.deptName,
@@ -109,8 +106,7 @@ class PostListPageVd {
                         labelText: S.current.user_label_post_owner_dept,
                         hintText: S.current.app_label_please_choose,
                         border: const UnderlineInputBorder(),
-                        suffixIcon: NqNullSelector<A, String?>(
-                            builder: (context, value, child) {
+                        suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                           return InputDecUtils.autoClearSuffixBySelectVal(
                               listVmSub.searchPost.deptName, onPressed: () {
                             listVmSub.setSelectDept(null);
@@ -120,7 +116,7 @@ class PostListPageVd {
                         }),
                       ),
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "postName",
                       initialValue: listVmSub.searchPost.postName,
@@ -129,12 +125,9 @@ class PostListPageVd {
                           labelText: S.current.user_label_role_name,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqNullSelector<A, String?>(
-                              builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixByInputVal(
-                                value,
-                                formOperate: listVmSub.formOperate,
-                                formFieldName: "postName");
+                          suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
+                            return InputDecUtils.autoClearSuffixByInputVal(value,
+                                formOperate: listVmSub.formOperate, formFieldName: "postName");
                           }, selector: (context, vm) {
                             return listVmSub.searchPost.postName;
                           })),
@@ -143,7 +136,7 @@ class PostListPageVd {
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   FormBuilderTextField(
                       name: "postCode",
                       initialValue: listVmSub.searchPost.postCode,
@@ -153,12 +146,9 @@ class PostListPageVd {
                           labelText: S.current.user_label_role_key,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqNullSelector<A, String?>(
-                              builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixByInputVal(
-                                value,
-                                formOperate: listVmSub.formOperate,
-                                formFieldName: "postCode");
+                          suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
+                            return InputDecUtils.autoClearSuffixByInputVal(value,
+                                formOperate: listVmSub.formOperate, formFieldName: "postCode");
                           }, selector: (context, vm) {
                             return listVmSub.searchPost.postCode;
                           })),
@@ -167,13 +157,12 @@ class PostListPageVd {
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderSelect(
                       name: "status",
                       initialValue: listVmSub.searchPost.statusName,
                       onTap: () {
-                        DictUiUtils.showSelectDialog(
-                            context, LocalDictLib.CODE_SYS_NORMAL_DISABLE,
+                        DictUiUtils.showSelectDialog(context, LocalDictLib.CODE_SYS_NORMAL_DISABLE,
                             (value) {
                           //选择后设置性别
                           listVmSub.setSelectStatus(value);
@@ -184,8 +173,7 @@ class PostListPageVd {
                           labelText: S.current.user_label_status,
                           hintText: S.current.app_label_please_choose,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqSelector<A, String?>(
-                              builder: (context, value, child) {
+                          suffixIcon: NqSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixBySelectVal(
                               value,
                               onPressed: () {
@@ -206,7 +194,7 @@ class PostListPageVd {
                                   listVmSub.onResetSearch();
                                 },
                                 child: Text(S.current.action_reset))),
-                        SlcStyles.getSizedBox(width: SlcDimens.appDimens16),
+                        ThemeUtil.getSizedBox(width: SlcDimens.appDimens16),
                         Expanded(
                             child: FilledButton(
                                 onPressed: () {
@@ -227,7 +215,7 @@ class PostListPageVd {
   }
 }
 
-class PostPageDataVmSub extends FastBaseListDataPageVmSub<Post> with CancelTokenAssist{
+class PostPageDataVmSub extends FastBaseListDataPageVmSub<Post> with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
   Post searchPost = Post();
 
@@ -238,26 +226,21 @@ class PostPageDataVmSub extends FastBaseListDataPageVmSub<Post> with CancelToken
         (loadMoreFormat) async {
           try {
             IntensifyEntity<PageModel<Post>> result = await PostRepository.list(
-                getLoadMoreFormat().getOffset(),
-                getLoadMoreFormat().getSize(),
-                searchPost,
-                defCancelToken);
+                loadMoreFormat.offset, loadMoreFormat.size, searchPost, defCancelToken);
             //返回数据结构
-            DataWrapper<PageModel<Post>> dataWrapper =
-                DataTransformUtils.entity2LDWrapper(result);
+            DataWrapper<PageModel<Post>> dataWrapper = DataTransformUtils.entity2LDWrapper(result);
             return dataWrapper;
           } catch (e) {
             ResultEntity resultEntity = BaseDio.getError(e);
-            return DataWrapper.createFailed(
-                code: resultEntity.code, msg: resultEntity.msg);
+            return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
           }
         });
   }
 
   void onSelectDept() {
-    pushNamed(DeptListSingleSelectPage.routeName, arguments: {
-      ConstantBase.KEY_INTENT_TITLE: S.current.user_label_dept_select
-    }).then((result) {
+    pushNamed(DeptListSingleSelectPage.routeName,
+            arguments: {ConstantBase.KEY_INTENT_TITLE: S.current.user_label_dept_select})
+        .then((result) {
       if (result != null) {
         setSelectDept(result);
       }

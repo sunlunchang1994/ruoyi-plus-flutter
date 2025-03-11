@@ -42,6 +42,10 @@
   "label_content_cannot_be_empty_blank": "内容不能为空或空格",
   "label_select_parameter_is_missing": "参数丢失",
   "label_token_failure_prompt": "登录超时，请重新登录！",
+  "label_error_connection_error": "连接服务器失败！",
+  "label_error_connection_timeout": "连接服务器超时，请检查网络！",
+  "label_error_send_timeout": "服务器读取超时，请检查网络！",
+  "label_error_receive_timeout": "接收服务器数据超时，请检查网络！",
   "label_loading": "正在加载...",
   "label_loading_success": "加载成功",
   "label_loading_failure": "加载失败",
@@ -202,6 +206,7 @@
   "app_label_logging_in": "正在登录",
   "app_toast_login_login_successful": "登录成功",
   "app_toast_login_login_failed": "登录失败",
+  "app_label_login_normal_unauthorized": "登录失效，请重新登录！",
 
   "app_label_show_sort": "显示排序",
   "app_label_status": "状态",
@@ -313,6 +318,7 @@
   "user_label_menu_permission_select": "配置菜单权限",
   "user_label_menu_permission_select_result": "已配置%s项菜单，点击查看",
   "user_label_menu_permission_select_result2": "已配置多个菜单项，点击查看",
+  "user_toast_menu_super_edit_refuse": "该角色不允许修改",
 
   "sys_divide_text": "-----------------------------",
 
@@ -439,6 +445,35 @@
   "sys_label_sys_client_timeout": "token固定超时时间",
   "sys_label_sys_client_status": "状态",
   "sys_label_sys_client_del_flag": "删除标志",
+
+  "sys_label_sys_tenant_package_search": "搜索租户套餐",
+  "sys_label_sys_tenant_package_name": "套餐名称",
+  "sys_label_sys_tenant_package_context_menu": "关联菜单",
+  "sys_label_sys_tenant_package_remark": "备注",
+  "sys_label_sys_tenant_package_add": "新增租户套餐",
+  "sys_label_sys_tenant_package_edit": "编辑租户套餐",
+
+  "sys_label_sys_tenant_x_expire_time": "到期",
+  "sys_label_sys_tenant_search": "搜索租户",
+  "sys_label_sys_tenant_id": "租户编号",
+  "sys_label_sys_tenant_company_name": "企业名称",
+  "sys_label_sys_tenant_contact_user_name": "联系人",
+  "sys_label_sys_tenant_contact_phone": "联系电话",
+  "sys_label_sys_tenant_user_name": "用户名",
+  "sys_label_sys_tenant_user_pw": "用户密码",
+  "sys_label_sys_tenant_package_id": "租户套餐",
+  "sys_label_sys_tenant_expire_time": "过期时间",
+  "sys_label_sys_tenant_account_count": "账户数量",
+  "sys_label_sys_tenant_domain": "绑定域名",
+  "sys_label_sys_tenant_address": "企业地址",
+  "sys_label_sys_tenant_license_number": "企业代码",
+  "sys_label_sys_tenant_intro": "企业简介",
+
+  "sys_label_sys_tenant_remark": "备注",
+
+  "sys_label_sys_tenant_status": "状态",
+  "sys_label_sys_tenant_add": "新增租户",
+  "sys_label_sys_tenant_edit": "编辑租户",
 
   "main_divide_text": "-----------------------------",
   "main_label_workbench": "工作台",

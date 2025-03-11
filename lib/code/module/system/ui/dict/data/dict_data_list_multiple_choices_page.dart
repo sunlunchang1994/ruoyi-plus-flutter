@@ -80,8 +80,8 @@ class _DictDataListMultipleChoicesVm extends AppBaseVm {
         loadMore: (loadMoreFormat) async {
           try {
             IntensifyEntity<PageModel<SysDictData>> intensifyEntity = await DictDataRepository.list(
-                    loadMoreFormat.getOffset(),
-                    loadMoreFormat.getSize(),
+                    loadMoreFormat.offset,
+                    loadMoreFormat.size,
                     listVmSub.currentSearch,
                     listVmSub.defCancelToken)
                 .asStream()

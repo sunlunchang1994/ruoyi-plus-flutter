@@ -5,6 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/status_widget.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
@@ -69,8 +70,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
   }
 
   @override
-  Widget getSuccessWidget(BuildContext context,
-      {Map<String, dynamic>? params}) {
+  Widget getSuccessWidget(BuildContext context, {Map<String, dynamic>? params}) {
     ThemeData themeData = Theme.of(context);
     return KeyboardAvoider(
         autoScroll: true,
@@ -84,7 +84,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                 },
                 child: Column(
                   children: [
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens8),
                     MyFormBuilderTextField(
                         name: "dictType",
                         initialValue: getVm().sysDictData!.dictType,
@@ -92,23 +92,22 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.sys_label_dict_type),
+                            label: InputDecUtils.getRequiredLabel(S.current.sys_label_dict_type),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(),
                         ]),
                         textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "dictLabel",
                         initialValue: getVm().sysDictData!.dictLabel,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.sys_label_dict_data_label),
+                            label:
+                                InputDecUtils.getRequiredLabel(S.current.sys_label_dict_data_label),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
@@ -119,15 +118,15 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                           FormBuilderValidators.required(),
                         ]),
                         textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "dictValue",
                         initialValue: getVm().sysDictData!.dictValue,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.sys_label_dict_data_value),
+                            label:
+                                InputDecUtils.getRequiredLabel(S.current.sys_label_dict_data_value),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
@@ -138,7 +137,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                           FormBuilderValidators.required(),
                         ]),
                         textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "cssClass",
                         initialValue: getVm().sysDictData!.cssClass,
@@ -153,7 +152,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                           getVm().applyInfoChange();
                         },
                         textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "listClass",
                         initialValue: getVm().sysDictData!.listClass,
@@ -168,7 +167,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                           getVm().applyInfoChange();
                         },
                         textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "dictSort",
                         initialValue: () {
@@ -191,7 +190,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                           FormBuilderValidators.required(),
                         ]),
                         textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "remark",
                         initialValue: getVm().sysDictData!.remark,
@@ -228,8 +227,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
   }
 }
 
-class _DictDataAddEditVm extends AppBaseVm with CancelTokenAssist{
-
+class _DictDataAddEditVm extends AppBaseVm with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   SysDictData? sysDictData;
@@ -248,16 +246,14 @@ class _DictDataAddEditVm extends AppBaseVm with CancelTokenAssist{
       dictData.dictType = parentType;
       dictData.dictSort = 0;
       this.sysDictData = dictData;
-      setLoadingStatusWithNotify(LoadingStatus.success,notify: false);
+      setLoadingStatusWithNotify(LoadingStatus.success, notify: false);
     } else {
-      DictDataRepository.getInfo(dictData.dictCode!, defCancelToken)
-          .asStream()
-          .single
-          .then((intensifyEntity) {
+      DictDataRepository.getInfo(dictData.dictCode!, defCancelToken).asStream().single.then(
+          (intensifyEntity) {
         this.sysDictData = intensifyEntity.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        BaseDio.showToastByError(e);
+        BaseDio.handlerError(e);
         finish();
       });
     }
@@ -297,7 +293,7 @@ class _DictDataAddEditVm extends AppBaseVm with CancelTokenAssist{
       finish(result: sysDictData);
     }, onError: (error) {
       dismissLoading();
-      BaseDio.showToastByError(error);
+      BaseDio.handlerError(error);
     });
   }
 }

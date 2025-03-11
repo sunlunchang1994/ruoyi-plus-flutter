@@ -1,42 +1,47 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/status_widget.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_dict_type.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/select_menu_result.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_text_field.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/input_decoration_utils.dart';
 
 import '../../../../../../generated/l10n.dart';
 import '../../../../../base/api/base_dio.dart';
-import '../../../../../base/api/result_entity.dart';
+import '../../../../../base/config/constant_base.dart';
 import '../../../../../base/ui/utils/fast_dialog_utils.dart';
-import '../../../repository/remote/dict_type_api.dart';
+import '../../../../../base/vm/global_vm.dart';
+import '../../../../../feature/component/dict/entity/tree_dict.dart';
+import '../../../config/constant_sys.dart';
+import '../../../entity/sys_tenant_package.dart';
+import '../../../repository/remote/sys_tenant_package_api.dart';
+import '../../menu_tree/menu_tree_select_multiple_page.dart';
 
-class DictTypeAddEditPage extends AppBaseStatelessWidget<_DictTypeAddEditVm> {
-  static const String routeName = '/system/dict/add_edit';
+class TenantPackageAddEditPage extends AppBaseStatelessWidget<_TenantPackageAddEditVm> {
+  static const String routeName = '/tenant/tenantPackage/add_edit';
 
-  final SysDictType? dictType;
+  final SysTenantPackage? sysTenantPackage;
 
-  DictTypeAddEditPage(this.dictType, {super.key});
+  TenantPackageAddEditPage({super.key, this.sysTenantPackage});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => _DictTypeAddEditVm(),
+        create: (context) => _TenantPackageAddEditVm(),
         builder: (context, child) {
           ThemeData themeData = Theme.of(context);
           registerEvent(context);
-          getVm().initVm(dictType);
+          getVm().initVm(sysTenantPackage: sysTenantPackage);
           return PopScope(
               canPop: false,
               onPopInvokedWithResult: (canPop, result) {
@@ -52,9 +57,9 @@ class DictTypeAddEditPage extends AppBaseStatelessWidget<_DictTypeAddEditVm> {
               },
               child: Scaffold(
                   appBar: AppBar(
-                    title: Text(dictType == null
-                        ? S.current.sys_label_dict_type_add
-                        : S.current.sys_label_dict_type_edit),
+                    title: Text(sysTenantPackage == null
+                        ? S.current.sys_label_sys_tenant_package_add
+                        : S.current.sys_label_sys_tenant_package_edit),
                     actions: [
                       IconButton(
                           onPressed: () {
@@ -84,16 +89,17 @@ class DictTypeAddEditPage extends AppBaseStatelessWidget<_DictTypeAddEditVm> {
                   children: [
                     ThemeUtil.getSizedBox(height: SlcDimens.appDimens8),
                     MyFormBuilderTextField(
-                        name: "dictName",
-                        initialValue: getVm().sysDictType!.dictName,
+                        name: "packageName",
+                        initialValue: getVm().sysTenantPackage!.packageName,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(S.current.sys_label_dict_name),
+                            label: InputDecUtils.getRequiredLabel(
+                                S.current.sys_label_sys_tenant_package_name),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
-                          getVm().sysDictType!.dictName = value;
+                          getVm().sysTenantPackage!.packageName = value;
                           getVm().applyInfoChange();
                         },
                         validator: FormBuilderValidators.compose([
@@ -101,38 +107,39 @@ class DictTypeAddEditPage extends AppBaseStatelessWidget<_DictTypeAddEditVm> {
                         ]),
                         textInputAction: TextInputAction.next),
                     ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
-                    MyFormBuilderTextField(
-                        name: "dictType",
-                        initialValue: getVm().sysDictType!.dictType,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: MyInputDecoration(
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(S.current.sys_label_dict_type),
-                            hintText: S.current.app_label_please_input,
-                            border: const UnderlineInputBorder()),
-                        onChanged: (value) {
-                          getVm().sysDictType!.dictType = value;
-                          getVm().applyInfoChange();
-                        },
-                        validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(),
-                        ]),
-                        textInputAction: TextInputAction.next),
+                    MyFormBuilderSelect(
+                      name: "menuIds",
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      initialValue: getVm().getMenuTextField(),
+                      onTap: () {
+                        //选择菜单
+                        getVm().onSelectMenu();
+                      },
+                      decoration: MySelectDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          label:
+                              InputDecUtils.getRequiredLabel(S.current.user_label_menu_permission),
+                          hintText: S.current.app_label_please_choose,
+                          border: const UnderlineInputBorder()),
+                      onChanged: (value) {
+                        getVm().applyInfoChange();
+                      },
+                      textInputAction: TextInputAction.next,
+                    ),
                     ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "remark",
-                        initialValue: getVm().sysDictType!.remark,
+                        initialValue: getVm().sysTenantPackage!.remark,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelText: S.current.app_label_remark,
+                            labelText: S.current.sys_label_oss_config_remark,
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
-                        textInputAction: TextInputAction.next,
                         onChanged: (value) {
-                          //此处需改成选择的
+                          getVm().sysTenantPackage!.remark = value;
                           getVm().applyInfoChange();
-                          getVm().sysDictType!.remark = value;
-                        }),
+                        },
+                        textInputAction: TextInputAction.next),
                   ],
                 ))));
   }
@@ -154,31 +161,68 @@ class DictTypeAddEditPage extends AppBaseStatelessWidget<_DictTypeAddEditVm> {
   }
 }
 
-class _DictTypeAddEditVm extends AppBaseVm with CancelTokenAssist {
+class _TenantPackageAddEditVm extends AppBaseVm {
+  final CancelToken cancelToken = CancelToken();
+
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
-  SysDictType? sysDictType;
+  SysTenantPackage? sysTenantPackage;
 
   bool _infoChange = false;
 
-  void initVm(SysDictType? sysDictType) {
-    if (this.sysDictType != null) {
+  void initVm({SysTenantPackage? sysTenantPackage}) {
+    if (this.sysTenantPackage != null) {
       return;
     }
-    if (sysDictType == null) {
-      sysDictType = SysDictType();
-
-      this.sysDictType = sysDictType;
+    if (sysTenantPackage == null) {
+      sysTenantPackage = SysTenantPackage();
+      ITreeDict<dynamic>? menuCheckStrictlyDict = GlobalVm()
+          .dictShareVm
+          .findDict(LocalDictLib.CODE_MENU_CHECK_STRICTLY, LocalDictLib.KEY_MENU_CHECK_STRICTLY_Y);
+      sysTenantPackage.menuCheckStrictly =
+          menuCheckStrictlyDict?.tdDictValue == LocalDictLib.KEY_MENU_CHECK_STRICTLY_Y;
+      ITreeDict<dynamic>? statusDict = GlobalVm().dictShareVm.findDict(
+          LocalDictLib.CODE_SYS_NORMAL_DISABLE, LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL);
+      sysTenantPackage.status = statusDict?.tdDictValue;
+      sysTenantPackage.menuIds = "";
+      this.sysTenantPackage = sysTenantPackage;
       setLoadingStatusWithNotify(LoadingStatus.success, notify: false);
     } else {
-      DictTypeRepository.getInfo(sysDictType.dictId!, defCancelToken).asStream().single.then(
-          (intensifyEntity) {
-        this.sysDictType = intensifyEntity.data;
+      SysTenantPackageRepository.getInfo(sysTenantPackage.packageId!, cancelToken)
+          .asStream()
+          .single
+          .then((intensifyEntity) {
+        this.sysTenantPackage = intensifyEntity.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
         BaseDio.handlerError(e);
         finish();
       });
+    }
+  }
+
+  void onSelectMenu() {
+    pushNamed(TenantPackageMenuTreeSelectMultiplePage.routeName, arguments: {
+      ConstantBase.KEY_INTENT_TITLE: S.current.user_label_menu_permission_select,
+      ConstantSys.KEY_SYS_TENANT_PACKAGE_ID: sysTenantPackage!.packageId,
+      ConstantSys.KEY_MENU_LINKAGE_ENABLE: sysTenantPackage!.menuCheckStrictly,
+      ConstantBase.KEY_INTENT_SELECT_DATA: sysTenantPackage!.menuIdList,
+    }).then((result) {
+      if (result != null && result is SelectMenuResult) {
+        sysTenantPackage?.menuIdList = result.menuIds;
+        sysTenantPackage?.menuIds = result.menuIds;
+        sysTenantPackage?.menuCheckStrictly = result.menuCheckStrictly;
+        formOperate.patchField("menuIds", getMenuTextField());
+      }
+    });
+  }
+
+  String getMenuTextField() {
+    if (sysTenantPackage?.menuIdList?.isEmpty ?? true) {
+      return "";
+    } else {
+      //return S.current.user_label_menu_permission_select_result.replaceAll("%s", roleInfo!.menuIds!.length.toString());
+      return S.current.user_label_menu_permission_select_result2;
     }
   }
 
@@ -208,12 +252,12 @@ class _DictTypeAddEditVm extends AppBaseVm with CancelTokenAssist {
       return;
     }
     showLoading(text: S.current.label_save_ing);
-    DictTypeRepository.submit(sysDictType!, defCancelToken).then((value) {
+    SysTenantPackageRepository.submit(sysTenantPackage!, cancelToken).then((value) {
       AppToastBridge.showToast(msg: S.current.toast_edit_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;
-      finish(result: sysDictType);
+      finish(result: sysTenantPackage);
     }, onError: (error) {
       dismissLoading();
       BaseDio.handlerError(error);

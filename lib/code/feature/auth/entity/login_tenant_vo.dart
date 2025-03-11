@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/tenant_list_vo.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_tenant.dart';
 
 part 'login_tenant_vo.g.dart';
 
@@ -11,7 +11,7 @@ class LoginTenantVo {
   bool? tenantEnabled;
 
   ///租户对象列表
-  List<TenantListVo>? voList;
+  List<SysTenant>? voList;
 
   LoginTenantVo(this.tenantEnabled, this.voList);
 

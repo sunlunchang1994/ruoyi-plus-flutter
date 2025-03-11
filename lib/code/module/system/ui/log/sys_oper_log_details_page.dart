@@ -3,6 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:interactive_json_preview/interactive_json_preview.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
@@ -13,8 +14,7 @@ import '../../../../base/ui/app_mvvm.dart';
 import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
 
 ///操作详情
-class SysOperLogDetailsPage
-    extends AppBaseStatelessWidget<_SysOperLogDetailsModel> {
+class SysOperLogDetailsPage extends AppBaseStatelessWidget<_SysOperLogDetailsModel> {
   static const String routeName = '/system/oper_log/details';
 
   final SysOperLog sysOperLog;
@@ -34,10 +34,8 @@ class SysOperLogDetailsPage
             body: KeyboardAvoider(
                 autoScroll: true,
                 child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: SlcDimens.appDimens16),
-                    child:
-                        FormBuilder(child: Column(children: getFormItem())))));
+                    padding: EdgeInsets.symmetric(horizontal: SlcDimens.appDimens16),
+                    child: FormBuilder(child: Column(children: getFormItem())))));
       },
     );
   }
@@ -46,7 +44,7 @@ class SysOperLogDetailsPage
   List<Widget> getFormItem() {
     List<Widget> formItemArray = List.empty(growable: true);
     formItemArray.addAll(<Widget>{
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens8),
       MyFormBuilderTextField(
           name: "operId",
           initialValue: getVm().sysOperLog!.operId?.toString(),
@@ -57,7 +55,7 @@ class SysOperLogDetailsPage
             hintText: S.current.app_label_not_completed,
             border: const UnderlineInputBorder(),
           )),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderTextField(
         name: "statusName",
         initialValue: getVm().sysOperLog!.statusName,
@@ -68,7 +66,7 @@ class SysOperLogDetailsPage
           border: const UnderlineInputBorder(),
         ),
       ),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderTextField(
         name: "loginInfo",
         initialValue:
@@ -80,11 +78,10 @@ class SysOperLogDetailsPage
           border: const UnderlineInputBorder(),
         ),
       ),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderTextField(
         name: "requestParams",
-        initialValue:
-            "${getVm().sysOperLog!.requestMethod} / ${getVm().sysOperLog!.operUrl}",
+        initialValue: "${getVm().sysOperLog!.requestMethod} / ${getVm().sysOperLog!.operUrl}",
         readOnly: true,
         decoration: MyInputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -92,11 +89,10 @@ class SysOperLogDetailsPage
           border: const UnderlineInputBorder(),
         ),
       ),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderTextField(
         name: "operModule",
-        initialValue:
-            "${getVm().sysOperLog!.title} / ${getVm().sysOperLog!.businessTypeName}",
+        initialValue: "${getVm().sysOperLog!.title} / ${getVm().sysOperLog!.businessTypeName}",
         readOnly: true,
         decoration: MyInputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -104,7 +100,7 @@ class SysOperLogDetailsPage
           border: const UnderlineInputBorder(),
         ),
       ),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       /*FormBuilderTextField(
         name: "operMethod",
         initialValue: getVm().sysOperLog!.method,
@@ -125,13 +121,13 @@ class SysOperLogDetailsPage
           ),
           builder: (field) {
             FormBuilderFieldDecorationState<dynamic, String> decorationState =
-            field as FormBuilderFieldDecorationState<dynamic, String>;
+                field as FormBuilderFieldDecorationState<dynamic, String>;
             return InputDecorator(
               decoration: field.decoration,
               child: MarkdownBody(data: "`${decorationState.value as String}`"),
             );
           }),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderFieldDecoration<String>(
           name: "requestInfo",
           initialValue: getVm().sysOperLog!.operParam,
@@ -148,11 +144,10 @@ class SysOperLogDetailsPage
               //child: MarkdownBody(data: "`${prettyPrintJson(decorationState.value as String)}`"),
               child: SizedBox(
                   height: 240,
-                  child: InteractiveJsonPreview(
-                      data: decorationState.value as String)),
+                  child: InteractiveJsonPreview(data: decorationState.value as String)),
             );
           }),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderFieldDecoration<String>(
           name: "jsonResult",
           initialValue: getVm().sysOperLog!.jsonResult,
@@ -168,12 +163,10 @@ class SysOperLogDetailsPage
               decoration: field.decoration,
               //child: MarkdownBody(data: "`${prettyPrintJson(decorationState.value as String)}`"),
               child: SizedBox(
-                  height: 96,
-                  child: InteractiveJsonPreview(
-                      data: decorationState.value as String)),
+                  height: 96, child: InteractiveJsonPreview(data: decorationState.value as String)),
             );
           }),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderTextField(
         name: "costTime",
         initialValue: "${getVm().sysOperLog!.costTime?.toString()}ms",
@@ -184,7 +177,7 @@ class SysOperLogDetailsPage
           border: const UnderlineInputBorder(),
         ),
       ),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderTextField(
         name: "operTime",
         initialValue: getVm().sysOperLog!.operTime,

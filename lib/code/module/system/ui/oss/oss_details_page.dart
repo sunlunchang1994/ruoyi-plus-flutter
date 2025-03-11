@@ -10,6 +10,7 @@ import 'package:flutter_slc_boxes/flutter/slc/common/slc_file_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:open_file/open_file.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -67,7 +68,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                           key: getVm().formOperate.formKey,
                           child: Column(
                             children: [
-                              SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
+                              ThemeUtil.getSizedBox(height: SlcDimens.appDimens8),
                               FormBuilderFieldDecoration<String>(
                                   name: "fileInfo",
                                   initialValue: getVm().sysOssVo.url,
@@ -195,7 +196,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                           )
                                         ]));
                                   }),
-                              SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                              ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                               MyFormBuilderTextField(
                                 name: "fileName",
                                 initialValue: getVm().sysOssVo.fileName,
@@ -209,7 +210,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                     hintText: S.current.app_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
-                              SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                              ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                               MyFormBuilderTextField(
                                 name: "originalName",
                                 initialValue: getVm().sysOssVo.originalName,
@@ -221,7 +222,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                     hintText: S.current.app_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
-                              SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                              ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                               MyFormBuilderTextField(
                                 name: "fileSuffix",
                                 initialValue: getVm().sysOssVo.fileSuffix,
@@ -233,7 +234,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                     hintText: S.current.app_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
-                              SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                              ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                               MyFormBuilderTextField(
                                 name: "createBy",
                                 initialValue: getVm().sysOssVo.createByName,
@@ -245,7 +246,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                     hintText: S.current.app_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
-                              SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                              ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                               MyFormBuilderTextField(
                                 name: "service",
                                 initialValue: getVm().sysOssVo.service,
@@ -257,7 +258,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                     hintText: S.current.app_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
-                              SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                              ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                               MyFormBuilderTextField(
                                 name: "createTime",
                                 initialValue: getVm().sysOssVo.createTime,
@@ -334,7 +335,7 @@ class _OssAddEditVm extends AppBaseVm with CancelTokenAssist {
       AppToastBridge.showToast(msg: S.current.action_download_on_success);
       onOpenFile(result.filePath!);
     }, onError: (e) {
-      BaseDio.showToastByError(e);
+      BaseDio.handlerError(e);
     });
   }
 

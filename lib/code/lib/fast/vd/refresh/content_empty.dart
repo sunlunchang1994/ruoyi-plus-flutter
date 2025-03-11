@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../../generated/l10n.dart';
@@ -22,11 +24,13 @@ class ContentEmptyWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
           SvgPicture.asset("assets/images/slc/ic_no_date.svg",
-              height: 72, color: SlcColors.tidyUpColor.getTextColorHintByTheme(themeData)),
+              height: 72,
+              color: themeData.slcTidyUpColor.getTextColorHintByTheme(themeData)),
           Padding(
               padding: EdgeInsets.only(top: SlcDimens.appDimens8),
               child: Text(S.current.label_data_is_null,
-                  style: SlcStyles.tidyUpStyle.getTextColorHintStyleByTheme(Theme.of(context))))
+                  style: themeData.slcTidyUpStyle
+                      .getTextColorHintStyleByTheme(themeData)))
         ]));
   }
 

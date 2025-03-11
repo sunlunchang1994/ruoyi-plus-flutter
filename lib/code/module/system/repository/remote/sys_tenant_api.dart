@@ -1,0 +1,100 @@
+import 'package:dio/dio.dart' hide Headers;
+import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
+import 'package:retrofit/retrofit.dart';
+import 'package:ruoyi_plus_flutter/code/base/api/request_utils.dart';
+import 'package:ruoyi_plus_flutter/code/base/repository/remote/data_transform_utils.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/repository/remote/sys_tenant_package_api.dart';
+
+import '../../../../base/api/api_config.dart';
+import '../../../../base/api/base_dio.dart';
+import '../../../../base/api/result_entity.dart';
+import '../../../../feature/bizapi/system/entity/sys_tenant.dart';
+
+part 'sys_tenant_api.g.dart';
+
+@RestApi()
+abstract class SysTenantApiClient {
+  factory SysTenantApiClient({Dio? dio, String? baseUrl}) {
+    dio ??= BaseDio.getInstance().getDio();
+    return _SysTenantApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+  }
+
+  ///获取租户列表
+  @GET("/system/tenant/list")
+  Future<ResultPageModel> list(
+      @Queries() Map<String, dynamic>? queryParams, @CancelRequest() CancelToken cancelToken);
+
+  ///获取租户信息
+  @GET("/system/tenant/{tenantId}")
+  Future<ResultEntity> getInfo(@Path() int? tenantId, @CancelRequest() CancelToken cancelToken);
+
+  ///添加租户
+  @POST("/system/tenant")
+  Future<ResultEntity> add(@Body() SysTenant? data, @CancelRequest() CancelToken cancelToken);
+
+  ///编辑租户
+  @PUT("/system/tenant")
+  Future<ResultEntity> edit(@Body() SysTenant? data, @CancelRequest() CancelToken cancelToken);
+}
+
+///租户服务
+class SysTenantRepository {
+  static final SysTenantApiClient _sysTenantApiClient = SysTenantApiClient();
+
+  ///租户列表
+  static Future<IntensifyEntity<PageModel<SysTenant>>> list(
+      int offset, int size, SysTenant? sysTenant, CancelToken cancelToken) async {
+    return _sysTenantApiClient
+        .list(RequestUtils.toPageQuery(sysTenant?.toJson(), offset, size), cancelToken)
+        .asStream()
+        .map(DataTransformUtils.checkError)
+        .map((event) {
+      return event.toIntensify(createData: (resultEntity) {
+        return resultEntity.toPageModel(offset, size, createRecords: (resultData) {
+          return SysTenant.fromJsonList(resultData);
+        });
+      });
+    }).single;
+  }
+
+  ///租户信息
+  static Future<IntensifyEntity<SysTenant>> getInfo(int tenantId, CancelToken cancelToken) async {
+    return _sysTenantApiClient
+        .getInfo(tenantId, cancelToken)
+        .asStream()
+        .map(DataTransformUtils.checkError)
+        .map((event) {
+      return event.toIntensify(createData: (resultEntity) {
+        return SysTenant.fromJson(resultEntity.data);
+      });
+    }).asyncMap<IntensifyEntity<SysTenant>>((event) {
+      //获取套餐信息
+      if (event.data != null && event.data!.packageId != null) {
+        return SysTenantPackageRepository.getInfo(event.data!.packageId!, cancelToken)
+            .asStream()
+            .map((packageEvent) {
+          if (packageEvent.data != null) {
+            event.data!.packageName = packageEvent.data?.packageName;
+          }
+          return event;
+        }).single;
+      }
+      return event;
+    }).single;
+  }
+
+  ///提交租户
+  static Future<IntensifyEntity<SysTenant>> submit(SysTenant body, CancelToken cancelToken) {
+    Future<ResultEntity> resultFuture = body.packageId == null
+        ? _sysTenantApiClient.add(body, cancelToken)
+        : _sysTenantApiClient.edit(body, cancelToken);
+    return resultFuture
+        .asStream()
+        .map((event) {
+          var intensifyEntity = IntensifyEntity<SysTenant>(resultEntity: event);
+          return intensifyEntity;
+        })
+        .map(DataTransformUtils.checkErrorIe)
+        .single;
+  }
+}

@@ -4,6 +4,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/status_widget.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
@@ -101,7 +102,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
   List<Widget> getFormItem() {
     List<Widget> formItemArray = List.empty(growable: true);
     formItemArray.addAll(<Widget>{
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens8),
       MyFormBuilderSelect(
           name: "parentName",
           initialValue: getVm().sysMenuInfo!.parentName,
@@ -123,7 +124,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
             }),
           ),
           textInputAction: TextInputAction.next),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderRadioGroup<OptionVL<String>>(
         decoration: MyInputDecoration(labelText: S.current.sys_label_menu_type),
         name: "menuType",
@@ -140,7 +141,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
           getVm().notifyListeners();
         },
       ),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderTextField(
           name: "menuName",
           initialValue: getVm().sysMenuInfo!.menuName,
@@ -159,7 +160,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
             FormBuilderValidators.required(),
           ]),
           textInputAction: TextInputAction.next),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderTextField(
         name: "orderNum",
         initialValue: () {
@@ -188,7 +189,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
         if (LocalDictLib.KEY_MENU_TYPE_CAIDAN == getVm().sysMenuInfo?.menuType ||
             LocalDictLib.KEY_MENU_TYPE_MULU == getVm().sysMenuInfo?.menuType) {
           menuTypeWidgetList.addAll([
-            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+            ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
             FormBuilderRadioGroup<OptionVL<String>>(
               name: "isFrame",
               initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
@@ -209,7 +210,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
         }
         return menuTypeWidgetList;
       }.call(),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderTextField(
         name: "path",
         initialValue: () {
@@ -234,7 +235,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
         List<Widget> menuTypeWidgetList = List.empty(growable: true);
         if (LocalDictLib.KEY_MENU_TYPE_CAIDAN == getVm().sysMenuInfo?.menuType) {
           menuTypeWidgetList.addAll([
-            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+            ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
             FormBuilderTextField(
               name: "component",
               initialValue: () {
@@ -257,7 +258,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
         if (LocalDictLib.KEY_MENU_TYPE_CAIDAN == getVm().sysMenuInfo?.menuType ||
             LocalDictLib.KEY_MENU_TYPE_ACTION == getVm().sysMenuInfo?.menuType) {
           menuTypeWidgetList.addAll([
-            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+            ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
             FormBuilderTextField(
               name: "perms",
               initialValue: () {
@@ -279,7 +280,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
         }
         if (LocalDictLib.KEY_MENU_TYPE_CAIDAN == getVm().sysMenuInfo?.menuType) {
           menuTypeWidgetList.addAll([
-            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+            ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
             FormBuilderTextField(
               name: "queryParam",
               initialValue: () {
@@ -297,7 +298,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
               },
               textInputAction: TextInputAction.next,
             ),
-            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+            ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
             FormBuilderRadioGroup<OptionVL<String>>(
               name: "isCache",
               initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
@@ -319,7 +320,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
         if (LocalDictLib.KEY_MENU_TYPE_CAIDAN == getVm().sysMenuInfo?.menuType ||
             LocalDictLib.KEY_MENU_TYPE_MULU == getVm().sysMenuInfo?.menuType) {
           menuTypeWidgetList.addAll([
-            SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+            ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
             FormBuilderRadioGroup<OptionVL<String>>(
               name: "visible",
               initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
@@ -340,7 +341,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
         }
         return menuTypeWidgetList;
       }.call(),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderRadioGroup<OptionVL<String>>(
         decoration: MyInputDecoration(labelText: S.current.user_label_dept_status),
         name: "status",
@@ -406,7 +407,7 @@ class _MenuAddEditModel extends AppBaseVm with CancelTokenAssist {
         sysMenuInfo = result.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        BaseDio.showToastByError(e);
+        BaseDio.handlerError(e);
         finish();
       });
     }
@@ -464,7 +465,7 @@ class _MenuAddEditModel extends AppBaseVm with CancelTokenAssist {
       finish(result: sysMenuInfo);
     }, onError: (error) {
       dismissLoading();
-      BaseDio.showToastByError(error);
+      BaseDio.handlerError(error);
     });
   }
 }

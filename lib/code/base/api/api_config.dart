@@ -29,16 +29,16 @@ class ApiConfig extends DpManager {
   static const String KEY_APPLY_ENCRYPT = "applyEncrypt"; //应用加密
 
   //value
-  static const int VALUE_CODE_CANCEL = -100; //客户端取消
+  static const int VALUE_CODE_CANCEL = -10; //客户端取消
+  //客户端定义
+  static const int VALUE_CODE_RESULT_UPLOAD_FAILURE = -50; //上传文件失败
+  //常规
   static const int VALUE_CODE_SUCCEED = 200; //成功
   static const int VALUE_CODE_ERROR_REQUEST = 400; //错误请求
   static const int VALUE_CODE_NORMAL_UNAUTHORIZED = 401; //请求未授权
   static const int VALUE_CODE_SERVER_ERROR = 500; //服务器内部错误
   static const int VALUE_CODE_NOT_IMPLEMENTED = 501; //尚未实施
   static const String VALUE_STR_UNKNOWN_MISTAKE = "Unknown mistake";
-
-  //客户端定义
-  static const int VALUE_CODE_RESULT_UPLOAD_FAILURE = 30003; //上传文件失败
 
   static const String VALUE_RSA_PUBLIC_KEY =
       "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKoR8mX0rGKLqzcWmOzbfj64K8ZIgOdHnzkXSOVOZbFu/TJhZ7rFAN+eaGkl3C4buccQd/EjEsj9ir7ijT7h96MCAwEAAQ==";

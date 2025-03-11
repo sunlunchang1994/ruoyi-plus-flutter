@@ -4,6 +4,8 @@ import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_oss_vo.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
@@ -49,7 +51,7 @@ class OssConfigListPageWidget {
               buildTrailing: buildTrailing);
         },
         separatorBuilder: (context, index) {
-          return SlcStyles.tidyUpStyle.getDefDividerByTheme(themeData);
+          return themeData.slcTidyUpStyle.getDefDividerByTheme(themeData);
         });
   }
 
@@ -95,8 +97,8 @@ class OssConfigListPageWidget {
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
                       child: Text(S.current.sys_label_oss_search,
-                          style: SlcStyles.tidyUpStyle.getTitleTextStyle(themeData))),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                          style: themeData.slcTidyUpStyle.getTitleTextStyle(themeData))),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "configKey",
                       initialValue: listVmSub.currentSearch.configKey,
@@ -116,7 +118,7 @@ class OssConfigListPageWidget {
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "bucketName",
                       initialValue: listVmSub.currentSearch.bucketName,
@@ -146,7 +148,7 @@ class OssConfigListPageWidget {
                                   listVmSub.onResetSearch();
                                 },
                                 child: Text(S.current.action_reset))),
-                        SlcStyles.getSizedBox(width: SlcDimens.appDimens16),
+                        ThemeUtil.getSizedBox(width: SlcDimens.appDimens16),
                         Expanded(
                             child: FilledButton(
                                 onPressed: () {
@@ -184,8 +186,8 @@ class OssConfigListDataVmSub extends FastBaseListDataPageVmSub<SysOssConfig> {
     setLoadData((loadMoreFormat) async {
       try {
         IntensifyEntity<PageModel<SysOssConfig>> intensifyEntity =
-            await SysOssConfigRepository.list(loadMoreFormat.getOffset(), loadMoreFormat.getSize(),
-                    currentSearch, cancelToken)
+            await SysOssConfigRepository.list(
+                    loadMoreFormat.offset, loadMoreFormat.size, currentSearch, cancelToken)
                 .asStream()
                 .single;
         DataWrapper<PageModel<SysOssConfig>> dataWrapper =
@@ -200,9 +202,9 @@ class OssConfigListDataVmSub extends FastBaseListDataPageVmSub<SysOssConfig> {
     setItemClick((index, data) {
       pushNamed(OssConfigAddEditPage.routeName, arguments: {ConstantSys.KEY_SYS_OSS_CONFIG: data})
           .then((result) {
-            if(result != null){
-              sendRefreshEvent();
-            }
+        if (result != null) {
+          sendRefreshEvent();
+        }
       });
     });
   }
@@ -218,7 +220,7 @@ class OssConfigListDataVmSub extends FastBaseListDataPageVmSub<SysOssConfig> {
       notifyListeners();
     }, onError: (e) {
       dismissLoading();
-      BaseDio.showToastByError(e);
+      BaseDio.handlerError(e);
     });
   }
 

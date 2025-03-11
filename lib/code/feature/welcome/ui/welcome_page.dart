@@ -4,6 +4,8 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/api_config.dart';
 import 'package:ruoyi_plus_flutter/code/base/startup/task_utils.dart';
@@ -59,7 +61,7 @@ class WelcomePage extends AppBaseStatelessWidget<_WelcomeVm> {
                   flex: 3,
                   child: Center(
                     child: Text(S.current.label_loading,
-                        style: SlcStyles.tidyUpStyle.getTextColorHintStyleByTheme(themeData)),
+                        style: themeData.slcTidyUpStyle.getTextColorHintStyleByTheme(themeData)),
                   )),
               const Spacer(flex: 1),
             ],

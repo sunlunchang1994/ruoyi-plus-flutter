@@ -4,6 +4,8 @@ import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_oss_vo.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
@@ -50,7 +52,7 @@ class OssConfigListPageWidget {
               buildTrailing: buildTrailing);
         },
         separatorBuilder: (context, index) {
-          return SlcStyles.tidyUpStyle.getDefDividerByTheme(themeData);
+          return themeData.slcTidyUpStyle.getDefDividerByTheme(themeData);
         });
   }
 
@@ -88,8 +90,8 @@ class OssConfigListPageWidget {
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
                       child: Text(S.current.sys_label_oss_search,
-                          style: SlcStyles.tidyUpStyle.getTitleTextStyle(themeData))),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                          style: themeData.slcTidyUpStyle.getTitleTextStyle(themeData))),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "clientKey",
                       initialValue: listVmSub.currentSearch.clientKey,
@@ -109,7 +111,7 @@ class OssConfigListPageWidget {
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "clientSecret",
                       initialValue: listVmSub.currentSearch.clientSecret,
@@ -129,7 +131,7 @@ class OssConfigListPageWidget {
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderSelect(
                       name: "statusName",
                       initialValue: listVmSub.currentSearch.statusName,
@@ -166,7 +168,7 @@ class OssConfigListPageWidget {
                                   listVmSub.onResetSearch();
                                 },
                                 child: Text(S.current.action_reset))),
-                        SlcStyles.getSizedBox(width: SlcDimens.appDimens16),
+                        ThemeUtil.getSizedBox(width: SlcDimens.appDimens16),
                         Expanded(
                             child: FilledButton(
                                 onPressed: () {
@@ -188,7 +190,7 @@ class OssConfigListPageWidget {
 }
 
 ///客户端VmSub
-class SysClientListDataVmSub extends FastBaseListDataPageVmSub<SysClient> with CancelTokenAssist{
+class SysClientListDataVmSub extends FastBaseListDataPageVmSub<SysClient> with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   SysClient _currentSysClientSearch = SysClient();
@@ -202,7 +204,7 @@ class SysClientListDataVmSub extends FastBaseListDataPageVmSub<SysClient> with C
     setLoadData((loadMoreFormat) async {
       try {
         IntensifyEntity<PageModel<SysClient>> intensifyEntity = await SysClientRepository.list(
-                loadMoreFormat.getOffset(), loadMoreFormat.getSize(), currentSearch, defCancelToken)
+                loadMoreFormat.offset, loadMoreFormat.size, currentSearch, defCancelToken)
             .asStream()
             .single;
         DataWrapper<PageModel<SysClient>> dataWrapper =
@@ -243,5 +245,4 @@ class SysClientListDataVmSub extends FastBaseListDataPageVmSub<SysClient> with C
     formOperate.formBuilderState?.save();
     sendRefreshEvent();
   }
-
 }

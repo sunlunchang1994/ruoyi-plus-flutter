@@ -5,6 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/status_widget.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
@@ -74,8 +75,7 @@ class NoticeAddEditPage extends AppBaseStatelessWidget<_NoticeAddEditVm> {
   }
 
   @override
-  Widget getSuccessWidget(BuildContext context,
-      {Map<String, dynamic>? params}) {
+  Widget getSuccessWidget(BuildContext context, {Map<String, dynamic>? params}) {
     ThemeData themeData = Theme.of(context);
     return KeyboardAvoider(
         autoScroll: true,
@@ -89,7 +89,7 @@ class NoticeAddEditPage extends AppBaseStatelessWidget<_NoticeAddEditVm> {
                 },
                 child: Column(
                   children: [
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens8),
                     MyFormBuilderTextField(
                         name: "noticeTitle",
                         initialValue: getVm().sysNotice!.noticeTitle,
@@ -97,8 +97,7 @@ class NoticeAddEditPage extends AppBaseStatelessWidget<_NoticeAddEditVm> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.sys_label_notice_title),
+                            label: InputDecUtils.getRequiredLabel(S.current.sys_label_notice_title),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
@@ -109,7 +108,7 @@ class NoticeAddEditPage extends AppBaseStatelessWidget<_NoticeAddEditVm> {
                           FormBuilderValidators.required(),
                         ]),
                         textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderSelect(
                         name: "noticeTypeName",
                         initialValue: getVm().sysNotice!.noticeTypeName,
@@ -123,48 +122,39 @@ class NoticeAddEditPage extends AppBaseStatelessWidget<_NoticeAddEditVm> {
                         },
                         decoration: MySelectDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.sys_label_config_type),
+                            label: InputDecUtils.getRequiredLabel(S.current.sys_label_config_type),
                             hintText: S.current.app_label_please_choose,
                             border: const UnderlineInputBorder()),
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(),
                         ]),
                         textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderRadioGroup<OptionVL<String>>(
                         name: "status",
                         enabled: false,
-                        initialValue: DictUiUtils.dict2OptionVL(GlobalVm()
-                            .dictShareVm
-                            .findDict(LocalDictLib.CODE_SYS_NORMAL_DISABLE,
-                                getVm().sysNotice!.status,
-                                defDictKey: LocalDictLib
-                                    .KEY_SYS_NORMAL_DISABLE_NORMAL)),
+                        initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
+                            LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().sysNotice!.status,
+                            defDictKey: LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL)),
                         options: DictUiUtils.dictList2FromOption(
-                            globalVm.dictShareVm.dictMap[
-                                LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
-                        decoration: MyInputDecoration(
-                            labelText: S.current.sys_label_notice_status),
+                            globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
+                        decoration: MyInputDecoration(labelText: S.current.sys_label_notice_status),
                         onChanged: (value) {
                           getVm().applyInfoChange();
                           getVm().sysNotice!.status = value?.value;
                           getVm().notifyListeners();
                         }),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderFieldDecoration<String>(
-                        decoration: MyInputDecoration(
-                            labelText: S.current.sys_label_notice_context),
+                        decoration:
+                            MyInputDecoration(labelText: S.current.sys_label_notice_context),
                         name: "name",
                         builder: (field) {
                           return InputDecorator(
-                              decoration:
-                                  (field as FormBuilderFieldDecorationState)
-                                      .decoration,
+                              decoration: (field as FormBuilderFieldDecorationState).decoration,
                               child: SizedBox(
                                   height: 540,
-                                  child: WebViewWidget(
-                                      controller: getVm().controller)));
+                                  child: WebViewWidget(controller: getVm().controller)));
                         }),
                   ],
                 ))));
@@ -187,8 +177,7 @@ class NoticeAddEditPage extends AppBaseStatelessWidget<_NoticeAddEditVm> {
   }
 }
 
-class _NoticeAddEditVm extends AppBaseVm with CancelTokenAssist{
-
+class _NoticeAddEditVm extends AppBaseVm with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   SysNotice? sysNotice;
@@ -226,19 +215,17 @@ class _NoticeAddEditVm extends AppBaseVm with CancelTokenAssist{
 
       controller.loadHtmlString("");
 
-      setLoadingStatusWithNotify(LoadingStatus.success,notify: false);
+      setLoadingStatusWithNotify(LoadingStatus.success, notify: false);
     } else {
-      SysNoticeRepository.getInfo(sysNotice.noticeId!, defCancelToken)
-          .asStream()
-          .single
-          .then((intensifyEntity) {
+      SysNoticeRepository.getInfo(sysNotice.noticeId!, defCancelToken).asStream().single.then(
+          (intensifyEntity) {
         this.sysNotice = intensifyEntity.data;
 
         this.controller.loadHtmlString(this.sysNotice?.noticeContent ?? "");
 
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        BaseDio.showToastByError(e);
+        BaseDio.handlerError(e);
         finish();
       });
     }
@@ -285,7 +272,7 @@ class _NoticeAddEditVm extends AppBaseVm with CancelTokenAssist{
       finish(result: sysNotice);
     }, onError: (error) {
       dismissLoading();
-      BaseDio.showToastByError(error);
+      BaseDio.handlerError(error);
     });
   }
 }

@@ -7,6 +7,7 @@ import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/status_widget.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
@@ -87,7 +88,7 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                 onChanged: () {},
                 child: Column(
                   children: [
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens8),
                     MyFormBuilderTextField(
                         name: "clientKey",
                         initialValue: getVm().sysClient!.clientKey,
@@ -106,7 +107,7 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                           FormBuilderValidators.required(),
                         ]),
                         textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "clientSecret",
                         initialValue: getVm().sysClient!.clientSecret,
@@ -125,7 +126,7 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                           FormBuilderValidators.required(),
                         ]),
                         textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderFlowTag<String>(
                         name: "grantType",
                         initialValue: getVm().sysClient!.grantTypeList,
@@ -154,7 +155,7 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                             suffixIcon: InputDecUtils.getSuffixAction(InputDecUtils.moreIcon, () {
                               _showSelectGrantTypeDialog(context);
                             }))),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderFlowTag<String>(
                         name: "deviceType",
                         initialValue: getVm().sysClient!.deviceTypeList,
@@ -183,7 +184,7 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                             suffixIcon: InputDecUtils.getSuffixAction(InputDecUtils.moreIcon, () {
                               _showSelectDeviceTypeDialog(context);
                             }))),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "activeTimeout",
                         initialValue: getVm().sysClient!.activeTimeout?.toString(),
@@ -202,7 +203,7 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                           FormBuilderValidators.integer(),
                         ]),
                         textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "timeout",
                         initialValue: getVm().sysClient!.timeout?.toString(),
@@ -221,7 +222,7 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                           FormBuilderValidators.integer(),
                         ]),
                         textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderRadioGroup<OptionVL<String>>(
                         name: "status",
                         initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
@@ -312,7 +313,7 @@ class _SysClientAddEditVm extends AppBaseVm with CancelTokenAssist {
         this.sysClient = intensifyEntity.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        BaseDio.showToastByError(e);
+        BaseDio.handlerError(e);
         finish();
       });
     }
@@ -384,7 +385,7 @@ class _SysClientAddEditVm extends AppBaseVm with CancelTokenAssist {
       finish(result: sysClient);
     }, onError: (error) {
       dismissLoading();
-      BaseDio.showToastByError(error);
+      BaseDio.handlerError(error);
     });
   }
 }

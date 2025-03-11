@@ -191,7 +191,7 @@ class _OssListBrowserVm extends AppBaseVm {
       dismissLoading();
       listVmSub.sendRefreshEvent();
     }, onError: (e) {
-      BaseDio.showToastByError(e,defErrMsg: S.current.label_file_upload_by_file_failed);
+      BaseDio.handlerError(e,defErrMsg: S.current.label_file_upload_by_file_failed);
       dismissLoading();
     });
   }

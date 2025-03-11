@@ -81,8 +81,18 @@ class LocalDictLib {
 
   //授权类型
   static const String CODE_SYS_GRANT_TYPE = "sys_grant_type";
+
   //设备类型
   static const String CODE_SYS_DEVICE_TYPE = "sys_device_type";
+
+  //菜单是否关联显示
+  static const String CODE_MENU_CHECK_STRICTLY = "menu_check_strictly";
+
+  //不关联
+  static const KEY_MENU_CHECK_STRICTLY_N = "0";
+
+  //关联
+  static const KEY_MENU_CHECK_STRICTLY_Y = "1";
 
   static final Map<String, List<ITreeDict<dynamic>>> LOCAL_DICT_MAP = {
     CODE_SYS_YES_NO_INT: [
@@ -98,6 +108,10 @@ class LocalDictLib {
       TreeDict(code: CODE_MENU_TYPE, dictKey: KEY_ACCESS_POLICY_TYPE_PRIVATE, dictValue: "private"),
       TreeDict(code: CODE_MENU_TYPE, dictKey: KEY_ACCESS_POLICY_TYPE_PUBLIC, dictValue: "public"),
       TreeDict(code: CODE_MENU_TYPE, dictKey: KEY_ACCESS_POLICY_TYPE_CUSTOM, dictValue: "custom"),
+    ],
+    CODE_MENU_CHECK_STRICTLY: [
+      TreeDict(code: CODE_MENU_CHECK_STRICTLY, dictKey: KEY_MENU_CHECK_STRICTLY_N, dictValue: "不关联"),
+      TreeDict(code: CODE_MENU_CHECK_STRICTLY, dictKey: KEY_MENU_CHECK_STRICTLY_Y, dictValue: "关联"),
     ],
   };
 }

@@ -9,6 +9,8 @@ import '../generated/l10n.dart';
 import '../res/styles.dart';
 import 'feature/welcome/ui/welcome_page.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -17,6 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     _init(context);
     return MaterialApp(
+      navigatorKey: navigatorKey,
       initialRoute: WelcomePage.routeName,
       routes: router,
       onUnknownRoute: get404Route,

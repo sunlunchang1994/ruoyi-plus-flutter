@@ -21,15 +21,20 @@ abstract class MenuApiClient {
         baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
-  ///获取菜单信息
+  ///获取菜单树信息
   @GET("/system/menu/treeselect")
   Future<ResultEntity> treeselect(@Queries() SysMenu? queryParams,
       @CancelRequest() CancelToken cancelToken);
 
-  ///获取菜单信息
+  ///获取角色菜单树信息
   @GET("/system/menu/roleMenuTreeselect/{roleId}")
   Future<ResultEntity> roleMenuTreeselect(
       @Path("roleId") int? roleId, @CancelRequest() CancelToken cancelToken);
+
+  ///获取租户套餐菜单树信息
+  @GET("/system/menu/tenantPackageMenuTreeselect/{packageId}")
+  Future<ResultEntity> tenantPackageMenuTreeselect(
+      @Path("packageId") int? packageId, @CancelRequest() CancelToken cancelToken);
 
   ///获取菜单列表
   @GET("/system/menu/list")
@@ -56,6 +61,7 @@ class MenuRepository {
   //实例
   static final MenuApiClient _menuApiClient = MenuApiClient();
 
+  ///获取菜单树信息
   static Future<IntensifyEntity<List<SysMenuTree>>> treeselect(
       SysMenu? queryParams, CancelToken cancelToken) {
     return _menuApiClient
@@ -69,6 +75,7 @@ class MenuRepository {
     }).single;
   }
 
+  ///获取角色菜单树信息
   static Future<IntensifyEntity<List<SysMenuTree>>> roleMenuTreeselect(
       int? roleId, CancelToken cancelToken) {
     return _menuApiClient
@@ -89,6 +96,7 @@ class MenuRepository {
     }).single;
   }
 
+  ///获取角色菜单树id信息
   static Future<IntensifyEntity<List<int>>> roleMenuCheckedList(
       int? roleId, CancelToken cancelToken) {
     return _menuApiClient
@@ -104,6 +112,27 @@ class MenuRepository {
     }).single;
   }
 
+  ///获取租户套餐菜单树信息
+  static Future<IntensifyEntity<List<SysMenuTree>>> tenantPackageMenuTreeselect(
+      int? tenantPackageId, CancelToken cancelToken) {
+    return _menuApiClient
+        .tenantPackageMenuTreeselect(tenantPackageId, cancelToken)
+        .asStream()
+        .map(DataTransformUtils.checkError)
+        .map((event) {
+      return event.toIntensify(createData: (resultEntity) {
+        SysMenuTreeWrapper sysMenuTreeWrapper = SysMenuTreeWrapper.fromJson(resultEntity.data);
+        SelectUtils.fillSelect(sysMenuTreeWrapper.menus,
+            sysMenuTreeWrapper.checkedKeys ?? List.empty(growable: true),
+            predicate: (src, target) {
+              return src!.id == target;
+            }, penetrate: true);
+        return sysMenuTreeWrapper.menus;
+      });
+    }).single;
+  }
+
+  ///获取菜单列表
   static Future<IntensifyEntity<List<SysMenu>>> list(
       SysMenu? sysMenuVo, CancelToken cancelToken) {
     return _menuApiClient

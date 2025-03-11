@@ -3,7 +3,6 @@ import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/slc_color_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/slc_num_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/base_mvvm.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
@@ -46,8 +45,7 @@ class SysLogPage extends AppBaseStatelessWidget<_LogVm> {
                   appBar: AppBar(
                       title: Text(logRouterInfo.meta!.title),
                       bottom: TabBar(
-                          tabs:
-                              getVm().logRouterInfo.children!.map((routerItem) {
+                          tabs: getVm().logRouterInfo.children!.map((routerItem) {
                         return Tab(text: routerItem.meta!.title);
                       }).toList()),
                       actions: [
@@ -60,24 +58,19 @@ class SysLogPage extends AppBaseStatelessWidget<_LogVm> {
                           );
                         })
                       ]),
-                  endDrawer:
-                      NqSelector<_LogVm, int>(builder: (context, value, child) {
+                  endDrawer: NqSelector<_LogVm, int>(builder: (context, value, child) {
                     return value == 0
-                        ? SysOperLogListPageWidget.getSearchEndDrawer(
-                            context, themeData)
-                        : SysLogininforListPageWidget.getSearchEndDrawer(
-                            context, themeData);
+                        ? SysOperLogListPageWidget.getSearchEndDrawer(context, themeData)
+                        : SysLogininforListPageWidget.getSearchEndDrawer(context, themeData);
                   }, selector: (context, vm) {
                     return DefaultTabController.of(context).index;
                   }),
                   body: TabBarView(
                     children: getVm().logRouterInfo.children!.map((routerItem) {
                       if (routerItem.path == "operlog") {
-                        return SysOperLogListBrowserPage(
-                            routerItem.meta!.title);
+                        return SysOperLogListBrowserPage(routerItem.meta!.title);
                       } else if (routerItem.path == "logininfor") {
-                        return SysLogininforListBrowserPage(
-                            routerItem.meta!.title);
+                        return SysLogininforListBrowserPage(routerItem.meta!.title);
                       } else {
                         return Text("暂未实现");
                       }
@@ -119,8 +112,7 @@ class LogOperSearchVm extends AbsoluteChangeNotifier {
   }
 
   void setSelectBusinessType(ITreeDict<dynamic>? treeDict) {
-    _currentSysOperLogSearch.businessType =
-        SlcNumUtil.getIntByValueStr(treeDict?.tdDictValue);
+    _currentSysOperLogSearch.businessType = SlcNumUtil.getIntByValueStr(treeDict?.tdDictValue);
     _currentSysOperLogSearch.businessTypeName = treeDict?.tdDictLabel;
     formOperate.formBuilderState
         ?.patchField("businessType", _currentSysOperLogSearch.businessTypeName);
@@ -129,8 +121,7 @@ class LogOperSearchVm extends AbsoluteChangeNotifier {
   void setSelectStatus(ITreeDict<dynamic>? treeDict) {
     _currentSysOperLogSearch.status = treeDict?.tdDictValue;
     _currentSysOperLogSearch.statusName = treeDict?.tdDictLabel;
-    formOperate.formBuilderState
-        ?.patchField("statusName", _currentSysOperLogSearch.statusName);
+    formOperate.formBuilderState?.patchField("statusName", _currentSysOperLogSearch.statusName);
   }
 
   //重置
@@ -165,8 +156,7 @@ class LogLoginSearchVm extends AbsoluteChangeNotifier {
   void setSelectStatus(ITreeDict<dynamic>? treeDict) {
     _currentSysLogininforSearch.status = treeDict?.tdDictValue;
     _currentSysLogininforSearch.statusName = treeDict?.tdDictLabel;
-    formOperate.formBuilderState
-        ?.patchField("statusName", _currentSysLogininforSearch.statusName);
+    formOperate.formBuilderState?.patchField("statusName", _currentSysLogininforSearch.statusName);
   }
 
   //重置
@@ -193,11 +183,10 @@ class LogStyleHelper {
   late List<int> _colorArray;
 
   LogStyleHelper() {
-    _sysOperTypeList =
-        GlobalVm().dictShareVm.dictMap[LocalDictLib.CODE_SYS_OPER_TYPE] ??
-            List.empty(growable: true);
-    _colorArray = SlcColorUtil.getColorByAverageSafety(
-        _sysOperTypeList.length, SlcColorUtil.COLOR_ARRAY_MD);
+    _sysOperTypeList = GlobalVm().dictShareVm.dictMap[LocalDictLib.CODE_SYS_OPER_TYPE] ??
+        List.empty(growable: true);
+    _colorArray = SlcColorUtil.getColorByAverage(_sysOperTypeList.length,
+        colorArray: SlcColorUtil.COLOR_ARRAY_MD);
   }
 
   Color getColorByBusinessType(int? businessType) {

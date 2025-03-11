@@ -5,6 +5,8 @@ import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/repository/remote/page_transform_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_vm_sub.dart';
@@ -52,7 +54,7 @@ class DictTypeListPageWidget {
           return getDataListItem(themeData, listenerItemClick, buildTrailing, index, listItem);
         },
         separatorBuilder: (context, index) {
-          return SlcStyles.tidyUpStyle.getDefDividerByTheme(themeData);
+          return themeData.slcTidyUpStyle.getDefDividerByTheme(themeData);
         });
   }
 
@@ -97,8 +99,8 @@ class DictTypeListPageWidget {
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
                       child: Text(S.current.sys_label_dict_data_search_title,
-                          style: SlcStyles.tidyUpStyle.getTitleTextStyle(themeData))),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                          style: themeData.slcTidyUpStyle.getTitleTextStyle(themeData))),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "dictLabel",
                       initialValue: listVmSub.currentSearch.dictLabel,
@@ -118,7 +120,7 @@ class DictTypeListPageWidget {
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   Expanded(child: Builder(builder: (context) {
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -129,7 +131,7 @@ class DictTypeListPageWidget {
                                   listVmSub.onResetSearch();
                                 },
                                 child: Text(S.current.action_reset))),
-                        SlcStyles.getSizedBox(width: SlcDimens.appDimens16),
+                        ThemeUtil.getSizedBox(width: SlcDimens.appDimens16),
                         Expanded(
                             child: FilledButton(
                                 onPressed: () {
@@ -151,7 +153,7 @@ class DictTypeListPageWidget {
 }
 
 ///字典数据分页VmSub
-class DictDataPageVmSub extends FastBaseListDataPageVmSub<SysDictData> with CancelTokenAssist{
+class DictDataPageVmSub extends FastBaseListDataPageVmSub<SysDictData> with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   SysDictData _currentDictTypeSearch = SysDictData();
@@ -166,8 +168,8 @@ class DictDataPageVmSub extends FastBaseListDataPageVmSub<SysDictData> with Canc
         (loadMoreFormat) async {
           try {
             IntensifyEntity<PageModel<SysDictData>> intensifyEntity = await DictDataRepository.list(
-                    loadMoreFormat.getOffset(),
-                    loadMoreFormat.getSize(),
+                    loadMoreFormat.offset,
+                    loadMoreFormat.size,
                     _currentDictTypeSearch,
                     defCancelToken)
                 .asStream()
@@ -209,7 +211,7 @@ class DictDataPageVmSub extends FastBaseListDataPageVmSub<SysDictData> with Canc
 }
 
 ///字典数据分页VmSub
-class DictDataListVmSub extends FastBaseListDataVmSub<SysDictData> with CancelTokenAssist{
+class DictDataListVmSub extends FastBaseListDataVmSub<SysDictData> with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   SysDictData _currentDictTypeSearch = SysDictData();

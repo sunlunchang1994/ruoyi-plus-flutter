@@ -160,15 +160,15 @@ class _RoleListMultipleSelectVm extends AppBaseVm {
       DataWrapper<PageModel<Role>> dataWrapper;
       if (dataSrc != null) {
         dataWrapper = DataWrapper.createSuccess(PageModel(
-            current: loadMoreFormat.getOffset(),
-            size: loadMoreFormat.getSize(),
+            current: loadMoreFormat.offset,
+            size: loadMoreFormat.size,
             isLastPage: true,
             records: dataSrc));
       } else {
         try {
           IntensifyEntity<PageModel<Role>> result = await RoleRepository.list(
-              loadMoreFormat.getOffset(),
-              loadMoreFormat.getSize(),
+              loadMoreFormat.offset,
+              loadMoreFormat.size,
               listVmSub.searchRole,
               listVmSub.defCancelToken);
           //返回数据结构

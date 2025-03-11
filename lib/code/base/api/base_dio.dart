@@ -1,10 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/network/api_constant.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/api_config.dart';
+import 'package:ruoyi_plus_flutter/code/base/ui/utils/fast_dialog_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 
 import '../../../generated/l10n.dart';
+import '../../feature/auth/ui/login_page.dart';
+import '../../my_app_page.dart';
 import '../api/result_entity.dart';
 import 'api_exception.dart';
 import 'interceptor_encrypt.dart';
@@ -57,6 +60,18 @@ class BaseDio {
     return _dio!;
   }
 
+  /// 静态方法
+  static ResultEntity handlerError(dynamic error,
+      {String? defErrMsg, bool showToast = true, bool showUnauthorized = true}) {
+    ResultEntity resultEntity = getError(error, defErrMsg: defErrMsg);
+    if (showUnauthorized && handlerUnauthorized(resultEntity)) {
+      // no thing
+    } else if (showToast) {
+      BaseDio.showToast(resultEntity);
+    }
+    return resultEntity;
+  }
+
   ///获取错误码
   static int getErrorCode(dynamic error, {String? defErrMsg}) {
     return getError(error, defErrMsg: defErrMsg).code!;
@@ -82,38 +97,27 @@ class BaseDio {
             ResultEntity baseEntity = ResultEntity.createSucceedFail(error.message ?? "Canceled",
                 code: ApiConfig.VALUE_CODE_CANCEL);
             return baseEntity;
+          } else if (error.type == DioExceptionType.connectionTimeout) {
+            ResultEntity baseEntity = ResultEntity.createSucceedFail(
+                S.current.label_error_connection_timeout,
+                code: ApiConfig.VALUE_CODE_ERROR_REQUEST);
+          } else if (error.type == DioExceptionType.sendTimeout) {
+            ResultEntity baseEntity = ResultEntity.createSucceedFail(
+                S.current.label_error_send_timeout,
+                code: ApiConfig.VALUE_CODE_ERROR_REQUEST);
+          } else if (error.type == DioExceptionType.receiveTimeout) {
+            ResultEntity baseEntity = ResultEntity.createSucceedFail(
+                S.current.label_error_receive_timeout,
+                code: ApiConfig.VALUE_CODE_ERROR_REQUEST);
+          } else if (error.type == DioExceptionType.connectionError) {
+            ResultEntity baseEntity = ResultEntity.createSucceedFail(
+                S.current.label_error_connection_error,
+                code: ApiConfig.VALUE_CODE_ERROR_REQUEST);
           }
           //if (error.type == DioExceptionType.badResponse) {//替换成了下面这句
           else {
             final response = error.response;
             if (response != null) {
-              //ResultEntity baseEntity = ResultEntity(code: response.statusCode);
-              /*if (response.statusCode == 401) {
-                baseEntity.msg = "请先登录";
-              } else if (response.statusCode == 403) {
-                baseEntity.msg = "非法访问，请使用正确的token";
-              } else if (response.statusCode == 408) {
-                baseEntity.msg = "用户不存在";
-              } else if (response.statusCode == 409) {
-                baseEntity.msg = "用户名不能为空";
-              } else if (response.statusCode == 405) {
-                baseEntity.msg = "用户密码不正确";
-              } else if (response.statusCode == 406) {
-                baseEntity.msg = "用户密码不能为空";
-              } else {
-                try {
-                  ResultEntity baseEntity =
-                      ResultEntity.fromJson(response.data);
-                  baseEntity.code ??= response.statusCode;
-                  return baseEntity;
-                } catch (e) {
-                  return ResultEntity(
-                    code: response.statusCode,
-                    msg: response.statusMessage,
-                  );
-                }
-              }*/
-              //上面这里不需要了，一般后端会给出
               try {
                 ResultEntity baseEntity = ResultEntity.fromJson(response.data);
                 baseEntity.code ??= response.statusCode;
@@ -144,5 +148,27 @@ class BaseDio {
       return;
     }
     AppToastBridge.showToast(msg: resultEntity.msg);
+  }
+
+  static bool handlerUnauthorized(ResultEntity resultEntity) {
+    if (resultEntity.code == ApiConfig.VALUE_CODE_NORMAL_UNAUTHORIZED) {
+      //在此处弹框
+      showDialog(
+          context: navigatorKey.currentState!.context,
+          builder: (context) {
+            return AlertDialog(
+                title: Text(S.current.label_prompt),
+                content: Text(S.current.app_label_login_normal_unauthorized),
+                actions: FastDialogUtils.getCommonlyAction(context, positiveLister: () {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    LoginPage.routeName,
+                    (Route<dynamic> route) => false,
+                  );
+                }));
+          });
+
+      return true;
+    }
+    return false;
   }
 }

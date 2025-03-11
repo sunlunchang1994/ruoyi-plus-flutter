@@ -151,15 +151,15 @@ class _PostListMultipleSelectVm extends AppBaseVm {
       DataWrapper<PageModel<Post>> dataWrapper;
       if (dataSrc != null) {
         dataWrapper = DataWrapper.createSuccess(PageModel(
-            current: loadMoreFormat.getOffset(),
-            size: loadMoreFormat.getSize(),
+            current: loadMoreFormat.offset,
+            size: loadMoreFormat.size,
             isLastPage: true,
             records: dataSrc));
       } else {
         try {
           IntensifyEntity<PageModel<Post>> result = await PostRepository.list(
-              loadMoreFormat.getOffset(),
-              loadMoreFormat.getSize(),
+              loadMoreFormat.offset,
+              loadMoreFormat.size,
               listVmSub.searchPost,
               listVmSub.defCancelToken);
           //返回数据结构

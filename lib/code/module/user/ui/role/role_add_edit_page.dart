@@ -5,6 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/status_widget.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +25,7 @@ import '../../../../base/api/result_entity.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
 import '../../../../base/vm/global_vm.dart';
 import '../../../../feature/bizapi/user/entity/role.dart';
+import '../../../../feature/bizapi/user/entity/select_menu_result.dart';
 import '../../../../feature/component/dict/entity/tree_dict.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
@@ -91,7 +93,7 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                 },
                 child: Column(
                   children: [
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens8),
                     MyFormBuilderTextField(
                         name: "roleName",
                         initialValue: getVm().roleInfo!.roleName,
@@ -109,7 +111,7 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                           FormBuilderValidators.required(),
                         ]),
                         textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "roleKey",
                         initialValue: getVm().roleInfo!.roleKey,
@@ -127,7 +129,7 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                           FormBuilderValidators.required(),
                         ]),
                         textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderTextField(
                       name: "roleSort",
                       initialValue: () {
@@ -152,7 +154,7 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.next,
                     ),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderRadioGroup<OptionVL<String>>(
                         name: "status",
                         initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
@@ -167,7 +169,7 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                           getVm().applyInfoChange();
                           getVm().roleInfo!.status = value?.value;
                         }),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderSelect(
                       name: "menuIds",
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -187,7 +189,7 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                       },
                       textInputAction: TextInputAction.next,
                     ),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "remark",
                         initialValue: getVm().roleInfo!.remark,
@@ -250,20 +252,20 @@ class _PostAddEditVm extends AppBaseVm with CancelTokenAssist {
         roleInfo = intensifyEntity.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        BaseDio.showToastByError(e);
+        BaseDio.handlerError(e);
         finish();
       });
     }
   }
 
   void onSelectMenu() {
-    pushNamed(MenuTreeSelectMultiplePage.routeName, arguments: {
+    pushNamed(RoleMenuTreeSelectMultiplePage.routeName, arguments: {
       ConstantBase.KEY_INTENT_TITLE: S.current.user_label_menu_permission_select,
       ConstantSys.KEY_MENU_ID: roleInfo!.roleId,
       ConstantBase.KEY_INTENT_SELECT_DATA: roleInfo!.menuIds,
     }).then((result) {
-      if (result != null) {
-        roleInfo?.menuIds = result;
+      if (result != null&&result is SelectMenuResult) {
+        roleInfo?.menuIds = result.menuIds;
         formOperate.patchField("menuIds", getMenuTextField());
       }
     });
@@ -312,7 +314,7 @@ class _PostAddEditVm extends AppBaseVm with CancelTokenAssist {
       finish(result: roleInfo);
     }, onError: (error) {
       dismissLoading();
-      BaseDio.showToastByError(error);
+      BaseDio.handlerError(error);
     });
   }
 }

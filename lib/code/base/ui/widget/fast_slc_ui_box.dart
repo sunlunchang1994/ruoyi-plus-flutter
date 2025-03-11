@@ -2,6 +2,8 @@ import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:ruoyi_plus_flutter/res/styles.dart';
 
 /// @author sunlunchang
@@ -9,10 +11,8 @@ import 'package:ruoyi_plus_flutter/res/styles.dart';
 /// 对于不喜欢MD风格的场景非常实用
 class SlcUiBoxStyleUtils {
   ///icon边距
-  static const EdgeInsets itemPrefixWidgetMargin =
-      EdgeInsets.fromLTRB(16, 12, 0, 12);
-  static const EdgeInsets itemSuffixItemHMargin =
-      EdgeInsets.fromLTRB(0, 12, 16, 12);
+  static const EdgeInsets itemPrefixWidgetMargin = EdgeInsets.fromLTRB(16, 12, 0, 12);
+  static const EdgeInsets itemSuffixItemHMargin = EdgeInsets.fromLTRB(0, 12, 16, 12);
 
   ///表单
   static const TextStyle variantFormLabelTextStyleByDay =
@@ -28,8 +28,7 @@ class SlcUiBoxStyleUtils {
     return getVariantFormLabelTextStyleByThemeData(Theme.of(context));
   }
 
-  static TextStyle getVariantFormLabelTextStyleByThemeData(
-      ThemeData themeData) {
+  static TextStyle getVariantFormLabelTextStyleByThemeData(ThemeData themeData) {
     if (themeData.brightness == Brightness.dark) {
       return variantFormLabelTextStyleByNight;
     } else {
@@ -37,13 +36,11 @@ class SlcUiBoxStyleUtils {
     }
   }
 
-  static TextStyle getVariantFormPrimaryTextStyleByContext(
-      BuildContext context) {
+  static TextStyle getVariantFormPrimaryTextStyleByContext(BuildContext context) {
     return getVariantFormPrimaryTextStyleByThemeData(Theme.of(context));
   }
 
-  static TextStyle getVariantFormPrimaryTextStyleByThemeData(
-      ThemeData themeData) {
+  static TextStyle getVariantFormPrimaryTextStyleByThemeData(ThemeData themeData) {
     if (themeData.brightness == Brightness.dark) {
       return variantFormPrimaryTextStyleByNight;
     } else {
@@ -52,34 +49,28 @@ class SlcUiBoxStyleUtils {
   }
 
   ///单行labelMargin
-  static const EdgeInsets variantFormLabelHMargin =
-      EdgeInsets.fromLTRB(16, 12, 0, 12);
+  static const EdgeInsets variantFormLabelHMargin = EdgeInsets.fromLTRB(16, 12, 0, 12);
 
   ///多行labelMargin
-  static const EdgeInsets variantFormLabelVMargin =
-      EdgeInsets.fromLTRB(16, 12, 0, 0);
+  static const EdgeInsets variantFormLabelVMargin = EdgeInsets.fromLTRB(16, 12, 0, 0);
 
   ///单行ContentMargin
-  static const EdgeInsets variantFormContentHMargin =
-      EdgeInsets.fromLTRB(16, 10, 16, 10);
+  static const EdgeInsets variantFormContentHMargin = EdgeInsets.fromLTRB(16, 10, 16, 10);
 
   ///单行ContentMargin结束间隔容忍宽度
   static const EdgeInsets variantFormContentHMarginByEndHumility =
       EdgeInsets.fromLTRB(16, 10, 8, 10);
 
   ///多行ContentMargin
-  static const EdgeInsets variantFormContentVMargin =
-      EdgeInsets.fromLTRB(16, 0, 16, 10);
+  static const EdgeInsets variantFormContentVMargin = EdgeInsets.fromLTRB(16, 0, 16, 10);
 
   ///多行ContentMargin结束间隔容忍宽度
   static const EdgeInsets variantFormContentVMarginByEndHumility =
       EdgeInsets.fromLTRB(16, 0, 8, 10);
 
   ///icon边距
-  static const EdgeInsets variantFormPrefixWidgetMargin =
-      EdgeInsets.fromLTRB(16, 12, 0, 12);
-  static const EdgeInsets variantFormSuffixItemHMargin =
-      EdgeInsets.fromLTRB(0, 12, 16, 12);
+  static const EdgeInsets variantFormPrefixWidgetMargin = EdgeInsets.fromLTRB(16, 12, 0, 12);
+  static const EdgeInsets variantFormSuffixItemHMargin = EdgeInsets.fromLTRB(0, 12, 16, 12);
 
   ///
   /// 使用笔记
@@ -88,14 +79,9 @@ class SlcUiBoxStyleUtils {
   /// 要完美去除边框等信息只需使用isCollapsed: true,或InputDecoration.collapsed
   ///
   static InputDecoration getSimpleInputDecoration(
-      {EdgeInsetsGeometry? contentPadding,
-      String? hintText,
-      TextStyle? hintStyle}) {
-    return InputDecoration.collapsed(
-            hintText: hintText, hintStyle: hintStyle ??= const TextStyle())
-        .copyWith(
-            contentPadding:
-                contentPadding ?? const EdgeInsets.symmetric(vertical: 2));
+      {EdgeInsetsGeometry? contentPadding, String? hintText, TextStyle? hintStyle}) {
+    return InputDecoration.collapsed(hintText: hintText, hintStyle: hintStyle ??= const TextStyle())
+        .copyWith(contentPadding: contentPadding ?? const EdgeInsets.symmetric(vertical: 2));
   }
 
   static Divider getDividerByBg(
@@ -209,14 +195,12 @@ class SimpleVariantFormLayout extends StatelessWidget {
       List<Widget> labelChildren = <Widget>[];
       labelChildren.add(DefaultTextStyle(
           style: labelTextStyle ??
-              SlcUiBoxStyleUtils.getVariantFormLabelTextStyleByThemeData(
-                  themeData),
+              SlcUiBoxStyleUtils.getVariantFormLabelTextStyleByThemeData(themeData),
           child: label!));
       if (emphasize != null) {
         labelChildren.add(DefaultTextStyle(
             style: labelTextStyle?.copyWith(color: Colors.red.shade500) ??
-                SlcUiBoxStyleUtils.getVariantFormLabelTextStyleByThemeData(
-                        themeData)
+                SlcUiBoxStyleUtils.getVariantFormLabelTextStyleByThemeData(themeData)
                     .copyWith(color: Colors.red.shade500),
             child: emphasize!));
       }
@@ -251,42 +235,35 @@ class SimpleListItemLayout extends StatelessWidget {
   final Widget? child;
 
   SimpleListItemLayout(
-      {this.prefix,
-      this.suffix,
-      this.child,
-      this.prefixWidgetMargin,
-      this.suffixWidgetMargin});
+      {this.prefix, this.suffix, this.child, this.prefixWidgetMargin, this.suffixWidgetMargin});
 
   @override
   Widget build(BuildContext context) {
+    ThemeData themeData = Theme.of(context);
     List<Widget> children = <Widget>[];
     if (this.prefix != null) {
       children.add(Padding(
-          padding:
-              prefixWidgetMargin ?? SlcUiBoxStyleUtils.itemPrefixWidgetMargin,
+          padding: prefixWidgetMargin ?? SlcUiBoxStyleUtils.itemPrefixWidgetMargin,
           child: IconTheme(
-            child: this.prefix!,
-            data: IconThemeData(
-                color: SlcStyles.tidyUpStyle
-                    .getTextColorSecondaryStyleByTheme(Theme.of(context))!
-                    .color),
-          )));
+              child: this.prefix!,
+              data: IconThemeData(
+                color: (themeData.slcTidyUpColor
+                    .getTextColorSecondaryByTheme(Theme.of(context))),
+              ))));
     }
     if (this.child != null) {
       children.add(DefaultTextStyle(
-          style: SlcStyles.listTileStyle.getItemTitleStyleByContext(context),
+          style: themeData.slcListTileStyle.getItemTitleStyleByContext(context),
           child: this.child!));
     }
     if (this.suffix != null) {
       children.add(Padding(
-          padding:
-              suffixWidgetMargin ?? SlcUiBoxStyleUtils.itemSuffixItemHMargin,
+          padding: suffixWidgetMargin ?? SlcUiBoxStyleUtils.itemSuffixItemHMargin,
           child: IconTheme(
             child: this.suffix!,
             data: IconThemeData(
-                color: SlcStyles.tidyUpStyle
-                    .getTextColorSecondaryStyleByTheme(Theme.of(context))!
-                    .color),
+                color: themeData.slcTidyUpColor
+                    .getTextColorSecondaryByTheme(Theme.of(context))),
           )));
     }
     return Row(
@@ -297,14 +274,11 @@ class SimpleListItemLayout extends StatelessWidget {
 
 ///超级简单的列表布局，省去了边距
 class SuperEasyListItemLayout extends SimpleListItemLayout {
-  SuperEasyListItemLayout(
-      {IconData? prefixIcon, IconData? suffixIcon, String? labelText})
+  SuperEasyListItemLayout({IconData? prefixIcon, IconData? suffixIcon, String? labelText})
       : super(
             prefix: prefixIcon == null ? null : Icon(prefixIcon),
             suffix: suffixIcon == null ? null : Icon(suffixIcon),
             child: labelText == null
                 ? null
-                : Padding(
-                    padding: EdgeInsets.fromLTRB(16, 12, 0, 12),
-                    child: Text(labelText)));
+                : Padding(padding: EdgeInsets.fromLTRB(16, 12, 0, 12), child: Text(labelText)));
 }

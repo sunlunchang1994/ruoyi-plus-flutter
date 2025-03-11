@@ -4,6 +4,8 @@ import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_dict_type.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
@@ -33,9 +35,7 @@ import '../../../config/constant_sys.dart';
 ///字典类型列表
 class DictTypeListPageWidget {
   ///数据列表控件
-  static Widget getDataListWidget(
-      ThemeData themeData,
-      DictTypeListDataVmSub listVmSub,
+  static Widget getDataListWidget(ThemeData themeData, DictTypeListDataVmSub listVmSub,
       Widget Function(SysDictType currentItem) buildTrailing) {
     if (listVmSub.dataList.isEmpty) {
       return const ContentEmptyWrapper();
@@ -47,11 +47,10 @@ class DictTypeListPageWidget {
         itemCount: listVmSub.dataList.length,
         itemBuilder: (ctx, index) {
           SysDictType listItem = listVmSub.dataList[index];
-          return getDataListItem(
-              themeData, listVmSub, buildTrailing, index, listItem);
+          return getDataListItem(themeData, listVmSub, buildTrailing, index, listItem);
         },
         separatorBuilder: (context, index) {
-          return SlcStyles.tidyUpStyle.getDefDividerByTheme(themeData);
+          return themeData.slcTidyUpStyle.getDefDividerByTheme(themeData);
         });
   }
 
@@ -76,8 +75,8 @@ class DictTypeListPageWidget {
   }
 
   ///搜索侧滑栏视图
-  static Widget getSearchEndDrawer<A>(BuildContext context, ThemeData themeData,
-      DictTypeListDataVmSub listVmSub,
+  static Widget getSearchEndDrawer<A>(
+      BuildContext context, ThemeData themeData, DictTypeListDataVmSub listVmSub,
       {List<Widget>? Function(String? name)? formItemSlot}) {
     return Container(
         color: themeData.colorScheme.surface,
@@ -96,8 +95,8 @@ class DictTypeListPageWidget {
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
                       child: Text(S.current.sys_label_dict_type_search_title,
-                          style: SlcStyles.tidyUpStyle.getTitleTextStyle(themeData))),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                          style: themeData.slcTidyUpStyle.getTitleTextStyle(themeData))),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "dictName",
                       initialValue: listVmSub.currentSearch.dictName,
@@ -106,12 +105,9 @@ class DictTypeListPageWidget {
                           labelText: S.current.sys_label_dict_name,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqNullSelector<A, String?>(
-                              builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixByInputVal(
-                                value,
-                                formOperate: listVmSub.formOperate,
-                                formFieldName: "dictName");
+                          suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
+                            return InputDecUtils.autoClearSuffixByInputVal(value,
+                                formOperate: listVmSub.formOperate, formFieldName: "dictName");
                           }, selector: (context, vm) {
                             return listVmSub.currentSearch.dictName;
                           })),
@@ -120,7 +116,7 @@ class DictTypeListPageWidget {
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   FormBuilderTextField(
                       name: "dictType",
                       initialValue: listVmSub.currentSearch.dictType,
@@ -130,12 +126,9 @@ class DictTypeListPageWidget {
                           labelText: S.current.sys_label_dict_type,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqNullSelector<A, String?>(
-                              builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixByInputVal(
-                                value,
-                                formOperate: listVmSub.formOperate,
-                                formFieldName: "dictType");
+                          suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
+                            return InputDecUtils.autoClearSuffixByInputVal(value,
+                                formOperate: listVmSub.formOperate, formFieldName: "dictType");
                           }, selector: (context, vm) {
                             return listVmSub.currentSearch.dictType;
                           })),
@@ -144,7 +137,7 @@ class DictTypeListPageWidget {
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   Expanded(child: Builder(builder: (context) {
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -155,7 +148,7 @@ class DictTypeListPageWidget {
                                   listVmSub.onResetSearch();
                                 },
                                 child: Text(S.current.action_reset))),
-                        SlcStyles.getSizedBox(width: SlcDimens.appDimens16),
+                        ThemeUtil.getSizedBox(width: SlcDimens.appDimens16),
                         Expanded(
                             child: FilledButton(
                                 onPressed: () {
@@ -177,7 +170,7 @@ class DictTypeListPageWidget {
 }
 
 ///字典类型数据VmSub
-class DictTypeListDataVmSub extends FastBaseListDataPageVmSub<SysDictType> with CancelTokenAssist{
+class DictTypeListDataVmSub extends FastBaseListDataPageVmSub<SysDictType> with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   SysDictType _currentDictTypeSearch = SysDictType();
@@ -190,27 +183,24 @@ class DictTypeListDataVmSub extends FastBaseListDataPageVmSub<SysDictType> with 
     //设置刷新方法主体
     setLoadData((loadMoreFormat) async {
       try {
-        IntensifyEntity<PageModel<SysDictType>> intensifyEntity =
-            await DictTypeRepository.list(
-                    loadMoreFormat.getOffset(),
-                    loadMoreFormat.getSize(),
-                    _currentDictTypeSearch,
-                    defCancelToken)
-                .asStream()
-                .single;
+        IntensifyEntity<PageModel<SysDictType>> intensifyEntity = await DictTypeRepository.list(
+                loadMoreFormat.offset, loadMoreFormat.size, _currentDictTypeSearch, defCancelToken)
+            .asStream()
+            .single;
         DataWrapper<PageModel<SysDictType>> dataWrapper =
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
         return dataWrapper;
       } catch (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
-        return DataWrapper.createFailed(
-            code: resultEntity.code, msg: resultEntity.msg);
+        return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
       }
     });
     //设置点击item事件主体
     setItemClick((index, data) {
-      pushNamed(DictDataListBrowserPage.routeName,
-          arguments: {ConstantBase.KEY_INTENT_TITLE: S.current.sys_label_dict_data_list,ConstantSys.KEY_DICT_TYPE: data.dictType});
+      pushNamed(DictDataListBrowserPage.routeName, arguments: {
+        ConstantBase.KEY_INTENT_TITLE: S.current.sys_label_dict_data_list,
+        ConstantSys.KEY_DICT_TYPE: data.dictType
+      });
     });
   }
 

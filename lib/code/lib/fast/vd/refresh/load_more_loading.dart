@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 
 import '../../../../../generated/l10n.dart';
 
@@ -10,6 +12,7 @@ class LoadMoreLoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData themeData = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -26,8 +29,8 @@ class LoadMoreLoadingWidget extends StatelessWidget {
                 left: 16,
               ),
               child: new Text(S.current.label_refresh_loading,
-                  style: SlcStyles.tidyUpStyle
-                      .getTextColorSecondaryStyleByTheme(Theme.of(context)))),
+                  style: themeData.slcTidyUpStyle
+                      .getTextColorSecondaryStyleByTheme(themeData))),
         ],
       ),
     );

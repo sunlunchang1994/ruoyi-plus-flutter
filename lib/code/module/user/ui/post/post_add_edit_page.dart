@@ -5,6 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/status_widget.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
@@ -91,7 +92,7 @@ class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                 },
                 child: Column(
                   children: [
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens8),
                     MyFormBuilderTextField(
                         name: "postName",
                         initialValue: getVm().postInfo!.postName,
@@ -109,7 +110,7 @@ class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                           FormBuilderValidators.required(),
                         ]),
                         textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderSelect(
                         name: "deptName",
                         initialValue: getVm().postInfo!.deptName,
@@ -127,7 +128,7 @@ class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                           FormBuilderValidators.required(),
                         ]),
                         textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "postCode",
                         initialValue: getVm().postInfo!.postCode,
@@ -146,7 +147,7 @@ class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                         ]),
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "postCategory",
                         initialValue: getVm().postInfo!.postCategory,
@@ -162,7 +163,7 @@ class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                         },
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderRadioGroup<OptionVL<String>>(
                         name: "status",
                         initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
@@ -177,7 +178,7 @@ class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                           getVm().applyInfoChange();
                           getVm().postInfo!.status = value?.value;
                         }),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderTextField(
                       name: "orderNum",
                       initialValue: () {
@@ -202,7 +203,7 @@ class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.next,
                     ),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "remark",
                         initialValue: getVm().postInfo!.remark,
@@ -265,7 +266,7 @@ class _PostAddEditVm extends AppBaseVm with CancelTokenAssist {
         postInfo = intensifyEntity.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        BaseDio.showToastByError(e);
+        BaseDio.handlerError(e);
         finish();
       });
     }
@@ -322,7 +323,7 @@ class _PostAddEditVm extends AppBaseVm with CancelTokenAssist {
       finish(result: postInfo);
     }, onError: (error) {
       dismissLoading();
-      BaseDio.showToastByError(error);
+      BaseDio.handlerError(error);
     });
   }
 }

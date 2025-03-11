@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/fast_mvvm.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
@@ -42,7 +43,7 @@ class MenuListPageWidget {
               themeData, listVmSub, buildTrailing, index, listItem);
         },
         separatorBuilder: (context, index) {
-          return SlcStyles.tidyUpStyle.getDefDividerByTheme(themeData);
+          return themeData.slcTidyUpStyle.getDefDividerByTheme(themeData);
         });
   }
 

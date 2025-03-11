@@ -32,6 +32,10 @@ import '../module/system/ui/oss/config/oss_config_list_browser_page.dart';
 import '../module/system/ui/oss/oss_details_page.dart';
 import '../module/system/ui/oss/oss_list_browser_page.dart';
 import '../module/system/ui/router/router_page.dart';
+import '../module/system/ui/tenant/package/tenant_package_add_edit_page.dart';
+import '../module/system/ui/tenant/package/tenant_package_list_browser_page.dart';
+import '../module/system/ui/tenant/tenant_add_edit_page.dart';
+import '../module/system/ui/tenant/tenant_list_browser_page.dart';
 import '../module/user/ui/dept/dept_add_edit_page.dart';
 import '../module/user/ui/dept/dept_list_browser_page.dart';
 import '../feature/auth/ui/login_page.dart';
@@ -166,11 +170,20 @@ final Map<String, WidgetBuilder> router = {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
     return MenuTreeBrowserPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
-  //菜单：菜单树多选
-  MenuTreeSelectMultiplePage.routeName: (BuildContext context) {
+  //菜单：角色菜单树多选
+  RoleMenuTreeSelectMultiplePage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
-    return MenuTreeSelectMultiplePage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE],
+    return RoleMenuTreeSelectMultiplePage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE],
         roleId: slcRouterInfo?.arguments[ConstantSys.KEY_MENU_ID],
+        checkedIds: slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_SELECT_DATA]);
+  },
+  //菜单：租户菜单树多选
+  TenantPackageMenuTreeSelectMultiplePage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return TenantPackageMenuTreeSelectMultiplePage(
+        slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE],
+        packageId: slcRouterInfo?.arguments[ConstantSys.KEY_SYS_TENANT_PACKAGE_ID],
+        linkageEnable: slcRouterInfo?.arguments[ConstantSys.KEY_MENU_LINKAGE_ENABLE],
         checkedIds: slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_SELECT_DATA]);
   },
   //字典类型
@@ -258,6 +271,29 @@ final Map<String, WidgetBuilder> router = {
   SysClientAddEditPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
     return SysClientAddEditPage(sysClient: slcRouterInfo?.arguments[ConstantSys.KEY_SYS_CLIENT]);
+  },
+  //租户套餐
+  //租户套餐：列表
+  TenantPackageListBrowserPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return TenantPackageListBrowserPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+  },
+  //租户套餐：新增与编辑
+  TenantPackageAddEditPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return TenantPackageAddEditPage(
+        sysTenantPackage: slcRouterInfo?.arguments[ConstantSys.KEY_SYS_TENANT_PACKAGE]);
+  },
+  //租户：
+  //租户：列表
+  TenantListBrowserPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return TenantListBrowserPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+  },
+  //租户：新增或修改
+  TenantAddEditPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return TenantAddEditPage(sysTenant: slcRouterInfo?.arguments[ConstantSys.KEY_SYS_TENANT]);
   },
 };
 

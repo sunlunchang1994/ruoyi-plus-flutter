@@ -5,6 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/utils/fast_dialog_utils.dart';
@@ -113,7 +114,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                     return imageXFile;
                                   },
                                 ),
-                                SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                                ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                                 FormBuilderTextField(
                                     name: "nickName",
                                     initialValue: getVm().userInfo.nickName,
@@ -127,7 +128,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                       getVm().applyInfoChange();
                                       getVm().userInfo.nickName = value;
                                     }),
-                                SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                                ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                                 FormBuilderTextField(
                                     name: "phonenumber",
                                     initialValue: getVm().userInfo.phonenumber,
@@ -141,7 +142,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                       getVm().applyInfoChange();
                                       getVm().userInfo.phonenumber = value;
                                     }),
-                                SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                                ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                                 FormBuilderTextField(
                                     name: "email",
                                     initialValue: getVm().userInfo.email,
@@ -155,7 +156,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                       getVm().applyInfoChange();
                                       getVm().userInfo.email = value;
                                     }),
-                                SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                                ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                                 MyFormBuilderSelect(
                                     name: "sex",
                                     initialValue: getVm().userInfo.sexName,
@@ -260,7 +261,7 @@ class _ProfileModel extends AppBaseVm with CancelTokenAssist {
         //dismissLoading();
         _saveProfile();
       }, onError: (e) {
-        BaseDio.showToastByError(e, defErrMsg: S.current.user_label_avatar_upload_failed);
+        BaseDio.handlerError(e, defErrMsg: S.current.user_label_avatar_upload_failed);
         dismissLoading();
       });
       return;
@@ -280,7 +281,7 @@ class _ProfileModel extends AppBaseVm with CancelTokenAssist {
       //保存成功后要设置
       _infoChange = false;
     }, onError: (e) {
-      BaseDio.showToastByError(e, defErrMsg: S.current.toast_edit_failure);
+      BaseDio.handlerError(e, defErrMsg: S.current.toast_edit_failure);
       dismissLoading();
     });
   }

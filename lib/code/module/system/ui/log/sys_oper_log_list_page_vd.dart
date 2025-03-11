@@ -6,6 +6,8 @@ import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
@@ -49,7 +51,7 @@ class SysOperLogListPageWidget {
           return getDataListItem(themeData, listVmSub, index, listItem);
         },
         separatorBuilder: (context, index) {
-          return SlcStyles.tidyUpStyle.getDefDividerByTheme(themeData);
+          return themeData.slcTidyUpStyle.getDefDividerByTheme(themeData);
         });
   }
 
@@ -64,7 +66,7 @@ class SysOperLogListPageWidget {
           children: [
             RichText(
                 text: TextSpan(
-                    style: SlcStyles.listTileStyle.getItemTitleStyleByThemeData(themeData),
+                    style: themeData.slcListTileStyle.getItemTitleStyleByThemeData(themeData),
                     children: [
                   TextSpan(text: listItem.title!),
                   TextSpan(text: "·"),
@@ -87,7 +89,7 @@ class SysOperLogListPageWidget {
                   style: SysStyle.sysLogListStatusText.copyWith(color: statusColor),
                   strutStyle: SysStyle.sysLogListStatusTextStrutStyle,
                 )),
-            SlcStyles.getSizedBox(width: SlcDimens.appDimens16)
+            ThemeUtil.getSizedBox(width: SlcDimens.appDimens16)
           ],
         ),
         subtitle: Padding(
@@ -130,8 +132,8 @@ class SysOperLogListPageWidget {
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
                       child: Text(S.current.sys_label_oper_search,
-                          style: SlcStyles.tidyUpStyle.getTitleTextStyle(themeData))),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                          style: themeData.slcTidyUpStyle.getTitleTextStyle(themeData))),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "operIp",
                       initialValue: searchVm.currentSearch.operIp,
@@ -152,7 +154,7 @@ class SysOperLogListPageWidget {
                         searchVm.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "title",
                       initialValue: searchVm.currentSearch.title,
@@ -173,7 +175,7 @@ class SysOperLogListPageWidget {
                         searchVm.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "operName",
                       initialValue: searchVm.currentSearch.operName,
@@ -194,7 +196,7 @@ class SysOperLogListPageWidget {
                         searchVm.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderSelect(
                       name: "businessType",
                       initialValue: searchVm.currentSearch.businessTypeName,
@@ -218,7 +220,7 @@ class SysOperLogListPageWidget {
                             return searchVm.currentSearch.businessTypeName;
                           })),
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderSelect(
                       name: "statusName",
                       initialValue: searchVm.currentSearch.statusName,
@@ -242,7 +244,7 @@ class SysOperLogListPageWidget {
                             return searchVm.currentSearch.statusName;
                           })),
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   Expanded(child: Builder(builder: (context) {
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -253,7 +255,7 @@ class SysOperLogListPageWidget {
                                   searchVm.onResetSearch();
                                 },
                                 child: Text(S.current.action_reset))),
-                        SlcStyles.getSizedBox(width: SlcDimens.appDimens16),
+                        ThemeUtil.getSizedBox(width: SlcDimens.appDimens16),
                         Expanded(
                             child: FilledButton(
                                 onPressed: () {
@@ -285,7 +287,7 @@ class SysOperLogListDataVmSub extends FastBaseListDataPageVmSub<SysOperLog> with
     setLoadData((loadMoreFormat) async {
       try {
         IntensifyEntity<PageModel<SysOperLog>> intensifyEntity = await SysOperLogRepository.list(
-                loadMoreFormat.getOffset(), loadMoreFormat.getSize(), currentSearch, defCancelToken)
+                loadMoreFormat.offset, loadMoreFormat.size, currentSearch, defCancelToken)
             .asStream()
             .single;
         DataWrapper<PageModel<SysOperLog>> dataWrapper =

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 
@@ -44,11 +46,11 @@ class TreeNavVd {
                             //getVm().previous(currentItem.id)
                             child: Row(children: [
                               Icon(Icons.arrow_right,
-                                  color: SlcColors.tidyUpColor
+                                  color: themeData.slcTidyUpColor
                                       .getTextColorSecondaryByTheme(themeData)),
                               Text(currentItem.treeName,
                                   style: TextStyle(
-                                      color: SlcColors.tidyUpColor
+                                      color: themeData.slcTidyUpColor
                                           .getTextColorSecondaryByTheme(themeData)))
                             ]));
                       }

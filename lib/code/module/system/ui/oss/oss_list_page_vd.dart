@@ -5,6 +5,8 @@ import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_oss_vo.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/attachment/utils/media_type_constant.dart';
@@ -49,7 +51,7 @@ class OssListPageWidget {
               buildTrailing: buildTrailing);
         },
         separatorBuilder: (context, index) {
-          return SlcStyles.tidyUpStyle.getDefDividerByTheme(themeData);
+          return themeData.slcTidyUpStyle.getDefDividerByTheme(themeData);
         });
   }
 
@@ -125,8 +127,8 @@ class OssListPageWidget {
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
                       child: Text(S.current.sys_label_oss_search,
-                          style: SlcStyles.tidyUpStyle.getTitleTextStyle(themeData))),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                          style: themeData.slcTidyUpStyle.getTitleTextStyle(themeData))),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "fileName",
                       initialValue: listVmSub.currentSearch.fileName,
@@ -146,7 +148,7 @@ class OssListPageWidget {
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "originalName",
                       initialValue: listVmSub.currentSearch.originalName,
@@ -166,7 +168,7 @@ class OssListPageWidget {
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "fileSuffix",
                       initialValue: listVmSub.currentSearch.fileSuffix,
@@ -186,7 +188,7 @@ class OssListPageWidget {
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "service",
                       initialValue: listVmSub.currentSearch.service,
@@ -206,7 +208,7 @@ class OssListPageWidget {
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   Expanded(child: Builder(builder: (context) {
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -217,7 +219,7 @@ class OssListPageWidget {
                                   listVmSub.onResetSearch();
                                 },
                                 child: Text(S.current.action_reset))),
-                        SlcStyles.getSizedBox(width: SlcDimens.appDimens16),
+                        ThemeUtil.getSizedBox(width: SlcDimens.appDimens16),
                         Expanded(
                             child: FilledButton(
                                 onPressed: () {
@@ -253,7 +255,7 @@ class OssListDataVmSub extends FastBaseListDataPageVmSub<SysOssVo> with CancelTo
     setLoadData((loadMoreFormat) async {
       try {
         IntensifyEntity<PageModel<SysOssVo>> intensifyEntity = await SysOssRepository.list(
-                loadMoreFormat.getOffset(), loadMoreFormat.getSize(), currentSearch, defCancelToken)
+                loadMoreFormat.offset, loadMoreFormat.size, currentSearch, defCancelToken)
             .asStream()
             .single;
         DataWrapper<PageModel<SysOssVo>> dataWrapper =

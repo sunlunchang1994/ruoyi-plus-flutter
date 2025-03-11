@@ -4,6 +4,8 @@ import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_config.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
@@ -34,9 +36,7 @@ import 'config_add_edit_page.dart';
 ///参数配置列表
 class ConfigListPageWidget {
   ///数据列表控件
-  static Widget getDataListWidget(
-      ThemeData themeData,
-      ConfigListDataVmSub listVmSub,
+  static Widget getDataListWidget(ThemeData themeData, ConfigListDataVmSub listVmSub,
       Widget Function(SysConfig currentItem) buildTrailing) {
     if (listVmSub.dataList.isEmpty) {
       return const ContentEmptyWrapper();
@@ -48,11 +48,10 @@ class ConfigListPageWidget {
         itemCount: listVmSub.dataList.length,
         itemBuilder: (ctx, index) {
           SysConfig listItem = listVmSub.dataList[index];
-          return getDataListItem(
-              themeData, listVmSub, buildTrailing, index, listItem);
+          return getDataListItem(themeData, listVmSub, buildTrailing, index, listItem);
         },
         separatorBuilder: (context, index) {
-          return SlcStyles.tidyUpStyle.getDefDividerByTheme(themeData);
+          return themeData.slcTidyUpStyle.getDefDividerByTheme(themeData);
         });
   }
 
@@ -97,8 +96,8 @@ class ConfigListPageWidget {
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
                       child: Text(S.current.sys_label_config_search_title,
-                          style: SlcStyles.tidyUpStyle.getTitleTextStyle(themeData))),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                          style: themeData.slcTidyUpStyle.getTitleTextStyle(themeData))),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "configName",
                       initialValue: listVmSub.currentSearch.configName,
@@ -107,12 +106,9 @@ class ConfigListPageWidget {
                           labelText: S.current.sys_label_config_name,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqNullSelector<A, String?>(
-                              builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixByInputVal(
-                                value,
-                                formOperate: listVmSub.formOperate,
-                                formFieldName: "configName");
+                          suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
+                            return InputDecUtils.autoClearSuffixByInputVal(value,
+                                formOperate: listVmSub.formOperate, formFieldName: "configName");
                           }, selector: (context, vm) {
                             return listVmSub.currentSearch.configName;
                           })),
@@ -121,7 +117,7 @@ class ConfigListPageWidget {
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "configKey",
                       initialValue: listVmSub.currentSearch.configKey,
@@ -130,12 +126,9 @@ class ConfigListPageWidget {
                           labelText: S.current.sys_label_config_key,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqNullSelector<A, String?>(
-                              builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixByInputVal(
-                                value,
-                                formOperate: listVmSub.formOperate,
-                                formFieldName: "configKey");
+                          suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
+                            return InputDecUtils.autoClearSuffixByInputVal(value,
+                                formOperate: listVmSub.formOperate, formFieldName: "configKey");
                           }, selector: (context, vm) {
                             return listVmSub.currentSearch.configKey;
                           })),
@@ -144,13 +137,12 @@ class ConfigListPageWidget {
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderSelect(
                       name: "configTypeName",
                       initialValue: listVmSub.currentSearch.configTypeName,
                       onTap: () {
-                        DictUiUtils.showSelectDialog(
-                            context, LocalDictLib.CODE_SYS_NOTICE_TYPE,
+                        DictUiUtils.showSelectDialog(context, LocalDictLib.CODE_SYS_NOTICE_TYPE,
                             (value) {
                           //选择后设置性别
                           listVmSub.setSelectConfigType(value);
@@ -161,17 +153,15 @@ class ConfigListPageWidget {
                           labelText: S.current.sys_label_config_type,
                           hintText: S.current.app_label_please_choose,
                           border: const UnderlineInputBorder(),
-                          suffixIcon: NqNullSelector<A, String?>(
-                              builder: (context, value, child) {
-                            return InputDecUtils.autoClearSuffixBySelectVal(
-                                value, onPressed: () {
+                          suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
+                            return InputDecUtils.autoClearSuffixBySelectVal(value, onPressed: () {
                               listVmSub.setSelectConfigType(null);
                             });
                           }, selector: (context, vm) {
                             return listVmSub.currentSearch.configTypeName;
                           })),
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   Expanded(child: Builder(builder: (context) {
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -182,7 +172,7 @@ class ConfigListPageWidget {
                                   listVmSub.onResetSearch();
                                 },
                                 child: Text(S.current.action_reset))),
-                        SlcStyles.getSizedBox(width: SlcDimens.appDimens16),
+                        ThemeUtil.getSizedBox(width: SlcDimens.appDimens16),
                         Expanded(
                             child: FilledButton(
                                 onPressed: () {
@@ -204,7 +194,7 @@ class ConfigListPageWidget {
 }
 
 ///参数配置数据VmSub
-class ConfigListDataVmSub extends FastBaseListDataPageVmSub<SysConfig> with CancelTokenAssist{
+class ConfigListDataVmSub extends FastBaseListDataPageVmSub<SysConfig> with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   SysConfig _currentSysConfigSearch = SysConfig();
@@ -217,24 +207,22 @@ class ConfigListDataVmSub extends FastBaseListDataPageVmSub<SysConfig> with Canc
     //设置刷新方法主体
     setLoadData((loadMoreFormat) async {
       try {
-        IntensifyEntity<PageModel<SysConfig>> intensifyEntity =
-            await SysConfigRepository.list(loadMoreFormat.getOffset(),
-                    loadMoreFormat.getSize(), currentSearch, defCancelToken)
-                .asStream()
-                .single;
+        IntensifyEntity<PageModel<SysConfig>> intensifyEntity = await SysConfigRepository.list(
+                loadMoreFormat.offset, loadMoreFormat.size, currentSearch, defCancelToken)
+            .asStream()
+            .single;
         DataWrapper<PageModel<SysConfig>> dataWrapper =
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
         return dataWrapper;
       } catch (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
-        return DataWrapper.createFailed(
-            code: resultEntity.code, msg: resultEntity.msg);
+        return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
       }
     });
     //设置点击item事件主体
     setItemClick((index, data) {
-      pushNamed(ConfigAddEditPage.routeName,
-          arguments: {ConstantSys.KEY_SYS_CONFIG: data}).then((result) {
+      pushNamed(ConfigAddEditPage.routeName, arguments: {ConstantSys.KEY_SYS_CONFIG: data})
+          .then((result) {
         if (result != null) {
           //更新列表
           sendRefreshEvent();
@@ -246,8 +234,7 @@ class ConfigListDataVmSub extends FastBaseListDataPageVmSub<SysConfig> with Canc
   void setSelectConfigType(ITreeDict<dynamic>? data) {
     _currentSysConfigSearch.configType = data?.tdDictValue;
     _currentSysConfigSearch.configTypeName = data?.tdDictLabel;
-    formOperate.patchField(
-        "configTypeName", _currentSysConfigSearch.configTypeName);
+    formOperate.patchField("configTypeName", _currentSysConfigSearch.configTypeName);
     notifyListeners();
   }
 

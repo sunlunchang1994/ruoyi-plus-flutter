@@ -7,6 +7,8 @@ import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/role.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
@@ -49,7 +51,7 @@ class RoleListPageVd {
               buildTrailing: buildTrailing);
         },
         separatorBuilder: (context, index) {
-          return SlcStyles.tidyUpStyle.getDefDividerByTheme(themeData);
+          return themeData.slcTidyUpStyle.getDefDividerByTheme(themeData);
         });
   }
 
@@ -88,8 +90,8 @@ class RoleListPageVd {
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
                       child: Text(S.current.user_label_search_role,
-                          style: SlcStyles.tidyUpStyle.getTitleTextStyle(themeData))),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                          style: themeData.slcTidyUpStyle.getTitleTextStyle(themeData))),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "roleName",
                       initialValue: listVmSub.searchRole.roleName,
@@ -109,7 +111,7 @@ class RoleListPageVd {
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   FormBuilderTextField(
                       name: "roleKey",
                       initialValue: listVmSub.searchRole.roleKey,
@@ -130,7 +132,7 @@ class RoleListPageVd {
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderSelect(
                       name: "status",
                       initialValue: listVmSub.searchRole.statusName,
@@ -167,7 +169,7 @@ class RoleListPageVd {
                                   listVmSub.onResetSearch();
                                 },
                                 child: Text(S.current.action_reset))),
-                        SlcStyles.getSizedBox(width: SlcDimens.appDimens16),
+                        ThemeUtil.getSizedBox(width: SlcDimens.appDimens16),
                         Expanded(
                             child: FilledButton(
                                 onPressed: () {
@@ -199,10 +201,7 @@ class RolePageDataVmSub extends FastBaseListDataPageVmSub<Role> with CancelToken
         (loadMoreFormat) async {
           try {
             IntensifyEntity<PageModel<Role>> result = await RoleRepository.list(
-                getLoadMoreFormat().getOffset(),
-                getLoadMoreFormat().getSize(),
-                searchRole,
-                defCancelToken);
+                loadMoreFormat.offset, loadMoreFormat.size, searchRole, defCancelToken);
             //返回数据结构
             DataWrapper<PageModel<Role>> dataWrapper = DataTransformUtils.entity2LDWrapper(result);
             return dataWrapper;

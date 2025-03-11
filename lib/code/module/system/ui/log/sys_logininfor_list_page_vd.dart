@@ -4,6 +4,8 @@ import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
@@ -45,7 +47,7 @@ class SysLogininforListPageWidget {
           return getDataListItem(themeData, listVmSub, index, listItem);
         },
         separatorBuilder: (context, index) {
-          return SlcStyles.tidyUpStyle.getDefDividerByTheme(themeData);
+          return themeData.slcTidyUpStyle.getDefDividerByTheme(themeData);
         });
   }
 
@@ -74,7 +76,7 @@ class SysLogininforListPageWidget {
                   style: SysStyle.sysLogListStatusText.copyWith(color: statusColor),
                   strutStyle: SysStyle.sysLogListStatusTextStrutStyle,
                 )),
-            SlcStyles.getSizedBox(width: SlcDimens.appDimens16)
+            ThemeUtil.getSizedBox(width: SlcDimens.appDimens16)
           ],
         ),
         subtitle: Padding(
@@ -117,8 +119,8 @@ class SysLogininforListPageWidget {
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
                       child: Text(S.current.sys_label_logininfor_search,
-                          style: SlcStyles.tidyUpStyle.getTitleTextStyle(themeData))),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                          style: themeData.slcTidyUpStyle.getTitleTextStyle(themeData))),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "ipaddr",
                       initialValue: searchVm.currentSearch.ipaddr,
@@ -139,7 +141,7 @@ class SysLogininforListPageWidget {
                         searchVm.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "userName",
                       initialValue: searchVm.currentSearch.userName,
@@ -160,7 +162,7 @@ class SysLogininforListPageWidget {
                         searchVm.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderSelect(
                       name: "statusName",
                       initialValue: searchVm.currentSearch.statusName,
@@ -184,7 +186,7 @@ class SysLogininforListPageWidget {
                             return searchVm.currentSearch.statusName;
                           })),
                       textInputAction: TextInputAction.next),
-                  SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   Expanded(child: Builder(builder: (context) {
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -195,7 +197,7 @@ class SysLogininforListPageWidget {
                                   searchVm.onResetSearch();
                                 },
                                 child: Text(S.current.action_reset))),
-                        SlcStyles.getSizedBox(width: SlcDimens.appDimens16),
+                        ThemeUtil.getSizedBox(width: SlcDimens.appDimens16),
                         Expanded(
                             child: FilledButton(
                                 onPressed: () {
@@ -228,8 +230,8 @@ class LogininforListDataVmSub extends FastBaseListDataPageVmSub<SysLogininfor>
     setLoadData((loadMoreFormat) async {
       try {
         IntensifyEntity<PageModel<SysLogininfor>> intensifyEntity =
-            await SysLogininforRepository.list(loadMoreFormat.getOffset(), loadMoreFormat.getSize(),
-                    currentSearch, defCancelToken)
+            await SysLogininforRepository.list(
+                    loadMoreFormat.offset, loadMoreFormat.size, currentSearch, defCancelToken)
                 .asStream()
                 .single;
         DataWrapper<PageModel<SysLogininfor>> dataWrapper =

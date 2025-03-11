@@ -5,6 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/status_widget.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
@@ -72,8 +73,7 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
   }
 
   @override
-  Widget getSuccessWidget(BuildContext context,
-      {Map<String, dynamic>? params}) {
+  Widget getSuccessWidget(BuildContext context, {Map<String, dynamic>? params}) {
     ThemeData themeData = Theme.of(context);
     return KeyboardAvoider(
         autoScroll: true,
@@ -87,15 +87,14 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
                 },
                 child: Column(
                   children: [
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens8),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens8),
                     MyFormBuilderTextField(
                         name: "configName",
                         initialValue: getVm().sysConfig!.configName,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.sys_label_config_name),
+                            label: InputDecUtils.getRequiredLabel(S.current.sys_label_config_name),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
@@ -106,15 +105,14 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
                           FormBuilderValidators.required(),
                         ]),
                         textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "configKey",
                         initialValue: getVm().sysConfig!.configKey,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.sys_label_config_key),
+                            label: InputDecUtils.getRequiredLabel(S.current.sys_label_config_key),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
@@ -125,15 +123,14 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
                           FormBuilderValidators.required(),
                         ]),
                         textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "configValue",
                         initialValue: getVm().sysConfig!.configValue,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: InputDecUtils.getRequiredLabel(
-                                S.current.sys_label_config_value),
+                            label: InputDecUtils.getRequiredLabel(S.current.sys_label_config_value),
                             hintText: S.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
@@ -144,18 +141,16 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
                           FormBuilderValidators.required(),
                         ]),
                         textInputAction: TextInputAction.next),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderRadioGroup<OptionVL<String>>(
                         name: "configTypeName",
-                        initialValue: DictUiUtils.dict2OptionVL(GlobalVm()
-                            .dictShareVm
-                            .findDict(LocalDictLib.CODE_SYS_YES_NO,
-                                getVm().sysConfig!.configType,
-                                defDictKey: LocalDictLib.KEY_SYS_YES_NO_N)),
+                        initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
+                            LocalDictLib.CODE_SYS_YES_NO, getVm().sysConfig!.configType,
+                            defDictKey: LocalDictLib.KEY_SYS_YES_NO_N)),
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        options: DictUiUtils.dictList2FromOption(globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_YES_NO]!),
-                        decoration: MyInputDecoration(
-                            labelText: S.current.sys_label_config_value),
+                        options: DictUiUtils.dictList2FromOption(
+                            globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_YES_NO]!),
+                        decoration: MyInputDecoration(labelText: S.current.sys_label_config_value),
                         onChanged: (value) {
                           getVm().applyInfoChange();
                           getVm().sysConfig!.configType = value?.value;
@@ -164,7 +159,7 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(),
                         ])),
-                    SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+                    ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "remark",
                         initialValue: getVm().sysConfig!.remark,
@@ -201,8 +196,7 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
   }
 }
 
-class _ConfigAddEditVm extends AppBaseVm with CancelTokenAssist{
-
+class _ConfigAddEditVm extends AppBaseVm with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   SysConfig? sysConfig;
@@ -216,16 +210,14 @@ class _ConfigAddEditVm extends AppBaseVm with CancelTokenAssist{
     if (sysConfig == null) {
       sysConfig = SysConfig();
       this.sysConfig = sysConfig;
-      setLoadingStatusWithNotify(LoadingStatus.success,notify: false);
+      setLoadingStatusWithNotify(LoadingStatus.success, notify: false);
     } else {
-      SysConfigRepository.getInfo(sysConfig.configId!, defCancelToken)
-          .asStream()
-          .single
-          .then((intensifyEntity) {
+      SysConfigRepository.getInfo(sysConfig.configId!, defCancelToken).asStream().single.then(
+          (intensifyEntity) {
         this.sysConfig = intensifyEntity.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        BaseDio.showToastByError(e);
+        BaseDio.handlerError(e);
         finish();
       });
     }
@@ -265,7 +257,7 @@ class _ConfigAddEditVm extends AppBaseVm with CancelTokenAssist{
       finish(result: sysConfig);
     }, onError: (error) {
       dismissLoading();
-      BaseDio.showToastByError(error);
+      BaseDio.handlerError(error);
     });
   }
 }

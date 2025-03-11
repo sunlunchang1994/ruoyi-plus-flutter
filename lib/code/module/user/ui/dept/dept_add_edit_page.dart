@@ -6,6 +6,7 @@ import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/status_widget.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
@@ -100,7 +101,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
   //获取表单的item
   List<Widget> getFormItem() {
     List<Widget> formItemArray = List.empty(growable: true);
-    formItemArray.add(SlcStyles.getSizedBox(height: SlcDimens.appDimens8));
+    formItemArray.add(ThemeUtil.getSizedBox(height: SlcDimens.appDimens8));
     //父节点id不是顶级父节点则展示选择父节点控件
     if (ConstantBase.VALUE_PARENT_ID_DEF != getVm().deptInfo?.parentId) {
       formItemArray.add(MyFormBuilderSelect(
@@ -117,7 +118,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
             FormBuilderValidators.required(),
           ]),
           textInputAction: TextInputAction.next));
-      formItemArray.add(SlcStyles.getSizedBox(height: SlcDimens.appDimens16));
+      formItemArray.add(ThemeUtil.getSizedBox(height: SlcDimens.appDimens16));
     }
     formItemArray.addAll(<Widget>{
       FormBuilderTextField(
@@ -138,7 +139,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
             FormBuilderValidators.required(),
           ]),
           textInputAction: TextInputAction.next),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderTextField(
           name: "deptCategory",
           initialValue: getVm().deptInfo!.deptCategory,
@@ -154,7 +155,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
             getVm().deptInfo!.deptCategory = value;
           },
           textInputAction: TextInputAction.next),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderTextField(
         name: "orderNum",
         initialValue: () {
@@ -179,7 +180,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
         keyboardType: TextInputType.number,
         textInputAction: TextInputAction.next,
       ),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       MyFormBuilderSelect(
           name: "leaderName",
           initialValue: getVm().deptInfo!.leaderName,
@@ -198,7 +199,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
             }),
           ),
           textInputAction: TextInputAction.next),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderTextField(
           name: "phone",
           initialValue: getVm().deptInfo!.phone,
@@ -219,7 +220,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
           ]),
           keyboardType: TextInputType.number,
           textInputAction: TextInputAction.next),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderTextField(
           name: "email",
           initialValue: getVm().deptInfo!.email,
@@ -240,7 +241,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
           ]),
           keyboardType: TextInputType.emailAddress,
           textInputAction: TextInputAction.next),
-      SlcStyles.getSizedBox(height: SlcDimens.appDimens16),
+      ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderRadioGroup<OptionVL<String>>(
         decoration: MyInputDecoration(labelText: S.current.user_label_dept_status),
         name: "status",
@@ -311,7 +312,7 @@ class _DeptAddEditModel extends AppBaseVm with CancelTokenAssist {
         this.deptInfo = result.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        BaseDio.showToastByError(e);
+        BaseDio.handlerError(e);
         finish();
       });
     }
@@ -379,7 +380,7 @@ class _DeptAddEditModel extends AppBaseVm with CancelTokenAssist {
       finish(result: deptInfo);
     }, onError: (error) {
       dismissLoading();
-      BaseDio.showToastByError(error);
+      BaseDio.handlerError(error);
     });
   }
 }

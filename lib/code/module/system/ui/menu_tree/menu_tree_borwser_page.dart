@@ -85,10 +85,10 @@ class MenuTreeBrowserPage extends AppBaseStatelessWidget<_MenuTreeBrowserVm> {
 }
 
 class _MenuTreeBrowserVm extends AppBaseVm {
-  late MenuTreeListDataVmSub listVmSub;
+  late RoleMenuTreeListDataVmSub listVmSub;
 
   void initVm() {
-    listVmSub = MenuTreeListDataVmSub(this);
+    listVmSub = RoleMenuTreeListDataVmSub(this);
     registerVmSub(listVmSub);
     SlcTreeNav slcTreeNav =
         SlcTreeNav(ConstantBase.VALUE_PARENT_ID_DEF, S.current.menu_label_root);

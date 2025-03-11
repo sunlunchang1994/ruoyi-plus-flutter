@@ -105,6 +105,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "app_label_location_permission_request_hint_denied":
         MessageLookupByLibrary.simpleMessage("您没有授予位置权限，此功能将无法使用！"),
     "app_label_logging_in": MessageLookupByLibrary.simpleMessage("正在登录"),
+    "app_label_login_normal_unauthorized": MessageLookupByLibrary.simpleMessage(
+      "登录失效，请重新登录！",
+    ),
     "app_label_no_location_information": MessageLookupByLibrary.simpleMessage(
       "未获取到位置信息",
     ),
@@ -167,6 +170,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "label_delete_ing": MessageLookupByLibrary.simpleMessage("正在删除..."),
     "label_delete_really": MessageLookupByLibrary.simpleMessage("确认删除？"),
     "label_delete_success": MessageLookupByLibrary.simpleMessage("删除成功"),
+    "label_error_connection_error": MessageLookupByLibrary.simpleMessage(
+      "连接服务器失败！",
+    ),
+    "label_error_connection_timeout": MessageLookupByLibrary.simpleMessage(
+      "连接服务器超时，请检查网络！",
+    ),
+    "label_error_receive_timeout": MessageLookupByLibrary.simpleMessage(
+      "接收服务器数据超时，请检查网络！",
+    ),
+    "label_error_send_timeout": MessageLookupByLibrary.simpleMessage(
+      "服务器读取超时，请检查网络！",
+    ),
     "label_exiting": MessageLookupByLibrary.simpleMessage("正在退出..."),
     "label_file_are_uploading": MessageLookupByLibrary.simpleMessage("正在上传"),
     "label_file_download_failed": MessageLookupByLibrary.simpleMessage(
@@ -503,6 +518,63 @@ class MessageLookup extends MessageLookupByLibrary {
     "sys_label_sys_client_timeout": MessageLookupByLibrary.simpleMessage(
       "token固定超时时间",
     ),
+    "sys_label_sys_tenant_account_count": MessageLookupByLibrary.simpleMessage(
+      "账户数量",
+    ),
+    "sys_label_sys_tenant_add": MessageLookupByLibrary.simpleMessage("新增租户"),
+    "sys_label_sys_tenant_address": MessageLookupByLibrary.simpleMessage(
+      "企业地址",
+    ),
+    "sys_label_sys_tenant_company_name": MessageLookupByLibrary.simpleMessage(
+      "企业名称",
+    ),
+    "sys_label_sys_tenant_contact_phone": MessageLookupByLibrary.simpleMessage(
+      "联系电话",
+    ),
+    "sys_label_sys_tenant_contact_user_name":
+        MessageLookupByLibrary.simpleMessage("联系人"),
+    "sys_label_sys_tenant_domain": MessageLookupByLibrary.simpleMessage("绑定域名"),
+    "sys_label_sys_tenant_edit": MessageLookupByLibrary.simpleMessage("编辑租户"),
+    "sys_label_sys_tenant_expire_time": MessageLookupByLibrary.simpleMessage(
+      "过期时间",
+    ),
+    "sys_label_sys_tenant_id": MessageLookupByLibrary.simpleMessage("租户编号"),
+    "sys_label_sys_tenant_intro": MessageLookupByLibrary.simpleMessage("企业简介"),
+    "sys_label_sys_tenant_license_number": MessageLookupByLibrary.simpleMessage(
+      "企业代码",
+    ),
+    "sys_label_sys_tenant_package_add": MessageLookupByLibrary.simpleMessage(
+      "新增租户套餐",
+    ),
+    "sys_label_sys_tenant_package_context_menu":
+        MessageLookupByLibrary.simpleMessage("关联菜单"),
+    "sys_label_sys_tenant_package_edit": MessageLookupByLibrary.simpleMessage(
+      "编辑租户套餐",
+    ),
+    "sys_label_sys_tenant_package_id": MessageLookupByLibrary.simpleMessage(
+      "租户套餐",
+    ),
+    "sys_label_sys_tenant_package_name": MessageLookupByLibrary.simpleMessage(
+      "套餐名称",
+    ),
+    "sys_label_sys_tenant_package_remark": MessageLookupByLibrary.simpleMessage(
+      "备注",
+    ),
+    "sys_label_sys_tenant_package_search": MessageLookupByLibrary.simpleMessage(
+      "搜索租户套餐",
+    ),
+    "sys_label_sys_tenant_remark": MessageLookupByLibrary.simpleMessage("备注"),
+    "sys_label_sys_tenant_search": MessageLookupByLibrary.simpleMessage("搜索租户"),
+    "sys_label_sys_tenant_status": MessageLookupByLibrary.simpleMessage("状态"),
+    "sys_label_sys_tenant_user_name": MessageLookupByLibrary.simpleMessage(
+      "用户名",
+    ),
+    "sys_label_sys_tenant_user_pw": MessageLookupByLibrary.simpleMessage(
+      "用户密码",
+    ),
+    "sys_label_sys_tenant_x_expire_time": MessageLookupByLibrary.simpleMessage(
+      "到期",
+    ),
     "sys_label_system_dict_edit_hint": MessageLookupByLibrary.simpleMessage(
       "系统字典不允许修改",
     ),
@@ -673,6 +745,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "user_toast_login_login_successful": MessageLookupByLibrary.simpleMessage(
       "登录成功",
+    ),
+    "user_toast_menu_super_edit_refuse": MessageLookupByLibrary.simpleMessage(
+      "该角色不允许修改",
     ),
   };
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
 
 import '../../../../feature/bizapi/system/entity/router_vo.dart';
 
@@ -18,7 +17,7 @@ class MenuItemView extends StatelessWidget {
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
     return Ink(
-        color: SlcColors.tidyUpColor.getCardColorByTheme(themeData),
+        color: themeData.slcTidyUpColor.getCardColorByTheme(themeData),
         child: InkWell(
           onTap: onTap,
           child: Column(
