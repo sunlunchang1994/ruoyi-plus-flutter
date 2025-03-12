@@ -185,7 +185,7 @@ class UserOnlineListDataVmSub extends FastBaseListDataPageVmSub<SysUserOnline>
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   //显示详情
-  final Map<String, bool> showDetails = {};
+  final Map<String, bool> showDetailsStatusMap = {};
 
   String? ipaddr;
   String? userName;
@@ -202,7 +202,7 @@ class UserOnlineListDataVmSub extends FastBaseListDataPageVmSub<SysUserOnline>
                 .asStream()
                 .map((result) {
           result.data?.getListNoNull().forEach((dataItem) {
-            dataItem.showDetail = showDetails[dataItem.tokenId!] ?? false;
+            dataItem.showDetail = showDetailsStatusMap[dataItem.tokenId!] ?? false;
           });
           return result;
         }).single;
@@ -236,7 +236,7 @@ class UserOnlineListDataVmSub extends FastBaseListDataPageVmSub<SysUserOnline>
 
   void onHandlerShowDetails(SysUserOnline itemData) {
     itemData.showDetail = !itemData.showDetail;
-    showDetails[itemData.tokenId!] = itemData.showDetail;
+    showDetailsStatusMap[itemData.tokenId!] = itemData.showDetail;
     shouldSetState.updateVersion();
     notifyListeners();
   }

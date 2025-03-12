@@ -236,6 +236,9 @@ class LogininforListDataVmSub extends FastBaseListDataPageVmSub<SysLogininfor>
     with CancelTokenAssist {
   SysLogininfor currentSearch = SysLogininfor();
 
+  //显示详情
+  final Map<int, bool> showDetailsStatusMap = {};
+
   void Function(SysLogininfor data)? onSuffixClick;
 
   LogininforListDataVmSub() {
@@ -246,7 +249,12 @@ class LogininforListDataVmSub extends FastBaseListDataPageVmSub<SysLogininfor>
             await SysLogininforRepository.list(
                     loadMoreFormat.offset, loadMoreFormat.size, currentSearch, defCancelToken)
                 .asStream()
-                .single;
+                .map((result) {
+          result.data?.getListNoNull().forEach((dataItem) {
+            dataItem.showDetail = showDetailsStatusMap[dataItem.infoId!] ?? false;
+          });
+          return result;
+        }).single;
         DataWrapper<PageModel<SysLogininfor>> dataWrapper =
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
         return dataWrapper;
@@ -263,6 +271,7 @@ class LogininforListDataVmSub extends FastBaseListDataPageVmSub<SysLogininfor>
 
   void onHandlerShowDetails(SysLogininfor itemData) {
     itemData.showDetail = !itemData.showDetail;
+    showDetailsStatusMap[itemData.infoId!] = itemData.showDetail;
     shouldSetState.updateVersion();
     notifyListeners();
   }
