@@ -3,16 +3,12 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_oss_vo.dart';
-import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_oss_config.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/oss/oss_details_page.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_user_online.dart';
 
 import '../../../../../../generated/l10n.dart';
 import '../../../../../base/api/base_dio.dart';
@@ -22,22 +18,18 @@ import '../../../../../lib/fast/provider/fast_select.dart';
 import '../../../../../lib/fast/utils/widget_utils.dart';
 import '../../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../../lib/fast/vd/refresh/content_empty.dart';
-import '../../../../../lib/fast/vd/request_token_manager.dart';
+
 import '../../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
 import '../../../../../lib/fast/widget/form/form_operate_with_provider.dart';
 import '../../../../../lib/fast/widget/form/input_decoration_utils.dart';
-import 'package:dio/dio.dart';
-
-import '../../../config/constant_sys.dart';
-import '../../../repository/remote/sys_oss_config_api.dart';
-import 'oss_config_add_edit_page.dart';
+import '../../../repository/remote/sys_user_online_api.dart';
 
 ///@author slc
-///Oss列表
-class OssConfigListPageWidget {
+///在线用户列表
+class NoticeListPageWidget {
   ///数据列表控件
-  static Widget getDataListWidget(ThemeData themeData, OssConfigListDataVmSub listVmSub,
-      {Widget? Function(SysOssConfig currentItem)? buildTrailing}) {
+  static Widget getDataListWidget(ThemeData themeData, UserOnlineListDataVmSub listVmSub,
+      Widget? Function(SysUserOnline currentItem) buildTrailing) {
     if (listVmSub.dataList.isEmpty) {
       return const ContentEmptyWrapper();
     }
@@ -47,39 +39,59 @@ class OssConfigListPageWidget {
         padding: EdgeInsets.zero,
         itemCount: listVmSub.dataList.length,
         itemBuilder: (ctx, index) {
-          SysOssConfig listItem = listVmSub.dataList[index];
-          return getDataListItem(themeData, listVmSub, index, listItem,
-              buildTrailing: buildTrailing);
+          SysUserOnline listItem = listVmSub.dataList[index];
+          return getDataListItem(themeData, listVmSub, buildTrailing, index, listItem);
         },
         separatorBuilder: (context, index) {
           return themeData.slcTidyUpStyle.getDefDividerByTheme(themeData);
         });
   }
 
-  static Widget getDataListItem(ThemeData themeData, ListenerItemClick<dynamic> listenerItemClick,
-      int index, SysOssConfig listItem,
-      {Widget? Function(SysOssConfig currentItem)? buildTrailing}) {
+  static Widget getDataListItem(
+    ThemeData themeData,
+    ListenerItemClick<dynamic> listenerItemClick,
+    Widget? Function(SysUserOnline currentItem) buildTrailing,
+    int index,
+    SysUserOnline listItem,
+  ) {
     return ListTile(
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
-        title: Text(listItem.configKey!),
-        subtitle: Text("${listItem.endpoint} / ${listItem.bucketName}"),
-        trailing: Transform.scale(
-            scale: 0.8,
-            alignment: Alignment.centerLeft,
-            child: Switch(
-                value: listItem.isDefStatus(),
-                onChanged: (value) {
-                  (listenerItemClick as OssConfigListDataVmSub).onChangeDefStatus(listItem, value);
-                })),
-        visualDensity: VisualDensity.compact,
+        title: Text("${listItem.userName} / ${listItem.deptName}"),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: () {
+            List<Widget> widgets = [];
+            widgets.add(Text(listItem.loginTime ?? ""));
+            widgets.add(AnimatedSize(
+              duration: const Duration(milliseconds: 300),
+              alignment: Alignment.topLeft, // 设置对齐方式确保从上到下展开
+              curve: Curves.easeInOut,
+              child: Visibility(
+                visible: listItem.showDetail,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("${listItem.browser} / ${listItem.os}"),
+                    Text("${listItem.ipaddr} / ${listItem.loginLocation}")
+                  ],
+                ),
+              ),
+            ));
+            return widgets;
+          }.call(),
+        ),
+        trailing: buildTrailing.call(listItem),
+        visualDensity: WidgetUtils.minimumDensity,
+        //根据card规则实现
         onTap: () {
           listenerItemClick.onItemClick(index, listItem);
+          //getVm().nextByDept(listItem);
         });
   }
 
   ///搜索侧滑栏视图
   static Widget getSearchEndDrawer<A>(
-      BuildContext context, ThemeData themeData, OssConfigListDataVmSub listVmSub,
+      BuildContext context, ThemeData themeData, UserOnlineListDataVmSub listVmSub,
       {List<Widget>? Function(String? name)? formItemSlot}) {
     return Container(
         color: themeData.colorScheme.surface,
@@ -89,7 +101,7 @@ class OssConfigListPageWidget {
             left: SlcDimens.appDimens16,
             right: SlcDimens.appDimens16,
             bottom: SlcDimens.appDimens14),
-        child: Selector0<SysOssConfig>(builder: (context, value, child) {
+        child: Consumer<A>(builder: (context, value, child) {
           return FormBuilder(
               key: listVmSub.formOperate.formKey,
               child: Column(
@@ -97,48 +109,49 @@ class OssConfigListPageWidget {
                   Container(
                       alignment: Alignment.centerLeft,
                       height: themeData.appBarTheme.toolbarHeight,
-                      child: Text(S.current.sys_label_oss_search,
+                      child: Text(S.current.sys_label_notice_search_title,
                           style: themeData.slcTidyUpStyle.getTitleTextStyle(themeData))),
                   ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
-                      name: "configKey",
-                      initialValue: listVmSub.currentSearch.configKey,
+                      name: "ipaddr",
+                      initialValue: listVmSub.ipaddr,
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          labelText: S.current.sys_label_oss_config_key,
+                          labelText: S.current.sys_label_online_login_address,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
-                                formOperate: listVmSub.formOperate, formFieldName: "configKey");
+                                formOperate: listVmSub.formOperate, formFieldName: "ipaddr");
                           }, selector: (context, vm) {
-                            return listVmSub.currentSearch.configKey;
+                            return listVmSub.ipaddr;
                           })),
                       onChanged: (value) {
-                        listVmSub.currentSearch.configKey = value;
+                        listVmSub.ipaddr = value;
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
                   ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
-                      name: "bucketName",
-                      initialValue: listVmSub.currentSearch.bucketName,
+                      name: "userName",
+                      initialValue: listVmSub.userName,
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          labelText: S.current.sys_label_oss_config_bucket_name,
+                          labelText: S.current.sys_label_online_login_user_name,
                           hintText: S.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
-                                formOperate: listVmSub.formOperate, formFieldName: "bucketName");
+                                formOperate: listVmSub.formOperate, formFieldName: "userName");
                           }, selector: (context, vm) {
-                            return listVmSub.currentSearch.bucketName;
+                            return listVmSub.userName;
                           })),
                       onChanged: (value) {
-                        listVmSub.currentSearch.bucketName = value;
+                        listVmSub.userName = value;
                         listVmSub.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
+                  ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   Expanded(child: Builder(builder: (context) {
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -162,71 +175,55 @@ class OssConfigListPageWidget {
                   }))
                 ],
               ));
-        }, selector: (context) {
-          return listVmSub.currentSearch;
-        }, shouldRebuild: (oldVal, newVal) {
-          return false;
         }));
   }
 }
 
-///Oss数据VmSub
-class OssConfigListDataVmSub extends FastBaseListDataPageVmSub<SysOssConfig>
+///在线用户数据VmSub
+class UserOnlineListDataVmSub extends FastBaseListDataPageVmSub<SysUserOnline>
     with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
-  SysOssConfig _currentSysOssConfigSearch = SysOssConfig();
+  //显示详情
+  final Map<String, bool> showDetails = {};
 
-  SysOssConfig get currentSearch => _currentSysOssConfigSearch;
+  String? ipaddr;
+  String? userName;
 
-  void Function(SysOssVo data)? onSuffixClick;
+  void Function(SysUserOnline data)? onSuffixClick;
 
-  OssConfigListDataVmSub() {
+  UserOnlineListDataVmSub() {
     //设置刷新方法主体
     setLoadData((loadMoreFormat) async {
       try {
-        IntensifyEntity<PageModel<SysOssConfig>> intensifyEntity =
-            await SysOssConfigRepository.list(
-                    loadMoreFormat.offset, loadMoreFormat.size, currentSearch, defCancelToken)
+        IntensifyEntity<PageModel<SysUserOnline>> intensifyEntity =
+            await SysUserOnlineRepository.list(
+                    loadMoreFormat.offset, loadMoreFormat.size, ipaddr, userName, defCancelToken)
                 .asStream()
-                .single;
-        DataWrapper<PageModel<SysOssConfig>> dataWrapper =
+                .map((result) {
+          result.data?.getListNoNull().forEach((dataItem) {
+            dataItem.showDetail = showDetails[dataItem.tokenId!] ?? false;
+          });
+          return result;
+        }).single;
+        DataWrapper<PageModel<SysUserOnline>> dataWrapper =
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
         return dataWrapper;
       } catch (e) {
-        ResultEntity resultEntity = BaseDio.getError(e);
+        ResultEntity resultEntity = BaseDio.handlerError(e, showToast: false);
         return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
       }
     });
     //设置点击item事件主体
     setItemClick((index, data) {
-      pushNamed(OssConfigAddEditPage.routeName, arguments: {ConstantSys.KEY_SYS_OSS_CONFIG: data})
-          .then((result) {
-        if (result != null) {
-          sendRefreshEvent();
-        }
-      });
-    });
-  }
-
-  //改变status
-  void onChangeDefStatus(SysOssConfig ossConfig, bool value) {
-    ossConfig.status =
-        value ? LocalDictLib.KEY_SYS_YES_NO_INT_Y : LocalDictLib.KEY_SYS_YES_NO_INT_N;
-    showLoading(text: S.current.label_submit_ing);
-    SysOssConfigRepository.changeStatus(ossConfig, defCancelToken).then((result) {
-      dismissLoading();
-      shouldSetState.updateVersion();
-      notifyListeners();
-    }, onError: (e) {
-      dismissLoading();
-      BaseDio.handlerError(e);
+      onHandlerShowDetails(data);
     });
   }
 
   //重置
   void onResetSearch() {
-    _currentSysOssConfigSearch = SysOssConfig();
+    ipaddr = null;
+    userName = null;
     formOperate.clearAll();
     notifyListeners();
   }
@@ -235,5 +232,12 @@ class OssConfigListDataVmSub extends FastBaseListDataPageVmSub<SysOssConfig>
   void onSearch() {
     formOperate.formBuilderState?.save();
     sendRefreshEvent();
+  }
+
+  void onHandlerShowDetails(SysUserOnline itemData) {
+    itemData.showDetail = !itemData.showDetail;
+    showDetails[itemData.tokenId!] = itemData.showDetail;
+    shouldSetState.updateVersion();
+    notifyListeners();
   }
 }

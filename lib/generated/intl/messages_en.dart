@@ -427,6 +427,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "sys_label_notice_type_select": MessageLookupByLibrary.simpleMessage(
       "请选择公告类型",
     ),
+    "sys_label_online_login_address": MessageLookupByLibrary.simpleMessage(
+      "登录地址",
+    ),
+    "sys_label_online_login_user_name": MessageLookupByLibrary.simpleMessage(
+      "用户名称",
+    ),
     "sys_label_oper_business_type": MessageLookupByLibrary.simpleMessage("类型"),
     "sys_label_oper_cost_time": MessageLookupByLibrary.simpleMessage("消耗时间"),
     "sys_label_oper_id": MessageLookupByLibrary.simpleMessage("日志编号"),
@@ -563,9 +569,33 @@ class MessageLookup extends MessageLookupByLibrary {
     "sys_label_sys_tenant_package_search": MessageLookupByLibrary.simpleMessage(
       "搜索租户套餐",
     ),
+    "sys_label_sys_tenant_package_select": MessageLookupByLibrary.simpleMessage(
+      "选择租户套餐",
+    ),
     "sys_label_sys_tenant_remark": MessageLookupByLibrary.simpleMessage("备注"),
     "sys_label_sys_tenant_search": MessageLookupByLibrary.simpleMessage("搜索租户"),
     "sys_label_sys_tenant_status": MessageLookupByLibrary.simpleMessage("状态"),
+    "sys_label_sys_tenant_sync_dict": MessageLookupByLibrary.simpleMessage(
+      "同步租户字典",
+    ),
+    "sys_label_sys_tenant_sync_dict_confirm":
+        MessageLookupByLibrary.simpleMessage("确认要同步所有租户字典吗？"),
+    "sys_label_sys_tenant_sync_dict_failed":
+        MessageLookupByLibrary.simpleMessage("同步租户字典失败"),
+    "sys_label_sys_tenant_sync_dict_ing": MessageLookupByLibrary.simpleMessage(
+      "正在同步...",
+    ),
+    "sys_label_sys_tenant_sync_dict_succeed":
+        MessageLookupByLibrary.simpleMessage("同步租户字典成功"),
+    "sys_label_sys_tenant_sync_package": MessageLookupByLibrary.simpleMessage(
+      "同步套餐",
+    ),
+    "sys_label_sys_tenant_sync_package_failed":
+        MessageLookupByLibrary.simpleMessage("同步失败"),
+    "sys_label_sys_tenant_sync_package_ing":
+        MessageLookupByLibrary.simpleMessage("正在同步..."),
+    "sys_label_sys_tenant_sync_package_succeed":
+        MessageLookupByLibrary.simpleMessage("同步成功"),
     "sys_label_sys_tenant_user_name": MessageLookupByLibrary.simpleMessage(
       "用户名",
     ),

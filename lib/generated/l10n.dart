@@ -3840,6 +3840,16 @@ class S {
     );
   }
 
+  /// `选择租户套餐`
+  String get sys_label_sys_tenant_package_select {
+    return Intl.message(
+      '选择租户套餐',
+      name: 'sys_label_sys_tenant_package_select',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `过期时间`
   String get sys_label_sys_tenant_expire_time {
     return Intl.message(
@@ -3935,6 +3945,116 @@ class S {
     return Intl.message(
       '编辑租户',
       name: 'sys_label_sys_tenant_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `同步套餐`
+  String get sys_label_sys_tenant_sync_package {
+    return Intl.message(
+      '同步套餐',
+      name: 'sys_label_sys_tenant_sync_package',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `正在同步...`
+  String get sys_label_sys_tenant_sync_package_ing {
+    return Intl.message(
+      '正在同步...',
+      name: 'sys_label_sys_tenant_sync_package_ing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `同步成功`
+  String get sys_label_sys_tenant_sync_package_succeed {
+    return Intl.message(
+      '同步成功',
+      name: 'sys_label_sys_tenant_sync_package_succeed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `同步失败`
+  String get sys_label_sys_tenant_sync_package_failed {
+    return Intl.message(
+      '同步失败',
+      name: 'sys_label_sys_tenant_sync_package_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `同步租户字典`
+  String get sys_label_sys_tenant_sync_dict {
+    return Intl.message(
+      '同步租户字典',
+      name: 'sys_label_sys_tenant_sync_dict',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `确认要同步所有租户字典吗？`
+  String get sys_label_sys_tenant_sync_dict_confirm {
+    return Intl.message(
+      '确认要同步所有租户字典吗？',
+      name: 'sys_label_sys_tenant_sync_dict_confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `正在同步...`
+  String get sys_label_sys_tenant_sync_dict_ing {
+    return Intl.message(
+      '正在同步...',
+      name: 'sys_label_sys_tenant_sync_dict_ing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `同步租户字典成功`
+  String get sys_label_sys_tenant_sync_dict_succeed {
+    return Intl.message(
+      '同步租户字典成功',
+      name: 'sys_label_sys_tenant_sync_dict_succeed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `同步租户字典失败`
+  String get sys_label_sys_tenant_sync_dict_failed {
+    return Intl.message(
+      '同步租户字典失败',
+      name: 'sys_label_sys_tenant_sync_dict_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `登录地址`
+  String get sys_label_online_login_address {
+    return Intl.message(
+      '登录地址',
+      name: 'sys_label_online_login_address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `用户名称`
+  String get sys_label_online_login_user_name {
+    return Intl.message(
+      '用户名称',
+      name: 'sys_label_online_login_user_name',
       desc: '',
       args: [],
     );

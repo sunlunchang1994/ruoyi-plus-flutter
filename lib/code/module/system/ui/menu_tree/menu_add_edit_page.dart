@@ -429,6 +429,7 @@ class _MenuAddEditModel extends AppBaseVm with CancelTokenAssist {
     sysMenuInfo!.parentId = sysMenu?.menuId;
     sysMenuInfo!.parentName = sysMenu?.menuName;
     _formKey.currentState?.patchField("parentName", sysMenuInfo!.parentName);
+    applyInfoChange();
   }
 
   //应用信息更改
@@ -458,7 +459,7 @@ class _MenuAddEditModel extends AppBaseVm with CancelTokenAssist {
     }
     showLoading(text: S.current.label_save_ing);
     MenuRepository.submit(sysMenuInfo!, defCancelToken).then((value) {
-      AppToastBridge.showToast(msg: S.current.toast_edit_success);
+      AppToastBridge.showToast(msg: S.current.label_submitted_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;

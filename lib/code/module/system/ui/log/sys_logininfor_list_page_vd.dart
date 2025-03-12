@@ -23,7 +23,6 @@ import '../../../../lib/fast/provider/fast_select.dart';
 import '../../../../lib/fast/utils/widget_utils.dart';
 import '../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../lib/fast/vd/refresh/content_empty.dart';
-import 'package:dio/dio.dart';
 
 import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
 import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
@@ -33,7 +32,8 @@ import '../../repository/remote/sys_logininfor_api.dart';
 ///登录日志列表
 class SysLogininforListPageWidget {
   ///数据列表控件
-  static Widget getDataListWidget(ThemeData themeData, LogininforListDataVmSub listVmSub) {
+  static Widget getDataListWidget(ThemeData themeData, LogininforListDataVmSub listVmSub,
+      {Widget? Function(SysLogininfor currentItem)? buildTrailing}) {
     if (listVmSub.dataList.isEmpty) {
       return const ContentEmptyWrapper();
     }
@@ -44,7 +44,7 @@ class SysLogininforListPageWidget {
         itemCount: listVmSub.dataList.length,
         itemBuilder: (ctx, index) {
           SysLogininfor listItem = listVmSub.dataList[index];
-          return getDataListItem(themeData, listVmSub, index, listItem);
+          return getDataListItem(themeData, listVmSub, buildTrailing, index, listItem);
         },
         separatorBuilder: (context, index) {
           return themeData.slcTidyUpStyle.getDefDividerByTheme(themeData);
@@ -54,6 +54,7 @@ class SysLogininforListPageWidget {
   static Widget getDataListItem(
     ThemeData themeData,
     ListenerItemClick<dynamic> listenerItemClick,
+    Widget? Function(SysLogininfor currentItem)? buildTrailing,
     int index,
     SysLogininfor listItem,
   ) {
@@ -76,21 +77,33 @@ class SysLogininforListPageWidget {
                   style: SysStyle.sysLogListStatusText.copyWith(color: statusColor),
                   strutStyle: SysStyle.sysLogListStatusTextStrutStyle,
                 )),
-            ThemeUtil.getSizedBox(width: SlcDimens.appDimens16)
           ],
         ),
-        subtitle: Padding(
-            padding: EdgeInsets.only(right: SlcDimens.appDimens16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                    "${listItem.ipaddr} / ${listItem.loginLocation} / ${listItem.os} / ${listItem.browser}",
-                    softWrap: true),
-                Text(listItem.loginTime ?? "--"),
-              ],
-            )),
-        visualDensity: VisualDensity.compact,
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: () {
+            List<Widget> widgets = [];
+            widgets.add(Text(listItem.loginTime ?? ""));
+            widgets.add(AnimatedSize(
+              duration: const Duration(milliseconds: 300),
+              alignment: Alignment.topLeft, // 设置对齐方式确保从上到下展开
+              curve: Curves.easeInOut,
+              child: Visibility(
+                visible: listItem.showDetail,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("${listItem.browser} / ${listItem.os}"),
+                    Text("${listItem.ipaddr} / ${listItem.loginLocation}")
+                  ],
+                ),
+              ),
+            ));
+            return widgets;
+          }.call(),
+        ),
+        visualDensity: WidgetUtils.minimumDensity,
+        trailing: buildTrailing?.call(listItem),
         //根据card规则实现
         onTap: () {
           listenerItemClick.onItemClick(index, listItem);
@@ -244,13 +257,13 @@ class LogininforListDataVmSub extends FastBaseListDataPageVmSub<SysLogininfor>
     });
     //设置点击item事件主体
     setItemClick((index, data) {
-      /*pushNamed(NoticeAddEditPage.routeName,
-          arguments: {ConstantSys.KEY_SYS_NOTICE: data}).then((result) {
-        if (result != null) {
-          //更新列表
-          sendRefreshEvent();
-        }
-      });*/
+      onHandlerShowDetails(data);
     });
+  }
+
+  void onHandlerShowDetails(SysLogininfor itemData) {
+    itemData.showDetail = !itemData.showDetail;
+    shouldSetState.updateVersion();
+    notifyListeners();
   }
 }

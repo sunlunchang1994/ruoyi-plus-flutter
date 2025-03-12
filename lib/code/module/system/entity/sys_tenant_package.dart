@@ -1,5 +1,3 @@
-import 'package:flutter_slc_boxes/flutter/slc/common/slc_num_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:ruoyi_plus_flutter/code/base/entity/base_entity.dart';
 
@@ -14,8 +12,9 @@ class SysTenantPackage extends BaseEntity {
 
   String? packageName;
 
-  //提交时是List<int>，获取时是String
-  Object? menuIds;
+  //提交时是List<int>，获取时是String，此处使用自定义转换器转换
+  @Split2IntListConverter()
+  List<int>? menuIds;
 
   String? remark;
 
@@ -25,25 +24,6 @@ class SysTenantPackage extends BaseEntity {
   String? status;
 
   String? delFlag;
-
-  @JsonKey(includeFromJson: false, includeToJson: true)
-  List<int>? get menuIdList {
-    if (menuIds is List<int>) {
-      return menuIds as List<int>;
-    }
-    return TextUtil.split(menuIds as String, TextUtil.COMMA)
-        .map((e) => SlcNumUtil.getIntByValueStr(e.trim()))
-        .nonNulls
-        .toList();
-  }
-
-  set menuIdList(List<int>? menuIdList) {
-    if (menuIds is List<int>) {
-      this.menuIds = menuIdList as Object;
-      return;
-    }
-    menuIds = menuIdList?.join(TextUtil.COMMA) as String;
-  }
 
   SysTenantPackage({
     this.packageId,

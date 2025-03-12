@@ -35,12 +35,12 @@ abstract class SysTenantPackageApiClient {
   ///添加租户套餐
   @POST("/system/tenant/package")
   Future<ResultEntity> add(
-      @Body() SysTenantPackage? data, @CancelRequest() CancelToken cancelToken);
+      @Body() SysTenantPackage data, @CancelRequest() CancelToken cancelToken);
 
   ///编辑租户套餐
   @PUT("/system/tenant/package")
   Future<ResultEntity> edit(
-      @Body() SysTenantPackage? data, @CancelRequest() CancelToken cancelToken);
+      @Body() SysTenantPackage data, @CancelRequest() CancelToken cancelToken);
 }
 
 ///租户套餐服务

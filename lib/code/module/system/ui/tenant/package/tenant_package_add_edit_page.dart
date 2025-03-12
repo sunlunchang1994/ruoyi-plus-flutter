@@ -22,6 +22,7 @@ import '../../../../../base/config/constant_base.dart';
 import '../../../../../base/ui/utils/fast_dialog_utils.dart';
 import '../../../../../base/vm/global_vm.dart';
 import '../../../../../feature/component/dict/entity/tree_dict.dart';
+import '../../../../../lib/fast/vd/request_token_manager.dart';
 import '../../../config/constant_sys.dart';
 import '../../../entity/sys_tenant_package.dart';
 import '../../../repository/remote/sys_tenant_package_api.dart';
@@ -161,9 +162,7 @@ class TenantPackageAddEditPage extends AppBaseStatelessWidget<_TenantPackageAddE
   }
 }
 
-class _TenantPackageAddEditVm extends AppBaseVm {
-  final CancelToken cancelToken = CancelToken();
-
+class _TenantPackageAddEditVm extends AppBaseVm with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   SysTenantPackage? sysTenantPackage;
@@ -184,11 +183,11 @@ class _TenantPackageAddEditVm extends AppBaseVm {
       ITreeDict<dynamic>? statusDict = GlobalVm().dictShareVm.findDict(
           LocalDictLib.CODE_SYS_NORMAL_DISABLE, LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL);
       sysTenantPackage.status = statusDict?.tdDictValue;
-      sysTenantPackage.menuIds = "";
+      sysTenantPackage.menuIds = List.empty(growable: true);
       this.sysTenantPackage = sysTenantPackage;
       setLoadingStatusWithNotify(LoadingStatus.success, notify: false);
     } else {
-      SysTenantPackageRepository.getInfo(sysTenantPackage.packageId!, cancelToken)
+      SysTenantPackageRepository.getInfo(sysTenantPackage.packageId!, defCancelToken)
           .asStream()
           .single
           .then((intensifyEntity) {
@@ -206,10 +205,9 @@ class _TenantPackageAddEditVm extends AppBaseVm {
       ConstantBase.KEY_INTENT_TITLE: S.current.user_label_menu_permission_select,
       ConstantSys.KEY_SYS_TENANT_PACKAGE_ID: sysTenantPackage!.packageId,
       ConstantSys.KEY_MENU_LINKAGE_ENABLE: sysTenantPackage!.menuCheckStrictly,
-      ConstantBase.KEY_INTENT_SELECT_DATA: sysTenantPackage!.menuIdList,
+      ConstantBase.KEY_INTENT_SELECT_DATA: sysTenantPackage!.menuIds,
     }).then((result) {
       if (result != null && result is SelectMenuResult) {
-        sysTenantPackage?.menuIdList = result.menuIds;
         sysTenantPackage?.menuIds = result.menuIds;
         sysTenantPackage?.menuCheckStrictly = result.menuCheckStrictly;
         formOperate.patchField("menuIds", getMenuTextField());
@@ -218,7 +216,7 @@ class _TenantPackageAddEditVm extends AppBaseVm {
   }
 
   String getMenuTextField() {
-    if (sysTenantPackage?.menuIdList?.isEmpty ?? true) {
+    if (sysTenantPackage?.menuIds?.isEmpty ?? true) {
       return "";
     } else {
       //return S.current.user_label_menu_permission_select_result.replaceAll("%s", roleInfo!.menuIds!.length.toString());
@@ -252,8 +250,8 @@ class _TenantPackageAddEditVm extends AppBaseVm {
       return;
     }
     showLoading(text: S.current.label_save_ing);
-    SysTenantPackageRepository.submit(sysTenantPackage!, cancelToken).then((value) {
-      AppToastBridge.showToast(msg: S.current.toast_edit_success);
+    SysTenantPackageRepository.submit(sysTenantPackage!, defCancelToken).then((value) {
+      AppToastBridge.showToast(msg: S.current.label_submitted_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;

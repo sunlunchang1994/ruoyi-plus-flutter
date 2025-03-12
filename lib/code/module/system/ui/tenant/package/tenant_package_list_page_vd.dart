@@ -3,17 +3,14 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_oss_vo.dart';
-import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_vm_sub.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_oss_config.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_tenant_package.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/oss/oss_details_page.dart';
 
 import '../../../../../../generated/l10n.dart';
 import '../../../../../base/api/base_dio.dart';
@@ -26,10 +23,8 @@ import '../../../../../lib/fast/vd/refresh/content_empty.dart';
 import '../../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
 import '../../../../../lib/fast/widget/form/form_operate_with_provider.dart';
 import '../../../../../lib/fast/widget/form/input_decoration_utils.dart';
-import 'package:dio/dio.dart';
 
 import '../../../config/constant_sys.dart';
-import '../../../repository/remote/sys_oss_config_api.dart';
 import '../../../repository/remote/sys_tenant_package_api.dart';
 import 'tenant_package_add_edit_page.dart';
 
@@ -37,7 +32,7 @@ import 'tenant_package_add_edit_page.dart';
 ///租户套餐
 class TenantPackageListPageWidget {
   ///数据列表控件
-  static Widget getDataListWidget(ThemeData themeData, TenantPackageListDataVmSub listVmSub,
+  static Widget getDataListWidget(ThemeData themeData, IListDataVmSub listVmSub,
       {Widget? Function(SysTenantPackage currentItem)? buildTrailing}) {
     if (listVmSub.dataList.isEmpty) {
       return const ContentEmptyWrapper();
@@ -49,7 +44,7 @@ class TenantPackageListPageWidget {
         itemCount: listVmSub.dataList.length,
         itemBuilder: (ctx, index) {
           SysTenantPackage listItem = listVmSub.dataList[index];
-          return getDataListItem(themeData, listVmSub, index, listItem,
+          return getDataListItem(themeData, listVmSub as ListenerItemClick, index, listItem,
               buildTrailing: buildTrailing);
         },
         separatorBuilder: (context, index) {
@@ -71,7 +66,7 @@ class TenantPackageListPageWidget {
 
   ///搜索侧滑栏视图
   static Widget getSearchEndDrawer<A>(
-      BuildContext context, ThemeData themeData, TenantPackageListDataVmSub listVmSub,
+      BuildContext context, ThemeData themeData, TenantPackageSearchHelper searchHelper,
       {List<Widget>? Function(String? name)? formItemSlot}) {
     return Container(
         color: themeData.colorScheme.surface,
@@ -83,7 +78,7 @@ class TenantPackageListPageWidget {
             bottom: SlcDimens.appDimens14),
         child: Selector0<SysTenantPackage>(builder: (context, value, child) {
           return FormBuilder(
-              key: listVmSub.formOperate.formKey,
+              key: searchHelper.formOperate.formKey,
               child: Column(
                 children: [
                   Container(
@@ -94,7 +89,7 @@ class TenantPackageListPageWidget {
                   ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                   MyFormBuilderTextField(
                       name: "packageName",
-                      initialValue: listVmSub.currentSearch.packageName,
+                      initialValue: searchHelper.currentSearch.packageName,
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_sys_tenant_package_name,
@@ -102,13 +97,14 @@ class TenantPackageListPageWidget {
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
-                                formOperate: listVmSub.formOperate, formFieldName: "packageName");
+                                formOperate: searchHelper.formOperate,
+                                formFieldName: "packageName");
                           }, selector: (context, vm) {
-                            return listVmSub.currentSearch.packageName;
+                            return searchHelper.currentSearch.packageName;
                           })),
                       onChanged: (value) {
-                        listVmSub.currentSearch.packageName = value;
-                        listVmSub.notifyListeners();
+                        searchHelper.currentSearch.packageName = value;
+                        searchHelper.notifyListeners();
                       },
                       textInputAction: TextInputAction.next),
                   ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
@@ -119,7 +115,7 @@ class TenantPackageListPageWidget {
                         Expanded(
                             child: OutlinedButton(
                                 onPressed: () {
-                                  listVmSub.onResetSearch();
+                                  searchHelper.onResetSearch();
                                 },
                                 child: Text(S.current.action_reset))),
                         ThemeUtil.getSizedBox(width: SlcDimens.appDimens16),
@@ -127,7 +123,7 @@ class TenantPackageListPageWidget {
                             child: FilledButton(
                                 onPressed: () {
                                   WidgetUtils.autoHandlerSearchDrawer(context);
-                                  listVmSub.onSearch();
+                                  searchHelper.onSearch();
                                 },
                                 child: Text(S.current.action_search)))
                       ],
@@ -136,32 +132,58 @@ class TenantPackageListPageWidget {
                 ],
               ));
         }, selector: (context) {
-          return listVmSub.currentSearch;
+          return searchHelper.currentSearch;
         }, shouldRebuild: (oldVal, newVal) {
           return false;
         }));
   }
 }
 
-///租户套餐VmSub
-class TenantPackageListDataVmSub extends FastBaseListDataPageVmSub<SysTenantPackage> {
-  final FormOperateWithProvider formOperate = FormOperateWithProvider();
+///搜索帮助类
+class TenantPackageSearchHelper {
+  final IListDataVmSub<dynamic> ownerVm;
 
-  final CancelToken cancelToken = CancelToken();
+  final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   SysTenantPackage _currentSearch = SysTenantPackage();
 
   SysTenantPackage get currentSearch => _currentSearch;
 
+  TenantPackageSearchHelper(this.ownerVm);
+
+  //重置
+  void onResetSearch() {
+    _currentSearch = SysTenantPackage();
+    formOperate.clearAll();
+    ownerVm.notifyListeners();
+  }
+
+  //搜索
+  void onSearch() {
+    formOperate.formBuilderState?.save();
+    ownerVm.sendRefreshEvent();
+  }
+
+  void notifyListeners() {
+    ownerVm.notifyListeners();
+  }
+}
+
+///租户套餐VmSub
+class TenantPackageListDataVmSub extends FastBaseListDataPageVmSub<SysTenantPackage>
+    with CancelTokenAssist {
+  late TenantPackageSearchHelper tenantPackageSearchHelper;
+
   void Function(SysOssVo data)? onSuffixClick;
 
   TenantPackageListDataVmSub() {
+    tenantPackageSearchHelper = TenantPackageSearchHelper(this);
     //设置刷新方法主体
     setLoadData((loadMoreFormat) async {
       try {
         IntensifyEntity<PageModel<SysTenantPackage>> intensifyEntity =
-            await SysTenantPackageRepository.list(
-                    loadMoreFormat.offset, loadMoreFormat.size, currentSearch, cancelToken)
+            await SysTenantPackageRepository.list(loadMoreFormat.offset, loadMoreFormat.size,
+                    tenantPackageSearchHelper.currentSearch, defCancelToken)
                 .asStream()
                 .single;
         DataWrapper<PageModel<SysTenantPackage>> dataWrapper =
@@ -182,17 +204,36 @@ class TenantPackageListDataVmSub extends FastBaseListDataPageVmSub<SysTenantPack
       });
     });
   }
+}
 
-  //重置
-  void onResetSearch() {
-    _currentSearch = SysTenantPackage();
-    formOperate.clearAll();
-    notifyListeners();
-  }
+///租户套餐选择VmSub
+class TenantPackageSelectVmSub extends FastBaseListDataVmSub<SysTenantPackage>
+    with CancelTokenAssist {
+  late TenantPackageSearchHelper tenantPackageSearchHelper;
 
-  //搜索
-  void onSearch() {
-    formOperate.formBuilderState?.save();
-    sendRefreshEvent();
+  void Function(SysOssVo data)? onSuffixClick;
+
+  TenantPackageSelectVmSub() {
+    tenantPackageSearchHelper = TenantPackageSearchHelper(this);
+    //设置刷新方法主体
+    setRefresh(() async {
+      try {
+        IntensifyEntity<List<SysTenantPackage>> intensifyEntity =
+            await SysTenantPackageRepository.selectList(
+                    tenantPackageSearchHelper.currentSearch, defCancelToken)
+                .asStream()
+                .single;
+        DataWrapper<List<SysTenantPackage>> dataWrapper =
+            DataTransformUtils.entity2LDWrapper(intensifyEntity);
+        return dataWrapper;
+      } catch (e) {
+        ResultEntity resultEntity = BaseDio.getError(e);
+        return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
+      }
+    });
+    //设置点击item事件主体
+    setItemClick((index, data) {
+      finish(result: data);
+    });
   }
 }

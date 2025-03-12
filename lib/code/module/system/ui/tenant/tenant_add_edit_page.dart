@@ -12,13 +12,18 @@ import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_text_field.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/input_decoration_utils.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_tenant_package.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/ui/tenant/package/tenant_package_select_single_page.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
+import '../../../../base/config/constant_base.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
 import '../../../../base/vm/global_vm.dart';
 import '../../../../feature/bizapi/system/entity/sys_tenant.dart';
@@ -63,7 +68,19 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                           onPressed: () {
                             getVm().onSave();
                           },
-                          icon: Icon(Icons.save))
+                          icon: Icon(Icons.save)),
+                      PopupMenuButton<String>(itemBuilder: (context) {
+                        return [
+                          PopupMenuItem(
+                              value: S.current.sys_label_sys_tenant_sync_package,
+                              child: Text(S.current.sys_label_sys_tenant_sync_package))
+                        ];
+                      }, onSelected: (value) {
+                        if (value == S.current.sys_label_sys_tenant_sync_package) {
+                          //同步套餐
+                          getVm().syncTenantPackage();
+                        }
+                      })
                     ],
                   ),
                   body: getStatusBody(context)));
@@ -140,6 +157,7 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                         },
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(),
+                          FormBuilderValidators.phoneNumber(),
                         ]),
                         textInputAction: TextInputAction.next),
                     ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
@@ -191,37 +209,41 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                       return addWidgets;
                     }.call(),
                     () {
+                      MySelectDecoration decoration = MySelectDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: S.current.sys_label_sys_tenant_package_id,
+                          hintText: S.current.app_label_please_choose,
+                          border: const UnderlineInputBorder(),
+                          suffixIcon: NqNullSelector<_TenantAddEditVm, String?>(
+                              builder: (context, value, child) {
+                            return InputDecUtils.autoClearSuffixBySelectVal(
+                                getVm().sysTenant!.packageName, onPressed: () {
+                              getVm().setPackageInfo(null);
+                            });
+                          }, selector: (context, vm) {
+                            return vm.sysTenant!.packageName;
+                          }));
                       if (sysTenant == null) {
                         return MyFormBuilderSelect(
                             name: "packageName",
                             initialValue: getVm().sysTenant!.packageName,
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
                             onTap: () {
                               //选择套餐
+                              getVm().onSelectPackage();
                             },
-                            decoration: MySelectDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                label: InputDecUtils.getRequiredLabel(
-                                    S.current.sys_label_sys_tenant_package_id),
-                                hintText: S.current.app_label_please_choose,
-                                border: const UnderlineInputBorder()),
-                            validator: FormBuilderValidators.compose([
-                              FormBuilderValidators.required(),
-                            ]),
+                            decoration: decoration,
                             textInputAction: TextInputAction.next);
                       } else {
                         //编辑时设置为禁用状态
                         return MyFormBuilderSelect(
                             name: "packageName",
                             initialValue: getVm().sysTenant!.packageName,
+                            enabled: false,
                             onTap: () {
                               //选择套餐
+                              getVm().onSelectPackage();
                             },
-                            decoration: MySelectDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                labelText: S.current.sys_label_sys_tenant_package_id,
-                                hintText: S.current.app_label_please_choose,
-                                border: const UnderlineInputBorder()),
+                            decoration: decoration,
                             textInputAction: TextInputAction.next);
                       }
                     }.call(),
@@ -253,7 +275,7 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                           getVm().applyInfoChange();
                         },
                         validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.numeric(),
+                          FormBuilderValidators.numeric(checkNullOrEmpty: false),
                         ]),
                         textInputAction: TextInputAction.next),
                     ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
@@ -347,9 +369,7 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
   }
 }
 
-class _TenantAddEditVm extends AppBaseVm {
-  final CancelToken cancelToken = CancelToken();
-
+class _TenantAddEditVm extends AppBaseVm with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   SysTenant? sysTenant;
@@ -365,10 +385,11 @@ class _TenantAddEditVm extends AppBaseVm {
       ITreeDict<dynamic>? statusDict = GlobalVm().dictShareVm.findDict(
           LocalDictLib.CODE_SYS_NORMAL_DISABLE, LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL);
       sysTenant.status = statusDict?.tdDictValue;
+      sysTenant.accountCount = 0;
       this.sysTenant = sysTenant;
       setLoadingStatusWithNotify(LoadingStatus.success, notify: false);
     } else {
-      SysTenantRepository.getInfo(sysTenant.id!, cancelToken).asStream().single.then(
+      SysTenantRepository.getInfo(sysTenant.id!, defCancelToken).asStream().single.then(
           (intensifyEntity) {
         this.sysTenant = intensifyEntity.data;
         setLoadingStatus(LoadingStatus.success);
@@ -377,6 +398,25 @@ class _TenantAddEditVm extends AppBaseVm {
         finish();
       });
     }
+  }
+
+  void onSelectPackage() {
+    //选择套餐
+    pushNamed(TenantPackageSelectSinglePage.routeName, arguments: {
+      ConstantBase.KEY_INTENT_TITLE: S.current.sys_label_sys_tenant_package_select
+    }).then((result) {
+      if (result != null) {
+        setPackageInfo(result);
+      }
+    });
+  }
+
+  void setPackageInfo(SysTenantPackage? tenantPackage) {
+    sysTenant!.packageId = tenantPackage?.packageId;
+    sysTenant!.packageName = tenantPackage?.packageName;
+    formOperate.patchField("packageName", sysTenant!.packageName);
+    applyInfoChange();
+    notifyListeners();
   }
 
   //应用信息更改
@@ -390,6 +430,7 @@ class _TenantAddEditVm extends AppBaseVm {
     finish();
   }
 
+  // 是否可以返回
   bool canPop() {
     return !_infoChange;
   }
@@ -399,14 +440,15 @@ class _TenantAddEditVm extends AppBaseVm {
     return formOperate.formBuilderState?.saveAndValidate() ?? false;
   }
 
+  // 保存
   void onSave() {
     if (!_checkSaveParams()) {
       AppToastBridge.showToast(msg: S.current.app_label_form_check_hint);
       return;
     }
     showLoading(text: S.current.label_save_ing);
-    SysTenantRepository.submit(sysTenant!, cancelToken).then((value) {
-      AppToastBridge.showToast(msg: S.current.toast_edit_success);
+    SysTenantRepository.submit(sysTenant!, defCancelToken).then((value) {
+      AppToastBridge.showToast(msg: S.current.label_submitted_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;
@@ -414,6 +456,20 @@ class _TenantAddEditVm extends AppBaseVm {
     }, onError: (error) {
       dismissLoading();
       BaseDio.handlerError(error);
+    });
+  }
+
+  //同步租户套餐
+  void syncTenantPackage() {
+    showLoading(text: S.current.sys_label_sys_tenant_sync_package_ing);
+    SysTenantRepository.syncTenantPackage(
+            sysTenant!.tenantId!, sysTenant!.packageId, defCancelToken)
+        .then((result) {
+      dismissLoading();
+      AppToastBridge.showToast(msg: S.current.sys_label_sys_tenant_sync_package_succeed);
+    }, onError: (e) {
+      dismissLoading();
+      BaseDio.handlerError(e, defErrMsg: S.current.sys_label_sys_tenant_sync_package_failed);
     });
   }
 }

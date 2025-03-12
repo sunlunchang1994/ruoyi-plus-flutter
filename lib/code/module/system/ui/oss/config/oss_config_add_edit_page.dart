@@ -13,6 +13,7 @@ import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_text_field.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
@@ -292,9 +293,7 @@ class OssConfigAddEditPage extends AppBaseStatelessWidget<_OssConfigAddEditVm> {
   }
 }
 
-class _OssConfigAddEditVm extends AppBaseVm {
-  final CancelToken cancelToken = CancelToken();
-
+class _OssConfigAddEditVm extends AppBaseVm with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   SysOssConfig? sysOssConfig;
@@ -318,7 +317,7 @@ class _OssConfigAddEditVm extends AppBaseVm {
 
       setLoadingStatusWithNotify(LoadingStatus.success, notify: false);
     } else {
-      SysOssConfigRepository.getInfo(sysOssConfig.ossConfigId!, cancelToken).asStream().single.then(
+      SysOssConfigRepository.getInfo(sysOssConfig.ossConfigId!, defCancelToken).asStream().single.then(
           (intensifyEntity) {
         this.sysOssConfig = intensifyEntity.data;
         setLoadingStatus(LoadingStatus.success);
@@ -355,8 +354,8 @@ class _OssConfigAddEditVm extends AppBaseVm {
       return;
     }
     showLoading(text: S.current.label_save_ing);
-    SysOssConfigRepository.submit(sysOssConfig!, cancelToken).then((value) {
-      AppToastBridge.showToast(msg: S.current.toast_edit_success);
+    SysOssConfigRepository.submit(sysOssConfig!, defCancelToken).then((value) {
+      AppToastBridge.showToast(msg: S.current.label_submitted_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;

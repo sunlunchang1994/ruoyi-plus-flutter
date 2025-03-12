@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/utils/widget_utils.dart';
 
 import 'form_operate_with_provider.dart';
 
@@ -11,8 +12,7 @@ class InputDecUtils {
   static Widget getSuffixAction(Icon actionIcon, [VoidCallback? onPressed]) {
     return IconButton(
       constraints: BoxConstraints(),
-      visualDensity:
-          VisualDensity(horizontal: VisualDensity.minimumDensity, vertical: VisualDensity.minimumDensity),
+      visualDensity:WidgetUtils.minimumDensity,
       padding: EdgeInsets.zero,
       icon: actionIcon,
       onPressed: () {

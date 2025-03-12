@@ -25,6 +25,7 @@ import '../module/system/ui/menu_tree/menu_list_borwser_page.dart';
 import '../module/system/ui/menu_tree/menu_list_select_single_page.dart';
 import '../module/system/ui/menu_tree/menu_tree_borwser_page.dart';
 import '../module/system/ui/menu_tree/menu_tree_select_multiple_page.dart';
+import '../module/system/ui/monitor/online/user_online_list_browser_page.dart';
 import '../module/system/ui/notice/notice_add_edit_page.dart';
 import '../module/system/ui/notice/notice_list_browser_page.dart';
 import '../module/system/ui/oss/config/oss_config_add_edit_page.dart';
@@ -34,6 +35,7 @@ import '../module/system/ui/oss/oss_list_browser_page.dart';
 import '../module/system/ui/router/router_page.dart';
 import '../module/system/ui/tenant/package/tenant_package_add_edit_page.dart';
 import '../module/system/ui/tenant/package/tenant_package_list_browser_page.dart';
+import '../module/system/ui/tenant/package/tenant_package_select_single_page.dart';
 import '../module/system/ui/tenant/tenant_add_edit_page.dart';
 import '../module/system/ui/tenant/tenant_list_browser_page.dart';
 import '../module/user/ui/dept/dept_add_edit_page.dart';
@@ -278,6 +280,11 @@ final Map<String, WidgetBuilder> router = {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
     return TenantPackageListBrowserPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
+  //租户套餐：单选列表
+  TenantPackageSelectSinglePage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return TenantPackageSelectSinglePage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+  },
   //租户套餐：新增与编辑
   TenantPackageAddEditPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
@@ -294,6 +301,12 @@ final Map<String, WidgetBuilder> router = {
   TenantAddEditPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
     return TenantAddEditPage(sysTenant: slcRouterInfo?.arguments[ConstantSys.KEY_SYS_TENANT]);
+  },
+  //在线用户
+  //在线用户：列表
+  UserOnlineListBrowserPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return UserOnlineListBrowserPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
 };
 

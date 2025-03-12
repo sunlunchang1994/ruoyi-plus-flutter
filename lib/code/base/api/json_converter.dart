@@ -1,5 +1,8 @@
 // 自定义日期转换器类，用于将 DateTime 对象与字符串之间进行 JSON 转换。
 import 'package:flutter_slc_boxes/flutter/slc/common/date_util.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/slc_num_util.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/timeline_util.dart';
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -59,6 +62,27 @@ class DateConverter implements JsonConverter<DateTime, String> {
   }
 }
 
+///时间戳格式化
+///@DateConverter()
+class MillisecondConverter implements JsonConverter<String, dynamic> {
+  const MillisecondConverter();
+
+  @override
+  String fromJson(dynamic json) {
+    int? millisecond;
+    if (json is String) {
+      millisecond = SlcNumUtil.getIntByValueStr(json);
+    }
+    millisecond ??= json;
+    return millisecond != null ? DateUtil.formatDateMs(millisecond) : "";
+  }
+
+  @override
+  dynamic toJson(String object) {
+    return object;
+  }
+}
+
 ///双精度
 ///@DoubleConverter()
 class DoubleConverter implements JsonConverter<double, String> {
@@ -109,14 +133,39 @@ class IntListConverter implements JsonConverter<List<int>?, dynamic> {
     }
     IntConverter intConverter = IntConverter();
     if (json is List) {
-      return json.map((itemData){
+      return json.map((itemData) {
         return intConverter.fromJson(itemData)!;
       }).toList();
     }
     List<String> jsonStrList = json;
-    return  jsonStrList.map((itemData){
+    return jsonStrList.map((itemData) {
       return int.parse(json);
     }).toList();
+  }
+
+  @override
+  List<int>? toJson(List<int>? object) {
+    return object;
+  }
+}
+
+class Split2IntListConverter implements JsonConverter<List<int>?, dynamic> {
+  const Split2IntListConverter();
+
+  @override
+  List<int>? fromJson(dynamic json) {
+    if (json == null) {
+      return null;
+    }
+    if (json is List<int>) {
+      return json;
+    }
+    String jsonStr = json;
+    List<int>? result = TextUtil.split(jsonStr, TextUtil.COMMA)
+        .map((e) => SlcNumUtil.getIntByValueStr(e.trim()))
+        .nonNulls
+        .toList();
+    return result;
   }
 
   @override

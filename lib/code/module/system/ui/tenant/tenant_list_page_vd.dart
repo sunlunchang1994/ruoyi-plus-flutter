@@ -9,12 +9,7 @@ import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_oss_vo.dart';
-import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_oss_config.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_tenant_package.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/oss/oss_details_page.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/tenant/tenant_add_edit_page.dart';
 
 import '../../../../../generated/l10n.dart';
@@ -26,6 +21,7 @@ import '../../../../lib/fast/provider/fast_select.dart';
 import '../../../../lib/fast/utils/widget_utils.dart';
 import '../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../lib/fast/vd/refresh/content_empty.dart';
+import '../../../../lib/fast/vd/request_token_manager.dart';
 import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
 import '../../../../lib/fast/widget/form/form_operate_with_provider.dart';
 import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
@@ -209,10 +205,8 @@ class TenantListPageWidget {
 }
 
 ///租户管理VmSub
-class TenantListDataVmSub extends FastBaseListDataPageVmSub<SysTenant> {
+class TenantListDataVmSub extends FastBaseListDataPageVmSub<SysTenant> with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
-
-  final CancelToken cancelToken = CancelToken();
 
   SysTenant _currentSearch = SysTenant();
 
@@ -225,21 +219,21 @@ class TenantListDataVmSub extends FastBaseListDataPageVmSub<SysTenant> {
     setLoadData((loadMoreFormat) async {
       try {
         IntensifyEntity<PageModel<SysTenant>> intensifyEntity = await SysTenantRepository.list(
-                loadMoreFormat.offset, loadMoreFormat.size, currentSearch, cancelToken)
+                loadMoreFormat.offset, loadMoreFormat.size, currentSearch, defCancelToken)
             .asStream()
             .single;
         DataWrapper<PageModel<SysTenant>> dataWrapper =
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
         return dataWrapper;
       } catch (e) {
-        ResultEntity resultEntity = BaseDio.getError(e);
+        ResultEntity resultEntity = BaseDio.handlerError(e,showToast: false);
         return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
       }
     });
     //设置点击item事件主体
     setItemClick((index, data) {
-      pushNamed(TenantAddEditPage.routeName,
-          arguments: {ConstantSys.KEY_SYS_TENANT: data}).then((result) {
+      pushNamed(TenantAddEditPage.routeName, arguments: {ConstantSys.KEY_SYS_TENANT: data})
+          .then((result) {
         if (result != null) {
           sendRefreshEvent();
         }

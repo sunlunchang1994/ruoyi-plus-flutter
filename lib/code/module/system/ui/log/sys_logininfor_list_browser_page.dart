@@ -21,9 +21,9 @@ class SysLogininforListBrowserPage extends StatefulWidget {
 ///
 /// @author slc
 /// 登录日志列表
-class _SysLogininforListBrowserPage extends AppBaseState<
-    SysLogininforListBrowserPage,
-    _SysLogininforListBrowserVm> with AutomaticKeepAliveClientMixin {
+class _SysLogininforListBrowserPage
+    extends AppBaseState<SysLogininforListBrowserPage, _SysLogininforListBrowserVm>
+    with AutomaticKeepAliveClientMixin {
   final String title;
 
   _SysLogininforListBrowserPage(this.title);
@@ -44,10 +44,22 @@ class _SysLogininforListBrowserPage extends AppBaseState<
               endDrawer: SysLogininforListPageWidget.getSearchEndDrawer(context, themeData),
               body: PageDataVd(getVm().listVmSub, getVm(),
                   refreshOnStart: true,
-                  child: NqSelector<_SysLogininforListBrowserVm, int>(
-                      builder: (context, vm, child) {
+                  child:
+                      NqSelector<_SysLogininforListBrowserVm, int>(builder: (context, vm, child) {
                     return SysLogininforListPageWidget.getDataListWidget(
-                        themeData, getVm().listVmSub);
+                        themeData, getVm().listVmSub, buildTrailing: (currentItem) {
+                      return IconButton(
+                          onPressed: () {
+                            //点击更多事件
+                            getVm().listVmSub.onSuffixClick?.call(currentItem);
+                          },
+                          icon: AnimatedRotation(
+                            turns: currentItem.showDetail ? 0.25 : 0, // 0.25 表示旋转 90 度
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeInOut,
+                            child: Icon(Icons.chevron_right),
+                          ));
+                    });
                   }, selector: (context, vm) {
                     return vm.listVmSub.shouldSetState.version;
                   })));
@@ -72,7 +84,9 @@ class _SysLogininforListBrowserVm extends AppBaseVm {
 
   _SysLogininforListBrowserVm() {
     listVmSub = LogininforListDataVmSub();
-    listVmSub.onSuffixClick = (itemData) {};
+    listVmSub.onSuffixClick = (itemData) {
+      listVmSub.onHandlerShowDetails(itemData);
+    };
   }
 
   void initVm() {

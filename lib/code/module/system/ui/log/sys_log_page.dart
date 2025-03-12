@@ -116,12 +116,14 @@ class LogOperSearchVm extends AbsoluteChangeNotifier {
     _currentSysOperLogSearch.businessTypeName = treeDict?.tdDictLabel;
     formOperate.formBuilderState
         ?.patchField("businessType", _currentSysOperLogSearch.businessTypeName);
+    notifyListeners();
   }
 
   void setSelectStatus(ITreeDict<dynamic>? treeDict) {
     _currentSysOperLogSearch.status = treeDict?.tdDictValue;
     _currentSysOperLogSearch.statusName = treeDict?.tdDictLabel;
     formOperate.formBuilderState?.patchField("statusName", _currentSysOperLogSearch.statusName);
+    notifyListeners();
   }
 
   //重置
@@ -157,6 +159,7 @@ class LogLoginSearchVm extends AbsoluteChangeNotifier {
     _currentSysLogininforSearch.status = treeDict?.tdDictValue;
     _currentSysLogininforSearch.statusName = treeDict?.tdDictLabel;
     formOperate.formBuilderState?.patchField("statusName", _currentSysLogininforSearch.statusName);
+    notifyListeners();
   }
 
   //重置

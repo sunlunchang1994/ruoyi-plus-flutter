@@ -6,21 +6,22 @@ import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/tenant/package/tenant_package_add_edit_page.dart';
 
 import '../../../../../lib/fast/utils/widget_utils.dart';
+import '../../../../../lib/fast/vd/list_data_vd.dart';
 import 'tenant_package_list_page_vd.dart';
 
 ///
 /// @author slc
-/// 租户套餐列表
-class TenantPackageListBrowserPage extends AppBaseStatelessWidget<_TenantPackageListBrowserVm> {
-  static const String routeName = '/tenant/tenantPackage';
+/// 租户套餐单选列表
+class TenantPackageSelectSinglePage extends AppBaseStatelessWidget<_TenantPackageSelectSingleVm> {
+  static const String routeName = '/tenant/tenantPackage/selectSingle';
   final String title;
 
-  TenantPackageListBrowserPage(this.title, {super.key});
+  TenantPackageSelectSinglePage(this.title, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => _TenantPackageListBrowserVm(),
+        create: (context) => _TenantPackageSelectSingleVm(),
         builder: (context, child) {
           ThemeData themeData = Theme.of(context);
           registerEvent(context);
@@ -37,17 +38,12 @@ class TenantPackageListBrowserPage extends AppBaseStatelessWidget<_TenantPackage
                 })
               ]),
               endDrawer:
-                  TenantPackageListPageWidget.getSearchEndDrawer<_TenantPackageListBrowserVm>(
+                  TenantPackageListPageWidget.getSearchEndDrawer<_TenantPackageSelectSingleVm>(
                       context, themeData, getVm().listVmSub.tenantPackageSearchHelper),
-              floatingActionButton: FloatingActionButton(
-                  child: Icon(Icons.add),
-                  onPressed: () {
-                    getVm().onAddItem();
-                  }),
-              body: PageDataVd(getVm().listVmSub, getVm(),
+              body: ListDataVd(getVm().listVmSub, getVm(),
                   refreshOnStart: true,
                   child:
-                      NqSelector<_TenantPackageListBrowserVm, int>(builder: (context, vm, child) {
+                      NqSelector<_TenantPackageSelectSingleVm, int>(builder: (context, vm, child) {
                     return TenantPackageListPageWidget.getDataListWidget(
                         themeData, getVm().listVmSub);
                   }, selector: (context, vm) {
@@ -57,33 +53,15 @@ class TenantPackageListBrowserPage extends AppBaseStatelessWidget<_TenantPackage
   }
 }
 
-class _TenantPackageListBrowserVm extends AppBaseVm {
-  late TenantPackageListDataVmSub listVmSub;
+class _TenantPackageSelectSingleVm extends AppBaseVm {
+  late TenantPackageSelectVmSub listVmSub;
 
-  _TenantPackageListBrowserVm() {
-    listVmSub = TenantPackageListDataVmSub();
-    listVmSub.onSuffixClick = (itemData) {
-      /*pushNamed(NoticeAddEditPage.routeName,
-          arguments: {ConstantSys.KEY_SYS_NOTICE: itemData}).then((result) {
-        if (result != null) {
-          //更新列表
-          listVmSub.sendRefreshEvent();
-        }
-      });*/
-    };
+  _TenantPackageSelectSingleVm() {
+    listVmSub = TenantPackageSelectVmSub();
   }
 
   void initVm() {
     registerVmSub(listVmSub);
   }
 
-  ///添加租户套餐
-  void onAddItem() {
-    pushNamed(TenantPackageAddEditPage.routeName).then((result) {
-      if (result != null) {
-        //更新列表
-        listVmSub.sendRefreshEvent();
-      }
-    });
-  }
 }

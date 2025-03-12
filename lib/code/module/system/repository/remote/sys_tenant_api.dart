@@ -30,11 +30,21 @@ abstract class SysTenantApiClient {
 
   ///添加租户
   @POST("/system/tenant")
+  @Headers(<String, dynamic>{ApiConfig.KEY_APPLY_ENCRYPT: true})
   Future<ResultEntity> add(@Body() SysTenant? data, @CancelRequest() CancelToken cancelToken);
 
   ///编辑租户
   @PUT("/system/tenant")
   Future<ResultEntity> edit(@Body() SysTenant? data, @CancelRequest() CancelToken cancelToken);
+
+  ///同步租户列表
+  @GET("/system/tenant/syncTenantPackage")
+  Future<ResultEntity> syncTenantPackage(@Query("tenantId") String tenantId,
+      @Query("packageId") int? packageId, @CancelRequest() CancelToken cancelToken);
+
+  ///同步租户字典列表
+  @GET("/system/tenant/syncTenantDict")
+  Future<ResultEntity> syncTenantDict(@CancelRequest() CancelToken cancelToken);
 }
 
 ///租户服务
@@ -85,7 +95,7 @@ class SysTenantRepository {
 
   ///提交租户
   static Future<IntensifyEntity<SysTenant>> submit(SysTenant body, CancelToken cancelToken) {
-    Future<ResultEntity> resultFuture = body.packageId == null
+    Future<ResultEntity> resultFuture = body.id == null
         ? _sysTenantApiClient.add(body, cancelToken)
         : _sysTenantApiClient.edit(body, cancelToken);
     return resultFuture
@@ -96,5 +106,28 @@ class SysTenantRepository {
         })
         .map(DataTransformUtils.checkErrorIe)
         .single;
+  }
+
+  ///同步租户套餐
+  static Future<IntensifyEntity<dynamic>> syncTenantPackage(
+      String tenantId, int? packageId, CancelToken cancelToken) {
+    return _sysTenantApiClient
+        .syncTenantPackage(tenantId, packageId, cancelToken)
+        .asStream()
+        .map(DataTransformUtils.checkError)
+        .map((event) {
+      return event.toIntensify();
+    }).single;
+  }
+
+  ///同步租户字典列表
+  static Future<IntensifyEntity<dynamic>> syncTenantDict(CancelToken cancelToken) {
+    return _sysTenantApiClient
+        .syncTenantDict(cancelToken)
+        .asStream()
+        .map(DataTransformUtils.checkError)
+        .map((event) {
+      return event.toIntensify();
+    }).single;
   }
 }

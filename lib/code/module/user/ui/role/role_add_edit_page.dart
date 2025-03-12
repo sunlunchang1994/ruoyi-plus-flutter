@@ -307,7 +307,7 @@ class _PostAddEditVm extends AppBaseVm with CancelTokenAssist {
     }
     showLoading(text: S.current.label_save_ing);
     RoleRepository.submit(roleInfo!, defCancelToken).then((value) {
-      AppToastBridge.showToast(msg: S.current.toast_edit_success);
+      AppToastBridge.showToast(msg: S.current.label_submitted_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;

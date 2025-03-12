@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 import '../../../base/api/json_converter.dart';
 
 part 'sys_logininfor.g.dart';
+
 ///系统访问记录表 sys_logininfor
 @JsonSerializable()
 class SysLogininfor {
@@ -46,6 +47,9 @@ class SysLogininfor {
   //本地的
   String? statusName;
 
+  //显示详情
+  bool showDetail = false;
+
   SysLogininfor(
       {this.infoId,
       this.tenantId,
@@ -60,13 +64,11 @@ class SysLogininfor {
       this.msg,
       this.loginTime});
 
-  factory SysLogininfor.fromJson(Map<String, dynamic> json) =>
-      _$SysLogininforFromJson(json);
+  factory SysLogininfor.fromJson(Map<String, dynamic> json) => _$SysLogininforFromJson(json);
 
   Map<String, dynamic> toJson() => _$SysLogininforToJson(this);
 
-  static List<SysLogininfor> fromJsonList(List<dynamic>? data){
-    return data?.map((json) => SysLogininfor.fromJson(json)).toList() ??
-        List.empty();
+  static List<SysLogininfor> fromJsonList(List<dynamic>? data) {
+    return data?.map((json) => SysLogininfor.fromJson(json)).toList() ?? List.empty();
   }
 }
