@@ -60,9 +60,9 @@ class DictDataListMultipleChoicesDialog
                   child: Text(S.current.action_cancel)),
               TextButton(
                   onPressed: () {
-                    vm.finish(result: SelectUtils.getSelect(vm.listVmSub.dataList,convert: ((item){
-                      return item as ITreeDict<dynamic>;
-                    })));
+                    vm.finish(
+                        result: SelectUtils.getSelect<SysDictData, ITreeDict<dynamic>>(
+                            vm.listVmSub.dataList));
                   },
                   child: Text(S.current.action_ok))
             ],
