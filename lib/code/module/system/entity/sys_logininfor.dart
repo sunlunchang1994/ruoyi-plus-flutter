@@ -48,6 +48,7 @@ class SysLogininfor {
   String? statusName;
 
   //显示详情
+  @JsonKey(includeFromJson: false, includeToJson: false)
   bool showDetail = false;
 
   SysLogininfor(

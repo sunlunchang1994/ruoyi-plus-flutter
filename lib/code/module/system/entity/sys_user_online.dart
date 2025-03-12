@@ -42,8 +42,9 @@ class SysUserOnline {
   String? loginTime;
 
   // 本地添加的字段
+  @JsonKey(includeFromJson: false, includeToJson: false)
   bool showDetail = false;
-  
+
   SysUserOnline({
     this.tokenId,
     this.deptName,

@@ -104,7 +104,7 @@ class PostListMultipleSelectDialog extends AppBaseStatelessWidget<_PostListMulti
                   child: Text(S.current.action_cancel)),
               TextButton(
                   onPressed: () {
-                    vm.finish(result: SelectUtils.getSelect(vm.listVmSub.dataList));
+                    vm.finish(result: SelectUtils.getSelect<Post, Post>(vm.listVmSub.dataList));
                   },
                   child: Text(S.current.action_ok))
             ],
@@ -157,11 +157,8 @@ class _PostListMultipleSelectVm extends AppBaseVm {
             records: dataSrc));
       } else {
         try {
-          IntensifyEntity<PageModel<Post>> result = await PostRepository.list(
-              loadMoreFormat.offset,
-              loadMoreFormat.size,
-              listVmSub.searchPost,
-              listVmSub.defCancelToken);
+          IntensifyEntity<PageModel<Post>> result = await PostRepository.list(loadMoreFormat.offset,
+              loadMoreFormat.size, listVmSub.searchPost, listVmSub.defCancelToken);
           //返回数据结构
           dataWrapper = DataTransformUtils.entity2LDWrapper(result);
         } catch (e) {

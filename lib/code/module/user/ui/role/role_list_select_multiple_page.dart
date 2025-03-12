@@ -115,7 +115,7 @@ class RoleListMultipleSelectDialog
               TextButton(
                   onPressed: () {
                     vm.finish(
-                        result: SelectUtils.getSelect(vm.listVmSub.dataList));
+                        result: SelectUtils.getSelect<Role,Role>(vm.listVmSub.dataList));
                   },
                   child: Text(S.current.action_ok))
             ],
