@@ -5,6 +5,7 @@ import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/config/constant_sy
 import 'package:ruoyi_plus_flutter/code/module/biz_main/ui/main_page.dart';
 import 'package:ruoyi_plus_flutter/code/feature/welcome/ui/welcome_page.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/config/constant_sys.dart';
+import 'package:ruoyi_plus_flutter/code/module/system/ui/monitor/cache_monitor/cache_monitor_page.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_browser_page.dart';
 
@@ -307,6 +308,12 @@ final Map<String, WidgetBuilder> router = {
   UserOnlineListBrowserPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
     return UserOnlineListBrowserPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+  },
+  //缓存监控
+  //缓存监控：信息
+  CacheMonitorPage.routeName: (BuildContext context) {
+    SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    return CacheMonitorPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
 };
 

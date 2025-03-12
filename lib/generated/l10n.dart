@@ -4060,6 +4060,16 @@ class S {
     );
   }
 
+  /// `redis信息`
+  String get sys_label_cache_monitor_redis_info {
+    return Intl.message(
+      'redis信息',
+      name: 'sys_label_cache_monitor_redis_info',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `-----------------------------`
   String get main_divide_text {
     return Intl.message(

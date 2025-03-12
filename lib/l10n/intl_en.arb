@@ -488,6 +488,8 @@
   "sys_label_online_login_address": "登录地址",
   "sys_label_online_login_user_name": "用户名称",
 
+  "sys_label_cache_monitor_redis_info": "redis信息",
+
   "main_divide_text": "-----------------------------",
   "main_label_workbench": "工作台",
   "main_label_mine": "我的",

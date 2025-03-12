@@ -334,6 +334,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "sys_divide_text": MessageLookupByLibrary.simpleMessage(
       "-----------------------------",
     ),
+    "sys_label_cache_monitor_redis_info": MessageLookupByLibrary.simpleMessage(
+      "redis信息",
+    ),
     "sys_label_config_add": MessageLookupByLibrary.simpleMessage("新增参数配置"),
     "sys_label_config_edit": MessageLookupByLibrary.simpleMessage("修改参数配置"),
     "sys_label_config_key": MessageLookupByLibrary.simpleMessage("参数键名"),
