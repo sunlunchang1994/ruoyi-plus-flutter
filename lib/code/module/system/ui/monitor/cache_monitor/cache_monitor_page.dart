@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
+import 'package:fl_chart/src/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/entity/label_value.dart';
@@ -101,132 +102,135 @@ class CacheMonitorPage extends AppBaseStatelessWidget<_CacheMonitorVm> {
                   Text(S.current.sys_label_cache_monitor_command_statistics,
                       style: themeData.slcTidyUpStyle.getTitleTextStyle(themeData)),
                   ThemeUtil.getSizedBox(height: SlcDimens.appDimens12),
-                  /*SfCircularChart(series: <CircularSeries>[
-                    PieSeries<CommandStats, String>(
-                      dataSource: getVm().redisCacheInfo.commandStats ?? [],
-                      pointColorMapper: (CommandStats data, _) => data.color,
-                      xValueMapper: (CommandStats data, _) => data.name,
-                      yValueMapper: (CommandStats data, _) => data.value,
-                      explode: true,
-                      radius: "60%",
-                      dataLabelSettings: DataLabelSettings(
-                        isVisible: true,
-                        // 显示标签
-                        labelPosition: ChartDataLabelPosition.outside,
-                        // 标签位置在饼图外部
-                        useSeriesColor: false,
-                        // 自动排列标签
-                        labelIntersectAction: LabelIntersectAction.shift,
-                      ),
-                    )
-                  ])*/
                   NqSelector<_CacheMonitorVm, int>(builder: (context, value, child) {
-                    return AspectRatio(
-                        aspectRatio: 1.2,
-                        child: LineChart(
-                          LineChartData(
-                              lineTouchData: LineTouchData(
-                                handleBuiltInTouches: true,
-                                touchCallback:
-                                    (FlTouchEvent event, LineTouchResponse? touchResponse) {
-                                  //如何监听触摸更改commandStatsBaseLineX的值
-                                  /*if (touchResponse != null &&
-                                      touchResponse.lineBarSpots != null &&
-                                      touchResponse.lineBarSpots!.isNotEmpty) {
-                                    int touchedIndex = touchResponse.lineBarSpots![0].spotIndex;
-                                    getVm().updateCommandStatsBaseLineX(touchedIndex);
-                                  }*/
-                                  if (event.localPosition == null) {
-                                    getVm().touchOffset = null;
-                                    return;
-                                  }
-                                  if (getVm().touchOffset == null) {
-                                    getVm().touchOffset = event.localPosition;
-                                    return;
-                                  }
-                                  getVm().updateCommandStatsBaseLineX(
-                                      (event.localPosition!.dx - getVm().touchOffset!.dx).toInt());
-                                  getVm().touchOffset = event.localPosition;
-                                },
-                                touchTooltipData: LineTouchTooltipData(
-                                  getTooltipColor: (touchedSpot) =>
-                                      themeData.colorScheme.onSurface.withValues(alpha: 0.1),
-                                ),
-                              ),
-                              gridData: FlGridData(show: false),
-                              titlesData: FlTitlesData(
-                                bottomTitles: AxisTitles(
-                                  sideTitles: SideTitles(
-                                    showTitles: true,
-                                    reservedSize: 32,
-                                    interval: 1,
+                    return Column(
+                      children: [
+                        AspectRatio(
+                            aspectRatio: 1.2,
+                            child: LineChart(
+                              LineChartData(
+                                  clipData: FlClipData.all(),
+                                  gridData: FlGridData(show: true),
+                                  titlesData: FlTitlesData(
+                                    bottomTitles: AxisTitles(
+                                      sideTitles: SideTitles(
+                                          showTitles: true,
+                                          reservedSize: 24,
+                                          getTitlesWidget: (value, meta) {
+                                            return SideTitleWidget(
+                                              meta: meta,
+                                              child: Text(
+                                                Utils().formatNumber(
+                                                  meta.min,
+                                                  meta.max,
+                                                  value.roundToDouble(),
+                                                ),
+                                              ),
+                                            );
+                                          }),
+                                    ),
+                                    rightTitles: const AxisTitles(
+                                      sideTitles: SideTitles(showTitles: false),
+                                    ),
+                                    topTitles: const AxisTitles(
+                                      sideTitles: SideTitles(showTitles: false),
+                                    ),
+                                    leftTitles: AxisTitles(
+                                      sideTitles: SideTitles(
+                                          minIncluded: false,
+                                          showTitles: true,
+                                          reservedSize: 48,
+                                          getTitlesWidget: (value, meta) {
+                                            return SideTitleWidget(
+                                              meta: meta,
+                                              child: Text(
+                                                Utils().formatNumber(
+                                                  meta.min,
+                                                  meta.max,
+                                                  value.roundToDouble(),
+                                                ),
+                                              ),
+                                            );
+                                          }),
+                                    ),
                                   ),
-                                ),
-                                rightTitles: const AxisTitles(
-                                  sideTitles: SideTitles(showTitles: false),
-                                ),
-                                topTitles: const AxisTitles(
-                                  sideTitles: SideTitles(showTitles: false),
-                                ),
-                                leftTitles: AxisTitles(
-                                  sideTitles: SideTitles(
-                                    showTitles: true,
-                                    reservedSize: 40,
+                                  borderData: FlBorderData(
+                                    show: true,
+                                    border: Border(
+                                      bottom: BorderSide(
+                                          color: themeData.slcTidyUpColor.globalDividerColorBlack,
+                                          width: 2),
+                                      left: BorderSide(
+                                          color: themeData.slcTidyUpColor.globalDividerColorBlack,
+                                          width: 2),
+                                      right: BorderSide.none,
+                                      top: BorderSide.none,
+                                    ),
                                   ),
-                                ),
-                              ),
-                              borderData: FlBorderData(
-                                show: true,
-                                border: Border(
-                                  bottom: BorderSide(
-                                      color: themeData.slcTidyUpColor.globalDividerColorBlack,
-                                      width: 2),
-                                  left: BorderSide(
-                                      color: themeData.slcTidyUpColor.globalDividerColorBlack,
-                                      width: 2),
-                                  right: BorderSide.none,
-                                  top: BorderSide.none,
-                                ),
-                              ),
-                              lineBarsData: () {
-                                List<LineChartBarData> widgets = List.empty(growable: true);
-                                widgets.add(LineChartBarData(
-                                  isCurved: true,
-                                  color: themeData.primaryColor,
-                                  barWidth: 3,
-                                  isStrokeCapRound: true,
-                                  dotData: const FlDotData(show: false),
-                                  belowBarData: BarAreaData(show: false),
-                                  spots: () {
-                                    List<FlSpot> flSpots = List.empty(growable: true);
-                                    List<CommandStats> commandStatsList =
-                                        getVm().redisCacheInfo.commandStats ?? [];
-                                    if (commandStatsList.isEmpty) {
-                                      return flSpots;
-                                    }
-                                    int count = commandStatsList.length;
-                                    int iStart = max(getVm().commandStatsBaseLineX - 5, 0);
-                                    int iEnd = min(getVm().commandStatsBaseLineX + 5, count);
-                                    if (iEnd == count) {
-                                      iStart = count - 10;
-                                    } else if (iStart == 0) {
-                                      iEnd = iStart + 10;
-                                    }
-                                    for (int i = iStart; i < iEnd; i++) {
-                                      CommandStats commandStats = commandStatsList[i];
-                                      flSpots.add(
-                                          FlSpot(i.toDouble(), commandStats.value!.toDouble()));
-                                    }
-                                    return flSpots;
+                                  lineTouchData: LineTouchData(
+                                    handleBuiltInTouches: true,
+                                    touchTooltipData: LineTouchTooltipData(
+                                      getTooltipColor: (touchedSpot) =>
+                                          themeData.colorScheme.onSurface.withValues(alpha: 0.1),
+                                    ),
+                                  ),
+                                  lineBarsData: () {
+                                    List<LineChartBarData> widgets = List.empty(growable: true);
+                                    widgets.add(LineChartBarData(
+                                      isCurved: true,
+                                      color: themeData.primaryColor,
+                                      barWidth: 2,
+                                      curveSmoothness: 0.35,
+                                      isStrokeCapRound: true,
+                                      preventCurveOverShooting: true,
+                                      dotData: const FlDotData(show: false),
+                                      belowBarData: BarAreaData(show: false),
+                                      spots: () {
+                                        List<FlSpot> flSpots = List.empty(growable: true);
+                                        List<CommandStats> commandStatsList =
+                                            getVm().redisCacheInfo.commandStats ?? [];
+                                        if (commandStatsList.isEmpty) {
+                                          return flSpots;
+                                        }
+                                        int count = commandStatsList.length;
+                                        for (double i = 0; i < count; i += 1) {
+                                          CommandStats commandStats = commandStatsList[i.round()];
+                                          flSpots.add(FlSpot(i, commandStats.value!.toDouble()));
+                                        }
+                                        return flSpots;
+                                      }.call(),
+                                    ));
+                                    return widgets;
                                   }.call(),
-                                ));
-                                return widgets;
-                              }.call(),
-                              maxX: 10,
-                              minX: 0,
-                              baselineX: getVm().commandStatsBaseLineX.toDouble()),
-                          duration: const Duration(milliseconds: 250),
-                        ));
+                                  maxX:
+                                      getVm().commandStatsBaseLineX + _CacheMonitorVm.defBaseLineX,
+                                  minX:
+                                      getVm().commandStatsBaseLineX - _CacheMonitorVm.defBaseLineX,
+                                  maxY: getVm().commandStatsMaxY.toDouble(),
+                                  minY: -300,
+                                  baselineX: getVm().commandStatsBaseLineX.toDouble()),
+                              duration: Duration.zero,
+                            )),
+                        () {
+                          int commandStatsCount = getVm().redisCacheInfo.commandStats?.length ?? 0;
+                          //不足10个则不显示
+                          if (commandStatsCount <= _CacheMonitorVm.defBaseLineX * 2) {
+                            return SizedBox.shrink();
+                          }
+                          double min = _CacheMonitorVm.defBaseLineX;
+                          double max = commandStatsCount - 1 - min;
+                          return Slider(
+                            min: min,
+                            max: max,
+                            value: getVm().commandStatsBaseLineX.toDouble(),
+                            onChanged: (value) {
+                              // 拖动改变进度
+                              getVm().updateCommandStatsBaseLineX(value);
+                            },
+                          );
+                        }.call()
+                      ],
+                    );
                     /*return AspectRatio(
                         aspectRatio: 1,
                         child: PieChart(
@@ -292,14 +296,19 @@ class _CacheMonitorVm extends AppBaseVm with CancelTokenAssist {
   late List<LabelValue<String>> tableInfo = List.empty(growable: true);
 
   //命令统计
-  int commandStatsBaseLineX = 5;
+  static const double defBaseLineX = 5;
+  double commandStatsBaseLineX = defBaseLineX;
   final ShouldSetState shouldSetState = ShouldSetState();
-  Offset? touchOffset;
+  int commandStatsMaxY = 0;
 
   void initVm() {
     CacheMonitorRepository.getInfo(defCancelToken).then((result) {
       redisCacheInfo = result.data!;
       _buildTableInfo();
+      commandStatsMaxY = redisCacheInfo.commandStats?.fold(0, (previousValue, element) {
+            return max(previousValue!, element.value!);
+          }) ??
+          0;
       setLoadingStatus(LoadingStatus.success);
     }, onError: (e) {
       BaseDio.handlerError(e);
@@ -336,19 +345,9 @@ class _CacheMonitorVm extends AppBaseVm with CancelTokenAssist {
     ]);
   }
 
-  void updateCommandStatsBaseLineX(int commandStatsBaseLineX) {
-    if (ObjectUtil.isEmptyList(redisCacheInfo.commandStats)) {
-      return;
-    }
-    if(commandStatsBaseLineX>-2&&commandStatsBaseLineX<2){
-      return;
-    }
-    //commandStatsBaseLineX=commandStatsBaseLineX<0?-1:1;
-    int tempBaseLineX = this.commandStatsBaseLineX + commandStatsBaseLineX;
-    if (tempBaseLineX < 0 || tempBaseLineX > redisCacheInfo.commandStats!.length) {
-      return;
-    }
-    this.commandStatsBaseLineX = tempBaseLineX;
+  // 更新命令统计的baselineX
+  void updateCommandStatsBaseLineX(double commandStatsBaseLineX) {
+    this.commandStatsBaseLineX = commandStatsBaseLineX;
     shouldSetState.updateVersion();
     notifyListeners();
   }
