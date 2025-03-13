@@ -334,6 +334,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "sys_divide_text": MessageLookupByLibrary.simpleMessage(
       "-----------------------------",
     ),
+    "sys_label_cache_monitor_command_statistics":
+        MessageLookupByLibrary.simpleMessage("命令统计"),
+    "sys_label_cache_monitor_memory_information":
+        MessageLookupByLibrary.simpleMessage("内存信息"),
     "sys_label_cache_monitor_redis_info": MessageLookupByLibrary.simpleMessage(
       "redis信息",
     ),

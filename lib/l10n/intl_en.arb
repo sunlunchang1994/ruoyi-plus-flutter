@@ -489,6 +489,8 @@
   "sys_label_online_login_user_name": "用户名称",
 
   "sys_label_cache_monitor_redis_info": "redis信息",
+  "sys_label_cache_monitor_command_statistics": "命令统计",
+  "sys_label_cache_monitor_memory_information": "内存信息",
 
   "main_divide_text": "-----------------------------",
   "main_label_workbench": "工作台",

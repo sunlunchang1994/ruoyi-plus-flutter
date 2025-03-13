@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart' hide Headers;
+import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/slc_color_util.dart';
 import 'package:retrofit/dio.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
@@ -38,7 +40,17 @@ class CacheMonitorRepository {
         .map(DataTransformUtils.checkError)
         .map((event) {
       return event.toIntensify(createData: (resultEntity) {
-        return RedisCacheInfo.fromJson(resultEntity.data);
+        RedisCacheInfo redisCacheInfo = RedisCacheInfo.fromJson(resultEntity.data);
+        //填充命令的颜色
+        int count = redisCacheInfo.commandStats?.length ?? 0;
+        if (count != 0) {
+          List<int> colors =
+              SlcColorUtil.getColorByAverage(count, colorArray: SlcColorUtil.COLOR_ARRAY_MD);
+          for (int i = 0; i < count; i++) {
+            redisCacheInfo.commandStats![i].color = colors[i];
+          }
+        }
+        return redisCacheInfo;
       });
     }).single;
   }

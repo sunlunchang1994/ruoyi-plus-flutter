@@ -26,6 +26,7 @@ import '../module/system/ui/menu_tree/menu_list_borwser_page.dart';
 import '../module/system/ui/menu_tree/menu_list_select_single_page.dart';
 import '../module/system/ui/menu_tree/menu_tree_borwser_page.dart';
 import '../module/system/ui/menu_tree/menu_tree_select_multiple_page.dart';
+import '../module/system/ui/monitor/cache_monitor/test_p.dart';
 import '../module/system/ui/monitor/online/user_online_list_browser_page.dart';
 import '../module/system/ui/notice/notice_add_edit_page.dart';
 import '../module/system/ui/notice/notice_list_browser_page.dart';
@@ -313,6 +314,7 @@ final Map<String, WidgetBuilder> router = {
   //缓存监控：信息
   CacheMonitorPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
+    //return LineChartSample11();
     return CacheMonitorPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
 };

@@ -4070,6 +4070,26 @@ class S {
     );
   }
 
+  /// `命令统计`
+  String get sys_label_cache_monitor_command_statistics {
+    return Intl.message(
+      '命令统计',
+      name: 'sys_label_cache_monitor_command_statistics',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `内存信息`
+  String get sys_label_cache_monitor_memory_information {
+    return Intl.message(
+      '内存信息',
+      name: 'sys_label_cache_monitor_memory_information',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `-----------------------------`
   String get main_divide_text {
     return Intl.message(

@@ -1,9 +1,11 @@
 //登录
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/timer_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/env_config.dart';
@@ -292,8 +294,25 @@ class _LoginModel extends AppBaseVm with CancelTokenAssist {
       captcha = result.data;
       notifyListeners();
     }, onError: (e) {
-      BaseDio.handlerError(e);
+      //此处不需要提示获取验证码失败
+      //BaseDio.handlerError(e);
+      //失败后
+      _delayedRefreshCaptcha();
     });
+  }
+
+  Timer? _delayedRefreshCaptchaTimer;
+
+  void _delayedRefreshCaptcha() {
+    _cancelRefreshCaptchaTimer();
+    _delayedRefreshCaptchaTimer = Timer(Duration(milliseconds: 5000), () {
+      refreshCaptcha();
+    });
+  }
+
+  // 取消刷新验证码定时器
+  void _cancelRefreshCaptchaTimer() {
+    _delayedRefreshCaptchaTimer?.cancel();
   }
 
   void setIsSavePassword(bool value) {
@@ -357,7 +376,6 @@ class _LoginModel extends AppBaseVm with CancelTokenAssist {
       }
     }, onError: (e) {
       dismissLoading();
-
       if (!defCancelToken.isCancelled) {
         BaseDio.handlerError(e);
         //失败则刷新验证码
@@ -374,5 +392,11 @@ class _LoginModel extends AppBaseVm with CancelTokenAssist {
     UserConfig().saveTenantName(tenantName);
     UserConfig().saveAccount(userName);
     UserConfig().savePassword(password);
+  }
+
+  @override
+  dispose() {
+    _cancelRefreshCaptchaTimer();
+    super.dispose();
   }
 }
