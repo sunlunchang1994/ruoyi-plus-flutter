@@ -194,7 +194,7 @@ class NoticeListDataVmSub extends FastBaseListDataPageVmSub<SysNotice> with Canc
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
         return dataWrapper;
       } catch (e) {
-        ResultEntity resultEntity = BaseDio.getError(e);
+        ResultEntity resultEntity = BaseDio.handlerError(e);
         return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
       }
     });

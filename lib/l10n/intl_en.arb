@@ -31,6 +31,7 @@
   "action_entire": "全部",
   "action_import": "导入",
   "action_export": "导出",
+  "action_refresh": "刷新",
   "label_common_divide_text": "-----------------------------",
   "label_prompt": "提示",
   "label_def": "默认",
@@ -215,6 +216,8 @@
   "app_label_photo_album": "相册",
   "app_label_image_crop": "裁剪",
   "app_label_select_file": "选择文件",
+  "app_label_open_url_in_sys_browser": "在系统浏览器打开",
+
   "user_divide_text": "-----------------------------",
   "user_label_setting": "设置",
   "user_label_login": "登录",

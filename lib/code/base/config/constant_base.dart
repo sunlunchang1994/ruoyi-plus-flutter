@@ -6,6 +6,8 @@ class ConstantBase {
   ///key
   ///Intent 标题Key
   static const String KEY_INTENT_TITLE = "title";
+  ///Intent url
+  static const String KEY_INTENT_URL = "url";
   ///Intent 选择的数据
   static const String KEY_INTENT_SELECT_DATA = "selectData";
 

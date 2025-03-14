@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/object_util.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/slc_url_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
@@ -10,6 +13,7 @@ import '../../../../base/ui/app_mvvm.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../feature/bizapi/system/entity/router_vo.dart';
+import '../../../../feature/component/webview/app_web_view_page.dart';
 import '../../../user/ui/dept/dept_list_browser_page.dart';
 import 'router_item_view.dart';
 
@@ -75,6 +79,13 @@ class _MenuGridVm extends AppBaseVm {
   }
 
   void onRouterClick(RouterVo router) {
+    if (UrlUtil.isUrl(router.path ?? "")) {
+      pushNamed(AppWebViewPage.routeName, arguments: {
+        ConstantBase.KEY_INTENT_TITLE: router.meta?.title,
+        ConstantBase.KEY_INTENT_URL: router.path
+      });
+      return;
+    }
     if (ConstantSysApi.VALUE_COMPONENT_LAYOUT == router.component &&
         !ObjectUtil.isEmptyList(router.children)) {
       pushNamed(MenuPage.routeName, arguments: {
@@ -82,16 +93,17 @@ class _MenuGridVm extends AppBaseVm {
         "routerList": router.children,
         "parentPath": _targetPathByRouter(router)
       });
-    } else if (ConstantSysApi.VALUE_COMPONENT_PARENT_VIEW == router.component) {
+      return;
+    }
+    if (ConstantSysApi.VALUE_COMPONENT_PARENT_VIEW == router.component) {
       pushNamed(_targetPathByRouter(router), arguments: {
         ConstantBase.KEY_INTENT_TITLE: router.meta?.title ?? S.current.app_name,
         ConstantSysApi.INTENT_KEY_ROUTER: router
       });
-    } else {
-      pushNamed(_targetPathByRouter(router), arguments: {
-        ConstantBase.KEY_INTENT_TITLE: router.meta?.title ?? S.current.app_name
-      });
+      return;
     }
+    pushNamed(_targetPathByRouter(router),
+        arguments: {ConstantBase.KEY_INTENT_TITLE: router.meta?.title ?? S.current.app_name});
   }
 
   @override

@@ -10,6 +10,7 @@ import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_browser_page.dart';
 
 import '../base/config/constant_base.dart';
+import '../feature/component/webview/app_web_view_page.dart';
 import '../module/system/ui/client/sys_client_add_edit_page.dart';
 import '../module/system/ui/client/sys_client_list_browser_page.dart';
 import '../module/system/ui/config/config_add_edit_page.dart';
@@ -61,6 +62,12 @@ final Map<String, WidgetBuilder> router = {
   NotFoundPage.routeName: (BuildContext context) => NotFoundPage(),
   //欢迎页
   WelcomePage.routeName: (BuildContext context) => WelcomePage(),
+  //欢迎页
+  AppWebViewPage.routeName: (BuildContext context) {
+    SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
+    return AppWebViewPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_URL],
+        title: slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
+  },
   //登录页面
   LoginPage.routeName: (BuildContext context) => LoginPage(),
   //主页

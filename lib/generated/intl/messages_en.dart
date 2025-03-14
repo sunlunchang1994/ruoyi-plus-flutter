@@ -56,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "action_next_step": MessageLookupByLibrary.simpleMessage("下一步"),
     "action_ok": MessageLookupByLibrary.simpleMessage("确定"),
     "action_pre_step": MessageLookupByLibrary.simpleMessage("上一步"),
+    "action_refresh": MessageLookupByLibrary.simpleMessage("刷新"),
     "action_remove": MessageLookupByLibrary.simpleMessage("移除"),
     "action_reset": MessageLookupByLibrary.simpleMessage("重置"),
     "action_save": MessageLookupByLibrary.simpleMessage("保存"),
@@ -112,6 +113,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "未获取到位置信息",
     ),
     "app_label_not_completed": MessageLookupByLibrary.simpleMessage("待完善"),
+    "app_label_open_url_in_sys_browser": MessageLookupByLibrary.simpleMessage(
+      "在系统浏览器打开",
+    ),
     "app_label_pass": MessageLookupByLibrary.simpleMessage("通过"),
     "app_label_personal_information": MessageLookupByLibrary.simpleMessage(
       "个人信息",

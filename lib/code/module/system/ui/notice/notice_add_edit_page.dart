@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
+import 'package:ruoyi_plus_flutter/code/feature/component/webview/web_view_util.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
@@ -152,9 +153,12 @@ class NoticeAddEditPage extends AppBaseStatelessWidget<_NoticeAddEditVm> {
                         builder: (field) {
                           return InputDecorator(
                               decoration: (field as FormBuilderFieldDecorationState).decoration,
-                              child: SizedBox(
-                                  height: 540,
-                                  child: WebViewWidget(controller: getVm().controller)));
+                              child: Padding(
+                                  padding: EdgeInsets.only(top: SlcDimens.appDimens6),
+                                  child: SizedBox(
+                                      height: 540,
+                                      child: WebViewUtil.newCompatWebView(
+                                          controller: getVm().controller))));
                         }),
                   ],
                 ))));
@@ -184,26 +188,28 @@ class _NoticeAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   bool _infoChange = false;
 
-  WebViewController controller = WebViewController()
-    ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..enableZoom(true)
-    ..setNavigationDelegate(
-      NavigationDelegate(
-        onProgress: (int progress) {
-          // Update loading bar.
-        },
-        onPageStarted: (String url) {},
-        onPageFinished: (String url) {},
-        onHttpError: (HttpResponseError error) {},
-        onWebResourceError: (WebResourceError error) {},
-        /*onNavigationRequest: (NavigationRequest request) {
-          if (request.url.startsWith('https://www.youtube.com/')) {
-            return NavigationDecision.prevent;
-          }
-          return NavigationDecision.navigate;
-        },*/
-      ),
-    );
+  late final WebViewController controller;
+
+  _NoticeAddEditVm() {
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..enableZoom(false)
+      ..setBackgroundColor(Colors.transparent)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            // Update loading bar.
+          },
+          onPageStarted: (String url) {},
+          onPageFinished: (String url) {},
+          onHttpError: (HttpResponseError error) {},
+          onWebResourceError: (WebResourceError error) {},
+          onNavigationRequest: (NavigationRequest request) {
+            return NavigationDecision.navigate;
+          },
+        ),
+      );
+  }
 
   void initVm({SysNotice? sysNotice}) {
     if (this.sysNotice != null) {
@@ -212,17 +218,14 @@ class _NoticeAddEditVm extends AppBaseVm with CancelTokenAssist {
     if (sysNotice == null) {
       sysNotice = SysNotice();
       this.sysNotice = sysNotice;
-
-      controller.loadHtmlString("");
+      controller.loadHtmlString(WebViewUtil.formatRichText(this.sysNotice?.noticeContent ?? ""));
 
       setLoadingStatusWithNotify(LoadingStatus.success, notify: false);
     } else {
       SysNoticeRepository.getInfo(sysNotice.noticeId!, defCancelToken).asStream().single.then(
           (intensifyEntity) {
         this.sysNotice = intensifyEntity.data;
-
-        this.controller.loadHtmlString(this.sysNotice?.noticeContent ?? "");
-
+        controller.loadHtmlString(WebViewUtil.formatRichText(this.sysNotice?.noticeContent ?? ""));
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
         BaseDio.handlerError(e);

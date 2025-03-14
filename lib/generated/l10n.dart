@@ -235,6 +235,11 @@ class S {
     return Intl.message('导出', name: 'action_export', desc: '', args: []);
   }
 
+  /// `刷新`
+  String get action_refresh {
+    return Intl.message('刷新', name: 'action_refresh', desc: '', args: []);
+  }
+
   /// `-----------------------------`
   String get label_common_divide_text {
     return Intl.message(
@@ -1650,6 +1655,16 @@ class S {
     return Intl.message(
       '选择文件',
       name: 'app_label_select_file',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `在系统浏览器打开`
+  String get app_label_open_url_in_sys_browser {
+    return Intl.message(
+      '在系统浏览器打开',
+      name: 'app_label_open_url_in_sys_browser',
       desc: '',
       args: [],
     );
