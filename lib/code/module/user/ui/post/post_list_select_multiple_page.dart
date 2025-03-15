@@ -6,6 +6,7 @@ import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:ruoyi_plus_flutter/code/base/ui/utils/fast_dialog_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/post/post_list_page_vd.dart';
@@ -86,16 +87,9 @@ class PostListMultipleSelectDialog extends AppBaseStatelessWidget<_PostListMulti
     return ChangeNotifierProvider(
         create: (context) => vm,
         builder: (context, child) {
-          return AlertDialog(
+          return FastDialogUtils.getBottomAlertDialog(
             title: Text(title ?? S.current.user_label_post_name_select),
-            titlePadding: EdgeInsets.only(
-                left: SlcDimens.appDimens16,
-                right: SlcDimens.appDimens16,
-                top: SlcDimens.appDimens16,
-                bottom: SlcDimens.appDimens8),
             content: PostListMultipleSelectDialog(),
-            contentPadding: EdgeInsets.zero,
-            insetPadding: EdgeInsets.zero,
             actions: [
               TextButton(
                   onPressed: () {

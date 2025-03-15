@@ -495,6 +495,13 @@
   "sys_label_cache_monitor_command_statistics": "命令统计",
   "sys_label_cache_monitor_memory_information": "内存信息",
 
+  "sys_label_setting_item_theme_mode": "主题模式",
+  "sys_label_setting_item_check_updates": "检查更新",
+  "sys_label_setting_item_about": "关于我们",
+  "sys_label_setting_follow_system": "跟随系统",
+  "sys_label_setting_light_mode": "高亮模式",
+  "sys_label_setting_dark_mode": "暗黑模式",
+
   "main_divide_text": "-----------------------------",
   "main_label_analyse": "分析",
   "main_label_workbench": "工作台",

@@ -6,6 +6,7 @@ import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/widget/fast_slc_ui_box.dart';
 import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
+import '../../../../system/ui/setting/setting_page.dart';
 import 'profile_page.dart';
 import '../../../../../../res/dimens.dart';
 import '../../../../../base/ui/app_mvvm.dart';
@@ -106,7 +107,9 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                               visualDensity: VisualDensity.compact,
                               tileColor: themeData.slcTidyUpColor.getCardColorByTheme(themeData),
                               //根据card规则实现
-                              onTap: () {}),
+                              onTap: () {
+                                getVm().pushNamed(SettingPage.routeName);
+                              }),
                           SlcUiBoxStyleUtils.getDividerByBg(),
                         ])))
               ]);

@@ -4105,6 +4105,66 @@ class S {
     );
   }
 
+  /// `主题模式`
+  String get sys_label_setting_item_theme_mode {
+    return Intl.message(
+      '主题模式',
+      name: 'sys_label_setting_item_theme_mode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `检查更新`
+  String get sys_label_setting_item_check_updates {
+    return Intl.message(
+      '检查更新',
+      name: 'sys_label_setting_item_check_updates',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `关于我们`
+  String get sys_label_setting_item_about {
+    return Intl.message(
+      '关于我们',
+      name: 'sys_label_setting_item_about',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `跟随系统`
+  String get sys_label_setting_follow_system {
+    return Intl.message(
+      '跟随系统',
+      name: 'sys_label_setting_follow_system',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `高亮模式`
+  String get sys_label_setting_light_mode {
+    return Intl.message(
+      '高亮模式',
+      name: 'sys_label_setting_light_mode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `暗黑模式`
+  String get sys_label_setting_dark_mode {
+    return Intl.message(
+      '暗黑模式',
+      name: 'sys_label_setting_dark_mode',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `-----------------------------`
   String get main_divide_text {
     return Intl.message(

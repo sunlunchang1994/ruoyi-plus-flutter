@@ -17,6 +17,7 @@ import '../../../../../base/api/base_dio.dart';
 import '../../../../../base/api/result_entity.dart';
 import '../../../../../base/repository/remote/data_transform_utils.dart';
 import '../../../../../base/repository/remote/page_transform_utils.dart';
+import '../../../../../base/ui/utils/fast_dialog_utils.dart';
 import '../../../../../feature/bizapi/system/entity/sys_dict_data.dart';
 import '../../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../../lib/fast/vd/list_data_vd.dart';
@@ -42,16 +43,9 @@ class DictDataListMultipleChoicesDialog
     return ChangeNotifierProvider(
         create: (context) => vm,
         builder: (context, child) {
-          return AlertDialog(
+          return FastDialogUtils.getBottomAlertDialog(
             title: Text(title),
-            titlePadding: EdgeInsets.only(
-                left: SlcDimens.appDimens16,
-                right: SlcDimens.appDimens16,
-                top: SlcDimens.appDimens16,
-                bottom: SlcDimens.appDimens8),
             content: DictDataListMultipleChoicesDialog(title, dictType, key: key),
-            contentPadding: EdgeInsets.zero,
-            insetPadding: EdgeInsets.zero,
             actions: [
               TextButton(
                   onPressed: () {

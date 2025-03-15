@@ -35,6 +35,7 @@ import '../module/system/ui/oss/config/oss_config_list_browser_page.dart';
 import '../module/system/ui/oss/oss_details_page.dart';
 import '../module/system/ui/oss/oss_list_browser_page.dart';
 import '../module/system/ui/router/router_page.dart';
+import '../module/system/ui/setting/setting_page.dart';
 import '../module/system/ui/tenant/package/tenant_package_add_edit_page.dart';
 import '../module/system/ui/tenant/package/tenant_package_list_browser_page.dart';
 import '../module/system/ui/tenant/package/tenant_package_select_single_page.dart';
@@ -77,6 +78,10 @@ final Map<String, WidgetBuilder> router = {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
     return MenuPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE],
         slcRouterInfo.arguments["routerList"], slcRouterInfo.arguments["parentPath"]);
+  },
+  //设置页
+  SettingPage.routeName: (BuildContext context) {
+    return SettingPage();
   },
   //用户
   //用户：修改个人信息

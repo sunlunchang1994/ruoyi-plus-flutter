@@ -475,7 +475,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
             )));
   }
 
-  // 命令统计图
+  // 来源统计
   Widget _getAccessSourceStatistics(ThemeData themeData) {
     return Card(
         margin: EdgeInsets.symmetric(horizontal: SlcDimens.appDimens16),
@@ -490,7 +490,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(S.current.sys_label_cache_monitor_command_statistics,
+                Text(S.current.analyse_label_access_source,
                     style: themeData.slcTidyUpStyle.getTitleTextStyle(themeData)),
                 ThemeUtil.getSizedBox(height: SlcDimens.appDimens12),
                 NqSelector<_AnalyseVm, List<AccessSource>>(
@@ -627,11 +627,11 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
                               Color accessTrendsColor = Color(accessTrends.color);
                               radarDataSetList.add(RadarDataSet(
                                 fillColor: accessTrends.selected
-                                    ? accessTrendsColor.withValues(alpha: 0.2)
-                                    : accessTrendsColor.withValues(alpha: 0.05),
+                                    ? accessTrendsColor.withValues(alpha: 0.3)
+                                    : accessTrendsColor.withValues(alpha: 0.15),
                                 borderColor: accessTrends.selected
                                     ? accessTrendsColor
-                                    : accessTrendsColor.withValues(alpha: 0.25),
+                                    : accessTrendsColor.withValues(alpha: 0.3),
                                 entryRadius: accessTrends.selected ? 3 : 2,
                                 borderWidth: accessTrends.selected ? 2.5 : 2,
                                 dataEntries: accessTrends.accessTrendsItemList

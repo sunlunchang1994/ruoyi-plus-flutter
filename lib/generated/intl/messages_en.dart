@@ -509,6 +509,21 @@ class MessageLookup extends MessageLookupByLibrary {
     "sys_label_oss_view_file": MessageLookupByLibrary.simpleMessage("查看文件"),
     "sys_label_permission_file_download_hint":
         MessageLookupByLibrary.simpleMessage("下载并保存文件需要文件管理权限，请授予！"),
+    "sys_label_setting_dark_mode": MessageLookupByLibrary.simpleMessage("暗黑模式"),
+    "sys_label_setting_follow_system": MessageLookupByLibrary.simpleMessage(
+      "跟随系统",
+    ),
+    "sys_label_setting_item_about": MessageLookupByLibrary.simpleMessage(
+      "关于我们",
+    ),
+    "sys_label_setting_item_check_updates":
+        MessageLookupByLibrary.simpleMessage("检查更新"),
+    "sys_label_setting_item_theme_mode": MessageLookupByLibrary.simpleMessage(
+      "主题模式",
+    ),
+    "sys_label_setting_light_mode": MessageLookupByLibrary.simpleMessage(
+      "高亮模式",
+    ),
     "sys_label_sys_client_active_timeout": MessageLookupByLibrary.simpleMessage(
       "token活跃超时时间",
     ),
