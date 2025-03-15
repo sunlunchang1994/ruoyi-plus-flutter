@@ -496,8 +496,15 @@
   "sys_label_cache_monitor_memory_information": "内存信息",
 
   "main_divide_text": "-----------------------------",
+  "main_label_analyse": "分析",
   "main_label_workbench": "工作台",
   "main_label_mine": "我的",
+
+  "analyse_label_week_online": "在线统计",
+  "analyse_label_traffic_trends": "流量趋势",
+  "analyse_label_month_visits": "月访问量",
+  "analyse_label_access_source": "访问来源",
+  "analyse_label_access_trends": "访问趋势",
 
   "menu_label_root": "根目录",
   "menu_label_menu_tree": "菜单树"

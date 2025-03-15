@@ -68,6 +68,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "暂不更新",
     ),
     "action_update_now": MessageLookupByLibrary.simpleMessage("立即更新"),
+    "analyse_label_access_source": MessageLookupByLibrary.simpleMessage("访问来源"),
+    "analyse_label_access_trends": MessageLookupByLibrary.simpleMessage("访问趋势"),
+    "analyse_label_month_visits": MessageLookupByLibrary.simpleMessage("月访问量"),
+    "analyse_label_traffic_trends": MessageLookupByLibrary.simpleMessage(
+      "流量趋势",
+    ),
+    "analyse_label_week_online": MessageLookupByLibrary.simpleMessage("在线统计"),
     "app_divide_text": MessageLookupByLibrary.simpleMessage(
       "-----------------------------",
     ),
@@ -331,6 +338,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "main_divide_text": MessageLookupByLibrary.simpleMessage(
       "-----------------------------",
     ),
+    "main_label_analyse": MessageLookupByLibrary.simpleMessage("分析"),
     "main_label_mine": MessageLookupByLibrary.simpleMessage("我的"),
     "main_label_workbench": MessageLookupByLibrary.simpleMessage("工作台"),
     "menu_label_menu_tree": MessageLookupByLibrary.simpleMessage("菜单树"),

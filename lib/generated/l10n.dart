@@ -4115,6 +4115,11 @@ class S {
     );
   }
 
+  /// `分析`
+  String get main_label_analyse {
+    return Intl.message('分析', name: 'main_label_analyse', desc: '', args: []);
+  }
+
   /// `工作台`
   String get main_label_workbench {
     return Intl.message(
@@ -4128,6 +4133,56 @@ class S {
   /// `我的`
   String get main_label_mine {
     return Intl.message('我的', name: 'main_label_mine', desc: '', args: []);
+  }
+
+  /// `在线统计`
+  String get analyse_label_week_online {
+    return Intl.message(
+      '在线统计',
+      name: 'analyse_label_week_online',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `流量趋势`
+  String get analyse_label_traffic_trends {
+    return Intl.message(
+      '流量趋势',
+      name: 'analyse_label_traffic_trends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `月访问量`
+  String get analyse_label_month_visits {
+    return Intl.message(
+      '月访问量',
+      name: 'analyse_label_month_visits',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `访问来源`
+  String get analyse_label_access_source {
+    return Intl.message(
+      '访问来源',
+      name: 'analyse_label_access_source',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `访问趋势`
+  String get analyse_label_access_trends {
+    return Intl.message(
+      '访问趋势',
+      name: 'analyse_label_access_trends',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `根目录`

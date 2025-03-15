@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../base/ui/app_mvvm.dart';
 import '../../../lib/fast/utils/bar_utils.dart';
+import 'analyse_page.dart';
 import 'workbench_page.dart';
 import '../../user/ui/user/info/mine_page.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +23,7 @@ class MainPage extends AppBaseStatelessWidget<_MainVm> {
       registerEvent(context);
       var mainVm = Provider.of<_MainVm>(context, listen: false);
 
-      List<Widget> pageList = [const WorkbenchPage(), const MinePage()];
+      List<Widget> pageList = [const AnalysePage(), const WorkbenchPage(), const MinePage()];
 
       var pageController = PageController();
 
@@ -30,17 +31,24 @@ class MainPage extends AppBaseStatelessWidget<_MainVm> {
         BottomNavigationBarItem(
             icon: Consumer<_MainVm>(
               builder: (context, vm, child) {
-                return const Icon(Icons.text_snippet);
+                return const Icon(Icons.analytics);
               },
             ),
             label: mainVm.titleArray[0]),
+        BottomNavigationBarItem(
+            icon: Consumer<_MainVm>(
+              builder: (context, vm, child) {
+                return const Icon(Icons.text_snippet);
+              },
+            ),
+            label: mainVm.titleArray[1]),
         BottomNavigationBarItem(
             icon: Consumer<_MainVm>(
               builder: (context, value, child) {
                 return const Icon(Icons.account_box);
               },
             ),
-            label: mainVm.titleArray[1])
+            label: mainVm.titleArray[2])
       ];
       return Scaffold(
           body: PageView.builder(
@@ -70,7 +78,11 @@ class MainPage extends AppBaseStatelessWidget<_MainVm> {
 class _MainVm extends AppBaseVm {
   int currentPageIndex = 0;
 
-  final List<String> titleArray = [S.current.main_label_workbench, S.current.main_label_mine];
+  final List<String> titleArray = [
+    S.current.main_label_analyse,
+    S.current.main_label_workbench,
+    S.current.main_label_mine
+  ];
 
   void updateTabIndex(int index) {
     currentPageIndex = index;
