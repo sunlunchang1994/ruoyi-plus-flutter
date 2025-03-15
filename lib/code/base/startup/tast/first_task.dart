@@ -12,7 +12,7 @@ import '../../vm/global_vm.dart';
 
 class FirstTask extends Task {
   @override
-  Future<void> run(BuildContext context) async {
+  Future<void> run({BuildContext? context}) async {
     LogUtil.init(isDebug: !EnvConfig.getEnvConfig().isRelease);
 
     SpCacheUtil? spCacheUtil = await SpCacheUtil.getInstance();

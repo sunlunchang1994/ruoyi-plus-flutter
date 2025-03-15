@@ -8,6 +8,7 @@ import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/api_config.dart';
+import 'package:ruoyi_plus_flutter/code/base/api/base_dio.dart';
 import 'package:ruoyi_plus_flutter/code/base/startup/task_utils.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/remote/pub_dict_data_api.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
@@ -73,16 +74,21 @@ class WelcomePage extends AppBaseStatelessWidget<_WelcomeVm> {
 }
 
 class _WelcomeVm extends AppBaseVm with CancelTokenAssist {
+  //是否是完成页面
+  bool isFinishPage = false;
+
   _WelcomeVm() {}
 
   void init(BuildContext context) async {
-    TaskUtils.execOtherTask(context).then((value) async {
+    TaskUtils.execOtherTask(context: context).then((value) async {
       await Future.delayed(const Duration(milliseconds: 1200));
       if (!UserConfig().isAutoLogin() || ApiConfig().getToken() == null) {
         pushReplacementNamed(LoginPage.routeName);
         return;
       }
-      Timer? autoLoginTimeOutTimer;
+      Timer autoLoginTimeOutTimer = Timer(Duration(milliseconds: 2000), () {
+        defCancelToken.cancel();
+      });
       PubUserRepository.getInfo(defCancelToken)
           .asStream()
           .asyncMap((event) => PubMenuPublicRepository.getRouters(defCancelToken))
@@ -92,10 +98,9 @@ class _WelcomeVm extends AppBaseVm with CancelTokenAssist {
               .single)
           .single
           .then((IntensifyEntity<List<RouterVo>> value) {
+        isFinishPage = true;
         //登录成功了就取消
-        if (autoLoginTimeOutTimer != null) {
-          autoLoginTimeOutTimer.cancel();
-        }
+        autoLoginTimeOutTimer.cancel();
         if (value.isSuccess()) {
           //成功了跳转主界面
           AppToastBridge.showToast(msg: S.current.user_toast_login_login_successful);
@@ -105,12 +110,12 @@ class _WelcomeVm extends AppBaseVm with CancelTokenAssist {
         //失败跳转到登录界面
         pushReplacementNamed(LoginPage.routeName);
       }, onError: (e) {
+        if (isFinishPage) {
+          return;
+        }
         //失败跳转到登录界面
+        isFinishPage = true;
         pushReplacementNamed(LoginPage.routeName);
-      });
-      //两秒后取消，防止主界面显示时间太长
-      autoLoginTimeOutTimer = Timer(Duration(milliseconds: 2000), () {
-        defCancelToken.cancel();
       });
     });
   }

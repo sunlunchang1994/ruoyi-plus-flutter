@@ -19,6 +19,8 @@ abstract class PubUserApiClient {
   }
 
   ///用户信息
+  // 如何动态配置超时时间？
+  @Headers({'timeout': '10000'})
   @GET("/system/user/getInfo")
   Future<ResultEntity> getInfo(@CancelRequest() CancelToken cancelToken);
 }

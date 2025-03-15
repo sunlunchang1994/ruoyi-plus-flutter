@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
   }
 
   void _init(BuildContext context) {
-    TaskUtils.execFirstTask(context).then((value) {
+    TaskUtils.execFirstTask(context:context).then((value) {
       LogUtil.d("初始化完毕", tag: "FirstTask");
     });
   }

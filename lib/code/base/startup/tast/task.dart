@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
 abstract class Task {
-  Future<void> run(BuildContext context);
+  Future<void> run({BuildContext? context});
 }

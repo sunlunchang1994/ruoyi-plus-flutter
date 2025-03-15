@@ -240,44 +240,46 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
                 NqSelector<_AnalyseVm, List<WeekOnline>>(builder: (context, weekOnlineList, child) {
                   return AspectRatio(
                       aspectRatio: 1.4,
-                      child: LineChart(LineChartData(
-                          //clipData: FlClipData(top: true, bottom: false, left: true, right: true),
-                          gridData: FlGridData(show: true),
-                          titlesData: FlTitlesData(
-                            bottomTitles: getBottomAxisTitles((value, meta) {
-                              return weekOnlineList[value.round()].date;
-                            }),
-                            rightTitles: const AxisTitles(
-                              sideTitles: SideTitles(showTitles: false),
-                            ),
-                            topTitles: const AxisTitles(
-                              sideTitles: SideTitles(showTitles: false),
-                            ),
-                            leftTitles: getLeftAxisTitles(),
-                          ),
-                          borderData: getFlBorderData(themeData),
-                          lineTouchData: getLineTouchData(themeData,
-                              getTooltipText: (touchedSpot) =>
-                                  "${weekOnlineList[touchedSpot.x.toInt()].date}：${touchedSpot.y.round().toString()}人"),
-                          lineBarsData: () {
-                            List<LineChartBarData> widgets = List.empty(growable: true);
-                            widgets.add(getLineChartBarData(
-                                themeData,
-                                () {
-                                  List<FlSpot> flSpots = List.empty(growable: true);
-                                  if (weekOnlineList.isEmpty) {
-                                    return flSpots;
-                                  }
-                                  int count = weekOnlineList.length;
-                                  for (double i = 0; i < count; i += 1) {
-                                    WeekOnline weekOnline = weekOnlineList[i.round()];
-                                    flSpots.add(FlSpot(i, weekOnline.count.toDouble()));
-                                  }
-                                  return flSpots;
-                                }.call()));
-                            return widgets;
-                          }.call(),
-                          minY: 0)));
+                      child: weekOnlineList.isEmpty
+                          ? CircularProgressIndicator()
+                          : LineChart(LineChartData(
+                              //clipData: FlClipData(top: true, bottom: false, left: true, right: true),
+                              gridData: FlGridData(show: true),
+                              titlesData: FlTitlesData(
+                                bottomTitles: getBottomAxisTitles((value, meta) {
+                                  return weekOnlineList[value.round()].date;
+                                }),
+                                rightTitles: const AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false),
+                                ),
+                                topTitles: const AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false),
+                                ),
+                                leftTitles: getLeftAxisTitles(),
+                              ),
+                              borderData: getFlBorderData(themeData),
+                              lineTouchData: getLineTouchData(themeData,
+                                  getTooltipText: (touchedSpot) =>
+                                      "${weekOnlineList[touchedSpot.x.toInt()].date}：${touchedSpot.y.round().toString()}人"),
+                              lineBarsData: () {
+                                List<LineChartBarData> widgets = List.empty(growable: true);
+                                widgets.add(getLineChartBarData(
+                                    themeData,
+                                    () {
+                                      List<FlSpot> flSpots = List.empty(growable: true);
+                                      if (weekOnlineList.isEmpty) {
+                                        return flSpots;
+                                      }
+                                      int count = weekOnlineList.length;
+                                      for (double i = 0; i < count; i += 1) {
+                                        WeekOnline weekOnline = weekOnlineList[i.round()];
+                                        flSpots.add(FlSpot(i, weekOnline.count.toDouble()));
+                                      }
+                                      return flSpots;
+                                    }.call()));
+                                return widgets;
+                              }.call(),
+                              minY: 0)));
                 }, selector: (context, vm) {
                   return vm.weekOnlineList;
                 })
@@ -307,64 +309,66 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
                     builder: (context, browseTrendsList, child) {
                   return AspectRatio(
                       aspectRatio: 1.4,
-                      child: LineChart(LineChartData(
-                          //clipData: FlClipData(top: true, bottom: false, left: true, right: true),
-                          gridData: FlGridData(show: true),
-                          titlesData: FlTitlesData(
-                            bottomTitles: getBottomAxisTitles((value, meta) {
-                              int index = value.round();
-                              if (browseTrendsList.length < index) {
-                                return AnalyseRepository.getBrowseTrendHour(index);
-                              }
-                              return browseTrendsList[index].hour;
-                            }),
-                            rightTitles: const AxisTitles(
-                              sideTitles: SideTitles(showTitles: false),
-                            ),
-                            topTitles: const AxisTitles(
-                              sideTitles: SideTitles(showTitles: false),
-                            ),
-                            leftTitles: getLeftAxisTitles(),
-                          ),
-                          borderData: getFlBorderData(themeData),
-                          lineTouchData: getLineTouchData(themeData,
-                              getTooltipText: (touchedSpot) =>
-                                  "${browseTrendsList[touchedSpot.x.toInt()].hour}：${touchedSpot.y.round().toString()}"),
-                          lineBarsData: () {
-                            List<LineChartBarData> widgets = List.empty(growable: true);
-                            widgets.add(getLineChartBarData(
-                                themeData,
-                                () {
-                                  List<FlSpot> flSpots = List.empty(growable: true);
-                                  if (browseTrendsList.isEmpty) {
-                                    return flSpots;
+                      child: browseTrendsList.isEmpty
+                          ? CircularProgressIndicator()
+                          : LineChart(LineChartData(
+                              //clipData: FlClipData(top: true, bottom: false, left: true, right: true),
+                              gridData: FlGridData(show: true),
+                              titlesData: FlTitlesData(
+                                bottomTitles: getBottomAxisTitles((value, meta) {
+                                  int index = value.round();
+                                  if (index >= browseTrendsList.length) {
+                                    return AnalyseRepository.getBrowseTrendHour(index);
                                   }
-                                  int count = browseTrendsList.length;
-                                  for (double i = 0; i < count; i += 1) {
-                                    BrowseTrends browseTrends = browseTrendsList[i.round()];
-                                    flSpots.add(FlSpot(i, browseTrends.count.toDouble()));
-                                  }
-                                  return flSpots;
-                                }.call(),
-                                flDotData: FlDotData(
-                                    show: true,
-                                    getDotPainter: (
-                                      FlSpot spot,
-                                      double xPercentage,
-                                      LineChartBarData bar,
-                                      int index, {
-                                      double? size,
-                                    }) {
-                                      return FlDotCirclePainter(
-                                        radius: 3,
-                                        color: themeData.primaryColor,
-                                        strokeColor: Colors.transparent,
-                                      );
-                                    })));
-                            return widgets;
-                          }.call(),
-                          minX: 0,
-                          maxX: 23)));
+                                  return browseTrendsList[index].hour;
+                                }),
+                                rightTitles: const AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false),
+                                ),
+                                topTitles: const AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false),
+                                ),
+                                leftTitles: getLeftAxisTitles(),
+                              ),
+                              borderData: getFlBorderData(themeData),
+                              lineTouchData: getLineTouchData(themeData,
+                                  getTooltipText: (touchedSpot) =>
+                                      "${browseTrendsList[touchedSpot.x.toInt()].hour}：${touchedSpot.y.round().toString()}"),
+                              lineBarsData: () {
+                                List<LineChartBarData> widgets = List.empty(growable: true);
+                                widgets.add(getLineChartBarData(
+                                    themeData,
+                                    () {
+                                      List<FlSpot> flSpots = List.empty(growable: true);
+                                      if (browseTrendsList.isEmpty) {
+                                        return flSpots;
+                                      }
+                                      int count = browseTrendsList.length;
+                                      for (double i = 0; i < count; i += 1) {
+                                        BrowseTrends browseTrends = browseTrendsList[i.round()];
+                                        flSpots.add(FlSpot(i, browseTrends.count.toDouble()));
+                                      }
+                                      return flSpots;
+                                    }.call(),
+                                    flDotData: FlDotData(
+                                        show: true,
+                                        getDotPainter: (
+                                          FlSpot spot,
+                                          double xPercentage,
+                                          LineChartBarData bar,
+                                          int index, {
+                                          double? size,
+                                        }) {
+                                          return FlDotCirclePainter(
+                                            radius: 3,
+                                            color: themeData.primaryColor,
+                                            strokeColor: Colors.transparent,
+                                          );
+                                        })));
+                                return widgets;
+                              }.call(),
+                              minX: 0,
+                              maxX: 23)));
                 }, selector: (context, vm) {
                   return vm.browseTrendsList;
                 })
@@ -396,76 +400,79 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
                     children: [
                       AspectRatio(
                           aspectRatio: 1,
-                          child: BarChart(
-                            BarChartData(
-                                gridData: FlGridData(show: true),
-                                titlesData: FlTitlesData(
-                                    bottomTitles: getBottomAxisTitles((value, meta) {
-                                      return browseMonthList[value.round()].month;
-                                    }),
-                                    rightTitles: const AxisTitles(
-                                      sideTitles: SideTitles(showTitles: false),
-                                    ),
-                                    topTitles: const AxisTitles(
-                                      sideTitles: SideTitles(showTitles: false),
-                                    ),
-                                    leftTitles: getLeftAxisTitles(
-                                        getTitlesText: (value, meta) {
-                                          return value.round().toString();
-                                        },
-                                        reservedSize: 48)),
-                                borderData: getFlBorderData(themeData),
-                                //让触摸事件在空白的地方也显示tooltip
-                                barTouchData: BarTouchData(
-                                  handleBuiltInTouches: true,
-                                  touchExtraThreshold:
-                                      EdgeInsets.symmetric(vertical: 60, horizontal: 4),
-                                  touchTooltipData: BarTouchTooltipData(
-                                      maxContentWidth: 150,
-                                      tooltipPadding:
-                                          EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                                      getTooltipColor: (touchedSpot) =>
-                                          themeData.colorScheme.surfaceContainerHigh,
-                                      getTooltipItem: (
-                                        BarChartGroupData group,
-                                        int groupIndex,
-                                        BarChartRodData rod,
-                                        int rodIndex,
-                                      ) {
-                                        final color = rod.gradient?.colors.first ?? rod.color;
-                                        final textStyle = TextStyle(
-                                          color: color,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        );
-                                        return BarTooltipItem(
-                                            "${browseMonthList[groupIndex].month}:${rod.toY.round().toString()}",
-                                            textStyle);
-                                      },
-                                      fitInsideVertically: true),
-                                ),
-                                barGroups: () {
-                                  List<BarChartGroupData> widgets = List.empty(growable: true);
-                                  List<BrowseMonth> browseMonthList = getVm().browseMonthList;
-                                  if (browseMonthList.isEmpty) {
-                                    return widgets;
-                                  }
-                                  int count = browseMonthList.length;
-                                  for (int i = 0; i < count; i += 1) {
-                                    BrowseMonth browseMonth = browseMonthList[i.round()];
-                                    widgets.add(BarChartGroupData(x: i, barRods: [
-                                      BarChartRodData(
-                                        width: 16,
-                                        toY: browseMonth.count.toDouble(),
-                                        color: themeData.primaryColor,
-                                        borderRadius:
-                                            const BorderRadius.vertical(top: Radius.circular(16)),
-                                      )
-                                    ]));
-                                  }
-                                  return widgets;
-                                }.call()),
-                          )),
+                          child: browseMonthList.isEmpty
+                              ? CircularProgressIndicator()
+                              : BarChart(
+                                  BarChartData(
+                                      gridData: FlGridData(show: true),
+                                      titlesData: FlTitlesData(
+                                          bottomTitles: getBottomAxisTitles((value, meta) {
+                                            return browseMonthList[value.round()].month;
+                                          }),
+                                          rightTitles: const AxisTitles(
+                                            sideTitles: SideTitles(showTitles: false),
+                                          ),
+                                          topTitles: const AxisTitles(
+                                            sideTitles: SideTitles(showTitles: false),
+                                          ),
+                                          leftTitles: getLeftAxisTitles(
+                                              getTitlesText: (value, meta) {
+                                                return value.round().toString();
+                                              },
+                                              reservedSize: 48)),
+                                      borderData: getFlBorderData(themeData),
+                                      //让触摸事件在空白的地方也显示tooltip
+                                      barTouchData: BarTouchData(
+                                        handleBuiltInTouches: true,
+                                        touchExtraThreshold:
+                                            EdgeInsets.symmetric(vertical: 60, horizontal: 4),
+                                        touchTooltipData: BarTouchTooltipData(
+                                            maxContentWidth: 150,
+                                            tooltipPadding:
+                                                EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                            getTooltipColor: (touchedSpot) =>
+                                                themeData.colorScheme.surfaceContainerHigh,
+                                            getTooltipItem: (
+                                              BarChartGroupData group,
+                                              int groupIndex,
+                                              BarChartRodData rod,
+                                              int rodIndex,
+                                            ) {
+                                              final color = rod.gradient?.colors.first ?? rod.color;
+                                              final textStyle = TextStyle(
+                                                color: color,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14,
+                                              );
+                                              return BarTooltipItem(
+                                                  "${browseMonthList[groupIndex].month}:${rod.toY.round().toString()}",
+                                                  textStyle);
+                                            },
+                                            fitInsideVertically: true),
+                                      ),
+                                      barGroups: () {
+                                        List<BarChartGroupData> widgets =
+                                            List.empty(growable: true);
+                                        List<BrowseMonth> browseMonthList = getVm().browseMonthList;
+                                        if (browseMonthList.isEmpty) {
+                                          return widgets;
+                                        }
+                                        int count = browseMonthList.length;
+                                        for (int i = 0; i < count; i += 1) {
+                                          BrowseMonth browseMonth = browseMonthList[i.round()];
+                                          widgets.add(BarChartGroupData(x: i, barRods: [
+                                            BarChartRodData(
+                                              width: 16,
+                                              toY: browseMonth.count.toDouble(),
+                                              color: themeData.primaryColor,
+                                              borderRadius: const BorderRadius.vertical(
+                                                  top: Radius.circular(16)),
+                                            )
+                                          ]));
+                                        }
+                                        return widgets;
+                                      }.call()),
+                                )),
                     ],
                   );
                 }, selector: (context, vm) {
@@ -497,48 +504,50 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
                     builder: (context, accessSourceList, child) {
                   return AspectRatio(
                       aspectRatio: 1.4,
-                      child: PieChart(
-                        PieChartData(
-                          pieTouchData: PieTouchData(
-                            enabled: true,
-                            touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                              if (!event.isInterestedForInteractions ||
-                                  pieTouchResponse == null ||
-                                  pieTouchResponse.touchedSection == null) {
-                                return;
-                              }
-                            },
-                          ),
-                          startDegreeOffset: 180,
-                          borderData: FlBorderData(
-                            show: false,
-                          ),
-                          sectionsSpace: 1,
-                          centerSpaceRadius: 0,
-                          sections: () {
-                            List<PieChartSectionData> pieChartSectionData =
-                                List.empty(growable: true);
-                            int count = accessSourceList.length;
-                            if (count == 0) {
-                              return pieChartSectionData;
-                            }
-                            for (int i = 0; i < count; i++) {
-                              AccessSource accessSource = accessSourceList[i];
-                              pieChartSectionData.add(PieChartSectionData(
-                                  showTitle: true,
-                                  titlePositionPercentageOffset: 0.6,
-                                  titleStyle: TextStyle(
-                                      color: themeData.colorScheme.onPrimary,
-                                      fontWeight: FontWeight.bold),
-                                  color: Color(accessSource.color),
-                                  value: accessSource.count.toDouble(),
-                                  title: "${accessSource.type}\n${accessSource.count}",
-                                  radius: ScreenUtil.getInstance().screenWidthDpr / 3.5));
-                            }
-                            return pieChartSectionData;
-                          }.call(),
-                        ),
-                      ));
+                      child: accessSourceList.isEmpty
+                          ? CircularProgressIndicator()
+                          : PieChart(
+                              PieChartData(
+                                pieTouchData: PieTouchData(
+                                  enabled: true,
+                                  touchCallback: (FlTouchEvent event, pieTouchResponse) {
+                                    if (!event.isInterestedForInteractions ||
+                                        pieTouchResponse == null ||
+                                        pieTouchResponse.touchedSection == null) {
+                                      return;
+                                    }
+                                  },
+                                ),
+                                startDegreeOffset: 180,
+                                borderData: FlBorderData(
+                                  show: false,
+                                ),
+                                sectionsSpace: 1,
+                                centerSpaceRadius: 0,
+                                sections: () {
+                                  List<PieChartSectionData> pieChartSectionData =
+                                      List.empty(growable: true);
+                                  int count = accessSourceList.length;
+                                  if (count == 0) {
+                                    return pieChartSectionData;
+                                  }
+                                  for (int i = 0; i < count; i++) {
+                                    AccessSource accessSource = accessSourceList[i];
+                                    pieChartSectionData.add(PieChartSectionData(
+                                        showTitle: true,
+                                        titlePositionPercentageOffset: 0.6,
+                                        titleStyle: TextStyle(
+                                            color: themeData.colorScheme.onPrimary,
+                                            fontWeight: FontWeight.bold),
+                                        color: Color(accessSource.color),
+                                        value: accessSource.count.toDouble(),
+                                        title: "${accessSource.type}\n${accessSource.count}",
+                                        radius: ScreenUtil.getInstance().screenWidthDpr / 3.5));
+                                  }
+                                  return pieChartSectionData;
+                                }.call(),
+                              ),
+                            ));
                 }, selector: (context, vm) {
                   return vm.accessSourceList;
                 }),
@@ -567,82 +576,88 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
                     builder: (context, accessTrendsList, child) {
                   return AspectRatio(
                       aspectRatio: 1,
-                      child: RadarChart(
-                        RadarChartData(
-                          radarTouchData: RadarTouchData(
-                            enabled: true,
-                            touchSpotThreshold: 16,
-                            touchCallback: (FlTouchEvent event, response) {
-                              int? touchedDataSetIndex = response?.touchedSpot?.touchedDataSetIndex;
-                              LogUtil.d(touchedDataSetIndex);
-                              if (!event.isInterestedForInteractions &&
-                                  touchedDataSetIndex == null) {
-                                for (var element in accessTrendsList) {
-                                  element.selected = false;
-                                }
-                                getVm().accessTrendsList = List.from(accessTrendsList);
-                                getVm().notifyListeners();
-                                return;
-                              }
-                              for (int i = 0; i < accessTrendsList.length; i++) {
-                                accessTrendsList[i].selected = i == touchedDataSetIndex;
-                              }
-                              getVm().accessTrendsList = List.from(accessTrendsList);
-                              getVm().notifyListeners();
-                            },
-                          ),
-                          borderData: FlBorderData(
-                            show: true,
-                          ),
-                          radarBackgroundColor: Colors.transparent,
-                          radarBorderData: BorderSide(
-                              color: themeData.slcTidyUpColor.globalDividerColorBlack, width: 2),
-                          radarShape: RadarShape.polygon,
-                          tickCount: 3,
-                          ticksTextStyle: TextStyle(
-                              color: themeData.colorScheme.onSurfaceVariant, fontSize: 10),
-                          tickBorderData: BorderSide(
-                              color: themeData.slcTidyUpColor.globalDividerColorBlack, width: 1),
-                          gridBorderData: BorderSide(
-                              color: themeData.slcTidyUpColor.globalDividerColorBlack, width: 1),
-                          titlePositionPercentageOffset: 0.08,
-                          titleTextStyle:
-                              TextStyle(color: themeData.colorScheme.onSurface, fontSize: 14),
-                          getTitle: (index, angle) {
-                            //final usedAngle = angle;
-                            final usedAngle = 0.0;
-                            return RadarChartTitle(
-                              text: accessTrendsList.first.accessTrendsItemList[index].label,
-                              angle: usedAngle,
-                            );
-                          },
-                          dataSets: () {
-                            List<RadarDataSet> radarDataSetList = List.empty(growable: true);
-                            int count = accessTrendsList.length;
-                            if (count == 0) {
-                              return radarDataSetList;
-                            }
-                            for (int i = 0; i < count; i++) {
-                              AccessTrends accessTrends = accessTrendsList[i];
-                              Color accessTrendsColor = Color(accessTrends.color);
-                              radarDataSetList.add(RadarDataSet(
-                                fillColor: accessTrends.selected
-                                    ? accessTrendsColor.withValues(alpha: 0.3)
-                                    : accessTrendsColor.withValues(alpha: 0.15),
-                                borderColor: accessTrends.selected
-                                    ? accessTrendsColor
-                                    : accessTrendsColor.withValues(alpha: 0.3),
-                                entryRadius: accessTrends.selected ? 3 : 2,
-                                borderWidth: accessTrends.selected ? 2.5 : 2,
-                                dataEntries: accessTrends.accessTrendsItemList
-                                    .map((e) => RadarEntry(value: e.count.toDouble()))
-                                    .toList(),
-                              ));
-                            }
-                            return radarDataSetList;
-                          }.call(),
-                        ),
-                      ));
+                      child: accessTrendsList.isEmpty
+                          ? CircularProgressIndicator()
+                          : RadarChart(
+                              RadarChartData(
+                                radarTouchData: RadarTouchData(
+                                  enabled: true,
+                                  touchSpotThreshold: 16,
+                                  touchCallback: (FlTouchEvent event, response) {
+                                    int? touchedDataSetIndex =
+                                        response?.touchedSpot?.touchedDataSetIndex;
+                                    LogUtil.d(touchedDataSetIndex);
+                                    if (!event.isInterestedForInteractions &&
+                                        touchedDataSetIndex == null) {
+                                      for (var element in accessTrendsList) {
+                                        element.selected = false;
+                                      }
+                                      getVm().accessTrendsList = List.from(accessTrendsList);
+                                      getVm().notifyListeners();
+                                      return;
+                                    }
+                                    for (int i = 0; i < accessTrendsList.length; i++) {
+                                      accessTrendsList[i].selected = i == touchedDataSetIndex;
+                                    }
+                                    getVm().accessTrendsList = List.from(accessTrendsList);
+                                    getVm().notifyListeners();
+                                  },
+                                ),
+                                borderData: FlBorderData(
+                                  show: true,
+                                ),
+                                radarBackgroundColor: Colors.transparent,
+                                radarBorderData: BorderSide(
+                                    color: themeData.slcTidyUpColor.globalDividerColorBlack,
+                                    width: 2),
+                                radarShape: RadarShape.polygon,
+                                tickCount: 3,
+                                ticksTextStyle: TextStyle(
+                                    color: themeData.colorScheme.onSurfaceVariant, fontSize: 10),
+                                tickBorderData: BorderSide(
+                                    color: themeData.slcTidyUpColor.globalDividerColorBlack,
+                                    width: 1),
+                                gridBorderData: BorderSide(
+                                    color: themeData.slcTidyUpColor.globalDividerColorBlack,
+                                    width: 1),
+                                titlePositionPercentageOffset: 0.08,
+                                titleTextStyle:
+                                    TextStyle(color: themeData.colorScheme.onSurface, fontSize: 14),
+                                getTitle: (index, angle) {
+                                  //final usedAngle = angle;
+                                  final usedAngle = 0.0;
+                                  return RadarChartTitle(
+                                    text: accessTrendsList.first.accessTrendsItemList[index].label,
+                                    angle: usedAngle,
+                                  );
+                                },
+                                dataSets: () {
+                                  List<RadarDataSet> radarDataSetList = List.empty(growable: true);
+                                  int count = accessTrendsList.length;
+                                  if (count == 0) {
+                                    return radarDataSetList;
+                                  }
+                                  for (int i = 0; i < count; i++) {
+                                    AccessTrends accessTrends = accessTrendsList[i];
+                                    Color accessTrendsColor = Color(accessTrends.color);
+                                    radarDataSetList.add(RadarDataSet(
+                                      fillColor: accessTrends.selected
+                                          ? accessTrendsColor.withValues(alpha: 0.3)
+                                          : accessTrendsColor.withValues(alpha: 0.15),
+                                      borderColor: accessTrends.selected
+                                          ? accessTrendsColor
+                                          : accessTrendsColor.withValues(alpha: 0.3),
+                                      entryRadius: accessTrends.selected ? 3 : 2,
+                                      borderWidth: accessTrends.selected ? 2.5 : 2,
+                                      dataEntries: accessTrends.accessTrendsItemList
+                                          .map((e) => RadarEntry(value: e.count.toDouble()))
+                                          .toList(),
+                                    ));
+                                  }
+                                  return radarDataSetList;
+                                }.call(),
+                              ),
+                            ));
                 }, selector: (context, vm) {
                   return vm.accessTrendsList;
                 }),
