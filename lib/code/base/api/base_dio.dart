@@ -7,7 +7,7 @@ import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 
 import '../../../generated/l10n.dart';
 import '../../feature/auth/ui/login_page.dart';
-import '../../my_app_page.dart';
+import '../../root_page.dart';
 import '../api/result_entity.dart';
 import 'api_exception.dart';
 import 'interceptor_encrypt.dart';
@@ -147,7 +147,7 @@ class BaseDio {
       //主动取消不显示提示
       return;
     }
-    AppToastBridge.showToast(msg: resultEntity.msg);
+    AppToastUtil.showToast(msg: resultEntity.msg);
   }
 
   static bool handlerUnauthorized(ResultEntity resultEntity) {

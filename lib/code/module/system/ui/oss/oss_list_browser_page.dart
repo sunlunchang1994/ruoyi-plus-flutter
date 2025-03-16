@@ -155,7 +155,7 @@ class _OssListBrowserVm extends AppBaseVm {
     if (Platform.isAndroid) {
       final status = await PermissionCompat.requestStorage;
       if (!status.isGranted) {
-        AppToastBridge.showToast(msg: S.current.label_permission_file_picker_hint);
+        AppToastUtil.showToast(msg: S.current.label_permission_file_picker_hint);
         return;
       }
     }

@@ -110,7 +110,6 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                               onTap: () {
                                 getVm().pushNamed(SettingPage.routeName);
                               }),
-                          SlcUiBoxStyleUtils.getDividerByBg(),
                         ])))
               ]);
             }));

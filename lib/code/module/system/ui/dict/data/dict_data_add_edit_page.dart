@@ -281,12 +281,12 @@ class _DictDataAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   void onSave() {
     if (!_checkSaveParams()) {
-      AppToastBridge.showToast(msg: S.current.app_label_form_check_hint);
+      AppToastUtil.showToast(msg: S.current.app_label_form_check_hint);
       return;
     }
     showLoading(text: S.current.label_save_ing);
     DictDataRepository.submit(sysDictData!, defCancelToken).then((value) {
-      AppToastBridge.showToast(msg: S.current.label_submitted_success);
+      AppToastUtil.showToast(msg: S.current.label_submitted_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;

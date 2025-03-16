@@ -11,6 +11,7 @@ import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_add_edit_page.d
 import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_page_vd.dart';
 
 import '../../../../../generated/l10n.dart';
+import '../../../../feature/bizapi/user/config/constant_user_api.dart';
 
 ///
 /// @author slc
@@ -69,9 +70,9 @@ class _RoleListBrowserVm extends AppBaseVm {
     listVmSub = RolePageDataVmSub();
     registerVmSub(listVmSub);
     listVmSub.setItemClick((index, role) {
-      if (role.roleId == ConstantUser.VALUE_ROLE_SUPER_ADMIN) {
+      if (role.roleId == ConstantUserApi.VALUE_SUPER_ADMIN_ROLE_ID) {
         //是超管则不允许做更改
-        AppToastBridge.showToast(msg: S.current.user_toast_menu_super_edit_refuse);
+        AppToastUtil.showToast(msg: S.current.user_toast_role_super_edit_refuse);
         return;
       }
       pushNamed(RoleAddEditPage.routeName,

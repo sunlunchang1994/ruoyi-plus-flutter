@@ -249,7 +249,7 @@ class _ProfileModel extends AppBaseVm with CancelTokenAssist {
 
   void save() {
     if (!_checkSaveParams()) {
-      AppToastBridge.showToast(msg: S.current.app_label_required_information_cannot_be_empty);
+      AppToastUtil.showToast(msg: S.current.app_label_required_information_cannot_be_empty);
       return;
     }
     showLoading(text: S.current.label_save_ing);
@@ -276,7 +276,7 @@ class _ProfileModel extends AppBaseVm with CancelTokenAssist {
         .then((result) {
       //更新成功了把当前的值设置给全局（此处应该重新调用获取用户信息的接口重新赋值，暂时先这么写）
       GlobalVm().userShareVm.userInfoOf.value!.user = userInfo;
-      AppToastBridge.showToast(msg: S.current.toast_edit_success);
+      AppToastUtil.showToast(msg: S.current.toast_edit_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;

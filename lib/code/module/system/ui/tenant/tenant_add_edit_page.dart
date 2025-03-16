@@ -443,12 +443,12 @@ class _TenantAddEditVm extends AppBaseVm with CancelTokenAssist {
   // 保存
   void onSave() {
     if (!_checkSaveParams()) {
-      AppToastBridge.showToast(msg: S.current.app_label_form_check_hint);
+      AppToastUtil.showToast(msg: S.current.app_label_form_check_hint);
       return;
     }
     showLoading(text: S.current.label_save_ing);
     SysTenantRepository.submit(sysTenant!, defCancelToken).then((value) {
-      AppToastBridge.showToast(msg: S.current.label_submitted_success);
+      AppToastUtil.showToast(msg: S.current.label_submitted_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;
@@ -466,7 +466,7 @@ class _TenantAddEditVm extends AppBaseVm with CancelTokenAssist {
             sysTenant!.tenantId!, sysTenant!.packageId, defCancelToken)
         .then((result) {
       dismissLoading();
-      AppToastBridge.showToast(msg: S.current.sys_label_sys_tenant_sync_package_succeed);
+      AppToastUtil.showToast(msg: S.current.sys_label_sys_tenant_sync_package_succeed);
     }, onError: (e) {
       dismissLoading();
       BaseDio.handlerError(e, defErrMsg: S.current.sys_label_sys_tenant_sync_package_failed);

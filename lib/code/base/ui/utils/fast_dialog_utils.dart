@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 
 import '../../../../generated/l10n.dart';
@@ -123,5 +124,24 @@ class FastDialogUtils {
         shape: shape,
         alignment: alignment,
         children: children);
+  }
+
+  static Future<bool?> showDelConfirmDialog(BuildContext context,
+      {String? typeName, Widget? content}) {
+    assert(content == null || typeName == null);
+    return showDialog<bool>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(S.current.label_prompt),
+            content: content ??
+                Text(TextUtil.format(S.current.app_label_data_del_prompt, [typeName ?? ""])),
+            actions: getCommonlyAction(context, positiveLister: () {
+              Navigator.pop(context, true);
+            }, negativeLister: () {
+              Navigator.pop(context, false);
+            }),
+          );
+        });
   }
 }

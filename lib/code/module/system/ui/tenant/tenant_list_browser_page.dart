@@ -125,7 +125,7 @@ class _TenantListBrowserVm extends AppBaseVm with CancelTokenAssist {
     showLoading(text: S.current.sys_label_sys_tenant_sync_dict);
     SysTenantRepository.syncTenantDict(defCancelToken).then((result) {
       dismissLoading();
-      AppToastBridge.showToast(msg: S.current.sys_label_sys_tenant_sync_dict_succeed);
+      AppToastUtil.showToast(msg: S.current.sys_label_sys_tenant_sync_dict_succeed);
     }, onError: (e) {
       dismissLoading();
       BaseDio.handlerError(e, defErrMsg: S.current.sys_label_sys_tenant_sync_dict_failed);

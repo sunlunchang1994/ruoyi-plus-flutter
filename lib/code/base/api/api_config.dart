@@ -1,5 +1,5 @@
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
-import 'package:ruoyi_plus_flutter/code/base/config/env_config.dart';
+import 'package:ruoyi_plus_flutter/code/env_config.dart';
 
 import '../../feature/component/attachment/utils/attachment_config.dart';
 

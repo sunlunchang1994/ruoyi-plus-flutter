@@ -41,7 +41,7 @@ class SettingPage extends AppBaseStatelessWidget<SettingVm> {
                       ListTile(
                           title: Text(S.current.sys_label_setting_item_check_updates),
                           onTap: () {
-                            AppToastBridge.showToast(
+                            AppToastUtil.showToast(
                                 msg: S.current.title_already_the_latest_version);
                           }),
                       ListTile(

@@ -7,7 +7,7 @@ import 'package:flutter_slc_boxes/flutter/slc/common/sp_cache_util.dart';
 import 'package:ruoyi_plus_flutter/code/base/repository/local/app_config.dart';
 import 'package:ruoyi_plus_flutter/code/base/startup/tast/task.dart';
 
-import '../../config/env_config.dart';
+import '../../../env_config.dart';
 import '../../vm/global_vm.dart';
 
 class RunAppBeforeTask extends Task {

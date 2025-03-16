@@ -1,10 +1,7 @@
 import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
-import 'package:ruoyi_plus_flutter/res/styles.dart';
 
 /// @author sunlunchang
 /// 简单的UI风格工具，用于构建标准的表单页、数据列表页

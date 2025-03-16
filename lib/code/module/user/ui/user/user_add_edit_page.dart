@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/result_entity.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/config/constant_user_api.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
@@ -71,13 +72,29 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                     title: Text(user == null
                         ? S.current.user_label_user_add
                         : S.current.user_label_user_edit),
-                    actions: [
-                      IconButton(
+                    actions: () {
+                      List<Widget> actionList = List.empty(growable: true);
+                      if (user?.userId == ConstantUserApi.VALUE_SUPER_ADMIN_ID) {
+                        return actionList;
+                      }
+                      actionList.add(IconButton(
                           onPressed: () {
                             getVm().onSave();
                           },
-                          icon: Icon(Icons.save))
-                    ],
+                          icon: Icon(Icons.save)));
+                      if (user != null) {
+                        actionList.add(IconButton(
+                            onPressed: () {
+                              FastDialogUtils.showDelConfirmDialog(context,
+                                      typeName: S.current.user_label_user)
+                                  .then((result) {
+                                //
+                              });
+                            },
+                            icon: Icon(Icons.delete)));
+                      }
+                      return actionList;
+                    }.call(),
                   ),
                   body: getStatusBody(context)));
         });
@@ -309,15 +326,11 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                           suffixIcon: InputDecUtils.getSuffixAction(InputDecUtils.moreIcon, () {
                             _showSelectPostDialog(context);
                           })),
-                      validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(),
-                      ]),
                     ),
                     ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "remark",
                         initialValue: getVm().userInfo!.remark,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.app_label_remark,
@@ -481,12 +494,12 @@ class _UserAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   void onSave() {
     if (!_checkSaveParams()) {
-      AppToastBridge.showToast(msg: S.current.app_label_form_check_hint);
+      AppToastUtil.showToast(msg: S.current.app_label_form_check_hint);
       return;
     }
     showLoading(text: S.current.label_save_ing);
     UserServiceRepository.submit(userInfo!, defCancelToken).then((value) {
-      AppToastBridge.showToast(msg: S.current.label_submitted_success);
+      AppToastUtil.showToast(msg: S.current.label_submitted_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;

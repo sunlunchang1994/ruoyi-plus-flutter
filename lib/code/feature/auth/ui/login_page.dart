@@ -8,7 +8,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/timer_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
-import 'package:ruoyi_plus_flutter/code/base/config/env_config.dart';
+import 'package:ruoyi_plus_flutter/code/env_config.dart';
 import 'package:ruoyi_plus_flutter/code/feature/auth/repository/remote/auth_api.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/remote/pub_menu_api.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
@@ -336,19 +336,19 @@ class _LoginModel extends AppBaseVm with CancelTokenAssist {
     passwordInputFocus.unfocus();
     captchaInputFocus.unfocus();
     if (EnvConfig.getEnvConfig().tenantEnable && TextUtil.isEmpty(tenantId)) {
-      AppToastBridge.showToast(msg: S.current.user_label_tenant_not_empty_hint);
+      AppToastUtil.showToast(msg: S.current.user_label_tenant_not_empty_hint);
       return;
     }
     if (TextUtil.isEmpty(userName)) {
-      AppToastBridge.showToast(msg: S.current.user_label_account_not_empty_hint);
+      AppToastUtil.showToast(msg: S.current.user_label_account_not_empty_hint);
       return;
     }
     if (TextUtil.isEmpty(password)) {
-      AppToastBridge.showToast(msg: S.current.user_label_password_bot_empty_hint);
+      AppToastUtil.showToast(msg: S.current.user_label_password_bot_empty_hint);
       return;
     }
     if (TextUtil.isEmpty(codeResult)) {
-      AppToastBridge.showToast(msg: S.current.user_label_captcha_code_empty_hint);
+      AppToastUtil.showToast(msg: S.current.user_label_captcha_code_empty_hint);
       return;
     }
     showLoading(text: S.current.user_label_logging_in);
@@ -368,10 +368,10 @@ class _LoginModel extends AppBaseVm with CancelTokenAssist {
         if (_isSavePassword) {
           _saveLoginStatus();
         }
-        AppToastBridge.showToast(msg: S.current.user_toast_login_login_successful);
+        AppToastUtil.showToast(msg: S.current.user_toast_login_login_successful);
         pushReplacementNamed(MainPage.routeName);
       } else if (!defCancelToken.isCancelled) {
-        AppToastBridge.showToast(msg: value.getMsg());
+        AppToastUtil.showToast(msg: value.getMsg());
       }
     }, onError: (e) {
       dismissLoading();

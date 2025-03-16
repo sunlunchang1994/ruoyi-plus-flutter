@@ -105,7 +105,7 @@ class _WelcomeVm extends AppBaseVm with CancelTokenAssist {
         autoLoginTimeOutTimer.cancel();
         if (value.isSuccess()) {
           //成功了跳转主界面
-          AppToastBridge.showToast(msg: S.current.user_toast_login_login_successful);
+          AppToastUtil.showToast(msg: S.current.user_toast_login_login_successful);
           pushReplacementNamed(MainPage.routeName);
           return;
         }

@@ -293,7 +293,7 @@ class _DeptAddEditModel extends AppBaseVm with CancelTokenAssist {
 
   void initVm(Dept? deptInfo, Dept? parentDept) {
     if (deptInfo == null && parentDept == null) {
-      AppToastBridge.showToast(msg: S.current.label_select_parameter_is_missing);
+      AppToastUtil.showToast(msg: S.current.label_select_parameter_is_missing);
       finish();
       return;
     }
@@ -368,12 +368,12 @@ class _DeptAddEditModel extends AppBaseVm with CancelTokenAssist {
 
   void onSave() {
     if (!_checkSaveParams()) {
-      AppToastBridge.showToast(msg: S.current.app_label_form_check_hint);
+      AppToastUtil.showToast(msg: S.current.app_label_form_check_hint);
       return;
     }
     showLoading(text: S.current.label_save_ing);
     DeptRepository.submit(deptInfo!, defCancelToken).then((value) {
-      AppToastBridge.showToast(msg: S.current.label_submitted_success);
+      AppToastUtil.showToast(msg: S.current.label_submitted_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;

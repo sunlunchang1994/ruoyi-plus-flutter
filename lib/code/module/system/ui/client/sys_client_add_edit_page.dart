@@ -374,12 +374,12 @@ class _SysClientAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   void onSave() {
     if (!_checkSaveParams()) {
-      AppToastBridge.showToast(msg: S.current.app_label_form_check_hint);
+      AppToastUtil.showToast(msg: S.current.app_label_form_check_hint);
       return;
     }
     showLoading(text: S.current.label_save_ing);
     SysClientRepository.submit(sysClient!, defCancelToken).then((value) {
-      AppToastBridge.showToast(msg: S.current.label_submitted_success);
+      AppToastUtil.showToast(msg: S.current.label_submitted_success);
       dismissLoading();
       _infoChange = false;
       finish(result: sysClient);

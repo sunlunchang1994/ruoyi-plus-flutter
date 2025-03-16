@@ -640,10 +640,10 @@ class S {
     return Intl.message('正在更新', name: 'title_be_updating', desc: '', args: []);
   }
 
-  /// `已下载%1$s`
+  /// `已下载{}`
   String get label_completed_size {
     return Intl.message(
-      '已下载%1\$s',
+      '已下载{}',
       name: 'label_completed_size',
       desc: '',
       args: [],
@@ -815,10 +815,10 @@ class S {
     return Intl.message('个', name: 'label_unit_entries', desc: '', args: []);
   }
 
-  /// `%s个`
+  /// `{}个`
   String get label_unit_entries_x {
     return Intl.message(
-      '%s个',
+      '{}个',
       name: 'label_unit_entries_x',
       desc: '',
       args: [],
@@ -830,9 +830,9 @@ class S {
     return Intl.message('人', name: 'label_unit_person', desc: '', args: []);
   }
 
-  /// `%s人`
+  /// `{}人`
   String get label_unit_person_x {
-    return Intl.message('%s人', name: 'label_unit_person_x', desc: '', args: []);
+    return Intl.message('{}人', name: 'label_unit_person_x', desc: '', args: []);
   }
 
   /// `条`
@@ -840,9 +840,9 @@ class S {
     return Intl.message('条', name: 'label_unit_strip', desc: '', args: []);
   }
 
-  /// `%s条`
+  /// `{}条`
   String get label_unit_strip_x {
-    return Intl.message('%s条', name: 'label_unit_strip_x', desc: '', args: []);
+    return Intl.message('{}条', name: 'label_unit_strip_x', desc: '', args: []);
   }
 
   /// `辆`
@@ -850,9 +850,9 @@ class S {
     return Intl.message('辆', name: 'label_unit_car', desc: '', args: []);
   }
 
-  /// `%s辆`
+  /// `{}辆`
   String get label_unit_car_x {
-    return Intl.message('%s辆', name: 'label_unit_car_x', desc: '', args: []);
+    return Intl.message('{}辆', name: 'label_unit_car_x', desc: '', args: []);
   }
 
   /// `只`
@@ -860,9 +860,9 @@ class S {
     return Intl.message('只', name: 'label_unit_merely', desc: '', args: []);
   }
 
-  /// `%s只`
+  /// `{}只`
   String get label_unit_merely_x {
-    return Intl.message('%s只', name: 'label_unit_merely_x', desc: '', args: []);
+    return Intl.message('{}只', name: 'label_unit_merely_x', desc: '', args: []);
   }
 
   /// `元`
@@ -870,10 +870,10 @@ class S {
     return Intl.message('元', name: 'label_unit_element', desc: '', args: []);
   }
 
-  /// `%s元`
+  /// `{}元`
   String get label_unit_element_x {
     return Intl.message(
-      '%s元',
+      '{}元',
       name: 'label_unit_element_x',
       desc: '',
       args: [],
@@ -885,9 +885,9 @@ class S {
     return Intl.message('米', name: 'label_unit_meter', desc: '', args: []);
   }
 
-  /// `%s米`
+  /// `{}米`
   String get label_unit_meter_x {
-    return Intl.message('%s米', name: 'label_unit_meter_x', desc: '', args: []);
+    return Intl.message('{}米', name: 'label_unit_meter_x', desc: '', args: []);
   }
 
   /// `千米`
@@ -895,10 +895,10 @@ class S {
     return Intl.message('千米', name: 'label_unit_Kilometer', desc: '', args: []);
   }
 
-  /// `%s千米`
+  /// `{}千米`
   String get label_unit_Kilometer_x {
     return Intl.message(
-      '%s千米',
+      '{}千米',
       name: 'label_unit_Kilometer_x',
       desc: '',
       args: [],
@@ -910,9 +910,9 @@ class S {
     return Intl.message('年', name: 'label_unit_year', desc: '', args: []);
   }
 
-  /// `%s年`
+  /// `{}年`
   String get label_unit_year_x {
-    return Intl.message('%s年', name: 'label_unit_year_x', desc: '', args: []);
+    return Intl.message('{}年', name: 'label_unit_year_x', desc: '', args: []);
   }
 
   /// `月`
@@ -920,9 +920,9 @@ class S {
     return Intl.message('月', name: 'label_unit_month', desc: '', args: []);
   }
 
-  /// `%s月`
+  /// `{}月`
   String get label_unit_month_x {
-    return Intl.message('%s月', name: 'label_unit_month_x', desc: '', args: []);
+    return Intl.message('{}月', name: 'label_unit_month_x', desc: '', args: []);
   }
 
   /// `日`
@@ -930,25 +930,25 @@ class S {
     return Intl.message('日', name: 'label_unit_day', desc: '', args: []);
   }
 
-  /// `%s日`
+  /// `{}日`
   String get label_unit_day_x {
-    return Intl.message('%s日', name: 'label_unit_day_x', desc: '', args: []);
+    return Intl.message('{}日', name: 'label_unit_day_x', desc: '', args: []);
   }
 
-  /// `%s年%s月`
+  /// `{}年{}月`
   String get label_unit_year_x_month_x {
     return Intl.message(
-      '%s年%s月',
+      '{}年{}月',
       name: 'label_unit_year_x_month_x',
       desc: '',
       args: [],
     );
   }
 
-  /// `%s年%s月%s日`
+  /// `{}年{}月{}日`
   String get label_unit_year_x_month_x_day_x {
     return Intl.message(
-      '%s年%s月%s日',
+      '{}年{}月{}日',
       name: 'label_unit_year_x_month_x_day_x',
       desc: '',
       args: [],
@@ -960,9 +960,9 @@ class S {
     return Intl.message('小时', name: 'label_unit_hour', desc: '', args: []);
   }
 
-  /// `%s小时`
+  /// `{}小时`
   String get label_unit_hour_x {
-    return Intl.message('%s小时', name: 'label_unit_hour_x', desc: '', args: []);
+    return Intl.message('{}小时', name: 'label_unit_hour_x', desc: '', args: []);
   }
 
   /// `分`
@@ -970,9 +970,9 @@ class S {
     return Intl.message('分', name: 'label_unit_minute', desc: '', args: []);
   }
 
-  /// `%s分`
+  /// `{}分`
   String get label_unit_minute_x {
-    return Intl.message('%s分', name: 'label_unit_minute_x', desc: '', args: []);
+    return Intl.message('{}分', name: 'label_unit_minute_x', desc: '', args: []);
   }
 
   /// `分种`
@@ -980,10 +980,10 @@ class S {
     return Intl.message('分种', name: 'label_unit_minute2', desc: '', args: []);
   }
 
-  /// `%s分种`
+  /// `{}分种`
   String get label_unit_minute2_x {
     return Intl.message(
-      '%s分种',
+      '{}分种',
       name: 'label_unit_minute2_x',
       desc: '',
       args: [],
@@ -995,9 +995,9 @@ class S {
     return Intl.message('秒', name: 'label_unit_second', desc: '', args: []);
   }
 
-  /// `%s秒`
+  /// `{}秒`
   String get label_unit_second_x {
-    return Intl.message('%s秒', name: 'label_unit_second_x', desc: '', args: []);
+    return Intl.message('{}秒', name: 'label_unit_second_x', desc: '', args: []);
   }
 
   /// `毫秒`
@@ -1010,10 +1010,10 @@ class S {
     );
   }
 
-  /// `%s毫秒`
+  /// `{}毫秒`
   String get label_unit_millisecond_x {
     return Intl.message(
-      '%s毫秒',
+      '{}毫秒',
       name: 'label_unit_millisecond_x',
       desc: '',
       args: [],
@@ -1025,9 +1025,9 @@ class S {
     return Intl.message('天', name: 'label_unit_day2', desc: '', args: []);
   }
 
-  /// `%s天`
+  /// `{}天`
   String get label_unit_day2_x {
-    return Intl.message('%s天', name: 'label_unit_day2_x', desc: '', args: []);
+    return Intl.message('{}天', name: 'label_unit_day2_x', desc: '', args: []);
   }
 
   /// `-----------------------------`
@@ -1045,9 +1045,9 @@ class S {
     return Intl.message('姓名', name: 'label_full_name', desc: '', args: []);
   }
 
-  /// `姓名：%s`
+  /// `姓名：{}`
   String get label_full_name_x {
-    return Intl.message('姓名：%s', name: 'label_full_name_x', desc: '', args: []);
+    return Intl.message('姓名：{}', name: 'label_full_name_x', desc: '', args: []);
   }
 
   /// `电话`
@@ -1055,9 +1055,9 @@ class S {
     return Intl.message('电话', name: 'label_tel', desc: '', args: []);
   }
 
-  /// `电话：%s`
+  /// `电话：{}`
   String get label_tel_x {
-    return Intl.message('电话：%s', name: 'label_tel_x', desc: '', args: []);
+    return Intl.message('电话：{}', name: 'label_tel_x', desc: '', args: []);
   }
 
   /// `手机`
@@ -1065,9 +1065,9 @@ class S {
     return Intl.message('手机', name: 'label_phone', desc: '', args: []);
   }
 
-  /// `手机：%s`
+  /// `手机：{}`
   String get label_phone_x {
-    return Intl.message('手机：%s', name: 'label_phone_x', desc: '', args: []);
+    return Intl.message('手机：{}', name: 'label_phone_x', desc: '', args: []);
   }
 
   /// `邮箱`
@@ -1075,9 +1075,9 @@ class S {
     return Intl.message('邮箱', name: 'label_mailbox', desc: '', args: []);
   }
 
-  /// `邮箱：%s`
+  /// `邮箱：{}`
   String get label_mailbox_x {
-    return Intl.message('邮箱：%s', name: 'label_mailbox_x', desc: '', args: []);
+    return Intl.message('邮箱：{}', name: 'label_mailbox_x', desc: '', args: []);
   }
 
   /// `微信`
@@ -1085,9 +1085,9 @@ class S {
     return Intl.message('微信', name: 'label_wechat', desc: '', args: []);
   }
 
-  /// `微信：%s`
+  /// `微信：{}`
   String get label_wechat_x {
-    return Intl.message('微信：%s', name: 'label_wechat_x', desc: '', args: []);
+    return Intl.message('微信：{}', name: 'label_wechat_x', desc: '', args: []);
   }
 
   /// `地址`
@@ -1095,9 +1095,9 @@ class S {
     return Intl.message('地址', name: 'label_address', desc: '', args: []);
   }
 
-  /// `地址：%s`
+  /// `地址：{}`
   String get label_address_x {
-    return Intl.message('地址：%s', name: 'label_address_x', desc: '', args: []);
+    return Intl.message('地址：{}', name: 'label_address_x', desc: '', args: []);
   }
 
   /// `职务`
@@ -1105,9 +1105,9 @@ class S {
     return Intl.message('职务', name: 'label_job_title', desc: '', args: []);
   }
 
-  /// `职务：%s`
+  /// `职务：{}`
   String get label_job_title_x {
-    return Intl.message('职务：%s', name: 'label_job_title_x', desc: '', args: []);
+    return Intl.message('职务：{}', name: 'label_job_title_x', desc: '', args: []);
   }
 
   /// `身份证`
@@ -1115,9 +1115,9 @@ class S {
     return Intl.message('身份证', name: 'label_id_card', desc: '', args: []);
   }
 
-  /// `身份证：%s`
+  /// `身份证：{}`
   String get label_id_card_x {
-    return Intl.message('身份证：%s', name: 'label_id_card_x', desc: '', args: []);
+    return Intl.message('身份证：{}', name: 'label_id_card_x', desc: '', args: []);
   }
 
   /// `公司`
@@ -1125,9 +1125,9 @@ class S {
     return Intl.message('公司', name: 'label_company', desc: '', args: []);
   }
 
-  /// `公司：%s`
+  /// `公司：{}`
   String get label_company_x {
-    return Intl.message('公司：%s', name: 'label_company_x', desc: '', args: []);
+    return Intl.message('公司：{}', name: 'label_company_x', desc: '', args: []);
   }
 
   /// `无`
@@ -1415,6 +1415,16 @@ class S {
     );
   }
 
+  /// `确定要删除该{}信息吗？`
+  String get app_label_data_del_prompt {
+    return Intl.message(
+      '确定要删除该{}信息吗？',
+      name: 'app_label_data_del_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `404`
   String get app_label_404 {
     return Intl.message('404', name: 'app_label_404', desc: '', args: []);
@@ -1465,10 +1475,10 @@ class S {
     return Intl.message('备注', name: 'app_label_remark', desc: '', args: []);
   }
 
-  /// `部门：%1$s`
+  /// `部门：{}`
   String get app_label_department_x {
     return Intl.message(
-      '部门：%1\$s',
+      '部门：{}',
       name: 'app_label_department_x',
       desc: '',
       args: [],
@@ -1480,14 +1490,9 @@ class S {
     return Intl.message('部门', name: 'app_label_department', desc: '', args: []);
   }
 
-  /// `岗位：%1$s`
+  /// `岗位：{}`
   String get app_label_post_x {
-    return Intl.message(
-      '岗位：%1\$s',
-      name: 'app_label_post_x',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('岗位：{}', name: 'app_label_post_x', desc: '', args: []);
   }
 
   /// `岗位`
@@ -2005,9 +2010,9 @@ class S {
     );
   }
 
-  /// `%s人`
+  /// `{}人`
   String get user_label_x_people {
-    return Intl.message('%s人', name: 'user_label_x_people', desc: '', args: []);
+    return Intl.message('{}人', name: 'user_label_x_people', desc: '', args: []);
   }
 
   /// `没有获取到部门信息`
@@ -2200,10 +2205,10 @@ class S {
     );
   }
 
-  /// `选择%s`
+  /// `选择{}`
   String get user_label_select_x {
     return Intl.message(
-      '选择%s',
+      '选择{}',
       name: 'user_label_select_x',
       desc: '',
       args: [],
@@ -2278,6 +2283,11 @@ class S {
       desc: '',
       args: [],
     );
+  }
+
+  /// `用户`
+  String get user_label_user {
+    return Intl.message('用户', name: 'user_label_user', desc: '', args: []);
   }
 
   /// `用户名称`
@@ -2380,6 +2390,16 @@ class S {
     return Intl.message(
       '搜索用户',
       name: 'user_label_search_user',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `该用户不允许修改`
+  String get user_toast_user_super_edit_refuse {
+    return Intl.message(
+      '该用户不允许修改',
+      name: 'user_toast_user_super_edit_refuse',
       desc: '',
       args: [],
     );
@@ -2545,6 +2565,16 @@ class S {
     );
   }
 
+  /// `该角色不允许修改`
+  String get user_toast_role_super_edit_refuse {
+    return Intl.message(
+      '该角色不允许修改',
+      name: 'user_toast_role_super_edit_refuse',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `配置菜单权限`
   String get user_label_menu_permission_select {
     return Intl.message(
@@ -2555,10 +2585,10 @@ class S {
     );
   }
 
-  /// `已配置%s项菜单，点击查看`
+  /// `已配置{}项菜单，点击查看`
   String get user_label_menu_permission_select_result {
     return Intl.message(
-      '已配置%s项菜单，点击查看',
+      '已配置{}项菜单，点击查看',
       name: 'user_label_menu_permission_select_result',
       desc: '',
       args: [],
@@ -2570,16 +2600,6 @@ class S {
     return Intl.message(
       '已配置多个菜单项，点击查看',
       name: 'user_label_menu_permission_select_result2',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `该角色不允许修改`
-  String get user_toast_menu_super_edit_refuse {
-    return Intl.message(
-      '该角色不允许修改',
-      name: 'user_toast_menu_super_edit_refuse',
       desc: '',
       args: [],
     );

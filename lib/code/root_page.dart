@@ -14,8 +14,8 @@ import 'feature/welcome/ui/welcome_page.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class RootPage extends StatelessWidget {
+  const RootPage({super.key});
 
   // This widget is the root of your application.
   @override

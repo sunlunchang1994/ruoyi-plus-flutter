@@ -295,7 +295,7 @@ class _OssAddEditVm extends AppBaseVm with CancelTokenAssist {
     if (Platform.isAndroid) {
       final status = await PermissionCompat.requestStorage;
       if (!status.isGranted) {
-        AppToastBridge.showToast(msg: S.current.sys_label_permission_file_download_hint);
+        AppToastUtil.showToast(msg: S.current.sys_label_permission_file_download_hint);
         return;
       }
     }
@@ -304,7 +304,7 @@ class _OssAddEditVm extends AppBaseVm with CancelTokenAssist {
         AttachmentConfig().getDownloadPath() ?? await AttachmentUtils.buildSaveFileDir();
     if (fileDir == null) {
       if (Platform.isAndroid || Platform.isIOS) {
-        AppToastBridge.showToast(msg: S.current.sys_label_get_file_download_hint);
+        AppToastUtil.showToast(msg: S.current.sys_label_get_file_download_hint);
       }
       return;
     }
@@ -332,7 +332,7 @@ class _OssAddEditVm extends AppBaseVm with CancelTokenAssist {
       this._downloadProgress = result;
       notifyListeners();
       //提示并打开
-      AppToastBridge.showToast(msg: S.current.action_download_on_success);
+      AppToastUtil.showToast(msg: S.current.action_download_on_success);
       onOpenFile(result.filePath!);
     }, onError: (e) {
       BaseDio.handlerError(e);

@@ -5,7 +5,7 @@ import 'package:ruoyi_plus_flutter/code/base/repository/remote/data_transform_ut
 import '../../../../base/api/api_config.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
-import '../../../../base/config/env_config.dart';
+import '../../../../env_config.dart';
 import '../../../../base/vm/global_vm.dart';
 import '../../entity/captcha.dart';
 import '../../entity/login_result.dart';
