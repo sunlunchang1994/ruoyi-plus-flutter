@@ -6,7 +6,7 @@ import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/widget/fast_slc_ui_box.dart';
 import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
-import '../../../../system/ui/setting/setting_page.dart';
+import '../../../../system/ui/setting/main/setting_page.dart';
 import 'profile_page.dart';
 import '../../../../../../res/dimens.dart';
 import '../../../../../base/ui/app_mvvm.dart';

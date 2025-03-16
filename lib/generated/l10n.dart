@@ -4125,10 +4125,10 @@ class S {
     );
   }
 
-  /// `关于我们`
+  /// `关于项目`
   String get sys_label_setting_item_about {
     return Intl.message(
-      '关于我们',
+      '关于项目',
       name: 'sys_label_setting_item_about',
       desc: '',
       args: [],

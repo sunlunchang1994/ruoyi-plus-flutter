@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../../../generated/l10n.dart';
-import '../../../../base/ui/app_mvvm.dart';
 import 'package:provider/provider.dart';
+
+import '../../../base/ui/app_mvvm.dart';
 
 //404页面
 class NotFoundPage extends AppBaseStatelessWidget<_NotFoundVm> {

@@ -514,7 +514,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "跟随系统",
     ),
     "sys_label_setting_item_about": MessageLookupByLibrary.simpleMessage(
-      "关于我们",
+      "关于项目",
     ),
     "sys_label_setting_item_check_updates":
         MessageLookupByLibrary.simpleMessage("检查更新"),

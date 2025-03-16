@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/utils/fast_dialog_utils.dart';
@@ -8,8 +9,9 @@ import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/widget_utils.dart';
 
-import '../../../../../generated/l10n.dart';
-import '../../../../base/repository/local/app_config.dart';
+import '../../../../../../generated/l10n.dart';
+import '../../../../../base/repository/local/app_config.dart';
+import '../about/about_page.dart';
 
 class SettingPage extends AppBaseStatelessWidget<SettingVm> {
   static const String routeName = '/setting/index';
@@ -24,7 +26,8 @@ class SettingPage extends AppBaseStatelessWidget<SettingVm> {
           getVm().initVm();
           return Scaffold(
               appBar: AppBar(title: Text(S.current.user_label_setting)),
-              body: ListView(
+              body: SingleChildScrollView(
+                  child: ListBody(
                 children: [
                   ListTile(
                       title: Text(S.current.sys_label_setting_item_theme_mode),
@@ -36,9 +39,13 @@ class SettingPage extends AppBaseStatelessWidget<SettingVm> {
                       onTap: () {
                         AppToastBridge.showToast(msg: S.current.title_already_the_latest_version);
                       }),
-                  ListTile(title: Text(S.current.sys_label_setting_item_about), onTap: () {})
+                  ListTile(
+                      title: Text(S.current.sys_label_setting_item_about),
+                      onTap: () {
+                        getVm().pushNamed(AboutPage.routeName);
+                      })
                 ],
-              ));
+              )));
         });
   }
 

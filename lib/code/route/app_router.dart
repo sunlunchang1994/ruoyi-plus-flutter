@@ -10,6 +10,7 @@ import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_browser_page.dart';
 
 import '../base/config/constant_base.dart';
+import '../feature/component/fof/no_found_page.dart';
 import '../feature/component/webview/app_web_view_page.dart';
 import '../module/system/ui/client/sys_client_add_edit_page.dart';
 import '../module/system/ui/client/sys_client_list_browser_page.dart';
@@ -19,7 +20,6 @@ import '../module/system/ui/dict/data/dict_data_add_edit_page.dart';
 import '../module/system/ui/dict/data/dict_data_list_browser_page.dart';
 import '../module/system/ui/dict/type/dict_type_add_edit_page.dart';
 import '../module/system/ui/dict/type/dict_type_list_browser_page.dart';
-import '../module/system/ui/fof/no_found_page.dart';
 import '../module/system/ui/log/sys_log_page.dart';
 import '../module/system/ui/log/sys_oper_log_details_page.dart';
 import '../module/system/ui/menu_tree/menu_add_edit_page.dart';
@@ -35,7 +35,8 @@ import '../module/system/ui/oss/config/oss_config_list_browser_page.dart';
 import '../module/system/ui/oss/oss_details_page.dart';
 import '../module/system/ui/oss/oss_list_browser_page.dart';
 import '../module/system/ui/router/router_page.dart';
-import '../module/system/ui/setting/setting_page.dart';
+import '../module/system/ui/setting/about/about_page.dart';
+import '../module/system/ui/setting/main/setting_page.dart';
 import '../module/system/ui/tenant/package/tenant_package_add_edit_page.dart';
 import '../module/system/ui/tenant/package/tenant_package_list_browser_page.dart';
 import '../module/system/ui/tenant/package/tenant_package_select_single_page.dart';
@@ -82,6 +83,10 @@ final Map<String, WidgetBuilder> router = {
   //设置页
   SettingPage.routeName: (BuildContext context) {
     return SettingPage();
+  },
+  //关于页
+  AboutPage.routeName: (BuildContext context) {
+    return AboutPage();
   },
   //用户
   //用户：修改个人信息
