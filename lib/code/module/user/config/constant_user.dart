@@ -21,11 +21,4 @@ class ConstantUser extends ConstantBase {
   //超级管理员角色
   static const int VALUE_ROLE_SUPER_ADMIN = 1;
 
-  static void logOut(RouterVmSub routerSub) {
-    UserConfig().saveIsAutoLogin(false);
-    ApiConfig().setToken(null);
-    GlobalVm globalVm = GlobalVm();
-    globalVm.userShareVm.userInfoOf.setValue(null);
-    routerSub.pushReplacementPage(LoginPage());
-  }
 }

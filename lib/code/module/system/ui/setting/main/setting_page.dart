@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
@@ -25,28 +26,44 @@ class SettingPage extends AppBaseStatelessWidget<SettingVm> {
           registerEvent(context);
           getVm().initVm();
           return Scaffold(
-            appBar: AppBar(title: Text(S.current.user_label_setting)),
-            body: SingleChildScrollView(
-                child: ListBody(
-              children: [
-                ListTile(
-                    title: Text(S.current.sys_label_setting_item_theme_mode),
-                    onTap: () {
-                      _showSwitchThemeModeDialog(context);
-                    }),
-                ListTile(
-                    title: Text(S.current.sys_label_setting_item_check_updates),
-                    onTap: () {
-                      AppToastBridge.showToast(msg: S.current.title_already_the_latest_version);
-                    }),
-                ListTile(
-                    title: Text(S.current.sys_label_setting_item_about),
-                    onTap: () async {
-                      getVm().pushNamed(AboutPage.routeName);
-                    })
-              ],
-            ))
-          );
+              appBar: AppBar(title: Text(S.current.user_label_setting)),
+              body: Column(
+                children: [
+                  Expanded(
+                      child: SingleChildScrollView(
+                          child: ListBody(
+                    children: [
+                      ListTile(
+                          title: Text(S.current.sys_label_setting_item_theme_mode),
+                          onTap: () {
+                            _showSwitchThemeModeDialog(context);
+                          }),
+                      ListTile(
+                          title: Text(S.current.sys_label_setting_item_check_updates),
+                          onTap: () {
+                            AppToastBridge.showToast(
+                                msg: S.current.title_already_the_latest_version);
+                          }),
+                      ListTile(
+                          title: Text(S.current.sys_label_setting_item_about),
+                          onTap: () async {
+                            getVm().pushNamed(AboutPage.routeName);
+                          })
+                    ],
+                  ))),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: SlcDimens.appDimens16, vertical: SlcDimens.appDimens12),
+                    child: SizedBox(
+                        width: double.infinity,
+                        child: FilledButton(
+                            onPressed: () {
+                              globalVm.userShareVm.logOut(context);
+                            },
+                            child: Text(S.current.user_label_sign_out))),
+                  )
+                ],
+              ));
         });
   }
 
