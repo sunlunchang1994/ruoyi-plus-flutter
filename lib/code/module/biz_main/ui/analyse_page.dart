@@ -70,7 +70,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
                       style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.bold,
-                          color: themeData.primaryColor)),
+                          color: themeData.colorScheme.primary)),
                 ];
               }),
               _getTopCardItem(themeData, () {
@@ -80,7 +80,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
                       style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.bold,
-                          color: themeData.primaryColor)),
+                          color: themeData.colorScheme.primary)),
                 ];
               })
             ],
@@ -95,7 +95,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
                       style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.bold,
-                          color: themeData.primaryColor)),
+                          color: themeData.colorScheme.primary)),
                 ];
               }),
               _getTopCardItem(themeData, () {
@@ -105,7 +105,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
                       style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.bold,
-                          color: themeData.primaryColor)),
+                          color: themeData.colorScheme.primary)),
                 ];
               })
             ],
@@ -159,8 +159,8 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
     return FlBorderData(
       show: true,
       border: Border(
-        bottom: BorderSide(color: themeData.slcTidyUpColor.globalDividerColorBlack, width: 2),
-        left: BorderSide(color: themeData.slcTidyUpColor.globalDividerColorBlack, width: 2),
+        bottom: BorderSide(color: themeData.slcTidyUpColor.getDividerColorByTheme(themeData), width: 2),
+        left: BorderSide(color: themeData.slcTidyUpColor.getDividerColorByTheme(themeData), width: 2),
         right: BorderSide.none,
         top: BorderSide.none,
       ),
@@ -179,7 +179,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
               final textStyle = TextStyle(
                 color: touchedSpot.bar.gradient?.colors.first ??
                     touchedSpot.bar.color ??
-                    themeData.primaryColor,
+                    themeData.colorScheme.primary,
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               );
@@ -194,7 +194,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
       {FlDotData? flDotData}) {
     return LineChartBarData(
       isCurved: true,
-      color: themeData.primaryColor,
+      color: themeData.colorScheme.primary,
       barWidth: 3,
       curveSmoothness: 0.35,
       isStrokeCapRound: true,
@@ -206,10 +206,10 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
         show: true,
         gradient: LinearGradient(
           colors: [
-            ColorTween(begin: themeData.primaryColor, end: themeData.primaryColor)
+            ColorTween(begin: themeData.colorScheme.primary, end: themeData.colorScheme.primary)
                 .lerp(0.2)!
                 .withValues(alpha: 0.1),
-            ColorTween(begin: themeData.primaryColor, end: themeData.primaryColor)
+            ColorTween(begin: themeData.colorScheme.primary, end: themeData.colorScheme.primary)
                 .lerp(0.2)!
                 .withValues(alpha: 0.1),
           ],
@@ -361,7 +361,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
                                         }) {
                                           return FlDotCirclePainter(
                                             radius: 3,
-                                            color: themeData.primaryColor,
+                                            color: themeData.colorScheme.primary,
                                             strokeColor: Colors.transparent,
                                           );
                                         })));
@@ -464,7 +464,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
                                             BarChartRodData(
                                               width: 16,
                                               toY: browseMonth.count.toDouble(),
-                                              color: themeData.primaryColor,
+                                              color: themeData.colorScheme.primary,
                                               borderRadius: const BorderRadius.vertical(
                                                   top: Radius.circular(16)),
                                             )
@@ -537,7 +537,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
                                         showTitle: true,
                                         titlePositionPercentageOffset: 0.6,
                                         titleStyle: TextStyle(
-                                            color: themeData.colorScheme.onPrimary,
+                                            color: Colors.white70,
                                             fontWeight: FontWeight.bold),
                                         color: Color(accessSource.color),
                                         value: accessSource.count.toDouble(),
@@ -555,6 +555,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
             )));
   }
 
+  //访问趋势
   Widget _getAccessTrendsStatistics(ThemeData themeData) {
     return Card(
         margin: EdgeInsets.symmetric(horizontal: SlcDimens.appDimens16),
@@ -608,17 +609,17 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
                                 ),
                                 radarBackgroundColor: Colors.transparent,
                                 radarBorderData: BorderSide(
-                                    color: themeData.slcTidyUpColor.globalDividerColorBlack,
+                                    color: themeData.slcTidyUpColor.getDividerColorByTheme(themeData),
                                     width: 2),
                                 radarShape: RadarShape.polygon,
                                 tickCount: 3,
                                 ticksTextStyle: TextStyle(
                                     color: themeData.colorScheme.onSurfaceVariant, fontSize: 10),
                                 tickBorderData: BorderSide(
-                                    color: themeData.slcTidyUpColor.globalDividerColorBlack,
+                                    color: themeData.slcTidyUpColor.getDividerColorByTheme(themeData),
                                     width: 1),
                                 gridBorderData: BorderSide(
-                                    color: themeData.slcTidyUpColor.globalDividerColorBlack,
+                                    color: themeData.slcTidyUpColor.getDividerColorByTheme(themeData),
                                     width: 1),
                                 titlePositionPercentageOffset: 0.08,
                                 titleTextStyle:

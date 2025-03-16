@@ -74,7 +74,7 @@ class CacheMonitorPage extends AppBaseStatelessWidget<_CacheMonitorVm> {
                 ThemeUtil.getSizedBox(height: SlcDimens.appDimens12),
                 Table(
                     border: TableBorder.all(
-                        color: themeData.slcTidyUpColor.globalDividerColorBlack,
+                        color: themeData.slcTidyUpColor.getDividerColorByTheme(themeData),
                         width: 0.8,
                         borderRadius: BorderRadius.circular(SlcDimens.appDimens6)),
                     children: getVm().tableInfo.map((infoItem) {
@@ -242,10 +242,10 @@ class CacheMonitorPage extends AppBaseStatelessWidget<_CacheMonitorVm> {
                                   show: true,
                                   border: Border(
                                     bottom: BorderSide(
-                                        color: themeData.slcTidyUpColor.globalDividerColorBlack,
+                                        color: themeData.slcTidyUpColor.getDividerColorByTheme(themeData),
                                         width: 2),
                                     left: BorderSide(
-                                        color: themeData.slcTidyUpColor.globalDividerColorBlack,
+                                        color: themeData.slcTidyUpColor.getDividerColorByTheme(themeData),
                                         width: 2),
                                     right: BorderSide.none,
                                     top: BorderSide.none,
@@ -275,7 +275,7 @@ class CacheMonitorPage extends AppBaseStatelessWidget<_CacheMonitorVm> {
                                   List<LineChartBarData> widgets = List.empty(growable: true);
                                   widgets.add(LineChartBarData(
                                     isCurved: true,
-                                    color: themeData.primaryColor,
+                                    color: themeData.colorScheme.primary,
                                     barWidth: 2,
                                     curveSmoothness: 0.35,
                                     isStrokeCapRound: true,
@@ -402,10 +402,10 @@ class CacheMonitorPage extends AppBaseStatelessWidget<_CacheMonitorVm> {
                                   show: true,
                                   border: Border(
                                     bottom: BorderSide(
-                                        color: themeData.slcTidyUpColor.globalDividerColorBlack,
+                                        color: themeData.slcTidyUpColor.getDividerColorByTheme(themeData),
                                         width: 2),
                                     right: BorderSide(
-                                        color: themeData.slcTidyUpColor.globalDividerColorBlack,
+                                        color: themeData.slcTidyUpColor.getDividerColorByTheme(themeData),
                                         width: 2),
                                     left: BorderSide.none,
                                     top: BorderSide.none,

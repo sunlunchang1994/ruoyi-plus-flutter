@@ -165,7 +165,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                                     Text(value.fraction.toString(),
                                                         style: TextStyle(
                                                             fontSize: 12,
-                                                            color: themeData.primaryColor))
+                                                            color: themeData.colorScheme.primary))
                                                   ],
                                                 );
                                               }

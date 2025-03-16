@@ -23,7 +23,7 @@ class TreeNavVd {
         Padding(
             padding: EdgeInsets.only(left: SlcDimens.appDimens16),
             child: SvgPicture.asset("assets/images/slc/user_ic_folder.svg",
-                height: 16, color: themeData.primaryColor)),
+                height: 16, color: themeData.colorScheme.primary)),
         Expanded(
             child: SizedBox(
                 height: 32,
@@ -34,9 +34,9 @@ class TreeNavVd {
                       SlcTreeNav currentItem = treeNavList[index];
                       if (lastItem == currentItem) {
                         return Row(children: [
-                          Icon(Icons.arrow_right, color: themeData.primaryColor),
+                          Icon(Icons.arrow_right, color: themeData.colorScheme.primary),
                           Text(currentItem.treeName,
-                              style: TextStyle(color: themeData.primaryColor))
+                              style: TextStyle(color: themeData.colorScheme.primary))
                         ]);
                       } else {
                         return GestureDetector(
