@@ -199,8 +199,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                         onPressed: () {
                                           getVm().login();
                                         },
-                                        child: Text(S.current.user_label_login,
-                                            style: themeData.primaryTextTheme.titleMedium)))
+                                        child: Text(S.current.user_label_login)))
                               ],
                             ))),
                     const SizedBox(height: 200)

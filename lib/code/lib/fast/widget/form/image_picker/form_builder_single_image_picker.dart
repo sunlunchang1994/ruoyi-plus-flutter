@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:async/async.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
@@ -107,7 +108,8 @@ class FormBuilderSingleImagePicker extends FormBuilderFieldDecoration<dynamic> {
   /// use this callback if you want custom view for options
   /// call cameraPicker() to picks image from camera
   /// call galleryPicker() to picks image from gallery
-  final Widget Function(FutureVoidCallBack cameraPicker, FutureVoidCallBack galleryPicker)? optionsBuilder;
+  final Widget Function(FutureVoidCallBack cameraPicker, FutureVoidCallBack galleryPicker)?
+      optionsBuilder;
 
   final WidgetBuilder? loadingWidget;
 
@@ -184,24 +186,45 @@ class FormBuilderSingleImagePicker extends FormBuilderFieldDecoration<dynamic> {
                 'Display item must be of type [Uint8List], [XFile], [String] (url), [ImageProvider] or [Widget]. '
                 'Consider using displayCustomType to handle the type: ${displayItem.runtimeType}',
               );
-
               final displayWidget = displayItem == null
-                  ? Image(image: placeholderImage, width: previewWidth, height: previewHeight, fit: fit)
+                  ? Image(
+                      image: placeholderImage, width: previewWidth, height: previewHeight, fit: fit)
                   : displayItem is Widget
                       ? displayItem
                       : displayItem is ImageProvider
-                          ? Image(image: displayItem, width: previewWidth, height: previewHeight, fit: fit)
+                          ? Image(
+                              image: displayItem,
+                              width: previewWidth,
+                              height: previewHeight,
+                              fit: fit)
                           : displayItem is Uint8List
                               ? Image.memory(displayItem,
                                   width: previewWidth, height: previewWidth, fit: fit)
                               : displayItem is String
-                                  ? FadeInImage(
+                                  ? CachedNetworkImage(
+                                      imageUrl: displayItem,
+                                      fit: fit,
+                                      width: previewWidth,
+                                      height: previewHeight,
+                                      placeholder: (context, url) => Image(
+                                          image: placeholderImage,
+                                          width: previewWidth,
+                                          height: previewHeight,
+                                          fit: fit),
+                                      errorWidget: (
+                                        BuildContext context,
+                                        String url,
+                                        Object error,
+                                      ) =>
+                                          imageErrorBuilder?.call(context, error, null) ??
+                                          SizedBox(width: previewWidth, height: previewHeight))
+                                    /*FadeInImage(
                                       fit: fit,
                                       width: previewWidth,
                                       height: previewHeight,
                                       placeholder: placeholderImage,
                                       image: NetworkImage(displayItem),
-                                      imageErrorBuilder: imageErrorBuilder)
+                                      imageErrorBuilder: imageErrorBuilder)*/
                                   : XFileImage(
                                       file: displayItem,
                                       fit: fit,
@@ -243,7 +266,7 @@ class FormBuilderSingleImagePicker extends FormBuilderFieldDecoration<dynamic> {
                     availableImageSources: availableImageSources,
                     onImageSelected: (image) {
                       state.focus();
-                      //如果有监听则通过监听获取结果
+                      //如果有监听则通过监听处理完之后获取结果
                       if (onImageSelect != null) {
                         Navigator.pop(state.context);
                         onImageSelect.call(image.first).then((imageSingle) {
@@ -275,7 +298,7 @@ class FormBuilderSingleImagePicker extends FormBuilderFieldDecoration<dynamic> {
             return showDecoration
                 ? InputDecorator(
                     decoration: state.decoration,
-                    child: Padding(padding: const EdgeInsets.only(top: 8), child: child),
+                    child: Padding(padding: const EdgeInsets.only(top: 8, bottom: 2), child: child),
                   )
                 : child;
           },
@@ -318,7 +341,8 @@ class _XFileImageState extends State<XFileImage> {
       builder: (context, snapshot) {
         final data = snapshot.data;
         if (data == null) {
-          return widget.loadingWidget?.call(context) ?? const Center(child: CircularProgressIndicator());
+          return widget.loadingWidget?.call(context) ??
+              const Center(child: CircularProgressIndicator());
         }
         return Image.memory(data, width: widget.width, height: widget.height, fit: widget.fit);
       },

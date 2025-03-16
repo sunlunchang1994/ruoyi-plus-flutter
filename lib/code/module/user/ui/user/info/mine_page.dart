@@ -87,8 +87,8 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                                     },
                                     errorWidget: (
                                       context,
+                                      url,
                                       error,
-                                      stackTrace,
                                     ) {
                                       return Image.asset(
                                           "assets/images/slc/app_ic_def_user_head.png",
