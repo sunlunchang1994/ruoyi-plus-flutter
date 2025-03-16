@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
@@ -55,6 +56,7 @@ class WelcomePage extends AppBaseStatelessWidget<_WelcomeVm> {
                               image: AssetImage("assets/images/ic_launcher.png"),
                               width: 56,
                               height: 56)),
+                      ThemeUtil.getSizedBox(height: SlcDimens.appDimens12),
                       Text(S.current.app_name, style: Theme.of(context).textTheme.titleMedium)
                     ],
                   )),

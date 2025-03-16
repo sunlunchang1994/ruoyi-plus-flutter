@@ -25,27 +25,28 @@ class SettingPage extends AppBaseStatelessWidget<SettingVm> {
           registerEvent(context);
           getVm().initVm();
           return Scaffold(
-              appBar: AppBar(title: Text(S.current.user_label_setting)),
-              body: SingleChildScrollView(
-                  child: ListBody(
-                children: [
-                  ListTile(
-                      title: Text(S.current.sys_label_setting_item_theme_mode),
-                      onTap: () {
-                        _showSwitchThemeModeDialog(context);
-                      }),
-                  ListTile(
-                      title: Text(S.current.sys_label_setting_item_check_updates),
-                      onTap: () {
-                        AppToastBridge.showToast(msg: S.current.title_already_the_latest_version);
-                      }),
-                  ListTile(
-                      title: Text(S.current.sys_label_setting_item_about),
-                      onTap: () {
-                        getVm().pushNamed(AboutPage.routeName);
-                      })
-                ],
-              )));
+            appBar: AppBar(title: Text(S.current.user_label_setting)),
+            body: SingleChildScrollView(
+                child: ListBody(
+              children: [
+                ListTile(
+                    title: Text(S.current.sys_label_setting_item_theme_mode),
+                    onTap: () {
+                      _showSwitchThemeModeDialog(context);
+                    }),
+                ListTile(
+                    title: Text(S.current.sys_label_setting_item_check_updates),
+                    onTap: () {
+                      AppToastBridge.showToast(msg: S.current.title_already_the_latest_version);
+                    }),
+                ListTile(
+                    title: Text(S.current.sys_label_setting_item_about),
+                    onTap: () async {
+                      getVm().pushNamed(AboutPage.routeName);
+                    })
+              ],
+            ))
+          );
         });
   }
 

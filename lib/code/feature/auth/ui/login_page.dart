@@ -81,8 +81,8 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                         onTap: () => _showSelectTenantDialog(context),
                                         decoration: MySelectDecoration(
                                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                                            labelText: S.of(context).user_label_tenant,
-                                            hintText: S.of(context).user_label_select_tenant,
+                                            labelText: S.current.user_label_tenant,
+                                            hintText: S.current.user_label_select_tenant,
                                             border: const UnderlineInputBorder()),
                                         textInputAction: TextInputAction.next)),
                                 ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
@@ -92,8 +92,8 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                     focusNode: getVm().userNameInputFocus,
                                     decoration: MyInputDecoration(
                                         floatingLabelBehavior: FloatingLabelBehavior.always,
-                                        labelText: S.of(context).user_label_account,
-                                        hintText: S.of(context).user_label_input_account,
+                                        labelText: S.current.user_label_account,
+                                        hintText: S.current.user_label_input_account,
                                         border: const UnderlineInputBorder()),
                                     onChanged: (value) => getVm().userName = value,
                                     textInputAction: TextInputAction.next),
@@ -105,8 +105,8 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                     obscureText: true,
                                     decoration: MyInputDecoration(
                                         floatingLabelBehavior: FloatingLabelBehavior.always,
-                                        labelText: S.of(context).user_label_password,
-                                        hintText: S.of(context).user_label_input_password,
+                                        labelText: S.current.user_label_password,
+                                        hintText: S.current.user_label_input_password,
                                         border: const UnderlineInputBorder()),
                                     onChanged: (value) => getVm().password = value,
                                     textInputAction: TextInputAction.next),
@@ -119,8 +119,8 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                           focusNode: getVm().captchaInputFocus,
                                           decoration: MyInputDecoration(
                                               //isDense: true,
-                                              labelText: S.of(context).user_label_captcha_code,
-                                              hintText: S.of(context).user_label_input_captcha_code,
+                                              labelText: S.current.user_label_captcha_code,
+                                              hintText: S.current.user_label_input_captcha_code,
                                               border:
                                                   const UnderlineInputBorder() /*border: InputBorder.none*/),
                                           onChanged: (value) {
@@ -173,7 +173,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                         return value._isSavePassword;
                                       },
                                     ),
-                                    Text(S.of(context).user_label_save_password),
+                                    Text(S.current.user_label_save_password),
                                     ThemeUtil.getSizedBox(width: SlcDimens.appDimens12),
                                     NqSelector<_LoginModel, bool>(
                                       builder: (context, value, child) {
@@ -189,7 +189,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                         return value._isAutoLogin;
                                       },
                                     ),
-                                    Text(S.of(context).user_label_auto_login)
+                                    Text(S.current.user_label_auto_login)
                                   ],
                                 ),
                                 ThemeUtil.getSizedBox(height: SlcDimens.appDimens36),
@@ -199,7 +199,7 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                                         onPressed: () {
                                           getVm().login();
                                         },
-                                        child: Text(S.of(context).user_label_login,
+                                        child: Text(S.current.user_label_login,
                                             style: themeData.primaryTextTheme.titleMedium)))
                               ],
                             ))),

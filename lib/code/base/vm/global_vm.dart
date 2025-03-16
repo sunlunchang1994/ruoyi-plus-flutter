@@ -27,7 +27,7 @@ class GlobalVm extends AbsoluteChangeNotifier {
 
   //final mixManager = MixManager();
 
-  ThemeMode _themeMode = ThemeMode.system;
+  ThemeMode _themeMode = AppConfig().getThemeMode();
 
   ThemeMode get currentTheme => _themeMode;
 

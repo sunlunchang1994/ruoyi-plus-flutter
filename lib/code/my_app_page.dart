@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
               routes: router,
               onUnknownRoute: get404Route,
               onGenerateTitle: (context) {
-                return S.of(context).app_name;
+                return S.current.app_name;
               },
               theme: AppStyles.getAppLightThemeMD3(),
               darkTheme: AppStyles.getAppDarkThemeMD3(),
@@ -43,6 +43,7 @@ class MyApp extends StatelessWidget {
                 ...GlobalMaterialLocalizations.delegates,
               ],
               // 将zh设置为第一项,没有适配语言时，英语为首选项
+              locale: Locale('zh', 'CN'),
               supportedLocales: S.delegate.supportedLocales,
             );
           }, selector: (context, vm) {
@@ -52,7 +53,7 @@ class MyApp extends StatelessWidget {
   }
 
   void _init(BuildContext context) {
-    TaskUtils.execFirstTask(context:context).then((value) {
+    TaskUtils.execRunAppAfterTask(context:context).then((value) {
       LogUtil.d("初始化完毕", tag: "FirstTask");
     });
   }

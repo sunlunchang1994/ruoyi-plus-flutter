@@ -121,8 +121,8 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                     autovalidateMode: AutovalidateMode.onUserInteraction,
                                     decoration: MyInputDecoration(
                                         floatingLabelBehavior: FloatingLabelBehavior.always,
-                                        labelText: S.of(context).user_label_nike_name,
-                                        hintText: S.of(context).app_label_please_input,
+                                        labelText: S.current.user_label_nike_name,
+                                        hintText: S.current.app_label_please_input,
                                         border: const UnderlineInputBorder()),
                                     onChanged: (value) {
                                       getVm().applyInfoChange();
@@ -135,8 +135,8 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                     autovalidateMode: AutovalidateMode.onUserInteraction,
                                     decoration: MyInputDecoration(
                                         floatingLabelBehavior: FloatingLabelBehavior.always,
-                                        labelText: S.of(context).user_label_phone_number,
-                                        hintText: S.of(context).app_label_please_input,
+                                        labelText: S.current.user_label_phone_number,
+                                        hintText: S.current.app_label_please_input,
                                         border: const UnderlineInputBorder()),
                                     onChanged: (value) {
                                       getVm().applyInfoChange();
@@ -149,8 +149,8 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                     autovalidateMode: AutovalidateMode.onUserInteraction,
                                     decoration: MyInputDecoration(
                                         floatingLabelBehavior: FloatingLabelBehavior.always,
-                                        labelText: S.of(context).user_label_mailbox,
-                                        hintText: S.of(context).app_label_please_input,
+                                        labelText: S.current.user_label_mailbox,
+                                        hintText: S.current.app_label_please_input,
                                         border: const UnderlineInputBorder()),
                                     onChanged: (value) {
                                       getVm().applyInfoChange();
@@ -170,8 +170,8 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                     },
                                     decoration: MySelectDecoration(
                                         floatingLabelBehavior: FloatingLabelBehavior.always,
-                                        labelText: S.of(context).user_label_sex,
-                                        hintText: S.of(context).app_label_please_input,
+                                        labelText: S.current.user_label_sex,
+                                        hintText: S.current.app_label_please_input,
                                         border: const UnderlineInputBorder())),
                               ],
                             ))))));
