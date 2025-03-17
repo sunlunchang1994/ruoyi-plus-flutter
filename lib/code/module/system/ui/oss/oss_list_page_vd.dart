@@ -25,9 +25,9 @@ import '../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../lib/fast/vd/refresh/content_empty.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
-import '../../../../lib/fast/widget/form/form_operate_with_provider.dart';
-import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
+import '../../../../lib/form/fast_form_builder_text_field.dart';
+import '../../../../lib/form/form_operate_with_provider.dart';
+import '../../../../lib/form/input_decoration_utils.dart';
 import '../../config/constant_sys.dart';
 import '../../repository/remote/sys_oss_api.dart';
 
@@ -55,7 +55,7 @@ class OssListPageWidget {
         });
   }
 
-  static Widget getDataListItem(ThemeData themeData, ListenerItemClick<dynamic> listenerItemClick,
+  static Widget getDataListItem(ThemeData themeData, ListenerItemSelect<dynamic> listenerItemSelect,
       int index, SysOssVo listItem,
       {Widget? Function(SysOssVo currentItem)? buildTrailing}) {
     return ListTile(
@@ -102,7 +102,7 @@ class OssListPageWidget {
         trailing: buildTrailing?.call(listItem),
         visualDensity: VisualDensity.compact,
         onTap: () {
-          listenerItemClick.onItemClick(index, listItem);
+          listenerItemSelect.onItemClick(index, listItem);
         });
   }
 

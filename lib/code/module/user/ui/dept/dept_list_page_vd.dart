@@ -17,9 +17,7 @@ import 'package:dio/dio.dart';
 
 class DeptListPageWidget {
   ///数据列表控件
-  static Widget getDataListWidget(
-      ThemeData themeData,
-      DeptTreeListDataVmSub listVmSub,
+  static Widget getDataListWidget(ThemeData themeData, DeptTreeListDataVmSub listVmSub,
       Widget Function(Dept currentItem) buildTrailing) {
     if (listVmSub.dataList.isEmpty) {
       return const ContentEmptyWrapper();
@@ -31,8 +29,7 @@ class DeptListPageWidget {
         itemCount: listVmSub.dataList.length,
         itemBuilder: (ctx, index) {
           Dept listItem = listVmSub.dataList[index];
-          return getDataListItem(
-              themeData, listVmSub, buildTrailing, index, listItem);
+          return getDataListItem(themeData, listVmSub, index, listItem, buildTrailing);
         },
         separatorBuilder: (context, index) {
           return themeData.slcTidyUpStyle.getDefDividerByTheme(themeData);
@@ -41,10 +38,10 @@ class DeptListPageWidget {
 
   static Widget getDataListItem(
     ThemeData themeData,
-    ListenerItemClick<dynamic> listenerItemClick,
-    Widget? Function(Dept currentItem) buildTrailing,
+    ListenerItemSelect<dynamic> listenerItemSelect,
     int index,
     Dept listItem,
+    Widget? Function(Dept currentItem) buildTrailing,
   ) {
     return ListTile(
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
@@ -53,7 +50,7 @@ class DeptListPageWidget {
         visualDensity: VisualDensity.compact,
         //根据card规则实现
         onTap: () {
-          listenerItemClick.onItemClick(index, listItem);
+          listenerItemSelect.onItemClick(index, listItem);
           //getVm().nextByDept(listItem);
         });
   }
@@ -62,8 +59,7 @@ class DeptListPageWidget {
 ///部门树数据VmSub
 class DeptTreeListDataVmSub extends TreeFastBaseListDataVmSub<Dept> {
   final FastVm fastVm;
-  final Dept _currentDeptSearch =
-      Dept(parentId: ConstantBase.VALUE_PARENT_ID_DEF);
+  final Dept _currentDeptSearch = Dept(parentId: ConstantBase.VALUE_PARENT_ID_DEF);
 
   Dept get currentSearch => _currentDeptSearch;
 
@@ -74,17 +70,14 @@ class DeptTreeListDataVmSub extends TreeFastBaseListDataVmSub<Dept> {
     setRefresh(() async {
       try {
         //此处的parentId就是创建cancelToken所需的treeId;
-        CancelToken cancelToken =
-            createCancelTokenByTreeId(_currentDeptSearch.parentId);
+        CancelToken cancelToken = createCancelTokenByTreeId(_currentDeptSearch.parentId);
         IntensifyEntity<List<Dept>> intensifyEntity =
             await DeptRepository.list(_currentDeptSearch, cancelToken);
-        DataWrapper<List<Dept>> dataWrapper =
-            DataTransformUtils.entity2LDWrapper(intensifyEntity);
+        DataWrapper<List<Dept>> dataWrapper = DataTransformUtils.entity2LDWrapper(intensifyEntity);
         return dataWrapper;
       } catch (e) {
         ResultEntity resultEntity = BaseDio.getError(e);
-        return DataWrapper.createFailed(
-            code: resultEntity.code, msg: resultEntity.msg);
+        return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
       }
     });
     //设置点击item事件主体

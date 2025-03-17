@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
+import 'package:flutter_slc_boxes/flutter/slc/adapter/select_box.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/fast_mvvm.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
@@ -12,6 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/dept.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/user.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
+import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/widget_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
@@ -27,15 +29,16 @@ import '../../../../base/api/result_entity.dart';
 import '../../../../base/config/constant_base.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
+import '../../../../feature/bizapi/user/config/constant_user_api.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
 import '../../../../lib/fast/provider/fast_select.dart';
 import '../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../lib/fast/vd/refresh/content_empty.dart';
-import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
-import '../../../../lib/fast/widget/form/form_operate_with_provider.dart';
-import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
+import '../../../../lib/form/fast_form_builder_text_field.dart';
+import '../../../../lib/form/form_operate_with_provider.dart';
+import '../../../../lib/form/input_decoration_utils.dart';
 import '../dept/dept_list_select_single_page.dart';
 
 class UserListPageVd {
@@ -54,7 +57,7 @@ class UserListPageVd {
           dynamic listItem = listVmSub.dataList[index];
           if (listItem is Dept) {
             return DeptListPageWidget.getDataListItem(
-                themeData, listVmSub, buildTrailing, index, listItem);
+                themeData, listVmSub, index, listItem, buildTrailing);
             /*return Padding(
                 padding: const EdgeInsets.only(bottom: 1),
                 child: ListTile(
@@ -71,15 +74,16 @@ class UserListPageVd {
                     }));*/
           }
           if (listItem is User) {
-            return getUserListItem(themeData, listVmSub, buildTrailing, index, listItem);
+            return getUserListItem(themeData, listVmSub, index, listItem);
           }
           throw Exception("listItem 类型错误");
         });
   }
 
   ///用户列表
-  static Widget getUserListWidget(ThemeData themeData, IListDataVmSub<User> listVmSub) {
-    assert(listVmSub is ListenerItemClick<dynamic>);
+  static Widget getUserListWidget(ThemeData themeData, IListDataVmSub<User> listVmSub,
+      {Widget? Function(User currentItem)? buildTrailing}) {
+    assert(listVmSub is ListenerItemSelect<dynamic>);
     if (listVmSub.dataList.isEmpty) {
       return const ContentEmptyWrapper();
     }
@@ -90,62 +94,76 @@ class UserListPageVd {
         itemCount: listVmSub.dataList.length,
         itemBuilder: (context, index) {
           User listItem = listVmSub.dataList[index];
-          return UserListPageVd.getUserListItem(themeData, listVmSub as ListenerItemClick<dynamic>,
-              (currentItem) {
-            return null;
-          }, index, listItem);
+          return UserListPageVd.getUserListItem(
+              themeData, listVmSub as ListenerItemSelect<dynamic>, index, listItem,
+              buildTrailing: buildTrailing);
         },
         separatorBuilder: (context, index) {
           return themeData.slcTidyUpStyle.getDefDividerByTheme(themeData);
         });
-    return ListView.builder(
+    /*return ListView.builder(
         clipBehavior: Clip.none,
         scrollDirection: Axis.vertical,
         padding: EdgeInsets.zero,
         itemCount: listVmSub.dataList.length,
         itemBuilder: (context, index) {
           User listItem = listVmSub.dataList[index];
-          return UserListPageVd.getUserListItem(themeData, listVmSub as ListenerItemClick<dynamic>,
-              (currentItem) {
+          return UserListPageVd.getUserListItem(
+              themeData, listVmSub as ListenerItemSelect<dynamic>, index, listItem,
+              buildTrailing: (currentItem) {
             return null;
-          }, index, listItem);
-        });
+          });
+        });*/
   }
 
   ///用户item
-  static Widget getUserListItem(ThemeData themeData, ListenerItemClick<dynamic> listenerItemClick,
-      Widget? Function(User currentItem) buildTrailing, int index, User listItem) {
+  static Widget getUserListItem(
+      ThemeData themeData, ListenerItemSelect<dynamic> listenerItemSelect, int index, User listItem,
+      {Widget? Function(User currentItem)? buildTrailing}) {
     return ListTile(
-        contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
-        leading: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(AppDimens.userItemAvatarRadius)),
-            child: CachedNetworkImage(
-                fit: BoxFit.cover,
-                width: AppDimens.userItemAvatarSize,
-                height: AppDimens.userItemAvatarSize,
-                imageUrl: listItem.avatar ?? "",
-                placeholder: (context, url) {
-                  return Image.asset("assets/images/slc/app_ic_def_user_head.png",
-                      width: AppDimens.userItemAvatarSize, height: AppDimens.userItemAvatarSize);
-                },
-                errorWidget: (
-                  context,
-                  error,
-                  stackTrace,
-                ) {
-                  return Image.asset("assets/images/slc/app_ic_def_user_head.png",
-                      width: AppDimens.userItemAvatarSize, height: AppDimens.userItemAvatarSize);
-                })),
-        title: Text(listItem.nickName ?? "-"),
-        subtitle: Text(listItem.deptName ?? "-"),
-        minTileHeight: AppDimens.userItemAvatarSize + SlcDimens.appDimens16,
-        trailing: buildTrailing.call(listItem),
-        visualDensity: VisualDensity.compact,
-        //根据card规则实现
-        onTap: () {
-          listenerItemClick.onItemClick(index, listItem);
-          //getVm().nextByDept(listItem);
-        });
+      contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
+      leading: ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(AppDimens.userItemAvatarRadius)),
+          child: CachedNetworkImage(
+              fit: BoxFit.cover,
+              width: AppDimens.userItemAvatarSize,
+              height: AppDimens.userItemAvatarSize,
+              imageUrl: listItem.avatar ?? "",
+              placeholder: (context, url) {
+                return Image.asset("assets/images/slc/app_ic_def_user_head.png",
+                    width: AppDimens.userItemAvatarSize, height: AppDimens.userItemAvatarSize);
+              },
+              errorWidget: (
+                context,
+                error,
+                stackTrace,
+              ) {
+                return Image.asset("assets/images/slc/app_ic_def_user_head.png",
+                    width: AppDimens.userItemAvatarSize, height: AppDimens.userItemAvatarSize);
+              })),
+      title: Text(listItem.nickName ?? "-"),
+      subtitle: Text(listItem.deptName ?? "-"),
+      minTileHeight: AppDimens.userItemAvatarSize + SlcDimens.appDimens16,
+      trailing: WidgetUtils.getAnimCrossFade(
+          Checkbox(
+            value: listItem.isBoxChecked(),
+            onChanged: (value) {
+              listItem.boxChecked = value;
+              listenerItemSelect.onItemSelect(index, listItem, value);
+            },
+          ),
+          buildTrailing?.call(listItem) ?? WidgetUtils.getBoxStandard(),
+          showOne: listenerItemSelect.selectModelIsRun),
+      visualDensity: VisualDensity.compact,
+      //根据card规则实现
+      onTap: () {
+        listenerItemSelect.onItemClick(index, listItem);
+        //getVm().nextByDept(listItem);
+      },
+      onLongPress: () {
+        listenerItemSelect.onItemLongClick(index, listItem);
+      },
+    );
   }
 
   ///搜索侧滑栏视图
@@ -412,6 +430,7 @@ class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> with CancelToken
   User get searchUser => _searchUser;
 
   UserPageDataVmSub() {
+    enableSelectModel = true;
     setLoadData((loadMoreFormat) async {
       try {
         IntensifyEntity<PageModel<User>> result = await UserServiceRepository.list(
@@ -426,6 +445,7 @@ class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> with CancelToken
     });
   }
 
+  //选择部门事件
   void onSelectDept() {
     pushNamed(DeptListSingleSelectPage.routeName,
             arguments: {ConstantBase.KEY_INTENT_TITLE: S.current.user_label_dept_select})
@@ -436,6 +456,7 @@ class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> with CancelToken
     });
   }
 
+  //设置选择部门
   void setSelectDept(Dept? dept) {
     searchUser.deptId = dept?.deptId;
     searchUser.deptName = dept?.deptName;
@@ -443,6 +464,7 @@ class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> with CancelToken
     notifyListeners();
   }
 
+  //设置选择状态
   void setSelectStatus(ITreeDict<dynamic>? data) {
     searchUser.status = data?.tdDictValue;
     searchUser.statusName = data?.tdDictLabel;
@@ -461,5 +483,39 @@ class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> with CancelToken
   void onSearch() {
     formOperate.formBuilderState?.save();
     sendRefreshEvent();
+  }
+
+  //删除事件
+  void onDelete({Future<bool?> Function(List<String>)? confirmHandler, List<int>? userIdList}) {
+    if (userIdList == null) {
+      List<User> selectList = SelectUtils.getSelect(dataList) ?? [];
+      //移除超级管理员
+      selectList.removeWhere((item) {
+        return item.userId == ConstantUserApi.VALUE_SUPER_ADMIN_ID;
+      });
+      if (selectList.isEmpty) {
+        AppToastUtil.showToast(msg: S.current.user_label_data_del_select_empty);
+        return;
+      }
+      List<String> nickNameList = selectList.map<String>((item) => item.nickName!).toList();
+      List<int> userIdList = selectList.map<int>((item) => item.userId!).toList();
+      confirmHandler?.call(nickNameList).then((value) {
+        if (value == true) {
+          onDelete(userIdList: userIdList);
+        }
+      });
+      return;
+    }
+    //删除
+    showLoading(text: S.current.label_delete_ing);
+    UserServiceRepository.delete(defCancelToken, userIds: userIdList).then((value) {
+      dismissLoading();
+      AppToastUtil.showToast(msg: S.current.label_delete_success);
+      finish(result: true);
+    }, onError: (e) {
+      dismissLoading();
+      BaseDio.handlerError(e);
+      AppToastUtil.showToast(msg: S.current.label_delete_failed);
+    });
   }
 }

@@ -16,7 +16,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../feature/component/dict/entity/tree_dict.dart';
 import '../../../../lib/fast/utils/widget_utils.dart';
-import '../../../../lib/fast/widget/form/form_operate_with_provider.dart';
+import '../../../../lib/form/form_operate_with_provider.dart';
 import '../../entity/sys_logininfor.dart';
 import '../../entity/sys_oper_log.dart';
 

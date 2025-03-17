@@ -49,7 +49,7 @@ class MenuListPageWidget {
 
   static Widget getDataListItem(
     ThemeData themeData,
-    ListenerItemClick<dynamic> listenerItemClick,
+    ListenerItemSelect<dynamic> listenerItemSelect,
     Widget? Function(SysMenu currentItem) buildTrailing,
     int index,
     SysMenu listItem,
@@ -61,7 +61,7 @@ class MenuListPageWidget {
         visualDensity: VisualDensity.compact,
         //根据card规则实现
         onTap: () {
-          listenerItemClick.onItemClick(index, listItem);
+          listenerItemSelect.onItemClick(index, listItem);
           //getVm().nextByDept(listItem);
         });
   }

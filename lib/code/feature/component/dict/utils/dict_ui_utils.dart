@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/object_util.dart';
 import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
+import 'package:ruoyi_plus_flutter/code/lib/form/fast_form_builder_field_option.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../../res/colors.dart';

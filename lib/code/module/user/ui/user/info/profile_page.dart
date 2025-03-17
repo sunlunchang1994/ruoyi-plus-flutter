@@ -15,12 +15,12 @@ import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
+import 'package:ruoyi_plus_flutter/code/lib/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/res/dimens.dart';
 import '../../../../../base/api/base_dio.dart';
 import '../../../../../base/api/result_entity.dart';
-import '../../../../../lib/fast/widget/form/image_picker/form_builder_single_image_picker.dart';
-import '../../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
+import '../../../../../lib/form/image_picker/form_builder_single_image_picker.dart';
+import '../../../../../lib/form/fast_form_builder_text_field.dart';
 import '../../../../../base/vm/global_vm.dart';
 import '../../../../../feature/component/crop/crop_image.dart';
 import '../../../../../feature/bizapi/user/entity/avatar_vo.dart';

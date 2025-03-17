@@ -15,7 +15,7 @@ import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_component.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/refresh/content_empty.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
+import 'package:ruoyi_plus_flutter/code/lib/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/role_api.dart';
 
 import '../../../../../generated/l10n.dart';
@@ -29,13 +29,13 @@ import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import '../../../../lib/fast/provider/fast_select.dart';
 import '../../../../lib/fast/utils/widget_utils.dart';
 import '../../../../lib/fast/vd/page_data_vm_sub.dart';
-import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
-import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
+import '../../../../lib/form/fast_form_builder_text_field.dart';
+import '../../../../lib/form/input_decoration_utils.dart';
 
 class RoleListPageVd {
   static Widget getUserListWidget(ThemeData themeData, IListDataVmSub<Role> listVmSub,
       {Widget? Function(Role currentItem)? buildTrailing}) {
-    assert(listVmSub is ListenerItemClick<dynamic>);
+    assert(listVmSub is ListenerItemSelect<dynamic>);
     if (listVmSub.dataList.isEmpty) {
       return const ContentEmptyWrapper();
     }
@@ -47,7 +47,7 @@ class RoleListPageVd {
         itemBuilder: (context, index) {
           Role listItem = listVmSub.dataList[index];
           return getUserListItem(
-              themeData, listVmSub as ListenerItemClick<dynamic>, index, listItem,
+              themeData, listVmSub as ListenerItemSelect<dynamic>, index, listItem,
               buildTrailing: buildTrailing);
         },
         separatorBuilder: (context, index) {
@@ -56,7 +56,7 @@ class RoleListPageVd {
   }
 
   static Widget getUserListItem(
-      ThemeData themeData, ListenerItemClick<dynamic> listenerItemClick, int index, Role listItem,
+      ThemeData themeData, ListenerItemSelect<dynamic> listenerItemSelect, int index, Role listItem,
       {Widget? Function(Role currentItem)? buildTrailing}) {
     return ListTile(
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
@@ -65,7 +65,7 @@ class RoleListPageVd {
         trailing: buildTrailing?.call(listItem),
         visualDensity: VisualDensity.compact,
         onTap: () {
-          listenerItemClick.onItemClick(index, listItem);
+          listenerItemSelect.onItemClick(index, listItem);
         });
   }
 

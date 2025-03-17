@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../lib/fast/db/dp_manager.dart';
+import '../../../lib/db_base/dp_manager.dart';
 
 class AppConfig extends DpManager {
   static const String SP_NAME = "app_config";

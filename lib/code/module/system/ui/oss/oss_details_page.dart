@@ -26,9 +26,9 @@ import 'package:ruoyi_plus_flutter/code/lib/fast/permission/permission_compat.da
 import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_text_field.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/input_decoration_utils.dart';
+import 'package:ruoyi_plus_flutter/code/lib/form/fast_form_builder_text_field.dart';
+import 'package:ruoyi_plus_flutter/code/lib/form/form_operate_with_provider.dart';
+import 'package:ruoyi_plus_flutter/code/lib/form/input_decoration_utils.dart';
 
 import '../../../../../../generated/l10n.dart';
 import '../../../../../res/dimens.dart';

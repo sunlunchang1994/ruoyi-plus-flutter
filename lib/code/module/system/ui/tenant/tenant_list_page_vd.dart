@@ -22,9 +22,9 @@ import '../../../../lib/fast/utils/widget_utils.dart';
 import '../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../lib/fast/vd/refresh/content_empty.dart';
 import '../../../../lib/fast/vd/request_token_manager.dart';
-import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
-import '../../../../lib/fast/widget/form/form_operate_with_provider.dart';
-import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
+import '../../../../lib/form/fast_form_builder_text_field.dart';
+import '../../../../lib/form/form_operate_with_provider.dart';
+import '../../../../lib/form/input_decoration_utils.dart';
 import 'package:dio/dio.dart';
 
 import '../../config/constant_sys.dart';
@@ -54,7 +54,7 @@ class TenantListPageWidget {
         });
   }
 
-  static Widget getDataListItem(ThemeData themeData, ListenerItemClick<dynamic> listenerItemClick,
+  static Widget getDataListItem(ThemeData themeData, ListenerItemSelect<dynamic> listenerItemSelect,
       int index, SysTenant listItem,
       {Widget? Function(SysTenant currentItem)? buildTrailing}) {
     return ListTile(
@@ -65,7 +65,7 @@ class TenantListPageWidget {
             : listItem.expireTime! + S.current.sys_label_sys_tenant_x_expire_time),
         visualDensity: VisualDensity.compact,
         onTap: () {
-          listenerItemClick.onItemClick(index, listItem);
+          listenerItemSelect.onItemClick(index, listItem);
         });
   }
 

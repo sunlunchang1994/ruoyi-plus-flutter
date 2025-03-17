@@ -2,6 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_slc_boxes/flutter/slc/adapter/select_box.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/status_widget.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
@@ -16,10 +19,10 @@ import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/config/constant_user
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_text_field.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/input_decoration_utils.dart';
+import 'package:ruoyi_plus_flutter/code/lib/form/fast_form_builder_field_option.dart';
+import 'package:ruoyi_plus_flutter/code/lib/form/fast_form_builder_text_field.dart';
+import 'package:ruoyi_plus_flutter/code/lib/form/form_operate_with_provider.dart';
+import 'package:ruoyi_plus_flutter/code/lib/form/input_decoration_utils.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/user_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_select_single_page.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_select_multiple_page.dart';
@@ -36,7 +39,7 @@ import '../../../../feature/bizapi/user/entity/user_info_vo.dart';
 import '../../../../feature/component/dict/entity/tree_dict.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
-import '../../../../lib/fast/widget/form/form_builder_flow_tag.dart';
+import '../../../../lib/form/form_builder_flow_tag.dart';
 import '../post/post_list_select_multiple_page.dart';
 
 class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
@@ -51,7 +54,6 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
     return ChangeNotifierProvider(
         create: (context) => _UserAddEditVm(),
         builder: (context, child) {
-          ThemeData themeData = Theme.of(context);
           registerEvent(context);
           getVm().initVm(user);
           return PopScope(
@@ -67,37 +69,73 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                 //没有保存则显示提示保存对话框
                 _showPromptSaveDialog(context);
               },
-              child: Scaffold(
-                  appBar: AppBar(
-                    title: Text(user == null
-                        ? S.current.user_label_user_add
-                        : S.current.user_label_user_edit),
-                    actions: () {
-                      List<Widget> actionList = List.empty(growable: true);
-                      if (user?.userId == ConstantUserApi.VALUE_SUPER_ADMIN_ID) {
-                        return actionList;
-                      }
-                      actionList.add(IconButton(
-                          onPressed: () {
-                            getVm().onSave();
-                          },
-                          icon: Icon(Icons.save)));
-                      if (user != null) {
-                        actionList.add(IconButton(
-                            onPressed: () {
-                              FastDialogUtils.showDelConfirmDialog(context,
-                                      typeName: S.current.user_label_user)
-                                  .then((result) {
-                                //
-                              });
-                            },
-                            icon: Icon(Icons.delete)));
-                      }
-                      return actionList;
-                    }.call(),
-                  ),
-                  body: getStatusBody(context)));
+              child: Scaffold(appBar: getAppBar(), body: getStatusBody(context)));
         });
+  }
+
+  AppBar getAppBar() {
+    return AppBar(
+      title: Text(user == null ? S.current.user_label_user_add : S.current.user_label_user_edit),
+      actions: () {
+        List<Widget> actionList = List.empty(growable: true);
+        if (user?.userId == ConstantUserApi.VALUE_SUPER_ADMIN_ID) {
+          return actionList;
+        }
+        actionList.add(IconButton(
+            onPressed: () {
+              getVm().onSave();
+            },
+            icon: Icon(Icons.save)));
+        if (user != null) {
+          actionList.add(PopupMenuButton(itemBuilder: (context) {
+            return [
+              PopupMenuItem(
+                child: Text(S.current.action_delete),
+                onTap: () {
+                  FastDialogUtils.showDelConfirmDialog(context,
+                          contentText: TextUtil.format(
+                              S.current.user_label_data_del_prompt, [user?.nickName ?? ""]))
+                      .then((confirm) {
+                    if (confirm == true) {
+                      getVm().onDelete();
+                    }
+                  });
+                },
+              ),
+              PopupMenuItem(
+                child: Text(S.current.user_label_reset_password),
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        String newPassword = "";
+                        return AlertDialog(
+                            title: Text(S.current.label_prompt),
+                            content: TextField(
+                                decoration: InputDecoration(
+                                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                                    label: Text(S.current.user_label_new_password_input)),
+                                onChanged: (value) {
+                                  newPassword = value;
+                                }),
+                            actions: FastDialogUtils.getCommonlyAction(context, positiveLister: () {
+                              if (TextUtil.isEmpty(newPassword)) {
+                                AppToastUtil.showToast(
+                                    msg: S.current.app_label_required_information_cannot_be_empty);
+                                return;
+                              }
+                              Navigator.pop(context);
+                              getVm().onResetPassword(newPassword);
+                            }));
+                      });
+                },
+              ),
+            ];
+          }));
+        }
+        return actionList;
+      }.call(),
+    );
   }
 
   @override
@@ -507,6 +545,33 @@ class _UserAddEditVm extends AppBaseVm with CancelTokenAssist {
     }, onError: (error) {
       dismissLoading();
       BaseDio.handlerError(error);
+    });
+  }
+
+  void onDelete() {
+    showLoading(text: S.current.label_delete_ing);
+    UserServiceRepository.delete(defCancelToken, userId: userInfo!.userId).then((value) {
+      dismissLoading();
+      AppToastUtil.showToast(msg: S.current.label_delete_success);
+      finish(result: true);
+    }, onError: (e) {
+      dismissLoading();
+      BaseDio.handlerError(e);
+      AppToastUtil.showToast(msg: S.current.label_delete_failed);
+    });
+  }
+
+  //重置密码
+  void onResetPassword(String newPassword) {
+    userInfo!.password = newPassword;
+    showLoading(text: S.current.label_submit_ing);
+    UserServiceRepository.resetPwd(userInfo!, defCancelToken).then((value) {
+      dismissLoading();
+      AppToastUtil.showToast(msg: S.current.user_label_reset_password_success);
+    }, onError: (e) {
+      dismissLoading();
+      BaseDio.handlerError(e);
+      AppToastUtil.showToast(msg: S.current.user_label_reset_password_fail);
     });
   }
 }

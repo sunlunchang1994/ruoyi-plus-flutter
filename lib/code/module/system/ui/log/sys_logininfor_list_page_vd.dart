@@ -24,8 +24,8 @@ import '../../../../lib/fast/utils/widget_utils.dart';
 import '../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../lib/fast/vd/refresh/content_empty.dart';
 
-import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
-import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
+import '../../../../lib/form/fast_form_builder_text_field.dart';
+import '../../../../lib/form/input_decoration_utils.dart';
 import '../../repository/remote/sys_logininfor_api.dart';
 
 ///@author slc
@@ -53,7 +53,7 @@ class SysLogininforListPageWidget {
 
   static Widget getDataListItem(
     ThemeData themeData,
-    ListenerItemClick<dynamic> listenerItemClick,
+    ListenerItemSelect<dynamic> listenerItemSelect,
     Widget? Function(SysLogininfor currentItem)? buildTrailing,
     int index,
     SysLogininfor listItem,
@@ -85,7 +85,7 @@ class SysLogininforListPageWidget {
             List<Widget> widgets = [];
             widgets.add(Text(listItem.loginTime ?? ""));
             widgets.add(AnimatedSize(
-              duration: const Duration(milliseconds: 300),
+              duration: WidgetUtils.adminDurationNormal,
               alignment: Alignment.topLeft, // 设置对齐方式确保从上到下展开
               curve: Curves.easeInOut,
               child: Visibility(
@@ -106,7 +106,7 @@ class SysLogininforListPageWidget {
         trailing: buildTrailing?.call(listItem),
         //根据card规则实现
         onTap: () {
-          listenerItemClick.onItemClick(index, listItem);
+          listenerItemSelect.onItemClick(index, listItem);
           //getVm().nextByDept(listItem);
         });
   }

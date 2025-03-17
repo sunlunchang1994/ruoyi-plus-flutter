@@ -1,5 +1,5 @@
 import 'package:flutter_slc_boxes/flutter/slc/common/sp_cache_util.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/db/data_persistence.dart';
+import 'package:ruoyi_plus_flutter/code/lib/db_base/data_persistence.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 ///基于SharedPreferences的数据持久化

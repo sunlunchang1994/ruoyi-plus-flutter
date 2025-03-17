@@ -24,9 +24,9 @@ import '../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../lib/fast/vd/refresh/content_empty.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
-import '../../../../lib/fast/widget/form/form_operate_with_provider.dart';
-import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
+import '../../../../lib/form/fast_form_builder_text_field.dart';
+import '../../../../lib/form/form_operate_with_provider.dart';
+import '../../../../lib/form/input_decoration_utils.dart';
 import '../../config/constant_sys.dart';
 import '../../entity/sys_notice.dart';
 import '../../repository/remote/sys_notice_api.dart';
@@ -57,7 +57,7 @@ class NoticeListPageWidget {
 
   static Widget getDataListItem(
     ThemeData themeData,
-    ListenerItemClick<dynamic> listenerItemClick,
+    ListenerItemSelect<dynamic> listenerItemSelect,
     Widget? Function(SysNotice currentItem) buildTrailing,
     int index,
     SysNotice listItem,
@@ -69,7 +69,7 @@ class NoticeListPageWidget {
         visualDensity: VisualDensity.compact,
         //根据card规则实现
         onTap: () {
-          listenerItemClick.onItemClick(index, listItem);
+          listenerItemSelect.onItemClick(index, listItem);
           //getVm().nextByDept(listItem);
         });
   }

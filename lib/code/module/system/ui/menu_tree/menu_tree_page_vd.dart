@@ -45,7 +45,7 @@ class MenuTreePageWidget {
 
   static Widget getDataListItem(
     ThemeData themeData,
-    ListenerItemClick<dynamic> listenerItemClick,
+    ListenerItemSelect<dynamic> listenerItemSelect,
     Widget? Function(SysMenuTree currentItem) buildTrailing,
     int index,
     SysMenuTree listItem,
@@ -57,7 +57,7 @@ class MenuTreePageWidget {
         visualDensity: VisualDensity.compact,
         //根据card规则实现
         onTap: () {
-          listenerItemClick.onItemClick(index, listItem);
+          listenerItemSelect.onItemClick(index, listItem);
           //getVm().nextByDept(listItem);
         });
   }

@@ -20,9 +20,9 @@ import '../../../../../lib/fast/provider/fast_select.dart';
 import '../../../../../lib/fast/utils/widget_utils.dart';
 import '../../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../../lib/fast/vd/refresh/content_empty.dart';
-import '../../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
-import '../../../../../lib/fast/widget/form/form_operate_with_provider.dart';
-import '../../../../../lib/fast/widget/form/input_decoration_utils.dart';
+import '../../../../../lib/form/fast_form_builder_text_field.dart';
+import '../../../../../lib/form/form_operate_with_provider.dart';
+import '../../../../../lib/form/input_decoration_utils.dart';
 
 import '../../../config/constant_sys.dart';
 import '../../../repository/remote/sys_tenant_package_api.dart';
@@ -44,7 +44,7 @@ class TenantPackageListPageWidget {
         itemCount: listVmSub.dataList.length,
         itemBuilder: (ctx, index) {
           SysTenantPackage listItem = listVmSub.dataList[index];
-          return getDataListItem(themeData, listVmSub as ListenerItemClick, index, listItem,
+          return getDataListItem(themeData, listVmSub as ListenerItemSelect, index, listItem,
               buildTrailing: buildTrailing);
         },
         separatorBuilder: (context, index) {
@@ -52,7 +52,7 @@ class TenantPackageListPageWidget {
         });
   }
 
-  static Widget getDataListItem(ThemeData themeData, ListenerItemClick<dynamic> listenerItemClick,
+  static Widget getDataListItem(ThemeData themeData, ListenerItemSelect<dynamic> listenerItemSelect,
       int index, SysTenantPackage listItem,
       {Widget? Function(SysTenantPackage currentItem)? buildTrailing}) {
     return ListTile(
@@ -60,7 +60,7 @@ class TenantPackageListPageWidget {
         title: Text(listItem.packageName!),
         visualDensity: VisualDensity.compact,
         onTap: () {
-          listenerItemClick.onItemClick(index, listItem);
+          listenerItemSelect.onItemClick(index, listItem);
         });
   }
 

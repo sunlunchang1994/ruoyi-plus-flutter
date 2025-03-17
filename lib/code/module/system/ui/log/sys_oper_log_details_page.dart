@@ -11,7 +11,7 @@ import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_oper_log.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../base/ui/app_mvvm.dart';
-import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
+import '../../../../lib/form/fast_form_builder_text_field.dart';
 
 ///操作详情
 class SysOperLogDetailsPage extends AppBaseStatelessWidget<_SysOperLogDetailsModel> {

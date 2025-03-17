@@ -27,8 +27,8 @@ import '../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../lib/fast/vd/refresh/content_empty.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
-import '../../../../lib/fast/widget/form/input_decoration_utils.dart';
+import '../../../../lib/form/fast_form_builder_text_field.dart';
+import '../../../../lib/form/input_decoration_utils.dart';
 import '../../config/constant_sys.dart';
 import '../../entity/sys_oper_log.dart';
 import '../../repository/remote/sys_oper_log_api.dart';
@@ -55,7 +55,7 @@ class SysOperLogListPageWidget {
         });
   }
 
-  static Widget getDataListItem(ThemeData themeData, ListenerItemClick<dynamic> listenerItemClick,
+  static Widget getDataListItem(ThemeData themeData, ListenerItemSelect<dynamic> listenerItemSelect,
       int index, SysOperLog listItem) {
     Color statusColor =
         DictUiUtils.getDictStyle(LocalDictLib.CODE_SYS_COMMON_STATUS, listItem.status);
@@ -106,7 +106,7 @@ class SysOperLogListPageWidget {
         visualDensity: VisualDensity.compact,
         //根据card规则实现
         onTap: () {
-          listenerItemClick.onItemClick(index, listItem);
+          listenerItemSelect.onItemClick(index, listItem);
           //getVm().nextByDept(listItem);
         });
   }

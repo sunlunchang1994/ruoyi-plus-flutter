@@ -4,7 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import 'input_decoration_utils.dart';
+import '../form/input_decoration_utils.dart';
 
 /// A Material Design text field input.
 class MyFormBuilderTextField extends FormBuilderTextField {

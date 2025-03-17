@@ -19,9 +19,9 @@ import '../../../../../lib/fast/utils/widget_utils.dart';
 import '../../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../../lib/fast/vd/refresh/content_empty.dart';
 
-import '../../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
-import '../../../../../lib/fast/widget/form/form_operate_with_provider.dart';
-import '../../../../../lib/fast/widget/form/input_decoration_utils.dart';
+import '../../../../../lib/form/fast_form_builder_text_field.dart';
+import '../../../../../lib/form/form_operate_with_provider.dart';
+import '../../../../../lib/form/input_decoration_utils.dart';
 import '../../../repository/remote/sys_user_online_api.dart';
 
 ///@author slc
@@ -49,7 +49,7 @@ class NoticeListPageWidget {
 
   static Widget getDataListItem(
     ThemeData themeData,
-    ListenerItemClick<dynamic> listenerItemClick,
+    ListenerItemSelect<dynamic> listenerItemSelect,
     Widget? Function(SysUserOnline currentItem) buildTrailing,
     int index,
     SysUserOnline listItem,
@@ -84,7 +84,7 @@ class NoticeListPageWidget {
         visualDensity: WidgetUtils.minimumDensity,
         //根据card规则实现
         onTap: () {
-          listenerItemClick.onItemClick(index, listItem);
+          listenerItemSelect.onItemClick(index, listItem);
           //getVm().nextByDept(listItem);
         });
   }

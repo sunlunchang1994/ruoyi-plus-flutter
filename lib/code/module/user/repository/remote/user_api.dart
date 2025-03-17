@@ -37,11 +37,13 @@ abstract class UserApiClient {
 
   ///部门下的用户列表
   @GET("/system/user/list/dept/{deptId}")
-  Future<ResultEntity> userListByDept(@Path("deptId") int deptId, @CancelRequest() CancelToken cancelToken);
+  Future<ResultEntity> userListByDept(
+      @Path("deptId") int deptId, @CancelRequest() CancelToken cancelToken);
 
   ///获取用户信息
   @GET("/system/user/{userId}")
-  Future<ResultEntity> getUserById(@Path("userId") String userId, @CancelRequest() CancelToken cancelToken);
+  Future<ResultEntity> getUserById(
+      @Path("userId") String userId, @CancelRequest() CancelToken cancelToken);
 
   ///新增用户
   @POST("/system/user")
@@ -50,6 +52,16 @@ abstract class UserApiClient {
   ///更新用户
   @PUT("/system/user")
   Future<ResultEntity> edit(@Body() User body, @CancelRequest() CancelToken cancelToken);
+
+  ///删除用户
+  @DELETE("/system/user/{userIds}")
+  Future<ResultEntity> delete(
+      @Path("userIds") String userIds, @CancelRequest() CancelToken cancelToken);
+
+  ///重置密码
+  @Headers(<String, dynamic>{ApiConfig.KEY_APPLY_ENCRYPT: true})
+  @PUT("/system/user/resetPwd")
+  Future<ResultEntity> resetPwd(@Body() User body, @CancelRequest() CancelToken cancelToken);
 }
 
 ///用户服务
@@ -108,11 +120,14 @@ class UserServiceRepository {
         .map((event) {
       return event.toIntensify<UserInfoVo>(createData: (resultEntity) {
         UserInfoVo userInfo = UserInfoVo.fromJson(resultEntity.data);
-        userInfo.user?.sexName =
-            GlobalVm().dictShareVm.findDict(LocalDictLib.CODE_SYS_USER_SEX, userInfo.user?.sex)?.tdDictLabel;
-        userInfo.user?.statusName =
-            GlobalVm().dictShareVm.findDict(LocalDictLib.CODE_SYS_NORMAL_DISABLE, userInfo.user?.status)
-                ?.tdDictLabel;
+        userInfo.user?.sexName = GlobalVm()
+            .dictShareVm
+            .findDict(LocalDictLib.CODE_SYS_USER_SEX, userInfo.user?.sex)
+            ?.tdDictLabel;
+        userInfo.user?.statusName = GlobalVm()
+            .dictShareVm
+            .findDict(LocalDictLib.CODE_SYS_NORMAL_DISABLE, userInfo.user?.status)
+            ?.tdDictLabel;
         fillUserPosts(userInfo);
         return userInfo;
       });
@@ -124,13 +139,13 @@ class UserServiceRepository {
       return;
     }
     List<Post> userPost = List.empty(growable: true);
-    userInfo.postIds!.forEach((postId) {
+    for (var postId in userInfo.postIds!) {
       Post target = userInfo.posts?.firstWhere((post) {
             return postId == post.postId;
           }) ??
           Post(postId: postId, postName: postId.toString());
       userPost.add(target);
-    });
+    }
     userInfo.user!.posts = userPost;
   }
 
@@ -139,6 +154,30 @@ class UserServiceRepository {
         ? _userApiClient.add(user, cancelToken)
         : _userApiClient.edit(user, cancelToken);
     return resultFuture.asStream().map(DataTransformUtils.checkError).map((event) {
+      return event.toIntensify();
+    }).single;
+  }
+
+  static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
+      {int? userId, List<int>? userIds}) {
+    //参数校验
+    assert(userId != null && userIds == null || userId == null && userIds != null);
+    userIds ??= [userId!];
+    return _userApiClient
+        .delete(userIds.join(TextUtil.COMMA), cancelToken)
+        .asStream()
+        .map(DataTransformUtils.checkError)
+        .map((event) {
+      return event.toIntensify();
+    }).single;
+  }
+
+  static Future<IntensifyEntity<dynamic>> resetPwd(User user, CancelToken cancelToken) {
+    return _userApiClient
+        .resetPwd(user, cancelToken)
+        .asStream()
+        .map(DataTransformUtils.checkError)
+        .map((event) {
       return event.toIntensify();
     }).single;
   }

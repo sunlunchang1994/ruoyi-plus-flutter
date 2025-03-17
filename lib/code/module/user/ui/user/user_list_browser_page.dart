@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slc_boxes/flutter/slc/adapter/select_box.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/config/constant_user_api.dart';
@@ -11,6 +13,9 @@ import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_add_edit_page.d
 import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_list_page_vd.dart';
 
 import '../../../../../generated/l10n.dart';
+import '../../../../base/ui/utils/fast_dialog_utils.dart';
+import '../../../../feature/bizapi/user/entity/user.dart';
+import '../../../../lib/fast/utils/bar_utils.dart';
 import '../../../../lib/fast/utils/widget_utils.dart';
 
 ///
@@ -31,34 +36,91 @@ class UserListBrowserPage extends AppBaseStatelessWidget<_UserListBrowserVm> {
         ThemeData themeData = Theme.of(context);
         registerEvent(context);
         getVm().initVm();
-        return Scaffold(
-            appBar: AppBar(
-              title: Text(title),
-              actions: [
-                Builder(builder: (context) {
-                  return IconButton(
-                    icon: const Icon(Icons.search),
-                    onPressed: () {
-                      WidgetUtils.autoHandlerSearchDrawer(context);
-                    },
-                  );
-                })
-              ],
-            ),
-            floatingActionButton: FloatingActionButton(
-                child: Icon(Icons.add),
-                onPressed: () {
-                  getVm().onAddUser();
-                }),
-            endDrawer: UserListPageVd.getSearchEndDrawer<_UserListBrowserVm>(
-                context, themeData, getVm().listVmSub),
-            body: PageDataVd(getVm().listVmSub, getVm(),
-                refreshOnStart: true,
-                child: NqSelector<_UserListBrowserVm, int>(builder: (context, vm, child) {
-                  return UserListPageVd.getUserListWidget(themeData, getVm().listVmSub);
+        return PopScope(
+            canPop: false,
+            onPopInvokedWithResult: (canPop, result) {
+              if (canPop) {
+                return;
+              }
+              if (!getVm().listVmSub.selectModelIsRun) {
+                Navigator.pop(context);
+                return;
+              }
+              getVm().listVmSub.selectModelIsRun = false;
+            },
+            child: Scaffold(
+                appBar: AppBar(
+                  leading: NqSelector<_UserListBrowserVm, bool>(builder: (context, value, child) {
+                    return WidgetUtils.getAnimCrossFade(const CloseButton(), const BackButton(),
+                        showOne: value);
+                  }, selector: (context, vm) {
+                    return vm.listVmSub.selectModelIsRun;
+                  }),
+                  title: Text(title),
+                  actions: [
+                    NqSelector<_UserListBrowserVm, bool>(builder: (context, value, child) {
+                      return AnimatedSize(
+                          duration: WidgetUtils.adminDurationNormal,
+                          child: Row(
+                            children: [
+                              ...() {
+                                List<Widget> actions = [];
+                                if (value) {
+                                  actions.addAll(WidgetUtils.getDeleteFamilyAction(onDelete: () {
+                                    getVm().listVmSub.onDelete(confirmHandler: (nickNameList) {
+                                      return FastDialogUtils.showDelConfirmDialog(context,
+                                          contentText: TextUtil.format(
+                                              S.current.user_label_data_del_prompt,
+                                              [nickNameList.join(TextUtil.COMMA)]));
+                                    });
+                                  }, onSelectAll: () {
+                                    getVm().listVmSub.onSelectAll(true);
+                                  }, onDeselect: () {
+                                    getVm().listVmSub.onSelectAll(false);
+                                  }));
+                                } else {
+                                  actions.add(Builder(builder: (context) {
+                                    return IconButton(
+                                      icon: const Icon(Icons.search),
+                                      onPressed: () {
+                                        WidgetUtils.autoHandlerSearchDrawer(context);
+                                      },
+                                    );
+                                  }));
+                                }
+                                return actions;
+                              }.call()
+                            ],
+                          ));
+                    }, selector: (context, vm) {
+                      return vm.listVmSub.selectModelIsRun;
+                    }),
+                  ],
+                ),
+                floatingActionButton:
+                    NqSelector<_UserListBrowserVm, bool>(builder: (context, value, child) {
+                  return WidgetUtils.getAnimVisibility(
+                      !value,
+                      FloatingActionButton(
+                          child: Icon(Icons.add),
+                          onPressed: () {
+                            getVm().onAddUser();
+                          }));
                 }, selector: (context, vm) {
-                  return vm.listVmSub.shouldSetState.version;
-                })));
+                  return vm.listVmSub.selectModelIsRun;
+                }),
+                endDrawer: UserListPageVd.getSearchEndDrawer<_UserListBrowserVm>(
+                    context, themeData, getVm().listVmSub),
+                body: PageDataVd(getVm().listVmSub, getVm(),
+                    refreshOnStart: true,
+                    child: NqSelector<_UserListBrowserVm, int>(builder: (context, vm, child) {
+                      return UserListPageVd.getUserListWidget(
+                        themeData,
+                        getVm().listVmSub,
+                      );
+                    }, selector: (context, vm) {
+                      return vm.listVmSub.shouldSetState.version;
+                    }))));
       },
     );
   }

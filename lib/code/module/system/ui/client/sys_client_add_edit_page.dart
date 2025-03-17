@@ -17,10 +17,10 @@ import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/l
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_text_field.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_builder_flow_tag.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/input_decoration_utils.dart';
+import 'package:ruoyi_plus_flutter/code/lib/form/fast_form_builder_text_field.dart';
+import 'package:ruoyi_plus_flutter/code/lib/form/form_builder_flow_tag.dart';
+import 'package:ruoyi_plus_flutter/code/lib/form/form_operate_with_provider.dart';
+import 'package:ruoyi_plus_flutter/code/lib/form/input_decoration_utils.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_client.dart';
 
 import '../../../../../../generated/l10n.dart';
@@ -28,7 +28,7 @@ import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
-import '../../../../lib/fast/widget/form/fast_form_builder_field_option.dart';
+import '../../../../lib/form/fast_form_builder_field_option.dart';
 import '../../repository/remote/sys_client_api.dart';
 import '../dict/data/dict_data_list_multiple_choices_dialog.dart';
 

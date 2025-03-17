@@ -126,16 +126,15 @@ class FastDialogUtils {
         children: children);
   }
 
-  static Future<bool?> showDelConfirmDialog(BuildContext context,
-      {String? typeName, Widget? content}) {
-    assert(content == null || typeName == null);
+  static Future<bool?> showDelConfirmDialog(BuildContext context, {String? contentText, Widget? content}) {
+    assert(content == null || contentText == null);
     return showDialog<bool>(
         context: context,
         builder: (context) {
           return AlertDialog(
             title: Text(S.current.label_prompt),
             content: content ??
-                Text(TextUtil.format(S.current.app_label_data_del_prompt, [typeName ?? ""])),
+                Text(contentText ?? TextUtil.format(S.current.app_label_data_del_prompt, [""])),
             actions: getCommonlyAction(context, positiveLister: () {
               Navigator.pop(context, true);
             }, negativeLister: () {

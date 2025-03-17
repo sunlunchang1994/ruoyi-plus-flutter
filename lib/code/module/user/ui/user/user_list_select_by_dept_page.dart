@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_vm_sub.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
+import 'package:ruoyi_plus_flutter/code/lib/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_list_page_vd.dart';
 
 import '../../../../base/api/base_dio.dart';

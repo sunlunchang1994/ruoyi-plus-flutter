@@ -60,7 +60,7 @@ class InputDecUtils {
 
   ///追加必填字符
   static String additionalRequired(String text) {
-    return text + "*";
+    return "$text*";
   }
 
   ///获取必填label

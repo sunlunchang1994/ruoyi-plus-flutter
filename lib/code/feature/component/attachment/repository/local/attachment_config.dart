@@ -1,4 +1,4 @@
-import '../../../../../lib/fast/db/dp_manager.dart';
+import 'package:ruoyi_plus_flutter/code/lib/db_base/dp_manager.dart';
 
 class AttachmentConfig extends DpManager {
   static const String SP_NAME = "attachment_config";

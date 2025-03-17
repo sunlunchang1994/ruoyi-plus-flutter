@@ -51,10 +51,8 @@ class UserListBrowserPage2 extends AppBaseStatelessWidget<_UserListBrowserVm> {
                       getVm().onAddUser();
                     }),
                 body: Column(children: [
-                  Selector<_UserListBrowserVm, List<SlcTreeNav>>(
-                      builder: (context, value, child) {
-                    return TreeNavVd.getNavWidget(themeData, value,
-                        (currentItem) {
+                  Selector<_UserListBrowserVm, List<SlcTreeNav>>(builder: (context, value, child) {
+                    return TreeNavVd.getNavWidget(themeData, value, (currentItem) {
                       getVm().listVmSub.previous(currentItem.id);
                     });
                   }, selector: (context, vm) {
@@ -63,19 +61,15 @@ class UserListBrowserPage2 extends AppBaseStatelessWidget<_UserListBrowserVm> {
                     return true;
                   }),
                   Expanded(
-                      child: ListDataVd(getVm().listVmSub, getVm(),
-                          refreshOnStart: true, child:
-                              Consumer<_UserListBrowserVm>(
-                                  builder: (context, vm, child) {
-                    return UserListPageVd.getDeptUserListWidget(
-                        themeData, getVm().listVmSub, (currentItem) {
+                      child: ListDataVd(getVm().listVmSub, getVm(), refreshOnStart: true,
+                          child: Consumer<_UserListBrowserVm>(builder: (context, vm, child) {
+                    return UserListPageVd.getDeptUserListWidget(themeData, getVm().listVmSub,
+                        (currentItem) {
                       if (currentItem is Dept) {
                         //此处部门只需要更多图表，不需要事件
                         return Padding(
-                            padding:
-                            EdgeInsets.all(SlcDimens.appDimens12),
-                            child: const Icon(Icons.chevron_right,
-                                size: 24));
+                            padding: EdgeInsets.all(SlcDimens.appDimens12),
+                            child: const Icon(Icons.chevron_right, size: 24));
                       }
                       return null;
                     });
@@ -99,8 +93,8 @@ class _UserListBrowserVm extends AppBaseVm {
     listVmSub.onSuffixClick = (dynamic data) {
       //选择更多按钮事件
     };
-    SlcTreeNav slcTreeNav = SlcTreeNav(
-        ConstantBase.VALUE_PARENT_ID_DEF, S.current.user_label_top_dept);
+    SlcTreeNav slcTreeNav =
+        SlcTreeNav(ConstantBase.VALUE_PARENT_ID_DEF, S.current.user_label_top_dept);
     listVmSub.next(slcTreeNav, notify: false);
   }
 

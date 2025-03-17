@@ -15,10 +15,10 @@ import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_uti
 import 'package:ruoyi_plus_flutter/code/feature/component/webview/web_view_util.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_field_option.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/fast_form_builder_text_field.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/form_operate_with_provider.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/widget/form/input_decoration_utils.dart';
+import 'package:ruoyi_plus_flutter/code/lib/form/fast_form_builder_field_option.dart';
+import 'package:ruoyi_plus_flutter/code/lib/form/fast_form_builder_text_field.dart';
+import 'package:ruoyi_plus_flutter/code/lib/form/form_operate_with_provider.dart';
+import 'package:ruoyi_plus_flutter/code/lib/form/input_decoration_utils.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_notice.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 

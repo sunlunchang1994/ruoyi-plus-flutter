@@ -1385,10 +1385,10 @@ class S {
     );
   }
 
-  /// `必要信息不能为空`
+  /// `必要参数不能为空`
   String get app_label_required_information_cannot_be_empty {
     return Intl.message(
-      '必要信息不能为空',
+      '必要参数不能为空',
       name: 'app_label_required_information_cannot_be_empty',
       desc: '',
       args: [],
@@ -1865,6 +1865,16 @@ class S {
     return Intl.message(
       '新密码',
       name: 'user_label_new_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请输入新密码`
+  String get user_label_new_password_input {
+    return Intl.message(
+      '请输入新密码',
+      name: 'user_label_new_password_input',
       desc: '',
       args: [],
     );
@@ -2400,6 +2410,56 @@ class S {
     return Intl.message(
       '该用户不允许修改',
       name: 'user_toast_user_super_edit_refuse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `确定要删除姓名为{}的用户信息吗？`
+  String get user_label_data_del_prompt {
+    return Intl.message(
+      '确定要删除姓名为{}的用户信息吗？',
+      name: 'user_label_data_del_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请选择需要删除的用户`
+  String get user_label_data_del_select_empty {
+    return Intl.message(
+      '请选择需要删除的用户',
+      name: 'user_label_data_del_select_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `重置密码`
+  String get user_label_reset_password {
+    return Intl.message(
+      '重置密码',
+      name: 'user_label_reset_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `重置成功`
+  String get user_label_reset_password_success {
+    return Intl.message(
+      '重置成功',
+      name: 'user_label_reset_password_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `重置失败`
+  String get user_label_reset_password_fail {
+    return Intl.message(
+      '重置失败',
+      name: 'user_label_reset_password_fail',
       desc: '',
       args: [],
     );

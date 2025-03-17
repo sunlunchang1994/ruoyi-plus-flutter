@@ -25,9 +25,9 @@ import '../../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../../lib/fast/vd/refresh/content_empty.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../../lib/fast/widget/form/fast_form_builder_text_field.dart';
-import '../../../../../lib/fast/widget/form/form_operate_with_provider.dart';
-import '../../../../../lib/fast/widget/form/input_decoration_utils.dart';
+import '../../../../../lib/form/fast_form_builder_text_field.dart';
+import '../../../../../lib/form/form_operate_with_provider.dart';
+import '../../../../../lib/form/input_decoration_utils.dart';
 import '../../../config/constant_sys.dart';
 import '../../../repository/remote/dict_data_api.dart';
 import 'dict_data_add_edit_page.dart';
@@ -39,7 +39,7 @@ class DictTypeListPageWidget {
   static Widget getDataListWidget(
       ThemeData themeData,
       List<SysDictData> dataList,
-      ListenerItemClick<dynamic> listenerItemClick,
+      ListenerItemSelect<dynamic> listenerItemSelect,
       Widget Function(SysDictData currentItem) buildTrailing) {
     if (dataList.isEmpty) {
       return const ContentEmptyWrapper();
@@ -51,7 +51,7 @@ class DictTypeListPageWidget {
         itemCount: dataList.length,
         itemBuilder: (ctx, index) {
           SysDictData listItem = dataList[index];
-          return getDataListItem(themeData, listenerItemClick, buildTrailing, index, listItem);
+          return getDataListItem(themeData, listenerItemSelect, buildTrailing, index, listItem);
         },
         separatorBuilder: (context, index) {
           return themeData.slcTidyUpStyle.getDefDividerByTheme(themeData);
@@ -60,7 +60,7 @@ class DictTypeListPageWidget {
 
   static Widget getDataListItem(
     ThemeData themeData,
-    ListenerItemClick<dynamic> listenerItemClick,
+    ListenerItemSelect<dynamic> listenerItemSelect,
     Widget? Function(SysDictData currentItem) buildTrailing,
     int index,
     SysDictData listItem,
@@ -73,7 +73,7 @@ class DictTypeListPageWidget {
         visualDensity: VisualDensity.compact,
         //根据card规则实现
         onTap: () {
-          listenerItemClick.onItemClick(index, listItem);
+          listenerItemSelect.onItemClick(index, listItem);
           //getVm().nextByDept(listItem);
         });
   }
