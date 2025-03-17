@@ -39,12 +39,16 @@ abstract class PostApiClient {
   @PUT("/system/post")
   Future<ResultEntity> edit(
       @Body() Post? data, @CancelRequest() CancelToken cancelToken);
+
+  ///删除岗位
+  @DELETE("/system/post/{postIds}")
+  Future<ResultEntity> delete(@Path("postIds") String postIds, @CancelRequest() CancelToken cancelToken);
 }
 
 ///岗位服务
 class PostRepository {
   //实例
-  static final PostApiClient _deptApiClient = PostApiClient();
+  static final PostApiClient _postApiClient = PostApiClient();
 
   ///获取岗位列表
   static Future<IntensifyEntity<PageModel<Post>>> list(
@@ -53,7 +57,7 @@ class PostRepository {
         RequestUtils.toPageQuery(post?.toJson(), offset, size);
     queryParams["orderByColumn"] = "deptId,postId";
     queryParams["isAsc"] = "asc";
-    return _deptApiClient
+    return _postApiClient
         .list(queryParams, cancelToken)
         .asStream()
         .map((event) {
@@ -78,7 +82,7 @@ class PostRepository {
   ///获取岗位信息
   static Future<IntensifyEntity<Post>> getInfo(
       int postId, CancelToken cancelToken) {
-    return _deptApiClient
+    return _postApiClient
         .getInfo(postId, cancelToken)
         .asStream()
         .map((event) {
@@ -94,8 +98,8 @@ class PostRepository {
   static Future<IntensifyEntity<dynamic>> submit(
       Post post, CancelToken cancelToken) {
     Future<ResultEntity> resultFuture = post.postId == null
-        ? _deptApiClient.add(post, cancelToken)
-        : _deptApiClient.edit(post, cancelToken);
+        ? _postApiClient.add(post, cancelToken)
+        : _postApiClient.edit(post, cancelToken);
     return resultFuture
         .asStream()
         .map((event) {
@@ -103,5 +107,20 @@ class PostRepository {
         })
         .map(DataTransformUtils.checkErrorIe)
         .single;
+  }
+
+  //删除岗位
+  static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
+      {int? postId, List<int>? postIds}) {
+    //参数校验
+    assert(postId != null && postIds == null || postId == null && postIds != null);
+    postIds ??= [postId!];
+    return _postApiClient
+        .delete(postIds.join(TextUtil.COMMA), cancelToken)
+        .asStream()
+        .map(DataTransformUtils.checkError)
+        .map((event) {
+      return event.toIntensify();
+    }).single;
   }
 }

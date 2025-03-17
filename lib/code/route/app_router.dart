@@ -52,6 +52,7 @@ import '../module/user/ui/post/post_list_select_single_page.dart';
 import '../module/user/ui/role/role_add_edit_page.dart';
 import '../module/user/ui/role/role_list_select_single_page.dart';
 import '../module/user/ui/user/info/profile_page.dart';
+import '../module/user/ui/user/info/update_pwd_page.dart';
 import '../module/user/ui/user/user_add_edit_page.dart';
 import '../module/user/ui/user/user_list_browser_page.dart';
 import '../module/user/ui/user/user_list_browser_tree_page.dart';
@@ -91,6 +92,8 @@ final Map<String, WidgetBuilder> router = {
   //用户
   //用户：修改个人信息
   ProfilePage.routeName: (BuildContext context) => ProfilePage(),
+  //用户：修改用户密码
+  UpdatePwdPage.routeName: (BuildContext context) => UpdatePwdPage(),
   //用户：用户列表
   UserListBrowserPage.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;

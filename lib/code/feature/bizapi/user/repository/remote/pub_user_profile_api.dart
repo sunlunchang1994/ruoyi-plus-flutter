@@ -30,6 +30,11 @@ abstract class PubUserProfileApiClient {
   ///上传用户头像
   @POST("/system/user/profile/avatar")
   Future<ResultEntity> avatar(@Part(name: "avatarfile") File avatarFile);
+
+  ///上传用户头像
+  @Headers(<String, dynamic>{ApiConfig.KEY_APPLY_ENCRYPT: true})
+  @PUT("/system/user/profile/updatePwd")
+  Future<ResultEntity> updatePwd(@Body() Map<String, String> body);
 }
 
 ///用户服务
@@ -40,15 +45,12 @@ class PubUserProfileRepository {
     return _userProfileApiClient
         .profile()
         .asStream()
+        .map(DataTransformUtils.checkError)
         .map((event) {
-          var intensifyEntity = IntensifyEntity(
-              resultEntity: event,
-              createData: (resultEntity) {
-                return ProfileVo.fromJson(resultEntity.data);
-              });
-          return intensifyEntity;
+          return event.toIntensify(createData: (resultEntity) {
+            return ProfileVo.fromJson(resultEntity.data);
+          });
         })
-        .map(DataTransformUtils.checkErrorIe)
         .single;
   }
 
@@ -62,11 +64,10 @@ class PubUserProfileRepository {
     return _userProfileApiClient
         .updateProfile(dataMap)
         .asStream()
+        .map(DataTransformUtils.checkError)
         .map((event) {
-          var intensifyEntity = IntensifyEntity(resultEntity: event);
-          return intensifyEntity;
+          return event.toIntensify();
         })
-        .map(DataTransformUtils.checkErrorIe)
         .single;
   }
 
@@ -74,12 +75,22 @@ class PubUserProfileRepository {
     return _userProfileApiClient
         .avatar(File(avatarPath))
         .asStream()
+        .map(DataTransformUtils.checkError)
         .map((event) {
-          var intensifyEntity = IntensifyEntity<AvatarVo>(
-              resultEntity: event, createData: (resultEntity) => AvatarVo.fromJson(resultEntity.data));
-          return intensifyEntity;
+          return event.toIntensify(
+              createData: (resultEntity) => AvatarVo.fromJson(resultEntity.data));
         })
-        .map(DataTransformUtils.checkErrorIe)
+        .single;
+  }
+
+  static Future<IntensifyEntity<dynamic>> updatePwd(String oldPwd, String newPwd) {
+    return _userProfileApiClient
+        .updatePwd({"oldPassword": oldPwd, "newPassword": newPwd})
+        .asStream()
+        .map(DataTransformUtils.checkError)
+        .map((event) {
+          return event.toIntensify();
+        })
         .single;
   }
 }

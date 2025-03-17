@@ -39,6 +39,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
                 titleSpacing: NavigationToolbar.kMiddleSpacing),
             body: SingleChildScrollView(
               child: Column(children: [
+                ThemeUtil.getSizedBox(height: SlcDimens.appDimens8),
                 _getTopCardWidget(themeData),
                 ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                 _getWeekOnlineStatistics(themeData),
@@ -445,7 +446,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
                                                 fontSize: 14,
                                               );
                                               return BarTooltipItem(
-                                                  "${browseMonthList[groupIndex].month}:${rod.toY.round().toString()}",
+                                                  "${browseMonthList[groupIndex].month}：${rod.toY.round().toString()}",
                                                   textStyle);
                                             },
                                             fitInsideVertically: true),

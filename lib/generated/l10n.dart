@@ -2605,6 +2605,16 @@ class S {
     );
   }
 
+  /// `请选择数据权限`
+  String get user_label_data_permission_select {
+    return Intl.message(
+      '请选择数据权限',
+      name: 'user_label_data_permission_select',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `新增角色`
   String get user_label_role_add {
     return Intl.message(

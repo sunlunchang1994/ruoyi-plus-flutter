@@ -16,6 +16,7 @@ import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/l
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/lib/form/form_operate_with_provider.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/ui/user/info/update_pwd_page.dart';
 import 'package:ruoyi_plus_flutter/res/dimens.dart';
 import '../../../../../base/api/base_dio.dart';
 import '../../../../../base/api/result_entity.dart';
@@ -64,7 +65,16 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                       onPressed: () {
                         getVm().save();
                       },
-                      icon: const Icon(Icons.save))
+                      icon: const Icon(Icons.save)),
+                  PopupMenuButton(itemBuilder: (context) {
+                    return [
+                      PopupMenuItem(
+                          child: Text(S.current.user_label_edit_pass_word),
+                          onTap: () {
+                            getVm().pushNamed(UpdatePwdPage.routeName);
+                          })
+                    ];
+                  })
                 ]),
                 body: KeyboardAvoider(
                     autoScroll: true,

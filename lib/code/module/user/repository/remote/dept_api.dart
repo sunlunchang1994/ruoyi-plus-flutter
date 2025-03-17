@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart' hide Headers;
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/dept.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/user_api.dart';
@@ -39,6 +40,10 @@ abstract class DeptApiClient {
   @PUT("/system/dept")
   Future<ResultEntity> edit(
       @Body() Dept? data, @CancelRequest() CancelToken cancelToken);
+
+  ///删除部门
+  @DELETE("/system/dept/{deptIds}")
+  Future<ResultEntity> delete(@Path("deptIds") String deptIds, @CancelRequest() CancelToken cancelToken);
 }
 
 ///部门服务
@@ -110,4 +115,20 @@ class DeptRepository {
         .map(DataTransformUtils.checkErrorIe)
         .single;
   }
+
+  //删除部门
+  static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
+      {int? deptId, List<int>? deptIds}) {
+    //参数校验
+    assert(deptId != null && deptIds == null || deptId == null && deptIds != null);
+    deptIds ??= [deptId!];
+    return _deptApiClient
+        .delete(deptIds.join(TextUtil.COMMA), cancelToken)
+        .asStream()
+        .map(DataTransformUtils.checkError)
+        .map((event) {
+      return event.toIntensify();
+    }).single;
+  }
+
 }

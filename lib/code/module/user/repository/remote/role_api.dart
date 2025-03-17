@@ -17,14 +17,13 @@ part 'role_api.g.dart';
 abstract class RoleApiClient {
   factory RoleApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _RoleApiClient(dio,
-        baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _RoleApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取角色列表
   @GET("/system/role/list")
-  Future<ResultPageModel> list(@Queries() Map<String, dynamic>? data,
-      @CancelRequest() CancelToken cancelToken);
+  Future<ResultPageModel> list(
+      @Queries() Map<String, dynamic>? data, @CancelRequest() CancelToken cancelToken);
 
   ///获取角色信息
   @GET("/system/role/{roleId}")
@@ -33,25 +32,28 @@ abstract class RoleApiClient {
 
   ///添加角色
   @POST("/system/role")
-  Future<ResultEntity> add(
-      @Body() Role? data, @CancelRequest() CancelToken cancelToken);
+  Future<ResultEntity> add(@Body() Role? data, @CancelRequest() CancelToken cancelToken);
 
   ///编辑角色
   @PUT("/system/role")
-  Future<ResultEntity> edit(
-      @Body() Role? data, @CancelRequest() CancelToken cancelToken);
+  Future<ResultEntity> edit(@Body() Role? data, @CancelRequest() CancelToken cancelToken);
+
+  ///删除角色
+  @DELETE("/system/role/{roleIds}")
+  Future<ResultEntity> delete(
+      @Path("roleIds") String postIds, @CancelRequest() CancelToken cancelToken);
 }
 
 ///角色服务
 class RoleRepository {
   //实例
-  static final RoleApiClient _deptApiClient = RoleApiClient();
+  static final RoleApiClient _roleApiClient = RoleApiClient();
 
   ///获取角色列表
   static Future<IntensifyEntity<PageModel<Role>>> list(
       int offset, int size, Role? role, CancelToken cancelToken) {
     Map<String, dynamic> queryParams = RequestUtils.toPageQuery(role?.toJson(), offset, size);
-    return _deptApiClient
+    return _roleApiClient
         .list(queryParams, cancelToken)
         .asStream()
         .map((event) {
@@ -65,9 +67,8 @@ class RoleRepository {
   }
 
   ///获取角色信息
-  static Future<IntensifyEntity<Role>> getInfo(
-      int roleId, CancelToken cancelToken) {
-    return _deptApiClient
+  static Future<IntensifyEntity<Role>> getInfo(int roleId, CancelToken cancelToken) {
+    return _roleApiClient
         .getInfo(roleId, cancelToken)
         .asStream()
         .map(DataTransformUtils.checkError)
@@ -87,11 +88,10 @@ class RoleRepository {
   }
 
   ///提交角色信息
-  static Future<IntensifyEntity<dynamic>> submit(
-      Role role, CancelToken cancelToken) {
+  static Future<IntensifyEntity<dynamic>> submit(Role role, CancelToken cancelToken) {
     Future<ResultEntity> resultFuture = role.roleId == null
-        ? _deptApiClient.add(role, cancelToken)
-        : _deptApiClient.edit(role, cancelToken);
+        ? _roleApiClient.add(role, cancelToken)
+        : _roleApiClient.edit(role, cancelToken);
     return resultFuture
         .asStream()
         .map((event) {
@@ -99,5 +99,20 @@ class RoleRepository {
         })
         .map(DataTransformUtils.checkErrorIe)
         .single;
+  }
+
+  ///删除角色
+  static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
+      {int? roleId, List<int>? roleIds}) {
+    //参数校验
+    assert(roleId != null && roleIds == null || roleId == null && roleIds != null);
+    roleIds ??= [roleId!];
+    return _roleApiClient
+        .delete(roleIds.join(TextUtil.COMMA), cancelToken)
+        .asStream()
+        .map(DataTransformUtils.checkError)
+        .map((event) {
+      return event.toIntensify();
+    }).single;
   }
 }

@@ -24,6 +24,7 @@ class Role extends TenantEntity with AppSelectBoxMixin<Role> {
   List<int>? menuIds;
 
   String? statusName;
+  String? dataScopeName;
 
   Role({this.roleId,
     this.roleName,

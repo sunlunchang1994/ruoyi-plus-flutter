@@ -94,6 +94,17 @@ class LocalDictLib {
   //关联
   static const KEY_MENU_CHECK_STRICTLY_Y = "1";
 
+  //数据权限
+  static const String CODE_ROLE_DATA_PERMISSIONS = "data_permissions";
+
+  //关联
+  static const KEY_ROLE_ALL = "1";
+  static const KEY_ROLE_CUSTOMIZE = "2";
+  static const KEY_ROLE_DEPT = "3";
+  static const KEY_ROLE_DEPT_LEVEL = "4";
+  static const KEY_ROLE_ONLY_USER = "5";
+  static const KEY_ROLE_DEPT_LEVEL_OR_ONLY_USER = "6";
+
   static final Map<String, List<ITreeDict<dynamic>>> LOCAL_DICT_MAP = {
     CODE_SYS_YES_NO_INT: [
       TreeDict(code: CODE_SYS_YES_NO_INT, dictKey: KEY_SYS_YES_NO_INT_Y, dictValue: "是"),
@@ -110,8 +121,21 @@ class LocalDictLib {
       TreeDict(code: CODE_MENU_TYPE, dictKey: KEY_ACCESS_POLICY_TYPE_CUSTOM, dictValue: "custom"),
     ],
     CODE_MENU_CHECK_STRICTLY: [
-      TreeDict(code: CODE_MENU_CHECK_STRICTLY, dictKey: KEY_MENU_CHECK_STRICTLY_N, dictValue: "不关联"),
+      TreeDict(
+          code: CODE_MENU_CHECK_STRICTLY, dictKey: KEY_MENU_CHECK_STRICTLY_N, dictValue: "不关联"),
       TreeDict(code: CODE_MENU_CHECK_STRICTLY, dictKey: KEY_MENU_CHECK_STRICTLY_Y, dictValue: "关联"),
     ],
+    CODE_ROLE_DATA_PERMISSIONS: [
+      TreeDict(code: CODE_ROLE_DATA_PERMISSIONS, dictKey: KEY_ROLE_ALL, dictValue: "全部数据权限"),
+      TreeDict(code: CODE_ROLE_DATA_PERMISSIONS, dictKey: KEY_ROLE_CUSTOMIZE, dictValue: "自定义数据权限"),
+      TreeDict(code: CODE_ROLE_DATA_PERMISSIONS, dictKey: KEY_ROLE_DEPT, dictValue: "本部门及以下数据权限"),
+      TreeDict(
+          code: CODE_ROLE_DATA_PERMISSIONS, dictKey: KEY_ROLE_DEPT_LEVEL, dictValue: "本部门数据权限"),
+      TreeDict(code: CODE_ROLE_DATA_PERMISSIONS, dictKey: KEY_ROLE_ONLY_USER, dictValue: "仅本人数据权限"),
+      TreeDict(
+          code: CODE_ROLE_DATA_PERMISSIONS,
+          dictKey: KEY_ROLE_DEPT_LEVEL_OR_ONLY_USER,
+          dictValue: "本部门及以下数据权限或仅本人数据权限"),
+    ]
   };
 }

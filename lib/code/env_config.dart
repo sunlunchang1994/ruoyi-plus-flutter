@@ -13,7 +13,7 @@ abstract class EnvConfig {
 
   String get defTenantId => "000000";
 
-  static const String _active = "dev";
+  static const String _active = "devJia";
   static final Map<String, EnvConfig> _envConfigMap = {
     "dev": _DevEnvConfig(),
     "devJia": _DevJiaEnvConfig(),

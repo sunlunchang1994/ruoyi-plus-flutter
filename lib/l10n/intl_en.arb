@@ -324,6 +324,7 @@
   "user_label_role_key": "权限字符",
   "user_label_menu_permission": "菜单权限",
   "user_label_data_permission": "数据权限",
+  "user_label_data_permission_select": "请选择数据权限",
   "user_label_role_add": "新增角色",
   "user_label_role_edit": "修改角色信息",
   "user_toast_role_super_edit_refuse": "该角色不允许修改",

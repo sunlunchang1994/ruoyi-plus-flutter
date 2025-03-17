@@ -30,6 +30,7 @@ import '../../../../feature/component/dict/entity/tree_dict.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import '../../../system/config/constant_sys.dart';
+import '../../../system/ui/dict/data/dict_data_list_multiple_choices_dialog.dart';
 import '../../../system/ui/menu_tree/menu_tree_select_multiple_page.dart';
 import '../../repository/remote/role_api.dart';
 
@@ -189,6 +190,35 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                       },
                       textInputAction: TextInputAction.next,
                     ),
+                    if (role != null) ...[
+                      ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
+                      MyFormBuilderSelect(
+                        name: "dataScope",
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        initialValue: globalVm.dictShareVm
+                            .findDict(LocalDictLib.CODE_ROLE_DATA_PERMISSIONS,
+                                getVm().roleInfo!.dataScope,
+                                defDictKey: LocalDictLib.KEY_ROLE_ONLY_USER)
+                            ?.tdDictLabel,
+                        onTap: () {
+                          DictUiUtils.showSelectDialog(
+                              context, LocalDictLib.CODE_ROLE_DATA_PERMISSIONS, (value) {
+                            //选择后设置性别
+                            getVm().setDataScope(value);
+                          }, title: S.current.user_label_data_permission_select);
+                        },
+                        decoration: MySelectDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            label: InputDecUtils.getRequiredLabel(
+                                S.current.user_label_data_permission),
+                            hintText: S.current.app_label_please_choose,
+                            border: const UnderlineInputBorder()),
+                        onChanged: (value) {
+                          getVm().applyInfoChange();
+                        },
+                        textInputAction: TextInputAction.next,
+                      )
+                    ],
                     ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     MyFormBuilderTextField(
                         name: "remark",
@@ -264,7 +294,7 @@ class _PostAddEditVm extends AppBaseVm with CancelTokenAssist {
       ConstantSys.KEY_MENU_ID: roleInfo!.roleId,
       ConstantBase.KEY_INTENT_SELECT_DATA: roleInfo!.menuIds,
     }).then((result) {
-      if (result != null&&result is SelectMenuResult) {
+      if (result != null && result is SelectMenuResult) {
         roleInfo?.menuIds = result.menuIds;
         formOperate.patchField("menuIds", getMenuTextField());
       }
@@ -278,6 +308,13 @@ class _PostAddEditVm extends AppBaseVm with CancelTokenAssist {
       //return S.current.user_label_menu_permission_select_result.replaceAll("%s", roleInfo!.menuIds!.length.toString());
       return S.current.user_label_menu_permission_select_result2;
     }
+  }
+
+  void setDataScope(ITreeDict<dynamic>? treeDict) {
+    roleInfo!.dataScope = treeDict?.tdDictValue;
+    roleInfo!.dataScopeName = treeDict?.tdDictLabel;
+    applyInfoChange();
+    formOperate.patchField("dataScope", roleInfo!.dataScopeName);
   }
 
   //应用信息更改
