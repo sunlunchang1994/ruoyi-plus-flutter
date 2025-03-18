@@ -79,45 +79,34 @@ class UserServiceRepository {
   static Future<IntensifyEntity<PageModel<User>>> list(
       int offset, int size, User? user, CancelToken cancelToken) {
     Map<String, dynamic> queryParams = RequestUtils.toPageQuery(user?.toJson(), offset, size);
-    return _userApiClient
-        .list(queryParams, cancelToken)
-        .asStream()
-        .map((event) {
-          return event.toIntensify(createData: (resultEntity) {
-            return resultEntity.toPageModel(offset, size,
-                createRecords: (rows) => User.formJsonList(rows));
-          });
-        })
-        .map(DataTransformUtils.checkErrorIe)
-        .single;
+    return _userApiClient.list(queryParams, cancelToken).successMap2Single((event) {
+      return event.toIntensify(createData: (resultEntity) {
+        return resultEntity.toPageModel(offset, size,
+            createRecords: (rows) => User.formJsonList(rows));
+      });
+    });
   }
 
   static Future<IntensifyEntity<List<DeptTree>>> deptTree(Dept? dept) {
-    return _userApiClient.deptTree().asStream().map(DataTransformUtils.checkError).map((event) {
+    return _userApiClient.deptTree().successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return DeptTree.fromJsonList(resultEntity.data);
       });
-    }).single;
+    });
   }
 
   static Future<IntensifyEntity<List<User>>> userListByDept(int deptId, CancelToken cancelToken) {
-    return _userApiClient
-        .userListByDept(deptId, cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+    return _userApiClient.userListByDept(deptId, cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return User.formJsonList(resultEntity.data);
       });
-    }).single;
+    });
   }
 
   static Future<IntensifyEntity<UserInfoVo>> getUserById(int? userId, CancelToken cancelToken) {
     return _userApiClient
         .getUserById(userId?.toString() ?? '', cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+        .successMap2Single((event) {
       return event.toIntensify<UserInfoVo>(createData: (resultEntity) {
         UserInfoVo userInfo = UserInfoVo.fromJson(resultEntity.data);
         userInfo.user?.sexName = GlobalVm()
@@ -131,7 +120,7 @@ class UserServiceRepository {
         fillUserPosts(userInfo);
         return userInfo;
       });
-    }).single;
+    });
   }
 
   static void fillUserPosts(UserInfoVo userInfo) {
@@ -153,9 +142,9 @@ class UserServiceRepository {
     Future<ResultEntity> resultFuture = user.userId == null
         ? _userApiClient.add(user, cancelToken)
         : _userApiClient.edit(user, cancelToken);
-    return resultFuture.asStream().map(DataTransformUtils.checkError).map((event) {
+    return resultFuture.successMap2Single((event) {
       return event.toIntensify();
-    }).single;
+    });
   }
 
   static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
@@ -165,20 +154,14 @@ class UserServiceRepository {
     userIds ??= [userId!];
     return _userApiClient
         .delete(userIds.join(TextUtil.COMMA), cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+        .successMap2Single((event) {
       return event.toIntensify();
-    }).single;
+    });
   }
 
   static Future<IntensifyEntity<dynamic>> resetPwd(User user, CancelToken cancelToken) {
-    return _userApiClient
-        .resetPwd(user, cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+    return _userApiClient.resetPwd(user, cancelToken).successMap2Single((event) {
       return event.toIntensify();
-    }).single;
+    });
   }
 }

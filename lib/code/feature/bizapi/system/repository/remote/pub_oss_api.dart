@@ -39,17 +39,12 @@ class PubOssRepository {
 
   ///上传文件
   static Future<IntensifyEntity<SysOssUploadVo>> upload(String filePath) async {
-    return _ossApiClient
-        .upload(File(filePath))
-        .asStream()
-        .map((event) {
-          var intensifyEntity = IntensifyEntity<SysOssUploadVo>(
-              resultEntity: event,
-              createData: (resultEntity) => SysOssUploadVo.fromJson(resultEntity.data));
-          return intensifyEntity;
-        })
-        .map(DataTransformUtils.checkErrorIe)
-        .single;
+    return _ossApiClient.upload(File(filePath)).successMap2Single((event) {
+      var intensifyEntity = IntensifyEntity<SysOssUploadVo>(
+          resultEntity: event,
+          createData: (resultEntity) => SysOssUploadVo.fromJson(resultEntity.data));
+      return intensifyEntity;
+    });
   }
 
   ///下载文件
@@ -91,7 +86,7 @@ class PubOssRepository {
             method: 'GET',
             responseType: ResponseType.stream,
             contentType: ApiConstant.VALUE_APPLICATION_STREAM));
-    return Progress(status: DownloadStatus.finish,filePath: savePath);
+    return Progress(status: DownloadStatus.finish, filePath: savePath);
   }
 
   static String _getOssDownloadPath(String ossId) {

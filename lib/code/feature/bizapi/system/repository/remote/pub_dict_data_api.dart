@@ -21,14 +21,13 @@ part 'pub_dict_data_api.g.dart';
 abstract class PubDictDataApiClient {
   factory PubDictDataApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _PubDictDataApiClient(dio,
-        baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _PubDictDataApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取字典数据列表
   @GET("/system/dict/data/list")
-  Future<ResultPageModel> list(@Queries() Map<String, dynamic>? queryParams,
-      @CancelRequest() CancelToken cancelToken);
+  Future<ResultPageModel> list(
+      @Queries() Map<String, dynamic>? queryParams, @CancelRequest() CancelToken cancelToken);
 
   ///获取字典类型列表
   @GET("/system/dict/type/optionselect")
@@ -42,35 +41,25 @@ class PubDictDataRepository {
   static Future<IntensifyEntity<PageModel<SysDictData>>> list(
       int offset, int size, SysDictData? sysDictType, CancelToken cancelToken) {
     return _dictDataApiClient
-        .list(RequestUtils.toPageQuery(sysDictType?.toJson(), offset, size),
-            cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+        .list(RequestUtils.toPageQuery(sysDictType?.toJson(), offset, size), cancelToken)
+        .successMap2Single((event) {
       return event.toIntensify(
           createData: (resultEntity) => resultEntity.toPageModel(offset, size,
-              createRecords: (resultData) =>
-                  SysDictData.fromJsonList(resultData)));
-    }).single;
+              createRecords: (resultData) => SysDictData.fromJsonList(resultData)));
+    });
   }
 
-  static Future<IntensifyEntity<List<SysDictType>>> optionSelect(
-      CancelToken cancelToken) {
+  static Future<IntensifyEntity<List<SysDictType>>> optionSelect(CancelToken cancelToken) {
     //获取类型
-    return _dictDataApiClient
-        .optionSelect(cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+    return _dictDataApiClient.optionSelect(cancelToken).successMap2Single((event) {
       return event.toIntensify(
-          createData: (resultEntity) =>
-              SysDictType.fromJsonList(resultEntity.data));
-    }).single;
+          createData: (resultEntity) => SysDictType.fromJsonList(resultEntity.data));
+    });
   }
 
   ///获取所有字典
-  static Future<IntensifyEntity<Map<String, List<ITreeDict<dynamic>>>>>
-      cacheDict(CancelToken cancelToken) {
+  static Future<IntensifyEntity<Map<String, List<ITreeDict<dynamic>>>>> cacheDict(
+      CancelToken cancelToken) {
     //获取类型
     return getAllDictInfo(cancelToken).then((result) {
       //缓存字典数据
@@ -84,23 +73,21 @@ class PubDictDataRepository {
   }
 
   ///获取所有字典
-  static Future<IntensifyEntity<Map<String, List<ITreeDict<dynamic>>>>>
-      getAllDictInfo(CancelToken cancelToken) {
+  static Future<IntensifyEntity<Map<String, List<ITreeDict<dynamic>>>>> getAllDictInfo(
+      CancelToken cancelToken) {
     //获取类型
     return list(0, 99999999, null, cancelToken).asStream().map((dictDataEvent) {
       //构建字典最终类型
       Map<String, List<ITreeDict<dynamic>>> dictMap = {};
       //遍历结果
       dictDataEvent.data?.getListNoNull().forEach((dictDataItem) {
-        List<ITreeDict<dynamic>> dictDataListByType =
-            dictMap[dictDataItem.dictType!] ??
-                () {
-                  //不存在则创建
-                  List<ITreeDict<dynamic>> createList =
-                      List.empty(growable: true);
-                  dictMap[dictDataItem.dictType!] = createList;
-                  return createList;
-                }.call();
+        List<ITreeDict<dynamic>> dictDataListByType = dictMap[dictDataItem.dictType!] ??
+            () {
+              //不存在则创建
+              List<ITreeDict<dynamic>> createList = List.empty(growable: true);
+              dictMap[dictDataItem.dictType!] = createList;
+              return createList;
+            }.call();
         //如果是空则创建
         dictDataListByType.add(dictDataItem);
       });

@@ -74,7 +74,25 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
                           onPressed: () {
                             getVm().onSave();
                           },
-                          icon: const Icon(Icons.save))
+                          icon: Icon(Icons.save)),
+                      if (deptInfo != null)
+                        PopupMenuButton(itemBuilder: (context) {
+                          return [
+                            PopupMenuItem(
+                              child: Text(S.current.action_delete),
+                              onTap: () {
+                                FastDialogUtils.showDelConfirmDialog(context,
+                                    contentText: TextUtil.format(
+                                        S.current.user_label_dept_del_prompt,
+                                        [deptInfo?.deptName ?? ""])).then((confirm) {
+                                  if (confirm == true) {
+                                    getVm().onDelete();
+                                  }
+                                });
+                              },
+                            )
+                          ];
+                        })
                     ]),
                 body: getStatusBody(context)));
       },
@@ -111,7 +129,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
           onTap: () => getVm().onSelectTopDept(),
           decoration: MySelectDecoration(
               floatingLabelBehavior: FloatingLabelBehavior.always,
-              labelText: S.current.user_label_dept_parent_name,
+              label: InputDecUtils.getRequiredLabel(S.current.user_label_dept_parent_name),
               hintText: S.current.app_label_please_choose,
               border: const UnderlineInputBorder()),
           validator: FormBuilderValidators.compose([
@@ -128,7 +146,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
           decoration: MyInputDecoration(
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
-              labelText: S.current.user_label_dept_name,
+              label: InputDecUtils.getRequiredLabel(S.current.user_label_dept_name),
               hintText: S.current.app_label_please_input,
               border: const UnderlineInputBorder()),
           onChanged: (value) {
@@ -143,7 +161,6 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
       FormBuilderTextField(
           name: "deptCategory",
           initialValue: getVm().deptInfo!.deptCategory,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: MyInputDecoration(
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -166,7 +183,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
         decoration: MyInputDecoration(
             contentPadding: EdgeInsets.zero,
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            labelText: S.current.app_label_show_sort,
+            label: InputDecUtils.getRequiredLabel(S.current.app_label_show_sort),
             hintText: S.current.app_label_please_input,
             border: const UnderlineInputBorder()),
         onChanged: (value) {
@@ -184,7 +201,6 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
       MyFormBuilderSelect(
           name: "leaderName",
           initialValue: getVm().deptInfo!.leaderName,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
           onTap: () => getVm().onSelectLeaderUser(),
           decoration: MySelectDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -381,6 +397,20 @@ class _DeptAddEditModel extends AppBaseVm with CancelTokenAssist {
     }, onError: (error) {
       dismissLoading();
       BaseDio.handlerError(error);
+    });
+  }
+
+  //删除角色
+  void onDelete() {
+    showLoading(text: S.current.label_delete_ing);
+    DeptRepository.delete(defCancelToken, deptId: deptInfo!.deptId).then((value) {
+      dismissLoading();
+      AppToastUtil.showToast(msg: S.current.label_delete_success);
+      finish(result: true);
+    }, onError: (e) {
+      dismissLoading();
+      BaseDio.handlerError(e);
+      AppToastUtil.showToast(msg: S.current.label_delete_failed);
     });
   }
 }

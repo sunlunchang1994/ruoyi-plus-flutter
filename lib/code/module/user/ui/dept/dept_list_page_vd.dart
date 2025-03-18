@@ -10,6 +10,7 @@ import '../../../../base/repository/remote/data_transform_utils.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
+import '../../../../lib/fast/utils/widget_utils.dart';
 import '../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../lib/fast/vd/refresh/content_empty.dart';
 import '../../repository/remote/dept_api.dart';
@@ -46,12 +47,23 @@ class DeptListPageWidget {
     return ListTile(
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
         title: Text(listItem.deptNameVo()),
-        trailing: buildTrailing.call(listItem),
+        trailing: WidgetUtils.getAnimCrossFade(
+            Checkbox(
+              value: listItem.isBoxChecked(),
+              onChanged: (value) {
+                listItem.boxChecked = value;
+                listenerItemSelect.onItemSelect(index, listItem, value);
+              },
+            ),
+            buildTrailing.call(listItem) ?? WidgetUtils.getBoxStandard(),
+            showOne: listenerItemSelect.selectModelIsRun),
         visualDensity: VisualDensity.compact,
-        //根据card规则实现
+        //tileColor: SlcColors.getCardColorByTheme(themeData),
         onTap: () {
           listenerItemSelect.onItemClick(index, listItem);
-          //getVm().nextByDept(listItem);
+        },
+        onLongPress: () {
+          listenerItemSelect.onItemLongClick(index, listItem);
         });
   }
 }
@@ -112,8 +124,10 @@ class DeptTreeListDataVmSub extends TreeFastBaseListDataVmSub<Dept> {
 
   ///跳转到指定的上一级
   void previous(dynamic treeId) {
-    _currentDeptSearch.parentId = treeId;
     super.previous(treeId);
+    SlcTreeNav? slcTreeNav = getLastTree();
+    _currentDeptSearch.parentId = slcTreeNav?.id ?? ConstantBase.VALUE_PARENT_ID_DEF;
+    _currentDeptSearch.parentName = slcTreeNav?.treeName ?? "";
     fastVm.notifyListeners();
   }
 

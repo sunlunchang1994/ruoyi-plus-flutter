@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:retrofit/dio.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
@@ -21,14 +22,17 @@ part 'sys_oper_log_api.g.dart';
 abstract class SysOperLogApiClient {
   factory SysOperLogApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _SysOperLogApiClient(dio,
-        baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _SysOperLogApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取操作日志列表
   @GET("/monitor/operlog/list")
-  Future<ResultPageModel> list(@Queries() Map<String, dynamic>? queryParams,
-      @CancelRequest() CancelToken cancelToken);
+  Future<ResultPageModel> list(
+      @Queries() Map<String, dynamic>? queryParams, @CancelRequest() CancelToken cancelToken);
+
+  ///删除操作日志
+  @DELETE("/monitor/operlog/{ids}")
+  Future<ResultEntity> delete(@Path("ids") String ids, @CancelRequest() CancelToken cancelToken);
 }
 
 class SysOperLogRepository {
@@ -38,20 +42,16 @@ class SysOperLogRepository {
   static Future<IntensifyEntity<PageModel<SysOperLog>>> list(
       int offset, int size, SysOperLog? sysOperLog, CancelToken cancelToken) {
     return _sysOperLogApiClient
-        .list(RequestUtils.toPageQuery(sysOperLog?.toJson(), offset, size),
-            cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+        .list(RequestUtils.toPageQuery(sysOperLog?.toJson(), offset, size), cancelToken)
+        .successMap2Single((event) {
       return event.toIntensify(
-          createData: (resultEntity) => resultEntity.toPageModel(offset, size,
-                  createRecords: (resultData) {
-                List<SysOperLog> sysNoticeList =
-                    SysOperLog.fromJsonList(resultData);
+          createData: (resultEntity) =>
+              resultEntity.toPageModel(offset, size, createRecords: (resultData) {
+                List<SysOperLog> sysNoticeList = SysOperLog.fromJsonList(resultData);
                 translationDict(sysNoticeList);
                 return sysNoticeList;
               }));
-    }).single;
+    });
   }
 
   static void translationDict(List<SysOperLog>? dataList) {
@@ -60,13 +60,24 @@ class SysOperLogRepository {
     }
     DictShareVm dictShareVm = GlobalVm().dictShareVm;
     for (var action in dataList) {
-      action.statusName = dictShareVm
-          .findDict(LocalDictLib.CODE_SYS_COMMON_STATUS, action.status)
-          ?.tdDictLabel;
+      action.statusName =
+          dictShareVm.findDict(LocalDictLib.CODE_SYS_COMMON_STATUS, action.status)?.tdDictLabel;
       action.businessTypeName = dictShareVm
-          .findDict(
-              LocalDictLib.CODE_SYS_OPER_TYPE, action.businessType?.toString())
+          .findDict(LocalDictLib.CODE_SYS_OPER_TYPE, action.businessType?.toString())
           ?.tdDictLabel;
     }
+  }
+
+  ///删除操作日志
+  static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
+      {int? id, List<int>? ids}) {
+    //参数校验
+    assert(id != null && ids == null || id == null && ids != null);
+    ids ??= [id!];
+    return _sysOperLogApiClient
+        .delete(ids.join(TextUtil.COMMA), cancelToken)
+        .successMap2Single((event) {
+      return event.toIntensify();
+    });
   }
 }

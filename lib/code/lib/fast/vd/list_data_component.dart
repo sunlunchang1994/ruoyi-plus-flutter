@@ -136,7 +136,7 @@ mixin class ListenerItemSelect<T> implements IListenerItemClick<T> {
     }
     selectModelIsRun = true;
     if (data is ISelectBox) {
-      onItemSelect(index, data, !data.isBoxChecked());
+      onItemSelect(index, data, true);
     } else {
       LogUtil.e("data is not ISelectBox");
     }

@@ -2,9 +2,26 @@
 class Assets {
   Assets._();
 
-  static const String imagesIcLauncher = 'assets/images/ic_launcher.png';
-  static const String imagesSlcIcLoading = 'assets/images/slc/ic_loading.svg';
+  static const String icLauncher = 'assets/images/ic_launcher.png';
+  //全局
+  static const String slcIcLoadingSvg = 'assets/images/slc/ic_loading.svg';
   static const String slcIcLoading = 'assets/images/slc/ic_loading.png';
   static const String slcIcNoDate = 'assets/images/slc/ic_no_date.svg';
+  static const String slcAppIcDefUserHead = 'assets/images/slc/app_ic_def_user_head.png';
+  //媒体
+  static const String slcUserIcFolder = 'assets/images/slc/user_ic_folder.svg';
+  static const String mpSlcMpIcAndroid = 'assets/images/mp/slc_mp_ic_android.png';
+  static const String mpSlcMpIcAudiotrack = 'assets/images/mp/slc_mp_ic_audiotrack.png';
+  static const String mpSlcMpIcCs = 'assets/images/mp/slc_mp_ic_cs.png';
+  static const String mpSlcMpIcExcel = 'assets/images/mp/slc_mp_ic_excel.png';
+  static const String mpSlcMpIcFolder = 'assets/images/mp/slc_mp_ic_folder.png';
+  static const String mpSlcMpIcHtml = 'assets/images/mp/slc_mp_ic_html.png';
+  static const String mpSlcMpIcImage = 'assets/images/mp/slc_mp_ic_image.png';
+  static const String mpSlcMpIcPdf = 'assets/images/mp/slc_mp_ic_pdf.png';
+  static const String mpSlcMpIcPowerpoint = 'assets/images/mp/slc_mp_ic_powerpoint.png';
+  static const String mpSlcMpIcText = 'assets/images/mp/slc_mp_ic_text.png';
+  static const String mpSlcMpIcUnknown = 'assets/images/mp/slc_mp_ic_unknown.png';
+  static const String mpSlcMpIcVideocam = 'assets/images/mp/slc_mp_ic_videocam.png';
+  static const String mpSlcMpIcWord = 'assets/images/mp/slc_mp_ic_word.png';
 
 }

@@ -279,6 +279,8 @@
   "user_label_dept_contact_number": "联系电话",
   "user_label_dept_contact_email": "邮箱",
   "user_label_dept_status": "部门状态",
+  "user_label_dept_del_prompt": "确定要删除名称为{}的部门信息吗？",
+  "user_label_dept_del_select_empty": "请选择需要删除的部门",
 
   "user_label_select_x": "选择{}",
   "user_label_tenant_not_empty_hint": "机构不能为空",
@@ -317,6 +319,8 @@
   "user_label_post_name": "岗位名称",
   "user_label_post_code": "岗位编码",
   "user_label_post_category": "类别编码",
+  "user_label_post_del_prompt": "确定要删除名称为{}的岗位信息吗？",
+  "user_label_post_del_select_empty": "请选择需要删除的岗位",
 
   "user_label_role": "角色",
   "user_label_search_role": "搜索角色",
@@ -331,6 +335,8 @@
   "user_label_menu_permission_select": "配置菜单权限",
   "user_label_menu_permission_select_result": "已配置{}项菜单，点击查看",
   "user_label_menu_permission_select_result2": "已配置多个菜单项，点击查看",
+  "user_label_role_del_prompt": "确定要删除名称为{}的角色信息吗？",
+  "user_label_role_del_select_empty": "请选择需要删除的角色",
 
   "sys_divide_text": "-----------------------------",
 

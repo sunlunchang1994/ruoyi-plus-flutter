@@ -42,16 +42,11 @@ class PubUserProfileRepository {
   static final PubUserProfileApiClient _userProfileApiClient = PubUserProfileApiClient();
 
   static Future<IntensifyEntity<ProfileVo>> profile() {
-    return _userProfileApiClient
-        .profile()
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
-          return event.toIntensify(createData: (resultEntity) {
-            return ProfileVo.fromJson(resultEntity.data);
-          });
-        })
-        .single;
+    return _userProfileApiClient.profile().successMap2Single((event) {
+      return event.toIntensify(createData: (resultEntity) {
+        return ProfileVo.fromJson(resultEntity.data);
+      });
+    });
   }
 
   static Future<IntensifyEntity> updateProfile(
@@ -61,36 +56,21 @@ class PubUserProfileRepository {
     dataMap["email"] = email;
     dataMap["phonenumber"] = phonenumber;
     dataMap["sex"] = sex;
-    return _userProfileApiClient
-        .updateProfile(dataMap)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
-          return event.toIntensify();
-        })
-        .single;
+    return _userProfileApiClient.updateProfile(dataMap).successMap2Single((event) {
+      return event.toIntensify();
+    });
   }
 
   static Future<IntensifyEntity<AvatarVo>> avatar(String avatarPath) {
-    return _userProfileApiClient
-        .avatar(File(avatarPath))
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
-          return event.toIntensify(
-              createData: (resultEntity) => AvatarVo.fromJson(resultEntity.data));
-        })
-        .single;
+    return _userProfileApiClient.avatar(File(avatarPath)).successMap2Single((event) {
+      return event.toIntensify(createData: (resultEntity) => AvatarVo.fromJson(resultEntity.data));
+    });
   }
 
   static Future<IntensifyEntity<dynamic>> updatePwd(String oldPwd, String newPwd) {
     return _userProfileApiClient
-        .updatePwd({"oldPassword": oldPwd, "newPassword": newPwd})
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
-          return event.toIntensify();
-        })
-        .single;
+        .updatePwd({"oldPassword": oldPwd, "newPassword": newPwd}).successMap2Single((event) {
+      return event.toIntensify();
+    });
   }
 }

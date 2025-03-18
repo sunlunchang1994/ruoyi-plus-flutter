@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/request_utils.dart';
 import 'package:ruoyi_plus_flutter/code/base/repository/remote/data_transform_utils.dart';
@@ -45,6 +46,10 @@ abstract class SysTenantApiClient {
   ///同步租户字典列表
   @GET("/system/tenant/syncTenantDict")
   Future<ResultEntity> syncTenantDict(@CancelRequest() CancelToken cancelToken);
+
+  ///删除租户
+  @DELETE("/system/tenant/{ids}")
+  Future<ResultEntity> delete(@Path("ids") String ids, @CancelRequest() CancelToken cancelToken);
 }
 
 ///租户服务
@@ -56,24 +61,18 @@ class SysTenantRepository {
       int offset, int size, SysTenant? sysTenant, CancelToken cancelToken) async {
     return _sysTenantApiClient
         .list(RequestUtils.toPageQuery(sysTenant?.toJson(), offset, size), cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+        .successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return resultEntity.toPageModel(offset, size, createRecords: (resultData) {
           return SysTenant.fromJsonList(resultData);
         });
       });
-    }).single;
+    });
   }
 
   ///租户信息
   static Future<IntensifyEntity<SysTenant>> getInfo(int tenantId, CancelToken cancelToken) async {
-    return _sysTenantApiClient
-        .getInfo(tenantId, cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+    return _sysTenantApiClient.getInfo(tenantId, cancelToken).successMap((event) {
       return event.toIntensify(createData: (resultEntity) {
         return SysTenant.fromJson(resultEntity.data);
       });
@@ -98,14 +97,10 @@ class SysTenantRepository {
     Future<ResultEntity> resultFuture = body.id == null
         ? _sysTenantApiClient.add(body, cancelToken)
         : _sysTenantApiClient.edit(body, cancelToken);
-    return resultFuture
-        .asStream()
-        .map((event) {
-          var intensifyEntity = IntensifyEntity<SysTenant>(resultEntity: event);
-          return intensifyEntity;
-        })
-        .map(DataTransformUtils.checkErrorIe)
-        .single;
+    return resultFuture.successMap2Single((event) {
+      var intensifyEntity = IntensifyEntity<SysTenant>(resultEntity: event);
+      return intensifyEntity;
+    });
   }
 
   ///同步租户套餐
@@ -113,21 +108,28 @@ class SysTenantRepository {
       String tenantId, int? packageId, CancelToken cancelToken) {
     return _sysTenantApiClient
         .syncTenantPackage(tenantId, packageId, cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+        .successMap2Single((event) {
       return event.toIntensify();
-    }).single;
+    });
   }
 
   ///同步租户字典列表
   static Future<IntensifyEntity<dynamic>> syncTenantDict(CancelToken cancelToken) {
-    return _sysTenantApiClient
-        .syncTenantDict(cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+    return _sysTenantApiClient.syncTenantDict(cancelToken).successMap2Single((event) {
       return event.toIntensify();
-    }).single;
+    });
+  }
+
+  ///删除租户
+  static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
+      {int? id, List<int>? ids}) {
+    //参数校验
+    assert(id != null && ids == null || id == null && ids != null);
+    ids ??= [id!];
+    return _sysTenantApiClient
+        .delete(ids.join(TextUtil.COMMA), cancelToken)
+        .successMap2Single((event) {
+      return event.toIntensify();
+    });
   }
 }

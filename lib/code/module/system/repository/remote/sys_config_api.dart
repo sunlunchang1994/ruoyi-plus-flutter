@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:retrofit/dio.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
@@ -17,14 +18,13 @@ part 'sys_config_api.g.dart';
 abstract class SysConfigApiClient {
   factory SysConfigApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _SysConfigApiClient(dio,
-        baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _SysConfigApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取参数配置列表
   @GET("/system/config/list")
-  Future<ResultPageModel> list(@Queries() Map<String,dynamic>? queryParams,
-      @CancelRequest() CancelToken cancelToken);
+  Future<ResultPageModel> list(
+      @Queries() Map<String, dynamic>? queryParams, @CancelRequest() CancelToken cancelToken);
 
   ///获取参数配置信息
   @GET("/system/config/{dictId}")
@@ -33,13 +33,15 @@ abstract class SysConfigApiClient {
 
   ///添加参数配置
   @POST("/system/config")
-  Future<ResultEntity> add(
-      @Body() SysConfig? data, @CancelRequest() CancelToken cancelToken);
+  Future<ResultEntity> add(@Body() SysConfig? data, @CancelRequest() CancelToken cancelToken);
 
   ///编辑参数配置
   @PUT("/system/config")
-  Future<ResultEntity> edit(
-      @Body() SysConfig? data, @CancelRequest() CancelToken cancelToken);
+  Future<ResultEntity> edit(@Body() SysConfig? data, @CancelRequest() CancelToken cancelToken);
+
+  ///删除参数配置
+  @DELETE("/system/config/{ids}")
+  Future<ResultEntity> delete(@Path("ids") String ids, @CancelRequest() CancelToken cancelToken);
 }
 
 class SysConfigRepository {
@@ -50,44 +52,44 @@ class SysConfigRepository {
       int offset, int size, SysConfig? sysConfig, CancelToken cancelToken) {
     return _sysConfigApiClient
         .list(RequestUtils.toPageQuery(sysConfig?.toJson(), offset, size), cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+        .successMap2Single((event) {
       return event.toIntensify(
           createData: (resultEntity) => resultEntity.toPageModel(offset, size,
-              createRecords: (resultData) =>
-                  SysConfig.fromJsonList(resultData)));
-    }).single;
+              createRecords: (resultData) => SysConfig.fromJsonList(resultData)));
+    });
   }
 
   ///获取参数配置信息
-  static Future<IntensifyEntity<SysConfig?>> getInfo(
-      int dictId, CancelToken cancelToken,
+  static Future<IntensifyEntity<SysConfig?>> getInfo(int dictId, CancelToken cancelToken,
       {bool fillParentName = false}) {
-    return _sysConfigApiClient
-        .getInfo(dictId, cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+    return _sysConfigApiClient.getInfo(dictId, cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return SysConfig.fromJson(resultEntity.data);
       });
-    }).single;
+    });
   }
 
   ///提交参数配置信息
-  static Future<IntensifyEntity<SysConfig>> submit(
-      SysConfig body, CancelToken cancelToken) {
+  static Future<IntensifyEntity<SysConfig>> submit(SysConfig body, CancelToken cancelToken) {
     Future<ResultEntity> resultFuture = body.configId == null
         ? _sysConfigApiClient.add(body, cancelToken)
         : _sysConfigApiClient.edit(body, cancelToken);
-    return resultFuture
-        .asStream()
-        .map((event) {
-          var intensifyEntity = IntensifyEntity<SysConfig>(resultEntity: event);
-          return intensifyEntity;
-        })
-        .map(DataTransformUtils.checkErrorIe)
-        .single;
+    return resultFuture.successMap2Single((event) {
+      var intensifyEntity = IntensifyEntity<SysConfig>(resultEntity: event);
+      return intensifyEntity;
+    });
+  }
+
+  ///删除参数配置
+  static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
+      {int? configId, List<int>? configIds}) {
+    //参数校验
+    assert(configId != null && configIds == null || configId == null && configIds != null);
+    configIds ??= [configId!];
+    return _sysConfigApiClient
+        .delete(configIds.join(TextUtil.COMMA), cancelToken)
+        .successMap2Single((event) {
+      return event.toIntensify();
+    });
   }
 }

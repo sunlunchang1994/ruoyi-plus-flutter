@@ -11,7 +11,6 @@ import '../../entity/captcha.dart';
 import '../../entity/login_result.dart';
 import '../../entity/login_tenant_vo.dart';
 
-
 part 'auth_api.g.dart';
 
 @RestApi()
@@ -40,8 +39,8 @@ class AuthServiceRepository {
   static final AuthApiClient _ossApiClient = AuthApiClient();
 
   ///用户登录
-  static Future<IntensifyEntity<LoginResult>> login(String? tenantId, String account, String password,
-      String codeResult, String? codeUuid, CancelToken cancelToken) async {
+  static Future<IntensifyEntity<LoginResult>> login(String? tenantId, String account,
+      String password, String codeResult, String? codeUuid, CancelToken cancelToken) async {
     Map<String, Object> dataMap = {};
     dataMap["tenantId"] = tenantId ?? EnvConfig.getEnvConfig().defTenantId;
     dataMap["username"] = account;
@@ -50,16 +49,12 @@ class AuthServiceRepository {
     dataMap["uuid"] = codeUuid ?? '';
     dataMap["clientId"] = ApiConfig().clientid;
     dataMap["grantType"] = 'password';
-    return _ossApiClient
-        .login(dataMap)
-        .asStream()
-        .map((event) {
+    return _ossApiClient.login(dataMap).successMap((event) {
       var intensifyEntity = IntensifyEntity<LoginResult>(
-          resultEntity: event, createData: (resultEntity) => LoginResult.fromJson(resultEntity.data));
+          resultEntity: event,
+          createData: (resultEntity) => LoginResult.fromJson(resultEntity.data));
       return intensifyEntity;
-    })
-        .map(DataTransformUtils.checkErrorIe)
-        .map((event) {
+    }).map((event) {
       LoginResult loginResult = event.data!;
       ApiConfig().setToken("Bearer ${loginResult.access_token!}");
       GlobalVm().userShareVm.loginResult = loginResult;
@@ -69,29 +64,20 @@ class AuthServiceRepository {
 
   ///获取验证码
   static Future<IntensifyEntity<Captcha>> getCode() async {
-    return _ossApiClient
-        .getCode()
-        .asStream()
-        .map((event) {
-          var intensifyEntity = IntensifyEntity<Captcha>(
-              resultEntity: event, createData: (resultEntity) => Captcha.fromJson(resultEntity.data));
-          return intensifyEntity;
-        })
-        .map(DataTransformUtils.checkErrorIe)
-        .single;
+    return _ossApiClient.getCode().successMap2Single((event) {
+      var intensifyEntity = IntensifyEntity<Captcha>(
+          resultEntity: event, createData: (resultEntity) => Captcha.fromJson(resultEntity.data));
+      return intensifyEntity;
+    });
   }
 
   ///获取租户列表
   static Future<IntensifyEntity<LoginTenantVo>> tenantList() async {
-    return _ossApiClient
-        .tenantList()
-        .asStream()
-        .map((event) {
-          var intensifyEntity = IntensifyEntity<LoginTenantVo>(
-              resultEntity: event, createData: (resultEntity) => LoginTenantVo.fromJson(resultEntity.data));
-          return intensifyEntity;
-        })
-        .map(DataTransformUtils.checkErrorIe)
-        .single;
+    return _ossApiClient.tenantList().successMap2Single((event) {
+      var intensifyEntity = IntensifyEntity<LoginTenantVo>(
+          resultEntity: event,
+          createData: (resultEntity) => LoginTenantVo.fromJson(resultEntity.data));
+      return intensifyEntity;
+    });
   }
 }

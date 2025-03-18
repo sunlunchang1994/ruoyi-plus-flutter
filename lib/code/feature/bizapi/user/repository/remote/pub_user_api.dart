@@ -14,8 +14,7 @@ part 'pub_user_api.g.dart';
 abstract class PubUserApiClient {
   factory PubUserApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _PubUserApiClient(dio,
-        baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _PubUserApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///用户信息
@@ -27,22 +26,14 @@ abstract class PubUserApiClient {
 class PubUserRepository {
   static final PubUserApiClient _userApiClient = PubUserApiClient();
 
-  static Future<IntensifyEntity<MyUserInfoVo>> getInfo(
-      CancelToken cancelToken) {
-    return _userApiClient
-        .getInfo(cancelToken)
-        .asStream()
-        .map((event) {
-          return event.toIntensify(
-              createData: (resultEntity) =>
-                  MyUserInfoVo.fromJson(resultEntity.data));
-        })
-        .map(DataTransformUtils.checkErrorIe)
-        .map((event) {
-          MyUserInfoVo userInfoVo = event.data!;
-          GlobalVm().userShareVm.userInfoOf.setValue(userInfoVo);
-          return event;
-        })
-        .single;
+  static Future<IntensifyEntity<MyUserInfoVo>> getInfo(CancelToken cancelToken) {
+    return _userApiClient.getInfo(cancelToken).successMap((event) {
+      return event.toIntensify(
+          createData: (resultEntity) => MyUserInfoVo.fromJson(resultEntity.data));
+    }).map((event) {
+      MyUserInfoVo userInfoVo = event.data!;
+      GlobalVm().userShareVm.userInfoOf.setValue(userInfoVo);
+      return event;
+    }).single;
   }
 }

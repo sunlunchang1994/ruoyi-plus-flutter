@@ -27,27 +27,21 @@ class PubMenuPublicRepository {
   static final PubMenuApiClient _menuApiClient = PubMenuApiClient();
 
   static Future<IntensifyEntity<List<RouterVo>>> getRouters(CancelToken cancelToken) {
-    return _menuApiClient
-        .getRouters(cancelToken)
-        .asStream()
-        .map((event) {
-          var intensifyEntity = IntensifyEntity<List<RouterVo>>(
-              resultEntity: event,
-              createData: (resultEntity) {
-                List<RouterVo> dataList = (resultEntity.data as List<dynamic>?)?.map((item) {
-                      return RouterVo.fromJson(item);
-                    }).toList() ??
-                    List.empty(growable: true); //列表为空时创建默认的
-                return dataList;
-              });
-          return intensifyEntity;
-        })
-        .map(DataTransformUtils.checkErrorIe)
-        .map((event) {
-          List<RouterVo> routerVoList = event.data??List.empty(growable: true);
-          GlobalVm().userShareVm.routerVoOf.setValue(routerVoList);
-          return event;
-        })
-        .single;
+    return _menuApiClient.getRouters(cancelToken).successMap((event) {
+      var intensifyEntity = IntensifyEntity<List<RouterVo>>(
+          resultEntity: event,
+          createData: (resultEntity) {
+            List<RouterVo> dataList = (resultEntity.data as List<dynamic>?)?.map((item) {
+                  return RouterVo.fromJson(item);
+                }).toList() ??
+                List.empty(growable: true); //列表为空时创建默认的
+            return dataList;
+          });
+      return intensifyEntity;
+    }).map((event) {
+      List<RouterVo> routerVoList = event.data ?? List.empty(growable: true);
+      GlobalVm().userShareVm.routerVoOf.setValue(routerVoList);
+      return event;
+    }).single;
   }
 }

@@ -2215,6 +2215,26 @@ class S {
     );
   }
 
+  /// `确定要删除名称为{}的部门信息吗？`
+  String get user_label_dept_del_prompt {
+    return Intl.message(
+      '确定要删除名称为{}的部门信息吗？',
+      name: 'user_label_dept_del_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请选择需要删除的部门`
+  String get user_label_dept_del_select_empty {
+    return Intl.message(
+      '请选择需要删除的部门',
+      name: 'user_label_dept_del_select_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `选择{}`
   String get user_label_select_x {
     return Intl.message(
@@ -2550,6 +2570,26 @@ class S {
     );
   }
 
+  /// `确定要删除名称为{}的岗位信息吗？`
+  String get user_label_post_del_prompt {
+    return Intl.message(
+      '确定要删除名称为{}的岗位信息吗？',
+      name: 'user_label_post_del_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请选择需要删除的岗位`
+  String get user_label_post_del_select_empty {
+    return Intl.message(
+      '请选择需要删除的岗位',
+      name: 'user_label_post_del_select_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `角色`
   String get user_label_role {
     return Intl.message('角色', name: 'user_label_role', desc: '', args: []);
@@ -2670,6 +2710,26 @@ class S {
     return Intl.message(
       '已配置多个菜单项，点击查看',
       name: 'user_label_menu_permission_select_result2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `确定要删除名称为{}的角色信息吗？`
+  String get user_label_role_del_prompt {
+    return Intl.message(
+      '确定要删除名称为{}的角色信息吗？',
+      name: 'user_label_role_del_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请选择需要删除的角色`
+  String get user_label_role_del_select_empty {
+    return Intl.message(
+      '请选择需要删除的角色',
+      name: 'user_label_role_del_select_empty',
       desc: '',
       args: [],
     );

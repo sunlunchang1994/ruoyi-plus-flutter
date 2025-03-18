@@ -36,9 +36,7 @@ class CacheMonitorRepository {
   static Future<IntensifyEntity<RedisCacheInfo>> getInfo(CancelToken cancelToken) {
     return _cacheMonitorApiClient
         .getInfo(cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+        .successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         RedisCacheInfo redisCacheInfo = RedisCacheInfo.fromJson(resultEntity.data);
         //填充命令的颜色
@@ -52,6 +50,6 @@ class CacheMonitorRepository {
         }
         return redisCacheInfo;
       });
-    }).single;
+    });
   }
 }

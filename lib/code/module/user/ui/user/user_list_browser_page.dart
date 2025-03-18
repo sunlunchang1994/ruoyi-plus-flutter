@@ -13,10 +13,12 @@ import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_add_edit_page.d
 import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_list_page_vd.dart';
 
 import '../../../../../generated/l10n.dart';
+import '../../../../base/api/base_dio.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
 import '../../../../feature/bizapi/user/entity/user.dart';
 import '../../../../lib/fast/utils/bar_utils.dart';
 import '../../../../lib/fast/utils/widget_utils.dart';
+import '../../repository/remote/user_api.dart';
 
 ///
 /// 用户浏览列表
@@ -42,11 +44,11 @@ class UserListBrowserPage extends AppBaseStatelessWidget<_UserListBrowserVm> {
               if (canPop) {
                 return;
               }
-              if (!getVm().listVmSub.selectModelIsRun) {
-                Navigator.pop(context);
+              if (getVm().listVmSub.selectModelIsRun) {
+                getVm().listVmSub.selectModelIsRun = false;
                 return;
               }
-              getVm().listVmSub.selectModelIsRun = false;
+              Navigator.pop(context);
             },
             child: Scaffold(
                 appBar: AppBar(
@@ -67,11 +69,11 @@ class UserListBrowserPage extends AppBaseStatelessWidget<_UserListBrowserVm> {
                                 List<Widget> actions = [];
                                 if (value) {
                                   actions.addAll(WidgetUtils.getDeleteFamilyAction(onDelete: () {
-                                    getVm().listVmSub.onDelete(confirmHandler: (nickNameList) {
+                                    getVm().onDelete(confirmHandler: (nameList) {
                                       return FastDialogUtils.showDelConfirmDialog(context,
                                           contentText: TextUtil.format(
                                               S.current.user_label_data_del_prompt,
-                                              [nickNameList.join(TextUtil.COMMA)]));
+                                              [nameList.join(TextUtil.COMMA)]));
                                     });
                                   }, onSelectAll: () {
                                     getVm().listVmSub.onSelectAll(true);
@@ -131,6 +133,7 @@ class _UserListBrowserVm extends AppBaseVm {
 
   _UserListBrowserVm() {
     listVmSub = UserPageDataVmSub();
+    listVmSub.enableSelectModel = true;
     listVmSub.setItemClick((index, item) {
       if (item.userId == ConstantUserApi.VALUE_SUPER_ADMIN_ID) {
         AppToastUtil.showToast(msg: S.current.user_toast_user_super_edit_refuse);
@@ -154,6 +157,40 @@ class _UserListBrowserVm extends AppBaseVm {
       if (result != null) {
         listVmSub.sendRefreshEvent();
       }
+    });
+  }
+
+  //删除事件
+  void onDelete({Future<bool?> Function(List<String>)? confirmHandler, List<int>? idList}) {
+    if (idList == null) {
+      List<User> selectList = SelectUtils.getSelect(listVmSub.dataList) ?? [];
+      //移除超级管理员
+      selectList.removeWhere((item) {
+        return item.userId == ConstantUserApi.VALUE_SUPER_ADMIN_ID;
+      });
+      if (selectList.isEmpty) {
+        AppToastUtil.showToast(msg: S.current.user_label_data_del_select_empty);
+        return;
+      }
+      List<String> nickList = selectList.map<String>((item) => item.nickName!).toList();
+      List<int> userList = selectList.map<int>((item) => item.userId!).toList();
+      confirmHandler?.call(nickList).then((value) {
+        if (value == true) {
+          onDelete(idList: userList);
+        }
+      });
+      return;
+    }
+    //删除
+    showLoading(text: S.current.label_delete_ing);
+    UserServiceRepository.delete(listVmSub.defCancelToken, userIds: idList).then((value) {
+      dismissLoading();
+      AppToastUtil.showToast(msg: S.current.label_delete_success);
+      listVmSub.sendRefreshEvent();
+    }, onError: (e) {
+      dismissLoading();
+      BaseDio.handlerError(e);
+      AppToastUtil.showToast(msg: S.current.label_delete_failed);
     });
   }
 }

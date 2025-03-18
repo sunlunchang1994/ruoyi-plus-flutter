@@ -35,14 +35,12 @@ class SysUserOnlineRepository {
     return _sysUserOnlineApiClient
         .list(RequestUtils.toPageQuery({"ipaddr": ipaddr, "userName": userName}, offset, size),
             cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+        .successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return resultEntity.toPageModel(offset, size, createRecords: (resultData) {
           return SysUserOnline.fromJsonList(resultData);
         });
       });
-    }).single;
+    });
   }
 }

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/request_utils.dart';
 import 'package:ruoyi_plus_flutter/code/base/repository/remote/data_transform_utils.dart';
@@ -34,6 +35,10 @@ abstract class SysClientApiClient {
   ///编辑客户端
   @PUT("/system/client")
   Future<ResultEntity> edit(@Body() SysClient? data, @CancelRequest() CancelToken cancelToken);
+
+  ///删除菜单
+  @DELETE("/system/client/{ids}")
+  Future<ResultEntity> delete(@Path("ids") String ids, @CancelRequest() CancelToken cancelToken);
 }
 
 ///客户端服务
@@ -45,29 +50,22 @@ class SysClientRepository {
       int offset, int size, SysClient? sysClient, CancelToken cancelToken) async {
     return _sysClientApiClient
         .list(RequestUtils.toPageQuery(sysClient?.toJson(), offset, size), cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+        .successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return resultEntity.toPageModel(offset, size, createRecords: (resultData) {
           return SysClient.fromJsonList(resultData);
         });
       });
-    }).single;
+    });
   }
 
   ///客户端信息
-  static Future<IntensifyEntity<SysClient>> getInfo(
-      int clientId, CancelToken cancelToken) async {
-    return _sysClientApiClient
-        .getInfo(clientId, cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+  static Future<IntensifyEntity<SysClient>> getInfo(int clientId, CancelToken cancelToken) async {
+    return _sysClientApiClient.getInfo(clientId, cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return SysClient.fromJson(resultEntity.data);
       });
-    }).single;
+    });
   }
 
   ///提交客户端
@@ -75,13 +73,22 @@ class SysClientRepository {
     Future<ResultEntity> resultFuture = body.id == null
         ? _sysClientApiClient.add(body, cancelToken)
         : _sysClientApiClient.edit(body, cancelToken);
-    return resultFuture
-        .asStream()
-        .map((event) {
+    return resultFuture.successMap2Single((event) {
       var intensifyEntity = IntensifyEntity<SysClient>(resultEntity: event);
       return intensifyEntity;
-    })
-        .map(DataTransformUtils.checkErrorIe)
-        .single;
+    });
+  }
+
+  ///删除客户端
+  static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
+      {int? clientId, List<int>? clientIds}) {
+    //参数校验
+    assert(clientId != null && clientIds == null || clientId == null && clientIds != null);
+    clientIds ??= [clientId!];
+    return _sysClientApiClient
+        .delete(clientIds.join(TextUtil.COMMA), cancelToken)
+        .successMap2Single((event) {
+      return event.toIntensify();
+    });
   }
 }

@@ -16,14 +16,13 @@ part 'post_api.g.dart';
 abstract class PostApiClient {
   factory PostApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _PostApiClient(dio,
-        baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _PostApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取岗位列表
   @GET("/system/post/list")
-  Future<ResultPageModel> list(@Queries() Map<String, dynamic>? data,
-      @CancelRequest() CancelToken cancelToken);
+  Future<ResultPageModel> list(
+      @Queries() Map<String, dynamic>? data, @CancelRequest() CancelToken cancelToken);
 
   ///获取岗位信息
   @GET("/system/post/{postId}")
@@ -32,17 +31,16 @@ abstract class PostApiClient {
 
   ///添加岗位
   @POST("/system/post")
-  Future<ResultEntity> add(
-      @Body() Post? data, @CancelRequest() CancelToken cancelToken);
+  Future<ResultEntity> add(@Body() Post? data, @CancelRequest() CancelToken cancelToken);
 
   ///编辑岗位
   @PUT("/system/post")
-  Future<ResultEntity> edit(
-      @Body() Post? data, @CancelRequest() CancelToken cancelToken);
+  Future<ResultEntity> edit(@Body() Post? data, @CancelRequest() CancelToken cancelToken);
 
   ///删除岗位
   @DELETE("/system/post/{postIds}")
-  Future<ResultEntity> delete(@Path("postIds") String postIds, @CancelRequest() CancelToken cancelToken);
+  Future<ResultEntity> delete(
+      @Path("postIds") String postIds, @CancelRequest() CancelToken cancelToken);
 }
 
 ///岗位服务
@@ -53,16 +51,12 @@ class PostRepository {
   ///获取岗位列表
   static Future<IntensifyEntity<PageModel<Post>>> list(
       int offset, int size, Post? post, CancelToken cancelToken) {
-    Map<String, dynamic> queryParams =
-        RequestUtils.toPageQuery(post?.toJson(), offset, size);
+    Map<String, dynamic> queryParams = RequestUtils.toPageQuery(post?.toJson(), offset, size);
     queryParams["orderByColumn"] = "deptId,postId";
     queryParams["isAsc"] = "asc";
-    return _postApiClient
-        .list(queryParams, cancelToken)
-        .asStream()
-        .map((event) {
-          return event.toIntensify(createData: (resultEntity) {
-            /*AppPageModel appPageModel = AppPageModel(
+    return _postApiClient.list(queryParams, cancelToken).successMap2Single((event) {
+      return event.toIntensify(createData: (resultEntity) {
+        /*AppPageModel appPageModel = AppPageModel(
                 current: offset,
                 size: size,
                 rows: event.rows,
@@ -71,42 +65,29 @@ class PostRepository {
             PageModel<Post> pageModel =
                 PageTransformUtils.appPm2Pm(appPageModel, records: dataList);
             return pageModel;*/
-            return resultEntity.toPageModel(offset, size,
-                createRecords: (rows) => Post.formJsonList(rows));
-          });
-        })
-        .map(DataTransformUtils.checkErrorIe)
-        .single;
+        return resultEntity.toPageModel(offset, size,
+            createRecords: (rows) => Post.formJsonList(rows));
+      });
+    });
   }
 
   ///获取岗位信息
-  static Future<IntensifyEntity<Post>> getInfo(
-      int postId, CancelToken cancelToken) {
-    return _postApiClient
-        .getInfo(postId, cancelToken)
-        .asStream()
-        .map((event) {
-          return event.toIntensify(createData: (resultEntity) {
-            return Post.fromJson(resultEntity.data);
-          });
-        })
-        .map(DataTransformUtils.checkErrorIe)
-        .single;
+  static Future<IntensifyEntity<Post>> getInfo(int postId, CancelToken cancelToken) {
+    return _postApiClient.getInfo(postId, cancelToken).successMap2Single((event) {
+      return event.toIntensify(createData: (resultEntity) {
+        return Post.fromJson(resultEntity.data);
+      });
+    });
   }
 
   ///提交岗位信息
-  static Future<IntensifyEntity<dynamic>> submit(
-      Post post, CancelToken cancelToken) {
+  static Future<IntensifyEntity<dynamic>> submit(Post post, CancelToken cancelToken) {
     Future<ResultEntity> resultFuture = post.postId == null
         ? _postApiClient.add(post, cancelToken)
         : _postApiClient.edit(post, cancelToken);
-    return resultFuture
-        .asStream()
-        .map((event) {
-          return event.toIntensify<dynamic>();
-        })
-        .map(DataTransformUtils.checkErrorIe)
-        .single;
+    return resultFuture.successMap2Single((event) {
+      return event.toIntensify<dynamic>();
+    });
   }
 
   //删除岗位
@@ -117,10 +98,8 @@ class PostRepository {
     postIds ??= [postId!];
     return _postApiClient
         .delete(postIds.join(TextUtil.COMMA), cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+        .successMap2Single((event) {
       return event.toIntensify();
-    }).single;
+    });
   }
 }

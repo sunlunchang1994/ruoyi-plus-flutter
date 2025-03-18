@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter_slc_boxes/flutter/slc/adapter/select_box.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:retrofit/dio.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
@@ -17,14 +18,13 @@ part 'menu_api.g.dart';
 abstract class MenuApiClient {
   factory MenuApiClient({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _MenuApiClient(dio,
-        baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _MenuApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取菜单树信息
   @GET("/system/menu/treeselect")
-  Future<ResultEntity> treeselect(@Queries() SysMenu? queryParams,
-      @CancelRequest() CancelToken cancelToken);
+  Future<ResultEntity> treeselect(
+      @Queries() SysMenu? queryParams, @CancelRequest() CancelToken cancelToken);
 
   ///获取角色菜单树信息
   @GET("/system/menu/roleMenuTreeselect/{roleId}")
@@ -38,8 +38,8 @@ abstract class MenuApiClient {
 
   ///获取菜单列表
   @GET("/system/menu/list")
-  Future<ResultEntity> list(@Queries() SysMenu? queryParams,
-      @CancelRequest() CancelToken cancelToken);
+  Future<ResultEntity> list(
+      @Queries() SysMenu? queryParams, @CancelRequest() CancelToken cancelToken);
 
   ///获取菜单信息
   @GET("/system/menu/{menuId}")
@@ -48,13 +48,16 @@ abstract class MenuApiClient {
 
   ///添加菜单
   @POST("/system/menu")
-  Future<ResultEntity> add(
-      @Body() SysMenu? data, @CancelRequest() CancelToken cancelToken);
+  Future<ResultEntity> add(@Body() SysMenu? data, @CancelRequest() CancelToken cancelToken);
 
   ///编辑菜单
   @PUT("/system/menu")
-  Future<ResultEntity> edit(
-      @Body() SysMenu? data, @CancelRequest() CancelToken cancelToken);
+  Future<ResultEntity> edit(@Body() SysMenu? data, @CancelRequest() CancelToken cancelToken);
+
+  ///删除菜单
+  @DELETE("/system/menu/{typeIds}")
+  Future<ResultEntity> delete(
+      @Path("typeIds") String typeIds, @CancelRequest() CancelToken cancelToken);
 }
 
 class MenuRepository {
@@ -64,52 +67,39 @@ class MenuRepository {
   ///获取菜单树信息
   static Future<IntensifyEntity<List<SysMenuTree>>> treeselect(
       SysMenu? queryParams, CancelToken cancelToken) {
-    return _menuApiClient
-        .treeselect(queryParams, cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+    return _menuApiClient.treeselect(queryParams, cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return SysMenuTree.fromJsonList(resultEntity.data);
       });
-    }).single;
+    });
   }
 
   ///获取角色菜单树信息
   static Future<IntensifyEntity<List<SysMenuTree>>> roleMenuTreeselect(
       int? roleId, CancelToken cancelToken) {
-    return _menuApiClient
-        .roleMenuTreeselect(roleId, cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+    return _menuApiClient.roleMenuTreeselect(roleId, cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
-        SysMenuTreeWrapper sysMenuTreeWrapper =
-            SysMenuTreeWrapper.fromJson(resultEntity.data);
-        SelectUtils.fillSelect(sysMenuTreeWrapper.menus,
-            sysMenuTreeWrapper.checkedKeys ?? List.empty(growable: true),
+        SysMenuTreeWrapper sysMenuTreeWrapper = SysMenuTreeWrapper.fromJson(resultEntity.data);
+        SelectUtils.fillSelect(
+            sysMenuTreeWrapper.menus, sysMenuTreeWrapper.checkedKeys ?? List.empty(growable: true),
             predicate: (src, target) {
           return src!.id == target;
         }, penetrate: true);
         return sysMenuTreeWrapper.menus;
       });
-    }).single;
+    });
   }
 
   ///获取角色菜单树id信息
   static Future<IntensifyEntity<List<int>>> roleMenuCheckedList(
       int? roleId, CancelToken cancelToken) {
-    return _menuApiClient
-        .roleMenuTreeselect(roleId, cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+    return _menuApiClient.roleMenuTreeselect(roleId, cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         SysMenuTreeWrapperOnlyCheckedKeys sysMenuTreeWrapper =
             SysMenuTreeWrapperOnlyCheckedKeys.fromJson(resultEntity.data);
         return sysMenuTreeWrapper.checkedKeys;
       });
-    }).single;
+    });
   }
 
   ///获取租户套餐菜单树信息
@@ -117,46 +107,33 @@ class MenuRepository {
       int? tenantPackageId, CancelToken cancelToken) {
     return _menuApiClient
         .tenantPackageMenuTreeselect(tenantPackageId, cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+        .successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         SysMenuTreeWrapper sysMenuTreeWrapper = SysMenuTreeWrapper.fromJson(resultEntity.data);
-        SelectUtils.fillSelect(sysMenuTreeWrapper.menus,
-            sysMenuTreeWrapper.checkedKeys ?? List.empty(growable: true),
+        SelectUtils.fillSelect(
+            sysMenuTreeWrapper.menus, sysMenuTreeWrapper.checkedKeys ?? List.empty(growable: true),
             predicate: (src, target) {
-              return src!.id == target;
-            }, penetrate: true);
+          return src!.id == target;
+        }, penetrate: true);
         return sysMenuTreeWrapper.menus;
       });
-    }).single;
+    });
   }
 
   ///获取菜单列表
-  static Future<IntensifyEntity<List<SysMenu>>> list(
-      SysMenu? sysMenuVo, CancelToken cancelToken) {
-    return _menuApiClient
-        .list(sysMenuVo, cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+  static Future<IntensifyEntity<List<SysMenu>>> list(SysMenu? sysMenuVo, CancelToken cancelToken) {
+    return _menuApiClient.list(sysMenuVo, cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
-        List<SysMenu> sysMenuTreeWrapper =
-            SysMenu.fromJsonList(resultEntity.data);
+        List<SysMenu> sysMenuTreeWrapper = SysMenu.fromJsonList(resultEntity.data);
         return sysMenuTreeWrapper;
       });
-    }).single;
+    });
   }
 
   ///获取菜单信息
-  static Future<IntensifyEntity<SysMenu?>> getInfo(
-      int menuId, CancelToken cancelToken,
+  static Future<IntensifyEntity<SysMenu?>> getInfo(int menuId, CancelToken cancelToken,
       {bool fillParentName = false}) {
-    return _menuApiClient
-        .getInfo(menuId, cancelToken)
-        .asStream()
-        .map(DataTransformUtils.checkError)
-        .map((event) {
+    return _menuApiClient.getInfo(menuId, cancelToken).successMap((event) {
       return event.toIntensify(createData: (resultEntity) {
         return SysMenu.fromJson(resultEntity.data);
       });
@@ -174,17 +151,25 @@ class MenuRepository {
   }
 
   ///提交菜单信息
-  static Future<IntensifyEntity<SysMenu>> submit(
-      SysMenu body, CancelToken cancelToken) {
+  static Future<IntensifyEntity<SysMenu>> submit(SysMenu body, CancelToken cancelToken) {
     Future<ResultEntity> resultFuture = body.menuId == null
         ? _menuApiClient.add(body, cancelToken)
         : _menuApiClient.edit(body, cancelToken);
-    return resultFuture
-        .asStream()
-        .map((event) {
-          return event.toIntensify<SysMenu>();
-        })
-        .map(DataTransformUtils.checkErrorIe)
-        .single;
+    return resultFuture.successMap2Single((event) {
+      return event.toIntensify<SysMenu>();
+    });
+  }
+
+  ///删除菜单
+  static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
+      {int? menuId, List<int>? menuIds}) {
+    //参数校验
+    assert(menuId != null && menuIds == null || menuId == null && menuIds != null);
+    menuIds ??= [menuId!];
+    return _menuApiClient
+        .delete(menuIds.join(TextUtil.COMMA), cancelToken)
+        .successMap2Single((event) {
+      return event.toIntensify();
+    });
   }
 }

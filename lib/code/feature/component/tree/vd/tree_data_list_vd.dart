@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
 
@@ -75,20 +73,28 @@ class TreeFastBaseListDataVmSub<T> extends FastBaseListDataVmSub<T> with CancelT
     }
   }
 
-  //从栈堆获取上一个树节点id
-  dynamic getPreviousTreeId() {
+  SlcTreeNav? getPreviousTree() {
     if (canPrevious()) {
-      return treeNacStacks[treeNacStacks.length - 2].id;
+      return treeNacStacks[treeNacStacks.length - 2];
     }
     return null;
   }
 
-  //获取最后一个节点id
-  dynamic getLastTreeId() {
+  //从栈堆获取上一个树节点id
+  dynamic getPreviousTreeId() {
+    return getPreviousTree()?.id;
+  }
+
+  SlcTreeNav? getLastTree() {
     if (treeNacStacks.isEmpty) {
       return null;
     }
-    return treeNacStacks.last.id;
+    return treeNacStacks.last;
+  }
+
+  //获取最后一个节点id
+  dynamic getLastTreeId() {
+    return getLastTree()?.id;
   }
 
   //自动上一级
@@ -147,5 +153,24 @@ class TreeFastBaseListDataVmSub<T> extends FastBaseListDataVmSub<T> with CancelT
     super.onSucceed(dataList);
     SlcTreeNav slcTreeNav = treeNacStacks.last;
     treeStacksDataMap[slcTreeNav.id] = dataList;
+  }
+
+  //获取pop回调
+  PopInvokedWithResultCallback<T> getPopInvokedWithTree(
+      {bool Function(bool didPop, T? result)? handlerFirst, Function(bool didPop, T? result)? handlerLast}) {
+    return (didPop, result) {
+      //处理过了且拦截了
+      if(handlerFirst?.call(didPop,result)??false){
+        return;
+      }
+      if (didPop) {
+        return;
+      }
+      if (canPrevious()) {
+        previousAuto();
+        return;
+      }
+      handlerLast?.call(didPop,result);
+    };
   }
 }

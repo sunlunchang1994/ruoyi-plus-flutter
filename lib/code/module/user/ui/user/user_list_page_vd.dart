@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
-import 'package:flutter_slc_boxes/flutter/slc/adapter/select_box.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/fast_mvvm.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
@@ -13,7 +12,6 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/dept.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/user.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/widget_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
@@ -29,7 +27,6 @@ import '../../../../base/api/result_entity.dart';
 import '../../../../base/config/constant_base.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
-import '../../../../feature/bizapi/user/config/constant_user_api.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
@@ -430,7 +427,6 @@ class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> with CancelToken
   User get searchUser => _searchUser;
 
   UserPageDataVmSub() {
-    enableSelectModel = true;
     setLoadData((loadMoreFormat) async {
       try {
         IntensifyEntity<PageModel<User>> result = await UserServiceRepository.list(
@@ -483,39 +479,5 @@ class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> with CancelToken
   void onSearch() {
     formOperate.formBuilderState?.save();
     sendRefreshEvent();
-  }
-
-  //删除事件
-  void onDelete({Future<bool?> Function(List<String>)? confirmHandler, List<int>? userIdList}) {
-    if (userIdList == null) {
-      List<User> selectList = SelectUtils.getSelect(dataList) ?? [];
-      //移除超级管理员
-      selectList.removeWhere((item) {
-        return item.userId == ConstantUserApi.VALUE_SUPER_ADMIN_ID;
-      });
-      if (selectList.isEmpty) {
-        AppToastUtil.showToast(msg: S.current.user_label_data_del_select_empty);
-        return;
-      }
-      List<String> nickNameList = selectList.map<String>((item) => item.nickName!).toList();
-      List<int> userIdList = selectList.map<int>((item) => item.userId!).toList();
-      confirmHandler?.call(nickNameList).then((value) {
-        if (value == true) {
-          onDelete(userIdList: userIdList);
-        }
-      });
-      return;
-    }
-    //删除
-    showLoading(text: S.current.label_delete_ing);
-    UserServiceRepository.delete(defCancelToken, userIds: userIdList).then((value) {
-      dismissLoading();
-      AppToastUtil.showToast(msg: S.current.label_delete_success);
-      finish(result: true);
-    }, onError: (e) {
-      dismissLoading();
-      BaseDio.handlerError(e);
-      AppToastUtil.showToast(msg: S.current.label_delete_failed);
-    });
   }
 }
