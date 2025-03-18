@@ -2,12 +2,13 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:ruoyi_plus_flutter/code/base/entity/tenant_entity.dart';
 
 import '../../../base/api/json_converter.dart';
+import '../../../feature/component/adapter/app_select_box.dart';
 
 part 'sys_menu.g.dart';
 ///@author slc
 ///菜单实体类
 @JsonSerializable()
-class SysMenu extends TenantEntity {
+class SysMenu extends TenantEntity with AppSelectBoxMixin<SysMenu> {
   //菜单ID
   @IntConverter()
   int? menuId;

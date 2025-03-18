@@ -376,6 +376,8 @@
   "sys_label_dict_data_order_num": "显示顺序",
   "sys_label_dict_data_add": "新增字典数据",
   "sys_label_dict_data_edit": "修改字典数据",
+  "sys_label_dict_del_prompt": "确定要删除名称为{}的字典信息吗？",
+  "sys_label_dict_del_select_empty": "请选择需要删除的字典",
 
   "sys_label_config_search_title": "搜索配置参数",
   "sys_label_config_list": "参数列表",
@@ -386,7 +388,8 @@
   "sys_label_config_type_select": "请选择是否系统内置",
   "sys_label_config_add": "新增参数配置",
   "sys_label_config_edit": "修改参数配置",
-
+  "sys_label_config_del_prompt": "确定要删除名称为{}的参数配置信息吗？",
+  "sys_label_config_del_select_empty": "请选择需要删除的参数配置",
 
   "sys_label_notice_search_title": "搜索配置参数",
   "sys_label_notice_type_select": "请选择公告类型",
@@ -396,6 +399,8 @@
   "sys_label_notice_status": "公告状态",
   "sys_label_notice_add": "新增公告",
   "sys_label_notice_edit": "修改公告",
+  "sys_label_notice_del_prompt": "确定要删除标题为{}的通知公告吗？",
+  "sys_label_notice_del_select_empty": "请选择需要删除的通知公告",
 
   "sys_label_log_details": "日志详情",
 
@@ -463,6 +468,8 @@
   "sys_label_sys_client_timeout": "token固定超时时间",
   "sys_label_sys_client_status": "状态",
   "sys_label_sys_client_del_flag": "删除标志",
+  "sys_label_sys_client_del_prompt": "确定要删除客户端Id为{}的客户端信息吗？",
+  "sys_label_sys_client_del_select_empty": "请选择需要删除的客户端",
 
   "sys_label_sys_tenant_package_search": "搜索租户套餐",
   "sys_label_sys_tenant_package_name": "套餐名称",

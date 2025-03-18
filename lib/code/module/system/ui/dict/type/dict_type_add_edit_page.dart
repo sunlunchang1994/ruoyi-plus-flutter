@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/status_widget.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
@@ -60,7 +61,25 @@ class DictTypeAddEditPage extends AppBaseStatelessWidget<_DictTypeAddEditVm> {
                           onPressed: () {
                             getVm().onSave();
                           },
-                          icon: Icon(Icons.save))
+                          icon: Icon(Icons.save)),
+                      if (dictType != null)
+                        PopupMenuButton(itemBuilder: (context) {
+                          return [
+                            PopupMenuItem(
+                              child: Text(S.current.action_delete),
+                              onTap: () {
+                                FastDialogUtils.showDelConfirmDialog(context,
+                                    contentText: TextUtil.format(
+                                        S.current.sys_label_dict_del_prompt,
+                                        [dictType?.dictName ?? ""])).then((confirm) {
+                                  if (confirm == true) {
+                                    getVm().onDelete();
+                                  }
+                                });
+                              },
+                            )
+                          ];
+                        })
                     ],
                   ),
                   body: getStatusBody(context)));
@@ -217,6 +236,20 @@ class _DictTypeAddEditVm extends AppBaseVm with CancelTokenAssist {
     }, onError: (error) {
       dismissLoading();
       BaseDio.handlerError(error);
+    });
+  }
+
+  //删除字典类型
+  void onDelete() {
+    showLoading(text: S.current.label_delete_ing);
+    DictTypeRepository.delete(defCancelToken, dictTypeId: sysDictType!.dictId).then((value) {
+      dismissLoading();
+      AppToastUtil.showToast(msg: S.current.label_delete_success);
+      finish(result: true);
+    }, onError: (e) {
+      dismissLoading();
+      BaseDio.handlerError(e);
+      AppToastUtil.showToast(msg: S.current.label_delete_failed);
     });
   }
 }

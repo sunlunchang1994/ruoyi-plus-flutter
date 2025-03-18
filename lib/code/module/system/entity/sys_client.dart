@@ -1,6 +1,7 @@
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:ruoyi_plus_flutter/code/base/entity/tenant_entity.dart';
+import 'package:ruoyi_plus_flutter/code/feature/component/adapter/app_select_box.dart';
 
 import '../../../base/api/json_converter.dart';
 
@@ -9,7 +10,7 @@ part 'sys_client.g.dart';
 ///@auther sunlunchang
 ///客户端 sys_client
 @JsonSerializable()
-class SysClient extends TenantEntity {
+class SysClient extends TenantEntity with AppSelectBoxMixin<SysClient> {
   ///id
   @IntConverter()
   int? id;

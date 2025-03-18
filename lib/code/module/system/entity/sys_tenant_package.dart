@@ -2,11 +2,12 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:ruoyi_plus_flutter/code/base/entity/base_entity.dart';
 
 import '../../../base/api/json_converter.dart';
+import '../../../feature/component/adapter/app_select_box.dart';
 
 part 'sys_tenant_package.g.dart';
 
 @JsonSerializable()
-class SysTenantPackage extends BaseEntity {
+class SysTenantPackage extends BaseEntity with AppSelectBoxMixin<SysTenantPackage> {
   @IntConverter()
   int? packageId;
 

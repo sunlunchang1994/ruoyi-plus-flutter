@@ -81,12 +81,12 @@ class SysClientRepository {
 
   ///删除客户端
   static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
-      {int? clientId, List<int>? clientIds}) {
+      {int? id, List<int>? ids}) {
     //参数校验
-    assert(clientId != null && clientIds == null || clientId == null && clientIds != null);
-    clientIds ??= [clientId!];
+    assert(id != null && ids == null || id == null && ids != null);
+    ids ??= [id!];
     return _sysClientApiClient
-        .delete(clientIds.join(TextUtil.COMMA), cancelToken)
+        .delete(ids.join(TextUtil.COMMA), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
     });

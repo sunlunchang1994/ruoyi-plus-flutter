@@ -63,9 +63,23 @@ class OssConfigListPageWidget {
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
         title: Text(listItem.clientKey!),
         subtitle: Text(listItem.clientId!),
+        trailing: WidgetUtils.getAnimCrossFade(
+            Checkbox(
+              value: listItem.isBoxChecked(),
+              onChanged: (value) {
+                listItem.boxChecked = value;
+                listenerItemSelect.onItemSelect(index, listItem, value);
+              },
+            ),
+            buildTrailing?.call(listItem) ?? WidgetUtils.getBoxStandard(),
+            showOne: listenerItemSelect.selectModelIsRun),
         visualDensity: VisualDensity.compact,
+        //tileColor: SlcColors.getCardColorByTheme(themeData),
         onTap: () {
           listenerItemSelect.onItemClick(index, listItem);
+        },
+        onLongPress: () {
+          listenerItemSelect.onItemLongClick(index, listItem);
         });
   }
 

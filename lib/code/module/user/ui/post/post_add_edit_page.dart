@@ -346,7 +346,7 @@ class _PostAddEditVm extends AppBaseVm with CancelTokenAssist {
     });
   }
 
-  //删除角色
+  //删除岗位
   void onDelete() {
     showLoading(text: S.current.label_delete_ing);
     PostRepository.delete(defCancelToken, postId: postInfo!.postId).then((value) {

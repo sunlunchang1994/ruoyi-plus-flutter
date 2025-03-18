@@ -3085,6 +3085,26 @@ class S {
     );
   }
 
+  /// `确定要删除名称为{}的字典信息吗？`
+  String get sys_label_dict_del_prompt {
+    return Intl.message(
+      '确定要删除名称为{}的字典信息吗？',
+      name: 'sys_label_dict_del_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请选择需要删除的字典`
+  String get sys_label_dict_del_select_empty {
+    return Intl.message(
+      '请选择需要删除的字典',
+      name: 'sys_label_dict_del_select_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `搜索配置参数`
   String get sys_label_config_search_title {
     return Intl.message(
@@ -3175,6 +3195,26 @@ class S {
     );
   }
 
+  /// `确定要删除名称为{}的参数配置信息吗？`
+  String get sys_label_config_del_prompt {
+    return Intl.message(
+      '确定要删除名称为{}的参数配置信息吗？',
+      name: 'sys_label_config_del_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请选择需要删除的参数配置`
+  String get sys_label_config_del_select_empty {
+    return Intl.message(
+      '请选择需要删除的参数配置',
+      name: 'sys_label_config_del_select_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `搜索配置参数`
   String get sys_label_notice_search_title {
     return Intl.message(
@@ -3250,6 +3290,26 @@ class S {
     return Intl.message(
       '修改公告',
       name: 'sys_label_notice_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `确定要删除标题为{}的通知公告吗？`
+  String get sys_label_notice_del_prompt {
+    return Intl.message(
+      '确定要删除标题为{}的通知公告吗？',
+      name: 'sys_label_notice_del_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请选择需要删除的通知公告`
+  String get sys_label_notice_del_select_empty {
+    return Intl.message(
+      '请选择需要删除的通知公告',
+      name: 'sys_label_notice_del_select_empty',
       desc: '',
       args: [],
     );
@@ -3850,6 +3910,26 @@ class S {
     return Intl.message(
       '删除标志',
       name: 'sys_label_sys_client_del_flag',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `确定要删除客户端Id为{}的客户端信息吗？`
+  String get sys_label_sys_client_del_prompt {
+    return Intl.message(
+      '确定要删除客户端Id为{}的客户端信息吗？',
+      name: 'sys_label_sys_client_del_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请选择需要删除的客户端`
+  String get sys_label_sys_client_del_select_empty {
+    return Intl.message(
+      '请选择需要删除的客户端',
+      name: 'sys_label_sys_client_del_select_empty',
       desc: '',
       args: [],
     );

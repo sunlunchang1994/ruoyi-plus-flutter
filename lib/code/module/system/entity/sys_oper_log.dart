@@ -1,12 +1,13 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../base/api/json_converter.dart';
+import '../../../feature/component/adapter/app_select_box.dart';
 
 part 'sys_oper_log.g.dart';
 
 ///操作日志记录表 oper_log
 @JsonSerializable()
-class SysOperLog {
+class SysOperLog with AppSelectBoxMixin<SysOperLog> {
   ///日志主键
   @IntConverter()
   int? operId;
@@ -89,13 +90,11 @@ class SysOperLog {
       this.operTime,
       this.costTime});
 
-  factory SysOperLog.fromJson(Map<String, dynamic> json) =>
-      _$SysOperLogFromJson(json);
+  factory SysOperLog.fromJson(Map<String, dynamic> json) => _$SysOperLogFromJson(json);
 
   Map<String, dynamic> toJson() => _$SysOperLogToJson(this);
 
   static List<SysOperLog> fromJsonList(List<dynamic>? data) {
-    return data?.map((json) => SysOperLog.fromJson(json)).toList() ??
-        List.empty();
+    return data?.map((json) => SysOperLog.fromJson(json)).toList() ?? List.empty();
   }
 }

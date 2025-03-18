@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:ruoyi_plus_flutter/code/base/entity/tenant_entity.dart';
+import 'package:ruoyi_plus_flutter/code/feature/component/adapter/app_select_box.dart';
 
 import '../../../base/api/json_converter.dart';
 
@@ -8,7 +9,7 @@ part 'sys_notice.g.dart';
 ///@author slc
 ///通知公告实体类
 @JsonSerializable()
-class SysNotice extends TenantEntity {
+class SysNotice extends TenantEntity with AppSelectBoxMixin<SysNotice> {
   //菜单ID
   @IntConverter()
 
@@ -41,13 +42,11 @@ class SysNotice extends TenantEntity {
       this.status,
       this.remark});
 
-  factory SysNotice.fromJson(Map<String, dynamic> json) =>
-      _$SysNoticeFromJson(json);
+  factory SysNotice.fromJson(Map<String, dynamic> json) => _$SysNoticeFromJson(json);
 
   Map<String, dynamic> toJson() => _$SysNoticeToJson(this);
 
   static List<SysNotice> fromJsonList(List<dynamic>? data) {
-    return data?.map((json) => SysNotice.fromJson(json)).toList() ??
-        List.empty();
+    return data?.map((json) => SysNotice.fromJson(json)).toList() ?? List.empty();
   }
 }

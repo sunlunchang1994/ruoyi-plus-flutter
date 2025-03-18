@@ -2,13 +2,14 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:ruoyi_plus_flutter/code/base/entity/tenant_entity.dart';
 
 import '../../../../base/api/json_converter.dart';
+import '../../../component/adapter/app_select_box.dart';
 
 part 'sys_oss_vo.g.dart';
 
 ///@author sunlunchang
 ///文件上传返回信息
 @JsonSerializable()
-class SysOssVo extends TenantEntity {
+class SysOssVo extends TenantEntity with AppSelectBoxMixin<SysOssVo> {
   ///对象存储主键
   @IntConverter()
   int? ossId;

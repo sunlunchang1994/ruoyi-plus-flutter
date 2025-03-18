@@ -1,4 +1,5 @@
 import 'package:ruoyi_plus_flutter/code/base/entity/tenant_entity.dart';
+import 'package:ruoyi_plus_flutter/code/feature/component/adapter/app_select_box.dart';
 
 import '../../../../base/api/json_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -8,7 +9,7 @@ part 'sys_config.g.dart';
 ///@author sunlunchang
 ///参数配置
 @JsonSerializable()
-class SysConfig extends TenantEntity {
+class SysConfig extends TenantEntity with AppSelectBoxMixin<SysConfig> {
   ///参数主键
   @IntConverter()
   int? configId;
@@ -39,8 +40,7 @@ class SysConfig extends TenantEntity {
       this.configType,
       this.remark});
 
-  factory SysConfig.fromJson(Map<String, dynamic> json) =>
-      _$SysConfigFromJson(json);
+  factory SysConfig.fromJson(Map<String, dynamic> json) => _$SysConfigFromJson(json);
 
   Map<String, dynamic> toJson() => _$SysConfigToJson(this);
 

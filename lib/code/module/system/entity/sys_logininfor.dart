@@ -1,12 +1,13 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../base/api/json_converter.dart';
+import '../../../feature/component/adapter/app_select_box.dart';
 
 part 'sys_logininfor.g.dart';
 
 ///系统访问记录表 sys_logininfor
 @JsonSerializable()
-class SysLogininfor {
+class SysLogininfor with AppSelectBoxMixin<SysLogininfor> {
   ///ID
   @IntConverter()
   int? infoId;

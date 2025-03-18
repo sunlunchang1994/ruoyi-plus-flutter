@@ -1,12 +1,13 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/json_converter.dart';
+import 'package:ruoyi_plus_flutter/code/feature/component/adapter/app_select_box.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_tenant_package.dart';
 import 'package:ruoyi_plus_flutter/code/base/entity/base_entity.dart';
 
 part 'sys_tenant.g.dart';
 
 @JsonSerializable()
-class SysTenant extends BaseEntity {
+class SysTenant extends BaseEntity with AppSelectBoxMixin<SysTenant> {
   @IntConverter()
   int? id;
 
@@ -58,6 +59,7 @@ class SysTenant extends BaseEntity {
   //仅新增时使用
   ///用户名
   String? username;
+
   ///password
   String? password;
 

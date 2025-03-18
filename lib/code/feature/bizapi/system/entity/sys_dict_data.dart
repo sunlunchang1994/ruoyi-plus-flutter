@@ -11,7 +11,9 @@ part 'sys_dict_data.g.dart';
 ///@author sunlunchang
 ///字典类型
 @JsonSerializable()
-class SysDictData extends TenantEntity with AppSelectBoxMixin<SysDictData> implements ITreeDict<SysDictData> {
+class SysDictData extends TenantEntity
+    with AppSelectBoxMixin<SysDictData>
+    implements ITreeDict<SysDictData> {
   static const String DEF_TAG = "Y";
 
   ///字典编码
@@ -54,8 +56,7 @@ class SysDictData extends TenantEntity with AppSelectBoxMixin<SysDictData> imple
       this.isDefault,
       this.remark});
 
-  factory SysDictData.fromJson(Map<String, dynamic> json) =>
-      _$SysDictDataFromJson(json);
+  factory SysDictData.fromJson(Map<String, dynamic> json) => _$SysDictDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$SysDictDataToJson(this);
 

@@ -66,12 +66,23 @@ class ConfigListPageWidget {
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
         title: Text(listItem.configName!),
         subtitle: Text(listItem.configKey!),
-        trailing: buildTrailing.call(listItem),
+        trailing: WidgetUtils.getAnimCrossFade(
+            Checkbox(
+              value: listItem.isBoxChecked(),
+              onChanged: (value) {
+                listItem.boxChecked = value;
+                listenerItemSelect.onItemSelect(index, listItem, value);
+              },
+            ),
+            buildTrailing.call(listItem) ?? WidgetUtils.getBoxStandard(),
+            showOne: listenerItemSelect.selectModelIsRun),
         visualDensity: VisualDensity.compact,
-        //根据card规则实现
+        //tileColor: SlcColors.getCardColorByTheme(themeData),
         onTap: () {
           listenerItemSelect.onItemClick(index, listItem);
-          //getVm().nextByDept(listItem);
+        },
+        onLongPress: () {
+          listenerItemSelect.onItemLongClick(index, listItem);
         });
   }
 

@@ -69,7 +69,25 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                           onPressed: () {
                             getVm().onSave();
                           },
-                          icon: Icon(Icons.save))
+                          icon: Icon(Icons.save)),
+                      if (sysClient != null)
+                        PopupMenuButton(itemBuilder: (context) {
+                          return [
+                            PopupMenuItem(
+                              child: Text(S.current.action_delete),
+                              onTap: () {
+                                FastDialogUtils.showDelConfirmDialog(context,
+                                    contentText: TextUtil.format(
+                                        S.current.sys_label_sys_client_del_prompt,
+                                        [sysClient?.clientId ?? ""])).then((confirm) {
+                                  if (confirm == true) {
+                                    getVm().onDelete();
+                                  }
+                                });
+                              },
+                            )
+                          ];
+                        })
                     ],
                   ),
                   body: getStatusBody(context)));
@@ -199,8 +217,7 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                           getVm().applyInfoChange();
                         },
                         validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(),
-                          FormBuilderValidators.integer(),
+                          FormBuilderValidators.integer(checkNullOrEmpty: false),
                         ]),
                         textInputAction: TextInputAction.next),
                     ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
@@ -218,8 +235,7 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                           getVm().applyInfoChange();
                         },
                         validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(),
-                          FormBuilderValidators.integer(),
+                          FormBuilderValidators.integer(checkNullOrEmpty: false),
                         ]),
                         textInputAction: TextInputAction.next),
                     ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
@@ -386,6 +402,20 @@ class _SysClientAddEditVm extends AppBaseVm with CancelTokenAssist {
     }, onError: (error) {
       dismissLoading();
       BaseDio.handlerError(error);
+    });
+  }
+
+  //删除客户端
+  void onDelete() {
+    showLoading(text: S.current.label_delete_ing);
+    SysClientRepository.delete(defCancelToken, id: sysClient!.id).then((value) {
+      dismissLoading();
+      AppToastUtil.showToast(msg: S.current.label_delete_success);
+      finish(result: true);
+    }, onError: (e) {
+      dismissLoading();
+      BaseDio.handlerError(e);
+      AppToastUtil.showToast(msg: S.current.label_delete_failed);
     });
   }
 }

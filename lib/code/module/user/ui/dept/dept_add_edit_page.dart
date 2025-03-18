@@ -400,7 +400,7 @@ class _DeptAddEditModel extends AppBaseVm with CancelTokenAssist {
     });
   }
 
-  //删除角色
+  //删除部门
   void onDelete() {
     showLoading(text: S.current.label_delete_ing);
     DeptRepository.delete(defCancelToken, deptId: deptInfo!.deptId).then((value) {
