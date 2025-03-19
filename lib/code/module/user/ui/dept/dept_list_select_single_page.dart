@@ -18,8 +18,7 @@ import 'dept_list_page_vd.dart';
 ///
 /// 部门单选列表
 ///
-class DeptListSingleSelectPage
-    extends AppBaseStatelessWidget<_DeptListSingleSelectVm> {
+class DeptListSingleSelectPage extends AppBaseStatelessWidget<_DeptListSingleSelectVm> {
   static const String routeName = '/system/dept/single';
 
   final String title;
@@ -36,24 +35,17 @@ class DeptListSingleSelectPage
         getVm().initVm();
         return PopScope(
             canPop: false,
-            onPopInvokedWithResult: (didPop, result) {
-              if (didPop) {
-                return;
-              }
-              if (getVm().listVmSub.canPop()) {
-                Navigator.pop(context);
-                return;
-              }
-              getVm().listVmSub.autoPrevious();
-            },
+            onPopInvokedWithResult:
+                getVm().listVmSub.getPopInvokedWithTree(handlerLast: (didPop, result) {
+              Navigator.pop(context);
+            }),
             child: Scaffold(
                 appBar: AppBar(title: Text(title)),
                 //图标滚动使用固定大小来解决
                 body: Column(children: [
                   Selector<_DeptListSingleSelectVm, List<SlcTreeNav>>(
                       builder: (context, value, child) {
-                    return TreeNavVd.getNavWidget(themeData, value,
-                        (currentItem) {
+                    return TreeNavVd.getNavWidget(themeData, value, (currentItem) {
                       getVm().listVmSub.previous(currentItem.id);
                     });
                   }, selector: (context, vm) {
@@ -71,17 +63,11 @@ class DeptListSingleSelectPage
                               return Ink(
                                   child: InkWell(
                                       child: Padding(
-                                          padding: EdgeInsets.all(
-                                              SlcDimens.appDimens12),
-                                          child: const Icon(
-                                              Icons.radio_button_off,
-                                              size: 24)),
+                                          padding: EdgeInsets.all(SlcDimens.appDimens12),
+                                          child: const Icon(Icons.radio_button_off, size: 24)),
                                       onTap: () {
                                         //单选事件
-                                        getVm()
-                                            .listVmSub
-                                            .onSuffixClick
-                                            ?.call(currentItem);
+                                        getVm().listVmSub.onSuffixClick?.call(currentItem);
                                       }));
                             });
                           }, selector: (context, vm) {
@@ -107,8 +93,8 @@ class _DeptListSingleSelectVm extends AppBaseVm {
       //选择了
       finish(result: data);
     };
-    SlcTreeNav slcTreeNav = SlcTreeNav(
-        ConstantBase.VALUE_PARENT_ID_DEF, S.current.user_label_top_dept);
+    SlcTreeNav slcTreeNav =
+        SlcTreeNav(ConstantBase.VALUE_PARENT_ID_DEF, S.current.user_label_top_dept);
     listVmSub.next(slcTreeNav, notify: false);
   }
 }

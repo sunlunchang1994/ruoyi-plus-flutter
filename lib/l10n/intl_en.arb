@@ -357,6 +357,8 @@
   "sys_label_menu_cache_status": "是否缓存",
   "sys_label_menu_display_status": "显示状态",
   "sys_label_menu_menu_status": "菜单状态",
+  "sys_label_menu_del_prompt": "确定要删除名称为{}的菜单吗？",
+  "sys_label_menu_del_select_empty": "请选择需要删除的菜单",
 
   "sys_label_dict_type_search_title": "搜索字典类型",
   "sys_label_dict_type": "字典类型",

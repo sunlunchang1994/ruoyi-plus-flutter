@@ -4,11 +4,11 @@ import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 
-import '../../../../../generated/l10n.dart';
-import '../../../../base/config/constant_base.dart';
-import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
-import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
-import '../../../../lib/fast/vd/list_data_vd.dart';
+import '../../../../../../generated/l10n.dart';
+import '../../../../../base/config/constant_base.dart';
+import '../../../../../feature/component/tree/entity/slc_tree_nav.dart';
+import '../../../../../feature/component/tree/vd/tree_data_list_vd.dart';
+import '../../../../../lib/fast/vd/list_data_vd.dart';
 import 'menu_tree_page_vd.dart';
 
 class MenuTreeBrowserPage extends AppBaseStatelessWidget<_MenuTreeBrowserVm> {

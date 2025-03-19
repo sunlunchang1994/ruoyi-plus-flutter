@@ -14,6 +14,7 @@ import '../../../../base/config/constant_base.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
+import '../../../../lib/fast/utils/widget_utils.dart';
 import '../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../lib/fast/vd/refresh/content_empty.dart';
 import 'package:dio/dio.dart';
@@ -57,12 +58,23 @@ class MenuListPageWidget {
     return ListTile(
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
         title: Text(listItem.menuName!),
-        trailing: buildTrailing.call(listItem),
+        trailing: WidgetUtils.getAnimCrossFade(
+            Checkbox(
+              value: listItem.isBoxChecked(),
+              onChanged: (value) {
+                listItem.boxChecked = value;
+                listenerItemSelect.onItemSelect(index, listItem, value);
+              },
+            ),
+            buildTrailing.call(listItem) ?? WidgetUtils.getBoxStandard(),
+            showOne: listenerItemSelect.selectModelIsRun),
         visualDensity: VisualDensity.compact,
-        //根据card规则实现
+        //tileColor: SlcColors.getCardColorByTheme(themeData),
         onTap: () {
           listenerItemSelect.onItemClick(index, listItem);
-          //getVm().nextByDept(listItem);
+        },
+        onLongPress: () {
+          listenerItemSelect.onItemLongClick(index, listItem);
         });
   }
 
@@ -91,12 +103,12 @@ class MenuListDataVmSub extends TreeFastBaseListDataVmSub<SysMenu> {
       //1、首次进来获取网络数据
       //2、后续通过点击当前列表，根据当前列表和点击的item获取点击的item的子节点
       //查找上一个树节点id
-      int? previousTreeId = getPreviousTreeId();
+      SlcTreeNav? previousTree = getPreviousTree();
+      int? previousTreeId = previousTree?.id;
       //上一个树节点id不是空时
       if (previousTreeId != null) {
         //获取目标栈堆的数据列表
-        List<SysMenu>? previousTreeStacksData =
-            treeStacksDataMap[previousTreeId];
+        List<SysMenu>? previousTreeStacksData = treeStacksDataMap[previousTreeId];
         if (previousTreeStacksData != null) {
           //数据不为空时通过lastTreeId查找目标数据，lastTreeId就是当前点击的item的id;
 
@@ -124,7 +136,7 @@ class MenuListDataVmSub extends TreeFastBaseListDataVmSub<SysMenu> {
         DataWrapper<List<SysMenu>> dataWrapper =
             DataTransformUtils.entity2LDWrapperShell(intensifyEntity,
                 data: _allTreeList?.where((item) {
-                  return ConstantBase.VALUE_PARENT_ID_DEF == item.parentId;
+                  return getLastTreeId() == item.parentId;
                 }).toList());
         return dataWrapper;
       } catch (e) {
@@ -172,14 +184,20 @@ class MenuListDataVmSub extends TreeFastBaseListDataVmSub<SysMenu> {
 
   ///跳转到指定的上一级
   void previous(dynamic treeId) {
-    _currentDeptSearch.parentId = treeId;
     super.previous(treeId);
+    SlcTreeNav? slcTreeNav = getLastTree();
+    _currentDeptSearch.parentId = slcTreeNav?.id ?? ConstantBase.VALUE_PARENT_ID_DEF;
+    _currentDeptSearch.parentName = slcTreeNav?.treeName ?? "";
     fastVm.notifyListeners();
   }
 
-  ///可以直接pop吗
-  bool canPop() {
-    return !canPrevious();
+  @override
+  void onFillListFormTarget(targetTreeId) {
+    List<SysMenu> resultList = _allTreeList?.where((item) {
+      return targetTreeId == item.parentId;
+    }).toList()?? List.empty(growable: true);
+    onSucceed(resultList);
+    //super.onFillListFormPrevious(targetTreeId);
   }
 
   @override
@@ -187,5 +205,11 @@ class MenuListDataVmSub extends TreeFastBaseListDataVmSub<SysMenu> {
     super.sendRefreshEvent(
         callRefreshParams: callRefreshParams ??
             CallRefreshParams(overOffset: 0, duration: Duration.zero));
+  }
+
+  ///刷新并清空树栈堆数据，主要用于当前列表进行增删改后使用
+  void refreshAndClearTreeStacks(){
+    treeStacksDataMap.clear();
+    sendRefreshEvent();
   }
 }

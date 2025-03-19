@@ -8,17 +8,17 @@ import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu_tree.dart'
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 
-import '../../../../../generated/l10n.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/api/result_entity.dart';
-import '../../../../base/repository/remote/data_transform_utils.dart';
-import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
-import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
-import '../../../../lib/fast/vd/list_data_component.dart';
-import '../../../../lib/fast/vd/refresh/content_empty.dart';
+import '../../../../../../generated/l10n.dart';
+import '../../../../../base/api/base_dio.dart';
+import '../../../../../base/api/result_entity.dart';
+import '../../../../../base/repository/remote/data_transform_utils.dart';
+import '../../../../../feature/component/tree/entity/slc_tree_nav.dart';
+import '../../../../../feature/component/tree/vd/tree_data_list_vd.dart';
+import '../../../../../lib/fast/vd/list_data_component.dart';
+import '../../../../../lib/fast/vd/refresh/content_empty.dart';
 import 'package:dio/dio.dart';
 
-import '../../repository/remote/menu_api.dart';
+import '../../../repository/remote/menu_api.dart';
 
 ///@author slc
 ///菜单树列表

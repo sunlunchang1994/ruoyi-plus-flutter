@@ -11,7 +11,7 @@ import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
 import '../../../../lib/fast/vd/list_data_vd.dart';
 import 'menu_list_page_vd.dart';
-import 'menu_tree_page_vd.dart';
+import 'tree/menu_tree_page_vd.dart';
 
 class MenuListSelectSinglePage extends AppBaseStatelessWidget<_MenuListSelectSingleVm> {
   static const String routeName = '/system/menu/select_single';
@@ -30,16 +30,10 @@ class MenuListSelectSinglePage extends AppBaseStatelessWidget<_MenuListSelectSin
           getVm().initVm();
           return PopScope(
             canPop: false,
-            onPopInvokedWithResult: (didPop, result) {
-              if (didPop) {
-                return;
-              }
-              if (getVm().listVmSub.canPop()) {
-                Navigator.pop(context);
-                return;
-              }
-              getVm().listVmSub.autoPrevious();
-            },
+            onPopInvokedWithResult:
+            getVm().listVmSub.getPopInvokedWithTree(handlerLast: (didPop, result) {
+              Navigator.pop(context);
+            }),
             child: Scaffold(
                 appBar: AppBar(title: Text(title)),
                 body: Column(children: [

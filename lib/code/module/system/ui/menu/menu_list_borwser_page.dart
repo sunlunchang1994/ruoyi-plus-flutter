@@ -15,7 +15,7 @@ import '../../../../lib/fast/vd/list_data_vd.dart';
 import '../../config/constant_sys.dart';
 import 'menu_add_edit_page.dart';
 import 'menu_list_page_vd.dart';
-import 'menu_tree_page_vd.dart';
+import 'tree/menu_tree_page_vd.dart';
 
 class MenuListBrowserPage extends AppBaseStatelessWidget<_MenuListBrowserVm> {
   static const String routeName = '/system/menu';
@@ -34,20 +34,14 @@ class MenuListBrowserPage extends AppBaseStatelessWidget<_MenuListBrowserVm> {
           getVm().initVm();
           return PopScope(
             canPop: false,
-            onPopInvokedWithResult: (didPop, result) {
-              if (didPop) {
-                return;
-              }
-              if (getVm().listVmSub.canPop()) {
-                Navigator.pop(context);
-                return;
-              }
-              getVm().listVmSub.autoPrevious();
-            },
+            onPopInvokedWithResult:
+                getVm().listVmSub.getPopInvokedWithTree(handlerLast: (didPop, result) {
+              Navigator.pop(context);
+            }),
             child: Scaffold(
                 appBar: AppBar(title: Text(title)),
                 floatingActionButton:
-                NqSelector<_MenuListBrowserVm, bool>(builder: (context, value, child) {
+                    NqSelector<_MenuListBrowserVm, bool>(builder: (context, value, child) {
                   return WidgetUtils.getAnimVisibility(
                       !value,
                       FloatingActionButton(
@@ -61,8 +55,7 @@ class MenuListBrowserPage extends AppBaseStatelessWidget<_MenuListBrowserVm> {
                 body: Column(children: [
                   Selector<_MenuListBrowserVm, List<SlcTreeNav>>(
                     builder: (context, value, child) {
-                      return TreeNavVd.getNavWidget(themeData, value,
-                          (currentItem) {
+                      return TreeNavVd.getNavWidget(themeData, value, (currentItem) {
                         getVm().listVmSub.previous(currentItem.id);
                       });
                     },
@@ -74,25 +67,18 @@ class MenuListBrowserPage extends AppBaseStatelessWidget<_MenuListBrowserVm> {
                     },
                   ),
                   Expanded(
-                      child: ListDataVd(getVm().listVmSub, getVm(),
-                          refreshOnStart: true, child:
-                              Consumer<_MenuListBrowserVm>(
-                                  builder: (context, vm, child) {
-                    return MenuListPageWidget.getDataListWidget(
-                        themeData, getVm().listVmSub, (currentItem) {
+                      child: ListDataVd(getVm().listVmSub, getVm(), refreshOnStart: true,
+                          child: Consumer<_MenuListBrowserVm>(builder: (context, vm, child) {
+                    return MenuListPageWidget.getDataListWidget(themeData, getVm().listVmSub,
+                        (currentItem) {
                       return Ink(
                           child: InkWell(
                               child: Padding(
-                                  padding:
-                                      EdgeInsets.all(SlcDimens.appDimens12),
-                                  child: const Icon(Icons.chevron_right,
-                                      size: 24)),
+                                  padding: EdgeInsets.all(SlcDimens.appDimens12),
+                                  child: const Icon(Icons.chevron_right, size: 24)),
                               onTap: () {
                                 //点击更多事件
-                                getVm()
-                                    .listVmSub
-                                    .onSuffixClick
-                                    ?.call(currentItem);
+                                getVm().listVmSub.onSuffixClick?.call(currentItem);
                               }));
                     });
                   })))
@@ -113,27 +99,27 @@ class _MenuListBrowserVm extends AppBaseVm {
     registerVmSub(listVmSub);
 
     listVmSub.onSuffixClick = (SysMenu data) {
-      pushNamed(MenuAddEditPage.routeName,
-          arguments: {ConstantSys.KEY_MENU: data}).then((value) {
+      pushNamed(MenuAddEditPage.routeName, arguments: {ConstantSys.KEY_MENU: data}).then((value) {
         if (value != null) {
-          listVmSub.sendRefreshEvent();
+          listVmSub.refreshAndClearTreeStacks();
         }
       });
     };
 
-    SlcTreeNav slcTreeNav =
-        SlcTreeNav(ConstantBase.VALUE_PARENT_ID_DEF, S.current.menu_label_root);
+    SlcTreeNav slcTreeNav = SlcTreeNav(ConstantBase.VALUE_PARENT_ID_DEF, S.current.menu_label_root);
     listVmSub.next(slcTreeNav, notify: false);
   }
 
   ///添加菜单事件
   void onAddItem() {
-    pushNamed(MenuAddEditPage.routeName).then((result) {
+    SlcTreeNav? lastTree = listVmSub.getLastTree();
+    pushNamed(MenuAddEditPage.routeName, arguments: {
+      ConstantSys.KEY_MENU_PARENT: SysMenu(menuId: lastTree?.id, menuName: lastTree?.treeName)
+    }).then((result) {
       if (result != null) {
         //更新列表
-        listVmSub.sendRefreshEvent();
+        listVmSub.refreshAndClearTreeStacks();
       }
     });
   }
-
 }

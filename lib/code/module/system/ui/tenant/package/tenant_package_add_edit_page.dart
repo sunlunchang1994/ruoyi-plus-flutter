@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -27,7 +26,7 @@ import '../../../../../lib/fast/vd/request_token_manager.dart';
 import '../../../config/constant_sys.dart';
 import '../../../entity/sys_tenant_package.dart';
 import '../../../repository/remote/sys_tenant_package_api.dart';
-import '../../menu_tree/menu_tree_select_multiple_page.dart';
+import '../../menu/tree/menu_tree_select_multiple_page.dart';
 
 class TenantPackageAddEditPage extends AppBaseStatelessWidget<_TenantPackageAddEditVm> {
   static const String routeName = '/tenant/tenantPackage/add_edit';

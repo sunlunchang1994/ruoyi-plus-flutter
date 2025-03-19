@@ -1,11 +1,9 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/status_widget.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
@@ -18,11 +16,9 @@ import 'package:ruoyi_plus_flutter/code/lib/form/fast_form_builder_field_option.
 import 'package:ruoyi_plus_flutter/code/lib/form/fast_form_builder_text_field.dart';
 import 'package:ruoyi_plus_flutter/code/lib/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/lib/form/input_decoration_utils.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/menu_tree/menu_tree_borwser_page.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
-import '../../../../base/api/result_entity.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
 import '../../../../base/vm/global_vm.dart';
 import '../../../../feature/bizapi/user/entity/role.dart';
@@ -31,8 +27,7 @@ import '../../../../feature/component/dict/entity/tree_dict.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import '../../../system/config/constant_sys.dart';
-import '../../../system/ui/dict/data/dict_data_list_multiple_choices_dialog.dart';
-import '../../../system/ui/menu_tree/menu_tree_select_multiple_page.dart';
+import '../../../system/ui/menu/tree/menu_tree_select_multiple_page.dart';
 import '../../repository/remote/role_api.dart';
 
 class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {

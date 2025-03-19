@@ -127,6 +127,12 @@ class TreeFastBaseListDataVmSub<T> extends FastBaseListDataVmSub<T> with CancelT
       treeStacksDataMap.remove(item.id);
     }
     //设置当前的数据
+    onFillListFormTarget(targetTreeId);
+  }
+
+  /// 根据上一级填充数据
+  void onFillListFormTarget(dynamic targetTreeId){
+    //设置当前的数据
     List<T>? treStackData = treeStacksDataMap[targetTreeId] ?? List.empty(growable: true);
     onSucceed(treStackData);
   }

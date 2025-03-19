@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/status_widget.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
@@ -70,7 +71,25 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
                           onPressed: () {
                             getVm().onSave();
                           },
-                          icon: const Icon(Icons.save))
+                          icon: const Icon(Icons.save)),
+                      if (sysMenuInfo != null)
+                        PopupMenuButton(itemBuilder: (context) {
+                          return [
+                            PopupMenuItem(
+                              child: Text(S.current.action_delete),
+                              onTap: () {
+                                FastDialogUtils.showDelConfirmDialog(context,
+                                    contentText: TextUtil.format(
+                                        S.current.sys_label_menu_del_prompt,
+                                        [sysMenuInfo?.menuName ?? ""])).then((confirm) {
+                                  if (confirm == true) {
+                                    getVm().onDelete();
+                                  }
+                                });
+                              },
+                            )
+                          ];
+                        })
                     ]),
                 body: getStatusBody(context)));
       },
@@ -394,6 +413,8 @@ class _MenuAddEditModel extends AppBaseVm with CancelTokenAssist {
     }
     if (menuInfo == null) {
       sysMenuInfo = SysMenu();
+      sysMenuInfo!.parentId = parentMenu!.menuId;
+      sysMenuInfo!.parentName = parentMenu.menuName;
       //父部门不是跟节点则不赋值，让用户选择
       sysMenuInfo!.menuType = LocalDictLib.KEY_MENU_TYPE_MULU;
       sysMenuInfo!.isFrame = LocalDictLib.KEY_SYS_YES_NO_INT_N;
@@ -467,6 +488,20 @@ class _MenuAddEditModel extends AppBaseVm with CancelTokenAssist {
     }, onError: (error) {
       dismissLoading();
       BaseDio.handlerError(error);
+    });
+  }
+
+  //删除菜单
+  void onDelete() {
+    showLoading(text: S.current.label_delete_ing);
+    MenuRepository.delete(defCancelToken, menuId: sysMenuInfo!.menuId).then((value) {
+      dismissLoading();
+      AppToastUtil.showToast(msg: S.current.label_delete_success);
+      finish(result: true);
+    }, onError: (e) {
+      dismissLoading();
+      BaseDio.handlerError(e);
+      AppToastUtil.showToast(msg: S.current.label_delete_failed);
     });
   }
 }

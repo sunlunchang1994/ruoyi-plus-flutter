@@ -2905,6 +2905,26 @@ class S {
     );
   }
 
+  /// `确定要删除名称为{}的菜单吗？`
+  String get sys_label_menu_del_prompt {
+    return Intl.message(
+      '确定要删除名称为{}的菜单吗？',
+      name: 'sys_label_menu_del_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请选择需要删除的菜单`
+  String get sys_label_menu_del_select_empty {
+    return Intl.message(
+      '请选择需要删除的菜单',
+      name: 'sys_label_menu_del_select_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `搜索字典类型`
   String get sys_label_dict_type_search_title {
     return Intl.message(
