@@ -448,10 +448,9 @@ class _UserAddEditVm extends AppBaseVm with CancelTokenAssist {
       userInfoVo = intensifyEntity.data;
       userInfoVo!.user = userInfoVo!.user ?? User();
       setLoadingStatus(LoadingStatus.success);
-    }, onError: (e) {
-      BaseDio.handlerError(e);
+    }, onError:BaseDio.errorProxyFunc(onError: (error) {
       finish();
-    });
+    }));
   }
 
   void onSelectOwnerDept() {

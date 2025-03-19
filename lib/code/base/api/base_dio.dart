@@ -24,7 +24,7 @@ class BaseDio {
     return _instance;
   }
 
-  Dio? _dio = null;
+  Dio? _dio;
 
   // 把构造方法私有化
   BaseDio._() {
@@ -60,28 +60,6 @@ class BaseDio {
     return _dio!;
   }
 
-  /// 静态方法
-  static ResultEntity handlerError(dynamic error,
-      {String? defErrMsg, bool showToast = true, bool showUnauthorized = true}) {
-    ResultEntity resultEntity = getError(error, defErrMsg: defErrMsg);
-    if (showUnauthorized && handlerUnauthorized(resultEntity)) {
-      // no thing
-    } else if (showToast) {
-      BaseDio.showToast(resultEntity);
-    }
-    return resultEntity;
-  }
-
-  ///获取错误码
-  static int getErrorCode(dynamic error, {String? defErrMsg}) {
-    return getError(error, defErrMsg: defErrMsg).code!;
-  }
-
-  ///获取错误信息
-  static String getErrorMsg(dynamic error, {String? defErrMsg}) {
-    return getError(error, defErrMsg: defErrMsg).msg!;
-  }
-
   ///获取错误结果对象
   static ResultEntity getError(dynamic error, {String? defErrMsg}) {
     LogUtil.e(error, tag: "getError");
@@ -101,18 +79,22 @@ class BaseDio {
             ResultEntity baseEntity = ResultEntity.createSucceedFail(
                 S.current.label_error_connection_timeout,
                 code: ApiConfig.VALUE_CODE_ERROR_REQUEST);
+            return baseEntity;
           } else if (error.type == DioExceptionType.sendTimeout) {
             ResultEntity baseEntity = ResultEntity.createSucceedFail(
                 S.current.label_error_send_timeout,
                 code: ApiConfig.VALUE_CODE_ERROR_REQUEST);
+            return baseEntity;
           } else if (error.type == DioExceptionType.receiveTimeout) {
             ResultEntity baseEntity = ResultEntity.createSucceedFail(
                 S.current.label_error_receive_timeout,
                 code: ApiConfig.VALUE_CODE_ERROR_REQUEST);
+            return baseEntity;
           } else if (error.type == DioExceptionType.connectionError) {
             ResultEntity baseEntity = ResultEntity.createSucceedFail(
                 S.current.label_error_connection_error,
                 code: ApiConfig.VALUE_CODE_ERROR_REQUEST);
+            return baseEntity;
           }
           //if (error.type == DioExceptionType.badResponse) {//替换成了下面这句
           else {
@@ -138,18 +120,36 @@ class BaseDio {
     return ResultEntity(code: defCode, msg: defErrMsg);
   }
 
-  static void showToastByError(dynamic error, {String? defErrMsg}) {
-    showToast(getError(error, defErrMsg: defErrMsg));
+  ///直接调用此方法给Future
+  static errorProxyFunc({
+    String? defErrMsg,
+    bool showToast = true,
+    bool showUnauthorized = true,
+    Function(ResultEntity entity)? onError,
+  }) {
+    return (error) {
+      ResultEntity entity = handlerError(error,
+          defErrMsg: defErrMsg, showToast: showToast, showUnauthorized: showUnauthorized);
+      if (showUnauthorized && entity.isUnauthorized()) {
+        return;
+      }
+      onError?.call(entity);
+    };
   }
 
-  static void showToast(ResultEntity resultEntity) {
-    if (resultEntity.code == ApiConfig.VALUE_CODE_CANCEL) {
-      //主动取消不显示提示
-      return;
+  /// 处理错误
+  static ResultEntity handlerError(dynamic error,
+      {String? defErrMsg, bool showToast = true, bool showUnauthorized = true}) {
+    ResultEntity resultEntity = getError(error, defErrMsg: defErrMsg);
+    if (showUnauthorized && handlerUnauthorized(resultEntity)) {
+      // no thing
+    } else if (showToast) {
+      BaseDio.showToast(resultEntity);
     }
-    AppToastUtil.showToast(msg: resultEntity.msg);
+    return resultEntity;
   }
 
+  ///处理未授权
   static bool handlerUnauthorized(ResultEntity resultEntity) {
     if (resultEntity.code == ApiConfig.VALUE_CODE_NORMAL_UNAUTHORIZED) {
       //在此处弹框
@@ -170,5 +170,27 @@ class BaseDio {
       return true;
     }
     return false;
+  }
+
+  ///获取错误码
+  static int getErrorCode(dynamic error, {String? defErrMsg}) {
+    return getError(error, defErrMsg: defErrMsg).code!;
+  }
+
+  ///获取错误信息
+  static String getErrorMsg(dynamic error, {String? defErrMsg}) {
+    return getError(error, defErrMsg: defErrMsg).msg!;
+  }
+
+  static void showToastByError(dynamic error, {String? defErrMsg}) {
+    showToast(getError(error, defErrMsg: defErrMsg));
+  }
+
+  static void showToast(ResultEntity resultEntity) {
+    if (resultEntity.code == ApiConfig.VALUE_CODE_CANCEL) {
+      //主动取消不显示提示
+      return;
+    }
+    AppToastUtil.showToast(msg: resultEntity.msg);
   }
 }

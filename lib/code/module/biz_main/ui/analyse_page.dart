@@ -133,14 +133,14 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
   }
 
   AxisTitles getBottomAxisTitles(String Function(double value, TitleMeta meta)? getTitlesText,
-      {double reservedSize = 36}) {
+      {double reservedSize = 36,double angle = 0.5}) {
     return AxisTitles(
       sideTitles: SideTitles(
           showTitles: true,
           reservedSize: reservedSize,
           getTitlesWidget: (value, meta) {
             return SideTitleWidget(
-              angle: 0.5,
+              angle: angle,
               meta: meta,
               child: Text(getTitlesText?.call(value, meta) ?? value.toString()),
             );
@@ -409,7 +409,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
                                       titlesData: FlTitlesData(
                                           bottomTitles: getBottomAxisTitles((value, meta) {
                                             return browseMonthList[value.round()].month;
-                                          }),
+                                          },angle: 0.7),
                                           rightTitles: const AxisTitles(
                                             sideTitles: SideTitles(showTitles: false),
                                           ),
@@ -420,7 +420,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
                                               getTitlesText: (value, meta) {
                                                 return value.round().toString();
                                               },
-                                              reservedSize: 48)),
+                                              reservedSize: 32)),
                                       borderData: getFlBorderData(themeData),
                                       //让触摸事件在空白的地方也显示tooltip
                                       barTouchData: BarTouchData(

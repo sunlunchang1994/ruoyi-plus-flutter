@@ -236,10 +236,10 @@ class OssConfigAddEditPage extends AppBaseStatelessWidget<_OssConfigAddEditVm> {
                     FormBuilderRadioGroup<OptionVL<String>>(
                         name: "isHttps",
                         initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
-                            LocalDictLib.CODE_SYS_YES_NO_INT, getVm().sysOssConfig!.isHttps,
-                            defDictKey: LocalDictLib.KEY_SYS_YES_NO_INT_N)),
+                            LocalDictLib.CODE_SYS_YES_NO, getVm().sysOssConfig!.isHttps,
+                            defDictKey: LocalDictLib.KEY_SYS_YES_NO_N)),
                         options: DictUiUtils.dictList2FromOption(
-                            globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_YES_NO_INT]!),
+                            globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_YES_NO]!),
                         decoration:
                             MyInputDecoration(labelText: S.current.sys_label_oss_config_is_https),
                         onChanged: (value) {
@@ -327,7 +327,7 @@ class _OssConfigAddEditVm extends AppBaseVm with CancelTokenAssist {
       sysOssConfig = SysOssConfig();
       ITreeDict<dynamic>? statusDict = GlobalVm()
           .dictShareVm
-          .findDict(LocalDictLib.CODE_SYS_YES_NO_INT, LocalDictLib.KEY_SYS_YES_NO_INT_N);
+          .findDict(LocalDictLib.CODE_SYS_YES_NO, LocalDictLib.KEY_SYS_YES_NO_N);
       sysOssConfig.isHttps = statusDict?.tdDictValue;
       ITreeDict<dynamic>? accessPolicyDict = GlobalVm().dictShareVm.findDict(
           LocalDictLib.CODE_ACCESS_POLICY_TYPE, LocalDictLib.KEY_ACCESS_POLICY_TYPE_PUBLIC);

@@ -19,6 +19,11 @@ abstract class IResultEntity {
     return code == 0 || code == ApiConfig.VALUE_CODE_SUCCEED;
   }
 
+  //未授权
+  bool isUnauthorized() {
+    return code == ApiConfig.VALUE_CODE_NORMAL_UNAUTHORIZED;
+  }
+
   IntensifyEntity<T> toIntensify<T>(
       {bool succeedEntity = false,
       IResultEntity Function()? createSucceed,
@@ -79,7 +84,9 @@ abstract class IResultEntity {
       bool createNull = false}) {
     return toPageIntensify(
         succeedEntity: succeedEntity,
-        data: data != null ? ResultPageModel.createPageModelByList(current, size, this as ResultPageModel, data) : null,
+        data: data != null
+            ? ResultPageModel.createPageModelByList(current, size, this as ResultPageModel, data)
+            : null,
         createData: createData != null
             ? (resultEntity) {
                 return (resultEntity).toPageModel(current, size, createRecords: (resultData) {
