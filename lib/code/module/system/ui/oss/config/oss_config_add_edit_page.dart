@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/status_widget.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
@@ -66,7 +67,25 @@ class OssConfigAddEditPage extends AppBaseStatelessWidget<_OssConfigAddEditVm> {
                           onPressed: () {
                             getVm().onSave();
                           },
-                          icon: Icon(Icons.save))
+                          icon: Icon(Icons.save)),
+                      if (sysOssConfig != null)
+                        PopupMenuButton(itemBuilder: (context) {
+                          return [
+                            PopupMenuItem(
+                              child: Text(S.current.action_delete),
+                              onTap: () {
+                                FastDialogUtils.showDelConfirmDialog(context,
+                                    contentText: TextUtil.format(
+                                        S.current.sys_label_oss_config_del_prompt,
+                                        [sysOssConfig!.configKey])).then((confirm) {
+                                  if (confirm == true) {
+                                    getVm().onDelete();
+                                  }
+                                });
+                              },
+                            )
+                          ];
+                        })
                     ],
                   ),
                   body: getStatusBody(context)));
@@ -363,6 +382,20 @@ class _OssConfigAddEditVm extends AppBaseVm with CancelTokenAssist {
     }, onError: (error) {
       dismissLoading();
       BaseDio.handlerError(error);
+    });
+  }
+
+  //删除字典类型
+  void onDelete() {
+    showLoading(text: S.current.label_delete_ing);
+    SysOssConfigRepository.delete(defCancelToken, id: sysOssConfig!.ossConfigId).then((value) {
+      dismissLoading();
+      AppToastUtil.showToast(msg: S.current.label_delete_success);
+      finish(result: true);
+    }, onError: (e) {
+      dismissLoading();
+      BaseDio.handlerError(e);
+      AppToastUtil.showToast(msg: S.current.label_delete_failed);
     });
   }
 }

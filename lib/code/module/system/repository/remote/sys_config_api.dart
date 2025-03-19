@@ -53,9 +53,8 @@ class SysConfigRepository {
     return _sysConfigApiClient
         .list(RequestUtils.toPageQuery(sysConfig?.toJson(), offset, size), cancelToken)
         .successMap2Single((event) {
-      return event.toIntensify(
-          createData: (resultEntity) => resultEntity.toPageModel(offset, size,
-              createRecords: (resultData) => SysConfig.fromJsonList(resultData)));
+      return event.toPage2Intensify(offset, size,
+          createData: (dataItem) => SysConfig.fromJson(dataItem));
     });
   }
 

@@ -63,17 +63,34 @@ class OssConfigListPageWidget {
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
         title: Text(listItem.configKey!),
         subtitle: Text("${listItem.endpoint} / ${listItem.bucketName}"),
-        trailing: Transform.scale(
-            scale: 0.8,
-            alignment: Alignment.centerLeft,
-            child: Switch(
-                value: listItem.isDefStatus(),
-                onChanged: (value) {
-                  (listenerItemSelect as OssConfigListDataVmSub).onChangeDefStatus(listItem, value);
-                })),
+        trailing: WidgetUtils.getAnimCrossFade(
+            Checkbox(
+              value: listItem.isBoxChecked(),
+              onChanged: (value) {
+                listItem.boxChecked = value;
+                listenerItemSelect.onItemSelect(index, listItem, value);
+              },
+            ),
+            WidgetUtils.getBoxStandard(
+              child: Transform.scale(
+                  scale: 0.7,
+                  origin: Offset(6, 0),
+                  alignment: Alignment.centerLeft,
+                  child: Switch(
+                      value: listItem.isDefStatus(),
+                      onChanged: (value) {
+                        (listenerItemSelect as OssConfigListDataVmSub)
+                            .onChangeDefStatus(listItem, value);
+                      })),
+            ),
+            showOne: listenerItemSelect.selectModelIsRun),
         visualDensity: VisualDensity.compact,
+        //tileColor: SlcColors.getCardColorByTheme(themeData),
         onTap: () {
           listenerItemSelect.onItemClick(index, listItem);
+        },
+        onLongPress: () {
+          listenerItemSelect.onItemLongClick(index, listItem);
         });
   }
 

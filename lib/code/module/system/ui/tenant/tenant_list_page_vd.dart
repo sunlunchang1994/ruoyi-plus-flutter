@@ -63,9 +63,23 @@ class TenantListPageWidget {
         subtitle: Text(TextUtil.isEmpty(listItem.expireTime)
             ? "-"
             : listItem.expireTime! + S.current.sys_label_sys_tenant_x_expire_time),
+        trailing: WidgetUtils.getAnimCrossFade(
+            Checkbox(
+              value: listItem.isBoxChecked(),
+              onChanged: (value) {
+                listItem.boxChecked = value;
+                listenerItemSelect.onItemSelect(index, listItem, value);
+              },
+            ),
+            buildTrailing?.call(listItem) ?? WidgetUtils.getBoxStandard(),
+            showOne: listenerItemSelect.selectModelIsRun),
         visualDensity: VisualDensity.compact,
+        //tileColor: SlcColors.getCardColorByTheme(themeData),
         onTap: () {
           listenerItemSelect.onItemClick(index, listItem);
+        },
+        onLongPress: () {
+          listenerItemSelect.onItemLongClick(index, listItem);
         });
   }
 
@@ -226,7 +240,7 @@ class TenantListDataVmSub extends FastBaseListDataPageVmSub<SysTenant> with Canc
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
         return dataWrapper;
       } catch (e) {
-        ResultEntity resultEntity = BaseDio.handlerError(e,showToast: false);
+        ResultEntity resultEntity = BaseDio.handlerError(e, showToast: false);
         return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
       }
     });

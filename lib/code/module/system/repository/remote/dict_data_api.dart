@@ -54,9 +54,8 @@ class DictDataRepository {
     return _dictDataApiClient
         .list(RequestUtils.toPageQuery(sysDictType?.toJson(), offset, size), cancelToken)
         .successMap2Single((event) {
-      return event.toIntensify(
-          createData: (resultEntity) => resultEntity.toPageModel(offset, size,
-              createRecords: (resultData) => SysDictData.fromJsonList(resultData)));
+      return event.toPage2Intensify(offset, size,
+          createData: (dataItem) => SysDictData.fromJson(dataItem));
     });
   }
 

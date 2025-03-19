@@ -3525,6 +3525,26 @@ class S {
     );
   }
 
+  /// `确定要删除Id为{}的日志信息吗？`
+  String get sys_label_log_del_prompt {
+    return Intl.message(
+      '确定要删除Id为{}的日志信息吗？',
+      name: 'sys_label_log_del_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请选择需要删除的日志`
+  String get sys_label_log_del_select_empty {
+    return Intl.message(
+      '请选择需要删除的日志',
+      name: 'sys_label_log_del_select_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `搜索文件`
   String get sys_label_oss_search {
     return Intl.message(
@@ -3630,6 +3650,26 @@ class S {
     return Intl.message(
       '获取下载路径失败，请检查相关权限！',
       name: 'sys_label_get_file_download_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `确定要删除名称为{}的文件吗？`
+  String get sys_label_oss_del_prompt {
+    return Intl.message(
+      '确定要删除名称为{}的文件吗？',
+      name: 'sys_label_oss_del_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请选择需要删除的文件`
+  String get sys_label_oss_del_select_empty {
+    return Intl.message(
+      '请选择需要删除的文件',
+      name: 'sys_label_oss_del_select_empty',
       desc: '',
       args: [],
     );
@@ -3770,6 +3810,26 @@ class S {
     return Intl.message(
       '修改Oss配置',
       name: 'sys_label_oss_config_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `确定要删除Key为{}的配置信息吗？`
+  String get sys_label_oss_config_del_prompt {
+    return Intl.message(
+      '确定要删除Key为{}的配置信息吗？',
+      name: 'sys_label_oss_config_del_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请选择需要删除的配置`
+  String get sys_label_oss_config_del_select_empty {
+    return Intl.message(
+      '请选择需要删除的配置',
+      name: 'sys_label_oss_config_del_select_empty',
       desc: '',
       args: [],
     );
@@ -3995,6 +4055,26 @@ class S {
     );
   }
 
+  /// `确定要删除名称为{}的租户套餐吗？`
+  String get sys_label_sys_tenant_package_del_prompt {
+    return Intl.message(
+      '确定要删除名称为{}的租户套餐吗？',
+      name: 'sys_label_sys_tenant_package_del_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请选择需要删除的租户套餐`
+  String get sys_label_sys_tenant_package_del_select_empty {
+    return Intl.message(
+      '请选择需要删除的租户套餐',
+      name: 'sys_label_sys_tenant_package_del_select_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `到期`
   String get sys_label_sys_tenant_x_expire_time {
     return Intl.message(
@@ -4150,6 +4230,26 @@ class S {
     return Intl.message(
       '企业简介',
       name: 'sys_label_sys_tenant_intro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `确定要删除名称为{}的租户吗？`
+  String get sys_label_sys_tenant_del_prompt {
+    return Intl.message(
+      '确定要删除名称为{}的租户吗？',
+      name: 'sys_label_sys_tenant_del_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请选择需要删除的租户`
+  String get sys_label_sys_tenant_del_select_empty {
+    return Intl.message(
+      '请选择需要删除的租户',
+      name: 'sys_label_sys_tenant_del_select_empty',
       desc: '',
       args: [],
     );

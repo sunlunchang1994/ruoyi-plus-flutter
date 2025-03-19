@@ -57,10 +57,8 @@ class SysOssConfigRepository {
     return _sysOssConfigClient
         .list(RequestUtils.toPageQuery(sysOssConfig?.toJson(), offset, size), cancelToken)
         .successMap2Single((event) {
-      return event.toIntensify(createData: (resultEntity) {
-        return resultEntity.toPageModel(offset, size, createRecords: (resultData) {
-          return SysOssConfig.fromJsonList(resultData);
-        });
+      return event.toPage2Intensify(offset, size,createData: (dataItem) {
+        return SysOssConfig.fromJson(dataItem);
       });
     });
   }

@@ -54,9 +54,8 @@ class DictTypeRepository {
     return _dictTypeApiClient
         .list(RequestUtils.toPageQuery(sysDictType?.toJson(), offset, size), cancelToken)
         .successMap2Single((event) {
-      return event.toIntensify(
-          createData: (resultEntity) => resultEntity.toPageModel(offset, size,
-              createRecords: (resultData) => SysDictType.fromJsonList(resultData)));
+      return event.toPage2Intensify(offset, size,
+          createData: (dataItem) => SysDictType.fromJson(dataItem));
     });
   }
 
@@ -76,8 +75,7 @@ class DictTypeRepository {
         ? _dictTypeApiClient.add(body, cancelToken)
         : _dictTypeApiClient.edit(body, cancelToken);
     return resultFuture.successMap2Single((event) {
-      var intensifyEntity = IntensifyEntity<SysDictType>(resultEntity: event);
-      return intensifyEntity;
+      return event.toIntensify();
     });
   }
 

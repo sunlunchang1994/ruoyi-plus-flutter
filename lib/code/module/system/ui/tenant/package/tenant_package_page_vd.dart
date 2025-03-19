@@ -30,7 +30,7 @@ import 'tenant_package_add_edit_page.dart';
 
 ///@author slc
 ///租户套餐
-class TenantPackageListPageWidget {
+class TenantPackagePageWidget {
   ///数据列表控件
   static Widget getDataListWidget(ThemeData themeData, IListDataVmSub listVmSub,
       {Widget? Function(SysTenantPackage currentItem)? buildTrailing}) {
@@ -58,9 +58,23 @@ class TenantPackageListPageWidget {
     return ListTile(
         contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
         title: Text(listItem.packageName!),
+        trailing: WidgetUtils.getAnimCrossFade(
+            Checkbox(
+              value: listItem.isBoxChecked(),
+              onChanged: (value) {
+                listItem.boxChecked = value;
+                listenerItemSelect.onItemSelect(index, listItem, value);
+              },
+            ),
+            buildTrailing?.call(listItem) ?? WidgetUtils.getBoxStandard(),
+            showOne: listenerItemSelect.selectModelIsRun),
         visualDensity: VisualDensity.compact,
+        //tileColor: SlcColors.getCardColorByTheme(themeData),
         onTap: () {
           listenerItemSelect.onItemClick(index, listItem);
+        },
+        onLongPress: () {
+          listenerItemSelect.onItemLongClick(index, listItem);
         });
   }
 

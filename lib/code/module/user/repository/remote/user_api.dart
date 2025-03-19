@@ -80,9 +80,8 @@ class UserServiceRepository {
       int offset, int size, User? user, CancelToken cancelToken) {
     Map<String, dynamic> queryParams = RequestUtils.toPageQuery(user?.toJson(), offset, size);
     return _userApiClient.list(queryParams, cancelToken).successMap2Single((event) {
-      return event.toIntensify(createData: (resultEntity) {
-        return resultEntity.toPageModel(offset, size,
-            createRecords: (rows) => User.formJsonList(rows));
+      return event.toPage2Intensify(offset, size, createData: (dataItem) {
+        return User.fromJson(dataItem);
       });
     });
   }

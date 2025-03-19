@@ -56,13 +56,8 @@ class SysNoticeRepository {
     return _sysConfigApiClient
         .list(RequestUtils.toPageQuery(sysConfig?.toJson(), offset, size), cancelToken)
         .successMap2Single((event) {
-      return event.toIntensify(
-          createData: (resultEntity) =>
-              resultEntity.toPageModel(offset, size, createRecords: (resultData) {
-                List<SysNotice> sysNoticeList = SysNotice.fromJsonList(resultData);
-                fillShowText(sysNoticeList);
-                return sysNoticeList;
-              }));
+      return event.toPage2Intensify(offset, size,
+          createData: (dataItem) => SysNotice.fromJson(dataItem));
     });
   }
 

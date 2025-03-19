@@ -62,10 +62,8 @@ class SysTenantRepository {
     return _sysTenantApiClient
         .list(RequestUtils.toPageQuery(sysTenant?.toJson(), offset, size), cancelToken)
         .successMap2Single((event) {
-      return event.toIntensify(createData: (resultEntity) {
-        return resultEntity.toPageModel(offset, size, createRecords: (resultData) {
-          return SysTenant.fromJsonList(resultData);
-        });
+      return event.toPage2Intensify(offset, size, createData: (dataItem) {
+        return SysTenant.fromJson(dataItem);
       });
     });
   }

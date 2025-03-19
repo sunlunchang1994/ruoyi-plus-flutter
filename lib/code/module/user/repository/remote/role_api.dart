@@ -55,9 +55,8 @@ class RoleRepository {
       int offset, int size, Role? role, CancelToken cancelToken) {
     Map<String, dynamic> queryParams = RequestUtils.toPageQuery(role?.toJson(), offset, size);
     return _roleApiClient.list(queryParams, cancelToken).successMap2Single((event) {
-      return event.toIntensify(createData: (resultEntity) {
-        return resultEntity.toPageModel(offset, size,
-            createRecords: (rows) => Role.formJsonList(rows));
+      return event.toPage2Intensify(offset, size, createData: (dataItem) {
+        return Role.fromJson(dataItem);
       });
     });
   }

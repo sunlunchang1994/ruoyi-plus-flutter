@@ -7,7 +7,7 @@ import 'package:ruoyi_plus_flutter/code/module/system/ui/tenant/package/tenant_p
 
 import '../../../../../lib/fast/utils/widget_utils.dart';
 import '../../../../../lib/fast/vd/list_data_vd.dart';
-import 'tenant_package_list_page_vd.dart';
+import 'tenant_package_page_vd.dart';
 
 ///
 /// @author slc
@@ -38,13 +38,13 @@ class TenantPackageSelectSinglePage extends AppBaseStatelessWidget<_TenantPackag
                 })
               ]),
               endDrawer:
-                  TenantPackageListPageWidget.getSearchEndDrawer<_TenantPackageSelectSingleVm>(
+                  TenantPackagePageWidget.getSearchEndDrawer<_TenantPackageSelectSingleVm>(
                       context, themeData, getVm().listVmSub.tenantPackageSearchHelper),
               body: ListDataVd(getVm().listVmSub, getVm(),
                   refreshOnStart: true,
                   child:
                       NqSelector<_TenantPackageSelectSingleVm, int>(builder: (context, vm, child) {
-                    return TenantPackageListPageWidget.getDataListWidget(
+                    return TenantPackagePageWidget.getDataListWidget(
                         themeData, getVm().listVmSub);
                   }, selector: (context, vm) {
                     return vm.listVmSub.shouldSetState.version;

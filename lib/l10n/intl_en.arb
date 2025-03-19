@@ -427,6 +427,9 @@
   "sys_label_logininfor_os": "操作系统",
   "sys_label_logininfor_status": "状态",
 
+  "sys_label_log_del_prompt": "确定要删除Id为{}的日志信息吗？",
+  "sys_label_log_del_select_empty": "请选择需要删除的日志",
+
   "sys_label_oss_search": "搜索文件",
   "sys_label_oss_view_file": "查看文件",
   "sys_label_oss_file_name": "文件名",
@@ -438,6 +441,8 @@
   "sys_label_oss_details": "文件详情",
   "sys_label_permission_file_download_hint": "下载并保存文件需要文件管理权限，请授予！",
   "sys_label_get_file_download_hint": "获取下载路径失败，请检查相关权限！",
+  "sys_label_oss_del_prompt": "确定要删除名称为{}的文件吗？",
+  "sys_label_oss_del_select_empty": "请选择需要删除的文件",
 
   "sys_label_oss_config_name": "配置管理",
   "sys_label_oss_config_key": "配置key",
@@ -453,6 +458,8 @@
   "sys_label_oss_config_remark": "备注",
   "sys_label_oss_config_add": "新增Oss配置",
   "sys_label_oss_config_edit": "修改Oss配置",
+  "sys_label_oss_config_del_prompt": "确定要删除Key为{}的配置信息吗？",
+  "sys_label_oss_config_del_select_empty": "请选择需要删除的配置",
 
   "sys_label_sys_client_add": "新增客户端配置",
   "sys_label_sys_client_edit": "修改客户端配置",
@@ -477,6 +484,8 @@
   "sys_label_sys_tenant_package_remark": "备注",
   "sys_label_sys_tenant_package_add": "新增租户套餐",
   "sys_label_sys_tenant_package_edit": "编辑租户套餐",
+  "sys_label_sys_tenant_package_del_prompt": "确定要删除名称为{}的租户套餐吗？",
+  "sys_label_sys_tenant_package_del_select_empty": "请选择需要删除的租户套餐",
 
   "sys_label_sys_tenant_x_expire_time": "到期",
   "sys_label_sys_tenant_search": "搜索租户",
@@ -494,6 +503,8 @@
   "sys_label_sys_tenant_address": "企业地址",
   "sys_label_sys_tenant_license_number": "企业代码",
   "sys_label_sys_tenant_intro": "企业简介",
+  "sys_label_sys_tenant_del_prompt": "确定要删除名称为{}的租户吗？",
+  "sys_label_sys_tenant_del_select_empty": "请选择需要删除的租户",
 
   "sys_label_sys_tenant_remark": "备注",
 

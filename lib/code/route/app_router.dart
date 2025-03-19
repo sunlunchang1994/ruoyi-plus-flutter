@@ -38,7 +38,7 @@ import '../module/system/ui/router/router_page.dart';
 import '../module/system/ui/setting/about/about_page.dart';
 import '../module/system/ui/setting/main/setting_page.dart';
 import '../module/system/ui/tenant/package/tenant_package_add_edit_page.dart';
-import '../module/system/ui/tenant/package/tenant_package_list_browser_page.dart';
+import '../module/system/ui/tenant/package/tenant_package_browser_page.dart';
 import '../module/system/ui/tenant/package/tenant_package_select_single_page.dart';
 import '../module/system/ui/tenant/tenant_add_edit_page.dart';
 import '../module/system/ui/tenant/tenant_list_browser_page.dart';
@@ -297,9 +297,9 @@ final Map<String, WidgetBuilder> router = {
   },
   //租户套餐
   //租户套餐：列表
-  TenantPackageListBrowserPage.routeName: (BuildContext context) {
+  TenantPackageBrowserPage.routeName: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
-    return TenantPackageListBrowserPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
+    return TenantPackageBrowserPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //租户套餐：单选列表
   TenantPackageSelectSinglePage.routeName: (BuildContext context) {

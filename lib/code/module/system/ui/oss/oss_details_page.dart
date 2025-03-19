@@ -32,7 +32,9 @@ import 'package:ruoyi_plus_flutter/code/lib/form/input_decoration_utils.dart';
 
 import '../../../../../../generated/l10n.dart';
 import '../../../../../res/dimens.dart';
+import '../../../../base/ui/utils/fast_dialog_utils.dart';
 import '../../../../feature/component/attachment/entity/progress.dart';
+import '../../repository/remote/sys_oss_api.dart';
 
 class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
   static const String routeName = '/system/oss/details';
@@ -55,7 +57,14 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                 actions: [
                   IconButton(
                       onPressed: () {
-                        //
+                        FastDialogUtils.showDelConfirmDialog(context,
+                            contentText: TextUtil.format(
+                                S.current.sys_label_oss_del_prompt,
+                                [sysOssVo.originalName])).then((confirm) {
+                          if (confirm == true) {
+                            getVm().onDelete();
+                          }
+                        });
                       },
                       icon: Icon(Icons.delete_forever))
                 ],
@@ -341,5 +350,19 @@ class _OssAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   void onOpenFile(String filePath) {
     OpenFile.open(filePath);
+  }
+
+  //删除字典类型
+  void onDelete() {
+    showLoading(text: S.current.label_delete_ing);
+    SysOssRepository.delete(defCancelToken, id: sysOssVo.ossId).then((value) {
+      dismissLoading();
+      AppToastUtil.showToast(msg: S.current.label_delete_success);
+      finish(result: true);
+    }, onError: (e) {
+      dismissLoading();
+      BaseDio.handlerError(e);
+      AppToastUtil.showToast(msg: S.current.label_delete_failed);
+    });
   }
 }

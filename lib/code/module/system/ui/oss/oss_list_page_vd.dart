@@ -99,10 +99,23 @@ class OssListPageWidget {
                 height: AppDimens.sysItemOssImgSize);
           }
         }.call(),
-        trailing: buildTrailing?.call(listItem),
+        trailing: WidgetUtils.getAnimCrossFade(
+            Checkbox(
+              value: listItem.isBoxChecked(),
+              onChanged: (value) {
+                listItem.boxChecked = value;
+                listenerItemSelect.onItemSelect(index, listItem, value);
+              },
+            ),
+            buildTrailing?.call(listItem) ?? WidgetUtils.getBoxStandard(),
+            showOne: listenerItemSelect.selectModelIsRun),
         visualDensity: VisualDensity.compact,
+        //tileColor: SlcColors.getCardColorByTheme(themeData),
         onTap: () {
           listenerItemSelect.onItemClick(index, listItem);
+        },
+        onLongPress: () {
+          listenerItemSelect.onItemLongClick(index, listItem);
         });
   }
 
@@ -268,7 +281,12 @@ class OssListDataVmSub extends FastBaseListDataPageVmSub<SysOssVo> with CancelTo
     });
     //设置点击item事件主体
     setItemClick((index, data) {
-      pushNamed(OssDetailsPage.routeName, arguments: {ConstantSys.KEY_SYS_OSS: data});
+      pushNamed(OssDetailsPage.routeName, arguments: {ConstantSys.KEY_SYS_OSS: data})
+          .then((result) {
+        if (result != null) {
+          sendRefreshEvent();
+        }
+      });
     });
   }
 

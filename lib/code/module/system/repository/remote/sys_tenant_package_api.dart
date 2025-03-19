@@ -57,10 +57,8 @@ class SysTenantPackageRepository {
     return _sysTenantPackageApiClient
         .list(RequestUtils.toPageQuery(sysTenantPackage?.toJson(), offset, size), cancelToken)
         .successMap2Single((event) {
-      return event.toIntensify(createData: (resultEntity) {
-        return resultEntity.toPageModel(offset, size, createRecords: (resultData) {
-          return SysTenantPackage.fromJsonList(resultData);
-        });
+      return event.toPage2Intensify(offset, size, createData: (dataItem) {
+        return SysTenantPackage.fromJson(dataItem);
       });
     });
   }

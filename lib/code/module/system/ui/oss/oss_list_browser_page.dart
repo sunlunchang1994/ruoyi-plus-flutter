@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_slc_boxes/flutter/slc/adapter/select_box.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/object_util.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -15,11 +17,14 @@ import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
+import '../../../../base/ui/utils/fast_dialog_utils.dart';
 import '../../../../feature/bizapi/system/entity/sys_oss_upload_vo.dart';
+import '../../../../feature/bizapi/system/entity/sys_oss_vo.dart';
 import '../../../../feature/bizapi/system/repository/remote/pub_oss_api.dart';
 import '../../../../feature/component/attachment/utils/media_type_constant.dart';
 import '../../../../lib/fast/permission/permission_compat.dart';
 import '../../../../lib/fast/utils/app_toast.dart';
+import '../../repository/remote/sys_oss_api.dart';
 import 'config/oss_config_list_browser_page.dart';
 import 'oss_list_page_vd.dart';
 
@@ -40,40 +45,98 @@ class OssListBrowserPage extends AppBaseStatelessWidget<_OssListBrowserVm> {
           ThemeData themeData = Theme.of(context);
           registerEvent(context);
           getVm().initVm();
-          return Scaffold(
-              appBar: AppBar(title: Text(title), actions: [
-                Builder(builder: (context) {
-                  return IconButton(
-                    icon: const Icon(Icons.search),
-                    onPressed: () {
-                      WidgetUtils.autoHandlerSearchDrawer(context);
-                    },
-                  );
-                }),
-                PopupMenuButton<String>(itemBuilder: (context) {
-                  return [
-                    PopupMenuItem(
-                        value: OssConfigListBrowserPage.routeName,
-                        child: Text(S.current.sys_label_oss_config_name))
-                  ];
-                }, onSelected: (value) {
-                  getVm().pushNamed(OssConfigListBrowserPage.routeName);
-                })
-              ]),
-              endDrawer: OssListPageWidget.getSearchEndDrawer<_OssListBrowserVm>(
-                  context, themeData, getVm().listVmSub),
-              floatingActionButton: FloatingActionButton(
-                  child: Icon(Icons.add),
-                  onPressed: () {
-                    showSelectFileDialog(context);
-                  }),
-              body: PageDataVd(getVm().listVmSub, getVm(),
-                  refreshOnStart: true,
-                  child: NqSelector<_OssListBrowserVm, int>(builder: (context, vm, child) {
-                    return OssListPageWidget.getDataListWidget(themeData, getVm().listVmSub);
+          return PopScope(
+              canPop: false,
+              onPopInvokedWithResult: (canPop, result) {
+                if (canPop) {
+                  return;
+                }
+                if (getVm().listVmSub.selectModelIsRun) {
+                  getVm().listVmSub.selectModelIsRun = false;
+                  return;
+                }
+                Navigator.pop(context);
+              },
+              child: Scaffold(
+                  appBar: AppBar(
+                      leading:
+                          NqSelector<_OssListBrowserVm, bool>(builder: (context, value, child) {
+                        return WidgetUtils.getAnimCrossFade(const CloseButton(), const BackButton(),
+                            showOne: value);
+                      }, selector: (context, vm) {
+                        return vm.listVmSub.selectModelIsRun;
+                      }),
+                      title: Text(title),
+                      actions: [
+                        NqSelector<_OssListBrowserVm, bool>(builder: (context, value, child) {
+                          return AnimatedSize(
+                              duration: WidgetUtils.adminDurationNormal,
+                              child: Row(
+                                children: [
+                                  ...() {
+                                    List<Widget> actions = [];
+                                    if (value) {
+                                      actions
+                                          .addAll(WidgetUtils.getDeleteFamilyAction(onDelete: () {
+                                        getVm().onDelete(confirmHandler: (nameList) {
+                                          return FastDialogUtils.showDelConfirmDialog(context,
+                                              contentText: TextUtil.format(
+                                                  S.current.sys_label_oss_del_prompt,
+                                                  [nameList.join(TextUtil.COMMA)]));
+                                        });
+                                      }, onSelectAll: () {
+                                        getVm().listVmSub.onSelectAll(true);
+                                      }, onDeselect: () {
+                                        getVm().listVmSub.onSelectAll(false);
+                                      }));
+                                    } else {
+                                      actions.add(Builder(builder: (context) {
+                                        return IconButton(
+                                          icon: const Icon(Icons.search),
+                                          onPressed: () {
+                                            WidgetUtils.autoHandlerSearchDrawer(context);
+                                          },
+                                        );
+                                      }));
+                                      actions.add(PopupMenuButton<String>(itemBuilder: (context) {
+                                        return [
+                                          PopupMenuItem(
+                                              value: OssConfigListBrowserPage.routeName,
+                                              child: Text(S.current.sys_label_oss_config_name))
+                                        ];
+                                      }, onSelected: (value) {
+                                        getVm().pushNamed(OssConfigListBrowserPage.routeName);
+                                      }));
+                                    }
+                                    return actions;
+                                  }.call()
+                                ],
+                              ));
+                        }, selector: (context, vm) {
+                          return vm.listVmSub.selectModelIsRun;
+                        })
+                      ]),
+                  endDrawer: OssListPageWidget.getSearchEndDrawer<_OssListBrowserVm>(
+                      context, themeData, getVm().listVmSub),
+                  floatingActionButton:
+                      NqSelector<_OssListBrowserVm, bool>(builder: (context, value, child) {
+                    return WidgetUtils.getAnimVisibility(
+                        !value,
+                        FloatingActionButton(
+                            child: Icon(Icons.add),
+                            onPressed: () {
+                              showSelectFileDialog(context);
+                            }));
                   }, selector: (context, vm) {
-                    return vm.listVmSub.shouldSetState.version;
-                  })));
+                    return vm.listVmSub.selectModelIsRun;
+                  }),
+                  body: PageDataVd(getVm().listVmSub, getVm(),
+                      refreshOnStart: true,
+                      child: NqSelector<_OssListBrowserVm, int>(builder: (context, vm, child) {
+                        return OssListPageWidget.getDataListWidget(themeData, getVm().listVmSub);
+                      }, selector: (context, vm) {
+                        return vm.listVmSub.shouldSetState.version;
+                      }))));
         });
   }
 
@@ -114,6 +177,7 @@ class _OssListBrowserVm extends AppBaseVm {
 
   _OssListBrowserVm() {
     listVmSub = OssListDataVmSub();
+    listVmSub.enableSelectModel = true;
     listVmSub.onSuffixClick = (itemData) {
       /*pushNamed(NoticeAddEditPage.routeName,
           arguments: {ConstantSys.KEY_SYS_NOTICE: itemData}).then((result) {
@@ -191,8 +255,39 @@ class _OssListBrowserVm extends AppBaseVm {
       dismissLoading();
       listVmSub.sendRefreshEvent();
     }, onError: (e) {
-      BaseDio.handlerError(e,defErrMsg: S.current.label_file_upload_by_file_failed);
+      BaseDio.handlerError(e, defErrMsg: S.current.label_file_upload_by_file_failed);
       dismissLoading();
+    });
+  }
+
+  //删除事件
+  void onDelete({Future<bool?> Function(List<String>)? confirmHandler, List<int>? idList}) {
+    if (idList == null) {
+      List<SysOssVo> selectList = SelectUtils.getSelect(listVmSub.dataList) ?? [];
+      if (selectList.isEmpty) {
+        AppToastUtil.showToast(msg: S.current.sys_label_oss_del_select_empty);
+        return;
+      }
+      List<String> nameList = selectList.map<String>((item) => item.originalName!).toList();
+      List<int> idList = selectList.map<int>((item) => item.ossId!).toList();
+      confirmHandler?.call(nameList).then((value) {
+        if (value == true) {
+          onDelete(idList: idList);
+        }
+      });
+      return;
+    }
+
+    //删除
+    showLoading(text: S.current.label_delete_ing);
+    SysOssRepository.delete(listVmSub.defCancelToken, ids: idList).then((value) {
+      dismissLoading();
+      AppToastUtil.showToast(msg: S.current.label_delete_success);
+      listVmSub.sendRefreshEvent();
+    }, onError: (e) {
+      dismissLoading();
+      BaseDio.handlerError(e);
+      AppToastUtil.showToast(msg: S.current.label_delete_failed);
     });
   }
 }

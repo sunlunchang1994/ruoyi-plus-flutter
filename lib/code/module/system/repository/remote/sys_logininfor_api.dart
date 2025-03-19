@@ -43,13 +43,11 @@ class SysLogininforRepository {
     return _sysLogininforApiClient
         .list(RequestUtils.toPageQuery(sysLogininfor?.toJson(), offset, size), cancelToken)
         .successMap2Single((event) {
-      return event.toIntensify(
-          createData: (resultEntity) =>
-              resultEntity.toPageModel(offset, size, createRecords: (resultData) {
-                List<SysLogininfor> sysNoticeList = SysLogininfor.fromJsonList(resultData);
-                translationDict(sysNoticeList);
-                return sysNoticeList;
-              }));
+      IntensifyEntity<PageModel<SysLogininfor>> intensifyEntity = event.toPage2Intensify(
+          offset, size,
+          createData: (dateItem) => SysLogininfor.fromJson(dateItem));
+      translationDict(intensifyEntity.data?.records);
+      return intensifyEntity;
     });
   }
 

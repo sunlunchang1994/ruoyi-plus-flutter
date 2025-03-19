@@ -9,6 +9,8 @@ import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../base/config/constant_base.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
+import '../../../../lib/fast/provider/fast_select.dart';
+import '../../../../lib/fast/utils/widget_utils.dart';
 import '../../../../lib/fast/vd/list_data_vd.dart';
 import '../../config/constant_sys.dart';
 import 'menu_add_edit_page.dart';
@@ -44,6 +46,18 @@ class MenuListBrowserPage extends AppBaseStatelessWidget<_MenuListBrowserVm> {
             },
             child: Scaffold(
                 appBar: AppBar(title: Text(title)),
+                floatingActionButton:
+                NqSelector<_MenuListBrowserVm, bool>(builder: (context, value, child) {
+                  return WidgetUtils.getAnimVisibility(
+                      !value,
+                      FloatingActionButton(
+                          child: Icon(Icons.add),
+                          onPressed: () {
+                            getVm().onAddItem();
+                          }));
+                }, selector: (context, vm) {
+                  return vm.listVmSub.selectModelIsRun;
+                }),
                 body: Column(children: [
                   Selector<_MenuListBrowserVm, List<SlcTreeNav>>(
                     builder: (context, value, child) {
@@ -111,4 +125,15 @@ class _MenuListBrowserVm extends AppBaseVm {
         SlcTreeNav(ConstantBase.VALUE_PARENT_ID_DEF, S.current.menu_label_root);
     listVmSub.next(slcTreeNav, notify: false);
   }
+
+  ///添加菜单事件
+  void onAddItem() {
+    pushNamed(MenuAddEditPage.routeName).then((result) {
+      if (result != null) {
+        //更新列表
+        listVmSub.sendRefreshEvent();
+      }
+    });
+  }
+
 }

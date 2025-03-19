@@ -44,13 +44,10 @@ class SysOperLogRepository {
     return _sysOperLogApiClient
         .list(RequestUtils.toPageQuery(sysOperLog?.toJson(), offset, size), cancelToken)
         .successMap2Single((event) {
-      return event.toIntensify(
-          createData: (resultEntity) =>
-              resultEntity.toPageModel(offset, size, createRecords: (resultData) {
-                List<SysOperLog> sysNoticeList = SysOperLog.fromJsonList(resultData);
-                translationDict(sysNoticeList);
-                return sysNoticeList;
-              }));
+      IntensifyEntity<PageModel<SysOperLog>> intensifyEntity = event.toPage2Intensify(offset, size,
+          createData: (dataItem) => SysOperLog.fromJson(dataItem));
+      translationDict(intensifyEntity.data?.records);
+      return intensifyEntity;
     });
   }
 

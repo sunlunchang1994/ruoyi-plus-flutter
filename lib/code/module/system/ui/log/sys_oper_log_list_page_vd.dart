@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
@@ -20,8 +21,10 @@ import '../../../../../../res/styles.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
+import '../../../../base/ui/utils/fast_dialog_utils.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../lib/fast/provider/fast_select.dart';
+import '../../../../lib/fast/utils/app_toast.dart';
 import '../../../../lib/fast/utils/widget_utils.dart';
 import '../../../../lib/fast/vd/list_data_component.dart';
 import '../../../../lib/fast/vd/refresh/content_empty.dart';
@@ -59,56 +62,79 @@ class SysOperLogListPageWidget {
       int index, SysOperLog listItem) {
     Color statusColor =
         DictUiUtils.getDictStyle(LocalDictLib.CODE_SYS_COMMON_STATUS, listItem.status);
-    return ListTile(
-        contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
-        //title: Text("${listItem.operId.toString()}·${listItem.title!}"),
-        title: Row(
-          children: [
-            RichText(
-                text: TextSpan(
-                    style: themeData.slcListTileStyle.getItemTitleStyleByThemeData(themeData),
-                    children: [
-                  TextSpan(text: listItem.title!),
-                  TextSpan(text: "·"),
-                  TextSpan(
-                      text: listItem.businessTypeName,
-                      style: TextStyle(
-                          color: DictUiUtils.getDictStyle(
-                              LocalDictLib.CODE_SYS_OPER_TYPE, listItem.businessType?.toString())))
-                ])),
-            Spacer(),
-            Container(
-                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
-                decoration: BoxDecoration(
-                    border: Border.all(color: statusColor, width: 1),
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.all(Radius.circular(4))),
-                child: Text(
-                  textAlign: TextAlign.center,
-                  listItem.statusName ?? "-",
-                  style: SysStyle.sysLogListStatusText.copyWith(color: statusColor),
-                  strutStyle: SysStyle.sysLogListStatusTextStrutStyle,
-                )),
-            ThemeUtil.getSizedBox(width: SlcDimens.appDimens16)
-          ],
-        ),
-        subtitle: Padding(
-            padding: EdgeInsets.only(right: SlcDimens.appDimens16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                    "${listItem.operName} / ${listItem.deptName} / ${listItem.operIp} / ${listItem.operLocation} ",
-                    softWrap: true),
-                Text(listItem.operTime ?? "--"),
-              ],
-            )),
-        visualDensity: VisualDensity.compact,
-        //根据card规则实现
-        onTap: () {
-          listenerItemSelect.onItemClick(index, listItem);
-          //getVm().nextByDept(listItem);
-        });
+    return Builder(builder: (context) {
+      return ListTile(
+          contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
+          //title: Text("${listItem.operId.toString()}·${listItem.title!}"),
+          title: Row(
+            children: [
+              RichText(
+                  text: TextSpan(
+                      style: themeData.slcListTileStyle.getItemTitleStyleByThemeData(themeData),
+                      children: [
+                    TextSpan(text: listItem.title!),
+                    TextSpan(text: "·"),
+                    TextSpan(
+                        text: listItem.businessTypeName,
+                        style: TextStyle(
+                            color: DictUiUtils.getDictStyle(LocalDictLib.CODE_SYS_OPER_TYPE,
+                                listItem.businessType?.toString())))
+                  ])),
+              Spacer(),
+              Container(
+                  padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: statusColor, width: 1),
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.all(Radius.circular(4))),
+                  child: Text(
+                    textAlign: TextAlign.center,
+                    listItem.statusName ?? "-",
+                    style: SysStyle.sysLogListStatusText.copyWith(color: statusColor),
+                    strutStyle: SysStyle.sysLogListStatusTextStrutStyle,
+                  )),
+              ThemeUtil.getSizedBox(width: SlcDimens.appDimens16)
+            ],
+          ),
+          subtitle: Padding(
+              padding: EdgeInsets.only(right: SlcDimens.appDimens16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                      "${listItem.operName} / ${listItem.deptName} / ${listItem.operIp} / ${listItem.operLocation} ",
+                      softWrap: true),
+                  Text(listItem.operTime ?? "--"),
+                ],
+              )),
+          trailing: WidgetUtils.getAnimCrossFade(
+              Checkbox(
+                value: listItem.isBoxChecked(),
+                onChanged: (value) {
+                  listItem.boxChecked = value;
+                  listenerItemSelect.onItemSelect(index, listItem, value);
+                },
+              ),
+              WidgetUtils.getBoxStandard(),
+              showOne: listenerItemSelect.selectModelIsRun),
+          visualDensity: VisualDensity.compact,
+          //tileColor: SlcColors.getCardColorByTheme(themeData),
+          onTap: () {
+            listenerItemSelect.onItemClick(index, listItem);
+          },
+          onLongPress: () {
+            FastDialogUtils.showDelConfirmDialog(context,
+                    contentText:
+                        TextUtil.format(S.current.sys_label_dict_del_prompt, [listItem.operId]))
+                .then((confirm) {
+              if (confirm == true) {
+                listenerItemSelect as SysOperLogListDataVmSub;
+                listenerItemSelect.onDelete(listItem);
+              }
+            });
+            listenerItemSelect.onItemLongClick(index, listItem);
+          });
+    });
   }
 
   ///搜索侧滑栏视图
@@ -301,6 +327,20 @@ class SysOperLogListDataVmSub extends FastBaseListDataPageVmSub<SysOperLog> with
     //设置点击item事件主体
     setItemClick((index, data) {
       pushNamed(SysOperLogDetailsPage.routeName, arguments: {ConstantSys.KEY_SYS_LOG: data});
+    });
+  }
+
+  //删除日志
+  void onDelete(SysOperLog itemData) {
+    showLoading(text: S.current.label_delete_ing);
+    SysOperLogRepository.delete(defCancelToken, id: itemData.operId).then((value) {
+      dismissLoading();
+      AppToastUtil.showToast(msg: S.current.label_delete_success);
+      sendRefreshEvent();
+    }, onError: (e) {
+      dismissLoading();
+      BaseDio.handlerError(e);
+      AppToastUtil.showToast(msg: S.current.label_delete_failed);
     });
   }
 }

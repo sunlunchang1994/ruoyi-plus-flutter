@@ -55,19 +55,8 @@ class PostRepository {
     queryParams["orderByColumn"] = "deptId,postId";
     queryParams["isAsc"] = "asc";
     return _postApiClient.list(queryParams, cancelToken).successMap2Single((event) {
-      return event.toIntensify(createData: (resultEntity) {
-        /*AppPageModel appPageModel = AppPageModel(
-                current: offset,
-                size: size,
-                rows: event.rows,
-                total: event.total);
-            List<Post> dataList = Post.formJsonList(event.rows); //列表为空时创建默认的
-            PageModel<Post> pageModel =
-                PageTransformUtils.appPm2Pm(appPageModel, records: dataList);
-            return pageModel;*/
-        return resultEntity.toPageModel(offset, size,
-            createRecords: (rows) => Post.formJsonList(rows));
-      });
+      return event.toPage2Intensify(offset, size,
+          createData: (dataItem) => Post.fromJson(dataItem));
     });
   }
 

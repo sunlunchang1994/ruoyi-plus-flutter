@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/num_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/slc_num_util.dart';
+import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/status_widget.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
@@ -69,8 +70,22 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                             getVm().onSave();
                           },
                           icon: Icon(Icons.save)),
+                      if (sysTenant != null)
                       PopupMenuButton<String>(itemBuilder: (context) {
                         return [
+                          PopupMenuItem(
+                            child: Text(S.current.action_delete),
+                            onTap: () {
+                              FastDialogUtils.showDelConfirmDialog(context,
+                                  contentText: TextUtil.format(
+                                      S.current.sys_label_sys_tenant_del_prompt,
+                                      [sysTenant?.companyName])).then((confirm) {
+                                if (confirm == true) {
+                                  getVm().onDelete();
+                                }
+                              });
+                            },
+                          ),
                           PopupMenuItem(
                               value: S.current.sys_label_sys_tenant_sync_package,
                               child: Text(S.current.sys_label_sys_tenant_sync_package))
@@ -470,6 +485,20 @@ class _TenantAddEditVm extends AppBaseVm with CancelTokenAssist {
     }, onError: (e) {
       dismissLoading();
       BaseDio.handlerError(e, defErrMsg: S.current.sys_label_sys_tenant_sync_package_failed);
+    });
+  }
+
+  //删除字典类型
+  void onDelete() {
+    showLoading(text: S.current.label_delete_ing);
+    SysTenantRepository.delete(defCancelToken, id: sysTenant!.id).then((value) {
+      dismissLoading();
+      AppToastUtil.showToast(msg: S.current.label_delete_success);
+      finish(result: true);
+    }, onError: (e) {
+      dismissLoading();
+      BaseDio.handlerError(e);
+      AppToastUtil.showToast(msg: S.current.label_delete_failed);
     });
   }
 }
