@@ -5,7 +5,9 @@ import 'api_config.dart';
 
 part 'result_entity.g.dart';
 
-///@author sunlunchang
+/// @author sunlunchang
+/// 服务端返回实体类接口
+/// 此类不需要做更改，如需更改请在子类中修改，如ResultEntity、ResultPageModel
 abstract class IResultEntity {
   int? get code;
 
@@ -16,9 +18,84 @@ abstract class IResultEntity {
   bool isSuccess() {
     return code == 0 || code == ApiConfig.VALUE_CODE_SUCCEED;
   }
+
+  IntensifyEntity<T> toIntensify<T>(
+      {bool succeedEntity = false,
+      IResultEntity Function()? createSucceed,
+      T? data,
+      T? Function(IResultEntity)? createData,
+      bool createNull = false}) {
+    return IntensifyEntity(
+        resultEntity: this,
+        createSucceed: succeedEntity ? () => ResultEntity.createSucceedEntity() : null,
+        data: data,
+        createData: createData != null ? (resultEntity) => createData.call(resultEntity) : null,
+        createNull: createNull);
+  }
+
+  IntensifyEntity<List<T>> toListIntensify<T>(
+      {bool succeedEntity = false,
+      IResultEntity Function()? createSucceed,
+      List<T>? data,
+      T Function(Map<String, dynamic>)? createData,
+      bool createNull = false}) {
+    return toIntensify(
+        succeedEntity: succeedEntity,
+        createSucceed: createSucceed,
+        data: data,
+        createData: createData != null
+            ? (resultEntity) {
+                List<dynamic>? jsonArray = resultEntity.data;
+                return jsonArray?.map((item) {
+                  return createData.call(item);
+                }).toList(growable: true);
+              }
+            : null,
+        createNull: createNull);
+  }
+
+  ///转成PageModel IntensifyEntity
+  IntensifyEntity<PageModel<T>> toPageIntensify<T>(
+      {bool succeedEntity = false,
+      IResultEntity Function()? createSucceed,
+      PageModel<T>? data,
+      PageModel<T>? Function(ResultPageModel)? createData,
+      bool createNull = false}) {
+    return toIntensify(
+        succeedEntity: succeedEntity,
+        createSucceed: createSucceed,
+        data: data,
+        createData: createData != null
+            ? (resultEntity) => createData.call(resultEntity as ResultPageModel)
+            : null,
+        createNull: createNull);
+  }
+
+  ///转成PageModel IntensifyEntity
+  IntensifyEntity<PageModel<T>> toPage2Intensify<T>(int current, int size,
+      {bool succeedEntity = false,
+      List<T>? data,
+      T Function(Map<String, dynamic>)? createData,
+      bool createNull = false}) {
+    return toPageIntensify(
+        succeedEntity: succeedEntity,
+        data: data != null ? ResultPageModel.createPageModelByList(current, size, this as ResultPageModel, data) : null,
+        createData: createData != null
+            ? (resultEntity) {
+                return (resultEntity).toPageModel(current, size, createRecords: (resultData) {
+                  List<dynamic>? jsonArray = resultEntity.data;
+                  return jsonArray?.map((item) {
+                    return createData.call(item);
+                  }).toList(growable: true);
+                });
+              }
+            : null,
+        createNull: createNull);
+  }
 }
 
 ///后端返回的实体类基础结构
+///根据实际情况修改相关字段，
 @JsonSerializable()
 class ResultEntity extends IResultEntity {
   @override
@@ -32,25 +109,9 @@ class ResultEntity extends IResultEntity {
 
   ResultEntity({this.code, this.msg, this.data});
 
-  factory ResultEntity.fromJson(Map<String, dynamic> json) =>
-      _$ResultEntityFromJson(json);
+  factory ResultEntity.fromJson(Map<String, dynamic> json) => _$ResultEntityFromJson(json);
 
   Map<String, dynamic> toJson() => _$ResultEntityToJson(this);
-
-  IntensifyEntity<T> toIntensify<T>(
-      {bool succeedEntity = false,
-      T? data,
-      T? Function(ResultEntity)? createData,
-      bool createNull = false}) {
-    return IntensifyEntity(
-        resultEntity: this,
-        createSucceed: succeedEntity ? () => createSucceedEntity() : null,
-        data: data,
-        createData: createData != null
-            ? (resultEntity) => createData.call(resultEntity as ResultEntity)
-            : null,
-        createNull: createNull);
-  }
 
   ///创建成功的ResultEntity
   static ResultEntity createSucceedEntity() {
@@ -62,7 +123,6 @@ class ResultEntity extends IResultEntity {
       {int code = ApiConfig.VALUE_CODE_SERVER_ERROR}) {
     return ResultEntity(code: code, msg: msg);
   }
-
 }
 
 ///后端返回的实体类基础结构
@@ -84,47 +144,13 @@ class ResultPageModel extends IResultEntity {
 
   ResultPageModel({this.code, this.msg, this.rows, this.total = 0});
 
-  factory ResultPageModel.fromJson(Map<String, dynamic> json) =>
-      _$ResultPageModelFromJson(json);
+  factory ResultPageModel.fromJson(Map<String, dynamic> json) => _$ResultPageModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ResultPageModelToJson(this);
 
-  ///转车呢个PageModel IntensifyEntity
-  IntensifyEntity<PageModel<T>> toIntensify<T>(
-      {bool succeedEntity = false,
-      PageModel<T>? data,
-      PageModel<T>? Function(ResultPageModel)? createData,
-      bool createNull = false}) {
-    return IntensifyEntity<PageModel<T>>(
-        resultEntity: this,
-        createSucceed: succeedEntity ? () => createSucceedEntity() : null,
-        data: data,
-        createData: createData != null
-            ? (resultEntity) => createData.call(resultEntity as ResultPageModel)
-            : null,
-        createNull: createNull);
-  }
-
-  ///只获取list
-  IntensifyEntity<List<T>> toListIntensify<T>(
-      {bool succeedEntity = false,
-      List<T>? data,
-      List<T>? Function(ResultPageModel)? createData,
-      bool createNull = false}) {
-    return IntensifyEntity<List<T>>(
-        resultEntity: this,
-        createSucceed: succeedEntity ? () => createSucceedEntity() : null,
-        data: data,
-        createData: createData != null
-            ? (resultEntity) => createData.call(resultEntity as ResultPageModel)
-            : null,
-        createNull: createNull);
-  }
-
   ///转成PageModel
-  PageModel<T> toPageModel<T>(int current, int size,
-      {List<T>? Function(dynamic)? createRecords}) {
-    return ResultPageModel.resultToPageModel(current, size, this,
+  PageModel<T> toPageModel<T>(int current, int size, {List<T>? Function(dynamic)? createRecords}) {
+    return ResultPageModel.createPageModelByResult(current, size, this,
         createRecords: createRecords);
   }
 
@@ -140,15 +166,21 @@ class ResultPageModel extends IResultEntity {
   }
 
   ///结果转PageModel
-  static PageModel<T> resultToPageModel<T>(
+  static PageModel<T> createPageModelByResult<T>(
       int current, int size, ResultPageModel resultPageModel,
       {List<T>? Function(dynamic)? createRecords}) {
+    return createPageModelByList(
+        current, size, resultPageModel, createRecords?.call(resultPageModel.data));
+  }
+
+  static PageModel<T> createPageModelByList<T>(
+      int current, int size, ResultPageModel resultPageModel, List<T>? records) {
     PageModel<T> pageModel = PageModel(
         current: current,
         size: size,
         pages: PageUtils.totalPage(resultPageModel.total, size),
         total: resultPageModel.total,
-        records: createRecords?.call(resultPageModel.data));
+        records: records);
     return pageModel;
   }
 }
