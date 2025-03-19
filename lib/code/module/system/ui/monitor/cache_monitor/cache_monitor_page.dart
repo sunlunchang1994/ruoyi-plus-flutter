@@ -493,7 +493,7 @@ class _CacheMonitorVm extends AppBaseVm with CancelTokenAssist {
       _buildCommandStats();
       setLoadingStatus(LoadingStatus.success);
     }, onError: (e) {
-      BaseDio.handlerError(e);
+      BaseDio.handlerErr(e);
       finish();
     });
   }

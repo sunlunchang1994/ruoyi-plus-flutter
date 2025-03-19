@@ -274,7 +274,7 @@ class _LoginModel extends AppBaseVm with CancelTokenAssist {
       });
       onSelectTenant(targetTenantItem);
     }, onError: (error) {
-      BaseDio.handlerError(error, defErrMsg: S.current.user_label_tenant_get_info_error);
+      BaseDio.handlerErr(error, defErrMsg: S.current.user_label_tenant_get_info_error);
     });
   }
 
@@ -376,7 +376,7 @@ class _LoginModel extends AppBaseVm with CancelTokenAssist {
     }, onError: (e) {
       dismissLoading();
       if (!defCancelToken.isCancelled) {
-        BaseDio.handlerError(e);
+        BaseDio.handlerErr(e);
         //失败则刷新验证码
         refreshCaptcha();
       }

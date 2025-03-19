@@ -270,10 +270,12 @@ class _ProfileModel extends AppBaseVm with CancelTokenAssist {
         //AppToastBridge.showToast(msg: S.current.user_label_avatar_uploaded_success);
         //dismissLoading();
         _saveProfile();
-      }, onError: (e) {
-        BaseDio.handlerError(e, defErrMsg: S.current.user_label_avatar_upload_failed);
-        dismissLoading();
-      });
+      },
+          onError: BaseDio.errProxyFunc(
+              defErrMsg: S.current.user_label_avatar_upload_failed,
+              onError: (error) {
+                dismissLoading();
+              }));
       return;
     }
     _saveProfile();
@@ -290,9 +292,11 @@ class _ProfileModel extends AppBaseVm with CancelTokenAssist {
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;
-    }, onError: (e) {
-      BaseDio.handlerError(e, defErrMsg: S.current.toast_edit_failure);
-      dismissLoading();
-    });
+    },
+            onError: BaseDio.errProxyFunc(
+                defErrMsg: S.current.toast_edit_failure,
+                onError: (error) {
+                  dismissLoading();
+                }));
   }
 }

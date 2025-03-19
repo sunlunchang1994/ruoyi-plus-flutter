@@ -240,7 +240,7 @@ class TenantListDataVmSub extends FastBaseListDataPageVmSub<SysTenant> with Canc
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
         return dataWrapper;
       } catch (e) {
-        ResultEntity resultEntity = BaseDio.handlerError(e, showToast: false);
+        ResultEntity resultEntity = BaseDio.handlerErr(e, showToast: false);
         return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
       }
     });

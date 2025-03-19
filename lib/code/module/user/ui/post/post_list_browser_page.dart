@@ -176,7 +176,7 @@ class _PostListBrowserVm extends AppBaseVm {
       listVmSub.sendRefreshEvent();
     }, onError: (e) {
       dismissLoading();
-      BaseDio.handlerError(e);
+      BaseDio.handlerErr(e);
       AppToastUtil.showToast(msg: S.current.label_delete_failed);
     });
   }

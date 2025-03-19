@@ -344,7 +344,7 @@ class _OssAddEditVm extends AppBaseVm with CancelTokenAssist {
       AppToastUtil.showToast(msg: S.current.action_download_on_success);
       onOpenFile(result.filePath!);
     }, onError: (e) {
-      BaseDio.handlerError(e);
+      BaseDio.handlerErr(e);
     });
   }
 
@@ -361,7 +361,7 @@ class _OssAddEditVm extends AppBaseVm with CancelTokenAssist {
       finish(result: true);
     }, onError: (e) {
       dismissLoading();
-      BaseDio.handlerError(e);
+      BaseDio.handlerErr(e);
       AppToastUtil.showToast(msg: S.current.label_delete_failed);
     });
   }

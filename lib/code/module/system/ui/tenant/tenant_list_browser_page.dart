@@ -190,7 +190,7 @@ class _TenantListBrowserVm extends AppBaseVm with CancelTokenAssist {
       AppToastUtil.showToast(msg: S.current.sys_label_sys_tenant_sync_dict_succeed);
     }, onError: (e) {
       dismissLoading();
-      BaseDio.handlerError(e, defErrMsg: S.current.sys_label_sys_tenant_sync_dict_failed);
+      BaseDio.handlerErr(e, defErrMsg: S.current.sys_label_sys_tenant_sync_dict_failed);
     });
   }
 
@@ -219,7 +219,7 @@ class _TenantListBrowserVm extends AppBaseVm with CancelTokenAssist {
       listVmSub.sendRefreshEvent();
     }, onError: (e) {
       dismissLoading();
-      BaseDio.handlerError(e);
+      BaseDio.handlerErr(e);
       AppToastUtil.showToast(msg: S.current.label_delete_failed);
     });
   }

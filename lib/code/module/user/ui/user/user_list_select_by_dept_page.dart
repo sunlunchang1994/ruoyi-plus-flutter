@@ -81,7 +81,7 @@ class _UserListDataVmSub extends FastBaseListDataVmSub<User> with CancelTokenAss
         DataWrapper<List<User>> dataWrapper = DataTransformUtils.entity2LDWrapper(result);
         return dataWrapper;
       } catch (e) {
-        ResultEntity resultEntity = BaseDio.getError(e);
+        ResultEntity resultEntity = BaseDio.handlerErr(e, showToast: false);
         return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
       }
     });

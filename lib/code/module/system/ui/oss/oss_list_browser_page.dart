@@ -255,7 +255,7 @@ class _OssListBrowserVm extends AppBaseVm {
       dismissLoading();
       listVmSub.sendRefreshEvent();
     }, onError: (e) {
-      BaseDio.handlerError(e, defErrMsg: S.current.label_file_upload_by_file_failed);
+      BaseDio.handlerErr(e, defErrMsg: S.current.label_file_upload_by_file_failed);
       dismissLoading();
     });
   }
@@ -286,7 +286,7 @@ class _OssListBrowserVm extends AppBaseVm {
       listVmSub.sendRefreshEvent();
     }, onError: (e) {
       dismissLoading();
-      BaseDio.handlerError(e);
+      BaseDio.handlerErr(e);
       AppToastUtil.showToast(msg: S.current.label_delete_failed);
     });
   }

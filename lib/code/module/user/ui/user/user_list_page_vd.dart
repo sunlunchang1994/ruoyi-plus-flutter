@@ -367,7 +367,7 @@ class UserTreeListDataVmSub extends TreeFastBaseListDataVmSub<dynamic> {
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
         return dataWrapper;
       } catch (e) {
-        ResultEntity resultEntity = BaseDio.getError(e);
+        ResultEntity resultEntity = BaseDio.handlerErr(e);
         return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
       }
     });
@@ -435,7 +435,7 @@ class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> with CancelToken
         DataWrapper<PageModel<User>> dataWrapper = DataTransformUtils.entity2LDWrapper(result);
         return dataWrapper;
       } catch (e) {
-        ResultEntity resultEntity = BaseDio.getError(e);
+        ResultEntity resultEntity = BaseDio.handlerErr(e, showToast: false);
         return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
       }
     });

@@ -448,7 +448,10 @@ class _UserAddEditVm extends AppBaseVm with CancelTokenAssist {
       userInfoVo = intensifyEntity.data;
       userInfoVo!.user = userInfoVo!.user ?? User();
       setLoadingStatus(LoadingStatus.success);
-    }, onError:BaseDio.errorProxyFunc(onError: (error) {
+    }, onError: BaseDio.errProxyFunc(onError: (error) {
+      if (error.isUnauthorized()) {
+        return;
+      }
       finish();
     }));
   }
@@ -541,10 +544,9 @@ class _UserAddEditVm extends AppBaseVm with CancelTokenAssist {
       //保存成功后要设置
       _infoChange = false;
       finish(result: userInfo);
-    }, onError: (error) {
+    }, onError: BaseDio.errProxyFunc(onError: (error) {
       dismissLoading();
-      BaseDio.handlerError(error);
-    });
+    }));
   }
 
   void onDelete() {
@@ -553,11 +555,10 @@ class _UserAddEditVm extends AppBaseVm with CancelTokenAssist {
       dismissLoading();
       AppToastUtil.showToast(msg: S.current.label_delete_success);
       finish(result: true);
-    }, onError: (e) {
+    }, onError: BaseDio.errProxyFunc(onError: (error) {
       dismissLoading();
-      BaseDio.handlerError(e);
       AppToastUtil.showToast(msg: S.current.label_delete_failed);
-    });
+    }));
   }
 
   //重置密码
@@ -567,10 +568,9 @@ class _UserAddEditVm extends AppBaseVm with CancelTokenAssist {
     UserServiceRepository.resetPwd(userInfo!, defCancelToken).then((value) {
       dismissLoading();
       AppToastUtil.showToast(msg: S.current.user_label_reset_password_success);
-    }, onError: (e) {
+    }, onError: BaseDio.errProxyFunc(onError: (error) {
       dismissLoading();
-      BaseDio.handlerError(e);
       AppToastUtil.showToast(msg: S.current.user_label_reset_password_fail);
-    });
+    }));
   }
 }

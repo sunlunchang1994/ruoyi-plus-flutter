@@ -121,24 +121,28 @@ class BaseDio {
   }
 
   ///直接调用此方法给Future
-  static errorProxyFunc({
+  static errProxyFunc({
     String? defErrMsg,
     bool showToast = true,
     bool showUnauthorized = true,
     Function(ResultEntity entity)? onError,
   }) {
     return (error) {
-      ResultEntity entity = handlerError(error,
-          defErrMsg: defErrMsg, showToast: showToast, showUnauthorized: showUnauthorized);
-      if (showUnauthorized && entity.isUnauthorized()) {
-        return;
-      }
+      //获取entity时先不处理showToast和showUnauthorized，等执行了onError和onFinallyErr后再处理
+      ResultEntity entity =
+          handlerErr(error, defErrMsg: defErrMsg, showToast: false, showUnauthorized: false);
       onError?.call(entity);
+      if (showUnauthorized && entity.isUnauthorized()) {
+        BaseDio.handlerUnauthorized(entity);
+      } else if (showToast) {
+        BaseDio.showToast(entity);
+        onError?.call(entity);
+      }
     };
   }
 
   /// 处理错误
-  static ResultEntity handlerError(dynamic error,
+  static ResultEntity handlerErr(dynamic error,
       {String? defErrMsg, bool showToast = true, bool showUnauthorized = true}) {
     ResultEntity resultEntity = getError(error, defErrMsg: defErrMsg);
     if (showUnauthorized && handlerUnauthorized(resultEntity)) {
@@ -173,16 +177,16 @@ class BaseDio {
   }
 
   ///获取错误码
-  static int getErrorCode(dynamic error, {String? defErrMsg}) {
+  static int getErrCode(dynamic error, {String? defErrMsg}) {
     return getError(error, defErrMsg: defErrMsg).code!;
   }
 
   ///获取错误信息
-  static String getErrorMsg(dynamic error, {String? defErrMsg}) {
+  static String getErrMsg(dynamic error, {String? defErrMsg}) {
     return getError(error, defErrMsg: defErrMsg).msg!;
   }
 
-  static void showToastByError(dynamic error, {String? defErrMsg}) {
+  static void showToastByErr(dynamic error, {String? defErrMsg}) {
     showToast(getError(error, defErrMsg: defErrMsg));
   }
 

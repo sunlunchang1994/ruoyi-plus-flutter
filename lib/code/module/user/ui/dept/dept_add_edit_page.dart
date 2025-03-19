@@ -328,7 +328,7 @@ class _DeptAddEditModel extends AppBaseVm with CancelTokenAssist {
         this.deptInfo = result.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        BaseDio.handlerError(e);
+        BaseDio.handlerErr(e);
         finish();
       });
     }
@@ -396,7 +396,7 @@ class _DeptAddEditModel extends AppBaseVm with CancelTokenAssist {
       finish(result: deptInfo);
     }, onError: (error) {
       dismissLoading();
-      BaseDio.handlerError(error);
+      BaseDio.handlerErr(error);
     });
   }
 
@@ -409,7 +409,7 @@ class _DeptAddEditModel extends AppBaseVm with CancelTokenAssist {
       finish(result: true);
     }, onError: (e) {
       dismissLoading();
-      BaseDio.handlerError(e);
+      BaseDio.handlerErr(e);
       AppToastUtil.showToast(msg: S.current.label_delete_failed);
     });
   }

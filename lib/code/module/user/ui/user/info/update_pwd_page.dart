@@ -135,7 +135,7 @@ class _UpdatePwdVm extends AppBaseVm with CancelTokenAssist {
       AppToastUtil.showToast(msg: S.current.toast_edit_success);
       dismissLoading();
     }, onError: (e) {
-      BaseDio.handlerError(e);
+      BaseDio.handlerErr(e);
       dismissLoading();
     });
   }

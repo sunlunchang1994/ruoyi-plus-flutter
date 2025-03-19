@@ -212,7 +212,7 @@ class _TenantPackageAddEditVm extends AppBaseVm with CancelTokenAssist {
         this.sysTenantPackage = intensifyEntity.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        BaseDio.handlerError(e);
+        BaseDio.handlerErr(e);
         finish();
       });
     }
@@ -276,7 +276,7 @@ class _TenantPackageAddEditVm extends AppBaseVm with CancelTokenAssist {
       finish(result: sysTenantPackage);
     }, onError: (error) {
       dismissLoading();
-      BaseDio.handlerError(error);
+      BaseDio.handlerErr(error);
     });
   }
 
@@ -289,7 +289,7 @@ class _TenantPackageAddEditVm extends AppBaseVm with CancelTokenAssist {
       finish(result: true);
     }, onError: (e) {
       dismissLoading();
-      BaseDio.handlerError(e);
+      BaseDio.handlerErr(e);
       AppToastUtil.showToast(msg: S.current.label_delete_failed);
     });
   }

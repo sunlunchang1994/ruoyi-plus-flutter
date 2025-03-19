@@ -428,7 +428,7 @@ class _MenuAddEditModel extends AppBaseVm with CancelTokenAssist {
         sysMenuInfo = result.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        BaseDio.handlerError(e);
+        BaseDio.handlerErr(e);
         finish();
       });
     }
@@ -487,7 +487,7 @@ class _MenuAddEditModel extends AppBaseVm with CancelTokenAssist {
       finish(result: sysMenuInfo);
     }, onError: (error) {
       dismissLoading();
-      BaseDio.handlerError(error);
+      BaseDio.handlerErr(error);
     });
   }
 
@@ -500,7 +500,7 @@ class _MenuAddEditModel extends AppBaseVm with CancelTokenAssist {
       finish(result: true);
     }, onError: (e) {
       dismissLoading();
-      BaseDio.handlerError(e);
+      BaseDio.handlerErr(e);
       AppToastUtil.showToast(msg: S.current.label_delete_failed);
     });
   }

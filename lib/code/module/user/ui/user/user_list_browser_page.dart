@@ -187,10 +187,9 @@ class _UserListBrowserVm extends AppBaseVm {
       dismissLoading();
       AppToastUtil.showToast(msg: S.current.label_delete_success);
       listVmSub.sendRefreshEvent();
-    }, onError: (e) {
+    }, onError: BaseDio.errProxyFunc(onError: (error) {
       dismissLoading();
-      BaseDio.handlerError(e);
       AppToastUtil.showToast(msg: S.current.label_delete_failed);
-    });
+    }));
   }
 }

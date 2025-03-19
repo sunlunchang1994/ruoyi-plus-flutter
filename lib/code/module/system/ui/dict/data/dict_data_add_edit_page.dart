@@ -272,7 +272,7 @@ class _DictDataAddEditVm extends AppBaseVm with CancelTokenAssist {
         this.sysDictData = intensifyEntity.data;
         setLoadingStatus(LoadingStatus.success);
       }, onError: (e) {
-        BaseDio.handlerError(e);
+        BaseDio.handlerErr(e);
         finish();
       });
     }
@@ -312,7 +312,7 @@ class _DictDataAddEditVm extends AppBaseVm with CancelTokenAssist {
       finish(result: sysDictData);
     }, onError: (error) {
       dismissLoading();
-      BaseDio.handlerError(error);
+      BaseDio.handlerErr(error);
     });
   }
 
@@ -325,7 +325,7 @@ class _DictDataAddEditVm extends AppBaseVm with CancelTokenAssist {
       finish(result: true);
     }, onError: (e) {
       dismissLoading();
-      BaseDio.handlerError(e);
+      BaseDio.handlerErr(e);
       AppToastUtil.showToast(msg: S.current.label_delete_failed);
     });
   }
