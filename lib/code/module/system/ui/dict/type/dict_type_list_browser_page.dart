@@ -192,10 +192,11 @@ class _DictTypeListBrowserVm extends AppBaseVm {
       dismissLoading();
       AppToastUtil.showToast(msg: S.current.label_delete_success);
       listVmSub.sendRefreshEvent();
-    }, onError: (e) {
-      dismissLoading();
-      BaseDio.handlerErr(e);
-      AppToastUtil.showToast(msg: S.current.label_delete_failed);
-    });
+    },
+        onError: BaseDio.errProxyFunc(
+            defErrMsg: S.current.label_delete_failed,
+            onError: (error) {
+              dismissLoading();
+            }));
   }
 }

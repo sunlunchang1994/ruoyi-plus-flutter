@@ -225,7 +225,7 @@ class SysClientListDataVmSub extends FastBaseListDataPageVmSub<SysClient> with C
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
         return dataWrapper;
       } catch (e) {
-        ResultEntity resultEntity = BaseDio.getError(e);
+        ResultEntity resultEntity = BaseDio.handlerErr(e, showToast: false);
         return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
       }
     });

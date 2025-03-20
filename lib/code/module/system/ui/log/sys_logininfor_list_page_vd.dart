@@ -284,7 +284,7 @@ class LogininforListDataVmSub extends FastBaseListDataPageVmSub<SysLogininfor>
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
         return dataWrapper;
       } catch (e) {
-        ResultEntity resultEntity = BaseDio.getError(e);
+        ResultEntity resultEntity = BaseDio.handlerErr(e, showToast: false);
         return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
       }
     });
@@ -308,10 +308,11 @@ class LogininforListDataVmSub extends FastBaseListDataPageVmSub<SysLogininfor>
       dismissLoading();
       AppToastUtil.showToast(msg: S.current.label_delete_success);
       sendRefreshEvent();
-    }, onError: (e) {
-      dismissLoading();
-      BaseDio.handlerErr(e);
-      AppToastUtil.showToast(msg: S.current.label_delete_failed);
-    });
+    },
+        onError: BaseDio.errProxyFunc(
+            defErrMsg: S.current.label_delete_failed,
+            onError: (error) {
+              dismissLoading();
+            }));
   }
 }

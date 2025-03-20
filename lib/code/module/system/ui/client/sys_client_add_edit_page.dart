@@ -328,10 +328,12 @@ class _SysClientAddEditVm extends AppBaseVm with CancelTokenAssist {
           (intensifyEntity) {
         this.sysClient = intensifyEntity.data;
         setLoadingStatus(LoadingStatus.success);
-      }, onError: (e) {
-        BaseDio.handlerErr(e);
+      }, onError: BaseDio.errProxyFunc(onError: (error) {
+        if (error.isUnauthorized()) {
+          return;
+        }
         finish();
-      });
+      }));
     }
   }
 
@@ -399,10 +401,9 @@ class _SysClientAddEditVm extends AppBaseVm with CancelTokenAssist {
       dismissLoading();
       _infoChange = false;
       finish(result: sysClient);
-    }, onError: (error) {
+    }, onError: BaseDio.errProxyFunc(onError: (error) {
       dismissLoading();
-      BaseDio.handlerErr(error);
-    });
+    }));
   }
 
   //删除客户端
@@ -412,10 +413,11 @@ class _SysClientAddEditVm extends AppBaseVm with CancelTokenAssist {
       dismissLoading();
       AppToastUtil.showToast(msg: S.current.label_delete_success);
       finish(result: true);
-    }, onError: (e) {
-      dismissLoading();
-      BaseDio.handlerErr(e);
-      AppToastUtil.showToast(msg: S.current.label_delete_failed);
-    });
+    },
+        onError: BaseDio.errProxyFunc(
+            defErrMsg: S.current.label_delete_failed,
+            onError: (error) {
+              dismissLoading();
+            }));
   }
 }

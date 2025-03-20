@@ -242,10 +242,12 @@ class CacheMonitorPage extends AppBaseStatelessWidget<_CacheMonitorVm> {
                                   show: true,
                                   border: Border(
                                     bottom: BorderSide(
-                                        color: themeData.slcTidyUpColor.getDividerColorByTheme(themeData),
+                                        color: themeData.slcTidyUpColor
+                                            .getDividerColorByTheme(themeData),
                                         width: 2),
                                     left: BorderSide(
-                                        color: themeData.slcTidyUpColor.getDividerColorByTheme(themeData),
+                                        color: themeData.slcTidyUpColor
+                                            .getDividerColorByTheme(themeData),
                                         width: 2),
                                     right: BorderSide.none,
                                     top: BorderSide.none,
@@ -402,10 +404,12 @@ class CacheMonitorPage extends AppBaseStatelessWidget<_CacheMonitorVm> {
                                   show: true,
                                   border: Border(
                                     bottom: BorderSide(
-                                        color: themeData.slcTidyUpColor.getDividerColorByTheme(themeData),
+                                        color: themeData.slcTidyUpColor
+                                            .getDividerColorByTheme(themeData),
                                         width: 2),
                                     right: BorderSide(
-                                        color: themeData.slcTidyUpColor.getDividerColorByTheme(themeData),
+                                        color: themeData.slcTidyUpColor
+                                            .getDividerColorByTheme(themeData),
                                         width: 2),
                                     left: BorderSide.none,
                                     top: BorderSide.none,
@@ -492,10 +496,12 @@ class _CacheMonitorVm extends AppBaseVm with CancelTokenAssist {
       _buildTableInfo();
       _buildCommandStats();
       setLoadingStatus(LoadingStatus.success);
-    }, onError: (e) {
-      BaseDio.handlerErr(e);
+    }, onError: BaseDio.errProxyFunc(onError: (error) {
+      if (error.isUnauthorized()) {
+        return;
+      }
       finish();
-    });
+    }));
   }
 
   void _buildTableInfo() {

@@ -174,10 +174,8 @@ class _SysClientListBrowserVm extends AppBaseVm {
       dismissLoading();
       AppToastUtil.showToast(msg: S.current.label_delete_success);
       listVmSub.sendRefreshEvent();
-    }, onError: (e) {
+    }, onError: BaseDio.errProxyFunc(defErrMsg: S.current.label_delete_failed,onError: (error) {
       dismissLoading();
-      BaseDio.handlerErr(e);
-      AppToastUtil.showToast(msg: S.current.label_delete_failed);
-    });
+    }));
   }
 }

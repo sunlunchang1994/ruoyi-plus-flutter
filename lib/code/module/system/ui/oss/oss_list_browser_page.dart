@@ -254,10 +254,12 @@ class _OssListBrowserVm extends AppBaseVm {
     PubOssRepository.upload(path).then((IntensifyEntity<SysOssUploadVo> value) {
       dismissLoading();
       listVmSub.sendRefreshEvent();
-    }, onError: (e) {
-      BaseDio.handlerErr(e, defErrMsg: S.current.label_file_upload_by_file_failed);
-      dismissLoading();
-    });
+    },
+        onError: BaseDio.errProxyFunc(
+            defErrMsg: S.current.label_file_upload_by_file_failed,
+            onError: (error) {
+              dismissLoading();
+            }));
   }
 
   //删除事件
@@ -284,10 +286,11 @@ class _OssListBrowserVm extends AppBaseVm {
       dismissLoading();
       AppToastUtil.showToast(msg: S.current.label_delete_success);
       listVmSub.sendRefreshEvent();
-    }, onError: (e) {
-      dismissLoading();
-      BaseDio.handlerErr(e);
-      AppToastUtil.showToast(msg: S.current.label_delete_failed);
-    });
+    },
+        onError: BaseDio.errProxyFunc(
+            defErrMsg: S.current.label_delete_failed,
+            onError: (error) {
+              dismissLoading();
+            }));
   }
 }

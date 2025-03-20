@@ -71,31 +71,31 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                           },
                           icon: Icon(Icons.save)),
                       if (sysTenant != null)
-                      PopupMenuButton<String>(itemBuilder: (context) {
-                        return [
-                          PopupMenuItem(
-                            child: Text(S.current.action_delete),
-                            onTap: () {
-                              FastDialogUtils.showDelConfirmDialog(context,
-                                  contentText: TextUtil.format(
-                                      S.current.sys_label_sys_tenant_del_prompt,
-                                      [sysTenant?.companyName])).then((confirm) {
-                                if (confirm == true) {
-                                  getVm().onDelete();
-                                }
-                              });
-                            },
-                          ),
-                          PopupMenuItem(
-                              value: S.current.sys_label_sys_tenant_sync_package,
-                              child: Text(S.current.sys_label_sys_tenant_sync_package))
-                        ];
-                      }, onSelected: (value) {
-                        if (value == S.current.sys_label_sys_tenant_sync_package) {
-                          //同步套餐
-                          getVm().syncTenantPackage();
-                        }
-                      })
+                        PopupMenuButton<String>(itemBuilder: (context) {
+                          return [
+                            PopupMenuItem(
+                              child: Text(S.current.action_delete),
+                              onTap: () {
+                                FastDialogUtils.showDelConfirmDialog(context,
+                                    contentText: TextUtil.format(
+                                        S.current.sys_label_sys_tenant_del_prompt,
+                                        [sysTenant?.companyName])).then((confirm) {
+                                  if (confirm == true) {
+                                    getVm().onDelete();
+                                  }
+                                });
+                              },
+                            ),
+                            PopupMenuItem(
+                                value: S.current.sys_label_sys_tenant_sync_package,
+                                child: Text(S.current.sys_label_sys_tenant_sync_package))
+                          ];
+                        }, onSelected: (value) {
+                          if (value == S.current.sys_label_sys_tenant_sync_package) {
+                            //同步套餐
+                            getVm().syncTenantPackage();
+                          }
+                        })
                     ],
                   ),
                   body: getStatusBody(context)));
@@ -408,10 +408,12 @@ class _TenantAddEditVm extends AppBaseVm with CancelTokenAssist {
           (intensifyEntity) {
         this.sysTenant = intensifyEntity.data;
         setLoadingStatus(LoadingStatus.success);
-      }, onError: (e) {
-        BaseDio.handlerErr(e);
+      }, onError: BaseDio.errProxyFunc(onError: (error) {
+        if (error.isUnauthorized()) {
+          return;
+        }
         finish();
-      });
+      }));
     }
   }
 
@@ -468,10 +470,9 @@ class _TenantAddEditVm extends AppBaseVm with CancelTokenAssist {
       //保存成功后要设置
       _infoChange = false;
       finish(result: sysTenant);
-    }, onError: (error) {
+    }, onError: BaseDio.errProxyFunc(onError: (error) {
       dismissLoading();
-      BaseDio.handlerErr(error);
-    });
+    }));
   }
 
   //同步租户套餐
@@ -495,10 +496,11 @@ class _TenantAddEditVm extends AppBaseVm with CancelTokenAssist {
       dismissLoading();
       AppToastUtil.showToast(msg: S.current.label_delete_success);
       finish(result: true);
-    }, onError: (e) {
-      dismissLoading();
-      BaseDio.handlerErr(e);
-      AppToastUtil.showToast(msg: S.current.label_delete_failed);
-    });
+    },
+        onError: BaseDio.errProxyFunc(
+            defErrMsg: S.current.label_delete_failed,
+            onError: (error) {
+              dismissLoading();
+            }));
   }
 }

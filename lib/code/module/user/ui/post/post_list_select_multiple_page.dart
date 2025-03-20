@@ -156,7 +156,7 @@ class _PostListMultipleSelectVm extends AppBaseVm {
           //返回数据结构
           dataWrapper = DataTransformUtils.entity2LDWrapper(result);
         } catch (e) {
-          ResultEntity resultEntity = BaseDio.getError(e);
+          ResultEntity resultEntity = BaseDio.handlerErr(e, showToast: false);
           dataWrapper = DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
         }
       }

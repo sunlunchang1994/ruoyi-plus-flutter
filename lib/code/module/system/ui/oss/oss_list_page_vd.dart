@@ -275,7 +275,7 @@ class OssListDataVmSub extends FastBaseListDataPageVmSub<SysOssVo> with CancelTo
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
         return dataWrapper;
       } catch (e) {
-        ResultEntity resultEntity = BaseDio.getError(e);
+        ResultEntity resultEntity = BaseDio.handlerErr(e, showToast: false);
         return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
       }
     });

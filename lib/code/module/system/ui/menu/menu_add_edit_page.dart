@@ -427,10 +427,12 @@ class _MenuAddEditModel extends AppBaseVm with CancelTokenAssist {
       MenuRepository.getInfo(menuInfo.menuId!, defCancelToken, fillParentName: true).then((result) {
         sysMenuInfo = result.data;
         setLoadingStatus(LoadingStatus.success);
-      }, onError: (e) {
-        BaseDio.handlerErr(e);
+      }, onError: BaseDio.errProxyFunc(onError: (error) {
+        if (error.isUnauthorized()) {
+          return;
+        }
         finish();
-      });
+      }));
     }
   }
 
@@ -485,10 +487,9 @@ class _MenuAddEditModel extends AppBaseVm with CancelTokenAssist {
       //保存成功后要设置
       _infoChange = false;
       finish(result: sysMenuInfo);
-    }, onError: (error) {
+    }, onError: BaseDio.errProxyFunc(onError: (error) {
       dismissLoading();
-      BaseDio.handlerErr(error);
-    });
+    }));
   }
 
   //删除菜单
@@ -498,10 +499,11 @@ class _MenuAddEditModel extends AppBaseVm with CancelTokenAssist {
       dismissLoading();
       AppToastUtil.showToast(msg: S.current.label_delete_success);
       finish(result: true);
-    }, onError: (e) {
-      dismissLoading();
-      BaseDio.handlerErr(e);
-      AppToastUtil.showToast(msg: S.current.label_delete_failed);
-    });
+    },
+        onError: BaseDio.errProxyFunc(
+            defErrMsg: S.current.label_delete_failed,
+            onError: (error) {
+              dismissLoading();
+            }));
   }
 }

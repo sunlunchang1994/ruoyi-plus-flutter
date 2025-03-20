@@ -367,7 +367,7 @@ class UserTreeListDataVmSub extends TreeFastBaseListDataVmSub<dynamic> {
             DataTransformUtils.entity2LDWrapper(intensifyEntity);
         return dataWrapper;
       } catch (e) {
-        ResultEntity resultEntity = BaseDio.handlerErr(e);
+        ResultEntity resultEntity = BaseDio.handlerErr(e, showToast: false);
         return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
       }
     });

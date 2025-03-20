@@ -58,9 +58,9 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                   IconButton(
                       onPressed: () {
                         FastDialogUtils.showDelConfirmDialog(context,
-                            contentText: TextUtil.format(
-                                S.current.sys_label_oss_del_prompt,
-                                [sysOssVo.originalName])).then((confirm) {
+                                contentText: TextUtil.format(
+                                    S.current.sys_label_oss_del_prompt, [sysOssVo.originalName]))
+                            .then((confirm) {
                           if (confirm == true) {
                             getVm().onDelete();
                           }
@@ -343,9 +343,9 @@ class _OssAddEditVm extends AppBaseVm with CancelTokenAssist {
       //提示并打开
       AppToastUtil.showToast(msg: S.current.action_download_on_success);
       onOpenFile(result.filePath!);
-    }, onError: (e) {
-      BaseDio.handlerErr(e);
-    });
+    },
+        onError: BaseDio.errProxyFunc(
+            defErrMsg: S.current.label_file_download_failed, onError: (error) {}));
   }
 
   void onOpenFile(String filePath) {
@@ -359,10 +359,11 @@ class _OssAddEditVm extends AppBaseVm with CancelTokenAssist {
       dismissLoading();
       AppToastUtil.showToast(msg: S.current.label_delete_success);
       finish(result: true);
-    }, onError: (e) {
-      dismissLoading();
-      BaseDio.handlerErr(e);
-      AppToastUtil.showToast(msg: S.current.label_delete_failed);
-    });
+    },
+        onError: BaseDio.errProxyFunc(
+            defErrMsg: S.current.label_delete_failed,
+            onError: (error) {
+              dismissLoading();
+            }));
   }
 }

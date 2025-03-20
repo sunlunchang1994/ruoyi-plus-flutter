@@ -213,7 +213,7 @@ class RolePageDataVmSub extends FastBaseListDataPageVmSub<Role> with CancelToken
             DataWrapper<PageModel<Role>> dataWrapper = DataTransformUtils.entity2LDWrapper(result);
             return dataWrapper;
           } catch (e) {
-            ResultEntity resultEntity = BaseDio.getError(e);
+            ResultEntity resultEntity = BaseDio.handlerErr(e, showToast: false);
             return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
           }
         });
@@ -238,5 +238,4 @@ class RolePageDataVmSub extends FastBaseListDataPageVmSub<Role> with CancelToken
     formOperate.formBuilderState?.save();
     sendRefreshEvent();
   }
-
 }

@@ -44,9 +44,10 @@ dependencies:
   intl: ^0.19.0
 
   #基础框架
-  flutter_slc_boxes:
-    git:
-      url: https://gitee.com/slcpublic/flutter_slc_boxes.git
+  flutter_slc_boxes: ^0.3.9
+  #flutter_slc_boxes:
+  #  git:
+  #    url: https://gitee.com/slcpublic/flutter_slc_boxes.git
   #----------------- 版本不要轻易改动  加上是因为上述包也用了这个
   #状态管理
   provider: ^6.1.2

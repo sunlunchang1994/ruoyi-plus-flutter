@@ -40,96 +40,98 @@ class DictDataListBrowserPage extends AppBaseStatelessWidget<_DictDataListBrowse
           return PopScope(
               canPop: false,
               onPopInvokedWithResult: (canPop, result) {
-            if (canPop) {
-              return;
-            }
-            if (getVm().listVmSub.selectModelIsRun) {
-              getVm().listVmSub.selectModelIsRun = false;
-              return;
-            }
-            Navigator.pop(context);
-          },
-          child: Scaffold(
-              appBar: AppBar(leading:
-              NqSelector<_DictDataListBrowserVm, bool>(builder: (context, value, child) {
-                return WidgetUtils.getAnimCrossFade(const CloseButton(), const BackButton(),
-                    showOne: value);
-              }, selector: (context, vm) {
-                return vm.listVmSub.selectModelIsRun;
-              }),
-                  title: Text(title),
-                  actions: [
-                    NqSelector<_DictDataListBrowserVm, bool>(builder: (context, value, child) {
-                      return AnimatedSize(
-                          duration: WidgetUtils.adminDurationNormal,
-                          child: Row(
-                            children: [
-                              ...() {
-                                List<Widget> actions = [];
-                                if (value) {
-                                  actions
-                                      .addAll(WidgetUtils.getDeleteFamilyAction(onDelete: () {
-                                    getVm().onDelete(confirmHandler: (nameList) {
-                                      return FastDialogUtils.showDelConfirmDialog(context,
-                                          contentText: TextUtil.format(
-                                              S.current.sys_label_config_del_prompt,
-                                              [nameList.join(TextUtil.COMMA)]));
-                                    });
-                                  }, onSelectAll: () {
-                                    getVm().listVmSub.onSelectAll(true);
-                                  }, onDeselect: () {
-                                    getVm().listVmSub.onSelectAll(false);
-                                  }));
-                                } else {
-                                  actions.add(Builder(builder: (context) {
-                                    return IconButton(
-                                      icon: const Icon(Icons.search),
-                                      onPressed: () {
-                                        WidgetUtils.autoHandlerSearchDrawer(context);
-                                      },
-                                    );
-                                  }));
-                                }
-                                return actions;
-                              }.call()
-                            ],
-                          ));
-                    }, selector: (context, vm) {
-                      return vm.listVmSub.selectModelIsRun;
-                    })
-              ]),
-              endDrawer: DictTypeListPageWidget.getSearchEndDrawer<_DictDataListBrowserVm>(
-                  context, themeData, getVm().listVmSub),
-              floatingActionButton:
-              NqSelector<_DictDataListBrowserVm, bool>(builder: (context, value, child) {
-                return WidgetUtils.getAnimVisibility(
-                    !value,
-                    FloatingActionButton(
-                        child: Icon(Icons.add),
-                        onPressed: () {
-                          getVm().onAddItem();
-                        }));
-              }, selector: (context, vm) {
-                return vm.listVmSub.selectModelIsRun;
-              }),
-              body: PageDataVd(getVm().listVmSub, getVm(),
-                  refreshOnStart: true,
-                  child: NqSelector<_DictDataListBrowserVm, int>(builder: (context, vm, child) {
-                    return DictTypeListPageWidget.getDataListWidget(
-                        themeData, getVm().listVmSub.dataList, getVm().listVmSub, (currentItem) {
-                      return Ink(
-                          child: InkWell(
-                              child: Padding(
-                                  padding: EdgeInsets.all(SlcDimens.appDimens12),
-                                  child: const Icon(Icons.chevron_right, size: 24)),
-                              onTap: () {
-                                //点击更多事件
-                                getVm().listVmSub.onSuffixClick?.call(currentItem);
-                              }));
-                    });
+                if (canPop) {
+                  return;
+                }
+                if (getVm().listVmSub.selectModelIsRun) {
+                  getVm().listVmSub.selectModelIsRun = false;
+                  return;
+                }
+                Navigator.pop(context);
+              },
+              child: Scaffold(
+                  appBar: AppBar(
+                      leading: NqSelector<_DictDataListBrowserVm, bool>(
+                          builder: (context, value, child) {
+                        return WidgetUtils.getAnimCrossFade(const CloseButton(), const BackButton(),
+                            showOne: value);
+                      }, selector: (context, vm) {
+                        return vm.listVmSub.selectModelIsRun;
+                      }),
+                      title: Text(title),
+                      actions: [
+                        NqSelector<_DictDataListBrowserVm, bool>(builder: (context, value, child) {
+                          return AnimatedSize(
+                              duration: WidgetUtils.adminDurationNormal,
+                              child: Row(
+                                children: [
+                                  ...() {
+                                    List<Widget> actions = [];
+                                    if (value) {
+                                      actions
+                                          .addAll(WidgetUtils.getDeleteFamilyAction(onDelete: () {
+                                        getVm().onDelete(confirmHandler: (nameList) {
+                                          return FastDialogUtils.showDelConfirmDialog(context,
+                                              contentText: TextUtil.format(
+                                                  S.current.sys_label_config_del_prompt,
+                                                  [nameList.join(TextUtil.COMMA)]));
+                                        });
+                                      }, onSelectAll: () {
+                                        getVm().listVmSub.onSelectAll(true);
+                                      }, onDeselect: () {
+                                        getVm().listVmSub.onSelectAll(false);
+                                      }));
+                                    } else {
+                                      actions.add(Builder(builder: (context) {
+                                        return IconButton(
+                                          icon: const Icon(Icons.search),
+                                          onPressed: () {
+                                            WidgetUtils.autoHandlerSearchDrawer(context);
+                                          },
+                                        );
+                                      }));
+                                    }
+                                    return actions;
+                                  }.call()
+                                ],
+                              ));
+                        }, selector: (context, vm) {
+                          return vm.listVmSub.selectModelIsRun;
+                        })
+                      ]),
+                  endDrawer: DictTypeListPageWidget.getSearchEndDrawer<_DictDataListBrowserVm>(
+                      context, themeData, getVm().listVmSub),
+                  floatingActionButton:
+                      NqSelector<_DictDataListBrowserVm, bool>(builder: (context, value, child) {
+                    return WidgetUtils.getAnimVisibility(
+                        !value,
+                        FloatingActionButton(
+                            child: Icon(Icons.add),
+                            onPressed: () {
+                              getVm().onAddItem();
+                            }));
                   }, selector: (context, vm) {
-                    return vm.listVmSub.shouldSetState.version;
-                  }))));
+                    return vm.listVmSub.selectModelIsRun;
+                  }),
+                  body: PageDataVd(getVm().listVmSub, getVm(),
+                      refreshOnStart: true,
+                      child: NqSelector<_DictDataListBrowserVm, int>(builder: (context, vm, child) {
+                        return DictTypeListPageWidget.getDataListWidget(
+                            themeData, getVm().listVmSub.dataList, getVm().listVmSub,
+                            (currentItem) {
+                          return Ink(
+                              child: InkWell(
+                                  child: Padding(
+                                      padding: EdgeInsets.all(SlcDimens.appDimens12),
+                                      child: const Icon(Icons.chevron_right, size: 24)),
+                                  onTap: () {
+                                    //点击更多事件
+                                    getVm().listVmSub.onSuffixClick?.call(currentItem);
+                                  }));
+                        });
+                      }, selector: (context, vm) {
+                        return vm.listVmSub.shouldSetState.version;
+                      }))));
         });
   }
 }
@@ -190,10 +192,11 @@ class _DictDataListBrowserVm extends AppBaseVm {
       dismissLoading();
       AppToastUtil.showToast(msg: S.current.label_delete_success);
       listVmSub.sendRefreshEvent();
-    }, onError: (e) {
-      dismissLoading();
-      BaseDio.handlerErr(e);
-      AppToastUtil.showToast(msg: S.current.label_delete_failed);
-    });
+    },
+        onError: BaseDio.errProxyFunc(
+            defErrMsg: S.current.label_delete_failed,
+            onError: (error) {
+              dismissLoading();
+            }));
   }
 }

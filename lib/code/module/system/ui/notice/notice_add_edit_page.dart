@@ -246,10 +246,12 @@ class _NoticeAddEditVm extends AppBaseVm with CancelTokenAssist {
         this.sysNotice = intensifyEntity.data;
         controller.loadHtmlString(WebViewUtil.formatRichText(this.sysNotice?.noticeContent ?? ""));
         setLoadingStatus(LoadingStatus.success);
-      }, onError: (e) {
-        BaseDio.handlerErr(e);
+      }, onError: BaseDio.errProxyFunc(onError: (error) {
+        if (error.isUnauthorized()) {
+          return;
+        }
         finish();
-      });
+      }));
     }
   }
 
@@ -292,10 +294,9 @@ class _NoticeAddEditVm extends AppBaseVm with CancelTokenAssist {
       //保存成功后要设置
       _infoChange = false;
       finish(result: sysNotice);
-    }, onError: (error) {
+    }, onError: BaseDio.errProxyFunc(onError: (error) {
       dismissLoading();
-      BaseDio.handlerErr(error);
-    });
+    }));
   }
 
   //删除字典类型
@@ -305,10 +306,11 @@ class _NoticeAddEditVm extends AppBaseVm with CancelTokenAssist {
       dismissLoading();
       AppToastUtil.showToast(msg: S.current.label_delete_success);
       finish(result: true);
-    }, onError: (e) {
-      dismissLoading();
-      BaseDio.handlerErr(e);
-      AppToastUtil.showToast(msg: S.current.label_delete_failed);
-    });
+    },
+        onError: BaseDio.errProxyFunc(
+            defErrMsg: S.current.label_delete_failed,
+            onError: (error) {
+              dismissLoading();
+            }));
   }
 }

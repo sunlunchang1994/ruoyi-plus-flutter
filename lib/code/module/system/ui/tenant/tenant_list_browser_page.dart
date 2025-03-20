@@ -188,10 +188,12 @@ class _TenantListBrowserVm extends AppBaseVm with CancelTokenAssist {
     SysTenantRepository.syncTenantDict(defCancelToken).then((result) {
       dismissLoading();
       AppToastUtil.showToast(msg: S.current.sys_label_sys_tenant_sync_dict_succeed);
-    }, onError: (e) {
-      dismissLoading();
-      BaseDio.handlerErr(e, defErrMsg: S.current.sys_label_sys_tenant_sync_dict_failed);
-    });
+    },
+        onError: BaseDio.errProxyFunc(
+            defErrMsg: S.current.sys_label_sys_tenant_sync_dict_failed,
+            onError: (error) {
+              dismissLoading();
+            }));
   }
 
   //删除事件
@@ -217,10 +219,11 @@ class _TenantListBrowserVm extends AppBaseVm with CancelTokenAssist {
       dismissLoading();
       AppToastUtil.showToast(msg: S.current.label_delete_success);
       listVmSub.sendRefreshEvent();
-    }, onError: (e) {
-      dismissLoading();
-      BaseDio.handlerErr(e);
-      AppToastUtil.showToast(msg: S.current.label_delete_failed);
-    });
+    },
+        onError: BaseDio.errProxyFunc(
+            defErrMsg: S.current.label_delete_failed,
+            onError: (error) {
+              dismissLoading();
+            }));
   }
 }

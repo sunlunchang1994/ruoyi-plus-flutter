@@ -24,11 +24,8 @@ import '../../repository/remote/menu_api.dart';
 ///@author slc
 ///菜单树列表
 class MenuListPageWidget {
-
   ///数据列表控件
-  static Widget getDataListWidget(
-      ThemeData themeData,
-      MenuListDataVmSub listVmSub,
+  static Widget getDataListWidget(ThemeData themeData, MenuListDataVmSub listVmSub,
       Widget Function(SysMenu currentItem) buildTrailing) {
     if (listVmSub.dataList.isEmpty) {
       return const ContentEmptyWrapper();
@@ -40,8 +37,7 @@ class MenuListPageWidget {
         itemCount: listVmSub.dataList.length,
         itemBuilder: (ctx, index) {
           SysMenu listItem = listVmSub.dataList[index];
-          return getDataListItem(
-              themeData, listVmSub, buildTrailing, index, listItem);
+          return getDataListItem(themeData, listVmSub, buildTrailing, index, listItem);
         },
         separatorBuilder: (context, index) {
           return themeData.slcTidyUpStyle.getDefDividerByTheme(themeData);
@@ -77,7 +73,6 @@ class MenuListPageWidget {
           listenerItemSelect.onItemLongClick(index, listItem);
         });
   }
-
 }
 
 ///菜单树数据VmSub
@@ -125,12 +120,9 @@ class MenuListDataVmSub extends TreeFastBaseListDataVmSub<SysMenu> {
       }
       try {
         //此处的parentId就是创建cancelToken所需的treeId;
-        CancelToken cancelToken =
-            createCancelTokenByTreeId(_currentDeptSearch.parentId);
+        CancelToken cancelToken = createCancelTokenByTreeId(_currentDeptSearch.parentId);
         IntensifyEntity<List<SysMenu>> intensifyEntity =
-            await MenuRepository.list(_currentDeptSearch, cancelToken)
-                .asStream()
-                .single;
+            await MenuRepository.list(_currentDeptSearch, cancelToken).asStream().single;
         _allTreeList = intensifyEntity.data;
 
         DataWrapper<List<SysMenu>> dataWrapper =
@@ -140,9 +132,8 @@ class MenuListDataVmSub extends TreeFastBaseListDataVmSub<SysMenu> {
                 }).toList());
         return dataWrapper;
       } catch (e) {
-        ResultEntity resultEntity = BaseDio.getError(e);
-        return DataWrapper.createFailed(
-            code: resultEntity.code, msg: resultEntity.msg);
+        ResultEntity resultEntity = BaseDio.handlerErr(e, showToast: false);
+        return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
       }
     });
     //设置点击item事件主体
@@ -194,8 +185,9 @@ class MenuListDataVmSub extends TreeFastBaseListDataVmSub<SysMenu> {
   @override
   void onFillListFormTarget(targetTreeId) {
     List<SysMenu> resultList = _allTreeList?.where((item) {
-      return targetTreeId == item.parentId;
-    }).toList()?? List.empty(growable: true);
+          return targetTreeId == item.parentId;
+        }).toList() ??
+        List.empty(growable: true);
     onSucceed(resultList);
     //super.onFillListFormPrevious(targetTreeId);
   }
@@ -203,12 +195,12 @@ class MenuListDataVmSub extends TreeFastBaseListDataVmSub<SysMenu> {
   @override
   void sendRefreshEvent({CallRefreshParams? callRefreshParams}) {
     super.sendRefreshEvent(
-        callRefreshParams: callRefreshParams ??
-            CallRefreshParams(overOffset: 0, duration: Duration.zero));
+        callRefreshParams:
+            callRefreshParams ?? CallRefreshParams(overOffset: 0, duration: Duration.zero));
   }
 
   ///刷新并清空树栈堆数据，主要用于当前列表进行增删改后使用
-  void refreshAndClearTreeStacks(){
+  void refreshAndClearTreeStacks() {
     treeStacksDataMap.clear();
     sendRefreshEvent();
   }
