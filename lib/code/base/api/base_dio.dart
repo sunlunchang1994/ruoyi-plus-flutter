@@ -136,7 +136,6 @@ class BaseDio {
         BaseDio.handlerUnauthorized(entity);
       } else if (showToast) {
         BaseDio.showToast(entity);
-        onError?.call(entity);
       }
     };
   }
