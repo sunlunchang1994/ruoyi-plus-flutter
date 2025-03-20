@@ -3545,6 +3545,56 @@ class S {
     );
   }
 
+  /// `解锁`
+  String get sys_label_logininfor_unlock {
+    return Intl.message(
+      '解锁',
+      name: 'sys_label_logininfor_unlock',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `确定要解锁该用户吗？`
+  String get sys_label_logininfor_unlock_confirm {
+    return Intl.message(
+      '确定要解锁该用户吗？',
+      name: 'sys_label_logininfor_unlock_confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `正在解锁...`
+  String get sys_label_logininfor_unlock_ing {
+    return Intl.message(
+      '正在解锁...',
+      name: 'sys_label_logininfor_unlock_ing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `解锁成功`
+  String get sys_label_logininfor_unlock_success {
+    return Intl.message(
+      '解锁成功',
+      name: 'sys_label_logininfor_unlock_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `解锁失败`
+  String get sys_label_logininfor_unlock_fail {
+    return Intl.message(
+      '解锁失败',
+      name: 'sys_label_logininfor_unlock_fail',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `确定要删除Id为{}的日志信息吗？`
   String get sys_label_log_del_prompt {
     return Intl.message(

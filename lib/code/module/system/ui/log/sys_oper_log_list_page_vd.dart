@@ -107,7 +107,7 @@ class SysOperLogListPageWidget {
                   Text(listItem.operTime ?? "--"),
                 ],
               )),
-          trailing: WidgetUtils.getAnimCrossFade(
+          /*trailing: WidgetUtils.getAnimCrossFade(
               Checkbox(
                 value: listItem.isBoxChecked(),
                 onChanged: (value) {
@@ -116,7 +116,7 @@ class SysOperLogListPageWidget {
                 },
               ),
               WidgetUtils.getBoxStandard(),
-              showOne: listenerItemSelect.selectModelIsRun),
+              showOne: listenerItemSelect.selectModelIsRun),*/
           visualDensity: VisualDensity.compact,
           //tileColor: SlcColors.getCardColorByTheme(themeData),
           onTap: () {
@@ -125,7 +125,7 @@ class SysOperLogListPageWidget {
           onLongPress: () {
             FastDialogUtils.showDelConfirmDialog(context,
                     contentText:
-                        TextUtil.format(S.current.sys_label_dict_del_prompt, [listItem.operId]))
+                        TextUtil.format(S.current.sys_label_log_del_prompt, [listItem.operId]))
                 .then((confirm) {
               if (confirm == true) {
                 listenerItemSelect as SysOperLogListDataVmSub;

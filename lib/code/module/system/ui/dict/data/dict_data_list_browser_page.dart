@@ -73,7 +73,7 @@ class DictDataListBrowserPage extends AppBaseStatelessWidget<_DictDataListBrowse
                                         getVm().onDelete(confirmHandler: (nameList) {
                                           return FastDialogUtils.showDelConfirmDialog(context,
                                               contentText: TextUtil.format(
-                                                  S.current.sys_label_config_del_prompt,
+                                                  S.current.sys_label_dict_del_prompt,
                                                   [nameList.join(TextUtil.COMMA)]));
                                         });
                                       }, onSelectAll: () {

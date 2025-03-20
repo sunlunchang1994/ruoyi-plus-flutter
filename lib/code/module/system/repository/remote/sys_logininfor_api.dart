@@ -32,6 +32,10 @@ abstract class SysLogininforApiClient {
   ///删除登录日志
   @DELETE("/monitor/logininfor/{ids}")
   Future<ResultEntity> delete(@Path("ids") String ids, @CancelRequest() CancelToken cancelToken);
+
+  ///解锁用户
+  @GET("/monitor/logininfor/unlock/{userName}")
+  Future<ResultEntity> unlock(@Path("userName") String userName, @CancelRequest() CancelToken cancelToken);
 }
 
 class SysLogininforRepository {
@@ -57,8 +61,8 @@ class SysLogininforRepository {
     }
     DictShareVm dictShareVm = GlobalVm().dictShareVm;
     for (var action in dataList) {
-      action.statusName =
-          dictShareVm.findDict(LocalDictLib.CODE_SYS_COMMON_STATUS, action.status)?.tdDictLabel;
+      action.statusName = dictShareVm.findDict(LocalDictLib.CODE_SYS_COMMON_STATUS, action.status)?.tdDictLabel;
+      action.deviceTypeName = dictShareVm.findDict(LocalDictLib.CODE_SYS_DEVICE_TYPE, action.deviceType)?.tdDictLabel;
     }
   }
 
@@ -70,6 +74,15 @@ class SysLogininforRepository {
     ids ??= [id!];
     return _sysLogininforApiClient
         .delete(ids.join(TextUtil.COMMA), cancelToken)
+        .successMap2Single((event) {
+      return event.toIntensify();
+    });
+  }
+
+  ///解锁用户
+  static Future<IntensifyEntity<dynamic>> unlock(String userName,CancelToken cancelToken) {
+    return _sysLogininforApiClient
+        .unlock(userName, cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
     });

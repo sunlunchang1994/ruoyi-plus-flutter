@@ -81,7 +81,7 @@ class SysOperLogDetailsPage extends AppBaseStatelessWidget<_SysOperLogDetailsMod
       ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderTextField(
         name: "requestParams",
-        initialValue: "${getVm().sysOperLog!.requestMethod} / ${getVm().sysOperLog!.operUrl}",
+        initialValue: "${getVm().sysOperLog!.requestMethod} ${getVm().sysOperLog!.operUrl}",
         readOnly: true,
         decoration: MyInputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.always,

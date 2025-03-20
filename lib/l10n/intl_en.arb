@@ -428,6 +428,11 @@
   "sys_label_logininfor_location": "登录地点",
   "sys_label_logininfor_os": "操作系统",
   "sys_label_logininfor_status": "状态",
+  "sys_label_logininfor_unlock": "解锁",
+  "sys_label_logininfor_unlock_confirm": "确定要解锁该用户吗？",
+  "sys_label_logininfor_unlock_ing": "正在解锁...",
+  "sys_label_logininfor_unlock_success": "解锁成功",
+  "sys_label_logininfor_unlock_fail": "解锁失败",
 
   "sys_label_log_del_prompt": "确定要删除Id为{}的日志信息吗？",
   "sys_label_log_del_select_empty": "请选择需要删除的日志",

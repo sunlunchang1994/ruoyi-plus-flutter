@@ -7,6 +7,7 @@ import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
+import 'package:flutter_slc_boxes/flutter/slc/router/slc_router.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
@@ -71,7 +72,7 @@ class SysLogininforListPageWidget {
               Text(listItem.userName!),
               Spacer(),
               Container(
-                  padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+                  padding: EdgeInsets.symmetric(vertical: 2).copyWith(left: 2),
                   decoration: BoxDecoration(
                       border: Border.all(color: statusColor, width: 1),
                       shape: BoxShape.rectangle,
@@ -97,7 +98,7 @@ class SysLogininforListPageWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("${listItem.browser} / ${listItem.os}"),
+                      Text("${listItem.deviceTypeName} / ${listItem.browser} / ${listItem.os}"),
                       Text("${listItem.ipaddr} / ${listItem.loginLocation}")
                     ],
                   ),
@@ -122,16 +123,40 @@ class SysLogininforListPageWidget {
             listenerItemSelect.onItemClick(index, listItem);
           },
           onLongPress: () {
-            FastDialogUtils.showDelConfirmDialog(context,
-                    contentText:
-                        TextUtil.format(S.current.sys_label_dict_del_prompt, [listItem.infoId]))
-                .then((confirm) {
-              if (confirm == true) {
-                listenerItemSelect as LogininforListDataVmSub;
-                listenerItemSelect.onDelete(listItem);
-              }
-            });
-            listenerItemSelect.onItemLongClick(index, listItem);
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return SimpleDialog(children: [
+                    SimpleDialogOption(
+                        child: Text(S.current.sys_label_logininfor_unlock),
+                        onPressed: () {
+                          Navigator.pop(context);
+                          FastDialogUtils.showDelConfirmDialog(context,
+                                  contentText: S.current.sys_label_logininfor_unlock_confirm)
+                              .then((confirm) {
+                            if (confirm == true) {
+                              listenerItemSelect as LogininforListDataVmSub;
+                              listenerItemSelect.onUnlock(listItem);
+                            }
+                          });
+                        }),
+                    SimpleDialogOption(
+                        child: Text(S.current.action_delete),
+                        onPressed: () {
+                          Navigator.pop(context);
+                          FastDialogUtils.showDelConfirmDialog(context,
+                                  contentText: TextUtil.format(
+                                      S.current.sys_label_log_del_prompt, [listItem.infoId]))
+                              .then((confirm) {
+                            if (confirm == true) {
+                              listenerItemSelect as LogininforListDataVmSub;
+                              listenerItemSelect.onDelete(listItem);
+                            }
+                          });
+                        })
+                  ]);
+                });
+            //listenerItemSelect.onItemLongClick(index, listItem);
           });
     });
   }
@@ -311,6 +336,21 @@ class LogininforListDataVmSub extends FastBaseListDataPageVmSub<SysLogininfor>
     },
         onError: BaseDio.errProxyFunc(
             defErrMsg: S.current.label_delete_failed,
+            onError: (error) {
+              dismissLoading();
+            }));
+  }
+
+  //解锁用户
+  void onUnlock(SysLogininfor itemData) {
+    showLoading(text: S.current.sys_label_logininfor_unlock_ing);
+    SysLogininforRepository.unlock(itemData.userName!, defCancelToken).then((value) {
+      dismissLoading();
+      AppToastUtil.showToast(msg: S.current.sys_label_logininfor_unlock_success);
+      sendRefreshEvent();
+    },
+        onError: BaseDio.errProxyFunc(
+            defErrMsg: S.current.sys_label_logininfor_unlock_fail,
             onError: (error) {
               dismissLoading();
             }));

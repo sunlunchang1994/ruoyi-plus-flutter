@@ -47,6 +47,7 @@ class SysLogininfor with AppSelectBoxMixin<SysLogininfor> {
 
   //本地的
   String? statusName;
+  String? deviceTypeName;
 
   //显示详情
   @JsonKey(includeFromJson: false, includeToJson: false)
