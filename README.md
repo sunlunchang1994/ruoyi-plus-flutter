@@ -1,6 +1,3 @@
-# ruoyi-plus-flutter
-[![license](https://gitee.com/slcpublic/ruoyi-plus-flutter/screenshot/LICENSE.svg)](LICENSE)
-
 ## 提示
 
 本项目使用Flutter v3.27.1开发，后续持续跟进官方最新版本
