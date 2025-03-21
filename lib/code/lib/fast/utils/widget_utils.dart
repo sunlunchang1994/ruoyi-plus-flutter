@@ -1,43 +1,6 @@
 import 'package:flutter/material.dart';
 
 class WidgetUtils {
-  ///////////////////// 视觉密度 ///////////////////////
-  // 拥挤的视觉密度
-  static const VisualDensity crowdedDensity = VisualDensity(horizontal: -3, vertical: -3);
-
-  // 最小的视觉密度
-  static const VisualDensity minimumDensity = VisualDensity(
-      horizontal: VisualDensity.minimumDensity, vertical: VisualDensity.minimumDensity);
-
-  // 标准的视觉密度盒子
-  static SizedBox getBoxStandard(
-      {Key? key, Widget? child, double? coverWidth, double? coverHeight}) {
-    return SizedBox(width: coverWidth ?? 48, height: coverHeight ?? 48, key: key, child: child);
-  }
-
-  // 舒适的视觉密度盒子
-  static SizedBox getBoxComfortable(
-      {Key? key, Widget? child, double? coverWidth, double? coverHeight}) {
-    return SizedBox(width: coverWidth ?? 44, height: coverHeight ?? 44, key: key, child: child);
-  }
-
-  // 紧凑的视觉密度盒子
-  static SizedBox getBoxCompact(
-      {Key? key, Widget? child, double? coverWidth, double? coverHeight}) {
-    return SizedBox(width: coverWidth ?? 40, height: coverHeight ?? 40, key: key, child: child);
-  }
-
-  // 拥挤的视觉密度盒子
-  static SizedBox getBoxCrowded(
-      {Key? key, Widget? child, double? coverWidth, double? coverHeight}) {
-    return SizedBox(width: coverWidth ?? 36, height: coverHeight ?? 36, key: key, child: child);
-  }
-
-  // 最小的视觉密度盒子
-  static SizedBox getBoxMinimum(
-      {Key? key, Widget? child, double? coverWidth, double? coverHeight}) {
-    return SizedBox(width: coverWidth ?? 32, height: coverHeight ?? 32, key: key, child: child);
-  }
 
   ///////////////////// 侧滑栏 ///////////////////////
   // 传入Scaffold下级的context

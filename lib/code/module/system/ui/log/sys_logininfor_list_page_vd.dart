@@ -115,7 +115,7 @@ class SysLogininforListPageWidget {
                   listenerItemSelect.onItemSelect(index, listItem, value);
                 },
               ),
-              buildTrailing?.call(listItem) ?? WidgetUtils.getBoxStandard(),
+              buildTrailing?.call(listItem) ?? ThemeUtil.getBoxStandard(),
               showOne: listenerItemSelect.selectModelIsRun),
           visualDensity: VisualDensity.compact,
           //tileColor: SlcColors.getCardColorByTheme(themeData),

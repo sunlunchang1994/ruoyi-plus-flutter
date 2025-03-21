@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/widget_utils.dart';
 
 import 'form_operate_with_provider.dart';
@@ -12,7 +13,7 @@ class InputDecUtils {
   static Widget getSuffixAction(Icon actionIcon, [VoidCallback? onPressed]) {
     return IconButton(
       constraints: BoxConstraints(),
-      visualDensity:WidgetUtils.minimumDensity,
+      visualDensity: ThemeUtil.minimumDensity,
       padding: EdgeInsets.zero,
       icon: actionIcon,
       onPressed: () {
@@ -27,7 +28,8 @@ class InputDecUtils {
 
   static const moreIcon = Icon(Icons.chevron_right);
 
-  static const defSuffixIconConstraints = BoxConstraints(minWidth: 32, minHeight:32,maxHeight: 32);
+  static const defSuffixIconConstraints =
+      BoxConstraints(minWidth: 32, minHeight: 32, maxHeight: 32);
 
   ///选择类型的InputDecoration 自动显示清除按钮
   static Widget autoClearSuffixBySelect(bool showClear, {VoidCallback? onPressed}) {

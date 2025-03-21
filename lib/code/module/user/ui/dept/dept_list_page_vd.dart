@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/mvvm/fast_mvvm.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
@@ -55,7 +56,7 @@ class DeptListPageWidget {
                 listenerItemSelect.onItemSelect(index, listItem, value);
               },
             ),
-            buildTrailing.call(listItem) ?? WidgetUtils.getBoxStandard(),
+            buildTrailing.call(listItem) ?? ThemeUtil.getBoxStandard(),
             showOne: listenerItemSelect.selectModelIsRun),
         visualDensity: VisualDensity.compact,
         //tileColor: SlcColors.getCardColorByTheme(themeData),

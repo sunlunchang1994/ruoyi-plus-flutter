@@ -149,7 +149,7 @@ class UserListPageVd {
               listenerItemSelect.onItemSelect(index, listItem, value);
             },
           ),
-          buildTrailing?.call(listItem) ?? WidgetUtils.getBoxStandard(),
+          buildTrailing?.call(listItem) ?? ThemeUtil.getBoxStandard(),
           showOne: listenerItemSelect.selectModelIsRun),
       visualDensity: VisualDensity.compact,
       //根据card规则实现

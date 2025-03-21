@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
+import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
@@ -41,8 +42,7 @@ class SettingPage extends AppBaseStatelessWidget<SettingVm> {
                       ListTile(
                           title: Text(S.current.sys_label_setting_item_check_updates),
                           onTap: () {
-                            AppToastUtil.showToast(
-                                msg: S.current.title_already_the_latest_version);
+                            AppToastUtil.showToast(msg: S.current.title_already_the_latest_version);
                           }),
                       ListTile(
                           title: Text(S.current.sys_label_setting_item_about),
@@ -79,7 +79,7 @@ class SettingPage extends AppBaseStatelessWidget<SettingVm> {
                   child: Row(
                     children: [
                       Radio(
-                          visualDensity: WidgetUtils.minimumDensity,
+                          visualDensity: ThemeUtil.minimumDensity,
                           value: ThemeMode.system,
                           groupValue: groupThemeMode,
                           onChanged: (_) {}),
@@ -94,7 +94,7 @@ class SettingPage extends AppBaseStatelessWidget<SettingVm> {
                   child: Row(
                     children: [
                       Radio(
-                          visualDensity: WidgetUtils.minimumDensity,
+                          visualDensity: ThemeUtil.minimumDensity,
                           value: ThemeMode.light,
                           groupValue: groupThemeMode,
                           onChanged: (_) {}),
@@ -109,7 +109,7 @@ class SettingPage extends AppBaseStatelessWidget<SettingVm> {
                   child: Row(
                     children: [
                       Radio(
-                          visualDensity: WidgetUtils.minimumDensity,
+                          visualDensity: ThemeUtil.minimumDensity,
                           value: ThemeMode.dark,
                           groupValue: groupThemeMode,
                           onChanged: (_) {}),

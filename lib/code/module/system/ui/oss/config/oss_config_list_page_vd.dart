@@ -71,7 +71,7 @@ class OssConfigListPageWidget {
                 listenerItemSelect.onItemSelect(index, listItem, value);
               },
             ),
-            WidgetUtils.getBoxStandard(
+            ThemeUtil.getBoxStandard(
               child: Transform.scale(
                   scale: 0.7,
                   origin: Offset(6, 0),

@@ -115,7 +115,7 @@ class SysOperLogListPageWidget {
                   listenerItemSelect.onItemSelect(index, listItem, value);
                 },
               ),
-              WidgetUtils.getBoxStandard(),
+              ThemeUtil.getBoxStandard(),
               showOne: listenerItemSelect.selectModelIsRun),*/
           visualDensity: VisualDensity.compact,
           //tileColor: SlcColors.getCardColorByTheme(themeData),

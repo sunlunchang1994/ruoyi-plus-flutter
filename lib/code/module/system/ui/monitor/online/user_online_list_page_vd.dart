@@ -81,7 +81,7 @@ class NoticeListPageWidget {
           }.call(),
         ),
         trailing: buildTrailing.call(listItem),
-        visualDensity: WidgetUtils.minimumDensity,
+        visualDensity: ThemeUtil.minimumDensity,
         //根据card规则实现
         onTap: () {
           listenerItemSelect.onItemClick(index, listItem);
