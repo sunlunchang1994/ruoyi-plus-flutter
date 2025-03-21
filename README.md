@@ -16,6 +16,12 @@
 - [RuoYi-Vue-Plus 5.X(注意版本号)](https://gitee.com/dromara/RuoYi-Vue-Plus)
 - [RuoYi-Cloud-Plus 2.X(注意版本号)](https://gitee.com/dromara/RuoYi-Cloud-Plus)
 
+## 预览
+
+admin 账号: admin admin123
+
+[请在发布页下载Apk安装预览](https://gitee.com/sunlunchang/ruoyi-plus-flutter/releases)
+
 ## Android Studio运行
 
 ```bash
