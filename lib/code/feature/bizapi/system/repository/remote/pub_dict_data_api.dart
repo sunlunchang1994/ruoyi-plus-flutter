@@ -18,10 +18,10 @@ import '../../entity/sys_dict_data.dart';
 part 'pub_dict_data_api.g.dart';
 
 @RestApi()
-abstract class PubDictDataApiClient {
-  factory PubDictDataApiClient({Dio? dio, String? baseUrl}) {
+abstract class PubDictDataApi {
+  factory PubDictDataApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _PubDictDataApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _PubDictDataApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取字典数据列表
@@ -36,11 +36,11 @@ abstract class PubDictDataApiClient {
 
 class PubDictDataRepository {
   //实例
-  static final PubDictDataApiClient _dictDataApiClient = PubDictDataApiClient();
+  static final PubDictDataApi _pubDictDataApi = PubDictDataApi();
 
   static Future<IntensifyEntity<PageModel<SysDictData>>> list(
       int offset, int size, SysDictData? sysDictType, CancelToken cancelToken) {
-    return _dictDataApiClient
+    return _pubDictDataApi
         .list(RequestUtils.toPageQuery(sysDictType?.toJson(), offset, size), cancelToken)
         .successMap2Single((event) {
       return event.toPage2Intensify(offset, size,
@@ -50,7 +50,7 @@ class PubDictDataRepository {
 
   static Future<IntensifyEntity<List<SysDictType>>> optionSelect(CancelToken cancelToken) {
     //获取类型
-    return _dictDataApiClient.optionSelect(cancelToken).successMap2Single((event) {
+    return _pubDictDataApi.optionSelect(cancelToken).successMap2Single((event) {
       return event.toIntensify(
           createData: (resultEntity) => SysDictType.fromJsonList(resultEntity.data));
     });

@@ -14,10 +14,10 @@ import '../../../../feature/bizapi/system/entity/sys_tenant.dart';
 part 'sys_tenant_api.g.dart';
 
 @RestApi()
-abstract class SysTenantApiClient {
-  factory SysTenantApiClient({Dio? dio, String? baseUrl}) {
+abstract class SysTenantApi {
+  factory SysTenantApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _SysTenantApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _SysTenantApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取租户列表
@@ -54,12 +54,12 @@ abstract class SysTenantApiClient {
 
 ///租户服务
 class SysTenantRepository {
-  static final SysTenantApiClient _sysTenantApiClient = SysTenantApiClient();
+  static final SysTenantApi _sysTenantApi = SysTenantApi();
 
   ///租户列表
   static Future<IntensifyEntity<PageModel<SysTenant>>> list(
       int offset, int size, SysTenant? sysTenant, CancelToken cancelToken) async {
-    return _sysTenantApiClient
+    return _sysTenantApi
         .list(RequestUtils.toPageQuery(sysTenant?.toJson(), offset, size), cancelToken)
         .successMap2Single((event) {
       return event.toPage2Intensify(offset, size, createData: (dataItem) {
@@ -70,7 +70,7 @@ class SysTenantRepository {
 
   ///租户信息
   static Future<IntensifyEntity<SysTenant>> getInfo(int tenantId, CancelToken cancelToken) async {
-    return _sysTenantApiClient.getInfo(tenantId, cancelToken).successMap((event) {
+    return _sysTenantApi.getInfo(tenantId, cancelToken).successMap((event) {
       return event.toIntensify(createData: (resultEntity) {
         return SysTenant.fromJson(resultEntity.data);
       });
@@ -93,8 +93,8 @@ class SysTenantRepository {
   ///提交租户
   static Future<IntensifyEntity<SysTenant>> submit(SysTenant body, CancelToken cancelToken) {
     Future<ResultEntity> resultFuture = body.id == null
-        ? _sysTenantApiClient.add(body, cancelToken)
-        : _sysTenantApiClient.edit(body, cancelToken);
+        ? _sysTenantApi.add(body, cancelToken)
+        : _sysTenantApi.edit(body, cancelToken);
     return resultFuture.successMap2Single((event) {
       var intensifyEntity = IntensifyEntity<SysTenant>(resultEntity: event);
       return intensifyEntity;
@@ -104,7 +104,7 @@ class SysTenantRepository {
   ///同步租户套餐
   static Future<IntensifyEntity<dynamic>> syncTenantPackage(
       String tenantId, int? packageId, CancelToken cancelToken) {
-    return _sysTenantApiClient
+    return _sysTenantApi
         .syncTenantPackage(tenantId, packageId, cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
@@ -113,7 +113,7 @@ class SysTenantRepository {
 
   ///同步租户字典列表
   static Future<IntensifyEntity<dynamic>> syncTenantDict(CancelToken cancelToken) {
-    return _sysTenantApiClient.syncTenantDict(cancelToken).successMap2Single((event) {
+    return _sysTenantApi.syncTenantDict(cancelToken).successMap2Single((event) {
       return event.toIntensify();
     });
   }
@@ -124,7 +124,7 @@ class SysTenantRepository {
     //参数校验
     assert(id != null && ids == null || id == null && ids != null);
     ids ??= [id!];
-    return _sysTenantApiClient
+    return _sysTenantApi
         .delete(ids.join(TextUtil.COMMA), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();

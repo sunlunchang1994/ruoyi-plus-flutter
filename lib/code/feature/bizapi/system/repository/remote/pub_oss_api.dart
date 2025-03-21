@@ -15,10 +15,10 @@ import '../../entity/sys_oss_upload_vo.dart';
 part 'pub_oss_api.g.dart';
 
 @RestApi()
-abstract class PubOssApiClient {
-  factory PubOssApiClient({Dio? dio, String? baseUrl}) {
+abstract class PubOssApi {
+  factory PubOssApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _PubOssApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _PubOssApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///上传文件
@@ -35,11 +35,11 @@ abstract class PubOssApiClient {
 
 ///OSS存储服务
 class PubOssRepository {
-  static final PubOssApiClient _ossApiClient = PubOssApiClient();
+  static final PubOssApi _pubOssApi = PubOssApi();
 
   ///上传文件
   static Future<IntensifyEntity<SysOssUploadVo>> upload(String filePath) async {
-    return _ossApiClient.upload(File(filePath)).successMap2Single((event) {
+    return _pubOssApi.upload(File(filePath)).successMap2Single((event) {
       var intensifyEntity = IntensifyEntity<SysOssUploadVo>(
           resultEntity: event,
           createData: (resultEntity) => SysOssUploadVo.fromJson(resultEntity.data));

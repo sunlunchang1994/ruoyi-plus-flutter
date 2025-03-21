@@ -17,10 +17,10 @@ import '../../../../feature/bizapi/system/entity/sys_dict_data.dart';
 part 'cache_monitor_api.g.dart';
 
 @RestApi()
-abstract class CacheMonitorApiClient {
-  factory CacheMonitorApiClient({Dio? dio, String? baseUrl}) {
+abstract class CacheMonitorApi {
+  factory CacheMonitorApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _CacheMonitorApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _CacheMonitorApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取缓存监控列表
@@ -30,11 +30,11 @@ abstract class CacheMonitorApiClient {
 
 class CacheMonitorRepository {
   //实例
-  static final CacheMonitorApiClient _cacheMonitorApiClient = CacheMonitorApiClient();
+  static final CacheMonitorApi _cacheMonitorApi = CacheMonitorApi();
 
   ///获取缓存监控列表
   static Future<IntensifyEntity<RedisCacheInfo>> getInfo(CancelToken cancelToken) {
-    return _cacheMonitorApiClient
+    return _cacheMonitorApi
         .getInfo(cancelToken)
         .successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {

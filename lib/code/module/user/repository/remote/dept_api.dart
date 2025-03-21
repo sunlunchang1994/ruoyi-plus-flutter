@@ -14,10 +14,10 @@ import '../../../../feature/bizapi/user/entity/user_info_vo.dart';
 part 'dept_api.g.dart';
 
 @RestApi()
-abstract class DeptApiClient {
-  factory DeptApiClient({Dio? dio, String? baseUrl}) {
+abstract class DeptApi {
+  factory DeptApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _DeptApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _DeptApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取部门列表
@@ -46,11 +46,11 @@ abstract class DeptApiClient {
 ///部门服务
 class DeptRepository {
   //实例
-  static final DeptApiClient _deptApiClient = DeptApiClient();
+  static final DeptApi _deptApi = DeptApi();
 
   ///获取部门列表
   static Future<IntensifyEntity<List<Dept>>> list(Dept? dept, CancelToken cancelToken) {
-    return _deptApiClient.list(dept, cancelToken).successMap2Single((event) {
+    return _deptApi.list(dept, cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         List<Dept> dataList = Dept.formJsonList(resultEntity.data); //列表为空时创建默认的
         return dataList;
@@ -60,7 +60,7 @@ class DeptRepository {
 
   ///获取部门信息
   static Future<IntensifyEntity<Dept>> getInfo(int deptId, CancelToken cancelToken) {
-    return _deptApiClient.getInfo(deptId, cancelToken).successMap((event) {
+    return _deptApi.getInfo(deptId, cancelToken).successMap((event) {
       var intensifyEntity = IntensifyEntity<Dept>(
           resultEntity: event,
           createData: (resultEntity) {
@@ -86,8 +86,8 @@ class DeptRepository {
   ///提交部门信息
   static Future<IntensifyEntity<Dept>> submit(Dept dept, CancelToken cancelToken) {
     Future<ResultEntity> resultFuture = dept.deptId == null
-        ? _deptApiClient.add(dept, cancelToken)
-        : _deptApiClient.edit(dept, cancelToken);
+        ? _deptApi.add(dept, cancelToken)
+        : _deptApi.edit(dept, cancelToken);
     return resultFuture.successMap2Single((event) {
       var intensifyEntity = IntensifyEntity<Dept>(resultEntity: event);
       return intensifyEntity;
@@ -100,7 +100,7 @@ class DeptRepository {
     //参数校验
     assert(deptId != null && deptIds == null || deptId == null && deptIds != null);
     deptIds ??= [deptId!];
-    return _deptApiClient
+    return _deptApi
         .delete(deptIds.join(TextUtil.COMMA), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();

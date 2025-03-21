@@ -13,10 +13,10 @@ import '../../../../base/api/result_entity.dart';
 part 'sys_client_api.g.dart';
 
 @RestApi()
-abstract class SysClientApiClient {
-  factory SysClientApiClient({Dio? dio, String? baseUrl}) {
+abstract class SysClientApi {
+  factory SysClientApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _SysClientApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _SysClientApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取客户端列表
@@ -43,12 +43,12 @@ abstract class SysClientApiClient {
 
 ///客户端服务
 class SysClientRepository {
-  static final SysClientApiClient _sysClientApiClient = SysClientApiClient();
+  static final SysClientApi _sysClientApi = SysClientApi();
 
   ///客户端列表
   static Future<IntensifyEntity<PageModel<SysClient>>> list(
       int offset, int size, SysClient? sysClient, CancelToken cancelToken) async {
-    return _sysClientApiClient
+    return _sysClientApi
         .list(RequestUtils.toPageQuery(sysClient?.toJson(), offset, size), cancelToken)
         .successMap2Single((event) {
       return event.toPage2Intensify(offset, size,
@@ -58,7 +58,7 @@ class SysClientRepository {
 
   ///客户端信息
   static Future<IntensifyEntity<SysClient>> getInfo(int clientId, CancelToken cancelToken) async {
-    return _sysClientApiClient.getInfo(clientId, cancelToken).successMap2Single((event) {
+    return _sysClientApi.getInfo(clientId, cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return SysClient.fromJson(resultEntity.data);
       });
@@ -68,8 +68,8 @@ class SysClientRepository {
   ///提交客户端
   static Future<IntensifyEntity<SysClient>> submit(SysClient body, CancelToken cancelToken) {
     Future<ResultEntity> resultFuture = body.id == null
-        ? _sysClientApiClient.add(body, cancelToken)
-        : _sysClientApiClient.edit(body, cancelToken);
+        ? _sysClientApi.add(body, cancelToken)
+        : _sysClientApi.edit(body, cancelToken);
     return resultFuture.successMap2Single((event) {
       var intensifyEntity = IntensifyEntity<SysClient>(resultEntity: event);
       return intensifyEntity;
@@ -82,7 +82,7 @@ class SysClientRepository {
     //参数校验
     assert(id != null && ids == null || id == null && ids != null);
     ids ??= [id!];
-    return _sysClientApiClient
+    return _sysClientApi
         .delete(ids.join(TextUtil.COMMA), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();

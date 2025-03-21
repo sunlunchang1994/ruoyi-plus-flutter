@@ -20,10 +20,10 @@ import '../../entity/dept_tree.dart';
 part 'user_api.g.dart';
 
 @RestApi()
-abstract class UserApiClient {
-  factory UserApiClient({Dio? dio, String? baseUrl}) {
+abstract class UserApi {
+  factory UserApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _UserApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _UserApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///用户列表
@@ -66,7 +66,7 @@ abstract class UserApiClient {
 
 ///用户服务
 class UserServiceRepository {
-  static final UserApiClient _userApiClient = UserApiClient();
+  static final UserApi _userApiClient = UserApi();
 
   static Future<IntensifyEntity<List<User>>> queryNoPage(User? user, CancelToken cancelToken) {
     return list(0, 10000, user, cancelToken).asStream().map((event) {

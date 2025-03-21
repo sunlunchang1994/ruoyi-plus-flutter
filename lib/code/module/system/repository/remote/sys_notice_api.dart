@@ -18,10 +18,10 @@ import '../../../../feature/bizapi/system/entity/sys_config.dart';
 part 'sys_notice_api.g.dart';
 
 @RestApi()
-abstract class SysNoticeApiClient {
-  factory SysNoticeApiClient({Dio? dio, String? baseUrl}) {
+abstract class SysNoticeApi {
+  factory SysNoticeApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _SysNoticeApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _SysNoticeApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取通知公告列表
@@ -49,11 +49,11 @@ abstract class SysNoticeApiClient {
 
 class SysNoticeRepository {
   //实例
-  static final SysNoticeApiClient _sysConfigApiClient = SysNoticeApiClient();
+  static final SysNoticeApi _sysConfigApi = SysNoticeApi();
 
   static Future<IntensifyEntity<PageModel<SysNotice>>> list(
       int offset, int size, SysNotice? sysConfig, CancelToken cancelToken) {
-    return _sysConfigApiClient
+    return _sysConfigApi
         .list(RequestUtils.toPageQuery(sysConfig?.toJson(), offset, size), cancelToken)
         .successMap2Single((event) {
       return event.toPage2Intensify(offset, size,
@@ -64,7 +64,7 @@ class SysNoticeRepository {
   ///获取通知公告信息
   static Future<IntensifyEntity<SysNotice?>> getInfo(int dictId, CancelToken cancelToken,
       {bool fillParentName = false}) {
-    return _sysConfigApiClient.getInfo(dictId, cancelToken).successMap2Single((event) {
+    return _sysConfigApi.getInfo(dictId, cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         SysNotice sysNotice = SysNotice.fromJson(resultEntity.data);
         fillShowText([sysNotice]);
@@ -76,8 +76,8 @@ class SysNoticeRepository {
   ///提交通知公告信息
   static Future<IntensifyEntity<SysNotice>> submit(SysNotice body, CancelToken cancelToken) {
     Future<ResultEntity> resultFuture = body.noticeId == null
-        ? _sysConfigApiClient.add(body, cancelToken)
-        : _sysConfigApiClient.edit(body, cancelToken);
+        ? _sysConfigApi.add(body, cancelToken)
+        : _sysConfigApi.edit(body, cancelToken);
     return resultFuture.successMap2Single((event) {
       var intensifyEntity = IntensifyEntity<SysNotice>(resultEntity: event);
       return intensifyEntity;
@@ -101,7 +101,7 @@ class SysNoticeRepository {
     //参数校验
     assert(id != null && ids == null || id == null && ids != null);
     ids ??= [id!];
-    return _sysConfigApiClient
+    return _sysConfigApi
         .delete(ids.join(TextUtil.COMMA), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();

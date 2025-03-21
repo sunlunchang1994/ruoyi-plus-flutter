@@ -14,10 +14,10 @@ import '../../../../base/api/result_entity.dart';
 part 'sys_oss_config_api.g.dart';
 
 @RestApi()
-abstract class SysOssConfigApiClient {
-  factory SysOssConfigApiClient({Dio? dio, String? baseUrl}) {
+abstract class SysOssConfigApi {
+  factory SysOssConfigApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _SysOssConfigApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _SysOssConfigApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取配置列表
@@ -49,12 +49,12 @@ abstract class SysOssConfigApiClient {
 
 ///OSS存储配置服务
 class SysOssConfigRepository {
-  static final SysOssConfigApiClient _sysOssConfigClient = SysOssConfigApiClient();
+  static final SysOssConfigApi _sysOssConfig = SysOssConfigApi();
 
   ///配置列表
   static Future<IntensifyEntity<PageModel<SysOssConfig>>> list(
       int offset, int size, SysOssConfig? sysOssConfig, CancelToken cancelToken) async {
-    return _sysOssConfigClient
+    return _sysOssConfig
         .list(RequestUtils.toPageQuery(sysOssConfig?.toJson(), offset, size), cancelToken)
         .successMap2Single((event) {
       return event.toPage2Intensify(offset, size,createData: (dataItem) {
@@ -66,7 +66,7 @@ class SysOssConfigRepository {
   ///配置列表
   static Future<IntensifyEntity<SysOssConfig>> getInfo(
       int ossConfigId, CancelToken cancelToken) async {
-    return _sysOssConfigClient.getInfo(ossConfigId, cancelToken).successMap2Single((event) {
+    return _sysOssConfig.getInfo(ossConfigId, cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return SysOssConfig.fromJson(resultEntity.data);
       });
@@ -76,7 +76,7 @@ class SysOssConfigRepository {
   ///改变状态
   static Future<IntensifyEntity<dynamic>> changeStatus(
       SysOssConfig sysOssConfig, CancelToken cancelToken) async {
-    return _sysOssConfigClient.changeStatus(sysOssConfig, cancelToken).successMap2Single((event) {
+    return _sysOssConfig.changeStatus(sysOssConfig, cancelToken).successMap2Single((event) {
       return event.toIntensify(succeedEntity: true);
     });
   }
@@ -84,8 +84,8 @@ class SysOssConfigRepository {
   ///提交Oss配置
   static Future<IntensifyEntity<SysOssConfig>> submit(SysOssConfig body, CancelToken cancelToken) {
     Future<ResultEntity> resultFuture = body.ossConfigId == null
-        ? _sysOssConfigClient.add(body, cancelToken)
-        : _sysOssConfigClient.edit(body, cancelToken);
+        ? _sysOssConfig.add(body, cancelToken)
+        : _sysOssConfig.edit(body, cancelToken);
     return resultFuture.successMap2Single((event) {
       var intensifyEntity = IntensifyEntity<SysOssConfig>(resultEntity: event);
       return intensifyEntity;
@@ -98,7 +98,7 @@ class SysOssConfigRepository {
     //参数校验
     assert(id != null && ids == null || id == null && ids != null);
     ids ??= [id!];
-    return _sysOssConfigClient
+    return _sysOssConfig
         .delete(ids.join(TextUtil.COMMA), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();

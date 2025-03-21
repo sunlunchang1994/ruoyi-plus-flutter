@@ -14,10 +14,10 @@ import '../../entity/login_tenant_vo.dart';
 part 'auth_api.g.dart';
 
 @RestApi()
-abstract class AuthApiClient {
-  factory AuthApiClient({Dio? dio, String? baseUrl}) {
+abstract class AuthApi {
+  factory AuthApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _AuthApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _AuthApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///用户登录
@@ -35,8 +35,8 @@ abstract class AuthApiClient {
 }
 
 ///认证服务
-class AuthServiceRepository {
-  static final AuthApiClient _ossApiClient = AuthApiClient();
+class AuthRepository {
+  static final AuthApi _ossApi = AuthApi();
 
   ///用户登录
   static Future<IntensifyEntity<LoginResult>> login(String? tenantId, String account,
@@ -49,7 +49,7 @@ class AuthServiceRepository {
     dataMap["uuid"] = codeUuid ?? '';
     dataMap["clientId"] = ApiConfig().clientid;
     dataMap["grantType"] = 'password';
-    return _ossApiClient.login(dataMap).successMap((event) {
+    return _ossApi.login(dataMap).successMap((event) {
       var intensifyEntity = IntensifyEntity<LoginResult>(
           resultEntity: event,
           createData: (resultEntity) => LoginResult.fromJson(resultEntity.data));
@@ -64,7 +64,7 @@ class AuthServiceRepository {
 
   ///获取验证码
   static Future<IntensifyEntity<Captcha>> getCode() async {
-    return _ossApiClient.getCode().successMap2Single((event) {
+    return _ossApi.getCode().successMap2Single((event) {
       var intensifyEntity = IntensifyEntity<Captcha>(
           resultEntity: event, createData: (resultEntity) => Captcha.fromJson(resultEntity.data));
       return intensifyEntity;
@@ -73,7 +73,7 @@ class AuthServiceRepository {
 
   ///获取租户列表
   static Future<IntensifyEntity<LoginTenantVo>> tenantList() async {
-    return _ossApiClient.tenantList().successMap2Single((event) {
+    return _ossApi.tenantList().successMap2Single((event) {
       var intensifyEntity = IntensifyEntity<LoginTenantVo>(
           resultEntity: event,
           createData: (resultEntity) => LoginTenantVo.fromJson(resultEntity.data));

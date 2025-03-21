@@ -13,10 +13,10 @@ import '../../entity/sys_user_online.dart';
 part 'sys_user_online_api.g.dart';
 
 @RestApi()
-abstract class SysUserOnlineApiClient {
-  factory SysUserOnlineApiClient({Dio? dio, String? baseUrl}) {
+abstract class SysUserOnlineApi {
+  factory SysUserOnlineApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _SysUserOnlineApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _SysUserOnlineApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///在线用户列表
@@ -27,12 +27,12 @@ abstract class SysUserOnlineApiClient {
 
 ///在线用户服务
 class SysUserOnlineRepository {
-  static final SysUserOnlineApiClient _sysUserOnlineApiClient = SysUserOnlineApiClient();
+  static final SysUserOnlineApi _sysUserOnlineApi = SysUserOnlineApi();
 
   ///在线用户列表
   static Future<IntensifyEntity<PageModel<SysUserOnline>>> list(
       int offset, int size, String? ipaddr, String? userName, CancelToken cancelToken) async {
-    return _sysUserOnlineApiClient
+    return _sysUserOnlineApi
         .list(RequestUtils.toPageQuery({"ipaddr": ipaddr, "userName": userName}, offset, size),
             cancelToken)
         .successMap2Single((event) {

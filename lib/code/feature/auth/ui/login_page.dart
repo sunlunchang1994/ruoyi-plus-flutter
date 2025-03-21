@@ -267,7 +267,7 @@ class _LoginModel extends AppBaseVm with CancelTokenAssist {
 
   void initVm() {
     refreshCaptcha();
-    AuthServiceRepository.tenantList().then((result) {
+    AuthRepository.tenantList().then((result) {
       loginTenant = result.data;
       SysTenant? targetTenantItem = loginTenant!.voList?.firstWhere((item) {
         return item.tenantId == tenantId;
@@ -289,7 +289,7 @@ class _LoginModel extends AppBaseVm with CancelTokenAssist {
 
   ///刷新验证码
   void refreshCaptcha() {
-    AuthServiceRepository.getCode().then((result) {
+    AuthRepository.getCode().then((result) {
       captcha = result.data;
       notifyListeners();
     }, onError: (e) {
@@ -352,7 +352,7 @@ class _LoginModel extends AppBaseVm with CancelTokenAssist {
       return;
     }
     showLoading(text: S.current.user_label_logging_in);
-    AuthServiceRepository.login(
+    AuthRepository.login(
             tenantId, userName!, password!, codeResult!, captcha?.uuid, defCancelToken)
         .asStream()
         .asyncMap((event) => PubUserRepository.getInfo(defCancelToken))

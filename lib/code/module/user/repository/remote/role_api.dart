@@ -15,10 +15,10 @@ import '../../../../base/repository/remote/data_transform_utils.dart';
 part 'role_api.g.dart';
 
 @RestApi()
-abstract class RoleApiClient {
-  factory RoleApiClient({Dio? dio, String? baseUrl}) {
+abstract class RoleApi {
+  factory RoleApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _RoleApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _RoleApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取角色列表
@@ -48,13 +48,13 @@ abstract class RoleApiClient {
 ///角色服务
 class RoleRepository {
   //实例
-  static final RoleApiClient _roleApiClient = RoleApiClient();
+  static final RoleApi _roleApi = RoleApi();
 
   ///获取角色列表
   static Future<IntensifyEntity<PageModel<Role>>> list(
       int offset, int size, Role? role, CancelToken cancelToken) {
     Map<String, dynamic> queryParams = RequestUtils.toPageQuery(role?.toJson(), offset, size);
-    return _roleApiClient.list(queryParams, cancelToken).successMap2Single((event) {
+    return _roleApi.list(queryParams, cancelToken).successMap2Single((event) {
       return event.toPage2Intensify(offset, size, createData: (dataItem) {
         return Role.fromJson(dataItem);
       });
@@ -63,7 +63,7 @@ class RoleRepository {
 
   ///获取角色信息
   static Future<IntensifyEntity<Role>> getInfo(int roleId, CancelToken cancelToken) {
-    return _roleApiClient.getInfo(roleId, cancelToken).successMap((event) {
+    return _roleApi.getInfo(roleId, cancelToken).successMap((event) {
       return event.toIntensify(createData: (resultEntity) {
         return Role.fromJson(resultEntity.data);
       });
@@ -80,8 +80,8 @@ class RoleRepository {
   ///提交角色信息
   static Future<IntensifyEntity<dynamic>> submit(Role role, CancelToken cancelToken) {
     Future<ResultEntity> resultFuture = role.roleId == null
-        ? _roleApiClient.add(role, cancelToken)
-        : _roleApiClient.edit(role, cancelToken);
+        ? _roleApi.add(role, cancelToken)
+        : _roleApi.edit(role, cancelToken);
     return resultFuture.successMap2Single((event) {
       return event.toIntensify<dynamic>();
     });
@@ -93,7 +93,7 @@ class RoleRepository {
     //参数校验
     assert(roleId != null && roleIds == null || roleId == null && roleIds != null);
     roleIds ??= [roleId!];
-    return _roleApiClient
+    return _roleApi
         .delete(roleIds.join(TextUtil.COMMA), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();

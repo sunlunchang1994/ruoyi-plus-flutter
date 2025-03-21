@@ -18,10 +18,10 @@ import '../../entity/sys_logininfor.dart';
 part 'sys_logininfor_api.g.dart';
 
 @RestApi()
-abstract class SysLogininforApiClient {
-  factory SysLogininforApiClient({Dio? dio, String? baseUrl}) {
+abstract class SysLogininforApi {
+  factory SysLogininforApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _SysLogininforApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _SysLogininforApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取登录日志列表
@@ -40,11 +40,11 @@ abstract class SysLogininforApiClient {
 
 class SysLogininforRepository {
   //实例
-  static final SysLogininforApiClient _sysLogininforApiClient = SysLogininforApiClient();
+  static final SysLogininforApi _sysLogininforApi = SysLogininforApi();
 
   static Future<IntensifyEntity<PageModel<SysLogininfor>>> list(
       int offset, int size, SysLogininfor? sysLogininfor, CancelToken cancelToken) {
-    return _sysLogininforApiClient
+    return _sysLogininforApi
         .list(RequestUtils.toPageQuery(sysLogininfor?.toJson(), offset, size), cancelToken)
         .successMap2Single((event) {
       IntensifyEntity<PageModel<SysLogininfor>> intensifyEntity = event.toPage2Intensify(
@@ -72,7 +72,7 @@ class SysLogininforRepository {
     //参数校验
     assert(id != null && ids == null || id == null && ids != null);
     ids ??= [id!];
-    return _sysLogininforApiClient
+    return _sysLogininforApi
         .delete(ids.join(TextUtil.COMMA), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
@@ -81,7 +81,7 @@ class SysLogininforRepository {
 
   ///解锁用户
   static Future<IntensifyEntity<dynamic>> unlock(String userName,CancelToken cancelToken) {
-    return _sysLogininforApiClient
+    return _sysLogininforApi
         .unlock(userName, cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();

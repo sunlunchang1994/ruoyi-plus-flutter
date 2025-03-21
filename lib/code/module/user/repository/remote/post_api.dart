@@ -13,10 +13,10 @@ import '../../../../base/repository/remote/data_transform_utils.dart';
 part 'post_api.g.dart';
 
 @RestApi()
-abstract class PostApiClient {
-  factory PostApiClient({Dio? dio, String? baseUrl}) {
+abstract class PostApi {
+  factory PostApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _PostApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _PostApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取岗位列表
@@ -46,7 +46,7 @@ abstract class PostApiClient {
 ///岗位服务
 class PostRepository {
   //实例
-  static final PostApiClient _postApiClient = PostApiClient();
+  static final PostApi _postApi = PostApi();
 
   ///获取岗位列表
   static Future<IntensifyEntity<PageModel<Post>>> list(
@@ -54,7 +54,7 @@ class PostRepository {
     Map<String, dynamic> queryParams = RequestUtils.toPageQuery(post?.toJson(), offset, size);
     queryParams["orderByColumn"] = "deptId,postId";
     queryParams["isAsc"] = "asc";
-    return _postApiClient.list(queryParams, cancelToken).successMap2Single((event) {
+    return _postApi.list(queryParams, cancelToken).successMap2Single((event) {
       return event.toPage2Intensify(offset, size,
           createData: (dataItem) => Post.fromJson(dataItem));
     });
@@ -62,7 +62,7 @@ class PostRepository {
 
   ///获取岗位信息
   static Future<IntensifyEntity<Post>> getInfo(int postId, CancelToken cancelToken) {
-    return _postApiClient.getInfo(postId, cancelToken).successMap2Single((event) {
+    return _postApi.getInfo(postId, cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return Post.fromJson(resultEntity.data);
       });
@@ -72,8 +72,8 @@ class PostRepository {
   ///提交岗位信息
   static Future<IntensifyEntity<dynamic>> submit(Post post, CancelToken cancelToken) {
     Future<ResultEntity> resultFuture = post.postId == null
-        ? _postApiClient.add(post, cancelToken)
-        : _postApiClient.edit(post, cancelToken);
+        ? _postApi.add(post, cancelToken)
+        : _postApi.edit(post, cancelToken);
     return resultFuture.successMap2Single((event) {
       return event.toIntensify<dynamic>();
     });
@@ -85,7 +85,7 @@ class PostRepository {
     //参数校验
     assert(postId != null && postIds == null || postId == null && postIds != null);
     postIds ??= [postId!];
-    return _postApiClient
+    return _postApi
         .delete(postIds.join(TextUtil.COMMA), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();

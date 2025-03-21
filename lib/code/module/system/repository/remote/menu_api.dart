@@ -15,10 +15,10 @@ import '../../entity/sys_menu.dart';
 part 'menu_api.g.dart';
 
 @RestApi()
-abstract class MenuApiClient {
-  factory MenuApiClient({Dio? dio, String? baseUrl}) {
+abstract class MenuApi {
+  factory MenuApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _MenuApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _MenuApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取菜单树信息
@@ -62,12 +62,12 @@ abstract class MenuApiClient {
 
 class MenuRepository {
   //实例
-  static final MenuApiClient _menuApiClient = MenuApiClient();
+  static final MenuApi _menuApi = MenuApi();
 
   ///获取菜单树信息
   static Future<IntensifyEntity<List<SysMenuTree>>> treeselect(
       SysMenu? queryParams, CancelToken cancelToken) {
-    return _menuApiClient.treeselect(queryParams, cancelToken).successMap2Single((event) {
+    return _menuApi.treeselect(queryParams, cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return SysMenuTree.fromJsonList(resultEntity.data);
       });
@@ -77,7 +77,7 @@ class MenuRepository {
   ///获取角色菜单树信息
   static Future<IntensifyEntity<List<SysMenuTree>>> roleMenuTreeselect(
       int? roleId, CancelToken cancelToken) {
-    return _menuApiClient.roleMenuTreeselect(roleId, cancelToken).successMap2Single((event) {
+    return _menuApi.roleMenuTreeselect(roleId, cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         SysMenuTreeWrapper sysMenuTreeWrapper = SysMenuTreeWrapper.fromJson(resultEntity.data);
         SelectUtils.fillSelect(
@@ -93,7 +93,7 @@ class MenuRepository {
   ///获取角色菜单树id信息
   static Future<IntensifyEntity<List<int>>> roleMenuCheckedList(
       int? roleId, CancelToken cancelToken) {
-    return _menuApiClient.roleMenuTreeselect(roleId, cancelToken).successMap2Single((event) {
+    return _menuApi.roleMenuTreeselect(roleId, cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         SysMenuTreeWrapperOnlyCheckedKeys sysMenuTreeWrapper =
             SysMenuTreeWrapperOnlyCheckedKeys.fromJson(resultEntity.data);
@@ -105,7 +105,7 @@ class MenuRepository {
   ///获取租户套餐菜单树信息
   static Future<IntensifyEntity<List<SysMenuTree>>> tenantPackageMenuTreeselect(
       int? tenantPackageId, CancelToken cancelToken) {
-    return _menuApiClient
+    return _menuApi
         .tenantPackageMenuTreeselect(tenantPackageId, cancelToken)
         .successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
@@ -122,7 +122,7 @@ class MenuRepository {
 
   ///获取菜单列表
   static Future<IntensifyEntity<List<SysMenu>>> list(SysMenu? sysMenuVo, CancelToken cancelToken) {
-    return _menuApiClient.list(sysMenuVo, cancelToken).successMap2Single((event) {
+    return _menuApi.list(sysMenuVo, cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         List<SysMenu> sysMenuTreeWrapper = SysMenu.fromJsonList(resultEntity.data);
         return sysMenuTreeWrapper;
@@ -133,7 +133,7 @@ class MenuRepository {
   ///获取菜单信息
   static Future<IntensifyEntity<SysMenu?>> getInfo(int menuId, CancelToken cancelToken,
       {bool fillParentName = false}) {
-    return _menuApiClient.getInfo(menuId, cancelToken).successMap((event) {
+    return _menuApi.getInfo(menuId, cancelToken).successMap((event) {
       return event.toIntensify(createData: (resultEntity) {
         return SysMenu.fromJson(resultEntity.data);
       });
@@ -153,8 +153,8 @@ class MenuRepository {
   ///提交菜单信息
   static Future<IntensifyEntity<SysMenu>> submit(SysMenu body, CancelToken cancelToken) {
     Future<ResultEntity> resultFuture = body.menuId == null
-        ? _menuApiClient.add(body, cancelToken)
-        : _menuApiClient.edit(body, cancelToken);
+        ? _menuApi.add(body, cancelToken)
+        : _menuApi.edit(body, cancelToken);
     return resultFuture.successMap2Single((event) {
       return event.toIntensify<SysMenu>();
     });
@@ -166,7 +166,7 @@ class MenuRepository {
     //参数校验
     assert(menuId != null && menuIds == null || menuId == null && menuIds != null);
     menuIds ??= [menuId!];
-    return _menuApiClient
+    return _menuApi
         .delete(menuIds.join(TextUtil.COMMA), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();

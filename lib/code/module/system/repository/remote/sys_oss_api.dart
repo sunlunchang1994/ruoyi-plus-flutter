@@ -13,10 +13,10 @@ import '../../../../base/api/result_entity.dart';
 part 'sys_oss_api.g.dart';
 
 @RestApi()
-abstract class SysOssApiClient {
-  factory SysOssApiClient({Dio? dio, String? baseUrl}) {
+abstract class SysOssApi {
+  factory SysOssApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _SysOssApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _SysOssApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取上传文件列表
@@ -31,12 +31,12 @@ abstract class SysOssApiClient {
 
 ///OSS存储服务
 class SysOssRepository {
-  static final SysOssApiClient _sysOssApiClient = SysOssApiClient();
+  static final SysOssApi _sysOssApi = SysOssApi();
 
   ///上传文件的列表
   static Future<IntensifyEntity<PageModel<SysOssVo>>> list(
       int offset, int size, SysOssVo? sysOssVo, CancelToken cancelToken) async {
-    return _sysOssApiClient
+    return _sysOssApi
         .list(RequestUtils.toPageQuery(sysOssVo?.toJson(), offset, size), cancelToken)
         .successMap2Single((event) {
       return event.toPage2Intensify(offset, size, createData: (dataItem) {
@@ -51,7 +51,7 @@ class SysOssRepository {
     //参数校验
     assert(id != null && ids == null || id == null && ids != null);
     ids ??= [id!];
-    return _sysOssApiClient
+    return _sysOssApi
         .delete(ids.join(TextUtil.COMMA), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();

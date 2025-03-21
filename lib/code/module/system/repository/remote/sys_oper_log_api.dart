@@ -19,10 +19,10 @@ import '../../../../feature/component/dict/vm/dict_share_vm.dart';
 part 'sys_oper_log_api.g.dart';
 
 @RestApi()
-abstract class SysOperLogApiClient {
-  factory SysOperLogApiClient({Dio? dio, String? baseUrl}) {
+abstract class SysOperLogApi {
+  factory SysOperLogApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _SysOperLogApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _SysOperLogApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取操作日志列表
@@ -37,11 +37,11 @@ abstract class SysOperLogApiClient {
 
 class SysOperLogRepository {
   //实例
-  static final SysOperLogApiClient _sysOperLogApiClient = SysOperLogApiClient();
+  static final SysOperLogApi _sysOperLogApi = SysOperLogApi();
 
   static Future<IntensifyEntity<PageModel<SysOperLog>>> list(
       int offset, int size, SysOperLog? sysOperLog, CancelToken cancelToken) {
-    return _sysOperLogApiClient
+    return _sysOperLogApi
         .list(RequestUtils.toPageQuery(sysOperLog?.toJson(), offset, size), cancelToken)
         .successMap2Single((event) {
       IntensifyEntity<PageModel<SysOperLog>> intensifyEntity = event.toPage2Intensify(offset, size,
@@ -71,7 +71,7 @@ class SysOperLogRepository {
     //参数校验
     assert(id != null && ids == null || id == null && ids != null);
     ids ??= [id!];
-    return _sysOperLogApiClient
+    return _sysOperLogApi
         .delete(ids.join(TextUtil.COMMA), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();

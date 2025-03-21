@@ -15,10 +15,10 @@ import '../../../../base/api/result_entity.dart';
 part 'dict_type_api.g.dart';
 
 @RestApi()
-abstract class DictTypeApiClient {
-  factory DictTypeApiClient({Dio? dio, String? baseUrl}) {
+abstract class DictTypeApi {
+  factory DictTypeApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _DictTypeApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _DictTypeApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取字典类型列表
@@ -47,11 +47,11 @@ abstract class DictTypeApiClient {
 
 class DictTypeRepository {
   //实例
-  static final DictTypeApiClient _dictTypeApiClient = DictTypeApiClient();
+  static final DictTypeApi _dictTypeApi = DictTypeApi();
 
   static Future<IntensifyEntity<PageModel<SysDictType>>> list(
       int offset, int size, SysDictType? sysDictType, CancelToken cancelToken) {
-    return _dictTypeApiClient
+    return _dictTypeApi
         .list(RequestUtils.toPageQuery(sysDictType?.toJson(), offset, size), cancelToken)
         .successMap2Single((event) {
       return event.toPage2Intensify(offset, size,
@@ -62,7 +62,7 @@ class DictTypeRepository {
   ///获取字典类型信息
   static Future<IntensifyEntity<SysDictType?>> getInfo(int dictId, CancelToken cancelToken,
       {bool fillParentName = false}) {
-    return _dictTypeApiClient.getInfo(dictId, cancelToken).successMap2Single((event) {
+    return _dictTypeApi.getInfo(dictId, cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return SysDictType.fromJson(resultEntity.data);
       });
@@ -72,8 +72,8 @@ class DictTypeRepository {
   ///提交字典类型信息
   static Future<IntensifyEntity<SysDictType>> submit(SysDictType body, CancelToken cancelToken) {
     Future<ResultEntity> resultFuture = body.dictId == null
-        ? _dictTypeApiClient.add(body, cancelToken)
-        : _dictTypeApiClient.edit(body, cancelToken);
+        ? _dictTypeApi.add(body, cancelToken)
+        : _dictTypeApi.edit(body, cancelToken);
     return resultFuture.successMap2Single((event) {
       return event.toIntensify();
     });
@@ -85,7 +85,7 @@ class DictTypeRepository {
     //参数校验
     assert(dictTypeId != null && dictTypeIds == null || dictTypeId == null && dictTypeIds != null);
     dictTypeIds ??= [dictTypeId!];
-    return _dictTypeApiClient
+    return _dictTypeApi
         .delete(dictTypeIds.join(TextUtil.COMMA), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();

@@ -15,10 +15,10 @@ import '../../../../feature/bizapi/system/entity/sys_config.dart';
 part 'sys_config_api.g.dart';
 
 @RestApi()
-abstract class SysConfigApiClient {
-  factory SysConfigApiClient({Dio? dio, String? baseUrl}) {
+abstract class SysConfigApi {
+  factory SysConfigApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _SysConfigApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _SysConfigApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取参数配置列表
@@ -46,11 +46,11 @@ abstract class SysConfigApiClient {
 
 class SysConfigRepository {
   //实例
-  static final SysConfigApiClient _sysConfigApiClient = SysConfigApiClient();
+  static final SysConfigApi _sysConfigApi = SysConfigApi();
 
   static Future<IntensifyEntity<PageModel<SysConfig>>> list(
       int offset, int size, SysConfig? sysConfig, CancelToken cancelToken) {
-    return _sysConfigApiClient
+    return _sysConfigApi
         .list(RequestUtils.toPageQuery(sysConfig?.toJson(), offset, size), cancelToken)
         .successMap2Single((event) {
       return event.toPage2Intensify(offset, size,
@@ -61,7 +61,7 @@ class SysConfigRepository {
   ///获取参数配置信息
   static Future<IntensifyEntity<SysConfig?>> getInfo(int dictId, CancelToken cancelToken,
       {bool fillParentName = false}) {
-    return _sysConfigApiClient.getInfo(dictId, cancelToken).successMap2Single((event) {
+    return _sysConfigApi.getInfo(dictId, cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return SysConfig.fromJson(resultEntity.data);
       });
@@ -71,8 +71,8 @@ class SysConfigRepository {
   ///提交参数配置信息
   static Future<IntensifyEntity<SysConfig>> submit(SysConfig body, CancelToken cancelToken) {
     Future<ResultEntity> resultFuture = body.configId == null
-        ? _sysConfigApiClient.add(body, cancelToken)
-        : _sysConfigApiClient.edit(body, cancelToken);
+        ? _sysConfigApi.add(body, cancelToken)
+        : _sysConfigApi.edit(body, cancelToken);
     return resultFuture.successMap2Single((event) {
       var intensifyEntity = IntensifyEntity<SysConfig>(resultEntity: event);
       return intensifyEntity;
@@ -85,7 +85,7 @@ class SysConfigRepository {
     //参数校验
     assert(configId != null && configIds == null || configId == null && configIds != null);
     configIds ??= [configId!];
-    return _sysConfigApiClient
+    return _sysConfigApi
         .delete(configIds.join(TextUtil.COMMA), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();

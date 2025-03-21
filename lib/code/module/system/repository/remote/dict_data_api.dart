@@ -15,10 +15,10 @@ import '../../../../feature/bizapi/system/entity/sys_dict_data.dart';
 part 'dict_data_api.g.dart';
 
 @RestApi()
-abstract class DictDataApiClient {
-  factory DictDataApiClient({Dio? dio, String? baseUrl}) {
+abstract class DictDataApi {
+  factory DictDataApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _DictDataApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _DictDataApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取字典数据列表
@@ -47,11 +47,11 @@ abstract class DictDataApiClient {
 
 class DictDataRepository {
   //实例
-  static final DictDataApiClient _dictDataApiClient = DictDataApiClient();
+  static final DictDataApi _dictDataApi = DictDataApi();
 
   static Future<IntensifyEntity<PageModel<SysDictData>>> list(
       int offset, int size, SysDictData? sysDictType, CancelToken cancelToken) {
-    return _dictDataApiClient
+    return _dictDataApi
         .list(RequestUtils.toPageQuery(sysDictType?.toJson(), offset, size), cancelToken)
         .successMap2Single((event) {
       return event.toPage2Intensify(offset, size,
@@ -62,7 +62,7 @@ class DictDataRepository {
   ///获取字典数据信息
   static Future<IntensifyEntity<SysDictData?>> getInfo(int dictId, CancelToken cancelToken,
       {bool fillParentName = false}) {
-    return _dictDataApiClient.getInfo(dictId, cancelToken).successMap2Single((event) {
+    return _dictDataApi.getInfo(dictId, cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return SysDictData.fromJson(resultEntity.data);
       });
@@ -72,8 +72,8 @@ class DictDataRepository {
   ///提交字典数据信息
   static Future<IntensifyEntity<SysDictData>> submit(SysDictData body, CancelToken cancelToken) {
     Future<ResultEntity> resultFuture = body.dictCode == null
-        ? _dictDataApiClient.add(body, cancelToken)
-        : _dictDataApiClient.edit(body, cancelToken);
+        ? _dictDataApi.add(body, cancelToken)
+        : _dictDataApi.edit(body, cancelToken);
     return resultFuture.successMap2Single((event) {
       var intensifyEntity = IntensifyEntity<SysDictData>(resultEntity: event);
       return intensifyEntity;
@@ -86,7 +86,7 @@ class DictDataRepository {
     //参数校验
     assert(dictDataId != null && dictDataIds == null || dictDataId == null && dictDataIds != null);
     dictDataIds ??= [dictDataId!];
-    return _dictDataApiClient
+    return _dictDataApi
         .delete(dictDataIds.join(TextUtil.COMMA), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();

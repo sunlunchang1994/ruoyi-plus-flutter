@@ -11,10 +11,10 @@ import '../../entity/my_user_info_vo.dart';
 part 'pub_user_api.g.dart';
 
 @RestApi()
-abstract class PubUserApiClient {
-  factory PubUserApiClient({Dio? dio, String? baseUrl}) {
+abstract class PubUserApi {
+  factory PubUserApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _PubUserApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _PubUserApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///用户信息
@@ -24,10 +24,10 @@ abstract class PubUserApiClient {
 
 ///用户服务
 class PubUserRepository {
-  static final PubUserApiClient _userApiClient = PubUserApiClient();
+  static final PubUserApi _pubUserApi = PubUserApi();
 
   static Future<IntensifyEntity<MyUserInfoVo>> getInfo(CancelToken cancelToken) {
-    return _userApiClient.getInfo(cancelToken).successMap((event) {
+    return _pubUserApi.getInfo(cancelToken).successMap((event) {
       return event.toIntensify(
           createData: (resultEntity) => MyUserInfoVo.fromJson(resultEntity.data));
     }).map((event) {

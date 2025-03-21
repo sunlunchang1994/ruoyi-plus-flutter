@@ -13,10 +13,10 @@ import '../../entity/avatar_vo.dart';
 part 'pub_user_profile_api.g.dart';
 
 @RestApi()
-abstract class PubUserProfileApiClient {
-  factory PubUserProfileApiClient({Dio? dio, String? baseUrl}) {
+abstract class PubUserProfileApi {
+  factory PubUserProfileApi({Dio? dio, String? baseUrl}) {
     dio ??= BaseDio.getInstance().getDio();
-    return _PubUserProfileApiClient(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
+    return _PubUserProfileApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
   ///获取个人信息
@@ -39,10 +39,10 @@ abstract class PubUserProfileApiClient {
 
 ///用户服务
 class PubUserProfileRepository {
-  static final PubUserProfileApiClient _userProfileApiClient = PubUserProfileApiClient();
+  static final PubUserProfileApi _pubUserProfileApi = PubUserProfileApi();
 
   static Future<IntensifyEntity<ProfileVo>> profile() {
-    return _userProfileApiClient.profile().successMap2Single((event) {
+    return _pubUserProfileApi.profile().successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return ProfileVo.fromJson(resultEntity.data);
       });
@@ -56,19 +56,19 @@ class PubUserProfileRepository {
     dataMap["email"] = email;
     dataMap["phonenumber"] = phonenumber;
     dataMap["sex"] = sex;
-    return _userProfileApiClient.updateProfile(dataMap).successMap2Single((event) {
+    return _pubUserProfileApi.updateProfile(dataMap).successMap2Single((event) {
       return event.toIntensify();
     });
   }
 
   static Future<IntensifyEntity<AvatarVo>> avatar(String avatarPath) {
-    return _userProfileApiClient.avatar(File(avatarPath)).successMap2Single((event) {
+    return _pubUserProfileApi.avatar(File(avatarPath)).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) => AvatarVo.fromJson(resultEntity.data));
     });
   }
 
   static Future<IntensifyEntity<dynamic>> updatePwd(String oldPwd, String newPwd) {
-    return _userProfileApiClient
+    return _pubUserProfileApi
         .updatePwd({"oldPassword": oldPwd, "newPassword": newPwd}).successMap2Single((event) {
       return event.toIntensify();
     });
