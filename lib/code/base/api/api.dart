@@ -7,6 +7,7 @@ part 'api.g.dart';
 
 ///@author sunlunchang
 ///api客户端基础类
+@deprecated
 @RestApi()
 abstract class ApiClient {
   factory ApiClient({Dio? dio, String? baseUrl}) {
