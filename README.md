@@ -61,6 +61,11 @@ flutter pub get
 | 工作流     | 系统工作流模块业务功能                             | 否       | 是         |
 | 我的任务    | 系统我的任务模块业务功能                            | 否       | 是         |
 
+## 捐献作者
+感谢每一位支持者的慷慨相助！您的每一份贡献都是对我莫大的鼓励。
+<img src="screenshot/94e00d3610816730d689567fe904464c_origin.png" width="300px" height="450px" />
+<img src="screenshot/5ede006d8b15ba913588e66ed89fd68a_origin.jpg" width="300px" height="450px" />
+
 ## 演示图例
 
 |                                                                                            |                                                                                            |                                                                                                |
