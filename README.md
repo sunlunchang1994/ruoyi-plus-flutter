@@ -65,7 +65,7 @@ flutter pub get
 
 |                                                                                            |                                                                                                      |
 |--------------------------------------------------------------------------------------------| ---------------------------------------------------------------------------------------------------- |
-| ![输入图片说明](screenshot/Screenshot_20250321_114430_android.slc.ruoyi_plus_flutter '屏幕截图')                                                              | ![输入图片说明](https://foruda.gitee.com/images/1680077619939771291/989bf9b6_1766278.png '屏幕截图') |
+| ![输入图片说明](screenshot/Screenshot_20250321_114430_android.slc.ruoyi_plus_flutter.jpg '屏幕截图') | ![输入图片说明](https://foruda.gitee.com/images/1680077619939771291/989bf9b6_1766278.png '屏幕截图') |
 | ![输入图片说明](https://foruda.gitee.com/images/1680077681751513929/1c27c5bd_1766278.png '屏幕截图') | ![输入图片说明](https://foruda.gitee.com/images/1680077721559267315/74d63e23_1766278.png '屏幕截图') |
 | ![输入图片说明](https://foruda.gitee.com/images/1680077765638904515/1b75d4a6_1766278.png '屏幕截图') | ![输入图片说明](https://foruda.gitee.com/images/1680078026375951297/eded7a4b_1766278.png '屏幕截图') |
 | ![输入图片说明](https://foruda.gitee.com/images/1680078237104531207/0eb1b6a7_1766278.png '屏幕截图') | ![输入图片说明](https://foruda.gitee.com/images/1680078254306078709/5931e22f_1766278.png '屏幕截图') |
