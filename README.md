@@ -30,7 +30,7 @@ flutter pub get
 
 ```
 
-## 基于[RuoYi-Vue-Plus 5.X](https://gitee.com/dromara/RuoYi-Vue-Plus)和移动端特性本项目已实现的业务
+## 基于[RuoYi-Vue-Plus 5.X](https://gitee.com/dromara/RuoYi-Vue-Plus)版本并结合移动端特性，本项目实现了以下业务功能：
 
 | 业务      | 功能说明                                    | 本项目是否实现 | 后续是否实现或更新 |
 |---------|-----------------------------------------|---------|-----------|
