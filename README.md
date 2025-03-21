@@ -10,7 +10,7 @@
 
 ## 平台简介
 
-- 基于 [Flutter](https://flutter.dev/) 的 RuoYi-Vue-Plus 前端项目
+- 基于RuoYi-Vue-Plus Api的[Flutter](https://flutter.dev/)客户端项目
 
 - 配套后端代码仓库地址
 - [RuoYi-Vue-Plus 5.X(注意版本号)](https://gitee.com/dromara/RuoYi-Vue-Plus)
