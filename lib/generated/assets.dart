@@ -3,13 +3,15 @@ class Assets {
   Assets._();
 
   static const String icLauncher = 'assets/images/ic_launcher.png';
-  //全局
-  static const String slcIcLoadingSvg = 'assets/images/slc/ic_loading.svg';
-  static const String slcIcLoading = 'assets/images/slc/ic_loading.png';
-  static const String slcIcNoDate = 'assets/images/slc/ic_no_date.svg';
-  static const String slcAppIcDefUserHead = 'assets/images/slc/ic_def_user_head.png';
+  //基础
+  static const String baseIcLoadingSvg = 'assets/images/base/ic_loading.svg';
+  static const String baseIcLoading = 'assets/images/base/ic_loading.png';
+  static const String baseIcNoDate = 'assets/images/base/ic_no_date.svg';
+  static const String baseIcDefUserHead = 'assets/images/base/ic_def_user_head.png';
+  //user
+  static const String userIcFolder = 'assets/images/user/ic_folder.svg';
   //媒体
-  static const String slcUserIcFolder = 'assets/images/slc/user_ic_folder.svg';
+  static const String slcUserIcFolder = 'assets/images/slc/ic_folder.svg';
   static const String mpSlcMpIcAndroid = 'assets/images/mp/slc_mp_ic_android.png';
   static const String mpSlcMpIcAudiotrack = 'assets/images/mp/slc_mp_ic_audiotrack.png';
   static const String mpSlcMpIcCs = 'assets/images/mp/slc_mp_ic_cs.png';

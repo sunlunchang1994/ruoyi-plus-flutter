@@ -176,11 +176,11 @@ flutter:
 
   assets:
     - assets/images/ic_launcher.png
-    - assets/images/slc/ic_no_date.svg
-    - assets/images/slc/ic_loading.svg
-    - assets/images/slc/ic_loading.png
-    - assets/images/slc/ic_def_user_head.png
-    - assets/images/slc/user_ic_folder.svg
+    - assets/images/base/ic_no_date.svg
+    - assets/images/base/ic_loading.svg
+    - assets/images/base/ic_loading.png
+    - assets/images/base/ic_def_user_head.png
+    - assets/images/user/ic_folder.svg
 
     - assets/images/mp/slc_mp_ic_android.png
     - assets/images/mp/slc_mp_ic_audiotrack.png
