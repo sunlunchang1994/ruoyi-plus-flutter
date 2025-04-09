@@ -129,7 +129,7 @@ class UserListPageVd {
               height: AppDimens.userItemAvatarSize,
               imageUrl: listItem.avatar ?? "",
               placeholder: (context, url) {
-                return Image.asset("assets/images/slc/app_ic_def_user_head.png",
+                return Image.asset("assets/images/slc/ic_def_user_head.png",
                     width: AppDimens.userItemAvatarSize, height: AppDimens.userItemAvatarSize);
               },
               errorWidget: (
@@ -137,7 +137,7 @@ class UserListPageVd {
                 error,
                 stackTrace,
               ) {
-                return Image.asset("assets/images/slc/app_ic_def_user_head.png",
+                return Image.asset("assets/images/slc/ic_def_user_head.png",
                     width: AppDimens.userItemAvatarSize, height: AppDimens.userItemAvatarSize);
               })),
       title: Text(listItem.nickName ?? "-"),

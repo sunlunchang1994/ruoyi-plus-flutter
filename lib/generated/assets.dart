@@ -7,7 +7,7 @@ class Assets {
   static const String slcIcLoadingSvg = 'assets/images/slc/ic_loading.svg';
   static const String slcIcLoading = 'assets/images/slc/ic_loading.png';
   static const String slcIcNoDate = 'assets/images/slc/ic_no_date.svg';
-  static const String slcAppIcDefUserHead = 'assets/images/slc/app_ic_def_user_head.png';
+  static const String slcAppIcDefUserHead = 'assets/images/slc/ic_def_user_head.png';
   //媒体
   static const String slcUserIcFolder = 'assets/images/slc/user_ic_folder.svg';
   static const String mpSlcMpIcAndroid = 'assets/images/mp/slc_mp_ic_android.png';

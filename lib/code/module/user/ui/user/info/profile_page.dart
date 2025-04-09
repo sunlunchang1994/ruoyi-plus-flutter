@@ -91,13 +91,13 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                   previewWidth: 96,
                                   previewHeight: 96,
                                   placeholderImage: const AssetImage(
-                                      "assets/images/slc/app_ic_def_user_head.png"),
+                                      "assets/images/slc/ic_def_user_head.png"),
                                   imageErrorBuilder: (
                                     context,
                                     error,
                                     stackTrace,
                                   ) {
-                                    return Image.asset("assets/images/slc/app_ic_def_user_head.png",
+                                    return Image.asset("assets/images/slc/ic_def_user_head.png",
                                         width: 96, height: 96);
                                   },
                                   //TODO 此处应该加个缓存，内部的FadeInImage改成CachedNetworkImage
