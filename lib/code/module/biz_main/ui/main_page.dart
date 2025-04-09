@@ -21,7 +21,6 @@ class MainPage extends AppBaseStatelessWidget<_MainVm> {
     }, builder: (context, child) {
       ThemeData themeData = Theme.of(context);
       registerEvent(context);
-      var mainVm = Provider.of<_MainVm>(context, listen: false);
 
       List<Widget> pageList = [const AnalysePage(), const WorkbenchPage(), const MinePage()];
 
@@ -34,21 +33,21 @@ class MainPage extends AppBaseStatelessWidget<_MainVm> {
                 return const Icon(Icons.analytics);
               },
             ),
-            label: mainVm.titleArray[0]),
+            label: getVm().titleArray[0]),
         BottomNavigationBarItem(
             icon: Consumer<_MainVm>(
               builder: (context, vm, child) {
                 return const Icon(Icons.text_snippet);
               },
             ),
-            label: mainVm.titleArray[1]),
+            label: getVm().titleArray[1]),
         BottomNavigationBarItem(
             icon: Consumer<_MainVm>(
               builder: (context, value, child) {
                 return const Icon(Icons.account_box);
               },
             ),
-            label: mainVm.titleArray[2])
+            label: getVm().titleArray[2])
       ];
       return Scaffold(
           body: PageView.builder(

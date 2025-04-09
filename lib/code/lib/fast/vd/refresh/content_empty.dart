@@ -23,7 +23,7 @@ class ContentEmptyWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-          SvgPicture.asset("assets/images/slc/ic_no_date.svg",
+          SvgPicture.asset("assets/images/base/ic_no_date.svg",
               height: 72,
               color: themeData.slcTidyUpColor.getTextColorHintByTheme(themeData)),
           Padding(

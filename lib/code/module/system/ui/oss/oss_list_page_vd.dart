@@ -81,7 +81,7 @@ class OssListPageWidget {
                     height: AppDimens.sysItemOssImgSize,
                     imageUrl: listItem.url ?? "",
                     placeholder: (context, url) {
-                      return Image.asset("assets/images/slc/ic_loading.png",
+                      return Image.asset("assets/images/base/ic_loading.png",
                           width: AppDimens.sysItemOssImgSize, height: AppDimens.sysItemOssImgSize);
                     },
                     errorWidget: (

@@ -81,7 +81,7 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                                     imageUrl: getVm().userInfoVo?.user.avatar ?? "",
                                     placeholder: (context, url) {
                                       return Image.asset(
-                                          "assets/images/slc/ic_def_user_head.png",
+                                          "assets/images/base/ic_def_user_head.png",
                                           width: AppDimens.userMineAvatarSize,
                                           height: AppDimens.userMineAvatarSize);
                                     },
@@ -91,7 +91,7 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                                       error,
                                     ) {
                                       return Image.asset(
-                                          "assets/images/slc/ic_def_user_head.png",
+                                          "assets/images/base/ic_def_user_head.png",
                                           width: AppDimens.userMineAvatarSize,
                                           height: AppDimens.userMineAvatarSize);
                                     }))

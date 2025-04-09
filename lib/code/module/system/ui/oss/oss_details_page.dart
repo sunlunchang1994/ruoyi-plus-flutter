@@ -107,7 +107,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                                         imageUrl: field.value ?? "",
                                                         placeholder: (context, url) {
                                                           return Image.asset(
-                                                              "assets/images/slc/ic_loading.png",
+                                                              "assets/images/base/ic_loading.png",
                                                               width: AppDimens.sysDetailsOssImgSize,
                                                               height:
                                                                   AppDimens.sysDetailsOssImgSize);

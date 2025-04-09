@@ -11,7 +11,6 @@ class Assets {
   //user
   static const String userIcFolder = 'assets/images/user/ic_folder.svg';
   //媒体
-  static const String slcUserIcFolder = 'assets/images/slc/ic_folder.svg';
   static const String mpSlcMpIcAndroid = 'assets/images/mp/slc_mp_ic_android.png';
   static const String mpSlcMpIcAudiotrack = 'assets/images/mp/slc_mp_ic_audiotrack.png';
   static const String mpSlcMpIcCs = 'assets/images/mp/slc_mp_ic_cs.png';

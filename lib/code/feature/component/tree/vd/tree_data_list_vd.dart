@@ -20,7 +20,7 @@ class TreeNavVd {
       children: [
         Padding(
             padding: EdgeInsets.only(left: SlcDimens.appDimens16),
-            child: SvgPicture.asset("assets/images/slc/ic_folder.svg",
+            child: SvgPicture.asset("assets/images/user/ic_folder.svg",
                 height: 16, color: themeData.colorScheme.primary)),
         Expanded(
             child: SizedBox(
