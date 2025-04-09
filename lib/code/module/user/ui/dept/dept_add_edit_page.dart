@@ -31,6 +31,7 @@ import '../../../../base/vm/global_vm.dart';
 import '../../../../lib/form/fast_form_builder_text_field.dart';
 import '../../../../lib/form/input_decoration_utils.dart';
 import '../../config/constant_user.dart';
+import '../../entity/dept_tree.dart';
 import '../user/user_list_select_by_dept_page.dart';
 import '../user/user_list_select_single_page.dart';
 
@@ -342,9 +343,9 @@ class _DeptAddEditModel extends AppBaseVm with CancelTokenAssist {
       ConstantBase.KEY_INTENT_TITLE: S.current.user_label_dept_parent_name_select
     }).then((result) {
       if (result != null) {
-        Dept parentDept = result;
-        deptInfo!.parentId = parentDept.deptId;
-        deptInfo!.parentName = parentDept.deptName;
+        DeptTree parentDept = result;
+        deptInfo!.parentId = parentDept.id;
+        deptInfo!.parentName = parentDept.label;
         _formKey.currentState?.patchField("parentName", deptInfo!.parentName);
       }
     });

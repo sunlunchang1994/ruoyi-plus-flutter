@@ -40,6 +40,7 @@ import '../../../../feature/component/dict/entity/tree_dict.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import '../../../../lib/form/form_builder_flow_tag.dart';
+import '../../entity/dept_tree.dart';
 import '../post/post_list_select_multiple_page.dart';
 
 class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
@@ -466,9 +467,9 @@ class _UserAddEditVm extends AppBaseVm with CancelTokenAssist {
     });
   }
 
-  void setOwnerDept(Dept? dept) {
-    userInfo!.deptId = dept?.deptId;
-    userInfo!.deptName = dept?.deptName;
+  void setOwnerDept(DeptTree? dept) {
+    userInfo!.deptId = dept?.id;
+    userInfo!.deptName = dept?.label;
     formOperate.patchField("deptName", userInfo!.deptName);
     applyInfoChange();
   }

@@ -28,6 +28,7 @@ import '../../../../lib/fast/utils/widget_utils.dart';
 import '../../../../lib/fast/vd/page_data_vm_sub.dart';
 import '../../../../lib/form/fast_form_builder_text_field.dart';
 import '../../../../lib/form/input_decoration_utils.dart';
+import '../../entity/dept_tree.dart';
 import '../../repository/remote/post_api.dart';
 import '../dept/dept_list_select_single_page.dart';
 
@@ -254,9 +255,9 @@ class PostPageDataVmSub extends FastBaseListDataPageVmSub<Post> with CancelToken
     });
   }
 
-  void setSelectDept(Dept? dept) {
-    searchPost.deptId = dept?.deptId;
-    searchPost.deptName = dept?.deptName;
+  void setSelectDept(DeptTree? dept) {
+    searchPost.deptId = dept?.id;
+    searchPost.deptName = dept?.label;
     formOperate.patchField("deptName", searchPost.deptName);
     notifyListeners();
   }

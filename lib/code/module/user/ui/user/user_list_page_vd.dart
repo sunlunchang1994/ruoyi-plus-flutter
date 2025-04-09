@@ -15,6 +15,7 @@ import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/widget_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
+import 'package:ruoyi_plus_flutter/code/module/user/entity/dept_tree.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/user_api.dart';
 import 'package:dio/dio.dart';
@@ -53,7 +54,7 @@ class UserListPageVd {
         itemCount: listVmSub.dataList.length,
         itemBuilder: (context, index) {
           dynamic listItem = listVmSub.dataList[index];
-          if (listItem is Dept) {
+          if (listItem is DeptTree) {
             return DeptListPageWidget.getDataListItem(
                 themeData, listVmSub, index, listItem, buildTrailing);
             /*return Padding(
@@ -456,9 +457,9 @@ class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> with CancelToken
   }
 
   //设置选择部门
-  void setSelectDept(Dept? dept) {
-    searchUser.deptId = dept?.deptId;
-    searchUser.deptName = dept?.deptName;
+  void setSelectDept(DeptTree? dept) {
+    searchUser.deptId = dept?.id;
+    searchUser.deptName = dept?.label;
     formOperate.patchField("deptName", searchUser.deptName);
     notifyListeners();
   }

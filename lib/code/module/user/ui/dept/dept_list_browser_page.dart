@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/adapter/select_box.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
@@ -13,16 +10,16 @@ import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_add_edit_page.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_page_vd.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
-import '../../../../base/ui/utils/fast_dialog_utils.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';
 import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
 import '../../../../lib/fast/utils/app_toast.dart';
 import '../../../../lib/fast/utils/widget_utils.dart';
+import '../../entity/dept_tree.dart';
+import 'dept_list_page_vd.dart';
 
 ///
 /// 部门浏览列表
@@ -68,7 +65,7 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
                   title: Text(title),
                   //此处需要更改或完善
                   /*actions: [
-                      NqSelector<_DeptListBrowserVm, bool>(builder: (context, value, child) {
+                      NqSelector<_DeptListBrowserVm2, bool>(builder: (context, value, child) {
                         return AnimatedSize(
                             duration: WidgetUtils.adminDurationNormal,
                             child: Row(
@@ -167,7 +164,7 @@ class _DeptListBrowserVm extends AppBaseVm {
   _DeptListBrowserVm() {
     listVmSub = DeptTreeListDataVmSub(this);
     listVmSub.enableSelectModel = false; // 此处不用显式调用，默认就是false，此处不开启是因为后端不允许一次性删除多个
-    listVmSub.onSuffixClick = (Dept data) {
+    listVmSub.onSuffixClick = (DeptTree data) {
       pushNamed(DeptAddEditPage.routeName, arguments: {ConstantUser.KEY_DEPT: data}).then((value) {
         if (value != null) {
           listVmSub.sendRefreshEvent();
@@ -199,13 +196,13 @@ class _DeptListBrowserVm extends AppBaseVm {
   //删除事件
   void onDelete({Future<bool?> Function(List<String>)? confirmHandler, List<int>? idList}) {
     if (idList == null) {
-      List<Dept> selectList = SelectUtils.getSelect(listVmSub.dataList) ?? [];
+      List<DeptTree> selectList = SelectUtils.getSelect(listVmSub.dataList) ?? [];
       if (selectList.isEmpty) {
         AppToastUtil.showToast(msg: S.current.user_label_dept_del_select_empty);
         return;
       }
-      List<String> nameList = selectList.map<String>((item) => item.deptName!).toList();
-      List<int> idList = selectList.map<int>((item) => item.deptId!).toList();
+      List<String> nameList = selectList.map<String>((item) => item.label).toList();
+      List<int> idList = selectList.map<int>((item) => item.id).toList();
       confirmHandler?.call(nameList).then((value) {
         if (value == true) {
           onDelete(idList: idList);

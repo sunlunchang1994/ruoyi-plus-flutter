@@ -45,7 +45,7 @@ import '../module/system/ui/tenant/tenant_list_browser_page.dart';
 import '../module/user/ui/dept/dept_add_edit_page.dart';
 import '../module/user/ui/dept/dept_list_browser_page.dart';
 import '../feature/auth/ui/login_page.dart';
-import '../module/user/ui/dept/dept_list_browser_page2.dart';
+import '../module/user/ui/dept/dept_list_browser_page.dart';
 import '../module/user/ui/dept/dept_list_select_single_page.dart';
 import '../module/user/ui/post/post_add_edit_page.dart';
 import '../module/user/ui/post/post_list_browser_page.dart';
@@ -126,7 +126,7 @@ final Map<String, WidgetBuilder> router = {
   //部门：部门列表
   DeptListBrowserPage.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
-    return DeptListBrowserPage2(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
+    return DeptListBrowserPage(slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //部门：部门单选列表
   DeptListSingleSelectPage.routeName: (BuildContext context) {

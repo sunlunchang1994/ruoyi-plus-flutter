@@ -31,6 +31,7 @@ import '../../../../feature/bizapi/user/entity/post.dart';
 import '../../../../feature/component/dict/entity/tree_dict.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
+import '../../entity/dept_tree.dart';
 import '../../repository/remote/post_api.dart';
 
 class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
@@ -303,9 +304,9 @@ class _PostAddEditVm extends AppBaseVm with CancelTokenAssist {
     });
   }
 
-  void setOwnerDept(Dept? dept) {
-    postInfo!.deptId = dept?.deptId;
-    postInfo!.deptName = dept?.deptName;
+  void setOwnerDept(DeptTree? dept) {
+    postInfo!.deptId = dept?.id;
+    postInfo!.deptName = dept?.label;
     formOperate.patchField("deptName", postInfo!.deptName);
     applyInfoChange();
   }
