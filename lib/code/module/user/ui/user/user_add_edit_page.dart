@@ -87,50 +87,55 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
               getVm().onSave();
             },
             icon: Icon(Icons.save)));
-        if (user != null) {
+        if (user != null &&
+            globalVm.userShareVm.hasPermiEvery(["system:user:remove", "system:user:resetPwd"])) {
           actionList.add(PopupMenuButton(itemBuilder: (context) {
             return [
-              PopupMenuItem(
-                child: Text(S.current.action_delete),
-                onTap: () {
-                  FastDialogUtils.showDelConfirmDialog(context,
-                          contentText: TextUtil.format(
-                              S.current.user_label_data_del_prompt, [user?.nickName ?? ""]))
-                      .then((confirm) {
-                    if (confirm == true) {
-                      getVm().onDelete();
-                    }
-                  });
-                },
-              ),
-              PopupMenuItem(
-                child: Text(S.current.user_label_reset_password),
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        String newPassword = "";
-                        return AlertDialog(
-                            title: Text(S.current.label_prompt),
-                            content: TextField(
-                                decoration: InputDecoration(
-                                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                                    label: Text(S.current.user_label_new_password_input)),
-                                onChanged: (value) {
-                                  newPassword = value;
-                                }),
-                            actions: FastDialogUtils.getCommonlyAction(context, positiveLister: () {
-                              if (TextUtil.isEmpty(newPassword)) {
-                                AppToastUtil.showToast(
-                                    msg: S.current.app_label_required_information_cannot_be_empty);
-                                return;
-                              }
-                              Navigator.pop(context);
-                              getVm().onResetPassword(newPassword);
-                            }));
-                      });
-                },
-              ),
+              if (globalVm.userShareVm.hasPermiAny(["system:user:remove"]))
+                PopupMenuItem(
+                  child: Text(S.current.action_delete),
+                  onTap: () {
+                    FastDialogUtils.showDelConfirmDialog(context,
+                            contentText: TextUtil.format(
+                                S.current.user_label_data_del_prompt, [user?.nickName ?? ""]))
+                        .then((confirm) {
+                      if (confirm == true) {
+                        getVm().onDelete();
+                      }
+                    });
+                  },
+                ),
+              if (globalVm.userShareVm.hasPermiAny(["system:user:resetPwd"]))
+                PopupMenuItem(
+                  child: Text(S.current.user_label_reset_password),
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          String newPassword = "";
+                          return AlertDialog(
+                              title: Text(S.current.label_prompt),
+                              content: TextField(
+                                  decoration: InputDecoration(
+                                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                                      label: Text(S.current.user_label_new_password_input)),
+                                  onChanged: (value) {
+                                    newPassword = value;
+                                  }),
+                              actions:
+                                  FastDialogUtils.getCommonlyAction(context, positiveLister: () {
+                                if (TextUtil.isEmpty(newPassword)) {
+                                  AppToastUtil.showToast(
+                                      msg:
+                                          S.current.app_label_required_information_cannot_be_empty);
+                                  return;
+                                }
+                                Navigator.pop(context);
+                                getVm().onResetPassword(newPassword);
+                              }));
+                        });
+                  },
+                ),
             ];
           }));
         }
