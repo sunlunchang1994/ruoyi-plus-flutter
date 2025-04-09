@@ -26,6 +26,7 @@ import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/config/constant_base.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
+import '../../../../base/vm/global_vm.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
@@ -154,11 +155,13 @@ class UserListPageVd {
       visualDensity: VisualDensity.compact,
       //根据card规则实现
       onTap: () {
-        listenerItemSelect.onItemClick(index, listItem);
+        GlobalVm().userShareVm.execPermiAny(
+            ["system:user:edit"], () => listenerItemSelect.onItemClick(index, listItem));
         //getVm().nextByDept(listItem);
       },
       onLongPress: () {
-        listenerItemSelect.onItemLongClick(index, listItem);
+        GlobalVm().userShareVm.execPermiAny(
+            ["system:user:remove"], () => listenerItemSelect.onItemLongClick(index, listItem));
       },
     );
   }

@@ -16,6 +16,20 @@ class MyUserInfoVo {
 
   Map<String, dynamic> toJson() => _$MyUserInfoVoToJson(this);
 
+  bool hasPermiAny(List<String> permis) {
+    assert(permis.isNotEmpty);
+    return permis.any((item) {
+      return permissions?.contains(item) ?? false;
+    });
+  }
+
+  bool hasPermiEvery(List<String> permis) {
+    assert(permis.isNotEmpty);
+    return permis.every((item) {
+      return permissions?.contains(item) ?? false;
+    });
+  }
+
   static MyUserInfoVo copyUser(MyUserInfoVo user) {
     return MyUserInfoVo.fromJson(user.toJson());
   }

@@ -22,7 +22,8 @@ abstract class DeptApi {
 
   ///获取部门列表
   @GET("/system/dept/list")
-  Future<ResultEntity> list(@Queries() Dept? data, @CancelRequest() CancelToken cancelToken);
+  Future<ResultEntity> list(
+      @Queries() Map<String, dynamic>? queryParams, @CancelRequest() CancelToken cancelToken);
 
   ///获取部门信息
   @GET("/system/dept/{deptId}")
@@ -49,8 +50,13 @@ class DeptRepository {
   static final DeptApi _deptApi = DeptApi();
 
   ///获取部门列表
-  static Future<IntensifyEntity<List<Dept>>> list(Dept? dept, CancelToken cancelToken) {
-    return _deptApi.list(dept, cancelToken).successMap2Single((event) {
+  static Future<IntensifyEntity<List<Dept>>> list(Dept? dept, CancelToken cancelToken,
+      {bool removeParentId = false}) {
+    Map<String, dynamic>? queryParams = dept?.toJson();
+    if(removeParentId){
+      queryParams?.remove("parentId");
+    }
+    return _deptApi.list(queryParams, cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         List<Dept> dataList = Dept.formJsonList(resultEntity.data); //列表为空时创建默认的
         return dataList;
@@ -85,9 +91,8 @@ class DeptRepository {
 
   ///提交部门信息
   static Future<IntensifyEntity<Dept>> submit(Dept dept, CancelToken cancelToken) {
-    Future<ResultEntity> resultFuture = dept.deptId == null
-        ? _deptApi.add(dept, cancelToken)
-        : _deptApi.edit(dept, cancelToken);
+    Future<ResultEntity> resultFuture =
+        dept.deptId == null ? _deptApi.add(dept, cancelToken) : _deptApi.edit(dept, cancelToken);
     return resultFuture.successMap2Single((event) {
       var intensifyEntity = IntensifyEntity<Dept>(resultEntity: event);
       return intensifyEntity;
@@ -100,9 +105,7 @@ class DeptRepository {
     //参数校验
     assert(deptId != null && deptIds == null || deptId == null && deptIds != null);
     deptIds ??= [deptId!];
-    return _deptApi
-        .delete(deptIds.join(TextUtil.COMMA), cancelToken)
-        .successMap2Single((event) {
+    return _deptApi.delete(deptIds.join(TextUtil.COMMA), cancelToken).successMap2Single((event) {
       return event.toIntensify();
     });
   }

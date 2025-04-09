@@ -23,21 +23,23 @@ import '../../../../feature/bizapi/user/entity/dept.dart';
 import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
 import '../../../../lib/fast/utils/app_toast.dart';
 import '../../../../lib/fast/utils/widget_utils.dart';
+import '../../entity/dept_tree.dart';
+import 'dept_list_page_vd2.dart';
 
 ///
 /// 部门浏览列表
 ///
-class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
+class DeptListBrowserPage2 extends AppBaseStatelessWidget<_DeptListBrowserVm2> {
   static const String routeName = '/system/dept';
 
   final String title;
 
-  DeptListBrowserPage(this.title, {super.key});
+  DeptListBrowserPage2(this.title, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => _DeptListBrowserVm(),
+      create: (context) => _DeptListBrowserVm2(),
       builder: (context, child) {
         ThemeData themeData = Theme.of(context);
         registerEvent(context);
@@ -59,7 +61,7 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
             }),
             child: Scaffold(
                 appBar: AppBar(
-                  leading: NqSelector<_DeptListBrowserVm, bool>(builder: (context, value, child) {
+                  leading: NqSelector<_DeptListBrowserVm2, bool>(builder: (context, value, child) {
                     return WidgetUtils.getAnimCrossFade(const CloseButton(), const BackButton(),
                         showOne: value);
                   }, selector: (context, vm) {
@@ -68,7 +70,7 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
                   title: Text(title),
                   //此处需要更改或完善
                   /*actions: [
-                      NqSelector<_DeptListBrowserVm, bool>(builder: (context, value, child) {
+                      NqSelector<_DeptListBrowserVm2, bool>(builder: (context, value, child) {
                         return AnimatedSize(
                             duration: WidgetUtils.adminDurationNormal,
                             child: Row(
@@ -110,7 +112,7 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
                 //图标滚动使用固定大小来解决
                 floatingActionButton:
                     globalVm.userShareVm.widgetWithPermiAny(["system:dept:add"], () {
-                  return NqSelector<_DeptListBrowserVm, bool>(builder: (context, value, child) {
+                  return NqSelector<_DeptListBrowserVm2, bool>(builder: (context, value, child) {
                     return WidgetUtils.getAnimVisibility(
                         !value,
                         FloatingActionButton(
@@ -123,7 +125,7 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
                   });
                 }),
                 body: Column(children: [
-                  Selector<_DeptListBrowserVm, List<SlcTreeNav>>(builder: (context, value, child) {
+                  Selector<_DeptListBrowserVm2, List<SlcTreeNav>>(builder: (context, value, child) {
                     return TreeNavVd.getNavWidget(themeData, value, (currentItem) {
                       getVm().listVmSub.previous(currentItem.id);
                     });
@@ -135,8 +137,8 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
                   Expanded(
                       child: ListDataVd(getVm().listVmSub, getVm(),
                           refreshOnStart: true,
-                          child: NqSelector<_DeptListBrowserVm, int>(builder: (context, vm, child) {
-                            return DeptListPageWidget.getDataListWidget(
+                          child: NqSelector<_DeptListBrowserVm2, int>(builder: (context, vm, child) {
+                            return DeptListPageWidget2.getDataListWidget(
                                 themeData, getVm().listVmSub, (currentItem) {
                               return globalVm.userShareVm.widgetWithPermiAny(["system:dept:edit"],
                                   () {
@@ -161,13 +163,13 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
 }
 
 //点击列表直接切换数据 存储上级数据列表 返回时直接获取上级加载
-class _DeptListBrowserVm extends AppBaseVm {
-  late DeptTreeListDataVmSub listVmSub;
+class _DeptListBrowserVm2 extends AppBaseVm {
+  late DeptTreeListDataVmSub2 listVmSub;
 
-  _DeptListBrowserVm() {
-    listVmSub = DeptTreeListDataVmSub(this);
+  _DeptListBrowserVm2() {
+    listVmSub = DeptTreeListDataVmSub2(this);
     listVmSub.enableSelectModel = false; // 此处不用显式调用，默认就是false，此处不开启是因为后端不允许一次性删除多个
-    listVmSub.onSuffixClick = (Dept data) {
+    listVmSub.onSuffixClick = (DeptTree data) {
       pushNamed(DeptAddEditPage.routeName, arguments: {ConstantUser.KEY_DEPT: data}).then((value) {
         if (value != null) {
           listVmSub.sendRefreshEvent();
@@ -199,13 +201,13 @@ class _DeptListBrowserVm extends AppBaseVm {
   //删除事件
   void onDelete({Future<bool?> Function(List<String>)? confirmHandler, List<int>? idList}) {
     if (idList == null) {
-      List<Dept> selectList = SelectUtils.getSelect(listVmSub.dataList) ?? [];
+      List<DeptTree> selectList = SelectUtils.getSelect(listVmSub.dataList) ?? [];
       if (selectList.isEmpty) {
         AppToastUtil.showToast(msg: S.current.user_label_dept_del_select_empty);
         return;
       }
-      List<String> nameList = selectList.map<String>((item) => item.deptName!).toList();
-      List<int> idList = selectList.map<int>((item) => item.deptId!).toList();
+      List<String> nameList = selectList.map<String>((item) => item.label).toList();
+      List<int> idList = selectList.map<int>((item) => item.id).toList();
       confirmHandler?.call(nameList).then((value) {
         if (value == true) {
           onDelete(idList: idList);

@@ -96,20 +96,22 @@ class UserListBrowserPage extends AppBaseStatelessWidget<_UserListBrowserVm> {
                           ));
                     }, selector: (context, vm) {
                       return vm.listVmSub.selectModelIsRun;
-                    }),
+                    })
                   ],
                 ),
                 floatingActionButton:
-                    NqSelector<_UserListBrowserVm, bool>(builder: (context, value, child) {
-                  return WidgetUtils.getAnimVisibility(
-                      !value,
-                      FloatingActionButton(
-                          child: Icon(Icons.add),
-                          onPressed: () {
-                            getVm().onAddUser();
-                          }));
-                }, selector: (context, vm) {
-                  return vm.listVmSub.selectModelIsRun;
+                    globalVm.userShareVm.widgetWithPermiAny(["system:user:add"], () {
+                  return NqSelector<_UserListBrowserVm, bool>(builder: (context, value, child) {
+                    return WidgetUtils.getAnimVisibility(
+                        !value,
+                        FloatingActionButton(
+                            child: Icon(Icons.add),
+                            onPressed: () {
+                              getVm().onAddUser();
+                            }));
+                  }, selector: (context, vm) {
+                    return vm.listVmSub.selectModelIsRun;
+                  });
                 }),
                 endDrawer: UserListPageVd.getSearchEndDrawer<_UserListBrowserVm>(
                     context, themeData, getVm().listVmSub),
@@ -139,7 +141,8 @@ class _UserListBrowserVm extends AppBaseVm {
         AppToastUtil.showToast(msg: S.current.user_toast_user_super_edit_refuse);
         return;
       }
-      pushNamed(UserAddEditPage.routeName, arguments: {ConstantUser.KEY_USER: item}).then((result) {
+      pushNamed(UserAddEditPage.routeName, arguments: {ConstantUser.KEY_USER: item})
+          .then((result) {
         if (result != null) {
           listVmSub.sendRefreshEvent();
         }

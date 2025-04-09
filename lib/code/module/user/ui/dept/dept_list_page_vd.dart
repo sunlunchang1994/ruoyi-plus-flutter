@@ -8,6 +8,7 @@ import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/config/constant_base.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
+import '../../../../base/vm/global_vm.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
@@ -20,7 +21,7 @@ import 'package:dio/dio.dart';
 class DeptListPageWidget {
   ///数据列表控件
   static Widget getDataListWidget(ThemeData themeData, DeptTreeListDataVmSub listVmSub,
-      Widget Function(Dept currentItem) buildTrailing) {
+      Widget? Function(Dept currentItem) buildTrailing) {
     if (listVmSub.dataList.isEmpty) {
       return const ContentEmptyWrapper();
     }
@@ -64,7 +65,8 @@ class DeptListPageWidget {
           listenerItemSelect.onItemClick(index, listItem);
         },
         onLongPress: () {
-          listenerItemSelect.onItemLongClick(index, listItem);
+          GlobalVm().userShareVm.execPermiAny(
+              ["system:dept:remove"], () => listenerItemSelect.onItemLongClick(index, listItem));
         });
   }
 }
@@ -73,8 +75,6 @@ class DeptListPageWidget {
 class DeptTreeListDataVmSub extends TreeFastBaseListDataVmSub<Dept> {
   final FastVm fastVm;
   final Dept _currentDeptSearch = Dept(parentId: ConstantBase.VALUE_PARENT_ID_DEF);
-
-  Dept get currentSearch => _currentDeptSearch;
 
   void Function(Dept data)? onSuffixClick;
 
@@ -108,7 +108,6 @@ class DeptTreeListDataVmSub extends TreeFastBaseListDataVmSub<Dept> {
   ///下一个节点
   void next(SlcTreeNav treeNav, {bool notify = true}) {
     _currentDeptSearch.parentId = treeNav.id;
-    _currentDeptSearch.parentName = treeNav.treeName;
     super.next(treeNav, notify: notify);
     if (notify) {
       fastVm.notifyListeners();
@@ -128,7 +127,6 @@ class DeptTreeListDataVmSub extends TreeFastBaseListDataVmSub<Dept> {
     super.previous(treeId);
     SlcTreeNav? slcTreeNav = getLastTree();
     _currentDeptSearch.parentId = slcTreeNav?.id ?? ConstantBase.VALUE_PARENT_ID_DEF;
-    _currentDeptSearch.parentName = slcTreeNav?.treeName ?? "";
     fastVm.notifyListeners();
   }
 

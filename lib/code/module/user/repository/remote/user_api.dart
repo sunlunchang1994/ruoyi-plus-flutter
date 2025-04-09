@@ -33,7 +33,8 @@ abstract class UserApi {
 
   ///获取部门树列表
   @GET("/system/user/deptTree")
-  Future<ResultEntity> deptTree();
+  Future<ResultEntity> deptTree(
+      @Queries() Map<String, dynamic>? queryParams, @CancelRequest() CancelToken cancelToken);
 
   ///部门下的用户列表
   @GET("/system/user/list/dept/{deptId}")
@@ -86,8 +87,13 @@ class UserServiceRepository {
     });
   }
 
-  static Future<IntensifyEntity<List<DeptTree>>> deptTree(Dept? dept) {
-    return _userApiClient.deptTree().successMap2Single((event) {
+  static Future<IntensifyEntity<List<DeptTree>>> deptTree(Dept? dept, CancelToken cancelToken,
+      {bool removeParentId = false}) {
+    Map<String, dynamic>? queryParams = dept?.toJson();
+    if (removeParentId) {
+      queryParams?.remove("parentId");
+    }
+    return _userApiClient.deptTree(queryParams, cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return DeptTree.fromJsonList(resultEntity.data);
       });
