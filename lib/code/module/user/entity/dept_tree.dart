@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../base/api/json_converter.dart';
 import '../../../feature/component/adapter/app_select_box.dart';
 
 part 'dept_tree.g.dart';
@@ -9,12 +10,14 @@ part 'dept_tree.g.dart';
 @JsonSerializable()
 class DeptTree with AppSelectBoxMixin<DeptTree> {
   //部门id
-  int id;
+  @IntConverter()
+  int? id;
 
   //标题
   String label;
 
   //父id
+  @IntConverter()
   int? parentId;
 
   //部门树子结构

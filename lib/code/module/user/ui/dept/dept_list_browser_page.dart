@@ -162,7 +162,7 @@ class _DeptListBrowserVm extends AppBaseVm {
     listVmSub = DeptTreeListDataVmSub(this);
     listVmSub.enableSelectModel = false; // 此处不用显式调用，默认就是false，此处不开启是因为后端不允许一次性删除多个
     listVmSub.onSuffixClick = (DeptTree data) {
-      pushNamed(DeptAddEditPage.routeName, arguments: {ConstantUser.KEY_DEPT: data}).then((value) {
+      pushNamed(DeptAddEditPage.routeName, arguments: {ConstantUser.KEY_DEPT: Dept(deptId: data.id, deptName: data.label)}).then((value) {
         if (value != null) {
           listVmSub.sendRefreshEvent();
         }
@@ -199,7 +199,7 @@ class _DeptListBrowserVm extends AppBaseVm {
         return;
       }
       List<String> nameList = selectList.map<String>((item) => item.label).toList();
-      List<int> idList = selectList.map<int>((item) => item.id).toList();
+      List<int> idList = selectList.map<int>((item) => item.id!).toList();
       confirmHandler?.call(nameList).then((value) {
         if (value == true) {
           onDelete(idList: idList);

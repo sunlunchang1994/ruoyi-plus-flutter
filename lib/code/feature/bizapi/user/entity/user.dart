@@ -84,10 +84,6 @@ class User extends TenantEntity with AppSelectBoxMixin<User> {
     return jsonMap;
   }
 
-  static List<User> formJsonList(List<dynamic>? data) {
-    return data?.map((json) => User.fromJson(json)).toList() ?? List.empty();
-  }
-
   static User copyUser(User user) {
     return User.fromJson(user.toJson());
   }

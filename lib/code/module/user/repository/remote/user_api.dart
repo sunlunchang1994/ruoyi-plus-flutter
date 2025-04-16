@@ -90,20 +90,21 @@ class UserServiceRepository {
   static Future<IntensifyEntity<List<DeptTree>>> deptTree(Dept? dept, CancelToken cancelToken,
       {bool removeParentId = false}) {
     Map<String, dynamic>? queryParams = dept?.toJson();
+    queryParams?.removeWhere((k, v) => v == null);
     if (removeParentId) {
       queryParams?.remove("parentId");
     }
     return _userApiClient.deptTree(queryParams, cancelToken).successMap2Single((event) {
-      return event.toIntensify(createData: (resultEntity) {
-        return DeptTree.fromJsonList(resultEntity.data);
+      return event.toListIntensify(createData: (dateItem) {
+        return DeptTree.fromJson(dateItem);
       });
     });
   }
 
   static Future<IntensifyEntity<List<User>>> userListByDept(int deptId, CancelToken cancelToken) {
     return _userApiClient.userListByDept(deptId, cancelToken).successMap2Single((event) {
-      return event.toIntensify(createData: (resultEntity) {
-        return User.formJsonList(resultEntity.data);
+      return event.toListIntensify(createData: (dateItem) {
+        return User.fromJson(dateItem);
       });
     });
   }
