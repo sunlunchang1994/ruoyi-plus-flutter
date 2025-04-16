@@ -45,7 +45,6 @@ import '../module/system/ui/tenant/tenant_list_browser_page.dart';
 import '../module/user/ui/dept/dept_add_edit_page.dart';
 import '../module/user/ui/dept/dept_list_browser_page.dart';
 import '../feature/auth/ui/login_page.dart';
-import '../module/user/ui/dept/dept_list_browser_page.dart';
 import '../module/user/ui/dept/dept_list_select_single_page.dart';
 import '../module/user/ui/post/post_add_edit_page.dart';
 import '../module/user/ui/post/post_list_browser_page.dart';
