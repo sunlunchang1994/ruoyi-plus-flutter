@@ -20,6 +20,7 @@ import '../../../../../base/api/base_dio.dart';
 import '../../../../../base/api/result_entity.dart';
 import '../../../../../base/config/constant_base.dart';
 import '../../../../../base/repository/remote/data_transform_utils.dart';
+import '../../../../../base/vm/global_vm.dart';
 import '../../../../../lib/fast/provider/fast_select.dart';
 import '../../../../../lib/fast/utils/widget_utils.dart';
 import '../../../../../lib/fast/vd/list_data_component.dart';
@@ -81,7 +82,8 @@ class DictTypeListPageWidget {
           listenerItemSelect.onItemClick(index, listItem);
         },
         onLongPress: () {
-          listenerItemSelect.onItemLongClick(index, listItem);
+          GlobalVm().userShareVm.execPermiAny(
+              ["system:dict:remove"], () => listenerItemSelect.onItemLongClick(index, listItem));
         });
   }
 

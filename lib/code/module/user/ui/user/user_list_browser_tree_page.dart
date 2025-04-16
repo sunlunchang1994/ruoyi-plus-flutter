@@ -16,6 +16,7 @@ import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
 ///
 /// 用户浏览列表：通讯录的形势
 ///
+@Deprecated("不推荐使用此形式")
 class UserListBrowserPage2 extends AppBaseStatelessWidget<_UserListBrowserVm> {
   static const String routeName = '/system/user2';
 

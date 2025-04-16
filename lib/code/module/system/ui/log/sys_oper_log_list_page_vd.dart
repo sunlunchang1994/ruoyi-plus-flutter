@@ -22,6 +22,7 @@ import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
+import '../../../../base/vm/global_vm.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../lib/fast/provider/fast_select.dart';
 import '../../../../lib/fast/utils/app_toast.dart';
@@ -123,16 +124,18 @@ class SysOperLogListPageWidget {
             listenerItemSelect.onItemClick(index, listItem);
           },
           onLongPress: () {
-            FastDialogUtils.showDelConfirmDialog(context,
-                    contentText:
-                        TextUtil.format(S.current.sys_label_log_del_prompt, [listItem.operId]))
-                .then((confirm) {
-              if (confirm == true) {
-                listenerItemSelect as SysOperLogListDataVmSub;
-                listenerItemSelect.onDelete(listItem);
-              }
+            GlobalVm().userShareVm.execPermiAny(["system:dict:remove"], () {
+              FastDialogUtils.showDelConfirmDialog(context,
+                      contentText:
+                          TextUtil.format(S.current.sys_label_log_del_prompt, [listItem.operId]))
+                  .then((confirm) {
+                if (confirm == true) {
+                  listenerItemSelect as SysOperLogListDataVmSub;
+                  listenerItemSelect.onDelete(listItem);
+                }
+              });
+              //listenerItemSelect.onItemLongClick(index, listItem);
             });
-            listenerItemSelect.onItemLongClick(index, listItem);
           });
     });
   }

@@ -69,7 +69,7 @@ class DeptListPageWidget {
           listenerItemSelect.onItemClick(index, listItem);
         },
         onLongPress: () {
-          GlobalVm().userShareVm.execPermiAny(
+          GlobalVm().userShareVm.execPermiEvery(
               ["system:dept:remove"], () => listenerItemSelect.onItemLongClick(index, listItem));
         });
   }

@@ -112,16 +112,18 @@ class TenantListBrowserPage extends AppBaseStatelessWidget<_TenantListBrowserVm>
                   endDrawer: TenantListPageWidget.getSearchEndDrawer<_TenantListBrowserVm>(
                       context, themeData, getVm().listVmSub),
                   floatingActionButton:
-                      NqSelector<_TenantListBrowserVm, bool>(builder: (context, value, child) {
-                    return WidgetUtils.getAnimVisibility(
-                        !value,
-                        FloatingActionButton(
-                            child: Icon(Icons.add),
-                            onPressed: () {
-                              getVm().onAddItem();
-                            }));
-                  }, selector: (context, vm) {
-                    return vm.listVmSub.selectModelIsRun;
+                      globalVm.userShareVm.widgetWithPermiAny(["system:tenant:add"], () {
+                    return NqSelector<_TenantListBrowserVm, bool>(builder: (context, value, child) {
+                      return WidgetUtils.getAnimVisibility(
+                          !value,
+                          FloatingActionButton(
+                              child: Icon(Icons.add),
+                              onPressed: () {
+                                getVm().onAddItem();
+                              }));
+                    }, selector: (context, vm) {
+                      return vm.listVmSub.selectModelIsRun;
+                    });
                   }),
                   body: PageDataVd(getVm().listVmSub, getVm(),
                       refreshOnStart: true,

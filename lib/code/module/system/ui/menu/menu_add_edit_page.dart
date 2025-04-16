@@ -67,27 +67,33 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
                         ? S.current.sys_label_menu_add
                         : S.current.sys_label_menu_edit),
                     actions: [
-                      IconButton(
-                          onPressed: () {
-                            getVm().onSave();
-                          },
-                          icon: const Icon(Icons.save)),
-                      if (sysMenuInfo != null)
+                      if ((globalVm.userShareVm.hasPermiAny(["system:menu:edit"]) &&
+                              sysMenuInfo != null) ||
+                          (globalVm.userShareVm.hasPermiAny(["system:menu:add"]) &&
+                              sysMenuInfo == null))
+                        IconButton(
+                            onPressed: () {
+                              getVm().onSave();
+                            },
+                            icon: const Icon(Icons.save)),
+                      if (sysMenuInfo != null &&
+                          (globalVm.userShareVm.hasPermiAny(["system:menu:remove"])))
                         PopupMenuButton(itemBuilder: (context) {
                           return [
-                            PopupMenuItem(
-                              child: Text(S.current.action_delete),
-                              onTap: () {
-                                FastDialogUtils.showDelConfirmDialog(context,
-                                    contentText: TextUtil.format(
-                                        S.current.sys_label_menu_del_prompt,
-                                        [sysMenuInfo?.menuName ?? ""])).then((confirm) {
-                                  if (confirm == true) {
-                                    getVm().onDelete();
-                                  }
-                                });
-                              },
-                            )
+                            if (globalVm.userShareVm.hasPermiAny(["system:menu:remove"]))
+                              PopupMenuItem(
+                                child: Text(S.current.action_delete),
+                                onTap: () {
+                                  FastDialogUtils.showDelConfirmDialog(context,
+                                      contentText: TextUtil.format(
+                                          S.current.sys_label_menu_del_prompt,
+                                          [sysMenuInfo?.menuName ?? ""])).then((confirm) {
+                                    if (confirm == true) {
+                                      getVm().onDelete();
+                                    }
+                                  });
+                                },
+                              )
                           ];
                         })
                     ]),

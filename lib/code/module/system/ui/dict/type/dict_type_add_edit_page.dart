@@ -21,6 +21,7 @@ import '../../../../../../generated/l10n.dart';
 import '../../../../../base/api/base_dio.dart';
 import '../../../../../base/api/result_entity.dart';
 import '../../../../../base/ui/utils/fast_dialog_utils.dart';
+import '../../../../../base/vm/global_vm.dart';
 import '../../../repository/remote/dict_type_api.dart';
 
 class DictTypeAddEditPage extends AppBaseStatelessWidget<_DictTypeAddEditVm> {
@@ -57,27 +58,33 @@ class DictTypeAddEditPage extends AppBaseStatelessWidget<_DictTypeAddEditVm> {
                         ? S.current.sys_label_dict_type_add
                         : S.current.sys_label_dict_type_edit),
                     actions: [
-                      IconButton(
-                          onPressed: () {
-                            getVm().onSave();
-                          },
-                          icon: Icon(Icons.save)),
-                      if (dictType != null)
+                      if ((globalVm.userShareVm.hasPermiAny(["system:dict:edit"]) &&
+                              dictType != null) ||
+                          (globalVm.userShareVm.hasPermiAny(["system:dict:add"]) &&
+                              dictType == null))
+                        IconButton(
+                            onPressed: () {
+                              getVm().onSave();
+                            },
+                            icon: Icon(Icons.save)),
+                      if (dictType != null &&
+                          globalVm.userShareVm.hasPermiAny(["system:dict:remove"]))
                         PopupMenuButton(itemBuilder: (context) {
                           return [
-                            PopupMenuItem(
-                              child: Text(S.current.action_delete),
-                              onTap: () {
-                                FastDialogUtils.showDelConfirmDialog(context,
-                                    contentText: TextUtil.format(
-                                        S.current.sys_label_dict_del_prompt,
-                                        [dictType?.dictName ?? ""])).then((confirm) {
-                                  if (confirm == true) {
-                                    getVm().onDelete();
-                                  }
-                                });
-                              },
-                            )
+                            if (globalVm.userShareVm.hasPermiAny(["system:dict:remove"]))
+                              PopupMenuItem(
+                                child: Text(S.current.action_delete),
+                                onTap: () {
+                                  FastDialogUtils.showDelConfirmDialog(context,
+                                      contentText: TextUtil.format(
+                                          S.current.sys_label_dict_del_prompt,
+                                          [dictType?.dictName ?? ""])).then((confirm) {
+                                    if (confirm == true) {
+                                      getVm().onDelete();
+                                    }
+                                  });
+                                },
+                              )
                           ];
                         })
                     ],

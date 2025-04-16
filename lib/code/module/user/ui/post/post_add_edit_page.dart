@@ -37,9 +37,9 @@ import '../../repository/remote/post_api.dart';
 class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
   static const String routeName = '/system/post/add_edit';
 
-  final Post? post;
+  final Post? postInfo;
 
-  PostAddEditPage(this.post, {super.key}) {}
+  PostAddEditPage(this.postInfo, {super.key}) {}
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
         builder: (context, child) {
           ThemeData themeData = Theme.of(context);
           registerEvent(context);
-          getVm().initVm(post);
+          getVm().initVm(postInfo);
           return PopScope(
               canPop: false,
               onPopInvokedWithResult: (canPop, result) {
@@ -64,31 +64,37 @@ class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
               },
               child: Scaffold(
                   appBar: AppBar(
-                    title: Text(post == null
+                    title: Text(postInfo == null
                         ? S.current.user_label_post_add
                         : S.current.user_label_post_edit),
                     actions: [
-                      IconButton(
-                          onPressed: () {
-                            getVm().onSave();
-                          },
-                          icon: Icon(Icons.save)),
-                      if (post != null)
+                      if ((globalVm.userShareVm.hasPermiAny(["system:post:edit"]) &&
+                          postInfo != null) ||
+                          (globalVm.userShareVm.hasPermiAny(["system:post:add"]) &&
+                              postInfo == null))
+                        IconButton(
+                            onPressed: () {
+                              getVm().onSave();
+                            },
+                            icon: Icon(Icons.save)),
+                      if (postInfo != null &&
+                          GlobalVm().userShareVm.hasPermiEvery(["system:post:remove"]))
                         PopupMenuButton(itemBuilder: (context) {
                           return [
-                            PopupMenuItem(
-                              child: Text(S.current.action_delete),
-                              onTap: () {
-                                FastDialogUtils.showDelConfirmDialog(context,
-                                    contentText: TextUtil.format(
-                                        S.current.user_label_role_del_prompt,
-                                        [post?.postName ?? ""])).then((confirm) {
-                                  if (confirm == true) {
-                                    getVm().onDelete();
-                                  }
-                                });
-                              },
-                            )
+                            if (globalVm.userShareVm.hasPermiAny(["system:post:remove"]))
+                              PopupMenuItem(
+                                child: Text(S.current.action_delete),
+                                onTap: () {
+                                  FastDialogUtils.showDelConfirmDialog(context,
+                                      contentText: TextUtil.format(
+                                          S.current.user_label_role_del_prompt,
+                                          [postInfo?.postName ?? ""])).then((confirm) {
+                                    if (confirm == true) {
+                                      getVm().onDelete();
+                                    }
+                                  });
+                                },
+                              )
                           ];
                         })
                     ],

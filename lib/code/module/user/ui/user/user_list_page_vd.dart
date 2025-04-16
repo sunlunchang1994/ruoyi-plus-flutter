@@ -156,12 +156,11 @@ class UserListPageVd {
       visualDensity: VisualDensity.compact,
       //根据card规则实现
       onTap: () {
-        GlobalVm().userShareVm.execPermiAny(
-            ["system:user:edit"], () => listenerItemSelect.onItemClick(index, listItem));
+        listenerItemSelect.onItemClick(index, listItem);
         //getVm().nextByDept(listItem);
       },
       onLongPress: () {
-        GlobalVm().userShareVm.execPermiAny(
+        GlobalVm().userShareVm.execPermiEvery(
             ["system:user:remove"], () => listenerItemSelect.onItemLongClick(index, listItem));
       },
     );

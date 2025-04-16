@@ -101,16 +101,18 @@ class RoleListBrowserPage extends AppBaseStatelessWidget<_RoleListBrowserVm> {
                   endDrawer: RoleListPageVd.getSearchEndDrawer<_RoleListBrowserVm>(
                       context, themeData, getVm().listVmSub),
                   floatingActionButton:
-                      NqSelector<_RoleListBrowserVm, bool>(builder: (context, value, child) {
-                    return WidgetUtils.getAnimVisibility(
-                        !value,
-                        FloatingActionButton(
-                            child: Icon(Icons.add),
-                            onPressed: () {
-                              getVm().onAddRole();
-                            }));
-                  }, selector: (context, vm) {
-                    return vm.listVmSub.selectModelIsRun;
+                      globalVm.userShareVm.widgetWithPermiAny(["system:role:add"], () {
+                    return NqSelector<_RoleListBrowserVm, bool>(builder: (context, value, child) {
+                      return WidgetUtils.getAnimVisibility(
+                          !value,
+                          FloatingActionButton(
+                              child: Icon(Icons.add),
+                              onPressed: () {
+                                getVm().onAddRole();
+                              }));
+                    }, selector: (context, vm) {
+                      return vm.listVmSub.selectModelIsRun;
+                    });
                   }),
                   body: PageDataVd(getVm().listVmSub, getVm(),
                       refreshOnStart: true,
@@ -130,11 +132,6 @@ class _RoleListBrowserVm extends AppBaseVm {
     listVmSub = RolePageDataVmSub();
     listVmSub.enableSelectModel = true;
     listVmSub.setItemClick((index, role) {
-      if (role.roleId == ConstantUserApi.VALUE_SUPER_ADMIN_ROLE_ID) {
-        //是超管则不允许做更改
-        AppToastUtil.showToast(msg: S.current.user_toast_role_super_edit_refuse);
-        return;
-      }
       pushNamed(RoleAddEditPage.routeName, arguments: {ConstantUser.KEY_ROLE: role}).then((result) {
         if (result != null) {
           listVmSub.sendRefreshEvent();

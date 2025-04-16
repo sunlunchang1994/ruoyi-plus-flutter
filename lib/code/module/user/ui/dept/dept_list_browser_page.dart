@@ -135,18 +135,15 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
                           child: NqSelector<_DeptListBrowserVm, int>(builder: (context, vm, child) {
                             return DeptListPageWidget.getDataListWidget(
                                 themeData, getVm().listVmSub, (currentItem) {
-                              return globalVm.userShareVm.widgetWithPermiAny(["system:dept:edit"],
-                                  () {
-                                return Ink(
-                                    child: InkWell(
-                                        child: Padding(
-                                            padding: EdgeInsets.all(SlcDimens.appDimens12),
-                                            child: const Icon(Icons.chevron_right, size: 24)),
-                                        onTap: () {
-                                          //点击更多事件
-                                          getVm().listVmSub.onSuffixClick?.call(currentItem);
-                                        }));
-                              });
+                              return Ink(
+                                  child: InkWell(
+                                      child: Padding(
+                                          padding: EdgeInsets.all(SlcDimens.appDimens12),
+                                          child: const Icon(Icons.chevron_right, size: 24)),
+                                      onTap: () {
+                                        //点击更多事件
+                                        getVm().listVmSub.onSuffixClick?.call(currentItem);
+                                      }));
                             });
                           }, selector: (context, vm) {
                             return vm.listVmSub.shouldSetState.version;

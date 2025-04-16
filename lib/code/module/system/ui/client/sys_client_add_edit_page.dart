@@ -65,27 +65,33 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                         ? S.current.sys_label_sys_client_add
                         : S.current.sys_label_sys_client_edit),
                     actions: [
-                      IconButton(
-                          onPressed: () {
-                            getVm().onSave();
-                          },
-                          icon: Icon(Icons.save)),
-                      if (sysClient != null)
+                      if ((globalVm.userShareVm.hasPermiAny(["system:client:edit"]) &&
+                              sysClient != null) ||
+                          (globalVm.userShareVm.hasPermiAny(["system:client:add"]) &&
+                              sysClient == null))
+                        IconButton(
+                            onPressed: () {
+                              getVm().onSave();
+                            },
+                            icon: Icon(Icons.save)),
+                      if (sysClient != null &&
+                          globalVm.userShareVm.hasPermiAny(["system:client:remove"]))
                         PopupMenuButton(itemBuilder: (context) {
                           return [
-                            PopupMenuItem(
-                              child: Text(S.current.action_delete),
-                              onTap: () {
-                                FastDialogUtils.showDelConfirmDialog(context,
-                                    contentText: TextUtil.format(
-                                        S.current.sys_label_sys_client_del_prompt,
-                                        [sysClient?.clientId ?? ""])).then((confirm) {
-                                  if (confirm == true) {
-                                    getVm().onDelete();
-                                  }
-                                });
-                              },
-                            )
+                            if (globalVm.userShareVm.hasPermiAny(["system:client:remove"]))
+                              PopupMenuItem(
+                                child: Text(S.current.action_delete),
+                                onTap: () {
+                                  FastDialogUtils.showDelConfirmDialog(context,
+                                      contentText: TextUtil.format(
+                                          S.current.sys_label_sys_client_del_prompt,
+                                          [sysClient?.clientId ?? ""])).then((confirm) {
+                                    if (confirm == true) {
+                                      getVm().onDelete();
+                                    }
+                                  });
+                                },
+                              )
                           ];
                         })
                     ],

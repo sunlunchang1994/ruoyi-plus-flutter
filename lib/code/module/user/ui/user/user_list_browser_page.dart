@@ -137,10 +137,6 @@ class _UserListBrowserVm extends AppBaseVm {
     listVmSub = UserPageDataVmSub();
     listVmSub.enableSelectModel = true;
     listVmSub.setItemClick((index, item) {
-      if (item.userId == ConstantUserApi.VALUE_SUPER_ADMIN_ID) {
-        AppToastUtil.showToast(msg: S.current.user_toast_user_super_edit_refuse);
-        return;
-      }
       pushNamed(UserAddEditPage.routeName, arguments: {ConstantUser.KEY_USER: item})
           .then((result) {
         if (result != null) {

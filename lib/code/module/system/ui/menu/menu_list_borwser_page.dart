@@ -41,16 +41,18 @@ class MenuListBrowserPage extends AppBaseStatelessWidget<_MenuListBrowserVm> {
             child: Scaffold(
                 appBar: AppBar(title: Text(title)),
                 floatingActionButton:
-                    NqSelector<_MenuListBrowserVm, bool>(builder: (context, value, child) {
-                  return WidgetUtils.getAnimVisibility(
-                      !value,
-                      FloatingActionButton(
-                          child: Icon(Icons.add),
-                          onPressed: () {
-                            getVm().onAddItem();
-                          }));
-                }, selector: (context, vm) {
-                  return vm.listVmSub.selectModelIsRun;
+                    globalVm.userShareVm.widgetWithPermiAny(["system:menu:add"], () {
+                  return NqSelector<_MenuListBrowserVm, bool>(builder: (context, value, child) {
+                    return WidgetUtils.getAnimVisibility(
+                        !value,
+                        FloatingActionButton(
+                            child: Icon(Icons.add),
+                            onPressed: () {
+                              getVm().onAddItem();
+                            }));
+                  }, selector: (context, vm) {
+                    return vm.listVmSub.selectModelIsRun;
+                  });
                 }),
                 body: Column(children: [
                   Selector<_MenuListBrowserVm, List<SlcTreeNav>>(

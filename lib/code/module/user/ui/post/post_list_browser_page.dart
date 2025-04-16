@@ -100,16 +100,18 @@ class PostListBrowserPage extends AppBaseStatelessWidget<_PostListBrowserVm> {
                   endDrawer: PostListPageVd.getSearchEndDrawer<_PostListBrowserVm>(
                       context, themeData, getVm().listVmSub),
                   floatingActionButton:
-                      NqSelector<_PostListBrowserVm, bool>(builder: (context, value, child) {
-                    return WidgetUtils.getAnimVisibility(
-                        !value,
-                        FloatingActionButton(
-                            child: Icon(Icons.add),
-                            onPressed: () {
-                              getVm().onAddPost();
-                            }));
-                  }, selector: (context, vm) {
-                    return vm.listVmSub.selectModelIsRun;
+                      globalVm.userShareVm.widgetWithPermiAny(["system:post:add"], () {
+                    return NqSelector<_PostListBrowserVm, bool>(builder: (context, value, child) {
+                      return WidgetUtils.getAnimVisibility(
+                          !value,
+                          FloatingActionButton(
+                              child: Icon(Icons.add),
+                              onPressed: () {
+                                getVm().onAddPost();
+                              }));
+                    }, selector: (context, vm) {
+                      return vm.listVmSub.selectModelIsRun;
+                    });
                   }),
                   body: PageDataVd(getVm().listVmSub, getVm(),
                       refreshOnStart: true,

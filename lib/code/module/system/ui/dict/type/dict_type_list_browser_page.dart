@@ -105,16 +105,19 @@ class DictTypeListBrowserPage extends AppBaseStatelessWidget<_DictTypeListBrowse
                   endDrawer: DictTypeListPageWidget.getSearchEndDrawer<_DictTypeListBrowserVm>(
                       context, themeData, getVm().listVmSub),
                   floatingActionButton:
-                      NqSelector<_DictTypeListBrowserVm, bool>(builder: (context, value, child) {
-                    return WidgetUtils.getAnimVisibility(
-                        !value,
-                        FloatingActionButton(
-                            child: Icon(Icons.add),
-                            onPressed: () {
-                              getVm().onAddItem();
-                            }));
-                  }, selector: (context, vm) {
-                    return vm.listVmSub.selectModelIsRun;
+                      globalVm.userShareVm.widgetWithPermiAny(["system:dict:add"], () {
+                    return NqSelector<_DictTypeListBrowserVm, bool>(
+                        builder: (context, value, child) {
+                      return WidgetUtils.getAnimVisibility(
+                          !value,
+                          FloatingActionButton(
+                              child: Icon(Icons.add),
+                              onPressed: () {
+                                getVm().onAddItem();
+                              }));
+                    }, selector: (context, vm) {
+                      return vm.listVmSub.selectModelIsRun;
+                    });
                   }),
                   body: PageDataVd(getVm().listVmSub, getVm(),
                       refreshOnStart: true,

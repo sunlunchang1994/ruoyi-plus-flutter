@@ -101,16 +101,18 @@ class ConfigListBrowserPage extends AppBaseStatelessWidget<_ConfigListBrowserVm>
                   endDrawer: ConfigListPageWidget.getSearchEndDrawer<_ConfigListBrowserVm>(
                       context, themeData, getVm().listVmSub),
                   floatingActionButton:
-                      NqSelector<_ConfigListBrowserVm, bool>(builder: (context, value, child) {
-                    return WidgetUtils.getAnimVisibility(
-                        !value,
-                        FloatingActionButton(
-                            child: Icon(Icons.add),
-                            onPressed: () {
-                              getVm().onAddItem();
-                            }));
-                  }, selector: (context, vm) {
-                    return vm.listVmSub.selectModelIsRun;
+                      globalVm.userShareVm.widgetWithPermiAny(["system:client:add"], () {
+                    return NqSelector<_ConfigListBrowserVm, bool>(builder: (context, value, child) {
+                      return WidgetUtils.getAnimVisibility(
+                          !value,
+                          FloatingActionButton(
+                              child: Icon(Icons.add),
+                              onPressed: () {
+                                getVm().onAddItem();
+                              }));
+                    }, selector: (context, vm) {
+                      return vm.listVmSub.selectModelIsRun;
+                    });
                   }),
                   body: PageDataVd(getVm().listVmSub, getVm(),
                       refreshOnStart: true,
@@ -187,8 +189,11 @@ class _ConfigListBrowserVm extends AppBaseVm {
       dismissLoading();
       AppToastUtil.showToast(msg: S.current.label_delete_success);
       listVmSub.sendRefreshEvent();
-    }, onError: BaseDio.errProxyFunc(defErrMsg: S.current.label_delete_failed,onError: (error) {
-      dismissLoading();
-    }));
+    },
+        onError: BaseDio.errProxyFunc(
+            defErrMsg: S.current.label_delete_failed,
+            onError: (error) {
+              dismissLoading();
+            }));
   }
 }

@@ -63,27 +63,33 @@ class OssConfigAddEditPage extends AppBaseStatelessWidget<_OssConfigAddEditVm> {
                         ? S.current.sys_label_oss_config_add
                         : S.current.sys_label_oss_config_edit),
                     actions: [
-                      IconButton(
-                          onPressed: () {
-                            getVm().onSave();
-                          },
-                          icon: Icon(Icons.save)),
-                      if (sysOssConfig != null)
+                      if ((globalVm.userShareVm.hasPermiAny(["system:ossConfig:edit"]) &&
+                              sysOssConfig != null) ||
+                          (globalVm.userShareVm.hasPermiAny(["system:ossConfig:add"]) &&
+                              sysOssConfig == null))
+                        IconButton(
+                            onPressed: () {
+                              getVm().onSave();
+                            },
+                            icon: Icon(Icons.save)),
+                      if (sysOssConfig != null &&
+                          globalVm.userShareVm.hasPermiAny(["system:ossConfig:remove"]))
                         PopupMenuButton(itemBuilder: (context) {
                           return [
-                            PopupMenuItem(
-                              child: Text(S.current.action_delete),
-                              onTap: () {
-                                FastDialogUtils.showDelConfirmDialog(context,
-                                    contentText: TextUtil.format(
-                                        S.current.sys_label_oss_config_del_prompt,
-                                        [sysOssConfig!.configKey])).then((confirm) {
-                                  if (confirm == true) {
-                                    getVm().onDelete();
-                                  }
-                                });
-                              },
-                            )
+                            if (globalVm.userShareVm.hasPermiAny(["system:ossConfig:remove"]))
+                              PopupMenuItem(
+                                child: Text(S.current.action_delete),
+                                onTap: () {
+                                  FastDialogUtils.showDelConfirmDialog(context,
+                                      contentText: TextUtil.format(
+                                          S.current.sys_label_oss_config_del_prompt,
+                                          [sysOssConfig!.configKey])).then((confirm) {
+                                    if (confirm == true) {
+                                      getVm().onDelete();
+                                    }
+                                  });
+                                },
+                              )
                           ];
                         })
                     ],

@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/widget_utils.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
@@ -98,15 +99,17 @@ class OssListBrowserPage extends AppBaseStatelessWidget<_OssListBrowserVm> {
                                           },
                                         );
                                       }));
-                                      actions.add(PopupMenuButton<String>(itemBuilder: (context) {
-                                        return [
-                                          PopupMenuItem(
-                                              value: OssConfigListBrowserPage.routeName,
-                                              child: Text(S.current.sys_label_oss_config_name))
-                                        ];
-                                      }, onSelected: (value) {
-                                        getVm().pushNamed(OssConfigListBrowserPage.routeName);
-                                      }));
+                                      if (globalVm.userShareVm.hasPermiAny(["system:ossConfig:list"])) {
+                                        actions.add(PopupMenuButton<String>(itemBuilder: (context) {
+                                          return [
+                                            PopupMenuItem(
+                                                value: OssConfigListBrowserPage.routeName,
+                                                child: Text(S.current.sys_label_oss_config_name))
+                                          ];
+                                        }, onSelected: (value) {
+                                          getVm().pushNamed(OssConfigListBrowserPage.routeName);
+                                        }));
+                                      }
                                     }
                                     return actions;
                                   }.call()
@@ -119,16 +122,18 @@ class OssListBrowserPage extends AppBaseStatelessWidget<_OssListBrowserVm> {
                   endDrawer: OssListPageWidget.getSearchEndDrawer<_OssListBrowserVm>(
                       context, themeData, getVm().listVmSub),
                   floatingActionButton:
-                      NqSelector<_OssListBrowserVm, bool>(builder: (context, value, child) {
-                    return WidgetUtils.getAnimVisibility(
-                        !value,
-                        FloatingActionButton(
-                            child: Icon(Icons.add),
-                            onPressed: () {
-                              showSelectFileDialog(context);
-                            }));
-                  }, selector: (context, vm) {
-                    return vm.listVmSub.selectModelIsRun;
+                      globalVm.userShareVm.widgetWithPermiAny(["system:oss:add"], () {
+                    return NqSelector<_OssListBrowserVm, bool>(builder: (context, value, child) {
+                      return WidgetUtils.getAnimVisibility(
+                          !value,
+                          FloatingActionButton(
+                              child: Icon(Icons.add),
+                              onPressed: () {
+                                showSelectFileDialog(context);
+                              }));
+                    }, selector: (context, vm) {
+                      return vm.listVmSub.selectModelIsRun;
+                    });
                   }),
                   body: PageDataVd(getVm().listVmSub, getVm(),
                       refreshOnStart: true,

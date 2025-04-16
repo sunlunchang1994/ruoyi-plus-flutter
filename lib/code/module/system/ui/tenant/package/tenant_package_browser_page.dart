@@ -98,16 +98,19 @@ class TenantPackageBrowserPage extends AppBaseStatelessWidget<_TenantPackageBrow
                   endDrawer: TenantPackagePageWidget.getSearchEndDrawer<_TenantPackageBrowserVm>(
                       context, themeData, getVm().listVmSub.tenantPackageSearchHelper),
                   floatingActionButton:
-                  NqSelector<_TenantPackageBrowserVm, bool>(builder: (context, value, child) {
-                    return WidgetUtils.getAnimVisibility(
-                        !value,
-                        FloatingActionButton(
-                            child: Icon(Icons.add),
-                            onPressed: () {
-                              getVm().onAddItem();
-                            }));
-                  }, selector: (context, vm) {
-                    return vm.listVmSub.selectModelIsRun;
+                      globalVm.userShareVm.widgetWithPermiAny(["system:tenantPackage:add"], () {
+                    return NqSelector<_TenantPackageBrowserVm, bool>(
+                        builder: (context, value, child) {
+                      return WidgetUtils.getAnimVisibility(
+                          !value,
+                          FloatingActionButton(
+                              child: Icon(Icons.add),
+                              onPressed: () {
+                                getVm().onAddItem();
+                              }));
+                    }, selector: (context, vm) {
+                      return vm.listVmSub.selectModelIsRun;
+                    });
                   }),
                   body: PageDataVd(getVm().listVmSub, getVm(),
                       refreshOnStart: true,
@@ -176,10 +179,11 @@ class _TenantPackageBrowserVm extends AppBaseVm {
       dismissLoading();
       AppToastUtil.showToast(msg: S.current.label_delete_success);
       listVmSub.sendRefreshEvent();
-    }, onError: BaseDio.errProxyFunc(
-        defErrMsg: S.current.label_delete_failed,
-        onError: (error) {
-          dismissLoading();
-        }));
+    },
+        onError: BaseDio.errProxyFunc(
+            defErrMsg: S.current.label_delete_failed,
+            onError: (error) {
+              dismissLoading();
+            }));
   }
 }

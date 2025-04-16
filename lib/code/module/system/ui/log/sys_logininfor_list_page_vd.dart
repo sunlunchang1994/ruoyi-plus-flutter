@@ -21,6 +21,7 @@ import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
+import '../../../../base/vm/global_vm.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../lib/fast/provider/fast_select.dart';
 import '../../../../lib/fast/utils/app_toast.dart';
@@ -123,39 +124,44 @@ class SysLogininforListPageWidget {
             listenerItemSelect.onItemClick(index, listItem);
           },
           onLongPress: () {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return SimpleDialog(children: [
-                    SimpleDialogOption(
-                        child: Text(S.current.sys_label_logininfor_unlock),
-                        onPressed: () {
-                          Navigator.pop(context);
-                          FastDialogUtils.showDelConfirmDialog(context,
-                                  contentText: S.current.sys_label_logininfor_unlock_confirm)
-                              .then((confirm) {
-                            if (confirm == true) {
-                              listenerItemSelect as LogininforListDataVmSub;
-                              listenerItemSelect.onUnlock(listItem);
-                            }
-                          });
-                        }),
-                    SimpleDialogOption(
-                        child: Text(S.current.action_delete),
-                        onPressed: () {
-                          Navigator.pop(context);
-                          FastDialogUtils.showDelConfirmDialog(context,
-                                  contentText: TextUtil.format(
-                                      S.current.sys_label_log_del_prompt, [listItem.infoId]))
-                              .then((confirm) {
-                            if (confirm == true) {
-                              listenerItemSelect as LogininforListDataVmSub;
-                              listenerItemSelect.onDelete(listItem);
-                            }
-                          });
-                        })
-                  ]);
-                });
+            GlobalVm().userShareVm.execPermiAny(["monitor:logininfor:unlock", "system:dict:remove"],
+                () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return SimpleDialog(children: [
+                      if (GlobalVm().userShareVm.hasPermiAny(["monitor:logininfor:unlock"]))
+                        SimpleDialogOption(
+                            child: Text(S.current.sys_label_logininfor_unlock),
+                            onPressed: () {
+                              Navigator.pop(context);
+                              FastDialogUtils.showDelConfirmDialog(context,
+                                      contentText: S.current.sys_label_logininfor_unlock_confirm)
+                                  .then((confirm) {
+                                if (confirm == true) {
+                                  listenerItemSelect as LogininforListDataVmSub;
+                                  listenerItemSelect.onUnlock(listItem);
+                                }
+                              });
+                            }),
+                      if (GlobalVm().userShareVm.hasPermiAny(["monitor:logininfor:remove"]))
+                        SimpleDialogOption(
+                            child: Text(S.current.action_delete),
+                            onPressed: () {
+                              Navigator.pop(context);
+                              FastDialogUtils.showDelConfirmDialog(context,
+                                      contentText: TextUtil.format(
+                                          S.current.sys_label_log_del_prompt, [listItem.infoId]))
+                                  .then((confirm) {
+                                if (confirm == true) {
+                                  listenerItemSelect as LogininforListDataVmSub;
+                                  listenerItemSelect.onDelete(listItem);
+                                }
+                              });
+                            })
+                    ]);
+                  });
+            });
             //listenerItemSelect.onItemLongClick(index, listItem);
           });
     });

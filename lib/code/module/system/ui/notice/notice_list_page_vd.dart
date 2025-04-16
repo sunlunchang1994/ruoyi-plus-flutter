@@ -16,6 +16,7 @@ import '../../../../../../res/styles.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
+import '../../../../base/vm/global_vm.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import '../../../../lib/fast/provider/fast_select.dart';
@@ -81,7 +82,8 @@ class NoticeListPageWidget {
           listenerItemSelect.onItemClick(index, listItem);
         },
         onLongPress: () {
-          listenerItemSelect.onItemLongClick(index, listItem);
+          GlobalVm().userShareVm.execPermiAny(
+              ["system:notice:remove"], () => listenerItemSelect.onItemLongClick(index, listItem));
         });
   }
 

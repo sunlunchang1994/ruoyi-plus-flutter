@@ -21,6 +21,7 @@ import '../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
 import '../../../../base/vm/global_vm.dart';
+import '../../../../feature/bizapi/user/config/constant_user_api.dart';
 import '../../../../feature/bizapi/user/entity/role.dart';
 import '../../../../feature/bizapi/user/entity/select_menu_result.dart';
 import '../../../../feature/component/dict/entity/tree_dict.dart';
@@ -63,31 +64,44 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                     title: Text(role == null
                         ? S.current.user_label_role_add
                         : S.current.user_label_role_edit),
-                    actions: [
-                      IconButton(
-                          onPressed: () {
-                            getVm().onSave();
-                          },
-                          icon: Icon(Icons.save)),
-                      if (role != null)
-                        PopupMenuButton(itemBuilder: (context) {
+                    actions: () {
+                      List<Widget> actions = [];
+                      if (role?.roleId == ConstantUserApi.VALUE_SUPER_ADMIN_ROLE_ID) {
+                        return actions;
+                      }
+                      if ((globalVm.userShareVm.hasPermiAny(["system:role:edit"]) &&
+                              role != null) ||
+                          (globalVm.userShareVm.hasPermiAny(["system:role:add"]) &&
+                              role == null)) {
+                        actions.add(IconButton(
+                            onPressed: () {
+                              getVm().onSave();
+                            },
+                            icon: Icon(Icons.save)));
+                      }
+                      if (role != null &&
+                          globalVm.userShareVm.hasPermiAny(["system:role:remove"])) {
+                        actions.add(PopupMenuButton(itemBuilder: (context) {
                           return [
-                            PopupMenuItem(
-                              child: Text(S.current.action_delete),
-                              onTap: () {
-                                FastDialogUtils.showDelConfirmDialog(context,
-                                    contentText: TextUtil.format(
-                                        S.current.user_label_role_del_prompt,
-                                        [role?.roleName ?? ""])).then((confirm) {
-                                  if (confirm == true) {
-                                    getVm().onDelete();
-                                  }
-                                });
-                              },
-                            )
+                            if (globalVm.userShareVm.hasPermiAny(["system:role:remove"]))
+                              PopupMenuItem(
+                                child: Text(S.current.action_delete),
+                                onTap: () {
+                                  FastDialogUtils.showDelConfirmDialog(context,
+                                      contentText: TextUtil.format(
+                                          S.current.user_label_role_del_prompt,
+                                          [role?.roleName ?? ""])).then((confirm) {
+                                    if (confirm == true) {
+                                      getVm().onDelete();
+                                    }
+                                  });
+                                },
+                              )
                           ];
-                        })
-                    ],
+                        }));
+                      }
+                      return actions;
+                    }.call(),
                   ),
                   body: getStatusBody(context)));
         });

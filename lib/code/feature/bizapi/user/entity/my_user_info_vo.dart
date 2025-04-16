@@ -16,17 +16,22 @@ class MyUserInfoVo {
 
   Map<String, dynamic> toJson() => _$MyUserInfoVoToJson(this);
 
+  //所有权限标示符号
+  static const String _allPermission = "*:*:*";
+
   bool hasPermiAny(List<String> permis) {
     assert(permis.isNotEmpty);
     return permis.any((item) {
-      return permissions?.contains(item) ?? false;
+      return (permissions?.contains(_allPermission) ??
+          false || (permissions?.contains(item) ?? false));
     });
   }
 
   bool hasPermiEvery(List<String> permis) {
     assert(permis.isNotEmpty);
     return permis.every((item) {
-      return permissions?.contains(item) ?? false;
+      return (permissions?.contains(_allPermission) ??
+          false || (permissions?.contains(item) ?? false));
     });
   }
 

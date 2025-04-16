@@ -20,6 +20,7 @@ import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/config/constant_base.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
+import '../../../../base/vm/global_vm.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
@@ -78,7 +79,8 @@ class PostListPageVd {
           listenerItemSelect.onItemClick(index, listItem);
         },
         onLongPress: () {
-          listenerItemSelect.onItemLongClick(index, listItem);
+          GlobalVm().userShareVm.execPermiEvery(
+              ["system:dept:post"], () => listenerItemSelect.onItemLongClick(index, listItem));
         });
   }
 
@@ -281,5 +283,4 @@ class PostPageDataVmSub extends FastBaseListDataPageVmSub<Post> with CancelToken
     formOperate.formBuilderState?.save();
     sendRefreshEvent();
   }
-
 }

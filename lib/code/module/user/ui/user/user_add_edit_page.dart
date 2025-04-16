@@ -79,16 +79,20 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
       title: Text(user == null ? S.current.user_label_user_add : S.current.user_label_user_edit),
       actions: () {
         List<Widget> actionList = List.empty(growable: true);
+        //超级管理员用户不现实相关按钮
         if (user?.userId == ConstantUserApi.VALUE_SUPER_ADMIN_ID) {
           return actionList;
         }
-        actionList.add(IconButton(
-            onPressed: () {
-              getVm().onSave();
-            },
-            icon: Icon(Icons.save)));
+        if ((globalVm.userShareVm.hasPermiAny(["system:user:edit"]) && user != null) ||
+            (globalVm.userShareVm.hasPermiAny(["system:user:add"]) && user == null)) {
+          actionList.add(IconButton(
+              onPressed: () {
+                getVm().onSave();
+              },
+              icon: Icon(Icons.save)));
+        }
         if (user != null &&
-            globalVm.userShareVm.hasPermiEvery(["system:user:remove", "system:user:resetPwd"])) {
+            globalVm.userShareVm.hasPermiAny(["system:user:remove", "system:user:resetPwd"])) {
           actionList.add(PopupMenuButton(itemBuilder: (context) {
             return [
               if (globalVm.userShareVm.hasPermiAny(["system:user:remove"]))

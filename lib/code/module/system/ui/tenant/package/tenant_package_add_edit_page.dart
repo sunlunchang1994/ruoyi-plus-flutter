@@ -62,27 +62,33 @@ class TenantPackageAddEditPage extends AppBaseStatelessWidget<_TenantPackageAddE
                         ? S.current.sys_label_sys_tenant_package_add
                         : S.current.sys_label_sys_tenant_package_edit),
                     actions: [
-                      IconButton(
-                          onPressed: () {
-                            getVm().onSave();
-                          },
-                          icon: Icon(Icons.save)),
-                      if (sysTenantPackage != null)
+                      if ((globalVm.userShareVm.hasPermiAny(["system:tenantPackage:edit"]) &&
+                              sysTenantPackage != null) ||
+                          (globalVm.userShareVm.hasPermiAny(["system:tenantPackage:add"]) &&
+                              sysTenantPackage == null))
+                        IconButton(
+                            onPressed: () {
+                              getVm().onSave();
+                            },
+                            icon: Icon(Icons.save)),
+                      if (sysTenantPackage != null &&
+                          globalVm.userShareVm.hasPermiAny(["system:tenantPackage:remove"]))
                         PopupMenuButton(itemBuilder: (context) {
                           return [
-                            PopupMenuItem(
-                              child: Text(S.current.action_delete),
-                              onTap: () {
-                                FastDialogUtils.showDelConfirmDialog(context,
-                                    contentText: TextUtil.format(
-                                        S.current.sys_label_sys_tenant_package_del_prompt,
-                                        [sysTenantPackage?.packageName ?? ""])).then((confirm) {
-                                  if (confirm == true) {
-                                    getVm().onDelete();
-                                  }
-                                });
-                              },
-                            )
+                            if (globalVm.userShareVm.hasPermiAny(["system:tenantPackage:remove"]))
+                              PopupMenuItem(
+                                child: Text(S.current.action_delete),
+                                onTap: () {
+                                  FastDialogUtils.showDelConfirmDialog(context,
+                                      contentText: TextUtil.format(
+                                          S.current.sys_label_sys_tenant_package_del_prompt,
+                                          [sysTenantPackage?.packageName ?? ""])).then((confirm) {
+                                    if (confirm == true) {
+                                      getVm().onDelete();
+                                    }
+                                  });
+                                },
+                              )
                           ];
                         })
                     ],
@@ -284,14 +290,16 @@ class _TenantPackageAddEditVm extends AppBaseVm with CancelTokenAssist {
   //删除字典类型
   void onDelete() {
     showLoading(text: S.current.label_delete_ing);
-    SysTenantPackageRepository.delete(defCancelToken, id: sysTenantPackage!.packageId).then((value) {
+    SysTenantPackageRepository.delete(defCancelToken, id: sysTenantPackage!.packageId).then(
+        (value) {
       dismissLoading();
       AppToastUtil.showToast(msg: S.current.label_delete_success);
       finish(result: true);
-    }, onError: BaseDio.errProxyFunc(
-        defErrMsg: S.current.label_delete_failed,
-        onError: (error) {
-          dismissLoading();
-        }));
+    },
+        onError: BaseDio.errProxyFunc(
+            defErrMsg: S.current.label_delete_failed,
+            onError: (error) {
+              dismissLoading();
+            }));
   }
 }

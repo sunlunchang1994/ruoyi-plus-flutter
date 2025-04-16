@@ -33,6 +33,7 @@ import 'package:ruoyi_plus_flutter/code/lib/form/input_decoration_utils.dart';
 import '../../../../../../generated/l10n.dart';
 import '../../../../../res/dimens.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
+import '../../../../base/vm/global_vm.dart';
 import '../../../../feature/component/attachment/entity/progress.dart';
 import '../../repository/remote/sys_oss_api.dart';
 
@@ -55,18 +56,19 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
               appBar: AppBar(
                 title: Text(S.current.sys_label_oss_details),
                 actions: [
-                  IconButton(
-                      onPressed: () {
-                        FastDialogUtils.showDelConfirmDialog(context,
-                                contentText: TextUtil.format(
-                                    S.current.sys_label_oss_del_prompt, [sysOssVo.originalName]))
-                            .then((confirm) {
-                          if (confirm == true) {
-                            getVm().onDelete();
-                          }
-                        });
-                      },
-                      icon: Icon(Icons.delete_forever))
+                  if (globalVm.userShareVm.hasPermiAny(["system:oss:remove"]))
+                    IconButton(
+                        onPressed: () {
+                          FastDialogUtils.showDelConfirmDialog(context,
+                                  contentText: TextUtil.format(
+                                      S.current.sys_label_oss_del_prompt, [sysOssVo.originalName]))
+                              .then((confirm) {
+                            if (confirm == true) {
+                              getVm().onDelete();
+                            }
+                          });
+                        },
+                        icon: Icon(Icons.delete_forever))
                 ],
               ),
               body: KeyboardAvoider(

@@ -65,27 +65,32 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                         ? S.current.sys_label_sys_tenant_add
                         : S.current.sys_label_sys_tenant_edit),
                     actions: [
-                      IconButton(
-                          onPressed: () {
-                            getVm().onSave();
-                          },
-                          icon: Icon(Icons.save)),
+                      if ((globalVm.userShareVm.hasPermiAny(["system:tenant:edit"]) &&
+                              sysTenant != null) ||
+                          (globalVm.userShareVm.hasPermiAny(["system:tenant:add"]) &&
+                              sysTenant == null))
+                        IconButton(
+                            onPressed: () {
+                              getVm().onSave();
+                            },
+                            icon: Icon(Icons.save)),
                       if (sysTenant != null)
                         PopupMenuButton<String>(itemBuilder: (context) {
                           return [
-                            PopupMenuItem(
-                              child: Text(S.current.action_delete),
-                              onTap: () {
-                                FastDialogUtils.showDelConfirmDialog(context,
-                                    contentText: TextUtil.format(
-                                        S.current.sys_label_sys_tenant_del_prompt,
-                                        [sysTenant?.companyName])).then((confirm) {
-                                  if (confirm == true) {
-                                    getVm().onDelete();
-                                  }
-                                });
-                              },
-                            ),
+                            if (globalVm.userShareVm.hasPermiAny(["system:tenant:remove"]))
+                              PopupMenuItem(
+                                child: Text(S.current.action_delete),
+                                onTap: () {
+                                  FastDialogUtils.showDelConfirmDialog(context,
+                                      contentText: TextUtil.format(
+                                          S.current.sys_label_sys_tenant_del_prompt,
+                                          [sysTenant?.companyName])).then((confirm) {
+                                    if (confirm == true) {
+                                      getVm().onDelete();
+                                    }
+                                  });
+                                },
+                              ),
                             PopupMenuItem(
                                 value: S.current.sys_label_sys_tenant_sync_package,
                                 child: Text(S.current.sys_label_sys_tenant_sync_package))

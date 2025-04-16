@@ -19,6 +19,7 @@ import '../../../../../generated/l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
+import '../../../../base/vm/global_vm.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import '../../../../lib/fast/provider/fast_select.dart';
@@ -41,7 +42,7 @@ class RoleListPageVd {
         itemCount: listVmSub.dataList.length,
         itemBuilder: (context, index) {
           Role listItem = listVmSub.dataList[index];
-          return getUserListItem(
+          return getRoleListItem(
               themeData, listVmSub as ListenerItemSelect<dynamic>, index, listItem,
               buildTrailing: buildTrailing);
         },
@@ -50,7 +51,7 @@ class RoleListPageVd {
         });
   }
 
-  static Widget getUserListItem(
+  static Widget getRoleListItem(
       ThemeData themeData, ListenerItemSelect<dynamic> listenerItemSelect, int index, Role listItem,
       {Widget? Function(Role currentItem)? buildTrailing}) {
     return ListTile(
@@ -72,7 +73,8 @@ class RoleListPageVd {
           listenerItemSelect.onItemClick(index, listItem);
         },
         onLongPress: () {
-          listenerItemSelect.onItemLongClick(index, listItem);
+          GlobalVm().userShareVm.execPermiAny(
+              ["system:role:remove"], () => listenerItemSelect.onItemLongClick(index, listItem));
         });
   }
 

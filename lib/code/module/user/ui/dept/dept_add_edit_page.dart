@@ -71,27 +71,33 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
                         ? S.current.user_label_dept_add
                         : S.current.user_label_dept_edit),
                     actions: [
-                      IconButton(
-                          onPressed: () {
-                            getVm().onSave();
-                          },
-                          icon: Icon(Icons.save)),
-                      if (deptInfo != null)
+                      if ((globalVm.userShareVm.hasPermiAny(["system:dept:edit"]) &&
+                              deptInfo != null) ||
+                          (globalVm.userShareVm.hasPermiAny(["system:dept:add"]) &&
+                              deptInfo == null))
+                        IconButton(
+                            onPressed: () {
+                              getVm().onSave();
+                            },
+                            icon: Icon(Icons.save)),
+                      if (deptInfo != null &&
+                          globalVm.userShareVm.hasPermiAny(["system:dept:remove"]))
                         PopupMenuButton(itemBuilder: (context) {
                           return [
-                            PopupMenuItem(
-                              child: Text(S.current.action_delete),
-                              onTap: () {
-                                FastDialogUtils.showDelConfirmDialog(context,
-                                    contentText: TextUtil.format(
-                                        S.current.user_label_dept_del_prompt,
-                                        [deptInfo?.deptName ?? ""])).then((confirm) {
-                                  if (confirm == true) {
-                                    getVm().onDelete();
-                                  }
-                                });
-                              },
-                            )
+                            if (globalVm.userShareVm.hasPermiAny(["system:dept:remove"]))
+                              PopupMenuItem(
+                                child: Text(S.current.action_delete),
+                                onTap: () {
+                                  FastDialogUtils.showDelConfirmDialog(context,
+                                      contentText: TextUtil.format(
+                                          S.current.user_label_dept_del_prompt,
+                                          [deptInfo?.deptName ?? ""])).then((confirm) {
+                                    if (confirm == true) {
+                                      getVm().onDelete();
+                                    }
+                                  });
+                                },
+                              )
                           ];
                         })
                     ]),
