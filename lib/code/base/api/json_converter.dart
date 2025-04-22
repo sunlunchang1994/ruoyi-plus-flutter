@@ -85,17 +85,23 @@ class MillisecondConverter implements JsonConverter<String, dynamic> {
 
 ///双精度
 ///@DoubleConverter()
-class DoubleConverter implements JsonConverter<double, String> {
+class DoubleConverter implements JsonConverter<double?, dynamic> {
   const DoubleConverter();
 
   @override
-  double fromJson(String json) {
-    return double.parse(json);
+  double? fromJson(dynamic json) {
+    if(json is double){
+      return json;
+    }
+    if(json is String){
+      return SlcNumUtil.getDoubleByValueStr(json);
+    }
+    return null;
   }
 
   @override
-  String toJson(double object) {
-    return object.toString();
+  String? toJson(double? object) {
+    return object?.toString();
   }
 }
 
