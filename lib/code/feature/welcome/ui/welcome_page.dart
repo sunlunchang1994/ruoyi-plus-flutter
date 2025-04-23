@@ -1,19 +1,15 @@
 //欢迎
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/api_config.dart';
-import 'package:ruoyi_plus_flutter/code/base/api/base_dio.dart';
 import 'package:ruoyi_plus_flutter/code/base/startup/task_utils.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/remote/pub_dict_data_api.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/repository/local/user_config.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../base/api/result_entity.dart';
@@ -21,10 +17,10 @@ import '../../../base/ui/app_mvvm.dart';
 import '../../../lib/fast/utils/app_toast.dart';
 import '../../../lib/fast/utils/bar_utils.dart';
 import '../../../module/biz_main/ui/main_page.dart';
-import '../../auth/repository/remote/auth_api.dart';
 import '../../auth/ui/login_page.dart';
 import '../../bizapi/system/entity/router_vo.dart';
 import '../../bizapi/system/repository/remote/pub_menu_api.dart';
+import '../../bizapi/user/repository/local/user_config.dart';
 import '../../bizapi/user/repository/remote/pub_user_api.dart';
 
 class WelcomePage extends AppBaseStatelessWidget<_WelcomeVm> {

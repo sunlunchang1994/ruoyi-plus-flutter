@@ -5,7 +5,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/timer_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:ruoyi_plus_flutter/code/env_config.dart';
@@ -16,8 +15,8 @@ import 'package:ruoyi_plus_flutter/code/lib/form/form_operate_with_provider.dart
 import '../../../base/api/base_dio.dart';
 import '../../../lib/fast/provider/fast_select.dart';
 import '../../../lib/form/fast_form_builder_text_field.dart';
-import '../../../module/user/repository/local/user_config.dart';
 import '../../bizapi/system/repository/remote/pub_dict_data_api.dart';
+import '../../bizapi/user/repository/local/user_config.dart';
 import '../entity/captcha.dart';
 import '../../bizapi/system/entity/router_vo.dart';
 import '../../bizapi/system/entity/sys_tenant.dart';

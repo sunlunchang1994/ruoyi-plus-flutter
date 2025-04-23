@@ -3,10 +3,10 @@ import 'package:flutter_slc_boxes/flutter/slc/code/observable_field.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/router_vo.dart';
 
 import '../../../../base/api/api_config.dart';
-import '../../../../module/user/repository/local/user_config.dart';
 import '../../../auth/entity/login_result.dart';
 import '../../../auth/ui/login_page.dart';
 import '../entity/my_user_info_vo.dart';
+import '../repository/local/user_config.dart';
 
 class UserShareVm {
   final ObservableField<MyUserInfoVo> userInfoOf = ObservableField(); //用户信息监听

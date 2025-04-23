@@ -1,11 +1,3 @@
-import 'package:flutter_slc_boxes/flutter/slc/router/router_vm.dart';
-
-import '../../../base/api/api_config.dart';
-
-import '../../../base/config/constant_base.dart';
-import '../../../base/vm/global_vm.dart';
-import '../../../feature/auth/ui/login_page.dart';
-import '../repository/local/user_config.dart';
 
 class ConstantUser {
   //用户信息
