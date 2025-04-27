@@ -155,7 +155,7 @@ class ConfigListPageWidget {
                       name: "configTypeName",
                       initialValue: listVmSub.currentSearch.configTypeName,
                       onTap: () {
-                        DictUiUtils.showSelectDialog(context, LocalDictLib.CODE_SYS_NOTICE_TYPE,
+                        DictUiUtils.showSelectDialog(context, LocalDictLib.CODE_SYS_YES_NO,
                             (value) {
                           //选择后设置性别
                           listVmSub.setSelectConfigType(value);
