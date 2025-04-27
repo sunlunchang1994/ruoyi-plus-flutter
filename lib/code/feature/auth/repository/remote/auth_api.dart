@@ -36,7 +36,7 @@ abstract class AuthApi {
 
 ///认证服务
 class AuthRepository {
-  static final AuthApi _ossApi = AuthApi();
+  static final AuthApi _authApi = AuthApi();
 
   ///用户登录
   static Future<IntensifyEntity<LoginResult>> login(String? tenantId, String account,
@@ -49,7 +49,7 @@ class AuthRepository {
     dataMap["uuid"] = codeUuid ?? '';
     dataMap["clientId"] = ApiConfig().clientid;
     dataMap["grantType"] = 'password';
-    return _ossApi.login(dataMap).successMap((event) {
+    return _authApi.login(dataMap).successMap((event) {
       var intensifyEntity = IntensifyEntity<LoginResult>(
           resultEntity: event,
           createData: (resultEntity) => LoginResult.fromJson(resultEntity.data));
@@ -64,7 +64,7 @@ class AuthRepository {
 
   ///获取验证码
   static Future<IntensifyEntity<Captcha>> getCode() async {
-    return _ossApi.getCode().successMap2Single((event) {
+    return _authApi.getCode().successMap2Single((event) {
       var intensifyEntity = IntensifyEntity<Captcha>(
           resultEntity: event, createData: (resultEntity) => Captcha.fromJson(resultEntity.data));
       return intensifyEntity;
@@ -73,7 +73,7 @@ class AuthRepository {
 
   ///获取租户列表
   static Future<IntensifyEntity<LoginTenantVo>> tenantList() async {
-    return _ossApi.tenantList().successMap2Single((event) {
+    return _authApi.tenantList().successMap2Single((event) {
       var intensifyEntity = IntensifyEntity<LoginTenantVo>(
           resultEntity: event,
           createData: (resultEntity) => LoginTenantVo.fromJson(resultEntity.data));

@@ -9,7 +9,7 @@ import '../repository/local/app_config.dart';
 
 /// @author sunlunchang
 /// 全局的vm，在系统初始化时就存在，多个模块的基础共享和缓存可在此处配置
-/// 单利模式
+/// 单例模式
 class GlobalVm extends AbsoluteChangeNotifier {
   GlobalVm._privateConstructor();
 

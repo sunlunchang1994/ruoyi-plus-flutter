@@ -25,7 +25,7 @@ mixin AppSelectBoxMixin<T> implements ISelectBox<T> {
 
   @override
   set boxData(T? value) {
-    //此处什么都不用做
+    //混入时，data就是本身，所以此处什么都不用做
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)

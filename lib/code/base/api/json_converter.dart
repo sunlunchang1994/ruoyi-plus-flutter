@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 ///@author sunlunchang
-///Json格式化工具，在实体类字段加加上相关类名注解，即可在序列化和反序列化是转换格式
+///Json格式化工具，在实体类字段加上相关类名注解，即可在序列化和反序列化时转换格式
 
 ///字符串
 ///@StringConverter()

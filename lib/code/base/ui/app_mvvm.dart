@@ -6,7 +6,7 @@ import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import '../../lib/fast/vd/request_token_manager.dart';
 
 /// @author sunlunchang
-/// 程序的mvvm风格基础基础类，基础信息在此拓展
+/// 程序的mvvm设计模式基础类，基础信息在此拓展
 abstract class AppBaseStatelessWidget<T extends AppBaseVm>
     extends FastStatelessWidget<T> {
   final GlobalVm globalVm = GlobalVm();
