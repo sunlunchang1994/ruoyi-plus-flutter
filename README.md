@@ -69,36 +69,37 @@ flutter pub get
 
 ## 本项目使用到的第三方库：
 
-| 名称                                                                     | 功能说明               |
-|------------------------------------------------------------------------|--------------------|
-| [flutter_slc_boxes](https://pub.dev/packages/provider)                          | 状态管理               |
-| [provider](https://pub.dev/packages/provider)                          | 状态管理               |
-| [cupertino_icons](https://pub.dev/packages/cupertino_icons)            | 图表库                |
-| [flutter_localizations](https://pub.dev/packages/flutter_localization) | 国际化                |
-| [easy_refresh](https://pub.dev/packages/easy_refresh)                  | 下拉刷新上拉加载           |
-| [flutter_svg](https://pub.dev/packages/flutter_svg)                   | SVG图加载             |
-| [extended_nested_scroll_view](https://pub.dev/packages/extended_nested_scroll_view)   | 扩展NestedScrollView |
-| [fl_chart](https://pub.dev/packages/fl_chart)                      | 图表UI库              |
-| [cached_network_image](https://pub.dev/packages/cached_network_image)          | 图片加载缓存             |
-| [json_annotation](https://pub.dev/packages/json_annotation)               | Json序列化反序列化        |
-| [retrofit](https://pub.dev/packages/retrofit)                      | 基于dio的网络请求库，简化编码   |
-| [rxdart](https://pub.dev/packages/rxdart)                        | 扩展了 Dart Streams   |
-| [encrypt](https://pub.dev/packages/encrypt)                       | 加解密                |
-| [image_picker](https://pub.dev/packages/image_picker)                  | 图片选择               |
-| [image_gallery_saver](https://pub.dev/packages/image_gallery_saver)           | 将图片保存到图片库          |
-| [crop_your_image](https://pub.dev/packages/crop_your_image)               | 图片裁剪               |
-| [file_picker](https://pub.dev/packages/file_picker)                   | 文件选择               |
-| [path_provider](https://pub.dev/packages/path_provider)                 | 获取系统相关路径           |
-| [open_file](https://pub.dev/packages/open_file)                     | 通过系统应用打开指定文件路径     |
-| [shared_preferences](https://pub.dev/packages/shared_preferences)            | 简单数据封装特定于平台的持久性存储  |
-| [permission_handler](https://pub.dev/packages/permission_handler)            | 权限申请               |
-| [uuid](https://pub.dev/packages/uuid)                          | 生成uuid             |
-| [keyboard_avoider](https://pub.dev/packages/keyboard_avoider)              | 解决键盘遮挡             |
-| [package_info_plus](https://pub.dev/packages/package_info_plus)             | 查询应用程序包信息          |
-| [flutter_form_builder系列](https://pub.dev/packages/flutter_form_builder)       | 表单相关               |
-| [webview_flutter](https://pub.dev/packages/webview_flutter)               | Webview            |
-| [flutter_markdown](https://pub.dev/packages/flutter_markdown)               | Markdown控件         |
-| [interactive_json_preview](https://pub.dev/packages/interactive_json_preview)       | Json格式化            |
+| 名称                                                                                  | 功能说明                                   |
+|-------------------------------------------------------------------------------------|----------------------------------------|
+| [flutter_slc_boxes](https://pub.dev/packages/flutter_slc_boxes)                     | 本人开发的基于mvvm设计模式的基础框架，附带路由页面状态，工具库      |
+| route                      | 未使用第三方路由，使用flutter官方路由，无入侵式的提供了快速操作api |
+| [provider](https://pub.dev/packages/provider)                                       | 状态管理                                   |
+| [cupertino_icons](https://pub.dev/packages/cupertino_icons)                         | 图表库                                    |
+| [flutter_localizations](https://pub.dev/packages/flutter_localization)              | 国际化                                    |
+| [easy_refresh](https://pub.dev/packages/easy_refresh)                               | 下拉刷新上拉加载                               |
+| [flutter_svg](https://pub.dev/packages/flutter_svg)                                 | SVG图加载                                 |
+| [extended_nested_scroll_view](https://pub.dev/packages/extended_nested_scroll_view) | 扩展NestedScrollView                     |
+| [fl_chart](https://pub.dev/packages/fl_chart)                                       | 图表UI库                                  |
+| [cached_network_image](https://pub.dev/packages/cached_network_image)               | 图片加载缓存                                 |
+| [json_annotation](https://pub.dev/packages/json_annotation)                         | Json序列化反序列化                            |
+| [retrofit](https://pub.dev/packages/retrofit)                                       | 基于dio的网络请求库，简化编码                       |
+| [rxdart](https://pub.dev/packages/rxdart)                                           | 扩展了 Dart Streams                       |
+| [encrypt](https://pub.dev/packages/encrypt)                                         | 加解密                                    |
+| [image_picker](https://pub.dev/packages/image_picker)                               | 图片选择                                   |
+| [image_gallery_saver](https://pub.dev/packages/image_gallery_saver)                 | 将图片保存到图片库                              |
+| [crop_your_image](https://pub.dev/packages/crop_your_image)                         | 图片裁剪                                   |
+| [file_picker](https://pub.dev/packages/file_picker)                                 | 文件选择                                   |
+| [path_provider](https://pub.dev/packages/path_provider)                             | 获取系统相关路径                               |
+| [open_file](https://pub.dev/packages/open_file)                                     | 通过系统应用打开指定文件路径                         |
+| [shared_preferences](https://pub.dev/packages/shared_preferences)                   | 简单数据封装特定于平台的持久性存储                      |
+| [permission_handler](https://pub.dev/packages/permission_handler)                   | 权限申请                                   |
+| [uuid](https://pub.dev/packages/uuid)                                               | 生成uuid                                 |
+| [keyboard_avoider](https://pub.dev/packages/keyboard_avoider)                       | 解决键盘遮挡                                 |
+| [package_info_plus](https://pub.dev/packages/package_info_plus)                     | 查询应用程序包信息                              |
+| [flutter_form_builder系列](https://pub.dev/packages/flutter_form_builder)             | 表单相关                                   |
+| [webview_flutter](https://pub.dev/packages/webview_flutter)                         | Webview                                |
+| [flutter_markdown](https://pub.dev/packages/flutter_markdown)                       | Markdown控件                             |
+| [interactive_json_preview](https://pub.dev/packages/interactive_json_preview)       | Json格式化                                |
 
 ## 捐献作者
 感谢每一位支持者的慷慨相助！您的每一份贡献都是对我莫大的鼓励。
