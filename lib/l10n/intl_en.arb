@@ -554,5 +554,8 @@
   "analyse_label_access_trends": "访问趋势",
 
   "menu_label_root": "根目录",
-  "menu_label_menu_tree": "菜单树"
+  "menu_label_menu_tree": "菜单树",
+
+  "main_label_ai_chat": "Ai Chat",
+  "main_label_deep_seek": "DeepSeek"
 }

@@ -4659,6 +4659,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Ai Chat`
+  String get main_label_ai_chat {
+    return Intl.message(
+      'Ai Chat',
+      name: 'main_label_ai_chat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `DeepSeek`
+  String get main_label_deep_seek {
+    return Intl.message(
+      'DeepSeek',
+      name: 'main_label_deep_seek',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ruoyi_plus_flutter/code/module/deepseek/ui/chat_page.dart';
 import '../../../base/ui/app_mvvm.dart';
 import '../../../lib/fast/utils/bar_utils.dart';
 import 'analyse_page.dart';
@@ -22,7 +23,7 @@ class MainPage extends AppBaseStatelessWidget<_MainVm> {
       ThemeData themeData = Theme.of(context);
       registerEvent(context);
 
-      List<Widget> pageList = [const AnalysePage(), const WorkbenchPage(), const MinePage()];
+      List<Widget> pageList = [const AnalysePage(), const WorkbenchPage(),const ChatPage(), const MinePage()];
 
       var pageController = PageController();
 
@@ -43,11 +44,18 @@ class MainPage extends AppBaseStatelessWidget<_MainVm> {
             label: getVm().titleArray[1]),
         BottomNavigationBarItem(
             icon: Consumer<_MainVm>(
+              builder: (context, vm, child) {
+                return const Icon(Icons.chat);
+              },
+            ),
+            label: getVm().titleArray[2]),
+        BottomNavigationBarItem(
+            icon: Consumer<_MainVm>(
               builder: (context, value, child) {
                 return const Icon(Icons.account_box);
               },
             ),
-            label: getVm().titleArray[2])
+            label: getVm().titleArray[3])
       ];
       return Scaffold(
           body: PageView.builder(
@@ -80,7 +88,8 @@ class _MainVm extends AppBaseVm {
   final List<String> titleArray = [
     S.current.main_label_analyse,
     S.current.main_label_workbench,
-    S.current.main_label_mine
+    S.current.main_label_ai_chat,
+    S.current.main_label_mine,
   ];
 
   void updateTabIndex(int index) {

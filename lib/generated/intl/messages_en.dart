@@ -341,7 +341,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "main_divide_text": MessageLookupByLibrary.simpleMessage(
       "-----------------------------",
     ),
+    "main_label_ai_chat": MessageLookupByLibrary.simpleMessage("Ai Chat"),
     "main_label_analyse": MessageLookupByLibrary.simpleMessage("分析"),
+    "main_label_deep_seek": MessageLookupByLibrary.simpleMessage("DeepSeek"),
     "main_label_mine": MessageLookupByLibrary.simpleMessage("我的"),
     "main_label_workbench": MessageLookupByLibrary.simpleMessage("工作台"),
     "menu_label_menu_tree": MessageLookupByLibrary.simpleMessage("菜单树"),
