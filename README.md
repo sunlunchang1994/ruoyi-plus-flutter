@@ -22,7 +22,8 @@ admin 账号: admin admin123
 
 [请在发布页下载Apk安装预览](https://gitee.com/sunlunchang/ruoyi-plus-flutter/releases)
 
-## Android Studio运行
+## 相关文档
+[点击查看Wiki](https://gitee.com/sunlunchang/ruoyi-plus-flutter/wikis)
 
 ```bash
 # 克隆项目
