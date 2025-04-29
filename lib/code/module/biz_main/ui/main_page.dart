@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ruoyi_plus_flutter/code/module/deepseek/ui/chat_page.dart';
 import '../../../base/ui/app_mvvm.dart';
 import '../../../lib/fast/utils/bar_utils.dart';
 import '../../deepseek/ui/chat_page2.dart';

@@ -9,6 +9,7 @@ class DeepSeekRepository {
 
   static create({required String apiKey}) {
     _deepSeek?.closeDio();
+    //DeepSeekAPI由开源代码和本人修改而来，开源代码不支持流式处理响应
     _deepSeek = DeepSeekAPI(apiKey: apiKey);
   }
 

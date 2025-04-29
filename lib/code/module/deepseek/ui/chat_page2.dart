@@ -5,31 +5,22 @@ import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
 import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/repository/local/app_config.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/utils/widget_utils.dart';
-import 'package:ruoyi_plus_flutter/code/module/deepseek/config/constant_deep_seek.dart';
 import 'package:ruoyi_plus_flutter/code/module/deepseek/ui/scroll_controller_wrap.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/router/router_grid.dart';
 
 import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
 import '../../../base/ui/utils/fast_dialog_utils.dart';
-import '../../../feature/component/tree/vd/tree_data_list_vd.dart';
 import '../../../lib/deepseek/models.dart';
 import '../../../lib/fast/provider/fast_select.dart';
 import '../../../lib/fast/provider/should_set_state.dart';
-import '../../../lib/fast/vd/list_data_vd.dart';
-import '../../../lib/fast/vd/list_data_vm_sub.dart';
 import '../../../lib/fast/vd/request_token_manager.dart';
 import '../entity/MyChatMessage.dart';
 import '../repository/deep_seek_repository.dart';
-import 'chat_page_vd.dart';
 
 class ChatPage2 extends StatefulWidget {
   const ChatPage2({super.key});
@@ -91,7 +82,6 @@ class _ChatState extends AppBaseState<ChatPage2, _ChatStateVm2> with AutomaticKe
                   return TextUtil.isNotEmpty(vm.getApiKey());
                 })
               ]),
-          //图标滚动使用固定大小来解决
           body: Column(children: [
             Expanded(
                 child: NqSelector<_ChatStateVm2, int>(builder: (context, value, child) {
