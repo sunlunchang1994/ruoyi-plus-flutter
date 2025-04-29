@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ruoyi_plus_flutter/code/module/deepseek/ui/chat_page.dart';
 import '../../../base/ui/app_mvvm.dart';
 import '../../../lib/fast/utils/bar_utils.dart';
+import '../../deepseek/ui/chat_page2.dart';
 import 'analyse_page.dart';
 import 'workbench_page.dart';
 import '../../user/ui/user/info/mine_page.dart';
@@ -23,7 +24,7 @@ class MainPage extends AppBaseStatelessWidget<_MainVm> {
       ThemeData themeData = Theme.of(context);
       registerEvent(context);
 
-      List<Widget> pageList = [const AnalysePage(), const WorkbenchPage(),const ChatPage(), const MinePage()];
+      List<Widget> pageList = [const AnalysePage(), const WorkbenchPage(),const ChatPage2(), const MinePage()];
 
       var pageController = PageController();
 

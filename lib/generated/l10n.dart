@@ -4670,11 +4670,71 @@ class S {
     );
   }
 
-  /// `DeepSeek`
-  String get main_label_deep_seek {
+  /// `给DeepSeek发送消息`
+  String get main_label_send_msg_hint {
     return Intl.message(
-      'DeepSeek',
-      name: 'main_label_deep_seek',
+      '给DeepSeek发送消息',
+      name: 'main_label_send_msg_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `我是 DeepSeek，很高兴见到你！`
+  String get main_label_no_chat_hint {
+    return Intl.message(
+      '我是 DeepSeek，很高兴见到你！',
+      name: 'main_label_no_chat_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `新对话`
+  String get main_action_new_dialog {
+    return Intl.message(
+      '新对话',
+      name: 'main_action_new_dialog',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `配置ApiKey`
+  String get main_action_config_api_key {
+    return Intl.message(
+      '配置ApiKey',
+      name: 'main_action_config_api_key',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请先配置ApiKey`
+  String get main_toast_ai_chat_hint_not_api_key {
+    return Intl.message(
+      '请先配置ApiKey',
+      name: 'main_toast_ai_chat_hint_not_api_key',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `没有ApiKey可以去DeepSeek官网买个10块钱的，能玩很久（ApiKey仅保存在本地，不会上传到云端，请放心体验）`
+  String get main_action_config_api_key_hint {
+    return Intl.message(
+      '没有ApiKey可以去DeepSeek官网买个10块钱的，能玩很久（ApiKey仅保存在本地，不会上传到云端，请放心体验）',
+      name: 'main_action_config_api_key_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `暂未配置ApiKey，请先配置（没有ApiKey可以去DeepSeek官网买个10块钱的，能玩很久；ApiKey仅保存在本地，不会上传到云端，请放心体验！)`
+  String get main_label_ai_chat_hint_not_api_key {
+    return Intl.message(
+      '暂未配置ApiKey，请先配置（没有ApiKey可以去DeepSeek官网买个10块钱的，能玩很久；ApiKey仅保存在本地，不会上传到云端，请放心体验！)',
+      name: 'main_label_ai_chat_hint_not_api_key',
       desc: '',
       args: [],
     );

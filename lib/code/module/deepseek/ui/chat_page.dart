@@ -26,7 +26,7 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatState extends AppBaseState<ChatPage, _ChatStateVm> with AutomaticKeepAliveClientMixin {
-  final String title = S.current.main_label_deep_seek;
+  final String title = S.current.main_label_ai_chat;
   final TextEditingController inputController = TextEditingController();
 
   @override
@@ -43,7 +43,7 @@ class _ChatState extends AppBaseState<ChatPage, _ChatStateVm> with AutomaticKeep
           body: Column(children: [
             Expanded(
                 child: ListDataVd(getVm().listVmSub, getVm(),
-                    refreshOnStart: true,
+                    refreshOnStart: false,
                     child: NqSelector<_ChatStateVm, int>(builder: (context, value, child) {
                       return ChatListPageWidget.getDataListWidget(themeData, getVm().listVmSub);
                     }, selector: (context, vm) {

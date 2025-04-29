@@ -28,7 +28,8 @@ class DeepSeekAPI {
     required String apiKey,
     String baseUrl = 'https://api.deepseek.com/v1',
     Dio? dio,
-  })  : _apiKey = apiKey,
+  })  :
+        _apiKey = apiKey,
         _dio = dio ?? Dio(BaseOptions(baseUrl: baseUrl)) {
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {
@@ -69,7 +70,7 @@ class DeepSeekAPI {
   }
 
   /// create by slc
-  Stream<Object> createChatCompletionStream(
+  Stream<ChatCompletionResponse> createChatCompletionStream(
     ChatCompletionRequest request, {
     CancelToken? cancelToken,
   }) async* {
@@ -107,7 +108,7 @@ class DeepSeekAPI {
           //return ChatCompletionResponse.fromJson(valueByJson);
         }
         return jsonList;
-      });
+      }).expand((event) => event);
     } on DioException catch (e) {
       throw _handleDioError(e);
     }
@@ -161,5 +162,10 @@ class DeepSeekAPI {
       }
     }
     return NetworkException('Network error occurred');
+  }
+
+  ///关闭dio
+  void closeDio(){
+    _dio.close();
   }
 }

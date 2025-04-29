@@ -338,14 +338,32 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "label_wechat": MessageLookupByLibrary.simpleMessage("微信"),
     "label_wechat_x": MessageLookupByLibrary.simpleMessage("微信：{}"),
+    "main_action_config_api_key": MessageLookupByLibrary.simpleMessage(
+      "配置ApiKey",
+    ),
+    "main_action_config_api_key_hint": MessageLookupByLibrary.simpleMessage(
+      "没有ApiKey可以去DeepSeek官网买个10块钱的，能玩很久（ApiKey仅保存在本地，不会上传到云端，请放心体验）",
+    ),
+    "main_action_new_dialog": MessageLookupByLibrary.simpleMessage("新对话"),
     "main_divide_text": MessageLookupByLibrary.simpleMessage(
       "-----------------------------",
     ),
     "main_label_ai_chat": MessageLookupByLibrary.simpleMessage("Ai Chat"),
+    "main_label_ai_chat_hint_not_api_key": MessageLookupByLibrary.simpleMessage(
+      "暂未配置ApiKey，请先配置（没有ApiKey可以去DeepSeek官网买个10块钱的，能玩很久；ApiKey仅保存在本地，不会上传到云端，请放心体验！)",
+    ),
     "main_label_analyse": MessageLookupByLibrary.simpleMessage("分析"),
-    "main_label_deep_seek": MessageLookupByLibrary.simpleMessage("DeepSeek"),
     "main_label_mine": MessageLookupByLibrary.simpleMessage("我的"),
+    "main_label_no_chat_hint": MessageLookupByLibrary.simpleMessage(
+      "我是 DeepSeek，很高兴见到你！",
+    ),
+    "main_label_send_msg_hint": MessageLookupByLibrary.simpleMessage(
+      "给DeepSeek发送消息",
+    ),
     "main_label_workbench": MessageLookupByLibrary.simpleMessage("工作台"),
+    "main_toast_ai_chat_hint_not_api_key": MessageLookupByLibrary.simpleMessage(
+      "请先配置ApiKey",
+    ),
     "menu_label_menu_tree": MessageLookupByLibrary.simpleMessage("菜单树"),
     "menu_label_root": MessageLookupByLibrary.simpleMessage("根目录"),
     "sys_divide_text": MessageLookupByLibrary.simpleMessage(
