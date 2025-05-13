@@ -25,18 +25,6 @@ admin 账号: admin admin123
 ## 相关文档
 [点击查看Wiki](https://gitee.com/sunlunchang/ruoyi-plus-flutter/wikis)
 
-```bash
-# 克隆项目
-git clone https://gitee.com/slcpublic/ruoyi-plus-flutter.git
-
-# 配置Flutter环境变量
-# 建议使用https://fvm.app/
-
-# 安装依赖
-flutter pub get
-
-```
-
 ## 基于[RuoYi-Vue-Plus 5.X](https://gitee.com/dromara/RuoYi-Vue-Plus)版本并结合移动端特性，本项目实现了以下业务功能：
 
 | 业务         | 功能说明                                                      | 本项目是否实现 | 后续是否实现或更新 |
