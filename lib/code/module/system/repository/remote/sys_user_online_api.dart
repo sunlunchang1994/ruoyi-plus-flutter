@@ -3,7 +3,6 @@ import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/request_utils.dart';
 import 'package:ruoyi_plus_flutter/code/base/repository/remote/data_transform_utils.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_tenant_package.dart';
 
 import '../../../../base/api/api_config.dart';
 import '../../../../base/api/base_dio.dart';
