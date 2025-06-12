@@ -10,6 +10,8 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../../generated/l10n.dart';
 
+/// @author sunlunchang
+/// 网页页面
 class AppWebViewPage extends AppBaseStatelessWidget<AppWebViewVm> {
   static const String routeName = '/webview';
   final String? title;

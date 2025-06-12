@@ -10,6 +10,8 @@ import '../../../../../base/vm/global_vm.dart';
 
 part 'pub_menu_api.g.dart';
 
+/// @author sunlunchang
+/// 菜单服务
 @RestApi()
 abstract class PubMenuApi {
   factory PubMenuApi({Dio? dio, String? baseUrl}) {

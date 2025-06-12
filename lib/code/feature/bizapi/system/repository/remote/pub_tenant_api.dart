@@ -6,6 +6,8 @@ import '../../../../../base/api/base_dio.dart';
 
 part 'pub_tenant_api.g.dart';
 
+/// @author sunlunchang
+/// 租户服务
 @RestApi()
 abstract class PubTenantApi {
   factory PubTenantApi({Dio? dio, String? baseUrl}) {

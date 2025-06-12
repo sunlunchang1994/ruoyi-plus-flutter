@@ -8,6 +8,8 @@ import '../../../../../generated/l10n.dart';
 import '../../../../../res/colors.dart';
 import '../entity/tree_dict.dart';
 
+/// @author: sunlunchang
+/// 字典工具类
 class DictUiUtils {
   ///字典列表转对话框选项
   static List<SimpleDialogOption> dictList2DialogItem(

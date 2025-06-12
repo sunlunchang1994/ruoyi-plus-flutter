@@ -1,3 +1,5 @@
+
+/// @author sunlunchang
 ///树导航实体类
 class SlcTreeNav {
   dynamic id;

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../lib/db_base/dp_manager.dart';
 
+/// @author sunlunchang
+/// app全局的相关配置
 class AppConfig extends DpManager {
   static const String SP_NAME = "app_config";
 

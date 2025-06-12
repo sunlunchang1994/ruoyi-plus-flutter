@@ -8,8 +8,8 @@ import '../../../../lib/fast/vd/list_data_vm_sub.dart';
 import '../entity/slc_tree_nav.dart';
 import 'package:dio/dio.dart';
 
-///
 /// @author sunlunchang
+/// 树级列表Vd
 class TreeNavVd {
   ///获取导航视图
   static Widget getNavWidget(ThemeData themeData, List<SlcTreeNav> treeNavList,

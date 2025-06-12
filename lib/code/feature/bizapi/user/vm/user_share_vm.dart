@@ -8,6 +8,8 @@ import '../../../auth/ui/login_page.dart';
 import '../entity/my_user_info_vo.dart';
 import '../repository/local/user_config.dart';
 
+/// @author sunlunchang
+/// 用户共享数据
 class UserShareVm {
   final ObservableField<MyUserInfoVo> userInfoOf = ObservableField(); //用户信息监听
   final ObservableField<List<RouterVo>> routerVoOf = ObservableField(); //路由信息监听

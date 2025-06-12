@@ -5,6 +5,8 @@ import 'package:flutter/gestures.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 
+/// @author sunlunchang
+/// WebView工具类
 class WebViewUtil {
 
   /// 兼容

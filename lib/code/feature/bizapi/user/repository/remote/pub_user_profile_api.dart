@@ -12,6 +12,8 @@ import '../../entity/avatar_vo.dart';
 
 part 'pub_user_profile_api.g.dart';
 
+/// @author sunlunchang
+/// 用户信息服务
 @RestApi()
 abstract class PubUserProfileApi {
   factory PubUserProfileApi({Dio? dio, String? baseUrl}) {

@@ -1,3 +1,6 @@
+
+/// @author sunlunchang
+/// 树形字典
 abstract class ITreeDict<T extends ITreeDict<T>> {
   String? get tdId;
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// @author sunlunchang
+/// Widget工具类
 class WidgetUtils {
 
   ///////////////////// 侧滑栏 ///////////////////////

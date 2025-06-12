@@ -2,6 +2,8 @@
 import 'package:flutter_slc_boxes/flutter/slc/adapter/select_box.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+/// @author sunlunchang
+/// 可混入的 SelectBox 实现
 mixin AppSelectBoxMixin<T> implements ISelectBox<T> {
   // 使用 late 延迟初始化，由混入类负责初始化
 

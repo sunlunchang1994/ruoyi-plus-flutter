@@ -8,6 +8,8 @@ import '../../../../base/api/json_converter.dart';
 
 part 'user_info_vo.g.dart';
 
+/// @author sunlunchang
+/// 用户信息
 @JsonSerializable()
 class UserInfoVo {
   User? user;

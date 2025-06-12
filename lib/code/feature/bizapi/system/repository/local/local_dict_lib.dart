@@ -1,5 +1,7 @@
 import '../../../../component/dict/entity/tree_dict.dart';
 
+/// @author sunlunchang
+/// 本地字典库
 class LocalDictLib {
   //系统开关
   static const String CODE_SYS_NORMAL_DISABLE = "sys_normal_disable";

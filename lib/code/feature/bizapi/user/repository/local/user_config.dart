@@ -1,5 +1,7 @@
 import 'package:ruoyi_plus_flutter/code/lib/db_base/dp_manager.dart';
 
+/// @author sunlunchang
+/// 用户信息持久化配置
 class UserConfig extends DpManager {
   UserConfig._privateConstructor() : super("user_config");
 

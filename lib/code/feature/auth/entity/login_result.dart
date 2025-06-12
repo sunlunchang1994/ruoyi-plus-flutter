@@ -2,6 +2,8 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'login_result.g.dart';
 
+/// @author sunlunchang
+/// 登录结果实体类
 @JsonSerializable()
 class LoginResult {
   //授权令牌

@@ -9,6 +9,8 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'user.g.dart';
 
+/// @author sunlunchang
+/// 用户实体类
 @JsonSerializable()
 class User extends TenantEntity with AppSelectBoxMixin<User> {
   @IntConverter()

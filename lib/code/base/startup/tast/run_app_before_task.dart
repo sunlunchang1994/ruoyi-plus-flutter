@@ -10,6 +10,8 @@ import 'package:ruoyi_plus_flutter/code/base/startup/tast/task.dart';
 import '../../../env_config.dart';
 import '../../vm/global_vm.dart';
 
+/// @author sunlunchang
+/// 执行runApp之后执行的任务
 class RunAppBeforeTask extends Task {
   @override
   Future<void> run({BuildContext? context}) async {

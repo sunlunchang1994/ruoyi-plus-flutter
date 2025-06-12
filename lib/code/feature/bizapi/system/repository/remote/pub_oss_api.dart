@@ -14,6 +14,8 @@ import '../../entity/sys_oss_upload_vo.dart';
 
 part 'pub_oss_api.g.dart';
 
+/// @author sunlunchang
+/// OSS存储服务
 @RestApi()
 abstract class PubOssApi {
   factory PubOssApi({Dio? dio, String? baseUrl}) {

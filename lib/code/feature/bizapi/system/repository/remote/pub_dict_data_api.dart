@@ -17,6 +17,8 @@ import '../../entity/sys_dict_data.dart';
 
 part 'pub_dict_data_api.g.dart';
 
+/// @author sunlunchang
+/// 字典数据服务
 @RestApi()
 abstract class PubDictDataApi {
   factory PubDictDataApi({Dio? dio, String? baseUrl}) {

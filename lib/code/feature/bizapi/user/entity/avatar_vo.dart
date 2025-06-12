@@ -2,6 +2,8 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'avatar_vo.g.dart';
 
+/// @author sunlunchang
+/// 头像信息
 @JsonSerializable()
 class AvatarVo {
   String? imgUrl;

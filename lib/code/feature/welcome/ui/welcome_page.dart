@@ -23,6 +23,8 @@ import '../../bizapi/system/repository/remote/pub_menu_api.dart';
 import '../../bizapi/user/repository/local/user_config.dart';
 import '../../bizapi/user/repository/remote/pub_user_api.dart';
 
+/// @author sunlunchang
+/// 欢迎页
 class WelcomePage extends AppBaseStatelessWidget<_WelcomeVm> {
   static const String routeName = '/';
 

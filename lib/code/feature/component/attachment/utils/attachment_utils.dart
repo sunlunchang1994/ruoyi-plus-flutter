@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 
 /// @author sunlunchang
+/// 附件工具类
 class AttachmentUtils {
   ///构建文件保存路径
   static Future<String?> buildSaveFileDir() async {

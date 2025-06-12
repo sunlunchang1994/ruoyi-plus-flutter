@@ -10,6 +10,8 @@ import '../../entity/my_user_info_vo.dart';
 
 part 'pub_user_api.g.dart';
 
+/// @author sunlunchang
+/// 用户服务
 @RestApi()
 abstract class PubUserApi {
   factory PubUserApi({Dio? dio, String? baseUrl}) {

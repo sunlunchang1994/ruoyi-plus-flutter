@@ -7,6 +7,8 @@ import '../../../component/adapter/app_select_box.dart';
 
 part 'role.g.dart';
 
+/// @author sunlunchang
+/// 角色实体类
 @JsonSerializable()
 class Role extends TenantEntity with AppSelectBoxMixin<Role> {
   @IntConverter()

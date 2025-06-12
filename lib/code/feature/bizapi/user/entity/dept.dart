@@ -7,6 +7,8 @@ import '../../../../base/api/json_converter.dart';
 
 part 'dept.g.dart';
 
+/// @author sunlunchang
+/// 部门实体类
 @JsonSerializable()
 class Dept extends TenantEntity with AppSelectBoxMixin<Dept> {
   @IntConverter()

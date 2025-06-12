@@ -1,5 +1,7 @@
 import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
 
+/// @author sunlunchang
+/// 媒体类型
 enum MediaType {
   audio,
   video,
@@ -15,7 +17,8 @@ enum MediaType {
   unknown,
 }
 
-//
+/// @author sunlunchang
+/// 媒体类型常量
 class MediaTypeConstant {
   //audio
   static const String EXTENSION_M3U = "m3u";

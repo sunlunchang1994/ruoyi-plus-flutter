@@ -11,6 +11,8 @@ import 'package:path_provider/path_provider.dart';
 
 import '../../../../generated/l10n.dart';
 
+/// @author sunlunchang
+/// 裁剪图片控件
 class CropImage extends StatefulWidget {
   ///图像路径
   final XFile imagePath;
@@ -23,6 +25,8 @@ class CropImage extends StatefulWidget {
   }
 }
 
+/// @author sunlunchang
+/// 裁剪图片控件State
 class CropState extends State<CropImage> {
   Uint8List? imageData;
 

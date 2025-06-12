@@ -4,6 +4,8 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'my_user_info_vo.g.dart';
 
+/// @author sunlunchang
+/// 登录用户信息
 @JsonSerializable()
 class MyUserInfoVo {
   User user;

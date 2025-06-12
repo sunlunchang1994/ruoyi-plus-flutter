@@ -1,5 +1,7 @@
 import 'package:permission_handler/permission_handler.dart';
 
+/// @author sunlunchang
+/// 权限兼容类
 class PermissionCompat {
   //仅android执行
   static Future<PermissionStatus> get requestStorage async {

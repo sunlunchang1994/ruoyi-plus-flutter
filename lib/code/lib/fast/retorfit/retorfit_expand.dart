@@ -1,4 +1,6 @@
-//Future 扩展，用于将处理数据转换
+
+/// @author sunlunchang
+///Future 扩展，用于将处理数据转换
 extension FutureExpand<T> on Future<T> {
 
   Stream<S> asMap<S>(S Function(T event) convert) {

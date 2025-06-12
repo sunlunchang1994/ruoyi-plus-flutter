@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 
+/// @author sunlunchang
+/// 取消token管理
 mixin CancelTokenAssist {
   static const String KEY_DEF_CANCEL_TOKEN = "defCancelToken";
 

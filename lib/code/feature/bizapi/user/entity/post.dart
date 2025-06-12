@@ -7,6 +7,8 @@ import '../../../component/adapter/app_select_box.dart';
 
 part 'post.g.dart';
 
+/// @author sunlunchang
+/// 岗位实体类
 @JsonSerializable()
 class Post extends TenantEntity with AppSelectBoxMixin<Post> {
   @IntConverter()

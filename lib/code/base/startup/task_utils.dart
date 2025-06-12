@@ -3,6 +3,8 @@ import 'package:ruoyi_plus_flutter/code/base/startup/tast/run_app_after_task.dar
 import 'package:ruoyi_plus_flutter/code/base/startup/tast/run_app_before_task.dart';
 import 'package:ruoyi_plus_flutter/code/base/startup/tast/slc_task.dart';
 
+/// @author sunlunchang
+/// app启动时执行任务的工具类
 class TaskUtils {
   static Future<void> execRunAppBeforeTask({BuildContext? context}) async {
     return await RunAppBeforeTask().run(context: context);

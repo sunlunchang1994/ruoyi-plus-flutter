@@ -4,7 +4,8 @@ import 'package:provider/provider.dart';
 
 import '../../../base/ui/app_mvvm.dart';
 
-//404页面
+/// @author sunlunchang
+/// 404页面
 class NotFoundPage extends AppBaseStatelessWidget<_NotFoundVm> {
   static const String routeName = '/404';
 

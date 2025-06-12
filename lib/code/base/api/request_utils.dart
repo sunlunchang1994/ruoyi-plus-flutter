@@ -1,5 +1,5 @@
-import 'package:ruoyi_plus_flutter/generated/l10n.dart';
 
+/// @author sunlunchang
 class RequestUtils {
   //转成分页查询
   static Map<String, dynamic> toPageQuery(Map<String, dynamic>? queryParams, int offset, int size) {

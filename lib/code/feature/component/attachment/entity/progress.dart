@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter_slc_boxes/flutter/slc/common/slc_file_util.dart';
 
 ///@author slc
+///下载状态枚举
 enum DownloadStatus {
   none, // 无状态
   waiting, // 等待
@@ -13,6 +14,8 @@ enum DownloadStatus {
   finish, // 完成
 }
 
+///@author slc
+///下载进度实体类
 class Progress {
   final String? tag; // 下载的唯一标识符
   final String? url; // 资源 URL

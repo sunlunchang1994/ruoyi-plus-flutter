@@ -13,6 +13,8 @@ import '../../entity/login_tenant_vo.dart';
 
 part 'auth_api.g.dart';
 
+/// @author sunlunchang
+/// 认证服务
 @RestApi()
 abstract class AuthApi {
   factory AuthApi({Dio? dio, String? baseUrl}) {

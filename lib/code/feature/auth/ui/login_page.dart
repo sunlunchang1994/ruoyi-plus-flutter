@@ -33,6 +33,8 @@ import '../../../lib/fast/utils/bar_utils.dart';
 import '../../../lib/fast/utils/app_toast.dart';
 import '../entity/login_tenant_vo.dart';
 
+/// @author sunlunchang
+/// 登录页面
 class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
   static const String routeName = '/login';
 

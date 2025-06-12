@@ -1,5 +1,7 @@
 import 'package:ruoyi_plus_flutter/code/lib/db_base/dp_manager.dart';
 
+/// @author sunlunchang
+/// 附件配置
 class AttachmentConfig extends DpManager {
   static const String SP_NAME = "attachment_config";
 

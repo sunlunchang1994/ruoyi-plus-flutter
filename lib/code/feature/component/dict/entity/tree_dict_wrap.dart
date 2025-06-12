@@ -1,8 +1,7 @@
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
 
-///
 /// @author: sunlunchang
-///
+/// 字典树包装类
 class TreeDictWrap {
   List<ITreeDict<dynamic>>? _sysDictList;
   List<String> _dictLabelArray = [];

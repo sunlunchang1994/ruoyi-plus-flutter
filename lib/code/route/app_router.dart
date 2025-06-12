@@ -59,7 +59,8 @@ import '../module/user/ui/user/user_list_browser_tree_page.dart';
 import '../module/user/ui/user/user_list_select_by_dept_page.dart';
 import '../module/user/ui/user/user_list_select_single_page.dart';
 
-// GoRouter configuration
+/// @author sunlunchang
+/// 路由配置
 final Map<String, WidgetBuilder> router = {
   //404页面
   NotFoundPage.routeName: (BuildContext context) => NotFoundPage(),

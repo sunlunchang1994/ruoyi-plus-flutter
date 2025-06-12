@@ -14,6 +14,8 @@ import 'feature/welcome/ui/welcome_page.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
+/// @author sunlunchang
+/// 页面入口
 class RootPage extends StatelessWidget {
   const RootPage({super.key});
 
