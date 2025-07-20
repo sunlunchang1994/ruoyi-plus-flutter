@@ -91,7 +91,7 @@ dependencies:
   # 图片裁剪
   crop_your_image: ^1.1.0
   # 文件选择
-  file_picker: ^9.0.2
+  file_picker: ^10.2.0
   # 路径访问
   path_provider: ^2.1.5
   # 打开文件
