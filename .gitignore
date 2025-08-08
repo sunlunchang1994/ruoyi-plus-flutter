@@ -46,3 +46,4 @@ app.*.map.json
 
 # JsonSerializableGenerator和RetrofitGenerator自动生成的文件
 **/*.g.dart
+/pubspec.lock
