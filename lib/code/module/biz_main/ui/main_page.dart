@@ -1,12 +1,12 @@
+import 'package:fast/fast/utils/bar_utils.dart';
 import 'package:flutter/material.dart';
 import '../../../base/ui/app_mvvm.dart';
-import '../../../lib/fast/utils/bar_utils.dart';
 import 'analyse_page.dart';
 import 'workbench_page.dart';
 import '../../user/ui/user/info/mine_page.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../generated/l10n.dart';
+import '../../../../gen/l10n.dart';
 
 class MainPage extends AppBaseStatelessWidget<_MainVm> {
   static const String routeName = '/index';

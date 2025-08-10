@@ -1,5 +1,6 @@
+import 'package:fast/gen/l10n.dart';
 import 'package:flutter/material.dart';
-import '../../../../../generated/l10n.dart';
+import '../../../../../gen/l10n.dart';
 import 'package:provider/provider.dart';
 
 import '../../../base/ui/app_mvvm.dart';
@@ -20,8 +21,8 @@ class NotFoundPage extends AppBaseStatelessWidget<_NotFoundVm> {
       builder: (context, child) {
         registerEvent(context);
         return Scaffold(
-          appBar: AppBar(title: Text(S.current.app_label_404)),
-          body: Center(child: Text(S.current.app_label_404_msg)),
+          appBar: AppBar(title: Text(FastS.current.app_label_404)),
+          body: Center(child: Text(FastS.current.app_label_404_msg)),
         );
       },
     );

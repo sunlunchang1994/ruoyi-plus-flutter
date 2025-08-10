@@ -1,9 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fast/gen/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
+import 'package:boxes_flutter/flutter/slc/res/colors.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/widget/fast_slc_ui_box.dart';
 import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import '../../../../system/ui/setting/main/setting_page.dart';
@@ -12,7 +13,7 @@ import '../../../../../../res/dimens.dart';
 import '../../../../../base/ui/app_mvvm.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../../generated/l10n.dart';
+import '../../../../../../gen/l10n.dart';
 import '../../../../../feature/bizapi/user/entity/my_user_info_vo.dart';
 
 class MinePage extends StatefulWidget {
@@ -56,19 +57,19 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                                     Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                               Text(
                                   getVm().userInfoVo?.user.deptName ??
-                                      S.current.app_label_not_completed,
+                                      FastS.current.app_label_not_completed,
                                   style: themeData.slcTidyUpStyle
                                       .getTextColorSecondaryStyleByTheme(themeData)),
                               Text(
                                   getVm().userInfoVo?.user.getRoleName() ??
-                                      S.current.app_label_not_completed,
+                                      FastS.current.app_label_not_completed,
                                   style: themeData.slcTidyUpStyle
                                       .getTextColorSecondaryStyleByTheme(themeData)),
                               Padding(
                                   padding: EdgeInsets.only(top: SlcDimens.appDimens8),
                                   child: Text(
                                       getVm().userInfoVo?.user.nickName ??
-                                          S.current.app_label_not_completed,
+                                          FastS.current.app_label_not_completed,
                                       style: themeData.textTheme.titleLarge)),
                             ])),
                             ClipRRect(
@@ -80,8 +81,7 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                                     height: AppDimens.userMineAvatarSize,
                                     imageUrl: getVm().userInfoVo?.user.avatar ?? "",
                                     placeholder: (context, url) {
-                                      return Image.asset(
-                                          "assets/images/base/ic_def_user_head.png",
+                                      return Image.asset("assets/images/base/ic_def_user_head.png",
                                           width: AppDimens.userMineAvatarSize,
                                           height: AppDimens.userMineAvatarSize);
                                     },
@@ -90,8 +90,7 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                                       url,
                                       error,
                                     ) {
-                                      return Image.asset(
-                                          "assets/images/base/ic_def_user_head.png",
+                                      return Image.asset("assets/images/base/ic_def_user_head.png",
                                           width: AppDimens.userMineAvatarSize,
                                           height: AppDimens.userMineAvatarSize);
                                     }))

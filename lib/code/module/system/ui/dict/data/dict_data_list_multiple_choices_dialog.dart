@@ -1,26 +1,27 @@
+import 'package:fast/gen/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_slc_boxes/flutter/slc/adapter/load_more_format.dart';
-import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
-import 'package:flutter_slc_boxes/flutter/slc/adapter/select_box.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/adapter/load_more_format.dart';
+import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
+import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
+import 'package:boxes_flutter/flutter/slc/common/screen_util.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/utils/widget_utils.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
+import 'package:fast/fast/provider/fast_select.dart';
+import 'package:fast/fast/utils/widget_utils.dart';
+import 'package:fast/fast/vd/page_data_vd.dart';
 
-import '../../../../../../generated/l10n.dart';
+import '../../../../../../gen/l10n.dart';
 import '../../../../../base/api/base_dio.dart';
 import '../../../../../base/api/result_entity.dart';
 import '../../../../../base/repository/remote/data_transform_utils.dart';
 import '../../../../../base/repository/remote/page_transform_utils.dart';
 import '../../../../../base/ui/utils/fast_dialog_utils.dart';
 import '../../../../../feature/bizapi/system/entity/sys_dict_data.dart';
-import '../../../../../lib/fast/vd/list_data_component.dart';
-import '../../../../../lib/fast/vd/list_data_vd.dart';
+import 'package:fast/fast/vd/list_data_component.dart';
+import 'package:fast/fast/vd/list_data_vd.dart';
 import '../../../config/constant_sys.dart';
 import '../../../repository/remote/dict_data_api.dart';
 import 'dict_data_add_edit_page.dart';
@@ -51,14 +52,14 @@ class DictDataListMultipleChoicesDialog
                   onPressed: () {
                     vm.finish();
                   },
-                  child: Text(S.current.action_cancel)),
+                  child: Text(FastS.current.action_cancel)),
               TextButton(
                   onPressed: () {
                     vm.finish(
                         result: SelectUtils.getSelect<SysDictData, ITreeDict<dynamic>>(
                             vm.listVmSub.dataList));
                   },
-                  child: Text(S.current.action_ok))
+                  child: Text(FastS.current.action_ok))
             ],
           );
         });

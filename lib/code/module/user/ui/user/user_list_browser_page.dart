@@ -1,23 +1,24 @@
+import 'package:fast/gen/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slc_boxes/flutter/slc/adapter/select_box.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
+import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
+import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/config/constant_user_api.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
+import 'package:fast/fast/provider/fast_select.dart';
+import 'package:fast/fast/utils/app_toast.dart';
+import 'package:fast/fast/vd/page_data_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_add_edit_page.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_list_page_vd.dart';
 
-import '../../../../../generated/l10n.dart';
+import '../../../../../gen/l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
 import '../../../../feature/bizapi/user/entity/user.dart';
-import '../../../../lib/fast/utils/bar_utils.dart';
-import '../../../../lib/fast/utils/widget_utils.dart';
+import 'package:fast/fast/utils/bar_utils.dart';
+import 'package:fast/fast/utils/widget_utils.dart';
 import '../../repository/remote/user_api.dart';
 
 ///
@@ -137,8 +138,7 @@ class _UserListBrowserVm extends AppBaseVm {
     listVmSub = UserPageDataVmSub();
     listVmSub.enableSelectModel = true;
     listVmSub.setItemClick((index, item) {
-      pushNamed(UserAddEditPage.routeName, arguments: {ConstantUser.KEY_USER: item})
-          .then((result) {
+      pushNamed(UserAddEditPage.routeName, arguments: {ConstantUser.KEY_USER: item}).then((result) {
         if (result != null) {
           listVmSub.sendRefreshEvent();
         }
@@ -181,14 +181,14 @@ class _UserListBrowserVm extends AppBaseVm {
       return;
     }
     //删除
-    showLoading(text: S.current.label_delete_ing);
+    showLoading(text: FastS.current.label_delete_ing);
     UserServiceRepository.delete(listVmSub.defCancelToken, userIds: idList).then((value) {
       dismissLoading();
-      AppToastUtil.showToast(msg: S.current.label_delete_success);
+      AppToastUtil.showToast(msg: FastS.current.label_delete_success);
       listVmSub.sendRefreshEvent();
     }, onError: BaseDio.errProxyFunc(onError: (error) {
       dismissLoading();
-      AppToastUtil.showToast(msg: S.current.label_delete_failed);
+      AppToastUtil.showToast(msg: FastS.current.label_delete_failed);
     }));
   }
 }

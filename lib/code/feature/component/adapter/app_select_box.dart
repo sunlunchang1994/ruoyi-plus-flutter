@@ -1,5 +1,5 @@
 // 将 SelectBox 改为可混入的 Mixin
-import 'package:flutter_slc_boxes/flutter/slc/adapter/select_box.dart';
+import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 /// @author sunlunchang

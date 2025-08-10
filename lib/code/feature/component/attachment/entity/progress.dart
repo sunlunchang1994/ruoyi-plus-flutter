@@ -1,7 +1,7 @@
 // 使用枚举替代 int 类型状态，提升类型安全性和可读性
 import 'dart:io';
 
-import 'package:flutter_slc_boxes/flutter/slc/common/slc_file_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/slc_file_util.dart';
 
 ///@author slc
 ///下载状态枚举

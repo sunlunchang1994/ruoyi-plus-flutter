@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/utils/widget_utils.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
+import 'package:fast/fast/provider/fast_select.dart';
+import 'package:fast/fast/utils/widget_utils.dart';
+import 'package:fast/fast/vd/page_data_vd.dart';
 
 import 'user_online_list_page_vd.dart';
 

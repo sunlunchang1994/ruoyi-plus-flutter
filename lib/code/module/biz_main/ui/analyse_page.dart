@@ -1,17 +1,17 @@
+import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/log_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/screen_util.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
 import 'package:ruoyi_plus_flutter/code/module/biz_main/repository/analyse_repository.dart';
 
-import '../../../../generated/l10n.dart';
+import '../../../../gen/l10n.dart';
 import '../entity/analyse_model.dart';
 
 class AnalysePage extends StatefulWidget {

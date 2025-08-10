@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 
 /// @author sunlunchang
 /// 类似桌面样式的图标构建

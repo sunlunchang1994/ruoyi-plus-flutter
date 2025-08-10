@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/common/screen_util.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
+import 'package:fast/fast/provider/fast_select.dart';
+import 'package:fast/fast/vd/page_data_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_page_vd.dart';
 
-import '../../../../../generated/l10n.dart';
-import '../../../../lib/fast/utils/widget_utils.dart';
+import '../../../../../gen/l10n.dart';
+import 'package:fast/fast/utils/widget_utils.dart';
 
 ///
 /// @author slc
 /// 角色单选
 ///
-class RoleListSingleSelectPage
-    extends AppBaseStatelessWidget<_RoleListSingleSelectVm> {
+class RoleListSingleSelectPage extends AppBaseStatelessWidget<_RoleListSingleSelectVm> {
   static const String routeName = '/system/role/single';
   final String title;
 
@@ -38,15 +37,12 @@ class RoleListSingleSelectPage
                     },
                     icon: Icon(Icons.search))
               ]),
-              endDrawer:
-                  RoleListPageVd.getSearchEndDrawer<_RoleListSingleSelectVm>(
-                      context, themeData, getVm().listVmSub),
+              endDrawer: RoleListPageVd.getSearchEndDrawer<_RoleListSingleSelectVm>(
+                  context, themeData, getVm().listVmSub),
               body: PageDataVd(getVm().listVmSub, getVm(),
                   refreshOnStart: true,
-                  child: NqSelector<_RoleListSingleSelectVm, int>(
-                      builder: (context, vm, child) {
-                    return RoleListPageVd.getUserListWidget(
-                        themeData, getVm().listVmSub);
+                  child: NqSelector<_RoleListSingleSelectVm, int>(builder: (context, vm, child) {
+                    return RoleListPageVd.getUserListWidget(themeData, getVm().listVmSub);
                   }, selector: (context, vm) {
                     return vm.listVmSub.shouldSetState.version;
                   })));
@@ -58,8 +54,7 @@ class RoleListSingleSelectPage
 /// @author slc
 /// 角色单选控件
 ///
-class RoleListSingleSelectDialog
-    extends AppBaseStatelessWidget<_RoleListSingleSelectVm> {
+class RoleListSingleSelectDialog extends AppBaseStatelessWidget<_RoleListSingleSelectVm> {
   RoleListSingleSelectDialog({super.key});
 
   static Widget getRoleListSingleSelectDialog({String? title}) {
@@ -84,8 +79,7 @@ class RoleListSingleSelectDialog
     return SizedBox(
         width: ScreenUtil.getInstance().screenWidthDpr,
         child: PageDataVd(getVm().listVmSub, getVm(), refreshOnStart: true,
-            child: Consumer<_RoleListSingleSelectVm>(
-                builder: (context, vm, child) {
+            child: Consumer<_RoleListSingleSelectVm>(builder: (context, vm, child) {
           return RoleListPageVd.getUserListWidget(themeData, getVm().listVmSub);
         })));
   }

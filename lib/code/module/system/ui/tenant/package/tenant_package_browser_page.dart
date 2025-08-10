@@ -1,17 +1,18 @@
+import 'package:fast/gen/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slc_boxes/flutter/slc/adapter/select_box.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
+import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
+import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
+import 'package:fast/fast/provider/fast_select.dart';
+import 'package:fast/fast/vd/page_data_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/tenant/package/tenant_package_add_edit_page.dart';
 
-import '../../../../../../generated/l10n.dart';
+import '../../../../../../gen/l10n.dart';
 import '../../../../../base/api/base_dio.dart';
 import '../../../../../base/ui/utils/fast_dialog_utils.dart';
-import '../../../../../lib/fast/utils/app_toast.dart';
-import '../../../../../lib/fast/utils/widget_utils.dart';
+import 'package:fast/fast/utils/app_toast.dart';
+import 'package:fast/fast/utils/widget_utils.dart';
 import '../../../entity/sys_tenant_package.dart';
 import '../../../repository/remote/sys_tenant_package_api.dart';
 import 'tenant_package_page_vd.dart';
@@ -174,14 +175,14 @@ class _TenantPackageBrowserVm extends AppBaseVm {
       return;
     }
     //删除
-    showLoading(text: S.current.label_delete_ing);
+    showLoading(text: FastS.current.label_delete_ing);
     SysTenantPackageRepository.delete(listVmSub.defCancelToken, ids: idList).then((value) {
       dismissLoading();
-      AppToastUtil.showToast(msg: S.current.label_delete_success);
+      AppToastUtil.showToast(msg: FastS.current.label_delete_success);
       listVmSub.sendRefreshEvent();
     },
         onError: BaseDio.errProxyFunc(
-            defErrMsg: S.current.label_delete_failed,
+            defErrMsg: FastS.current.label_delete_failed,
             onError: (error) {
               dismissLoading();
             }));

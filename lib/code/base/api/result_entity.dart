@@ -1,4 +1,4 @@
-import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
+import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'api_config.dart';

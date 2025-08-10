@@ -1,21 +1,22 @@
 import 'package:dio/dio.dart';
+import 'package:fast/gen/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
+import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
+import 'package:boxes_flutter/flutter/slc/common/screen_util.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/post.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/list_data_component.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/refresh/content_empty.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
-import 'package:ruoyi_plus_flutter/code/lib/form/form_operate_with_provider.dart';
+import 'package:fast/fast/vd/list_data_component.dart';
+import 'package:fast/fast/vd/refresh/content_empty.dart';
+import 'package:fast/fast/vd/request_token_manager.dart';
+import 'package:form_extra/form/form_operate_with_provider.dart';
 
-import '../../../../../generated/l10n.dart';
+import '../../../../../gen/l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/config/constant_base.dart';
@@ -24,11 +25,11 @@ import '../../../../base/vm/global_vm.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
-import '../../../../lib/fast/provider/fast_select.dart';
-import '../../../../lib/fast/utils/widget_utils.dart';
-import '../../../../lib/fast/vd/page_data_vm_sub.dart';
-import '../../../../lib/form/fast_form_builder_text_field.dart';
-import '../../../../lib/form/input_decoration_utils.dart';
+import 'package:fast/fast/provider/fast_select.dart';
+import 'package:fast/fast/utils/widget_utils.dart';
+import 'package:fast/fast/vd/page_data_vm_sub.dart';
+import 'package:form_extra/form/fast_form_builder_text_field.dart';
+import 'package:form_extra/form/input_decoration_utils.dart';
 import '../../entity/dept_tree.dart';
 import '../../repository/remote/post_api.dart';
 import '../dept/dept_list_select_single_page.dart';
@@ -114,7 +115,7 @@ class PostListPageVd {
                       decoration: MySelectDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         labelText: S.current.user_label_post_owner_dept,
-                        hintText: S.current.app_label_please_choose,
+                        hintText: FastS.current.app_label_please_choose,
                         border: const UnderlineInputBorder(),
                         suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                           return InputDecUtils.autoClearSuffixBySelectVal(
@@ -133,7 +134,7 @@ class PostListPageVd {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.user_label_role_name,
-                          hintText: S.current.app_label_please_input,
+                          hintText: FastS.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
@@ -154,7 +155,7 @@ class PostListPageVd {
                           contentPadding: EdgeInsets.zero,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.user_label_role_key,
-                          hintText: S.current.app_label_please_input,
+                          hintText: FastS.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
@@ -181,7 +182,7 @@ class PostListPageVd {
                       decoration: MySelectDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.user_label_status,
-                          hintText: S.current.app_label_please_choose,
+                          hintText: FastS.current.app_label_please_choose,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixBySelectVal(
@@ -203,7 +204,7 @@ class PostListPageVd {
                                 onPressed: () {
                                   listVmSub.onResetSearch();
                                 },
-                                child: Text(S.current.action_reset))),
+                                child: Text (FastS.current.action_reset))),
                         ThemeUtil.getSizedBox(width: SlcDimens.appDimens16),
                         Expanded(
                             child: FilledButton(
@@ -211,7 +212,7 @@ class PostListPageVd {
                                   WidgetUtils.autoHandlerSearchDrawer(context);
                                   listVmSub.onSearch();
                                 },
-                                child: Text(S.current.action_search)))
+                                child: Text(FastS.current.action_search)))
                       ],
                     );
                   }))

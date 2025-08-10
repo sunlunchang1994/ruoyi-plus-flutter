@@ -1,28 +1,27 @@
-import 'package:dio/dio.dart';
+import 'package:fast/gen/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/num_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/slc_num_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/mvvm/status_widget.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/slc_num_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
+import 'package:boxes_flutter/flutter/slc/mvvm/status_widget.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
-import 'package:ruoyi_plus_flutter/code/lib/form/fast_form_builder_text_field.dart';
-import 'package:ruoyi_plus_flutter/code/lib/form/form_operate_with_provider.dart';
-import 'package:ruoyi_plus_flutter/code/lib/form/input_decoration_utils.dart';
+import 'package:fast/fast/provider/fast_select.dart';
+import 'package:fast/fast/utils/app_toast.dart';
+import 'package:fast/fast/vd/request_token_manager.dart';
+import 'package:form_extra/form/fast_form_builder_text_field.dart';
+import 'package:form_extra/form/form_operate_with_provider.dart';
+import 'package:form_extra/form/input_decoration_utils.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_tenant_package.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/tenant/package/tenant_package_select_single_page.dart';
 
-import '../../../../../generated/l10n.dart';
+import '../../../../../gen/l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/config/constant_base.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
@@ -79,7 +78,7 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                           return [
                             if (globalVm.userShareVm.hasPermiAny(["system:tenant:remove"]))
                               PopupMenuItem(
-                                child: Text(S.current.action_delete),
+                                child: Text(FastS.current.action_delete),
                                 onTap: () {
                                   FastDialogUtils.showDelConfirmDialog(context,
                                       contentText: TextUtil.format(
@@ -131,7 +130,7 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
                                 S.current.sys_label_sys_tenant_company_name),
-                            hintText: S.current.app_label_please_input,
+                            hintText: FastS.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysTenant!.companyName = value;
@@ -150,7 +149,7 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
                                 S.current.sys_label_sys_tenant_contact_user_name),
-                            hintText: S.current.app_label_please_input,
+                            hintText: FastS.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysTenant!.contactUserName = value;
@@ -169,7 +168,7 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
                                 S.current.sys_label_sys_tenant_contact_phone),
-                            hintText: S.current.app_label_please_input,
+                            hintText: FastS.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysTenant!.contactPhone = value;
@@ -193,7 +192,7 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                                   floatingLabelBehavior: FloatingLabelBehavior.always,
                                   label: InputDecUtils.getRequiredLabel(
                                       S.current.sys_label_sys_tenant_user_name),
-                                  hintText: S.current.app_label_please_input,
+                                  hintText: FastS.current.app_label_please_input,
                                   border: const UnderlineInputBorder()),
                               onChanged: (value) {
                                 getVm().sysTenant!.username = value;
@@ -213,7 +212,7 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                                   floatingLabelBehavior: FloatingLabelBehavior.always,
                                   label: InputDecUtils.getRequiredLabel(
                                       S.current.sys_label_sys_tenant_user_pw),
-                                  hintText: S.current.app_label_please_input,
+                                  hintText: FastS.current.app_label_please_input,
                                   border: const UnderlineInputBorder()),
                               onChanged: (value) {
                                 getVm().sysTenant!.password = value;
@@ -232,7 +231,7 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                       MySelectDecoration decoration = MySelectDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_sys_tenant_package_id,
-                          hintText: S.current.app_label_please_choose,
+                          hintText: FastS.current.app_label_please_choose,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<_TenantAddEditVm, String?>(
                               builder: (context, value, child) {
@@ -274,7 +273,7 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.sys_label_sys_tenant_expire_time,
-                            hintText: S.current.app_label_please_choose,
+                            hintText: FastS.current.app_label_please_choose,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysTenant!.expireTime = value;
@@ -288,7 +287,7 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.sys_label_sys_tenant_account_count,
-                            hintText: S.current.app_label_please_input,
+                            hintText: FastS.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysTenant!.accountCount = SlcNumUtil.getIntByValueStr(value);
@@ -305,7 +304,7 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.sys_label_sys_tenant_domain,
-                            hintText: S.current.app_label_please_input,
+                            hintText: FastS.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysTenant!.domain = value;
@@ -319,7 +318,7 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.sys_label_sys_tenant_address,
-                            hintText: S.current.app_label_please_input,
+                            hintText: FastS.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysTenant!.address = value;
@@ -333,7 +332,7 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.sys_label_sys_tenant_license_number,
-                            hintText: S.current.app_label_please_input,
+                            hintText: FastS.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysTenant!.licenseNumber = value;
@@ -347,7 +346,7 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.sys_label_sys_tenant_intro,
-                            hintText: S.current.app_label_please_input,
+                            hintText: FastS.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysTenant!.intro = value;
@@ -361,7 +360,7 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.sys_label_oss_config_remark,
-                            hintText: S.current.app_label_please_input,
+                            hintText: FastS.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysTenant!.remark = value;
@@ -378,10 +377,10 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
         context: context,
         builder: (context) {
           return AlertDialog(
-              title: Text(S.current.label_prompt),
-              content: Text(S.current.app_label_data_save_prompt),
+              title: Text(FastS.current.label_prompt),
+              content: Text(FastS.current.app_label_data_save_prompt),
               actions: FastDialogUtils.getCommonlyAction(context,
-                  positiveText: S.current.action_exit, positiveLister: () {
+                  positiveText: FastS.current.action_exit, positiveLister: () {
                 Navigator.pop(context);
                 getVm().abandonEdit();
               }));
@@ -465,12 +464,12 @@ class _TenantAddEditVm extends AppBaseVm with CancelTokenAssist {
   // 保存
   void onSave() {
     if (!_checkSaveParams()) {
-      AppToastUtil.showToast(msg: S.current.app_label_form_check_hint);
+      AppToastUtil.showToast(msg: FastS.current.app_label_form_check_hint);
       return;
     }
-    showLoading(text: S.current.label_save_ing);
+    showLoading(text: FastS.current.label_save_ing);
     SysTenantRepository.submit(sysTenant!, defCancelToken).then((value) {
-      AppToastUtil.showToast(msg: S.current.label_submitted_success);
+      AppToastUtil.showToast(msg: FastS.current.label_submitted_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;
@@ -496,14 +495,14 @@ class _TenantAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   //删除字典类型
   void onDelete() {
-    showLoading(text: S.current.label_delete_ing);
+    showLoading(text: FastS.current.label_delete_ing);
     SysTenantRepository.delete(defCancelToken, id: sysTenant!.id).then((value) {
       dismissLoading();
-      AppToastUtil.showToast(msg: S.current.label_delete_success);
+      AppToastUtil.showToast(msg: FastS.current.label_delete_success);
       finish(result: true);
     },
         onError: BaseDio.errProxyFunc(
-            defErrMsg: S.current.label_delete_failed,
+            defErrMsg: FastS.current.label_delete_failed,
             onError: (error) {
               dismissLoading();
             }));

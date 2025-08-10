@@ -3,27 +3,27 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:boxes_flutter/flutter/slc/common/log_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/screen_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/res/styles.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/dept.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/utils/widget_utils.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
-import 'package:ruoyi_plus_flutter/code/lib/form/form_operate_with_provider.dart';
-import 'package:ruoyi_plus_flutter/code/lib/form/input_decoration_utils.dart';
+import 'package:fast/fast/utils/widget_utils.dart';
+import 'package:fast/fast/vd/page_data_vd.dart';
+import 'package:form_extra/form/form_operate_with_provider.dart';
+import 'package:form_extra/form/input_decoration_utils.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_list_page_vd.dart';
 
-import '../../../../../generated/l10n.dart';
+import '../../../../../gen/l10n.dart';
 import '../../../../feature/bizapi/user/entity/user.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
-import '../../../../lib/fast/provider/fast_select.dart';
-import '../../../../lib/fast/vd/refresh/content_empty.dart';
-import '../../../../lib/form/fast_form_builder_text_field.dart';
+import 'package:fast/fast/provider/fast_select.dart';
+import 'package:fast/fast/vd/refresh/content_empty.dart';
+import 'package:form_extra/form/fast_form_builder_text_field.dart';
 
 ///
 /// 用户选择列表

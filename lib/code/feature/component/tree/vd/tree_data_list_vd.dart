@@ -1,10 +1,9 @@
+import 'package:fast/fast/vd/list_data_vm_sub.dart';
+import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
-
-import '../../../../lib/fast/vd/list_data_vm_sub.dart';
 import '../entity/slc_tree_nav.dart';
 import 'package:dio/dio.dart';
 

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
+import 'package:fast/fast/provider/fast_select.dart';
+import 'package:fast/fast/vd/page_data_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/tenant/package/tenant_package_add_edit_page.dart';
 
-import '../../../../../lib/fast/utils/widget_utils.dart';
-import '../../../../../lib/fast/vd/list_data_vd.dart';
+import 'package:fast/fast/utils/widget_utils.dart';
+import 'package:fast/fast/vd/list_data_vd.dart';
 import 'tenant_package_page_vd.dart';
 
 ///

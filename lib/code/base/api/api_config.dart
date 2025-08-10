@@ -1,8 +1,8 @@
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
+import 'package:db_base/db_base/dp_manager.dart';
+import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:ruoyi_plus_flutter/code/env_config.dart';
 
 import '../../feature/component/attachment/utils/attachment_config.dart';
-import '../../lib/db_base/dp_manager.dart';
 
 ///@author sunlunchang
 ///Api配置类、配置url、token等，可根据需要再此拓展

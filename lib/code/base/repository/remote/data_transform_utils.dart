@@ -1,7 +1,6 @@
-import 'package:ruoyi_plus_flutter/code/lib/fast/retorfit/retorfit_expand.dart';
-
-import '../../../../generated/l10n.dart';
-import '../../../lib/fast/vd/list_data_component.dart';
+import 'package:fast/fast/retorfit/retorfit_expand.dart';
+import 'package:fast/fast/vd/list_data_component.dart';
+import 'package:fast/gen/l10n.dart';
 
 import '../../api/api_config.dart';
 import '../../api/api_exception.dart';
@@ -40,7 +39,7 @@ class DataTransformUtils {
       return entity;
     }
     throw ApiException(entity.code ?? ApiConfig.VALUE_CODE_SERVER_ERROR,
-        message: S.current.label_data_is_null);
+        message: FastS.current.label_data_is_null);
   }
 
   static IntensifyEntity<T> checkNullIe<T>(IntensifyEntity<T> entity) {
@@ -49,7 +48,7 @@ class DataTransformUtils {
       return entity;
     }
     throw ApiException(entity.getCode() ?? ApiConfig.VALUE_CODE_SERVER_ERROR,
-        message: S.current.label_data_is_null);
+        message: FastS.current.label_data_is_null);
   }
 }
 

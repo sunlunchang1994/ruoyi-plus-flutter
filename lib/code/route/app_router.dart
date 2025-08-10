@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slc_boxes/flutter/slc/router/slc_router.dart';
+import 'package:boxes_flutter/flutter/slc/router/slc_router.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/config/constant_sys_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/biz_main/ui/main_page.dart';
 import 'package:ruoyi_plus_flutter/code/feature/welcome/ui/welcome_page.dart';

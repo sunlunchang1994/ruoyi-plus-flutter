@@ -41,27 +41,10 @@ dependencies:
     sdk: flutter
   flukit: any #https://pub.flutter-io.cn/packages/flukit
 
-  intl: ^0.19.0
-
-  #基础框架
-  flutter_slc_boxes: ^0.4.3
-  #flutter_slc_boxes:
-  #  git:
-  #    url: https://gitee.com/slcpublic/flutter_slc_boxes.git
-  #----------------- 版本不要轻易改动  加上是因为上述包也用了这个
-  #状态管理
-  provider: ^6.1.2
-  #路由
-  # go_router: ^14.2.7
+  intl: any
 
   # UI相关---------------------------------------
-  #Toast
-  fluttertoast: ^8.2.8
-  #地址：https://github.com/peng8350/flutter_pulltorefresh/blob/master/README_CN.md
-  easy_refresh: ^3.4.0
-  #svg
-  #地址：https://pub.flutter-io.cn/packages/flutter_svg
-  flutter_svg: ^2.0.10+1
+
   #扩展NestedScrollView https://pub.flutter-io.cn/packages/extended_nested_scroll_view
   extended_nested_scroll_view: ^6.2.1
   #设置
@@ -75,7 +58,6 @@ dependencies:
   # 网络相关-------------------------------------
   json_annotation: ^4.9.0
   retrofit: ^4.1.0
-  logger: ^2.3.0  #for logging purpose
   # 网络请求 用了retrofit无需使用以下方法
   #dio: ^4.0.0
   # RxJava
@@ -99,12 +81,7 @@ dependencies:
   # url_launcher
   url_launcher: ^6.3.0
 
-  # 存储---------------------------------------
-  shared_preferences: ^2.5.2
-
   # 其他---------------------------------------
-  #权限处理
-  permission_handler: ^11.4.0
   #设备信息 会影响编译和冲突，暂不加入
   # device_info_plus: ^11.3.3
   #UUID
@@ -113,16 +90,6 @@ dependencies:
   keyboard_avoider: ^0.2.0
   #
   package_info_plus: ^8.3.0
-
-  # 表单---------------------------------------
-  # 表单相关
-  flutter_form_builder: ^9.7.0
-  form_builder_extra_fields: ^11.0.0
-  form_builder_image_picker: ^4.1.0
-  # form_builder_file_picker: ^4.2.0
-  form_builder_validators: ^11.1.1
-  form_builder_phone_field: ^2.0.1
-  # form_builder_cupertino_fields: ^0.4.0 ios风格
 
   # 特殊的UI组件---------------------------------------
   #WebView
@@ -134,6 +101,17 @@ dependencies:
 
   #html处理相关
   #universal_html: ^2.2.4
+
+  #快速开发库
+  fast:
+    path: "./package/fast"
+  # 表单扩展库
+  form_extra:
+    path: "./package/form_extra"
+  # 数据库基础库
+  db_base:
+    path: "./package/db_base"
+
 dependency_overrides:
   image_gallery_saver:
     git:
@@ -144,6 +122,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^2.4.11
+  flutter_gen_runner: ^5.10.0
 
   # 网络相关-------------------------------------
   retrofit_generator: ^8.1.1
@@ -156,14 +135,13 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
 flutter:
-
+  generate: true # Add this line
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -175,26 +153,11 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   assets:
-    - assets/images/ic_launcher.png
-    - assets/images/base/ic_no_date.svg
-    - assets/images/base/ic_loading.svg
-    - assets/images/base/ic_loading.png
-    - assets/images/base/ic_def_user_head.png
-    - assets/images/user/ic_folder.svg
-
-    - assets/images/mp/slc_mp_ic_android.png
-    - assets/images/mp/slc_mp_ic_audiotrack.png
-    - assets/images/mp/slc_mp_ic_cs.png
-    - assets/images/mp/slc_mp_ic_excel.png
-    - assets/images/mp/slc_mp_ic_folder.png
-    - assets/images/mp/slc_mp_ic_html.png
-    - assets/images/mp/slc_mp_ic_image.png
-    - assets/images/mp/slc_mp_ic_pdf.png
-    - assets/images/mp/slc_mp_ic_powerpoint.png
-    - assets/images/mp/slc_mp_ic_text.png
-    - assets/images/mp/slc_mp_ic_unknown.png
-    - assets/images/mp/slc_mp_ic_videocam.png
-    - assets/images/mp/slc_mp_ic_word.png
+    - assets/images/
+    - assets/images/base/
+    - assets/images/user/
+    - assets/images/mp/
+    - assets/key/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -221,5 +184,3 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-flutter_intl:
-  enabled: true

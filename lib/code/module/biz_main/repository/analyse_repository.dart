@@ -1,8 +1,8 @@
-import 'package:flutter_slc_boxes/flutter/slc/common/date_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/random_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/slc_color_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/slc_num_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
+import 'package:boxes_flutter/flutter/slc/common/date_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/random_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/slc_color_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/slc_num_util.dart';
+import 'package:boxes_flutter/flutter/slc/res/colors.dart';
 import 'package:ruoyi_plus_flutter/code/module/biz_main/entity/analyse_model.dart';
 
 class AnalyseRepository {

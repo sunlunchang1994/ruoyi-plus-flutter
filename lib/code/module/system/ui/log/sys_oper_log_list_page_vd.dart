@@ -1,22 +1,23 @@
+import 'package:fast/gen/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
+import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
+import 'package:boxes_flutter/flutter/slc/common/screen_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
+import 'package:boxes_flutter/flutter/slc/res/colors.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/res/styles.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
+import 'package:fast/fast/vd/page_data_vm_sub.dart';
+import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/log/sys_log_page.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/log/sys_oper_log_details_page.dart';
 
-import '../../../../../../generated/l10n.dart';
+import '../../../../../../gen/l10n.dart';
 import '../../../../../../res/styles.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
@@ -24,15 +25,15 @@ import '../../../../base/repository/remote/data_transform_utils.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
 import '../../../../base/vm/global_vm.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
-import '../../../../lib/fast/provider/fast_select.dart';
-import '../../../../lib/fast/utils/app_toast.dart';
-import '../../../../lib/fast/utils/widget_utils.dart';
-import '../../../../lib/fast/vd/list_data_component.dart';
-import '../../../../lib/fast/vd/refresh/content_empty.dart';
+import 'package:fast/fast/provider/fast_select.dart';
+import 'package:fast/fast/utils/app_toast.dart';
+import 'package:fast/fast/utils/widget_utils.dart';
+import 'package:fast/fast/vd/list_data_component.dart';
+import 'package:fast/fast/vd/refresh/content_empty.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../lib/form/fast_form_builder_text_field.dart';
-import '../../../../lib/form/input_decoration_utils.dart';
+import 'package:form_extra/form/fast_form_builder_text_field.dart';
+import 'package:form_extra/form/input_decoration_utils.dart';
 import '../../config/constant_sys.dart';
 import '../../entity/sys_oper_log.dart';
 import '../../repository/remote/sys_oper_log_api.dart';
@@ -169,7 +170,7 @@ class SysOperLogListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oper_ip,
-                          hintText: S.current.app_label_please_input,
+                          hintText: FastS.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<LogOperSearchVm, String?>(
                               builder: (context, value, child) {
@@ -190,7 +191,7 @@ class SysOperLogListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oper_title,
-                          hintText: S.current.app_label_please_input,
+                          hintText: FastS.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<LogOperSearchVm, String?>(
                               builder: (context, value, child) {
@@ -211,7 +212,7 @@ class SysOperLogListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oper_name,
-                          hintText: S.current.app_label_please_input,
+                          hintText: FastS.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<LogOperSearchVm, String?>(
                               builder: (context, value, child) {
@@ -238,7 +239,7 @@ class SysOperLogListPageWidget {
                       decoration: MySelectDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oper_business_type,
-                          hintText: S.current.app_label_please_choose,
+                          hintText: FastS.current.app_label_please_choose,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqSelector<LogOperSearchVm, String?>(
                               builder: (context, value, child) {
@@ -262,7 +263,7 @@ class SysOperLogListPageWidget {
                       decoration: MySelectDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_logininfor_status,
-                          hintText: S.current.app_label_please_choose,
+                          hintText: FastS.current.app_label_please_choose,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<LogLoginSearchVm, String?>(
                               builder: (context, value, child) {
@@ -283,7 +284,7 @@ class SysOperLogListPageWidget {
                                 onPressed: () {
                                   searchVm.onResetSearch();
                                 },
-                                child: Text(S.current.action_reset))),
+                                child: Text(FastS.current.action_reset))),
                         ThemeUtil.getSizedBox(width: SlcDimens.appDimens16),
                         Expanded(
                             child: FilledButton(
@@ -291,7 +292,7 @@ class SysOperLogListPageWidget {
                                   WidgetUtils.autoHandlerSearchDrawer(context);
                                   searchVm.onSearch();
                                 },
-                                child: Text(S.current.action_search)))
+                                child: Text(FastS.current.action_search)))
                       ],
                     );
                   }))
@@ -335,14 +336,14 @@ class SysOperLogListDataVmSub extends FastBaseListDataPageVmSub<SysOperLog> with
 
   //删除日志
   void onDelete(SysOperLog itemData) {
-    showLoading(text: S.current.label_delete_ing);
+    showLoading(text: FastS.current.label_delete_ing);
     SysOperLogRepository.delete(defCancelToken, id: itemData.operId).then((value) {
       dismissLoading();
-      AppToastUtil.showToast(msg: S.current.label_delete_success);
+      AppToastUtil.showToast(msg: FastS.current.label_delete_success);
       sendRefreshEvent();
     },
         onError: BaseDio.errProxyFunc(
-            defErrMsg: S.current.label_delete_failed,
+            defErrMsg: FastS.current.label_delete_failed,
             onError: (error) {
               dismissLoading();
             }));

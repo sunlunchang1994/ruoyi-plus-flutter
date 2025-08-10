@@ -1,4 +1,4 @@
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:ruoyi_plus_flutter/code/base/entity/tenant_entity.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/adapter/app_select_box.dart';

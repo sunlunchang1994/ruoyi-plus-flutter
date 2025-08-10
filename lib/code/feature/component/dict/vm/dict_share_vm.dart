@@ -1,4 +1,4 @@
-import 'package:flutter_slc_boxes/flutter/slc/common/object_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/object_util.dart';
 
 import '../entity/tree_dict.dart';
 import '../utils/dict_ui_utils.dart';

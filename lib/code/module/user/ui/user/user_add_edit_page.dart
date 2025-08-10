@@ -1,14 +1,15 @@
 import 'package:dio/dio.dart';
+import 'package:fast/gen/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_slc_boxes/flutter/slc/adapter/select_box.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/mvvm/status_widget.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
+import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
+import 'package:boxes_flutter/flutter/slc/common/log_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
+import 'package:boxes_flutter/flutter/slc/mvvm/status_widget.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/res/styles.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
@@ -16,18 +17,18 @@ import 'package:ruoyi_plus_flutter/code/base/api/result_entity.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/config/constant_user_api.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
-import 'package:ruoyi_plus_flutter/code/lib/form/fast_form_builder_field_option.dart';
-import 'package:ruoyi_plus_flutter/code/lib/form/fast_form_builder_text_field.dart';
-import 'package:ruoyi_plus_flutter/code/lib/form/form_operate_with_provider.dart';
-import 'package:ruoyi_plus_flutter/code/lib/form/input_decoration_utils.dart';
+import 'package:fast/fast/utils/app_toast.dart';
+import 'package:fast/fast/provider/fast_select.dart';
+import 'package:fast/fast/vd/request_token_manager.dart';
+import 'package:form_extra/form/fast_form_builder_field_option.dart';
+import 'package:form_extra/form/fast_form_builder_text_field.dart';
+import 'package:form_extra/form/form_operate_with_provider.dart';
+import 'package:form_extra/form/input_decoration_utils.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/user_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_select_single_page.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_select_multiple_page.dart';
 
-import '../../../../../generated/l10n.dart';
+import '../../../../../gen/l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
 import '../../../../base/vm/global_vm.dart';
@@ -39,7 +40,7 @@ import '../../../../feature/bizapi/user/entity/user_info_vo.dart';
 import '../../../../feature/component/dict/entity/tree_dict.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
-import '../../../../lib/form/form_builder_flow_tag.dart';
+import 'package:form_extra/form/form_builder_flow_tag.dart';
 import '../../entity/dept_tree.dart';
 import '../post/post_list_select_multiple_page.dart';
 
@@ -97,7 +98,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
             return [
               if (globalVm.userShareVm.hasPermiAny(["system:user:remove"]))
                 PopupMenuItem(
-                  child: Text(S.current.action_delete),
+                  child: Text(FastS.current.action_delete),
                   onTap: () {
                     FastDialogUtils.showDelConfirmDialog(context,
                             contentText: TextUtil.format(
@@ -118,7 +119,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                         builder: (context) {
                           String newPassword = "";
                           return AlertDialog(
-                              title: Text(S.current.label_prompt),
+                              title: Text(FastS.current.label_prompt),
                               content: TextField(
                                   decoration: InputDecoration(
                                       floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -130,8 +131,8 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                                   FastDialogUtils.getCommonlyAction(context, positiveLister: () {
                                 if (TextUtil.isEmpty(newPassword)) {
                                   AppToastUtil.showToast(
-                                      msg:
-                                          S.current.app_label_required_information_cannot_be_empty);
+                                      msg: FastS
+                                          .current.app_label_required_information_cannot_be_empty);
                                   return;
                                 }
                                 Navigator.pop(context);
@@ -171,7 +172,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(S.current.user_label_nike_name),
-                            hintText: S.current.app_label_please_input,
+                            hintText: FastS.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().userInfo!.nickName = value;
@@ -193,7 +194,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
                                 S.current.user_label_user_owner_dept),
-                            hintText: S.current.app_label_please_choose,
+                            hintText: FastS.current.app_label_please_choose,
                             border: const UnderlineInputBorder()),
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(),
@@ -207,7 +208,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.user_label_phone_number,
-                            hintText: S.current.app_label_please_input,
+                            hintText: FastS.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().userInfo!.phonenumber = value;
@@ -226,7 +227,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.user_label_mailbox,
-                            hintText: S.current.app_label_please_input,
+                            hintText: FastS.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().userInfo!.email = value;
@@ -249,7 +250,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(S.current.user_label_user_name),
-                            hintText: S.current.app_label_please_input,
+                            hintText: FastS.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().userInfo!.userName = value;
@@ -273,7 +274,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                                 floatingLabelBehavior: FloatingLabelBehavior.always,
                                 label:
                                     InputDecUtils.getRequiredLabel(S.current.user_label_password),
-                                hintText: S.current.app_label_please_input,
+                                hintText: FastS.current.app_label_please_input,
                                 border: const UnderlineInputBorder()),
                             onChanged: (value) {
                               getVm().userInfo!.password = value;
@@ -302,7 +303,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.user_label_sex,
-                            hintText: S.current.app_label_please_choose,
+                            hintText: FastS.current.app_label_please_choose,
                             border: const UnderlineInputBorder(),
                             suffixIcon: NqSelector<_UserAddEditVm, String?>(
                                 builder: (context, value, child) {
@@ -346,7 +347,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                         decoration: MySelectDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(S.current.user_label_role),
-                            hintText: S.current.app_label_please_choose,
+                            hintText: FastS.current.app_label_please_choose,
                             border: UnderlineInputBorder(),
                             suffixIcon: InputDecUtils.getSuffixAction(InputDecUtils.moreIcon, () {
                               _showSelectRoleDialog(context);
@@ -369,7 +370,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                       decoration: MySelectDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           label: Text(S.current.user_label_post),
-                          hintText: S.current.app_label_please_choose,
+                          hintText: FastS.current.app_label_please_choose,
                           border: UnderlineInputBorder(),
                           suffixIcon: InputDecUtils.getSuffixAction(InputDecUtils.moreIcon, () {
                             _showSelectPostDialog(context);
@@ -381,8 +382,8 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                         initialValue: getVm().userInfo!.remark,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelText: S.current.app_label_remark,
-                            hintText: S.current.app_label_please_input,
+                            labelText: FastS.current.app_label_remark,
+                            hintText: FastS.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         textInputAction: TextInputAction.next,
                         onChanged: (value) {
@@ -429,10 +430,10 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
         context: context,
         builder: (context) {
           return AlertDialog(
-              title: Text(S.current.label_prompt),
-              content: Text(S.current.app_label_data_save_prompt),
+              title: Text(FastS.current.label_prompt),
+              content: Text(FastS.current.app_label_data_save_prompt),
               actions: FastDialogUtils.getCommonlyAction(context,
-                  positiveText: S.current.action_exit, positiveLister: () {
+                  positiveText: FastS.current.action_exit, positiveLister: () {
                 Navigator.pop(context);
                 getVm().abandonEdit();
               }));
@@ -544,12 +545,12 @@ class _UserAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   void onSave() {
     if (!_checkSaveParams()) {
-      AppToastUtil.showToast(msg: S.current.app_label_form_check_hint);
+      AppToastUtil.showToast(msg: FastS.current.app_label_form_check_hint);
       return;
     }
-    showLoading(text: S.current.label_save_ing);
+    showLoading(text: FastS.current.label_save_ing);
     UserServiceRepository.submit(userInfo!, defCancelToken).then((value) {
-      AppToastUtil.showToast(msg: S.current.label_submitted_success);
+      AppToastUtil.showToast(msg: FastS.current.label_submitted_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;
@@ -560,21 +561,21 @@ class _UserAddEditVm extends AppBaseVm with CancelTokenAssist {
   }
 
   void onDelete() {
-    showLoading(text: S.current.label_delete_ing);
+    showLoading(text: FastS.current.label_delete_ing);
     UserServiceRepository.delete(defCancelToken, userId: userInfo!.userId).then((value) {
       dismissLoading();
-      AppToastUtil.showToast(msg: S.current.label_delete_success);
+      AppToastUtil.showToast(msg: FastS.current.label_delete_success);
       finish(result: true);
     }, onError: BaseDio.errProxyFunc(onError: (error) {
       dismissLoading();
-      AppToastUtil.showToast(msg: S.current.label_delete_failed);
+      AppToastUtil.showToast(msg: FastS.current.label_delete_failed);
     }));
   }
 
   //重置密码
   void onResetPassword(String newPassword) {
     userInfo!.password = newPassword;
-    showLoading(text: S.current.label_submit_ing);
+    showLoading(text: FastS.current.label_submit_ing);
     UserServiceRepository.resetPwd(userInfo!, defCancelToken).then((value) {
       dismissLoading();
       AppToastUtil.showToast(msg: S.current.user_label_reset_password_success);

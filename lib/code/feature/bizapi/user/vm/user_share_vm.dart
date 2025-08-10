@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_slc_boxes/flutter/slc/code/observable_field.dart';
+import 'package:boxes_flutter/flutter/slc/code/observable_field.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/router_vo.dart';
 
 import '../../../../base/api/api_config.dart';

@@ -1,34 +1,35 @@
 //个人资料
 import 'package:dio/dio.dart';
+import 'package:fast/gen/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/res/styles.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/utils/fast_dialog_utils.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
+import 'package:fast/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/repository/remote/pub_user_profile_api.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
-import 'package:ruoyi_plus_flutter/code/lib/form/form_operate_with_provider.dart';
+import 'package:fast/fast/vd/request_token_manager.dart';
+import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/user/info/update_pwd_page.dart';
 import 'package:ruoyi_plus_flutter/res/dimens.dart';
 import '../../../../../base/api/base_dio.dart';
 import '../../../../../base/api/result_entity.dart';
-import '../../../../../lib/form/image_picker/form_builder_single_image_picker.dart';
-import '../../../../../lib/form/fast_form_builder_text_field.dart';
+import 'package:form_extra/form/image_picker/form_builder_single_image_picker.dart';
+import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import '../../../../../base/vm/global_vm.dart';
 import '../../../../../feature/component/crop/crop_image.dart';
 import '../../../../../feature/bizapi/user/entity/avatar_vo.dart';
 import '../../../../../feature/bizapi/user/entity/user.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../../generated/l10n.dart';
+import '../../../../../../gen/l10n.dart';
 import '../../../../../base/ui/app_mvvm.dart';
 
 class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
@@ -90,8 +91,8 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
                                   previewWidth: 96,
                                   previewHeight: 96,
-                                  placeholderImage: const AssetImage(
-                                      "assets/images/base/ic_def_user_head.png"),
+                                  placeholderImage:
+                                      const AssetImage("assets/images/base/ic_def_user_head.png"),
                                   imageErrorBuilder: (
                                     context,
                                     error,
@@ -132,7 +133,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                     decoration: MyInputDecoration(
                                         floatingLabelBehavior: FloatingLabelBehavior.always,
                                         labelText: S.current.user_label_nike_name,
-                                        hintText: S.current.app_label_please_input,
+                                        hintText: FastS.current.app_label_please_input,
                                         border: const UnderlineInputBorder()),
                                     onChanged: (value) {
                                       getVm().applyInfoChange();
@@ -146,7 +147,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                     decoration: MyInputDecoration(
                                         floatingLabelBehavior: FloatingLabelBehavior.always,
                                         labelText: S.current.user_label_phone_number,
-                                        hintText: S.current.app_label_please_input,
+                                        hintText: FastS.current.app_label_please_input,
                                         border: const UnderlineInputBorder()),
                                     onChanged: (value) {
                                       getVm().applyInfoChange();
@@ -160,7 +161,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                     decoration: MyInputDecoration(
                                         floatingLabelBehavior: FloatingLabelBehavior.always,
                                         labelText: S.current.user_label_mailbox,
-                                        hintText: S.current.app_label_please_input,
+                                        hintText: FastS.current.app_label_please_input,
                                         border: const UnderlineInputBorder()),
                                     onChanged: (value) {
                                       getVm().applyInfoChange();
@@ -181,7 +182,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                     decoration: MySelectDecoration(
                                         floatingLabelBehavior: FloatingLabelBehavior.always,
                                         labelText: S.current.user_label_sex,
-                                        hintText: S.current.app_label_please_input,
+                                        hintText: FastS.current.app_label_please_input,
                                         border: const UnderlineInputBorder())),
                               ],
                             ))))));
@@ -195,10 +196,10 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
         context: context,
         builder: (context) {
           return AlertDialog(
-              title: Text(S.current.label_prompt),
-              content: Text(S.current.app_label_data_save_prompt),
+              title: Text(FastS.current.label_prompt),
+              content: Text(FastS.current.app_label_data_save_prompt),
               actions: FastDialogUtils.getCommonlyAction(context,
-                  positiveText: S.current.action_exit, positiveLister: () {
+                  positiveText: FastS.current.action_exit, positiveLister: () {
                 Navigator.pop(context);
                 getVm().abandonEdit();
               }));
@@ -259,10 +260,10 @@ class _ProfileModel extends AppBaseVm with CancelTokenAssist {
 
   void save() {
     if (!_checkSaveParams()) {
-      AppToastUtil.showToast(msg: S.current.app_label_required_information_cannot_be_empty);
+      AppToastUtil.showToast(msg: FastS.current.app_label_required_information_cannot_be_empty);
       return;
     }
-    showLoading(text: S.current.label_save_ing);
+    showLoading(text: FastS.current.label_save_ing);
     if (_selectAvatarPath != null) {
       PubUserProfileRepository.avatar(_selectAvatarPath!).then((IntensifyEntity<AvatarVo> value) {
         //提交成功了设置头像路径为空，防止后续提交信息时重复提交
@@ -288,13 +289,13 @@ class _ProfileModel extends AppBaseVm with CancelTokenAssist {
         .then((result) {
       //更新成功了把当前的值设置给全局（此处应该重新调用获取用户信息的接口重新赋值，暂时先这么写）
       GlobalVm().userShareVm.userInfoOf.value!.user = userInfo;
-      AppToastUtil.showToast(msg: S.current.toast_edit_success);
+      AppToastUtil.showToast(msg: FastS.current.toast_edit_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;
     },
             onError: BaseDio.errProxyFunc(
-                defErrMsg: S.current.toast_edit_failure,
+                defErrMsg: FastS.current.toast_edit_failure,
                 onError: (error) {
                   dismissLoading();
                 }));

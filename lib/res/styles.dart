@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 import '/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/colors.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
+import 'package:boxes_flutter/flutter/slc/res/colors.dart';
+import 'package:boxes_flutter/flutter/slc/res/styles.dart';
 
 class AppStyles extends SlcStyles {
   static ThemeData? _appLightTheme = null;

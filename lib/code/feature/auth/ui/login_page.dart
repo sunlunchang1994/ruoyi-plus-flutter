@@ -3,18 +3,20 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:fast/fast/provider/fast_select.dart';
+import 'package:fast/fast/utils/app_toast.dart';
+import 'package:fast/fast/utils/bar_utils.dart';
+import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
+import 'package:form_extra/form/fast_form_builder_text_field.dart';
+import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:ruoyi_plus_flutter/code/env_config.dart';
 import 'package:ruoyi_plus_flutter/code/feature/auth/repository/remote/auth_api.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/remote/pub_menu_api.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
-import 'package:ruoyi_plus_flutter/code/lib/form/form_operate_with_provider.dart';
 import '../../../base/api/base_dio.dart';
-import '../../../lib/fast/provider/fast_select.dart';
-import '../../../lib/form/fast_form_builder_text_field.dart';
 import '../../bizapi/system/repository/remote/pub_dict_data_api.dart';
 import '../../bizapi/user/repository/local/user_config.dart';
 import '../entity/captcha.dart';
@@ -22,15 +24,13 @@ import '../../bizapi/system/entity/router_vo.dart';
 import '../../bizapi/system/entity/sys_tenant.dart';
 import '../../bizapi/user/repository/remote/pub_user_api.dart';
 import '../../../module/biz_main/ui/main_page.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../generated/l10n.dart';
+import '../../../../gen/l10n.dart';
 import '../../../base/api/result_entity.dart';
 import '../../../base/ui/app_mvvm.dart';
-import '../../../lib/fast/utils/bar_utils.dart';
-import '../../../lib/fast/utils/app_toast.dart';
 import '../entity/login_tenant_vo.dart';
 
 /// @author sunlunchang

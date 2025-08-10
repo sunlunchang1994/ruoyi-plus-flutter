@@ -1,14 +1,14 @@
+import 'package:fast/fast/provider/fast_select.dart';
+import 'package:fast/gen/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/webview/web_view_util.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../../../../generated/l10n.dart';
+import '../../../../gen/l10n.dart';
 
 /// @author sunlunchang
 /// 网页页面
@@ -52,13 +52,13 @@ class AppWebViewPage extends AppBaseStatelessWidget<AppWebViewVm> {
                   PopupMenuButton(itemBuilder: (context) {
                     return [
                       PopupMenuItem(
-                          value: S.current.action_refresh, child: Text(S.current.action_refresh)),
+                          value: FastS.current.action_refresh, child: Text(FastS.current.action_refresh)),
                       PopupMenuItem(
                           value: S.current.app_label_open_url_in_sys_browser,
                           child: Text(S.current.app_label_open_url_in_sys_browser))
                     ];
                   }, onSelected: (value) {
-                    if (value == S.current.action_refresh) {
+                    if (value == FastS.current.action_refresh) {
                       getVm().controller.reload();
                     } else if (value == S.current.app_label_open_url_in_sys_browser) {
                       launchUrl(Uri.parse(url));

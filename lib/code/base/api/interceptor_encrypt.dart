@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:encrypt/encrypt.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/encrypt_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/encrypt_util.dart';
 import 'package:retrofit/http.dart';
 
 import '../api/api_config.dart';

@@ -1,4 +1,4 @@
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 
 /// @author sunlunchang
 /// 媒体类型

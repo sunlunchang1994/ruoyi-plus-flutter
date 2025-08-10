@@ -60,7 +60,7 @@ admin 账号: admin admin123
 
 | 名称                                                                                  | 功能说明                                   |
 |-------------------------------------------------------------------------------------|----------------------------------------|
-| [flutter_slc_boxes](https://pub.dev/packages/flutter_slc_boxes)                     | 本人开发的基于mvvm设计模式的基础框架，附带路由页面状态，工具库      |
+| [boxes_flutter](https://pub.dev/packages/boxes_flutter)                     | 本人开发的基于mvvm设计模式的基础框架，附带路由页面状态，工具库      |
 | route                      | 未使用第三方路由，使用flutter官方路由，无入侵式的提供了快速操作api |
 | [provider](https://pub.dev/packages/provider)                                       | 状态管理                                   |
 | [cupertino_icons](https://pub.dev/packages/cupertino_icons)                         | 图表库                                    |

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/network/api_constant.dart';
+import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
+import 'package:boxes_flutter/flutter/slc/network/api_constant.dart';
 
 import '../api/api_config.dart';
 

@@ -1,39 +1,36 @@
-import 'package:dio/dio.dart';
+import 'package:fast/gen/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/slc_num_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/mvvm/status_widget.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/slc_num_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
+import 'package:boxes_flutter/flutter/slc/mvvm/status_widget.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/utils/fast_dialog_utils.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
+import 'package:fast/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/dept.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/user.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
-import 'package:ruoyi_plus_flutter/code/lib/form/fast_form_builder_field_option.dart';
-import 'package:ruoyi_plus_flutter/code/lib/form/form_operate_with_provider.dart';
+import 'package:fast/fast/vd/request_token_manager.dart';
+import 'package:form_extra/form/fast_form_builder_field_option.dart';
+import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_select_single_page.dart';
 
-import '../../../../../generated/l10n.dart';
+import '../../../../../gen/l10n.dart';
 import '../../../../base/api/base_dio.dart';
-import '../../../../base/api/result_entity.dart';
 import '../../../../base/ui/app_mvvm.dart';
 import '../../../../base/vm/global_vm.dart';
-import '../../../../lib/form/fast_form_builder_text_field.dart';
-import '../../../../lib/form/input_decoration_utils.dart';
+import 'package:form_extra/form/fast_form_builder_text_field.dart';
+import 'package:form_extra/form/input_decoration_utils.dart';
 import '../../config/constant_user.dart';
 import '../../entity/dept_tree.dart';
 import '../user/user_list_select_by_dept_page.dart';
-import '../user/user_list_select_single_page.dart';
 
 ///部门信息新增修改
 class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
@@ -86,7 +83,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
                           return [
                             if (globalVm.userShareVm.hasPermiAny(["system:dept:remove"]))
                               PopupMenuItem(
-                                child: Text(S.current.action_delete),
+                                child: Text(FastS.current.action_delete),
                                 onTap: () {
                                   FastDialogUtils.showDelConfirmDialog(context,
                                       contentText: TextUtil.format(
@@ -137,7 +134,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
           decoration: MySelectDecoration(
               floatingLabelBehavior: FloatingLabelBehavior.always,
               label: InputDecUtils.getRequiredLabel(S.current.user_label_dept_parent_name),
-              hintText: S.current.app_label_please_choose,
+              hintText: FastS.current.app_label_please_choose,
               border: const UnderlineInputBorder()),
           validator: FormBuilderValidators.compose([
             FormBuilderValidators.required(),
@@ -154,7 +151,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
               label: InputDecUtils.getRequiredLabel(S.current.user_label_dept_name),
-              hintText: S.current.app_label_please_input,
+              hintText: FastS.current.app_label_please_input,
               border: const UnderlineInputBorder()),
           onChanged: (value) {
             getVm().applyInfoChange();
@@ -172,7 +169,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
               labelText: S.current.user_label_dept_category,
-              hintText: S.current.app_label_please_input,
+              hintText: FastS.current.app_label_please_input,
               border: const UnderlineInputBorder()),
           onChanged: (value) {
             getVm().applyInfoChange();
@@ -191,7 +188,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
             contentPadding: EdgeInsets.zero,
             floatingLabelBehavior: FloatingLabelBehavior.always,
             label: InputDecUtils.getRequiredLabel(S.current.app_label_show_sort),
-            hintText: S.current.app_label_please_input,
+            hintText: FastS.current.app_label_please_input,
             border: const UnderlineInputBorder()),
         onChanged: (value) {
           getVm().applyInfoChange();
@@ -212,7 +209,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
           decoration: MySelectDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.always,
             labelText: S.current.user_label_dept_leader,
-            hintText: S.current.app_label_please_choose,
+            hintText: FastS.current.app_label_please_choose,
             border: const UnderlineInputBorder(),
             suffixIcon: InputDecUtils.autoClearSuffixBySelect(
                 TextUtil.isNotEmpty(getVm().deptInfo!.leaderName), onPressed: () {
@@ -231,7 +228,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
               labelText: S.current.user_label_dept_contact_number,
-              hintText: S.current.app_label_please_input,
+              hintText: FastS.current.app_label_please_input,
               border: const UnderlineInputBorder()),
           onChanged: (value) {
             //此处需改成选择的
@@ -252,7 +249,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
               labelText: S.current.user_label_dept_contact_email,
-              hintText: S.current.app_label_please_input,
+              hintText: FastS.current.app_label_please_input,
               border: const UnderlineInputBorder()),
           onChanged: (value) {
             //此处需改成选择的
@@ -296,10 +293,10 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
         context: context,
         builder: (context) {
           return AlertDialog(
-              title: Text(S.current.label_prompt),
-              content: Text(S.current.app_label_data_save_prompt),
+              title: Text(FastS.current.label_prompt),
+              content: Text(FastS.current.app_label_data_save_prompt),
               actions: FastDialogUtils.getCommonlyAction(context,
-                  positiveText: S.current.action_exit, positiveLister: () {
+                  positiveText: FastS.current.action_exit, positiveLister: () {
                 Navigator.pop(context);
                 getVm().abandonEdit();
               }));
@@ -316,7 +313,7 @@ class _DeptAddEditModel extends AppBaseVm with CancelTokenAssist {
 
   void initVm(Dept? deptInfo, Dept? parentDept) {
     if (deptInfo == null && parentDept == null) {
-      AppToastUtil.showToast(msg: S.current.label_select_parameter_is_missing);
+      AppToastUtil.showToast(msg: FastS.current.label_select_parameter_is_missing);
       finish();
       return;
     }
@@ -393,12 +390,12 @@ class _DeptAddEditModel extends AppBaseVm with CancelTokenAssist {
 
   void onSave() {
     if (!_checkSaveParams()) {
-      AppToastUtil.showToast(msg: S.current.app_label_form_check_hint);
+      AppToastUtil.showToast(msg: FastS.current.app_label_form_check_hint);
       return;
     }
-    showLoading(text: S.current.label_save_ing);
+    showLoading(text: FastS.current.label_save_ing);
     DeptRepository.submit(deptInfo!, defCancelToken).then((value) {
-      AppToastUtil.showToast(msg: S.current.label_submitted_success);
+      AppToastUtil.showToast(msg: FastS.current.label_submitted_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;
@@ -410,14 +407,14 @@ class _DeptAddEditModel extends AppBaseVm with CancelTokenAssist {
 
   //删除部门
   void onDelete() {
-    showLoading(text: S.current.label_delete_ing);
+    showLoading(text: FastS.current.label_delete_ing);
     DeptRepository.delete(defCancelToken, deptId: deptInfo!.deptId).then((value) {
       dismissLoading();
-      AppToastUtil.showToast(msg: S.current.label_delete_success);
+      AppToastUtil.showToast(msg: FastS.current.label_delete_success);
       finish(result: true);
     },
         onError: BaseDio.errProxyFunc(
-            defErrMsg: S.current.label_delete_failed,
+            defErrMsg: FastS.current.label_delete_failed,
             onError: (error) {
               dismissLoading();
             }));

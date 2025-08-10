@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/object_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/mvvm/fast_mvvm.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/object_util.dart';
+import 'package:boxes_flutter/flutter/slc/mvvm/fast_mvvm.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
@@ -13,9 +13,9 @@ import '../../../../base/vm/global_vm.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
-import '../../../../lib/fast/utils/widget_utils.dart';
-import '../../../../lib/fast/vd/list_data_component.dart';
-import '../../../../lib/fast/vd/refresh/content_empty.dart';
+import 'package:fast/fast/utils/widget_utils.dart';
+import 'package:fast/fast/vd/list_data_component.dart';
+import 'package:fast/fast/vd/refresh/content_empty.dart';
 import '../../entity/dept_tree.dart';
 import '../../repository/remote/dept_api.dart';
 import 'package:dio/dio.dart';

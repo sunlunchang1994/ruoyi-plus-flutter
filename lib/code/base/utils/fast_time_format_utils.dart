@@ -1,7 +1,7 @@
-import 'package:flutter_slc_boxes/flutter/slc/common/date_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/date_util.dart';
 
 import '../config/constant_base.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:intl/intl.dart';
 
 /// @author sunlunchang

@@ -4,12 +4,12 @@ import 'dart:typed_data';
 import 'package:crop_your_image/crop_your_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/slc_file_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/dialog/dialog_loading_vm.dart';
+import 'package:boxes_flutter/flutter/slc/common/slc_file_util.dart';
+import 'package:boxes_flutter/flutter/slc/dialog/dialog_loading_vm.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../../../generated/l10n.dart';
+import '../../../../gen/l10n.dart';
 
 /// @author sunlunchang
 /// 裁剪图片控件

@@ -1,21 +1,22 @@
 import 'dart:io';
 
+import 'package:fast/gen/l10n.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_slc_boxes/flutter/slc/adapter/select_box.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/object_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
+import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
+import 'package:boxes_flutter/flutter/slc/common/object_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/utils/widget_utils.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vd.dart';
+import 'package:fast/fast/provider/fast_select.dart';
+import 'package:fast/fast/utils/widget_utils.dart';
+import 'package:fast/fast/vd/page_data_vd.dart';
 
-import '../../../../../generated/l10n.dart';
+import '../../../../../gen/l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
@@ -23,8 +24,8 @@ import '../../../../feature/bizapi/system/entity/sys_oss_upload_vo.dart';
 import '../../../../feature/bizapi/system/entity/sys_oss_vo.dart';
 import '../../../../feature/bizapi/system/repository/remote/pub_oss_api.dart';
 import '../../../../feature/component/attachment/utils/media_type_constant.dart';
-import '../../../../lib/fast/permission/permission_compat.dart';
-import '../../../../lib/fast/utils/app_toast.dart';
+import 'package:fast/fast/permission/permission_compat.dart';
+import 'package:fast/fast/utils/app_toast.dart';
 import '../../repository/remote/sys_oss_api.dart';
 import 'config/oss_config_list_browser_page.dart';
 import 'oss_list_page_vd.dart';
@@ -224,7 +225,7 @@ class _OssListBrowserVm extends AppBaseVm {
     if (Platform.isAndroid) {
       final status = await PermissionCompat.requestStorage;
       if (!status.isGranted) {
-        AppToastUtil.showToast(msg: S.current.label_permission_file_picker_hint);
+        AppToastUtil.showToast(msg: FastS.current.label_permission_file_picker_hint);
         return;
       }
     }
@@ -255,13 +256,13 @@ class _OssListBrowserVm extends AppBaseVm {
   }
 
   void _uploadSelectByPath(String path) {
-    showLoading(text: S.current.label_file_are_uploading);
+    showLoading(text: FastS.current.label_file_are_uploading);
     PubOssRepository.upload(path).then((IntensifyEntity<SysOssUploadVo> value) {
       dismissLoading();
       listVmSub.sendRefreshEvent();
     },
         onError: BaseDio.errProxyFunc(
-            defErrMsg: S.current.label_file_upload_by_file_failed,
+            defErrMsg: FastS.current.label_file_upload_by_file_failed,
             onError: (error) {
               dismissLoading();
             }));
@@ -286,14 +287,14 @@ class _OssListBrowserVm extends AppBaseVm {
     }
 
     //删除
-    showLoading(text: S.current.label_delete_ing);
+    showLoading(text: FastS.current.label_delete_ing);
     SysOssRepository.delete(listVmSub.defCancelToken, ids: idList).then((value) {
       dismissLoading();
-      AppToastUtil.showToast(msg: S.current.label_delete_success);
+      AppToastUtil.showToast(msg: FastS.current.label_delete_success);
       listVmSub.sendRefreshEvent();
     },
         onError: BaseDio.errProxyFunc(
-            defErrMsg: S.current.label_delete_failed,
+            defErrMsg: FastS.current.label_delete_failed,
             onError: (error) {
               dismissLoading();
             }));

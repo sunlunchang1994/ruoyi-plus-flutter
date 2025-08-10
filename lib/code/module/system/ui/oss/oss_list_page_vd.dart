@@ -1,34 +1,35 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fast/gen/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
+import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
+import 'package:boxes_flutter/flutter/slc/common/screen_util.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/res/styles.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_oss_vo.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/attachment/utils/media_type_constant.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
+import 'package:fast/fast/vd/page_data_vm_sub.dart';
+import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/oss/oss_details_page.dart';
 
-import '../../../../../../generated/l10n.dart';
+import '../../../../../../gen/l10n.dart';
 import '../../../../../res/dimens.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';
 import '../../../../base/vm/global_vm.dart';
-import '../../../../lib/fast/provider/fast_select.dart';
-import '../../../../lib/fast/utils/widget_utils.dart';
-import '../../../../lib/fast/vd/list_data_component.dart';
-import '../../../../lib/fast/vd/refresh/content_empty.dart';
+import 'package:fast/fast/provider/fast_select.dart';
+import 'package:fast/fast/utils/widget_utils.dart';
+import 'package:fast/fast/vd/list_data_component.dart';
+import 'package:fast/fast/vd/refresh/content_empty.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../lib/form/fast_form_builder_text_field.dart';
-import '../../../../lib/form/form_operate_with_provider.dart';
-import '../../../../lib/form/input_decoration_utils.dart';
+import 'package:form_extra/form/fast_form_builder_text_field.dart';
+import 'package:form_extra/form/form_operate_with_provider.dart';
+import 'package:form_extra/form/input_decoration_utils.dart';
 import '../../config/constant_sys.dart';
 import '../../repository/remote/sys_oss_api.dart';
 
@@ -82,7 +83,7 @@ class OssListPageWidget {
                     height: AppDimens.sysItemOssImgSize,
                     imageUrl: listItem.url ?? "",
                     placeholder: (context, url) {
-                      return Image.asset("assets/images/base/ic_loading.png",
+                      return Image.asset("assets/images/base/ic_loading_png.png",
                           width: AppDimens.sysItemOssImgSize, height: AppDimens.sysItemOssImgSize);
                     },
                     errorWidget: (
@@ -150,7 +151,7 @@ class OssListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oss_file_name,
-                          hintText: S.current.app_label_please_input,
+                          hintText: FastS.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
@@ -170,7 +171,7 @@ class OssListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oss_original_name,
-                          hintText: S.current.app_label_please_input,
+                          hintText: FastS.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
@@ -190,7 +191,7 @@ class OssListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oss_file_suffix,
-                          hintText: S.current.app_label_please_input,
+                          hintText: FastS.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
@@ -210,7 +211,7 @@ class OssListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oss_service,
-                          hintText: S.current.app_label_please_input,
+                          hintText: FastS.current.app_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
@@ -233,7 +234,7 @@ class OssListPageWidget {
                                 onPressed: () {
                                   listVmSub.onResetSearch();
                                 },
-                                child: Text(S.current.action_reset))),
+                                child: Text(FastS.current.action_reset))),
                         ThemeUtil.getSizedBox(width: SlcDimens.appDimens16),
                         Expanded(
                             child: FilledButton(
@@ -241,7 +242,7 @@ class OssListPageWidget {
                                   WidgetUtils.autoHandlerSearchDrawer(context);
                                   listVmSub.onSearch();
                                 },
-                                child: Text(S.current.action_search)))
+                                child: Text(FastS.current.action_search)))
                       ],
                     );
                   }))

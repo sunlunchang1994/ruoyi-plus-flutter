@@ -1,11 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:fast/fast/utils/app_toast.dart';
+import 'package:fast/gen/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/log_util.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/api_config.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/utils/fast_dialog_utils.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
 
-import '../../../generated/l10n.dart';
+import '../../../gen/l10n.dart';
 import '../../feature/auth/ui/login_page.dart';
 import '../../root_page.dart';
 import '../api/result_entity.dart';
@@ -63,7 +64,7 @@ class BaseDio {
   ///获取错误结果对象
   static ResultEntity getError(dynamic error, {String? defErrMsg}) {
     LogUtil.e(error, tag: "getError");
-    defErrMsg ??= S.current.label_unknown_exception;
+    defErrMsg ??= FastS.current.label_unknown_exception;
     // 这里封装了一个 BaseError 类，会根据后端返回的code返回不同的错误类
     int defCode = ApiConfig.VALUE_CODE_SERVER_ERROR;
     if (error is Error) {
@@ -77,22 +78,22 @@ class BaseDio {
             return baseEntity;
           } else if (error.type == DioExceptionType.connectionTimeout) {
             ResultEntity baseEntity = ResultEntity.createSucceedFail(
-                S.current.label_error_connection_timeout,
+                FastS.current.label_error_connection_timeout,
                 code: ApiConfig.VALUE_CODE_ERROR_REQUEST);
             return baseEntity;
           } else if (error.type == DioExceptionType.sendTimeout) {
             ResultEntity baseEntity = ResultEntity.createSucceedFail(
-                S.current.label_error_send_timeout,
+                FastS.current.label_error_send_timeout,
                 code: ApiConfig.VALUE_CODE_ERROR_REQUEST);
             return baseEntity;
           } else if (error.type == DioExceptionType.receiveTimeout) {
             ResultEntity baseEntity = ResultEntity.createSucceedFail(
-                S.current.label_error_receive_timeout,
+                FastS.current.label_error_receive_timeout,
                 code: ApiConfig.VALUE_CODE_ERROR_REQUEST);
             return baseEntity;
           } else if (error.type == DioExceptionType.connectionError) {
             ResultEntity baseEntity = ResultEntity.createSucceedFail(
-                S.current.label_error_connection_error,
+                FastS.current.label_error_connection_error,
                 code: ApiConfig.VALUE_CODE_ERROR_REQUEST);
             return baseEntity;
           }
@@ -160,7 +161,7 @@ class BaseDio {
           context: navigatorKey.currentState!.context,
           builder: (context) {
             return AlertDialog(
-                title: Text(S.current.label_prompt),
+                title: Text(FastS.current.label_prompt),
                 content: Text(S.current.app_label_login_normal_unauthorized),
                 actions: FastDialogUtils.getCommonlyAction(context, positiveLister: () {
                   Navigator.of(context).pushNamedAndRemoveUntil(

@@ -1,0 +1,43 @@
+name: form_extra
+description: "表单扩展库"
+version: 0.0.1
+
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  boxes_flutter:
+    git:
+      url: https://gitee.com/sunlunchang/boxes-flutter.git
+  # 表单---------------------------------------
+  # 表单相关
+  flutter_form_builder: ^9.7.0
+  form_builder_extra_fields: ^11.0.0
+  form_builder_image_picker: ^4.1.0
+  # form_builder_file_picker: ^4.2.0
+  form_builder_validators: ^11.1.1
+  form_builder_phone_field: ^2.0.1
+  # form_builder_cupertino_fields: ^0.4.0 ios风格
+
+  # 图片缓存加载
+  cached_network_image: ^3.4.1
+
+  #快速开发库
+  fast:
+    path: "../../package/fast"
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.4.11
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true

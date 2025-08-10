@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_slc_boxes/flutter/slc/mvvm/base_mvvm.dart';
+import 'package:boxes_flutter/flutter/slc/mvvm/base_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/vm/dict_share_vm.dart';
 
 import '../../feature/bizapi/user/vm/user_share_vm.dart';

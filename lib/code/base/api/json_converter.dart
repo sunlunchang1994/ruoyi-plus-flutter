@@ -1,8 +1,8 @@
 // 自定义日期转换器类，用于将 DateTime 对象与字符串之间进行 JSON 转换。
-import 'package:flutter_slc_boxes/flutter/slc/common/date_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/slc_num_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/timeline_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/date_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/slc_num_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/timeline_util.dart';
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 

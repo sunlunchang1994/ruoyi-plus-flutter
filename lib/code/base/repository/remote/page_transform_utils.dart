@@ -1,4 +1,4 @@
-import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
+import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
 
 ///@author sunlunchang
 ///分页转换类

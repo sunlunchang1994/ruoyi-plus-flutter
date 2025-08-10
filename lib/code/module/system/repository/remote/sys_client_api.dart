@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart' hide Headers;
-import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
+import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
+import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/request_utils.dart';
 import 'package:ruoyi_plus_flutter/code/base/repository/remote/data_transform_utils.dart';

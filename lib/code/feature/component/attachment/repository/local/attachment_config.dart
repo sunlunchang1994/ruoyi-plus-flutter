@@ -1,4 +1,4 @@
-import 'package:ruoyi_plus_flutter/code/lib/db_base/dp_manager.dart';
+import 'package:db_base/db_base/dp_manager.dart';
 
 /// @author sunlunchang
 /// 附件配置

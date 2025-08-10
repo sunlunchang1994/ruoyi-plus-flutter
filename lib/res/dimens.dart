@@ -1,4 +1,4 @@
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 
 class AppDimens extends SlcDimens {
   //app

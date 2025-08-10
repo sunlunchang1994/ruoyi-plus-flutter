@@ -1,4 +1,4 @@
-import 'package:flutter_slc_boxes/flutter/slc/adapter/select_box.dart';
+import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../../base/api/json_converter.dart';

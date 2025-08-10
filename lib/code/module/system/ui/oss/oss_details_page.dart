@@ -2,15 +2,16 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
+import 'package:fast/gen/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/log_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/slc_file_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/log_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/slc_file_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/res/styles.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:open_file/open_file.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -22,15 +23,15 @@ import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/remote/
 import 'package:ruoyi_plus_flutter/code/feature/component/attachment/repository/local/attachment_config.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/attachment/utils/attachment_utils.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/attachment/utils/media_type_constant.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/permission/permission_compat.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/provider/fast_select.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
-import 'package:ruoyi_plus_flutter/code/lib/form/fast_form_builder_text_field.dart';
-import 'package:ruoyi_plus_flutter/code/lib/form/form_operate_with_provider.dart';
-import 'package:ruoyi_plus_flutter/code/lib/form/input_decoration_utils.dart';
+import 'package:fast/fast/permission/permission_compat.dart';
+import 'package:fast/fast/provider/fast_select.dart';
+import 'package:fast/fast/utils/app_toast.dart';
+import 'package:fast/fast/vd/request_token_manager.dart';
+import 'package:form_extra/form/fast_form_builder_text_field.dart';
+import 'package:form_extra/form/form_operate_with_provider.dart';
+import 'package:form_extra/form/input_decoration_utils.dart';
 
-import '../../../../../../generated/l10n.dart';
+import '../../../../../../gen/l10n.dart';
 import '../../../../../res/dimens.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
 import '../../../../base/vm/global_vm.dart';
@@ -109,7 +110,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                                         imageUrl: field.value ?? "",
                                                         placeholder: (context, url) {
                                                           return Image.asset(
-                                                              "assets/images/base/ic_loading.png",
+                                                              "assets/images/base/ic_loading_png.png",
                                                               width: AppDimens.sysDetailsOssImgSize,
                                                               height:
                                                                   AppDimens.sysDetailsOssImgSize);
@@ -218,7 +219,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.sys_label_oss_file_name,
-                                    hintText: S.current.app_label_not_completed,
+                                    hintText: FastS.current.app_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
                               ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
@@ -230,7 +231,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.sys_label_oss_original_name,
-                                    hintText: S.current.app_label_not_completed,
+                                    hintText: FastS.current.app_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
                               ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
@@ -242,7 +243,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.sys_label_oss_file_suffix,
-                                    hintText: S.current.app_label_not_completed,
+                                    hintText: FastS.current.app_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
                               ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
@@ -254,7 +255,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.sys_label_oss_create_by,
-                                    hintText: S.current.app_label_not_completed,
+                                    hintText: FastS.current.app_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
                               ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
@@ -266,7 +267,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.sys_label_oss_service,
-                                    hintText: S.current.app_label_not_completed,
+                                    hintText: FastS.current.app_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
                               ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
@@ -278,7 +279,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.sys_label_oss_create_tile,
-                                    hintText: S.current.app_label_not_completed,
+                                    hintText: FastS.current.app_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
                             ],
@@ -343,11 +344,11 @@ class _OssAddEditVm extends AppBaseVm with CancelTokenAssist {
       this._downloadProgress = result;
       notifyListeners();
       //提示并打开
-      AppToastUtil.showToast(msg: S.current.action_download_on_success);
+      AppToastUtil.showToast(msg: FastS.current.action_download_on_success);
       onOpenFile(result.filePath!);
     },
         onError: BaseDio.errProxyFunc(
-            defErrMsg: S.current.label_file_download_failed, onError: (error) {}));
+            defErrMsg: FastS.current.label_file_download_failed, onError: (error) {}));
   }
 
   void onOpenFile(String filePath) {
@@ -356,14 +357,14 @@ class _OssAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   //删除字典类型
   void onDelete() {
-    showLoading(text: S.current.label_delete_ing);
+    showLoading(text: FastS.current.label_delete_ing);
     SysOssRepository.delete(defCancelToken, id: sysOssVo.ossId).then((value) {
       dismissLoading();
-      AppToastUtil.showToast(msg: S.current.label_delete_success);
+      AppToastUtil.showToast(msg: FastS.current.label_delete_success);
       finish(result: true);
     },
         onError: BaseDio.errProxyFunc(
-            defErrMsg: S.current.label_delete_failed,
+            defErrMsg: FastS.current.label_delete_failed,
             onError: (error) {
               dismissLoading();
             }));

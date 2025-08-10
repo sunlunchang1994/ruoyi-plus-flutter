@@ -1,8 +1,9 @@
+import 'package:fast/gen/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 
-import '../../../../generated/l10n.dart';
+import '../../../../gen/l10n.dart';
 
 ///@author sunlunchang
 ///快速dialog工具
@@ -19,14 +20,14 @@ class FastDialogUtils {
             () {
               Navigator.pop(context);
             },
-        child: Text(negativeText ?? S.current.action_cancel),
+        child: Text(negativeText ?? FastS.current.action_cancel),
       ),
       TextButton(
           onPressed: positiveLister ??
               () {
                 Navigator.pop(context);
               },
-          child: Text(positiveText ?? S.current.action_ok))
+          child: Text(positiveText ?? FastS.current.action_ok))
     ];
   }
 
@@ -132,9 +133,9 @@ class FastDialogUtils {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text(S.current.label_prompt),
+            title: Text(FastS.current.label_prompt),
             content: content ??
-                Text(contentText ?? TextUtil.format(S.current.app_label_data_del_prompt, [""])),
+                Text(contentText ?? TextUtil.format(FastS.current.app_label_data_del_prompt, [""])),
             actions: getCommonlyAction(context, positiveLister: () {
               Navigator.pop(context, true);
             }, negativeLister: () {

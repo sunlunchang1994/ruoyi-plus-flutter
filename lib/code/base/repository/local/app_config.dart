@@ -1,6 +1,5 @@
+import 'package:db_base/db_base/dp_manager.dart';
 import 'package:flutter/material.dart';
-
-import '../../../lib/db_base/dp_manager.dart';
 
 /// @author sunlunchang
 /// app全局的相关配置

@@ -1,13 +1,20 @@
 import 'package:dio/dio.dart';
+import 'package:fast/fast/utils/app_toast.dart';
+import 'package:fast/fast/vd/request_token_manager.dart';
+import 'package:fast/gen/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/text_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/mvvm/status_widget.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/styles.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
+import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
+import 'package:boxes_flutter/flutter/slc/mvvm/status_widget.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/res/styles.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:form_extra/form/fast_form_builder_field_option.dart';
+import 'package:form_extra/form/fast_form_builder_text_field.dart';
+import 'package:form_extra/form/form_operate_with_provider.dart';
+import 'package:form_extra/form/input_decoration_utils.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
@@ -15,14 +22,8 @@ import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_config.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/utils/app_toast.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
-import 'package:ruoyi_plus_flutter/code/lib/form/fast_form_builder_field_option.dart';
-import 'package:ruoyi_plus_flutter/code/lib/form/fast_form_builder_text_field.dart';
-import 'package:ruoyi_plus_flutter/code/lib/form/form_operate_with_provider.dart';
-import 'package:ruoyi_plus_flutter/code/lib/form/input_decoration_utils.dart';
 
-import '../../../../../../generated/l10n.dart';
+import '../../../../../../gen/l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
@@ -77,7 +78,7 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
                           return [
                             if (globalVm.userShareVm.hasPermiAny(["system:config:remove"]))
                               PopupMenuItem(
-                                child: Text(S.current.action_delete),
+                                child: Text(FastS.current.action_delete),
                                 onTap: () {
                                   FastDialogUtils.showDelConfirmDialog(context,
                                       contentText: TextUtil.format(
@@ -120,7 +121,7 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(S.current.sys_label_config_name),
-                            hintText: S.current.app_label_please_input,
+                            hintText: FastS.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysConfig!.configName = value;
@@ -138,7 +139,7 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(S.current.sys_label_config_key),
-                            hintText: S.current.app_label_please_input,
+                            hintText: FastS.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysConfig!.configKey = value;
@@ -156,7 +157,7 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(S.current.sys_label_config_value),
-                            hintText: S.current.app_label_please_input,
+                            hintText: FastS.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysConfig!.configValue = value;
@@ -193,8 +194,8 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelText: S.current.app_label_remark,
-                            hintText: S.current.app_label_please_input,
+                            labelText: FastS.current.app_label_remark,
+                            hintText: FastS.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         textInputAction: TextInputAction.next,
                         onChanged: (value) {
@@ -212,10 +213,10 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
         context: context,
         builder: (context) {
           return AlertDialog(
-              title: Text(S.current.label_prompt),
-              content: Text(S.current.app_label_data_save_prompt),
+              title: Text(FastS.current.label_prompt),
+              content: Text(FastS.current.app_label_data_save_prompt),
               actions: FastDialogUtils.getCommonlyAction(context,
-                  positiveText: S.current.action_exit, positiveLister: () {
+                  positiveText: FastS.current.action_exit, positiveLister: () {
                 Navigator.pop(context);
                 getVm().abandonEdit();
               }));
@@ -274,12 +275,12 @@ class _ConfigAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   void onSave() {
     if (!_checkSaveParams()) {
-      AppToastUtil.showToast(msg: S.current.app_label_form_check_hint);
+      AppToastUtil.showToast(msg: FastS.current.app_label_form_check_hint);
       return;
     }
-    showLoading(text: S.current.label_save_ing);
+    showLoading(text: FastS.current.label_save_ing);
     SysConfigRepository.submit(sysConfig!, defCancelToken).then((value) {
-      AppToastUtil.showToast(msg: S.current.label_submitted_success);
+      AppToastUtil.showToast(msg: FastS.current.label_submitted_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;
@@ -291,14 +292,14 @@ class _ConfigAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   //删除参数配置
   void onDelete() {
-    showLoading(text: S.current.label_delete_ing);
+    showLoading(text: FastS.current.label_delete_ing);
     SysConfigRepository.delete(defCancelToken, configId: sysConfig!.configId).then((value) {
       dismissLoading();
-      AppToastUtil.showToast(msg: S.current.label_delete_success);
+      AppToastUtil.showToast(msg: FastS.current.label_delete_success);
       finish(result: true);
     },
         onError: BaseDio.errProxyFunc(
-            defErrMsg: S.current.label_delete_failed,
+            defErrMsg: FastS.current.label_delete_failed,
             onError: (error) {
               dismissLoading();
             }));

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter/foundation.dart';
-import 'package:flutter_slc_boxes/flutter/slc/network/api_constant.dart';
+import 'package:boxes_flutter/flutter/slc/network/api_constant.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../../base/api/api_config.dart';

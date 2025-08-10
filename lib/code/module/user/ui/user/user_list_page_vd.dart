@@ -1,27 +1,28 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fast/gen/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_slc_boxes/flutter/slc/adapter/page_model.dart';
-import 'package:flutter_slc_boxes/flutter/slc/common/screen_util.dart';
-import 'package:flutter_slc_boxes/flutter/slc/mvvm/fast_mvvm.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/dimens.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_extension.dart';
-import 'package:flutter_slc_boxes/flutter/slc/res/theme_util.dart';
+import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
+import 'package:boxes_flutter/flutter/slc/common/screen_util.dart';
+import 'package:boxes_flutter/flutter/slc/mvvm/fast_mvvm.dart';
+import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
+import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/dept.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/user.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/utils/widget_utils.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/page_data_vm_sub.dart';
-import 'package:ruoyi_plus_flutter/code/lib/fast/vd/request_token_manager.dart';
+import 'package:fast/fast/utils/widget_utils.dart';
+import 'package:fast/fast/vd/page_data_vm_sub.dart';
+import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/entity/dept_tree.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/user_api.dart';
 import 'package:dio/dio.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_page_vd.dart';
 
-import '../../../../../generated/l10n.dart';
+import '../../../../../gen/l10n.dart';
 import '../../../../../res/dimens.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
@@ -32,12 +33,12 @@ import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
-import '../../../../lib/fast/provider/fast_select.dart';
-import '../../../../lib/fast/vd/list_data_component.dart';
-import '../../../../lib/fast/vd/refresh/content_empty.dart';
-import '../../../../lib/form/fast_form_builder_text_field.dart';
-import '../../../../lib/form/form_operate_with_provider.dart';
-import '../../../../lib/form/input_decoration_utils.dart';
+import 'package:fast/fast/provider/fast_select.dart';
+import 'package:fast/fast/vd/list_data_component.dart';
+import 'package:fast/fast/vd/refresh/content_empty.dart';
+import 'package:form_extra/form/fast_form_builder_text_field.dart';
+import 'package:form_extra/form/form_operate_with_provider.dart';
+import 'package:form_extra/form/input_decoration_utils.dart';
 import '../dept/dept_list_select_single_page.dart';
 
 class UserListPageVd {
@@ -198,7 +199,7 @@ class UserListPageVd {
                             decoration: MySelectDecoration(
                               floatingLabelBehavior: FloatingLabelBehavior.always,
                               labelText: S.current.user_label_user_owner_dept,
-                              hintText: S.current.app_label_please_choose,
+                              hintText: FastS.current.app_label_please_choose,
                               border: const UnderlineInputBorder(),
                               suffixIcon:
                                   NqNullSelector<A, String?>(builder: (context, value, child) {
@@ -222,7 +223,7 @@ class UserListPageVd {
                                 contentPadding: EdgeInsets.zero,
                                 floatingLabelBehavior: FloatingLabelBehavior.always,
                                 labelText: S.current.user_label_user_name,
-                                hintText: S.current.app_label_please_input,
+                                hintText: FastS.current.app_label_please_input,
                                 border: const UnderlineInputBorder(),
                                 suffixIcon:
                                     NqNullSelector<A, String?>(builder: (context, value, child) {
@@ -248,7 +249,7 @@ class UserListPageVd {
                                 contentPadding: EdgeInsets.zero,
                                 floatingLabelBehavior: FloatingLabelBehavior.always,
                                 labelText: S.current.user_label_phone_number,
-                                hintText: S.current.app_label_please_input,
+                                hintText: FastS.current.app_label_please_input,
                                 border: const UnderlineInputBorder(),
                                 suffixIcon:
                                     NqNullSelector<A, String?>(builder: (context, value, child) {
@@ -279,7 +280,7 @@ class UserListPageVd {
                             decoration: MySelectDecoration(
                                 floatingLabelBehavior: FloatingLabelBehavior.always,
                                 labelText: S.current.user_label_status,
-                                hintText: S.current.app_label_please_choose,
+                                hintText: FastS.current.app_label_please_choose,
                                 border: const UnderlineInputBorder(),
                                 suffixIcon:
                                     NqSelector<A, String?>(builder: (context, value, child) {
@@ -303,7 +304,7 @@ class UserListPageVd {
                                 onPressed: () {
                                   listVmSub.onResetSearch();
                                 },
-                                child: Text(S.current.action_reset))),
+                                child: Text(FastS.current.action_reset))),
                         ThemeUtil.getSizedBox(width: SlcDimens.appDimens16),
                         Expanded(
                             child: FilledButton(
@@ -311,7 +312,7 @@ class UserListPageVd {
                                   WidgetUtils.autoHandlerSearchDrawer(context);
                                   listVmSub.onSearch();
                                 },
-                                child: Text(S.current.action_search)))
+                                child: Text(FastS.current.action_search)))
                       ],
                     );
                   }))
