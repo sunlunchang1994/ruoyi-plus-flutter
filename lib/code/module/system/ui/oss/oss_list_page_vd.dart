@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fast/gen/l10n.dart';
+import 'package:fast/package_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
 import 'package:boxes_flutter/flutter/slc/common/screen_util.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
-import 'package:boxes_flutter/flutter/slc/res/styles.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +13,9 @@ import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_oss_vo.
 import 'package:ruoyi_plus_flutter/code/feature/component/attachment/utils/media_type_constant.dart';
 import 'package:fast/fast/vd/page_data_vm_sub.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
+import 'package:fast/gen/assets.gen.dart' as FastAssets;
 import 'package:ruoyi_plus_flutter/code/module/system/ui/oss/oss_details_page.dart';
+import 'package:ruoyi_plus_flutter/gen/assets.gen.dart';
 
 import '../../../../../../gen/l10n.dart';
 import '../../../../../res/dimens.dart';
@@ -25,7 +27,6 @@ import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/list_data_component.dart';
 import 'package:fast/fast/vd/refresh/content_empty.dart';
-import 'package:dio/dio.dart';
 
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
@@ -82,16 +83,17 @@ class OssListPageWidget {
                     width: AppDimens.sysItemOssImgSize,
                     height: AppDimens.sysItemOssImgSize,
                     imageUrl: listItem.url ?? "",
+                    useOldImageOnUrlChange: true,
                     placeholder: (context, url) {
-                      return Image.asset("assets/images/base/ic_loading_png.png",
-                          width: AppDimens.sysItemOssImgSize, height: AppDimens.sysItemOssImgSize);
+                      return Image(image: FastAssets.Assets.fast.images.icLoadingPng.provider(
+                          package: FastPkgInfo.packageName),
+                          width: AppDimens.sysItemOssImgSize,
+                          height: AppDimens.sysItemOssImgSize);
                     },
-                    errorWidget: (
-                      context,
-                      error,
-                      stackTrace,
-                    ) {
-                      return Image.asset("assets/images/mp/slc_mp_ic_image.png",
+                    errorWidget: (context,
+                        error,
+                        stackTrace,) {
+                      return Assets.images.mp.slcMpIcImage.image(
                           width: AppDimens.sysItemOssImgSize, height: AppDimens.sysItemOssImgSize);
                     }));
           } else {
@@ -123,14 +125,18 @@ class OssListPageWidget {
   }
 
   ///搜索侧滑栏视图
-  static Widget getSearchEndDrawer<A>(
-      BuildContext context, ThemeData themeData, OssListDataVmSub listVmSub,
+  static Widget getSearchEndDrawer<A>(BuildContext context, ThemeData themeData,
+      OssListDataVmSub listVmSub,
       {List<Widget>? Function(String? name)? formItemSlot}) {
     return Container(
         color: themeData.colorScheme.surface,
-        width: ScreenUtil.getInstance().screenWidthDpr * 0.73,
+        width: ScreenUtil
+            .getInstance()
+            .screenWidthDpr * 0.73,
         padding: EdgeInsets.only(
-            top: ScreenUtil.getInstance().statusBarHeightDpr,
+            top: ScreenUtil
+                .getInstance()
+                .statusBarHeightDpr,
             left: SlcDimens.appDimens16,
             right: SlcDimens.appDimens16,
             bottom: SlcDimens.appDimens14),
@@ -270,12 +276,13 @@ class OssListDataVmSub extends FastBaseListDataPageVmSub<SysOssVo> with CancelTo
     //设置刷新方法主体
     setLoadData((loadMoreFormat) async {
       try {
-        IntensifyEntity<PageModel<SysOssVo>> intensifyEntity = await SysOssRepository.list(
-                loadMoreFormat.offset, loadMoreFormat.size, currentSearch, defCancelToken)
+        IntensifyEntity<PageModel<SysOssVo>> intensifyEntity = await SysOssRepository
+            .list(
+            loadMoreFormat.offset, loadMoreFormat.size, currentSearch, defCancelToken)
             .asStream()
             .single;
         DataWrapper<PageModel<SysOssVo>> dataWrapper =
-            DataTransformUtils.entity2LDWrapper(intensifyEntity);
+        DataTransformUtils.entity2LDWrapper(intensifyEntity);
         return dataWrapper;
       } catch (e) {
         ResultEntity resultEntity = BaseDio.handlerErr(e, showToast: false);

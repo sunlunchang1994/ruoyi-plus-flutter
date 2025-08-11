@@ -7,6 +7,7 @@ import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/widget/fast_slc_ui_box.dart';
 import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
+import '../../../../../../gen/assets.gen.dart';
 import '../../../../system/ui/setting/main/setting_page.dart';
 import 'profile_page.dart';
 import '../../../../../../res/dimens.dart';
@@ -81,7 +82,7 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                                     height: AppDimens.userMineAvatarSize,
                                     imageUrl: getVm().userInfoVo?.user.avatar ?? "",
                                     placeholder: (context, url) {
-                                      return Image.asset("assets/images/base/ic_def_user_head.png",
+                                      return Image.asset(Assets.images.base.icDefUserHead.path,
                                           width: AppDimens.userMineAvatarSize,
                                           height: AppDimens.userMineAvatarSize);
                                     },
@@ -90,7 +91,7 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                                       url,
                                       error,
                                     ) {
-                                      return Image.asset("assets/images/base/ic_def_user_head.png",
+                                      return Image.asset(Assets.images.base.icDefUserHead.path,
                                           width: AppDimens.userMineAvatarSize,
                                           height: AppDimens.userMineAvatarSize);
                                     }))

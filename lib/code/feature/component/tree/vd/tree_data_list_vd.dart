@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ruoyi_plus_flutter/gen/assets.gen.dart';
 import '../entity/slc_tree_nav.dart';
 import 'package:dio/dio.dart';
 
@@ -19,7 +20,7 @@ class TreeNavVd {
       children: [
         Padding(
             padding: EdgeInsets.only(left: SlcDimens.appDimens16),
-            child: SvgPicture.asset("assets/images/user/ic_folder.svg",
+            child: SvgPicture.asset(Assets.images.user.icFolder,
                 height: 16, color: themeData.colorScheme.primary)),
         Expanded(
             child: SizedBox(

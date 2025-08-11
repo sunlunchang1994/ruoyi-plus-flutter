@@ -16,6 +16,7 @@ import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:ruoyi_plus_flutter/code/env_config.dart';
 import 'package:ruoyi_plus_flutter/code/feature/auth/repository/remote/auth_api.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/remote/pub_menu_api.dart';
+import 'package:ruoyi_plus_flutter/gen/assets.gen.dart';
 import '../../../base/api/base_dio.dart';
 import '../../bizapi/system/repository/remote/pub_dict_data_api.dart';
 import '../../bizapi/user/repository/local/user_config.dart';
@@ -58,13 +59,10 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const SizedBox(
+                    SizedBox(
                         height: 160,
-                        child: Center(
-                            child: Image(
-                                image: AssetImage("assets/images/ic_launcher.png"),
-                                width: 72,
-                                height: 72))),
+                        child:
+                            Center(child: Assets.images.icLauncher.image(width: 72, height: 72))),
                     Padding(
                         padding: EdgeInsets.all(SlcDimens.appDimens24),
                         child: FormBuilder(
@@ -353,8 +351,7 @@ class _LoginModel extends AppBaseVm with CancelTokenAssist {
       return;
     }
     showLoading(text: S.current.user_label_logging_in);
-    AuthRepository.login(
-            tenantId, userName!, password!, codeResult!, captcha?.uuid, defCancelToken)
+    AuthRepository.login(tenantId, userName!, password!, codeResult!, captcha?.uuid, defCancelToken)
         .asStream()
         .asyncMap((event) => PubUserRepository.getInfo(defCancelToken))
         .asyncMap((event) => PubMenuPublicRepository.getRouters(defCancelToken))

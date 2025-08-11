@@ -1,5 +1,6 @@
 import 'package:fast/gen/assets.gen.dart';
 import 'package:fast/gen/l10n.dart';
+import 'package:fast/package_info.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
@@ -21,13 +22,13 @@ class ContentEmptyWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
           SvgPicture.asset(Assets.fast.images.icNoData,
+              package: FastPkgInfo.packageName,
               height: 72,
               color: themeData.slcTidyUpColor.getTextColorHintByTheme(themeData)),
           Padding(
               padding: EdgeInsets.only(top: SlcDimens.appDimens8),
               child: Text(FastS.of(context).label_data_is_null,
-                  style: themeData.slcTidyUpStyle
-                      .getTextColorHintStyleByTheme(themeData)))
+                  style: themeData.slcTidyUpStyle.getTextColorHintStyleByTheme(themeData)))
         ]));
   }
 

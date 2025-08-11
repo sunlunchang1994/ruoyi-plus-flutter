@@ -19,6 +19,7 @@ import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/user/info/update_pwd_page.dart';
 import 'package:ruoyi_plus_flutter/res/dimens.dart';
+import '../../../../../../gen/assets.gen.dart';
 import '../../../../../base/api/base_dio.dart';
 import '../../../../../base/api/result_entity.dart';
 import 'package:form_extra/form/image_picker/form_builder_single_image_picker.dart';
@@ -92,14 +93,14 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                   previewWidth: 96,
                                   previewHeight: 96,
                                   placeholderImage:
-                                      const AssetImage("assets/images/base/ic_def_user_head.png"),
+                                      AssetImage(Assets.images.base.icDefUserHead.path),
                                   imageErrorBuilder: (
                                     context,
                                     error,
                                     stackTrace,
                                   ) {
-                                    return Image.asset("assets/images/base/ic_def_user_head.png",
-                                        width: 96, height: 96);
+                                    return Assets.images.base.icDefUserHead
+                                        .image(width: 96, height: 96);
                                   },
                                   //TODO 此处应该加个缓存，内部的FadeInImage改成CachedNetworkImage
                                   transformImageWidget: (context, child) {

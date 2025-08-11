@@ -22,6 +22,7 @@ import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/user_api.d
 import 'package:dio/dio.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_page_vd.dart';
 
+import '../../../../../gen/assets.gen.dart';
 import '../../../../../gen/l10n.dart';
 import '../../../../../res/dimens.dart';
 import '../../../../base/api/base_dio.dart';
@@ -130,7 +131,7 @@ class UserListPageVd {
               height: AppDimens.userItemAvatarSize,
               imageUrl: listItem.avatar ?? "",
               placeholder: (context, url) {
-                return Image.asset("assets/images/base/ic_def_user_head.png",
+                return Image.asset(Assets.images.base.icDefUserHead.path,
                     width: AppDimens.userItemAvatarSize, height: AppDimens.userItemAvatarSize);
               },
               errorWidget: (
@@ -138,7 +139,7 @@ class UserListPageVd {
                 error,
                 stackTrace,
               ) {
-                return Image.asset("assets/images/base/ic_def_user_head.png",
+                return Image.asset(Assets.images.base.icDefUserHead.path,
                     width: AppDimens.userItemAvatarSize, height: AppDimens.userItemAvatarSize);
               })),
       title: Text(listItem.nickName ?? "-"),

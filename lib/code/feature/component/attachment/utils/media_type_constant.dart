@@ -1,5 +1,7 @@
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 
+import '../../../../../gen/assets.gen.dart';
+
 /// @author sunlunchang
 /// 媒体类型
 enum MediaType {
@@ -170,29 +172,29 @@ class MediaTypeConstant {
   static String getIconByMediaType(MediaType mediaType) {
     switch (mediaType) {
       case MediaType.unknown:
-        return "assets/images/mp/slc_mp_ic_unknown.png";
+        return Assets.images.mp.slcMpIcUnknown.path;
       case MediaType.audio:
-        return "assets/images/mp/slc_mp_ic_audiotrack.png";
+        return Assets.images.mp.slcMpIcAudiotrack.path;
       case MediaType.video:
-        return "assets/images/mp/slc_mp_ic_videocam.png";
+        return Assets.images.mp.slcMpIcVideocam.path;
       case MediaType.word:
-        return "assets/images/mp/slc_mp_ic_word.png";
+        return Assets.images.mp.slcMpIcWord.path;
       case MediaType.excel:
-        return "assets/images/mp/slc_mp_ic_excel.png";
+        return Assets.images.mp.slcMpIcExcel.path;
       case MediaType.ppt:
-        return "assets/images/mp/slc_mp_ic_powerpoint.png";
+        return Assets.images.mp.slcMpIcPowerpoint.path;
       case MediaType.pdf:
-        return "assets/images/mp/slc_mp_ic_pdf.png";
+        return Assets.images.mp.slcMpIcPdf.path;
       case MediaType.img:
-        return "assets/images/mp/slc_mp_ic_image.png";
+        return Assets.images.mp.slcMpIcImage.path;
       case MediaType.hypertext:
-        return "assets/images/mp/slc_mp_ic_html.png";
+        return Assets.images.mp.slcMpIcHtml.path;
       case MediaType.zip:
-        return "assets/images/mp/slc_mp_ic_cs.png";
+        return Assets.images.mp.slcMpIcCs.path;
       case MediaType.apk:
-        return "assets/images/mp/slc_mp_ic_android.png";
+        return Assets.images.mp.slcMpIcAndroid.path;
       case MediaType.txt:
-        return "assets/images/mp/slc_mp_ic_text.png";
+        return Assets.images.mp.slcMpIcText.path;
     }
   }
 

@@ -14,6 +14,7 @@ import 'package:ruoyi_plus_flutter/code/base/api/api_config.dart';
 import 'package:ruoyi_plus_flutter/code/base/startup/task_utils.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/remote/pub_dict_data_api.dart';
 
+import '../../../../gen/assets.gen.dart';
 import '../../../../gen/l10n.dart';
 import '../../../base/api/result_entity.dart';
 import '../../../base/ui/app_mvvm.dart';
@@ -50,11 +51,7 @@ class WelcomePage extends AppBaseStatelessWidget<_WelcomeVm> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Center(
-                          child: Image(
-                              image: AssetImage("assets/images/ic_launcher.png"),
-                              width: 56,
-                              height: 56)),
+                      Center(child: Assets.images.icLauncher.image(width: 56, height: 56)),
                       ThemeUtil.getSizedBox(height: SlcDimens.appDimens12),
                       Text(S.current.app_name, style: Theme.of(context).textTheme.titleMedium)
                     ],

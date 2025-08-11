@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 
+import '../../../../../gen/assets.gen.dart';
 import '../../../../feature/bizapi/system/entity/router_vo.dart';
 
 /// @author sunlunchang
@@ -24,10 +25,8 @@ class MenuItemView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image(
-                  image: const AssetImage("assets/images/ic_launcher.png"),
-                  width: iconSize == 0 ? 32 : iconSize,
-                  height: iconSize == 0 ? 32 : iconSize),
+              Assets.images.icLauncher.image(
+                  width: iconSize == 0 ? 32 : iconSize, height: iconSize == 0 ? 32 : iconSize),
               Padding(
                 padding: EdgeInsets.only(top: SlcDimens.appDimens8),
                 child: DefaultTextStyle(

@@ -1,16 +1,14 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dio/dio.dart';
 import 'package:fast/gen/l10n.dart';
+import 'package:fast/package_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:boxes_flutter/flutter/slc/common/log_util.dart';
 import 'package:boxes_flutter/flutter/slc/common/slc_file_util.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
-import 'package:boxes_flutter/flutter/slc/res/styles.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:open_file/open_file.dart';
@@ -27,14 +25,14 @@ import 'package:fast/fast/permission/permission_compat.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
+import 'package:fast/gen/assets.gen.dart' as FastGen;
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
-import 'package:form_extra/form/input_decoration_utils.dart';
+import 'package:ruoyi_plus_flutter/gen/assets.gen.dart';
 
 import '../../../../../../gen/l10n.dart';
 import '../../../../../res/dimens.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
-import '../../../../base/vm/global_vm.dart';
 import '../../../../feature/component/attachment/entity/progress.dart';
 import '../../repository/remote/sys_oss_api.dart';
 
@@ -109,8 +107,12 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                                         height: AppDimens.sysDetailsOssImgSize,
                                                         imageUrl: field.value ?? "",
                                                         placeholder: (context, url) {
-                                                          return Image.asset(
-                                                              "assets/images/base/ic_loading_png.png",
+                                                          return Image(
+                                                              image: FastGen
+                                                                  .Assets.fast.images.icLoadingPng
+                                                                  .provider(
+                                                                      package:
+                                                                          FastPkgInfo.packageName),
                                                               width: AppDimens.sysDetailsOssImgSize,
                                                               height:
                                                                   AppDimens.sysDetailsOssImgSize);
@@ -120,11 +122,12 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                                           error,
                                                           stackTrace,
                                                         ) {
-                                                          return Image.asset(
-                                                              "assets/images/mp/slc_mp_ic_image.png",
-                                                              width: AppDimens.sysDetailsOssImgSize,
-                                                              height:
-                                                                  AppDimens.sysDetailsOssImgSize);
+                                                          return Assets.images.mp.slcMpIcImage
+                                                              .image(
+                                                                  width: AppDimens
+                                                                      .sysDetailsOssImgSize,
+                                                                  height: AppDimens
+                                                                      .sysDetailsOssImgSize);
                                                         })),
                                                 Spacer()
                                               ]);

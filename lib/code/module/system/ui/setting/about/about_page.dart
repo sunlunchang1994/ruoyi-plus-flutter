@@ -7,6 +7,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 
+import '../../../../../../gen/assets.gen.dart';
 import '../../../../../../gen/l10n.dart';
 
 class AboutPage extends AppBaseStatelessWidget<_AboutVm> {
@@ -32,11 +33,7 @@ class AboutPage extends AppBaseStatelessWidget<_AboutVm> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Center(
-                                  child: Image(
-                                      image: AssetImage("assets/images/ic_launcher.png"),
-                                      width: 56,
-                                      height: 56)),
+                              Center(child: Assets.images.icLauncher.image(width: 56, height: 56)),
                               ThemeUtil.getSizedBox(height: SlcDimens.appDimens12),
                               Text(snapshot.data?.appName ?? "",
                                   style: themeData.textTheme.titleMedium),
@@ -45,9 +42,7 @@ class AboutPage extends AppBaseStatelessWidget<_AboutVm> {
                                       .getTextColorSecondaryStyleByTheme(themeData))
                             ],
                           )),
-                      Expanded(
-                          flex: 3,
-                          child: Center()),
+                      Expanded(flex: 3, child: Center()),
                       const Spacer(flex: 1),
                     ],
                   );
