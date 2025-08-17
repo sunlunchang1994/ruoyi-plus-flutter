@@ -307,7 +307,7 @@ class SysOperLogListPageWidget {
 }
 
 ///操作日志数据VmSub
-class SysOperLogListDataVmSub extends FastBaseListDataPageVmSub<SysOperLog> with CancelTokenAssist {
+class SysOperLogListDataVmSub extends FastBasePageDataVmSub<SysOperLog> with CancelTokenAssist {
   SysOperLog currentSearch = SysOperLog();
 
   void Function(SysOperLog data)? onSuffixClick;

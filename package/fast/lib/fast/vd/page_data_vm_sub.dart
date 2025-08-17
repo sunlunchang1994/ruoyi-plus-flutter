@@ -84,10 +84,10 @@ abstract class BasePageDataVmSub<T> extends IBasePageDataCommonVmSub<T> {
 }
 
 ///对基础分页列表进一步拓展、快速外部设置加载更多数据
-class FastBaseListDataPageVmSub<T> extends BasePageDataVmSub<T> with ListenerItemSelect<T> {
+class FastBasePageDataVmSub<T> extends BasePageDataVmSub<T> with ListenerItemSelect<T> {
   LoadMore<T>? _loadMore;
 
-  FastBaseListDataPageVmSub({super.loadMoreFormat});
+  FastBasePageDataVmSub({super.loadMoreFormat});
 
   void setLoadData(LoadMore<T> loadMore) {
     this._loadMore = loadMore;

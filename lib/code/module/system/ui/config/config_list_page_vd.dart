@@ -208,7 +208,7 @@ class ConfigListPageWidget {
 }
 
 ///参数配置数据VmSub
-class ConfigListDataVmSub extends FastBaseListDataPageVmSub<SysConfig> with CancelTokenAssist {
+class ConfigListDataVmSub extends FastBasePageDataVmSub<SysConfig> with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   SysConfig _currentSysConfigSearch = SysConfig();

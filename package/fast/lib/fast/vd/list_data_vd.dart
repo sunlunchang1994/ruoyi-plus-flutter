@@ -10,7 +10,7 @@ import 'package:boxes_flutter/flutter/slc/mvvm/base_mvvm.dart';
 /// @author sunlunchang
 /// 列表场景下的列表数据视图，基于EasyRefresh进行拓展，用与快速构建列表功能
 class ListDataVd extends StatefulWidget {
-  final FastBaseListDataVmSub vmSub;
+  final BaseListDataVmSub vmSub;
 
   final AbsoluteChangeNotifier changeNotifier;
 

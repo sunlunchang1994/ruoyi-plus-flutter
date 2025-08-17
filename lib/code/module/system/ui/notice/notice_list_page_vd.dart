@@ -187,7 +187,7 @@ class NoticeListPageWidget {
 }
 
 ///通知公告数据VmSub
-class NoticeListDataVmSub extends FastBaseListDataPageVmSub<SysNotice> with CancelTokenAssist {
+class NoticeListDataVmSub extends FastBasePageDataVmSub<SysNotice> with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   SysNotice _currentSysNoticeSearch = SysNotice();

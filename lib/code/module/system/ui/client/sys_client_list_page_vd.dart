@@ -207,7 +207,7 @@ class OssConfigListPageWidget {
 }
 
 ///客户端VmSub
-class SysClientListDataVmSub extends FastBaseListDataPageVmSub<SysClient> with CancelTokenAssist {
+class SysClientListDataVmSub extends FastBasePageDataVmSub<SysClient> with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   SysClient _currentSysClientSearch = SysClient();

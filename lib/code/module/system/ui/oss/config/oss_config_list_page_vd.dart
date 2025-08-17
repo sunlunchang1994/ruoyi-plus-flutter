@@ -191,7 +191,7 @@ class OssConfigListPageWidget {
 }
 
 ///Oss数据VmSub
-class OssConfigListDataVmSub extends FastBaseListDataPageVmSub<SysOssConfig>
+class OssConfigListDataVmSub extends FastBasePageDataVmSub<SysOssConfig>
     with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 

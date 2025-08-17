@@ -226,7 +226,7 @@ class PostListPageVd {
   }
 }
 
-class PostPageDataVmSub extends FastBaseListDataPageVmSub<Post> with CancelTokenAssist {
+class PostPageDataVmSub extends FastBasePageDataVmSub<Post> with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
   Post searchPost = Post();
 

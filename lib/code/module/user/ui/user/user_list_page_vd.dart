@@ -424,7 +424,7 @@ class UserTreeListDataVmSub extends TreeFastBaseListDataVmSub<dynamic> {
 }
 
 ///用户分页加载列表
-class UserPageDataVmSub extends FastBaseListDataPageVmSub<User> with CancelTokenAssist {
+class UserPageDataVmSub extends FastBasePageDataVmSub<User> with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   User _searchUser = User();

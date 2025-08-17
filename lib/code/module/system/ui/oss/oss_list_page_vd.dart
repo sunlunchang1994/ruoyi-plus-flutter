@@ -263,7 +263,7 @@ class OssListPageWidget {
 }
 
 ///Oss数据VmSub
-class OssListDataVmSub extends FastBaseListDataPageVmSub<SysOssVo> with CancelTokenAssist {
+class OssListDataVmSub extends FastBasePageDataVmSub<SysOssVo> with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   SysOssVo _currentSysOssSearch = SysOssVo();

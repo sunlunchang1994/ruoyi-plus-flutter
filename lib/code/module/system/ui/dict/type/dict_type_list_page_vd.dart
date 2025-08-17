@@ -184,7 +184,7 @@ class DictTypeListPageWidget {
 }
 
 ///字典类型数据VmSub
-class DictTypeListDataVmSub extends FastBaseListDataPageVmSub<SysDictType> with CancelTokenAssist {
+class DictTypeListDataVmSub extends FastBasePageDataVmSub<SysDictType> with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   SysDictType _currentDictTypeSearch = SysDictType();

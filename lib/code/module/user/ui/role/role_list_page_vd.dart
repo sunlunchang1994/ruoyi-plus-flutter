@@ -200,7 +200,7 @@ class RoleListPageVd {
   }
 }
 
-class RolePageDataVmSub extends FastBaseListDataPageVmSub<Role> with CancelTokenAssist {
+class RolePageDataVmSub extends FastBasePageDataVmSub<Role> with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
   Role searchRole = Role();
 

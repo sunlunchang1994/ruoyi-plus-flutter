@@ -181,7 +181,7 @@ class NoticeListPageWidget {
 }
 
 ///在线用户数据VmSub
-class UserOnlineListDataVmSub extends FastBaseListDataPageVmSub<SysUserOnline>
+class UserOnlineListDataVmSub extends FastBasePageDataVmSub<SysUserOnline>
     with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 

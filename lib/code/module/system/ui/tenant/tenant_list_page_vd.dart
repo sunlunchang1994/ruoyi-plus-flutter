@@ -222,7 +222,7 @@ class TenantListPageWidget {
 }
 
 ///租户管理VmSub
-class TenantListDataVmSub extends FastBaseListDataPageVmSub<SysTenant> with CancelTokenAssist {
+class TenantListDataVmSub extends FastBasePageDataVmSub<SysTenant> with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
   SysTenant _currentSearch = SysTenant();

@@ -290,7 +290,7 @@ class SysLogininforListPageWidget {
 }
 
 ///登录日志数据VmSub
-class LogininforListDataVmSub extends FastBaseListDataPageVmSub<SysLogininfor>
+class LogininforListDataVmSub extends FastBasePageDataVmSub<SysLogininfor>
     with CancelTokenAssist {
   SysLogininfor currentSearch = SysLogininfor();
 

@@ -187,7 +187,7 @@ class TenantPackageSearchHelper {
 }
 
 ///租户套餐VmSub
-class TenantPackageListDataVmSub extends FastBaseListDataPageVmSub<SysTenantPackage>
+class TenantPackageListDataVmSub extends FastBasePageDataVmSub<SysTenantPackage>
     with CancelTokenAssist {
   late TenantPackageSearchHelper tenantPackageSearchHelper;
 
