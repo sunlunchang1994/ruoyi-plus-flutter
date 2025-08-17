@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import 'list_data_component.dart';
 
 /// @author sunlunchang
@@ -12,14 +14,27 @@ abstract class IBaseListDataCommonVmSub<T> extends IListDataVmSub<T> {
 
   Future<DataWrapper<List<T>>> refresh();
 
+  @protected
+  Future<DataWrapper<List<T>>> onRefresh();
+
+  @protected
   void onFailed(DataWrapper<List<T>> dataWrapper) {}
 }
 
 ///基础列表进一步拓展、实现异步刷新、更新数据
+///解决部分第三方库需要等待数据响应的场景
 abstract class BaseListDataVmSub<T> extends IBaseListDataCommonVmSub<T> {
+
+  @override
+  Future<DataWrapper<List<T>>> refresh() async {
+    DataWrapper<List<T>> dataWrapper = await onRefresh();
+    handlerDataWrapper(dataWrapper);
+    return dataWrapper;
+  }
+
   @override
   void refreshAsync() {
-    refresh().then((dataWrapper) {
+    onRefresh().then((dataWrapper) {
       handlerDataWrapper(dataWrapper);
     }, onError: (error) {
       //不应该让错误在这处理
@@ -27,6 +42,7 @@ abstract class BaseListDataVmSub<T> extends IBaseListDataCommonVmSub<T> {
     });
   }
 
+  @protected
   void handlerDataWrapper(DataWrapper<List<T>> dataWrapper) {
     if (dataWrapper.isSuccess()) {
       onSucceed(dataWrapper.data ?? List.empty());
@@ -35,6 +51,7 @@ abstract class BaseListDataVmSub<T> extends IBaseListDataCommonVmSub<T> {
     }
   }
 
+  @protected
   void onSucceed(List<T> dataList) {
     shouldSetState.updateVersion();
     this.dataList.clear();
@@ -42,7 +59,7 @@ abstract class BaseListDataVmSub<T> extends IBaseListDataCommonVmSub<T> {
   }
 }
 
-///对基础列表进一步拓展、快速实现同步刷新、解决部分第三方库需要等待数据响应的场景
+///对基础列表进一步拓展、快速实现外部加载更多数据
 class FastBaseListDataVmSub<T> extends BaseListDataVmSub<T>
     with ListenerItemSelect<T> {
   Refresh<T>? _refresh;
@@ -52,10 +69,8 @@ class FastBaseListDataVmSub<T> extends BaseListDataVmSub<T>
   }
 
   @override
-  Future<DataWrapper<List<T>>> refresh() async {
-    DataWrapper<List<T>> dataWrapper = await _refresh!.call();
-    handlerDataWrapper(dataWrapper);
-    return dataWrapper;
+  Future<DataWrapper<List<T>>> onRefresh() {
+    return _refresh!.call();
   }
 
 }

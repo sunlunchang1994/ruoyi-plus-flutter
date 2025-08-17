@@ -1,6 +1,7 @@
 import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:boxes_flutter/flutter/slc/adapter/load_more_format.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
 import 'package:boxes_flutter/flutter/slc/common/screen_util.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
@@ -299,31 +300,32 @@ class LogininforListDataVmSub extends FastBaseListDataPageVmSub<SysLogininfor>
   void Function(SysLogininfor data)? onSuffixClick;
 
   LogininforListDataVmSub() {
-    //设置刷新方法主体
-    setLoadData((loadMoreFormat) async {
-      try {
-        IntensifyEntity<PageModel<SysLogininfor>> intensifyEntity =
-            await SysLogininforRepository.list(
-                    loadMoreFormat.offset, loadMoreFormat.size, currentSearch, defCancelToken)
-                .asStream()
-                .map((result) {
-          result.data?.getListNoNull().forEach((dataItem) {
-            dataItem.showDetail = showDetailsStatusMap[dataItem.infoId!] ?? false;
-          });
-          return result;
-        }).single;
-        DataWrapper<PageModel<SysLogininfor>> dataWrapper =
-            DataTransformUtils.entity2LDWrapper(intensifyEntity);
-        return dataWrapper;
-      } catch (e) {
-        ResultEntity resultEntity = BaseDio.handlerErr(e, showToast: false);
-        return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
-      }
-    });
     //设置点击item事件主体
     setItemClick((index, data) {
       onHandlerShowDetails(data);
     });
+  }
+
+  @override
+  Future<DataWrapper<PageModel<SysLogininfor>>> onLoadMore(LoadMoreFormat<SysLogininfor> loadMoreFormat)async {
+     try {
+      IntensifyEntity<PageModel<SysLogininfor>> intensifyEntity =
+          await SysLogininforRepository.list(
+          loadMoreFormat.offset, loadMoreFormat.size, currentSearch, defCancelToken)
+          .asStream()
+          .map((result) {
+        result.data?.getListNoNull().forEach((dataItem) {
+          dataItem.showDetail = showDetailsStatusMap[dataItem.infoId!] ?? false;
+        });
+        return result;
+      }).single;
+      DataWrapper<PageModel<SysLogininfor>> dataWrapper =
+      DataTransformUtils.entity2LDWrapper(intensifyEntity);
+      return dataWrapper;
+    } catch (e) {
+      ResultEntity resultEntity = BaseDio.handlerErr(e, showToast: false);
+      return DataWrapper.createFailed(code: resultEntity.code, msg: resultEntity.msg);
+    }
   }
 
   void onHandlerShowDetails(SysLogininfor itemData) {
