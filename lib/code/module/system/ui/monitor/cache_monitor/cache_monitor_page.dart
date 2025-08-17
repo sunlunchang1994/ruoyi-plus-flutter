@@ -21,7 +21,7 @@ import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/redis_cache_info.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/repository/remote/cache_monitor_api.dart';
 
-import '../../../../../../gen/l10n.dart';
+import '../../../../../../gen/app_l10n.dart';
 import '../../../../../base/api/base_dio.dart';
 import 'package:fast/fast/provider/should_set_state.dart';
 

@@ -4,7 +4,7 @@ import 'package:fast/fast/vd/list_data_component.dart';
 import 'package:fast/fast/vd/page_data_vm_sub.dart';
 import 'package:fast/fast/vd/refresh/content_empty.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
@@ -20,7 +20,7 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_config.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
 
-import '../../../../../../gen/l10n.dart';
+import '../../../../../../gen/app_l10n.dart';
 import '../../../../../../res/styles.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';

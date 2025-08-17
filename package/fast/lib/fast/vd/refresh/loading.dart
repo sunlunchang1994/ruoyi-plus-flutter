@@ -1,4 +1,4 @@
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 
 /// @author sunlunchang

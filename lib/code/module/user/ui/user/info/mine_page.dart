@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/res/colors.dart';
@@ -14,7 +14,7 @@ import '../../../../../../res/dimens.dart';
 import '../../../../../base/ui/app_mvvm.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../../gen/l10n.dart';
+import '../../../../../../gen/app_l10n.dart';
 import '../../../../../feature/bizapi/user/entity/my_user_info_vo.dart';
 
 class MinePage extends StatefulWidget {

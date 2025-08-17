@@ -17,7 +17,7 @@ import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_list_page_vd.dart';
 
-import '../../../../../gen/l10n.dart';
+import '../../../../../gen/app_l10n.dart';
 import '../../../../feature/bizapi/user/entity/user.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';

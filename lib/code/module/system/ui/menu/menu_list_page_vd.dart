@@ -8,7 +8,7 @@ import 'package:fast/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 
-import '../../../../../gen/l10n.dart';
+import '../../../../../gen/app_l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/config/constant_base.dart';

@@ -1,4 +1,4 @@
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
@@ -8,7 +8,7 @@ import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 
-import '../../../../../../gen/l10n.dart';
+import '../../../../../../gen/app_l10n.dart';
 import '../../../../../base/config/constant_base.dart';
 import '../../../../../feature/bizapi/user/entity/select_menu_result.dart';
 import '../../../../../feature/component/tree/vd/tree_data_list_vd.dart';

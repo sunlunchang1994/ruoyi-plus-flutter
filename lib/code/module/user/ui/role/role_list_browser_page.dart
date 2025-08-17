@@ -1,4 +1,4 @@
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
@@ -13,7 +13,7 @@ import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_add_edit_page.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_page_vd.dart';
 
-import '../../../../../gen/l10n.dart';
+import '../../../../../gen/app_l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
 import '../../../../feature/bizapi/user/config/constant_user_api.dart';

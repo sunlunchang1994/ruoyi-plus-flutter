@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
@@ -12,7 +12,7 @@ import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 
-import '../../../../../../gen/l10n.dart';
+import '../../../../../../gen/app_l10n.dart';
 import '../../../../../base/repository/local/app_config.dart';
 import '../about/about_page.dart';
 

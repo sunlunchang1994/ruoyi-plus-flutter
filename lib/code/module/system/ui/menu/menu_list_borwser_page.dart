@@ -6,7 +6,7 @@ import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/tree/vd/tree_data_list_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu.dart';
 
-import '../../../../../gen/l10n.dart';
+import '../../../../../gen/app_l10n.dart';
 import '../../../../base/config/constant_base.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import 'package:fast/fast/provider/fast_select.dart';

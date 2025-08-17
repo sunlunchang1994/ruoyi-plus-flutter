@@ -1,4 +1,4 @@
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -16,7 +16,7 @@ import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/role_api.dart';
 
-import '../../../../../gen/l10n.dart';
+import '../../../../../gen/app_l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/repository/remote/data_transform_utils.dart';

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -25,7 +25,7 @@ import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/l
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_client.dart';
 
-import '../../../../../../gen/l10n.dart';
+import '../../../../../../gen/app_l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';

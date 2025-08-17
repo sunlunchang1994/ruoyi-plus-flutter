@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:fast/fast/utils/bar_utils.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
@@ -15,7 +15,7 @@ import 'package:ruoyi_plus_flutter/code/base/startup/task_utils.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/remote/pub_dict_data_api.dart';
 
 import '../../../../gen/assets.gen.dart';
-import '../../../../gen/l10n.dart';
+import '../../../../gen/app_l10n.dart';
 import '../../../base/api/result_entity.dart';
 import '../../../base/ui/app_mvvm.dart';
 import '../../../module/biz_main/ui/main_page.dart';

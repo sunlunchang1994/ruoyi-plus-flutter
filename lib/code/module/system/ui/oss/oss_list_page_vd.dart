@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:fast/package_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -17,7 +17,7 @@ import 'package:fast/gen/assets.gen.dart' as FastAssets;
 import 'package:ruoyi_plus_flutter/code/module/system/ui/oss/oss_details_page.dart';
 import 'package:ruoyi_plus_flutter/gen/assets.gen.dart';
 
-import '../../../../../../gen/l10n.dart';
+import '../../../../../../gen/app_l10n.dart';
 import '../../../../../res/dimens.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';

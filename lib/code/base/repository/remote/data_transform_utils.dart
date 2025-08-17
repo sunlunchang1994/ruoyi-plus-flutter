@@ -1,6 +1,6 @@
 import 'package:fast/fast/retorfit/retorfit_expand.dart';
 import 'package:fast/fast/vd/list_data_component.dart';
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 
 import '../../api/api_config.dart';
 import '../../api/api_exception.dart';

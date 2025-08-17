@@ -1,4 +1,4 @@
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/load_more_format.dart';
@@ -13,7 +13,7 @@ import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/page_data_vd.dart';
 
-import '../../../../../../gen/l10n.dart';
+import '../../../../../../gen/app_l10n.dart';
 import '../../../../../base/api/base_dio.dart';
 import '../../../../../base/api/result_entity.dart';
 import '../../../../../base/repository/remote/data_transform_utils.dart';

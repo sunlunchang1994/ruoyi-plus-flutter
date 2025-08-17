@@ -1,6 +1,6 @@
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
-import '../../../../../gen/l10n.dart';
+import '../../../../../gen/app_l10n.dart';
 import 'package:provider/provider.dart';
 
 import '../../../base/ui/app_mvvm.dart';

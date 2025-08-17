@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/module/biz_main/repository/analyse_repository.dart';
 
-import '../../../../gen/l10n.dart';
+import '../../../../gen/app_l10n.dart';
 import '../entity/analyse_model.dart';
 
 class AnalysePage extends StatefulWidget {

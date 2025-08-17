@@ -9,7 +9,7 @@ import 'package:fast/fast/vd/page_data_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/post/post_list_page_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_page_vd.dart';
 
-import '../../../../../gen/l10n.dart';
+import '../../../../../gen/app_l10n.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 
 ///

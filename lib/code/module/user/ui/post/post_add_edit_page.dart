@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -22,7 +22,7 @@ import 'package:form_extra/form/input_decoration_utils.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/user_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_select_single_page.dart';
 
-import '../../../../../gen/l10n.dart';
+import '../../../../../gen/app_l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';

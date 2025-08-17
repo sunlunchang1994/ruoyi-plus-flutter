@@ -8,9 +8,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  boxes_flutter:
-    git:
-      url: https://gitee.com/sunlunchang/boxes-flutter.git
   # 表单---------------------------------------
   # 表单相关
   flutter_form_builder: ^9.7.0

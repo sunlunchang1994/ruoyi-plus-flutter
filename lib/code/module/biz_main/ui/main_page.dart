@@ -6,7 +6,7 @@ import 'workbench_page.dart';
 import '../../user/ui/user/info/mine_page.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../gen/l10n.dart';
+import '../../../../gen/app_l10n.dart';
 
 class MainPage extends AppBaseStatelessWidget<_MainVm> {
   static const String routeName = '/index';

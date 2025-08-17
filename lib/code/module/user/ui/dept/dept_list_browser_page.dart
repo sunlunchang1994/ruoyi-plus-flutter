@@ -1,4 +1,4 @@
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
@@ -12,7 +12,7 @@ import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.d
 import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_add_edit_page.dart';
 
-import '../../../../../gen/l10n.dart';
+import '../../../../../gen/app_l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';

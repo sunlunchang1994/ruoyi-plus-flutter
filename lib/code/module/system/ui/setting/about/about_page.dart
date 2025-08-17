@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
 
 import '../../../../../../gen/assets.gen.dart';
-import '../../../../../../gen/l10n.dart';
+import '../../../../../../gen/app_l10n.dart';
 
 class AboutPage extends AppBaseStatelessWidget<_AboutVm> {
   static const String routeName = '/setting/about';

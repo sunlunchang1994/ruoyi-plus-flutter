@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:fast/package_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -30,7 +30,7 @@ import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/gen/assets.gen.dart';
 
-import '../../../../../../gen/l10n.dart';
+import '../../../../../../gen/app_l10n.dart';
 import '../../../../../res/dimens.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
 import '../../../../feature/component/attachment/entity/progress.dart';

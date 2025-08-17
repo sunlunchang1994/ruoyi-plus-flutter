@@ -8,7 +8,7 @@ import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/vd/list_data_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/entity/dept_tree.dart';
 
-import '../../../../../gen/l10n.dart';
+import '../../../../../gen/app_l10n.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
 import 'dept_list_page_vd.dart';

@@ -1,12 +1,12 @@
 import 'package:fast/fast/provider/fast_select.dart';
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/common/log_util.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/base/startup/task_utils.dart';
 import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
-import 'package:ruoyi_plus_flutter/gen/l10n.dart';
+import 'package:ruoyi_plus_flutter/gen/app_l10n.dart';
 import 'package:ruoyi_plus_flutter/gen/l10n/app_localizations.dart';
 import 'package:boxes_flutter/gen/l10n/boxes_localizations.dart';
 

@@ -1,4 +1,4 @@
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
@@ -15,7 +15,7 @@ import 'package:ruoyi_plus_flutter/code/module/system/ui/tenant/package/tenant_p
 import 'package:ruoyi_plus_flutter/code/module/system/ui/tenant/tenant_add_edit_page.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/tenant/tenant_list_page_vd.dart';
 
-import '../../../../../gen/l10n.dart';
+import '../../../../../gen/app_l10n.dart';
 import '../../../../feature/bizapi/system/entity/sys_tenant.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 

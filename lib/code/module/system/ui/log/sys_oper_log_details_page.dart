@@ -1,4 +1,4 @@
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -10,7 +10,7 @@ import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_oper_log.dart';
 
-import '../../../../../gen/l10n.dart';
+import '../../../../../gen/app_l10n.dart';
 import '../../../../base/ui/app_mvvm.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 

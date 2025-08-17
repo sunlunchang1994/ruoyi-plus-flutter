@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -16,7 +16,7 @@ import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/page_data_vd.dart';
 
-import '../../../../../gen/l10n.dart';
+import '../../../../../gen/app_l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';

@@ -1,4 +1,4 @@
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:boxes_flutter/flutter/slc/common/slc_num_util.dart';
@@ -22,7 +22,7 @@ import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_select_single_page.dart';
 
-import '../../../../../gen/l10n.dart';
+import '../../../../../gen/app_l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/ui/app_mvvm.dart';
 import '../../../../base/vm/global_vm.dart';

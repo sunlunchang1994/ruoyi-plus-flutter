@@ -1,4 +1,4 @@
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
@@ -13,7 +13,7 @@ import '../../../../../base/api/base_dio.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../../gen/l10n.dart';
+import '../../../../../../gen/app_l10n.dart';
 import '../../../../../base/ui/app_mvvm.dart';
 
 //用户修改密码

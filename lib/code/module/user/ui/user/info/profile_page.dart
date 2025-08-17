@@ -1,6 +1,6 @@
 //个人资料
 import 'package:dio/dio.dart';
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
@@ -30,7 +30,7 @@ import '../../../../../feature/bizapi/user/entity/avatar_vo.dart';
 import '../../../../../feature/bizapi/user/entity/user.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../../gen/l10n.dart';
+import '../../../../../../gen/app_l10n.dart';
 import '../../../../../base/ui/app_mvvm.dart';
 
 class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {

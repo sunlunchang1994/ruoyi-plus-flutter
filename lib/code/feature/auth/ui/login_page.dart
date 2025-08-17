@@ -29,7 +29,7 @@ import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../gen/l10n.dart';
+import '../../../../gen/app_l10n.dart';
 import '../../../base/api/result_entity.dart';
 import '../../../base/ui/app_mvvm.dart';
 import '../entity/login_tenant_vo.dart';

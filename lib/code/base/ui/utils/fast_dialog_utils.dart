@@ -1,9 +1,9 @@
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 
-import '../../../../gen/l10n.dart';
+import '../../../../gen/app_l10n.dart';
 
 ///@author sunlunchang
 ///快速dialog工具

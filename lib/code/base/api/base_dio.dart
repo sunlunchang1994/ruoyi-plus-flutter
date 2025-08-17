@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:fast/fast/utils/app_toast.dart';
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/common/log_util.dart';
 import 'package:ruoyi_plus_flutter/code/base/api/api_config.dart';
 import 'package:ruoyi_plus_flutter/code/base/ui/utils/fast_dialog_utils.dart';
 
-import '../../../gen/l10n.dart';
+import '../../../gen/app_l10n.dart';
 import '../../feature/auth/ui/login_page.dart';
 import '../../root_page.dart';
 import '../api/result_entity.dart';

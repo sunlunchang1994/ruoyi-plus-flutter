@@ -9,7 +9,7 @@ import 'package:boxes_flutter/flutter/slc/dialog/dialog_loading_vm.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../../../gen/l10n.dart';
+import '../../../../gen/app_l10n.dart';
 
 /// @author sunlunchang
 /// 裁剪图片控件

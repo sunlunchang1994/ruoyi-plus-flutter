@@ -1,5 +1,5 @@
 import 'package:fast/gen/assets.gen.dart';
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:fast/package_info.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';

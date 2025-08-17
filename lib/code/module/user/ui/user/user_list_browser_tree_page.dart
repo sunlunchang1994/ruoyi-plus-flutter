@@ -8,7 +8,7 @@ import 'package:fast/fast/vd/list_data_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_page_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_list_page_vd.dart';
 
-import '../../../../../gen/l10n.dart';
+import '../../../../../gen/app_l10n.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';
 import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';

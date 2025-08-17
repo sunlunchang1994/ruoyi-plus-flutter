@@ -1,4 +1,4 @@
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/load_more_format.dart';
@@ -14,7 +14,7 @@ import 'package:fast/fast/vd/list_data_vm_sub.dart';
 import 'package:fast/fast/vd/page_data_vm_sub.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
 
-import '../../../../../../gen/l10n.dart';
+import '../../../../../../gen/app_l10n.dart';
 import '../../../../../../res/styles.dart';
 import '../../../../../base/api/base_dio.dart';
 import '../../../../../base/api/result_entity.dart';

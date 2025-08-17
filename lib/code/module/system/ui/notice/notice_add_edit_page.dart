@@ -1,12 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:fast/gen/l10n.dart';
+import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:boxes_flutter/flutter/slc/mvvm/status_widget.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
-import 'package:boxes_flutter/flutter/slc/res/styles.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
@@ -24,7 +23,7 @@ import 'package:form_extra/form/input_decoration_utils.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_notice.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../../../../../../gen/l10n.dart';
+import '../../../../../../gen/app_l10n.dart';
 import '../../../../base/api/base_dio.dart';
 import '../../../../base/api/result_entity.dart';
 import '../../../../base/ui/utils/fast_dialog_utils.dart';
