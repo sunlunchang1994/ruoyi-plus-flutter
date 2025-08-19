@@ -444,7 +444,7 @@ abstract class AppLocalizations {
   /// No description provided for @user_label_x_people.
   ///
   /// In en, this message translates to:
-  /// **'\$s人'**
+  /// **'%s人'**
   String get user_label_x_people;
 
   /// No description provided for @user_label_dept_not_found.
@@ -564,7 +564,7 @@ abstract class AppLocalizations {
   /// No description provided for @user_label_dept_del_prompt.
   ///
   /// In en, this message translates to:
-  /// **'确定要删除名称为\$s的部门信息吗？'**
+  /// **'确定要删除名称为%s的部门信息吗？'**
   String get user_label_dept_del_prompt;
 
   /// No description provided for @user_label_dept_del_select_empty.
@@ -576,7 +576,7 @@ abstract class AppLocalizations {
   /// No description provided for @user_label_select_x.
   ///
   /// In en, this message translates to:
-  /// **'选择\$s'**
+  /// **'选择%s'**
   String get user_label_select_x;
 
   /// No description provided for @user_label_tenant_not_empty_hint.
@@ -708,7 +708,7 @@ abstract class AppLocalizations {
   /// No description provided for @user_label_data_del_prompt.
   ///
   /// In en, this message translates to:
-  /// **'确定要删除姓名为\$s的用户信息吗？'**
+  /// **'确定要删除姓名为%s的用户信息吗？'**
   String get user_label_data_del_prompt;
 
   /// No description provided for @user_label_data_del_select_empty.
@@ -792,7 +792,7 @@ abstract class AppLocalizations {
   /// No description provided for @user_label_post_del_prompt.
   ///
   /// In en, this message translates to:
-  /// **'确定要删除名称为\$s的岗位信息吗？'**
+  /// **'确定要删除名称为%s的岗位信息吗？'**
   String get user_label_post_del_prompt;
 
   /// No description provided for @user_label_post_del_select_empty.
@@ -870,7 +870,7 @@ abstract class AppLocalizations {
   /// No description provided for @user_label_menu_permission_select_result.
   ///
   /// In en, this message translates to:
-  /// **'已配置\$s项菜单，点击查看'**
+  /// **'已配置%s项菜单，点击查看'**
   String get user_label_menu_permission_select_result;
 
   /// No description provided for @user_label_menu_permission_select_result2.
@@ -882,7 +882,7 @@ abstract class AppLocalizations {
   /// No description provided for @user_label_role_del_prompt.
   ///
   /// In en, this message translates to:
-  /// **'确定要删除名称为\$s的角色信息吗？'**
+  /// **'确定要删除名称为%s的角色信息吗？'**
   String get user_label_role_del_prompt;
 
   /// No description provided for @user_label_role_del_select_empty.
@@ -1002,7 +1002,7 @@ abstract class AppLocalizations {
   /// No description provided for @sys_label_menu_del_prompt.
   ///
   /// In en, this message translates to:
-  /// **'确定要删除名称为\$s的菜单吗？'**
+  /// **'确定要删除名称为%s的菜单吗？'**
   String get sys_label_menu_del_prompt;
 
   /// No description provided for @sys_label_menu_del_select_empty.
@@ -1122,7 +1122,7 @@ abstract class AppLocalizations {
   /// No description provided for @sys_label_dict_del_prompt.
   ///
   /// In en, this message translates to:
-  /// **'确定要删除名称为\$s的字典信息吗？'**
+  /// **'确定要删除名称为%s的字典信息吗？'**
   String get sys_label_dict_del_prompt;
 
   /// No description provided for @sys_label_dict_del_select_empty.
@@ -1188,7 +1188,7 @@ abstract class AppLocalizations {
   /// No description provided for @sys_label_config_del_prompt.
   ///
   /// In en, this message translates to:
-  /// **'确定要删除名称为\$s的参数配置信息吗？'**
+  /// **'确定要删除名称为%s的参数配置信息吗？'**
   String get sys_label_config_del_prompt;
 
   /// No description provided for @sys_label_config_del_select_empty.
@@ -1248,7 +1248,7 @@ abstract class AppLocalizations {
   /// No description provided for @sys_label_notice_del_prompt.
   ///
   /// In en, this message translates to:
-  /// **'确定要删除标题为\$s的通知公告吗？'**
+  /// **'确定要删除标题为%s的通知公告吗？'**
   String get sys_label_notice_del_prompt;
 
   /// No description provided for @sys_label_notice_del_select_empty.
@@ -1422,7 +1422,7 @@ abstract class AppLocalizations {
   /// No description provided for @sys_label_log_del_prompt.
   ///
   /// In en, this message translates to:
-  /// **'确定要删除Id为\$s的日志信息吗？'**
+  /// **'确定要删除Id为%s的日志信息吗？'**
   String get sys_label_log_del_prompt;
 
   /// No description provided for @sys_label_log_del_select_empty.
@@ -1500,7 +1500,7 @@ abstract class AppLocalizations {
   /// No description provided for @sys_label_oss_del_prompt.
   ///
   /// In en, this message translates to:
-  /// **'确定要删除名称为\$s的文件吗？'**
+  /// **'确定要删除名称为%s的文件吗？'**
   String get sys_label_oss_del_prompt;
 
   /// No description provided for @sys_label_oss_del_select_empty.
@@ -1596,7 +1596,7 @@ abstract class AppLocalizations {
   /// No description provided for @sys_label_oss_config_del_prompt.
   ///
   /// In en, this message translates to:
-  /// **'确定要删除Key为\$s的配置信息吗？'**
+  /// **'确定要删除Key为%s的配置信息吗？'**
   String get sys_label_oss_config_del_prompt;
 
   /// No description provided for @sys_label_oss_config_del_select_empty.
@@ -1692,7 +1692,7 @@ abstract class AppLocalizations {
   /// No description provided for @sys_label_sys_client_del_prompt.
   ///
   /// In en, this message translates to:
-  /// **'确定要删除客户端Id为\$s的客户端信息吗？'**
+  /// **'确定要删除客户端Id为%s的客户端信息吗？'**
   String get sys_label_sys_client_del_prompt;
 
   /// No description provided for @sys_label_sys_client_del_select_empty.
@@ -1740,7 +1740,7 @@ abstract class AppLocalizations {
   /// No description provided for @sys_label_sys_tenant_package_del_prompt.
   ///
   /// In en, this message translates to:
-  /// **'确定要删除名称为\$s的租户套餐吗？'**
+  /// **'确定要删除名称为%s的租户套餐吗？'**
   String get sys_label_sys_tenant_package_del_prompt;
 
   /// No description provided for @sys_label_sys_tenant_package_del_select_empty.
@@ -1848,7 +1848,7 @@ abstract class AppLocalizations {
   /// No description provided for @sys_label_sys_tenant_del_prompt.
   ///
   /// In en, this message translates to:
-  /// **'确定要删除名称为\$s的租户吗？'**
+  /// **'确定要删除名称为%s的租户吗？'**
   String get sys_label_sys_tenant_del_prompt;
 
   /// No description provided for @sys_label_sys_tenant_del_select_empty.

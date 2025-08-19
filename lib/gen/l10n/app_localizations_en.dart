@@ -183,7 +183,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get user_label_user_info_list => '用户列表';
 
   @override
-  String get user_label_x_people => '\$s人';
+  String get user_label_x_people => '%s人';
 
   @override
   String get user_label_dept_not_found => '没有获取到部门信息';
@@ -243,13 +243,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get user_label_dept_status => '部门状态';
 
   @override
-  String get user_label_dept_del_prompt => '确定要删除名称为\$s的部门信息吗？';
+  String get user_label_dept_del_prompt => '确定要删除名称为%s的部门信息吗？';
 
   @override
   String get user_label_dept_del_select_empty => '请选择需要删除的部门';
 
   @override
-  String get user_label_select_x => '选择\$s';
+  String get user_label_select_x => '选择%s';
 
   @override
   String get user_label_tenant_not_empty_hint => '机构不能为空';
@@ -315,7 +315,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get user_toast_user_super_edit_refuse => '该用户不允许修改';
 
   @override
-  String get user_label_data_del_prompt => '确定要删除姓名为\$s的用户信息吗？';
+  String get user_label_data_del_prompt => '确定要删除姓名为%s的用户信息吗？';
 
   @override
   String get user_label_data_del_select_empty => '请选择需要删除的用户';
@@ -357,7 +357,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get user_label_post_category => '类别编码';
 
   @override
-  String get user_label_post_del_prompt => '确定要删除名称为\$s的岗位信息吗？';
+  String get user_label_post_del_prompt => '确定要删除名称为%s的岗位信息吗？';
 
   @override
   String get user_label_post_del_select_empty => '请选择需要删除的岗位';
@@ -396,13 +396,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get user_label_menu_permission_select => '配置菜单权限';
 
   @override
-  String get user_label_menu_permission_select_result => '已配置\$s项菜单，点击查看';
+  String get user_label_menu_permission_select_result => '已配置%s项菜单，点击查看';
 
   @override
   String get user_label_menu_permission_select_result2 => '已配置多个菜单项，点击查看';
 
   @override
-  String get user_label_role_del_prompt => '确定要删除名称为\$s的角色信息吗？';
+  String get user_label_role_del_prompt => '确定要删除名称为%s的角色信息吗？';
 
   @override
   String get user_label_role_del_select_empty => '请选择需要删除的角色';
@@ -462,7 +462,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sys_label_menu_menu_status => '菜单状态';
 
   @override
-  String get sys_label_menu_del_prompt => '确定要删除名称为\$s的菜单吗？';
+  String get sys_label_menu_del_prompt => '确定要删除名称为%s的菜单吗？';
 
   @override
   String get sys_label_menu_del_select_empty => '请选择需要删除的菜单';
@@ -522,7 +522,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sys_label_dict_data_edit => '修改字典数据';
 
   @override
-  String get sys_label_dict_del_prompt => '确定要删除名称为\$s的字典信息吗？';
+  String get sys_label_dict_del_prompt => '确定要删除名称为%s的字典信息吗？';
 
   @override
   String get sys_label_dict_del_select_empty => '请选择需要删除的字典';
@@ -555,7 +555,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sys_label_config_edit => '修改参数配置';
 
   @override
-  String get sys_label_config_del_prompt => '确定要删除名称为\$s的参数配置信息吗？';
+  String get sys_label_config_del_prompt => '确定要删除名称为%s的参数配置信息吗？';
 
   @override
   String get sys_label_config_del_select_empty => '请选择需要删除的参数配置';
@@ -585,7 +585,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sys_label_notice_edit => '修改公告';
 
   @override
-  String get sys_label_notice_del_prompt => '确定要删除标题为\$s的通知公告吗？';
+  String get sys_label_notice_del_prompt => '确定要删除标题为%s的通知公告吗？';
 
   @override
   String get sys_label_notice_del_select_empty => '请选择需要删除的通知公告';
@@ -672,7 +672,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sys_label_logininfor_unlock_fail => '解锁失败';
 
   @override
-  String get sys_label_log_del_prompt => '确定要删除Id为\$s的日志信息吗？';
+  String get sys_label_log_del_prompt => '确定要删除Id为%s的日志信息吗？';
 
   @override
   String get sys_label_log_del_select_empty => '请选择需要删除的日志';
@@ -711,7 +711,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sys_label_get_file_download_hint => '获取下载路径失败，请检查相关权限！';
 
   @override
-  String get sys_label_oss_del_prompt => '确定要删除名称为\$s的文件吗？';
+  String get sys_label_oss_del_prompt => '确定要删除名称为%s的文件吗？';
 
   @override
   String get sys_label_oss_del_select_empty => '请选择需要删除的文件';
@@ -759,7 +759,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sys_label_oss_config_edit => '修改Oss配置';
 
   @override
-  String get sys_label_oss_config_del_prompt => '确定要删除Key为\$s的配置信息吗？';
+  String get sys_label_oss_config_del_prompt => '确定要删除Key为%s的配置信息吗？';
 
   @override
   String get sys_label_oss_config_del_select_empty => '请选择需要删除的配置';
@@ -807,7 +807,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sys_label_sys_client_del_flag => '删除标志';
 
   @override
-  String get sys_label_sys_client_del_prompt => '确定要删除客户端Id为\$s的客户端信息吗？';
+  String get sys_label_sys_client_del_prompt => '确定要删除客户端Id为%s的客户端信息吗？';
 
   @override
   String get sys_label_sys_client_del_select_empty => '请选择需要删除的客户端';
@@ -831,7 +831,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sys_label_sys_tenant_package_edit => '编辑租户套餐';
 
   @override
-  String get sys_label_sys_tenant_package_del_prompt => '确定要删除名称为\$s的租户套餐吗？';
+  String get sys_label_sys_tenant_package_del_prompt => '确定要删除名称为%s的租户套餐吗？';
 
   @override
   String get sys_label_sys_tenant_package_del_select_empty => '请选择需要删除的租户套餐';
@@ -885,7 +885,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sys_label_sys_tenant_intro => '企业简介';
 
   @override
-  String get sys_label_sys_tenant_del_prompt => '确定要删除名称为\$s的租户吗？';
+  String get sys_label_sys_tenant_del_prompt => '确定要删除名称为%s的租户吗？';
 
   @override
   String get sys_label_sys_tenant_del_select_empty => '请选择需要删除的租户';

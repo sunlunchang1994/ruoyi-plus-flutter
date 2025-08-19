@@ -61,7 +61,7 @@
   "user_label_check_for_updates_error": "获取更新信息失败",
   "user_label_dept_list": "部门列表",
   "user_label_user_info_list": "用户列表",
-  "user_label_x_people": "$s人",
+  "user_label_x_people": "%s人",
   "user_label_dept_not_found": "没有获取到部门信息",
   "user_label_user_info_not_found": "没有获取到用户信息",
 
@@ -83,10 +83,10 @@
   "user_label_dept_contact_number": "联系电话",
   "user_label_dept_contact_email": "邮箱",
   "user_label_dept_status": "部门状态",
-  "user_label_dept_del_prompt": "确定要删除名称为$s的部门信息吗？",
+  "user_label_dept_del_prompt": "确定要删除名称为%s的部门信息吗？",
   "user_label_dept_del_select_empty": "请选择需要删除的部门",
 
-  "user_label_select_x": "选择$s",
+  "user_label_select_x": "选择%s",
   "user_label_tenant_not_empty_hint": "机构不能为空",
   "user_label_account_not_empty_hint": "账号不能为空",
   "user_label_password_bot_empty_hint": "密码不能为空",
@@ -108,7 +108,7 @@
   "user_label_post_name_select": "选择岗位",
   "user_label_search_user": "搜索用户",
   "user_toast_user_super_edit_refuse": "该用户不允许修改",
-  "user_label_data_del_prompt": "确定要删除姓名为$s的用户信息吗？",
+  "user_label_data_del_prompt": "确定要删除姓名为%s的用户信息吗？",
   "user_label_data_del_select_empty": "请选择需要删除的用户",
   "user_label_reset_password": "重置密码",
   "user_label_reset_password_success": "重置成功",
@@ -123,7 +123,7 @@
   "user_label_post_name": "岗位名称",
   "user_label_post_code": "岗位编码",
   "user_label_post_category": "类别编码",
-  "user_label_post_del_prompt": "确定要删除名称为$s的岗位信息吗？",
+  "user_label_post_del_prompt": "确定要删除名称为%s的岗位信息吗？",
   "user_label_post_del_select_empty": "请选择需要删除的岗位",
 
   "user_label_role": "角色",
@@ -137,9 +137,9 @@
   "user_label_role_edit": "修改角色信息",
   "user_toast_role_super_edit_refuse": "该角色不允许修改",
   "user_label_menu_permission_select": "配置菜单权限",
-  "user_label_menu_permission_select_result": "已配置$s项菜单，点击查看",
+  "user_label_menu_permission_select_result": "已配置%s项菜单，点击查看",
   "user_label_menu_permission_select_result2": "已配置多个菜单项，点击查看",
-  "user_label_role_del_prompt": "确定要删除名称为$s的角色信息吗？",
+  "user_label_role_del_prompt": "确定要删除名称为%s的角色信息吗？",
   "user_label_role_del_select_empty": "请选择需要删除的角色",
 
   "sys_divide_text": "-----------------------------",
@@ -161,7 +161,7 @@
   "sys_label_menu_cache_status": "是否缓存",
   "sys_label_menu_display_status": "显示状态",
   "sys_label_menu_menu_status": "菜单状态",
-  "sys_label_menu_del_prompt": "确定要删除名称为$s的菜单吗？",
+  "sys_label_menu_del_prompt": "确定要删除名称为%s的菜单吗？",
   "sys_label_menu_del_select_empty": "请选择需要删除的菜单",
 
   "sys_label_dict_type_search_title": "搜索字典类型",
@@ -182,7 +182,7 @@
   "sys_label_dict_data_order_num": "显示顺序",
   "sys_label_dict_data_add": "新增字典数据",
   "sys_label_dict_data_edit": "修改字典数据",
-  "sys_label_dict_del_prompt": "确定要删除名称为$s的字典信息吗？",
+  "sys_label_dict_del_prompt": "确定要删除名称为%s的字典信息吗？",
   "sys_label_dict_del_select_empty": "请选择需要删除的字典",
 
   "sys_label_config_search_title": "搜索配置参数",
@@ -194,7 +194,7 @@
   "sys_label_config_type_select": "请选择是否系统内置",
   "sys_label_config_add": "新增参数配置",
   "sys_label_config_edit": "修改参数配置",
-  "sys_label_config_del_prompt": "确定要删除名称为$s的参数配置信息吗？",
+  "sys_label_config_del_prompt": "确定要删除名称为%s的参数配置信息吗？",
   "sys_label_config_del_select_empty": "请选择需要删除的参数配置",
 
   "sys_label_notice_search_title": "搜索配置参数",
@@ -205,7 +205,7 @@
   "sys_label_notice_status": "公告状态",
   "sys_label_notice_add": "新增公告",
   "sys_label_notice_edit": "修改公告",
-  "sys_label_notice_del_prompt": "确定要删除标题为$s的通知公告吗？",
+  "sys_label_notice_del_prompt": "确定要删除标题为%s的通知公告吗？",
   "sys_label_notice_del_select_empty": "请选择需要删除的通知公告",
 
   "sys_label_log_details": "日志详情",
@@ -238,7 +238,7 @@
   "sys_label_logininfor_unlock_success": "解锁成功",
   "sys_label_logininfor_unlock_fail": "解锁失败",
 
-  "sys_label_log_del_prompt": "确定要删除Id为$s的日志信息吗？",
+  "sys_label_log_del_prompt": "确定要删除Id为%s的日志信息吗？",
   "sys_label_log_del_select_empty": "请选择需要删除的日志",
 
   "sys_label_oss_search": "搜索文件",
@@ -252,7 +252,7 @@
   "sys_label_oss_details": "文件详情",
   "sys_label_permission_file_download_hint": "下载并保存文件需要文件管理权限，请授予！",
   "sys_label_get_file_download_hint": "获取下载路径失败，请检查相关权限！",
-  "sys_label_oss_del_prompt": "确定要删除名称为$s的文件吗？",
+  "sys_label_oss_del_prompt": "确定要删除名称为%s的文件吗？",
   "sys_label_oss_del_select_empty": "请选择需要删除的文件",
 
   "sys_label_oss_config_name": "配置管理",
@@ -269,7 +269,7 @@
   "sys_label_oss_config_remark": "备注",
   "sys_label_oss_config_add": "新增Oss配置",
   "sys_label_oss_config_edit": "修改Oss配置",
-  "sys_label_oss_config_del_prompt": "确定要删除Key为$s的配置信息吗？",
+  "sys_label_oss_config_del_prompt": "确定要删除Key为%s的配置信息吗？",
   "sys_label_oss_config_del_select_empty": "请选择需要删除的配置",
 
   "sys_label_sys_client_add": "新增客户端配置",
@@ -286,7 +286,7 @@
   "sys_label_sys_client_timeout": "token固定超时时间",
   "sys_label_sys_client_status": "状态",
   "sys_label_sys_client_del_flag": "删除标志",
-  "sys_label_sys_client_del_prompt": "确定要删除客户端Id为$s的客户端信息吗？",
+  "sys_label_sys_client_del_prompt": "确定要删除客户端Id为%s的客户端信息吗？",
   "sys_label_sys_client_del_select_empty": "请选择需要删除的客户端",
 
   "sys_label_sys_tenant_package_search": "搜索租户套餐",
@@ -295,7 +295,7 @@
   "sys_label_sys_tenant_package_remark": "备注",
   "sys_label_sys_tenant_package_add": "新增租户套餐",
   "sys_label_sys_tenant_package_edit": "编辑租户套餐",
-  "sys_label_sys_tenant_package_del_prompt": "确定要删除名称为$s的租户套餐吗？",
+  "sys_label_sys_tenant_package_del_prompt": "确定要删除名称为%s的租户套餐吗？",
   "sys_label_sys_tenant_package_del_select_empty": "请选择需要删除的租户套餐",
 
   "sys_label_sys_tenant_x_expire_time": "到期",
@@ -314,7 +314,7 @@
   "sys_label_sys_tenant_address": "企业地址",
   "sys_label_sys_tenant_license_number": "企业代码",
   "sys_label_sys_tenant_intro": "企业简介",
-  "sys_label_sys_tenant_del_prompt": "确定要删除名称为$s的租户吗？",
+  "sys_label_sys_tenant_del_prompt": "确定要删除名称为%s的租户吗？",
   "sys_label_sys_tenant_del_select_empty": "请选择需要删除的租户",
 
   "sys_label_sys_tenant_remark": "备注",
