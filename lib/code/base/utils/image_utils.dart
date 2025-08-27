@@ -4,7 +4,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:ui' as ui;
 
@@ -25,7 +25,7 @@ class ImageUtils {
           await image.toByteData(format: ui.ImageByteFormat.png);
       Uint8List? _uInt8List = byteData?.buffer.asUint8List();
       if (_uInt8List != null) {
-        final resultDynamic = await ImageGallerySaver.saveImage(_uInt8List);
+        final resultDynamic = await ImageGallerySaverPlus.saveImage(_uInt8List);
         Map<String, dynamic> result = json.decode(json.encode(resultDynamic));
         if (result["isSuccess"]) {
           return ResultEntity(code: 0, data: result["filePath"]);

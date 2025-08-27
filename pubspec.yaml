@@ -68,8 +68,8 @@ dependencies:
   # 文件相关---------------------------------------
   #图片选择
   image_picker: ^1.1.2
-  # 保存图片到相册 https://pub.dev/packages/image_gallery_saver 混合开发中好像有点冲突，具体待测试
-  image_gallery_saver: ^2.0.3
+  # 保存图片到相册 仅支持Android IOS 其他平台需要编写兼容性方案
+  image_gallery_saver_plus: ^4.0.1
   # 图片裁剪
   crop_your_image: ^1.1.0
   # 文件选择
@@ -111,12 +111,6 @@ dependencies:
   # 数据库基础库
   db_base:
     path: "./package/db_base"
-
-dependency_overrides:
-  image_gallery_saver:
-    git:
-      url: https://github.com/knottx/image_gallery_saver.git
-      ref: knottx-latest
 
 dev_dependencies:
   flutter_test:
