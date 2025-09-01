@@ -6,10 +6,8 @@ import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
 import 'package:boxes_flutter/flutter/slc/common/screen_util.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
-import 'package:boxes_flutter/flutter/slc/res/styles.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
-import 'package:boxes_flutter/flutter/slc/router/slc_router.dart';
 import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:fast/fast/vd/page_data_vm_sub.dart';
@@ -364,4 +362,5 @@ class LogininforListDataVmSub extends FastBasePageDataVmSub<SysLogininfor>
               dismissLoading();
             }));
   }
+
 }

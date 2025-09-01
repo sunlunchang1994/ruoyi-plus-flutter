@@ -230,10 +230,6 @@ abstract class IListDataVmSub<T> extends FastVmSub {
 
   void refreshAsync();
 
-  void itemClick(int index, T data) {}
-
-  void itemLongClick(int index, T data) {}
-
   @override
   void onCleared() {
     CancelTokenAssist.cancelAllIf(this, "VmBox cleared");
