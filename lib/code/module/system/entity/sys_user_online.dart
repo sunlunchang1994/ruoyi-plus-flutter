@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:ruoyi_plus_flutter/code/base/api/json_converter.dart';
+import 'package:base/base/api/json_converter.dart';
 
 part 'sys_user_online.g.dart';
 

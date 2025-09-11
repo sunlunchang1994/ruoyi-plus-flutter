@@ -3,20 +3,21 @@ import 'package:boxes_flutter/flutter/slc/common/log_util.dart';
 import 'package:boxes_flutter/flutter/slc/common/slc_color_util.dart';
 import 'package:boxes_flutter/flutter/slc/common/slc_num_util.dart';
 import 'package:boxes_flutter/flutter/slc/mvvm/base_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
+import 'package:base/base/vm/global_vm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/log/sys_logininfor_list_browser_page.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/log/sys_logininfor_list_page_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/log/sys_oper_log_list_browser_page.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/log/sys_oper_log_list_page_vd.dart';
-import '../../../../base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import '../../../../feature/bizapi/system/entity/router_vo.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../feature/component/dict/entity/tree_dict.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
+import '../../../../feature/component/dict/vm/dict_share_vm.dart';
 import '../../entity/sys_logininfor.dart';
 import '../../entity/sys_oper_log.dart';
 
@@ -186,7 +187,7 @@ class LogStyleHelper {
   late List<int> _colorArray;
 
   LogStyleHelper() {
-    _sysOperTypeList = GlobalVm().dictShareVm.dictMap[LocalDictLib.CODE_SYS_OPER_TYPE] ??
+    _sysOperTypeList = DictShareVm().dictMap[LocalDictLib.CODE_SYS_OPER_TYPE] ??
         List.empty(growable: true);
     _colorArray = SlcColorUtil.getColorByAverage(_sysOperTypeList.length,
         colorArray: SlcColorUtil.COLOR_ARRAY_MD);

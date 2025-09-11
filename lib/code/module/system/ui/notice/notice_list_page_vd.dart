@@ -14,11 +14,12 @@ import 'package:fast/fast/vd/request_token_manager.dart';
 
 import '../../../../../../gen/app_l10n.dart';
 import '../../../../../../res/styles.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/api/result_entity.dart';
-import '../../../../base/repository/remote/data_transform_utils.dart';
-import '../../../../base/vm/global_vm.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/repository/remote/data_transform_utils.dart';
+import 'package:base/base/vm/global_vm.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
+import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
@@ -83,7 +84,7 @@ class NoticeListPageWidget {
           listenerItemSelect.onItemClick(index, listItem);
         },
         onLongPress: () {
-          GlobalVm().userShareVm.execPermiAny(
+          UserShareVm().execPermiAny(
               ["system:notice:remove"], () => listenerItemSelect.onItemLongClick(index, listItem));
         });
   }

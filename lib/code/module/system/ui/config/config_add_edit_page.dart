@@ -17,16 +17,18 @@ import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
+import 'package:base/base/vm/global_vm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_config.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 
 import '../../../../../../gen/app_l10n.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/api/result_entity.dart';
-import '../../../../base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
+import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
+import '../../../../feature/component/dict/vm/dict_share_vm.dart';
 import '../../repository/remote/sys_config_api.dart';
 
 class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
@@ -63,20 +65,18 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
                         ? S.current.sys_label_config_add
                         : S.current.sys_label_config_edit),
                     actions: [
-                      if ((globalVm.userShareVm.hasPermiAny(["system:config:edit"]) &&
+                      if ((UserShareVm().hasPermiAny(["system:config:edit"]) &&
                               sysConfig != null) ||
-                          (globalVm.userShareVm.hasPermiAny(["system:config:add"]) &&
-                              sysConfig == null))
+                          (UserShareVm().hasPermiAny(["system:config:add"]) && sysConfig == null))
                         IconButton(
                             onPressed: () {
                               getVm().onSave();
                             },
                             icon: Icon(Icons.save)),
-                      if (sysConfig != null &&
-                          globalVm.userShareVm.hasPermiAny(["system:config:remove"]))
+                      if (sysConfig != null && UserShareVm().hasPermiAny(["system:config:remove"]))
                         PopupMenuButton(itemBuilder: (context) {
                           return [
-                            if (globalVm.userShareVm.hasPermiAny(["system:config:remove"]))
+                            if (UserShareVm().hasPermiAny(["system:config:remove"]))
                               PopupMenuItem(
                                 child: Text(FastS.current.action_delete),
                                 onTap: () {
@@ -170,12 +170,12 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
                     ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderRadioGroup<OptionVL<String>>(
                         name: "configTypeName",
-                        initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
+                        initialValue: DictUiUtils.dict2OptionVL(DictShareVm().findDict(
                             LocalDictLib.CODE_SYS_YES_NO, getVm().sysConfig!.configType,
                             defDictKey: LocalDictLib.KEY_SYS_YES_NO_N)),
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         options: DictUiUtils.dictList2FromOption(
-                            globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_YES_NO]!),
+                            DictShareVm().dictMap[LocalDictLib.CODE_SYS_YES_NO]!),
                         decoration: MyInputDecoration(labelText: S.current.sys_label_config_type),
                         onChanged: (value) {
                           getVm().applyInfoChange();

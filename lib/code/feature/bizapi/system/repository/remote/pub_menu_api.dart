@@ -1,12 +1,12 @@
+import 'package:base/base/api/api_config.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/router_vo.dart';
 
-import '../../../../../base/api/api_config.dart';
-import '../../../../../base/api/base_dio.dart';
-import '../../../../../base/api/result_entity.dart';
-import '../../../../../base/repository/remote/data_transform_utils.dart';
-import '../../../../../base/vm/global_vm.dart';
+import '../../../user/vm/user_share_vm.dart';
 
 part 'pub_menu_api.g.dart';
 
@@ -42,7 +42,7 @@ class PubMenuPublicRepository {
       return intensifyEntity;
     }).map((event) {
       List<RouterVo> routerVoList = event.data ?? List.empty(growable: true);
-      GlobalVm().userShareVm.routerVoOf.setValue(routerVoList);
+      UserShareVm().routerVoOf.setValue(routerVoList);
       return event;
     }).single;
   }

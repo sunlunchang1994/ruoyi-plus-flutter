@@ -9,12 +9,13 @@ import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 
 import '../../../../../gen/app_l10n.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
 import '../../../../feature/bizapi/system/entity/sys_config.dart';
+import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../config/constant_sys.dart';
 import '../../repository/remote/sys_config_api.dart';
 import 'config_add_edit_page.dart';
@@ -102,7 +103,7 @@ class ConfigListBrowserPage extends AppBaseStatelessWidget<_ConfigListBrowserVm>
                   endDrawer: ConfigListPageWidget.getSearchEndDrawer<_ConfigListBrowserVm>(
                       context, themeData, getVm().listVmSub),
                   floatingActionButton:
-                      globalVm.userShareVm.widgetWithPermiAny(["system:client:add"], () {
+                      UserShareVm().widgetWithPermiAny(["system:client:add"], () {
                     return NqSelector<_ConfigListBrowserVm, bool>(builder: (context, value, child) {
                       return WidgetUtils.getAnimVisibility(
                           !value,

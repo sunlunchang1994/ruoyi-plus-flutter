@@ -1,12 +1,11 @@
+import 'package:base/base/api/api_config.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
-import 'package:ruoyi_plus_flutter/code/base/repository/remote/data_transform_utils.dart';
-import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
-
-import '../../../../../base/api/api_config.dart';
-import '../../../../../base/api/base_dio.dart';
-import '../../../../../base/api/result_entity.dart';
 import '../../entity/my_user_info_vo.dart';
+import '../../vm/user_share_vm.dart';
 
 part 'pub_user_api.g.dart';
 
@@ -34,7 +33,7 @@ class PubUserRepository {
           createData: (resultEntity) => MyUserInfoVo.fromJson(resultEntity.data));
     }).map((event) {
       MyUserInfoVo userInfoVo = event.data!;
-      GlobalVm().userShareVm.userInfoOf.setValue(userInfoVo);
+      UserShareVm().userInfoOf.setValue(userInfoVo);
       return event;
     }).single;
   }

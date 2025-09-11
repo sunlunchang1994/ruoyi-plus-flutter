@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
@@ -14,10 +14,11 @@ import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_add_edit_page.d
 import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_page_vd.dart';
 
 import '../../../../../gen/app_l10n.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
 import '../../../../feature/bizapi/user/config/constant_user_api.dart';
 import '../../../../feature/bizapi/user/entity/role.dart';
+import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../repository/remote/role_api.dart';
 
 ///
@@ -101,8 +102,7 @@ class RoleListBrowserPage extends AppBaseStatelessWidget<_RoleListBrowserVm> {
                       ]),
                   endDrawer: RoleListPageVd.getSearchEndDrawer<_RoleListBrowserVm>(
                       context, themeData, getVm().listVmSub),
-                  floatingActionButton:
-                      globalVm.userShareVm.widgetWithPermiAny(["system:role:add"], () {
+                  floatingActionButton: UserShareVm().widgetWithPermiAny(["system:role:add"], () {
                     return NqSelector<_RoleListBrowserVm, bool>(builder: (context, value, child) {
                       return WidgetUtils.getAnimVisibility(
                           !value,

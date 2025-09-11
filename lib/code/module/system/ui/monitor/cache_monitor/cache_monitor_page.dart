@@ -15,14 +15,14 @@ import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/redis_cache_info.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/repository/remote/cache_monitor_api.dart';
 
 import '../../../../../../gen/app_l10n.dart';
-import '../../../../../base/api/base_dio.dart';
+import 'package:base/base/api/base_dio.dart';
 import 'package:fast/fast/provider/should_set_state.dart';
 
 class CacheMonitorPage extends AppBaseStatelessWidget<_CacheMonitorVm> {

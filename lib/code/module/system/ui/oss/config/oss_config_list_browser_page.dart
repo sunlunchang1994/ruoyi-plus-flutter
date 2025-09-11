@@ -4,16 +4,17 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/vd/page_data_vd.dart';
 
 import '../../../../../../gen/app_l10n.dart';
 
-import '../../../../../base/api/base_dio.dart';
-import '../../../../../base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
+import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../entity/sys_oss_config.dart';
 import '../../../repository/remote/sys_oss_config_api.dart';
 import 'oss_config_add_edit_page.dart';
@@ -100,7 +101,7 @@ class OssConfigListBrowserPage extends AppBaseStatelessWidget<_OssConfigListBrow
                   endDrawer: OssConfigListPageWidget.getSearchEndDrawer<_OssConfigListBrowserVm>(
                       context, themeData, getVm().listVmSub),
                   floatingActionButton:
-                      globalVm.userShareVm.widgetWithPermiAny(["system:ossConfig:add"], () {
+                      UserShareVm().widgetWithPermiAny(["system:ossConfig:add"], () {
                     return NqSelector<_OssConfigListBrowserVm, bool>(
                         builder: (context, value, child) {
                       return WidgetUtils.getAnimVisibility(

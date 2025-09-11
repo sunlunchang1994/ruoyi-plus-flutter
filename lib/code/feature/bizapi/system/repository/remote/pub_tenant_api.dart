@@ -1,8 +1,7 @@
+import 'package:base/base/api/api_config.dart';
+import 'package:base/base/api/base_dio.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
-
-import '../../../../../base/api/api_config.dart';
-import '../../../../../base/api/base_dio.dart';
 
 part 'pub_tenant_api.g.dart';
 

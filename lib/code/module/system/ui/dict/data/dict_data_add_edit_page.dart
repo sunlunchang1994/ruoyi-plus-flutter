@@ -11,7 +11,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_dict_data.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
@@ -19,8 +19,10 @@ import 'package:form_extra/form/input_decoration_utils.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/repository/remote/dict_data_api.dart';
 
 import '../../../../../../gen/app_l10n.dart';
-import '../../../../../base/api/base_dio.dart';
-import '../../../../../base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
+
+import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
 
 class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
   static const String routeName = '/system/dict/data/add_edit';
@@ -57,9 +59,9 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                         ? S.current.sys_label_dict_data_add
                         : S.current.sys_label_dict_data_edit),
                     actions: [
-                      if ((globalVm.userShareVm.hasPermiAny(["system:dict:edit"]) &&
+                      if ((UserShareVm().hasPermiAny(["system:dict:edit"]) &&
                               dictData != null) ||
-                          (globalVm.userShareVm.hasPermiAny(["system:dict:add"]) &&
+                          (UserShareVm().hasPermiAny(["system:dict:add"]) &&
                               dictData == null))
                         IconButton(
                             onPressed: () {
@@ -67,10 +69,10 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                             },
                             icon: Icon(Icons.save)),
                       if (dictData != null &&
-                          globalVm.userShareVm.hasPermiAny(["system:dict:remove"]))
+                          UserShareVm().hasPermiAny(["system:dict:remove"]))
                         PopupMenuButton(itemBuilder: (context) {
                           return [
-                            if (globalVm.userShareVm.hasPermiAny(["system:dict:remove"]))
+                            if (UserShareVm().hasPermiAny(["system:dict:remove"]))
                               PopupMenuItem(
                                 child: Text(FastS.current.action_delete),
                                 onTap: () {

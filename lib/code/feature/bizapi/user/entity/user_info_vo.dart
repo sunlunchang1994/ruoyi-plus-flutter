@@ -1,10 +1,9 @@
+import 'package:base/base/api/json_converter.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/post.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/role.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/user.dart';
 
 import 'package:json_annotation/json_annotation.dart';
-
-import '../../../../base/api/json_converter.dart';
 
 part 'user_info_vo.g.dart';
 

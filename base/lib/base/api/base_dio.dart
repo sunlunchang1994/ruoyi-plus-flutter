@@ -3,13 +3,12 @@ import 'package:fast/fast/utils/app_toast.dart';
 import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/common/log_util.dart';
-import 'package:ruoyi_plus_flutter/code/base/api/api_config.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/utils/fast_dialog_utils.dart';
 
-import '../../../gen/app_l10n.dart';
-import '../../feature/auth/ui/login_page.dart';
-import '../../root_page.dart';
+import '../../gen/base_l10n.dart';
 import '../api/result_entity.dart';
+import '../route/base_router.dart';
+import '../ui/utils/fast_dialog_utils.dart';
+import 'api_config.dart';
 import 'api_exception.dart';
 import 'interceptor_encrypt.dart';
 import 'interceptor_header.dart';
@@ -158,14 +157,14 @@ class BaseDio {
     if (resultEntity.code == ApiConfig.VALUE_CODE_NORMAL_UNAUTHORIZED) {
       //在此处弹框
       showDialog(
-          context: navigatorKey.currentState!.context,
+          context: BaseRouter.navigatorKey.currentContext!,
           builder: (context) {
             return AlertDialog(
                 title: Text(FastS.current.label_prompt),
-                content: Text(S.current.app_label_login_normal_unauthorized),
+                content: Text(BaseS.current.base_label_login_normal_unauthorized),
                 actions: FastDialogUtils.getCommonlyAction(context, positiveLister: () {
                   Navigator.of(context).pushNamedAndRemoveUntil(
-                    LoginPage.routeName,
+                    BaseRouter.loginPage,
                     (Route<dynamic> route) => false,
                   );
                 }));

@@ -10,7 +10,7 @@ import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/app_toast.dart';
@@ -22,12 +22,14 @@ import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_tenant_package.
 import 'package:ruoyi_plus_flutter/code/module/system/ui/tenant/package/tenant_package_select_single_page.dart';
 
 import '../../../../../gen/app_l10n.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/config/constant_base.dart';
-import '../../../../base/ui/utils/fast_dialog_utils.dart';
-import '../../../../base/vm/global_vm.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/config/constant_base.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/vm/global_vm.dart';
 import '../../../../feature/bizapi/system/entity/sys_tenant.dart';
+import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../../feature/component/dict/entity/tree_dict.dart';
+import '../../../../feature/component/dict/vm/dict_share_vm.dart';
 import '../../repository/remote/sys_tenant_api.dart';
 
 class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
@@ -64,10 +66,9 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                         ? S.current.sys_label_sys_tenant_add
                         : S.current.sys_label_sys_tenant_edit),
                     actions: [
-                      if ((globalVm.userShareVm.hasPermiAny(["system:tenant:edit"]) &&
+                      if ((UserShareVm().hasPermiAny(["system:tenant:edit"]) &&
                               sysTenant != null) ||
-                          (globalVm.userShareVm.hasPermiAny(["system:tenant:add"]) &&
-                              sysTenant == null))
+                          (UserShareVm().hasPermiAny(["system:tenant:add"]) && sysTenant == null))
                         IconButton(
                             onPressed: () {
                               getVm().onSave();
@@ -76,7 +77,7 @@ class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {
                       if (sysTenant != null)
                         PopupMenuButton<String>(itemBuilder: (context) {
                           return [
-                            if (globalVm.userShareVm.hasPermiAny(["system:tenant:remove"]))
+                            if (UserShareVm().hasPermiAny(["system:tenant:remove"]))
                               PopupMenuItem(
                                 child: Text(FastS.current.action_delete),
                                 onTap: () {
@@ -401,7 +402,7 @@ class _TenantAddEditVm extends AppBaseVm with CancelTokenAssist {
     }
     if (sysTenant == null) {
       sysTenant = SysTenant();
-      ITreeDict<dynamic>? statusDict = GlobalVm().dictShareVm.findDict(
+      ITreeDict<dynamic>? statusDict = DictShareVm().findDict(
           LocalDictLib.CODE_SYS_NORMAL_DISABLE, LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL);
       sysTenant.status = statusDict?.tdDictValue;
       sysTenant.accountCount = 0;

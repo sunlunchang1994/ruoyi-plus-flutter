@@ -25,12 +25,13 @@ import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_page_vd.da
 import '../../../../../gen/assets.gen.dart';
 import '../../../../../gen/app_l10n.dart';
 import '../../../../../res/dimens.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/api/result_entity.dart';
-import '../../../../base/config/constant_base.dart';
-import '../../../../base/repository/remote/data_transform_utils.dart';
-import '../../../../base/vm/global_vm.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/config/constant_base.dart';
+import 'package:base/base/repository/remote/data_transform_utils.dart';
+import 'package:base/base/vm/global_vm.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
+import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
@@ -162,7 +163,7 @@ class UserListPageVd {
         //getVm().nextByDept(listItem);
       },
       onLongPress: () {
-        GlobalVm().userShareVm.execPermiEvery(
+        UserShareVm().execPermiEvery(
             ["system:user:remove"], () => listenerItemSelect.onItemLongClick(index, listItem));
       },
     );

@@ -10,7 +10,7 @@ import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/webview/web_view_util.dart';
@@ -24,11 +24,13 @@ import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_notice.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../../../../gen/app_l10n.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/api/result_entity.dart';
-import '../../../../base/ui/utils/fast_dialog_utils.dart';
-import '../../../../base/vm/global_vm.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/vm/global_vm.dart';
+import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../../feature/component/dict/entity/tree_dict.dart';
+import '../../../../feature/component/dict/vm/dict_share_vm.dart';
 import '../../repository/remote/sys_notice_api.dart';
 
 class NoticeAddEditPage extends AppBaseStatelessWidget<_NoticeAddEditVm> {
@@ -65,9 +67,9 @@ class NoticeAddEditPage extends AppBaseStatelessWidget<_NoticeAddEditVm> {
                         ? S.current.sys_label_notice_add
                         : S.current.sys_label_notice_edit),
                     actions: [
-                      if ((globalVm.userShareVm.hasPermiAny(["system:notice:edit"]) &&
+                      if ((UserShareVm().hasPermiAny(["system:notice:edit"]) &&
                               sysNotice != null) ||
-                          (globalVm.userShareVm.hasPermiAny(["system:notice:add"]) &&
+                          (UserShareVm().hasPermiAny(["system:notice:add"]) &&
                               sysNotice == null))
                         IconButton(
                             onPressed: () {
@@ -75,10 +77,10 @@ class NoticeAddEditPage extends AppBaseStatelessWidget<_NoticeAddEditVm> {
                             },
                             icon: Icon(Icons.save)),
                       if (sysNotice != null &&
-                          globalVm.userShareVm.hasPermiAny(["system:notice:remove"]))
+                          UserShareVm().hasPermiAny(["system:notice:remove"]))
                         PopupMenuButton(itemBuilder: (context) {
                           return [
-                            if (globalVm.userShareVm.hasPermiAny(["system:notice:remove"]))
+                            if (UserShareVm().hasPermiAny(["system:notice:remove"]))
                               PopupMenuItem(
                                 child: Text(FastS.current.action_delete),
                                 onTap: () {
@@ -159,11 +161,11 @@ class NoticeAddEditPage extends AppBaseStatelessWidget<_NoticeAddEditVm> {
                     FormBuilderRadioGroup<OptionVL<String>>(
                         name: "status",
                         enabled: false,
-                        initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
+                        initialValue: DictUiUtils.dict2OptionVL(DictShareVm().findDict(
                             LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().sysNotice!.status,
                             defDictKey: LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL)),
                         options: DictUiUtils.dictList2FromOption(
-                            globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
+                            DictShareVm().dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
                         decoration: MyInputDecoration(labelText: S.current.sys_label_notice_status),
                         onChanged: (value) {
                           getVm().applyInfoChange();

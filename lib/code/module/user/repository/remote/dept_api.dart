@@ -4,10 +4,10 @@ import 'package:retrofit/retrofit.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/dept.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/user_api.dart';
 
-import '../../../../base/api/api_config.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/api/result_entity.dart';
-import '../../../../base/repository/remote/data_transform_utils.dart';
+import 'package:base/base/api/api_config.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/repository/remote/data_transform_utils.dart';
 import '../../../../feature/bizapi/user/entity/my_user_info_vo.dart';
 import '../../../../feature/bizapi/user/entity/user_info_vo.dart';
 

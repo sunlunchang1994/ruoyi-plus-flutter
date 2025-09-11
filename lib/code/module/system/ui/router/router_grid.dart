@@ -1,15 +1,13 @@
-import 'dart:io';
-
+import 'package:base/base/config/constant_base.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/common/object_util.dart';
 import 'package:boxes_flutter/flutter/slc/common/slc_url_util.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
-import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/config/constant_sys_api.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/router/router_page.dart';
 import '../../../../../gen/app_l10n.dart';
-import '../../../../base/ui/app_mvvm.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../feature/bizapi/system/entity/router_vo.dart';

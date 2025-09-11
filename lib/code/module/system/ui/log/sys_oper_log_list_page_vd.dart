@@ -19,11 +19,11 @@ import 'package:ruoyi_plus_flutter/code/module/system/ui/log/sys_oper_log_detail
 
 import '../../../../../../gen/app_l10n.dart';
 import '../../../../../../res/styles.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/api/result_entity.dart';
-import '../../../../base/repository/remote/data_transform_utils.dart';
-import '../../../../base/ui/utils/fast_dialog_utils.dart';
-import '../../../../base/vm/global_vm.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/repository/remote/data_transform_utils.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/vm/global_vm.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/app_toast.dart';
@@ -34,6 +34,7 @@ import 'package:dio/dio.dart';
 
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
+import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../config/constant_sys.dart';
 import '../../entity/sys_oper_log.dart';
 import '../../repository/remote/sys_oper_log_api.dart';
@@ -125,7 +126,7 @@ class SysOperLogListPageWidget {
             listenerItemSelect.onItemClick(index, listItem);
           },
           onLongPress: () {
-            GlobalVm().userShareVm.execPermiAny(["system:dict:remove"], () {
+            UserShareVm().execPermiAny(["system:dict:remove"], () {
               FastDialogUtils.showDelConfirmDialog(context,
                       contentText:
                           TextUtil.format(S.current.sys_label_log_del_prompt, [listItem.operId]))

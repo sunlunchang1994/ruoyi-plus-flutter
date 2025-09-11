@@ -6,10 +6,10 @@ import 'package:boxes_flutter/flutter/slc/code/value_wrapper.dart';
 import 'package:boxes_flutter/flutter/slc/common/entity/label_value.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 
 import '../../../../../../gen/app_l10n.dart';
-import '../../../../../base/config/constant_base.dart';
+import 'package:base/base/config/constant_base.dart';
 import '../../../../../feature/bizapi/user/entity/select_menu_result.dart';
 import '../../../../../feature/component/tree/vd/tree_data_list_vd.dart';
 import '../../../entity/sys_menu_tree.dart';

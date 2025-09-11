@@ -14,8 +14,8 @@ import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:open_file/open_file.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/api/base_dio.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_oss_vo.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/remote/pub_oss_api.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/attachment/repository/local/attachment_config.dart';
@@ -32,7 +32,8 @@ import 'package:ruoyi_plus_flutter/gen/assets.gen.dart';
 
 import '../../../../../../gen/app_l10n.dart';
 import '../../../../../res/dimens.dart';
-import '../../../../base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
+import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../../feature/component/attachment/entity/progress.dart';
 import '../../repository/remote/sys_oss_api.dart';
 
@@ -55,7 +56,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
               appBar: AppBar(
                 title: Text(S.current.sys_label_oss_details),
                 actions: [
-                  if (globalVm.userShareVm.hasPermiAny(["system:oss:remove"]))
+                  if (UserShareVm().hasPermiAny(["system:oss:remove"]))
                     IconButton(
                         onPressed: () {
                           FastDialogUtils.showDelConfirmDialog(context,

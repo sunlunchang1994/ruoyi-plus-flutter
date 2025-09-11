@@ -9,10 +9,10 @@ import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 
 import '../../../../../gen/app_l10n.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/api/result_entity.dart';
-import '../../../../base/config/constant_base.dart';
-import '../../../../base/repository/remote/data_transform_utils.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/config/constant_base.dart';
+import 'package:base/base/repository/remote/data_transform_utils.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
 import 'package:fast/fast/utils/widget_utils.dart';

@@ -5,7 +5,7 @@ import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/page_data_vd.dart';
@@ -15,10 +15,11 @@ import 'package:ruoyi_plus_flutter/code/module/user/ui/post/post_list_page_vd.da
 import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_page_vd.dart';
 
 import '../../../../../../gen/app_l10n.dart';
-import '../../../../../base/api/base_dio.dart';
-import '../../../../../base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
 import '../../../../../feature/bizapi/system/entity/sys_dict_type.dart';
 import 'package:fast/fast/utils/app_toast.dart';
+import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../config/constant_sys.dart';
 import '../../../repository/remote/dict_type_api.dart';
 import 'dict_type_add_edit_page.dart';
@@ -106,7 +107,7 @@ class DictTypeListBrowserPage extends AppBaseStatelessWidget<_DictTypeListBrowse
                   endDrawer: DictTypeListPageWidget.getSearchEndDrawer<_DictTypeListBrowserVm>(
                       context, themeData, getVm().listVmSub),
                   floatingActionButton:
-                      globalVm.userShareVm.widgetWithPermiAny(["system:dict:add"], () {
+                      UserShareVm().widgetWithPermiAny(["system:dict:add"], () {
                     return NqSelector<_DictTypeListBrowserVm, bool>(
                         builder: (context, value, child) {
                       return WidgetUtils.getAnimVisibility(

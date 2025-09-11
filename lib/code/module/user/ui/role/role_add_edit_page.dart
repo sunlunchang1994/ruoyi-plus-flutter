@@ -9,8 +9,8 @@ import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/config/constant_base.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:form_extra/form/fast_form_builder_field_option.dart';
@@ -19,15 +19,17 @@ import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
 
 import '../../../../../gen/app_l10n.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/ui/utils/fast_dialog_utils.dart';
-import '../../../../base/vm/global_vm.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/vm/global_vm.dart';
 import '../../../../feature/bizapi/user/config/constant_user_api.dart';
 import '../../../../feature/bizapi/user/entity/role.dart';
 import '../../../../feature/bizapi/user/entity/select_menu_result.dart';
+import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../../feature/component/dict/entity/tree_dict.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
+import '../../../../feature/component/dict/vm/dict_share_vm.dart';
 import '../../../system/config/constant_sys.dart';
 import '../../../system/ui/menu/tree/menu_tree_select_multiple_page.dart';
 import '../../repository/remote/role_api.dart';
@@ -70,21 +72,18 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                       if (role?.roleId == ConstantUserApi.VALUE_SUPER_ADMIN_ROLE_ID) {
                         return actions;
                       }
-                      if ((globalVm.userShareVm.hasPermiAny(["system:role:edit"]) &&
-                              role != null) ||
-                          (globalVm.userShareVm.hasPermiAny(["system:role:add"]) &&
-                              role == null)) {
+                      if ((UserShareVm().hasPermiAny(["system:role:edit"]) && role != null) ||
+                          (UserShareVm().hasPermiAny(["system:role:add"]) && role == null)) {
                         actions.add(IconButton(
                             onPressed: () {
                               getVm().onSave();
                             },
                             icon: Icon(Icons.save)));
                       }
-                      if (role != null &&
-                          globalVm.userShareVm.hasPermiAny(["system:role:remove"])) {
+                      if (role != null && UserShareVm().hasPermiAny(["system:role:remove"])) {
                         actions.add(PopupMenuButton(itemBuilder: (context) {
                           return [
-                            if (globalVm.userShareVm.hasPermiAny(["system:role:remove"]))
+                            if (UserShareVm().hasPermiAny(["system:role:remove"]))
                               PopupMenuItem(
                                 child: Text(FastS.current.action_delete),
                                 onTap: () {
@@ -187,13 +186,13 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                     ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderRadioGroup<OptionVL<String>>(
                         name: "status",
-                        initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
+                        initialValue: DictUiUtils.dict2OptionVL(DictShareVm().findDict(
                             LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().roleInfo!.status,
                             defDictKey: LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL)),
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(labelText: S.current.app_label_status),
                         options: DictUiUtils.dictList2FromOption(
-                            globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
+                            DictShareVm().dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
                         onChanged: (value) {
                           //此处需改成选择的
                           getVm().applyInfoChange();
@@ -224,7 +223,7 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                       MyFormBuilderSelect(
                         name: "dataScope",
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        initialValue: globalVm.dictShareVm
+                        initialValue: DictShareVm()
                             .findDict(LocalDictLib.CODE_ROLE_DATA_PERMISSIONS,
                                 getVm().roleInfo!.dataScope,
                                 defDictKey: LocalDictLib.KEY_ROLE_ONLY_USER)
@@ -298,7 +297,7 @@ class _PostAddEditVm extends AppBaseVm with CancelTokenAssist {
     }
     if (role == null) {
       role = Role();
-      ITreeDict<dynamic> treeDict = GlobalVm().dictShareVm.findDict(
+      ITreeDict<dynamic> treeDict = DictShareVm().findDict(
           LocalDictLib.CODE_SYS_NORMAL_DISABLE, LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL)!;
       role.status = treeDict.tdDictValue;
       role.statusName = treeDict.tdDictLabel;

@@ -1,8 +1,7 @@
-import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
+import 'package:base/base/api/json_converter.dart';
+import 'package:base/base/entity/tenant_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../../base/api/json_converter.dart';
-import '../../../../base/entity/tenant_entity.dart';
 import '../../../component/adapter/app_select_box.dart';
 
 part 'post.g.dart';

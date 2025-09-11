@@ -6,14 +6,15 @@ import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/utils/fast_dialog_utils.dart';
-import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/vm/global_vm.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 
 import '../../../../../../gen/app_l10n.dart';
-import '../../../../../base/repository/local/app_config.dart';
+import 'package:base/base/repository/local/app_config.dart';
+import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../about/about_page.dart';
 
 class SettingPage extends AppBaseStatelessWidget<SettingVm> {
@@ -59,7 +60,7 @@ class SettingPage extends AppBaseStatelessWidget<SettingVm> {
                         width: double.infinity,
                         child: FilledButton(
                             onPressed: () {
-                              globalVm.userShareVm.logOut(context);
+                              UserShareVm().logOut(context);
                             },
                             child: Text(S.current.user_label_sign_out))),
                   )

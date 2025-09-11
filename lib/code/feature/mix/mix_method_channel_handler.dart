@@ -1,5 +1,5 @@
+import 'package:base/base/api/api_config.dart';
 import 'package:flutter/services.dart';
-import '../../base/api/api_config.dart';
 
 ///
 /// @author sunlunchang

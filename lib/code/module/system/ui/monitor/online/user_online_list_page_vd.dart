@@ -12,9 +12,9 @@ import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_user_online.dart';
 
 import '../../../../../../gen/app_l10n.dart';
-import '../../../../../base/api/base_dio.dart';
-import '../../../../../base/api/result_entity.dart';
-import '../../../../../base/repository/remote/data_transform_utils.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/list_data_component.dart';

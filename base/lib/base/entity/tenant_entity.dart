@@ -1,4 +1,5 @@
-import 'package:ruoyi_plus_flutter/code/base/entity/base_entity.dart';
+
+import 'base_entity.dart';
 
 ///@author sunlunchang
 ///租户实体类基础类

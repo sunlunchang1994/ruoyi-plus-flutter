@@ -9,12 +9,12 @@ import 'package:fast/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/repository/remote/pub_user_profile_api.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
-import '../../../../../base/api/base_dio.dart';
+import 'package:base/base/api/base_dio.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../gen/app_l10n.dart';
-import '../../../../../base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 
 //用户修改密码
 class UpdatePwdPage extends AppBaseStatelessWidget<_UpdatePwdVm> {

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/config/constant_base.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/vd/list_data_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.dart';
@@ -13,7 +13,8 @@ import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_add_edit_page.dart';
 
 import '../../../../../gen/app_l10n.dart';
-import '../../../../base/api/base_dio.dart';
+import 'package:base/base/api/base_dio.dart';
+import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';
 import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
@@ -107,7 +108,7 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
                 ),
                 //图标滚动使用固定大小来解决
                 floatingActionButton:
-                    globalVm.userShareVm.widgetWithPermiAny(["system:dept:add"], () {
+                    UserShareVm().widgetWithPermiAny(["system:dept:add"], () {
                   return NqSelector<_DeptListBrowserVm, bool>(builder: (context, value, child) {
                     return WidgetUtils.getAnimVisibility(
                         !value,

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/router/router_grid.dart';
 
 import '../../../../feature/bizapi/system/entity/router_vo.dart';

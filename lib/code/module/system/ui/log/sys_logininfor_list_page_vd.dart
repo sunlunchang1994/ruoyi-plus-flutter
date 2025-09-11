@@ -17,11 +17,11 @@ import 'package:ruoyi_plus_flutter/code/module/system/ui/log/sys_log_page.dart';
 
 import '../../../../../../gen/app_l10n.dart';
 import '../../../../../../res/styles.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/api/result_entity.dart';
-import '../../../../base/repository/remote/data_transform_utils.dart';
-import '../../../../base/ui/utils/fast_dialog_utils.dart';
-import '../../../../base/vm/global_vm.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/repository/remote/data_transform_utils.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/vm/global_vm.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/app_toast.dart';
@@ -31,6 +31,7 @@ import 'package:fast/fast/vd/refresh/content_empty.dart';
 
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
+import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../repository/remote/sys_logininfor_api.dart';
 
 ///@author slc
@@ -124,13 +125,13 @@ class SysLogininforListPageWidget {
             listenerItemSelect.onItemClick(index, listItem);
           },
           onLongPress: () {
-            GlobalVm().userShareVm.execPermiAny(["monitor:logininfor:unlock", "system:dict:remove"],
+            UserShareVm().execPermiAny(["monitor:logininfor:unlock", "system:dict:remove"],
                 () {
               showDialog(
                   context: context,
                   builder: (context) {
                     return SimpleDialog(children: [
-                      if (GlobalVm().userShareVm.hasPermiAny(["monitor:logininfor:unlock"]))
+                      if (UserShareVm().hasPermiAny(["monitor:logininfor:unlock"]))
                         SimpleDialogOption(
                             child: Text(S.current.sys_label_logininfor_unlock),
                             onPressed: () {
@@ -144,7 +145,7 @@ class SysLogininforListPageWidget {
                                 }
                               });
                             }),
-                      if (GlobalVm().userShareVm.hasPermiAny(["monitor:logininfor:remove"]))
+                      if (UserShareVm().hasPermiAny(["monitor:logininfor:remove"]))
                         SimpleDialogOption(
                             child: Text(FastS.current.action_delete),
                             onPressed: () {

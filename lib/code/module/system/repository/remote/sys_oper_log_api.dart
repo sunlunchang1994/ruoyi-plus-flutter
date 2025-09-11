@@ -4,16 +4,16 @@ import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:retrofit/dio.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
-import 'package:ruoyi_plus_flutter/code/base/api/api_config.dart';
-import 'package:ruoyi_plus_flutter/code/base/api/base_dio.dart';
-import 'package:ruoyi_plus_flutter/code/base/repository/remote/data_transform_utils.dart';
-import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
+import 'package:base/base/api/api_config.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/repository/remote/data_transform_utils.dart';
+import 'package:base/base/vm/global_vm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_notice.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_oper_log.dart';
 
-import '../../../../base/api/request_utils.dart';
-import '../../../../base/api/result_entity.dart';
+import 'package:base/base/api/request_utils.dart';
+import 'package:base/base/api/result_entity.dart';
 import '../../../../feature/component/dict/vm/dict_share_vm.dart';
 
 part 'sys_oper_log_api.g.dart';
@@ -55,7 +55,7 @@ class SysOperLogRepository {
     if (dataList == null) {
       return;
     }
-    DictShareVm dictShareVm = GlobalVm().dictShareVm;
+    DictShareVm dictShareVm = DictShareVm();
     for (var action in dataList) {
       action.statusName =
           dictShareVm.findDict(LocalDictLib.CODE_SYS_COMMON_STATUS, action.status)?.tdDictLabel;

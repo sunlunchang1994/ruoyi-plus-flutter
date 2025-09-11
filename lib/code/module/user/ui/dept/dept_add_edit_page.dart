@@ -9,8 +9,8 @@ import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/config/constant_base.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/dept.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/user.dart';
@@ -23,11 +23,13 @@ import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.d
 import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_select_single_page.dart';
 
 import '../../../../../gen/app_l10n.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/ui/app_mvvm.dart';
-import '../../../../base/vm/global_vm.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/ui/app_mvvm.dart';
+import 'package:base/base/vm/global_vm.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
+import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
+import '../../../../feature/component/dict/vm/dict_share_vm.dart';
 import '../../config/constant_user.dart';
 import '../../entity/dept_tree.dart';
 import '../user/user_list_select_by_dept_page.dart';
@@ -68,9 +70,9 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
                         ? S.current.user_label_dept_add
                         : S.current.user_label_dept_edit),
                     actions: [
-                      if ((globalVm.userShareVm.hasPermiAny(["system:dept:edit"]) &&
+                      if ((UserShareVm().hasPermiAny(["system:dept:edit"]) &&
                               deptInfo != null) ||
-                          (globalVm.userShareVm.hasPermiAny(["system:dept:add"]) &&
+                          (UserShareVm().hasPermiAny(["system:dept:add"]) &&
                               deptInfo == null))
                         IconButton(
                             onPressed: () {
@@ -78,10 +80,10 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
                             },
                             icon: Icon(Icons.save)),
                       if (deptInfo != null &&
-                          globalVm.userShareVm.hasPermiAny(["system:dept:remove"]))
+                          UserShareVm().hasPermiAny(["system:dept:remove"]))
                         PopupMenuButton(itemBuilder: (context) {
                           return [
-                            if (globalVm.userShareVm.hasPermiAny(["system:dept:remove"]))
+                            if (UserShareVm().hasPermiAny(["system:dept:remove"]))
                               PopupMenuItem(
                                 child: Text(FastS.current.action_delete),
                                 onTap: () {
@@ -265,12 +267,12 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
       FormBuilderRadioGroup<OptionVL<String>>(
         decoration: MyInputDecoration(labelText: S.current.user_label_dept_status),
         name: "status",
-        initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
+        initialValue: DictUiUtils.dict2OptionVL(DictShareVm().findDict(
             LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().deptInfo!.status,
             defDictKey: LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL)),
         autovalidateMode: AutovalidateMode.onUserInteraction,
         options: DictUiUtils.dictList2FromOption(
-            globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
+            DictShareVm().dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
         onChanged: (value) {
           //此处需改成选择的
           getVm().applyInfoChange();

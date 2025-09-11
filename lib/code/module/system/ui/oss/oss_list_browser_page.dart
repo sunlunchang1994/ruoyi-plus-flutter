@@ -10,19 +10,20 @@ import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
+import 'package:base/base/vm/global_vm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/page_data_vd.dart';
 
 import '../../../../../gen/app_l10n.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/api/result_entity.dart';
-import '../../../../base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
 import '../../../../feature/bizapi/system/entity/sys_oss_upload_vo.dart';
 import '../../../../feature/bizapi/system/entity/sys_oss_vo.dart';
 import '../../../../feature/bizapi/system/repository/remote/pub_oss_api.dart';
+import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../../feature/component/attachment/utils/media_type_constant.dart';
 import 'package:fast/fast/permission/permission_compat.dart';
 import 'package:fast/fast/utils/app_toast.dart';
@@ -100,7 +101,7 @@ class OssListBrowserPage extends AppBaseStatelessWidget<_OssListBrowserVm> {
                                           },
                                         );
                                       }));
-                                      if (globalVm.userShareVm.hasPermiAny(["system:ossConfig:list"])) {
+                                      if (UserShareVm().hasPermiAny(["system:ossConfig:list"])) {
                                         actions.add(PopupMenuButton<String>(itemBuilder: (context) {
                                           return [
                                             PopupMenuItem(
@@ -122,8 +123,7 @@ class OssListBrowserPage extends AppBaseStatelessWidget<_OssListBrowserVm> {
                       ]),
                   endDrawer: OssListPageWidget.getSearchEndDrawer<_OssListBrowserVm>(
                       context, themeData, getVm().listVmSub),
-                  floatingActionButton:
-                      globalVm.userShareVm.widgetWithPermiAny(["system:oss:add"], () {
+                  floatingActionButton: UserShareVm().widgetWithPermiAny(["system:oss:add"], () {
                     return NqSelector<_OssListBrowserVm, bool>(builder: (context, value, child) {
                       return WidgetUtils.getAnimVisibility(
                           !value,

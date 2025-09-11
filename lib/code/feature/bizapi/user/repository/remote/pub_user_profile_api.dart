@@ -1,13 +1,13 @@
 import 'dart:io';
 
+import 'package:base/base/api/api_config.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
-import 'package:ruoyi_plus_flutter/code/base/repository/remote/data_transform_utils.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/profile_vo.dart';
 
-import '../../../../../base/api/api_config.dart';
-import '../../../../../base/api/base_dio.dart';
-import '../../../../../base/api/result_entity.dart';
 import '../../entity/avatar_vo.dart';
 
 part 'pub_user_profile_api.g.dart';

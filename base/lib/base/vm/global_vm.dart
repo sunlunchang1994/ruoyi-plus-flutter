@@ -2,9 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/mvvm/base_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/feature/component/dict/vm/dict_share_vm.dart';
-
-import '../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../repository/local/app_config.dart';
 
 /// @author sunlunchang
@@ -20,10 +17,6 @@ class GlobalVm extends AbsoluteChangeNotifier {
   }
 
   final Map<String, dynamic> globalCache = {};
-
-  final UserShareVm userShareVm = UserShareVm();
-
-  final DictShareVm dictShareVm = DictShareVm();
 
   //final mixManager = MixManager();
 

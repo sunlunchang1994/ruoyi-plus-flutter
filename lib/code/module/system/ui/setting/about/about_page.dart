@@ -5,7 +5,7 @@ import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 
 import '../../../../../../gen/assets.gen.dart';
 import '../../../../../../gen/app_l10n.dart';

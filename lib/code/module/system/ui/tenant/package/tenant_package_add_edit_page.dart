@@ -9,7 +9,7 @@ import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/select_menu_result.dart';
 import 'package:fast/fast/utils/app_toast.dart';
@@ -18,12 +18,14 @@ import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
 
 import '../../../../../../gen/app_l10n.dart';
-import '../../../../../base/api/base_dio.dart';
-import '../../../../../base/config/constant_base.dart';
-import '../../../../../base/ui/utils/fast_dialog_utils.dart';
-import '../../../../../base/vm/global_vm.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/config/constant_base.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/vm/global_vm.dart';
+import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../../../feature/component/dict/entity/tree_dict.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
+import '../../../../../feature/component/dict/vm/dict_share_vm.dart';
 import '../../../config/constant_sys.dart';
 import '../../../entity/sys_tenant_package.dart';
 import '../../../repository/remote/sys_tenant_package_api.dart';
@@ -63,9 +65,9 @@ class TenantPackageAddEditPage extends AppBaseStatelessWidget<_TenantPackageAddE
                         ? S.current.sys_label_sys_tenant_package_add
                         : S.current.sys_label_sys_tenant_package_edit),
                     actions: [
-                      if ((globalVm.userShareVm.hasPermiAny(["system:tenantPackage:edit"]) &&
+                      if ((UserShareVm().hasPermiAny(["system:tenantPackage:edit"]) &&
                               sysTenantPackage != null) ||
-                          (globalVm.userShareVm.hasPermiAny(["system:tenantPackage:add"]) &&
+                          (UserShareVm().hasPermiAny(["system:tenantPackage:add"]) &&
                               sysTenantPackage == null))
                         IconButton(
                             onPressed: () {
@@ -73,10 +75,10 @@ class TenantPackageAddEditPage extends AppBaseStatelessWidget<_TenantPackageAddE
                             },
                             icon: Icon(Icons.save)),
                       if (sysTenantPackage != null &&
-                          globalVm.userShareVm.hasPermiAny(["system:tenantPackage:remove"]))
+                          UserShareVm().hasPermiAny(["system:tenantPackage:remove"]))
                         PopupMenuButton(itemBuilder: (context) {
                           return [
-                            if (globalVm.userShareVm.hasPermiAny(["system:tenantPackage:remove"]))
+                            if (UserShareVm().hasPermiAny(["system:tenantPackage:remove"]))
                               PopupMenuItem(
                                 child: Text(FastS.current.action_delete),
                                 onTap: () {
@@ -200,12 +202,11 @@ class _TenantPackageAddEditVm extends AppBaseVm with CancelTokenAssist {
     }
     if (sysTenantPackage == null) {
       sysTenantPackage = SysTenantPackage();
-      ITreeDict<dynamic>? menuCheckStrictlyDict = GlobalVm()
-          .dictShareVm
+      ITreeDict<dynamic>? menuCheckStrictlyDict = DictShareVm()
           .findDict(LocalDictLib.CODE_MENU_CHECK_STRICTLY, LocalDictLib.KEY_MENU_CHECK_STRICTLY_Y);
       sysTenantPackage.menuCheckStrictly =
           menuCheckStrictlyDict?.tdDictValue == LocalDictLib.KEY_MENU_CHECK_STRICTLY_Y;
-      ITreeDict<dynamic>? statusDict = GlobalVm().dictShareVm.findDict(
+      ITreeDict<dynamic>? statusDict = DictShareVm().findDict(
           LocalDictLib.CODE_SYS_NORMAL_DISABLE, LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL);
       sysTenantPackage.status = statusDict?.tdDictValue;
       sysTenantPackage.menuIds = List.empty(growable: true);

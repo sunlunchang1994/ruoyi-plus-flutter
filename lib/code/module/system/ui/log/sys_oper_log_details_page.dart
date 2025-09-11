@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_oper_log.dart';
 
 import '../../../../../gen/app_l10n.dart';
-import '../../../../base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 
 ///操作详情

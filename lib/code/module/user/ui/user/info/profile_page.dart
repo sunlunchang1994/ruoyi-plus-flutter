@@ -9,7 +9,7 @@ import 'package:boxes_flutter/flutter/slc/res/styles.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/repository/remote/pub_user_profile_api.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
@@ -20,18 +20,21 @@ import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/user/info/update_pwd_page.dart';
 import 'package:ruoyi_plus_flutter/res/dimens.dart';
 import '../../../../../../gen/assets.gen.dart';
-import '../../../../../base/api/base_dio.dart';
-import '../../../../../base/api/result_entity.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
 import 'package:form_extra/form/image_picker/form_builder_single_image_picker.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
-import '../../../../../base/vm/global_vm.dart';
+import 'package:base/base/vm/global_vm.dart';
+import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../../../feature/component/crop/crop_image.dart';
 import '../../../../../feature/bizapi/user/entity/avatar_vo.dart';
 import '../../../../../feature/bizapi/user/entity/user.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../gen/app_l10n.dart';
-import '../../../../../base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
+
+import '../../../../../feature/component/dict/vm/dict_share_vm.dart';
 
 class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
   static const String routeName = '/profile';
@@ -218,9 +221,9 @@ class _ProfileModel extends AppBaseVm with CancelTokenAssist {
   bool _infoChange = false;
 
   void initVm() {
-    userInfo = User.copyUser(GlobalVm().userShareVm.userInfoOf.value!.user);
+    userInfo = User.copyUser(UserShareVm().userInfoOf.value!.user);
     userInfo.sexName =
-        GlobalVm().dictShareVm.findDict(LocalDictLib.CODE_SYS_USER_SEX, userInfo.sex)?.tdDictLabel;
+        DictShareVm().findDict(LocalDictLib.CODE_SYS_USER_SEX, userInfo.sex)?.tdDictLabel;
   }
 
   void onSelectAvatarPath(String selectAvatarPath) {
@@ -289,7 +292,7 @@ class _ProfileModel extends AppBaseVm with CancelTokenAssist {
             userInfo.nickName!, userInfo.email!, userInfo.phonenumber!, userInfo.sex!)
         .then((result) {
       //更新成功了把当前的值设置给全局（此处应该重新调用获取用户信息的接口重新赋值，暂时先这么写）
-      GlobalVm().userShareVm.userInfoOf.value!.user = userInfo;
+      UserShareVm().userInfoOf.value!.user = userInfo;
       AppToastUtil.showToast(msg: FastS.current.toast_edit_success);
       dismissLoading();
       //保存成功后要设置

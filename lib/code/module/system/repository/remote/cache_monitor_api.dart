@@ -1,18 +1,14 @@
 import 'package:dio/dio.dart' hide Headers;
-import 'package:flutter/material.dart';
-import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
 import 'package:boxes_flutter/flutter/slc/common/slc_color_util.dart';
 import 'package:retrofit/dio.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
-import 'package:ruoyi_plus_flutter/code/base/api/api_config.dart';
-import 'package:ruoyi_plus_flutter/code/base/api/base_dio.dart';
-import 'package:ruoyi_plus_flutter/code/base/api/request_utils.dart';
-import 'package:ruoyi_plus_flutter/code/base/repository/remote/data_transform_utils.dart';
+import 'package:base/base/api/api_config.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/redis_cache_info.dart';
 
-import '../../../../base/api/result_entity.dart';
-import '../../../../feature/bizapi/system/entity/sys_dict_data.dart';
+import 'package:base/base/api/result_entity.dart';
 
 part 'cache_monitor_api.g.dart';
 

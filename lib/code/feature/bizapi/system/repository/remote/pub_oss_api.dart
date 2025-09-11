@@ -1,14 +1,14 @@
 import 'dart:io';
 
+import 'package:base/base/api/api_config.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter/foundation.dart';
 import 'package:boxes_flutter/flutter/slc/network/api_constant.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../../../../../base/api/api_config.dart';
-import '../../../../../base/api/base_dio.dart';
-import '../../../../../base/api/result_entity.dart';
-import '../../../../../base/repository/remote/data_transform_utils.dart';
 import '../../../../component/attachment/entity/progress.dart';
 import '../../entity/sys_oss_upload_vo.dart';
 

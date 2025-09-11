@@ -17,13 +17,14 @@ import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
 
 import '../../../../../gen/app_l10n.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/api/result_entity.dart';
-import '../../../../base/config/constant_base.dart';
-import '../../../../base/repository/remote/data_transform_utils.dart';
-import '../../../../base/vm/global_vm.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/config/constant_base.dart';
+import 'package:base/base/repository/remote/data_transform_utils.dart';
+import 'package:base/base/vm/global_vm.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
+import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
@@ -80,7 +81,7 @@ class PostListPageVd {
           listenerItemSelect.onItemClick(index, listItem);
         },
         onLongPress: () {
-          GlobalVm().userShareVm.execPermiEvery(
+          UserShareVm().execPermiEvery(
               ["system:dept:post"], () => listenerItemSelect.onItemLongClick(index, listItem));
         });
   }

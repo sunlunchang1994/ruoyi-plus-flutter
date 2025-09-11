@@ -8,11 +8,12 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 
 import '../../../../../gen/app_l10n.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
+import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../entity/sys_client.dart';
 import '../../repository/remote/sys_client_api.dart';
 import 'sys_client_add_edit_page.dart';
@@ -101,7 +102,7 @@ class SysClientListBrowserPage extends AppBaseStatelessWidget<_SysClientListBrow
                   endDrawer: OssConfigListPageWidget.getSearchEndDrawer<_SysClientListBrowserVm>(
                       context, themeData, getVm().listVmSub),
                   floatingActionButton:
-                      globalVm.userShareVm.widgetWithPermiAny(["system:client:add"], () {
+                      UserShareVm().widgetWithPermiAny(["system:client:add"], () {
                     return NqSelector<_SysClientListBrowserVm, bool>(
                         builder: (context, value, child) {
                       return WidgetUtils.getAnimVisibility(

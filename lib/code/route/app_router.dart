@@ -1,3 +1,5 @@
+import 'package:base/base/config/constant_base.dart';
+import 'package:base/base/route/base_router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/router/slc_router.dart';
@@ -9,7 +11,6 @@ import 'package:ruoyi_plus_flutter/code/module/system/ui/monitor/cache_monitor/c
 import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_browser_page.dart';
 
-import '../base/config/constant_base.dart';
 import '../feature/component/fof/no_found_page.dart';
 import '../feature/component/webview/app_web_view_page.dart';
 import '../module/system/ui/client/sys_client_add_edit_page.dart';
@@ -63,9 +64,9 @@ import '../module/user/ui/user/user_list_select_single_page.dart';
 /// 路由配置
 final Map<String, WidgetBuilder> router = {
   //404页面
-  NotFoundPage.routeName: (BuildContext context) => NotFoundPage(),
+  BaseRouter.notFoundPage: (BuildContext context) => NotFoundPage(),
   //欢迎页
-  WelcomePage.routeName: (BuildContext context) => WelcomePage(),
+  BaseRouter.welcomePage: (BuildContext context) => WelcomePage(),
   //欢迎页
   AppWebViewPage.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;
@@ -73,9 +74,9 @@ final Map<String, WidgetBuilder> router = {
         title: slcRouterInfo.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //登录页面
-  LoginPage.routeName: (BuildContext context) => LoginPage(),
+  BaseRouter.loginPage: (BuildContext context) => LoginPage(),
   //主页
-  MainPage.routeName: (BuildContext context) => MainPage(),
+  BaseRouter.mainName: (BuildContext context) => MainPage(),
   //路由页
   MenuPage.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;

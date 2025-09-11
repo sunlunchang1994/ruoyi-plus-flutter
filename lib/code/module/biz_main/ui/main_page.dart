@@ -1,6 +1,6 @@
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/utils/bar_utils.dart';
 import 'package:flutter/material.dart';
-import '../../../base/ui/app_mvvm.dart';
 import 'analyse_page.dart';
 import 'workbench_page.dart';
 import '../../user/ui/user/info/mine_page.dart';

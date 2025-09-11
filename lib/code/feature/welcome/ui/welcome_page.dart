@@ -1,6 +1,10 @@
 //欢迎
 import 'dart:async';
 
+import 'package:base/base/api/api_config.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/route/base_router.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:fast/fast/utils/bar_utils.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
@@ -10,15 +14,12 @@ import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/api/api_config.dart';
-import 'package:ruoyi_plus_flutter/code/base/startup/task_utils.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/remote/pub_dict_data_api.dart';
 
 import '../../../../gen/assets.gen.dart';
 import '../../../../gen/app_l10n.dart';
-import '../../../base/api/result_entity.dart';
-import '../../../base/ui/app_mvvm.dart';
 import '../../../module/biz_main/ui/main_page.dart';
+import '../../../startup/task_utils.dart';
 import '../../auth/ui/login_page.dart';
 import '../../bizapi/system/entity/router_vo.dart';
 import '../../bizapi/system/repository/remote/pub_menu_api.dart';
@@ -81,7 +82,7 @@ class _WelcomeVm extends AppBaseVm with CancelTokenAssist {
     TaskUtils.execOtherTask(context: context).then((value) async {
       await Future.delayed(const Duration(milliseconds: 1200));
       if (!UserConfig().isAutoLogin() || ApiConfig().getToken() == null) {
-        pushReplacementNamed(LoginPage.routeName);
+        pushReplacementNamed(BaseRouter.loginPage);
         return;
       }
       Timer autoLoginTimeOutTimer = Timer(Duration(milliseconds: 2000), () {
@@ -106,14 +107,14 @@ class _WelcomeVm extends AppBaseVm with CancelTokenAssist {
           return;
         }
         //失败跳转到登录界面
-        pushReplacementNamed(LoginPage.routeName);
+        pushReplacementNamed(BaseRouter.loginPage);
       }, onError: (e) {
         if (isFinishPage) {
           return;
         }
         //失败跳转到登录界面
         isFinishPage = true;
-        pushReplacementNamed(LoginPage.routeName);
+        pushReplacementNamed(BaseRouter.loginPage);
       });
     });
   }

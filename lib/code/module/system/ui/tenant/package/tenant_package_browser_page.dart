@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/vd/page_data_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/tenant/package/tenant_package_add_edit_page.dart';
 
 import '../../../../../../gen/app_l10n.dart';
-import '../../../../../base/api/base_dio.dart';
-import '../../../../../base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
+import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../entity/sys_tenant_package.dart';
 import '../../../repository/remote/sys_tenant_package_api.dart';
 import 'tenant_package_page_vd.dart';
@@ -99,7 +100,7 @@ class TenantPackageBrowserPage extends AppBaseStatelessWidget<_TenantPackageBrow
                   endDrawer: TenantPackagePageWidget.getSearchEndDrawer<_TenantPackageBrowserVm>(
                       context, themeData, getVm().listVmSub.tenantPackageSearchHelper),
                   floatingActionButton:
-                      globalVm.userShareVm.widgetWithPermiAny(["system:tenantPackage:add"], () {
+                      UserShareVm().widgetWithPermiAny(["system:tenantPackage:add"], () {
                     return NqSelector<_TenantPackageBrowserVm, bool>(
                         builder: (context, value, child) {
                       return WidgetUtils.getAnimVisibility(

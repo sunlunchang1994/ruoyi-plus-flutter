@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/vd/page_data_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/log/sys_log_page.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/log/sys_logininfor_list_page_vd.dart';
 
 import '../../../../../gen/app_l10n.dart';
-import '../../../../base/api/base_dio.dart';
+import 'package:base/base/api/base_dio.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import '../../entity/sys_logininfor.dart';
 import '../../repository/remote/sys_logininfor_api.dart';

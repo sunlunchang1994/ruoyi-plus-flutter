@@ -1,8 +1,5 @@
 import 'package:db_base/db_base/dp_manager.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
-import 'package:ruoyi_plus_flutter/code/env_config.dart';
-
-import '../../feature/component/attachment/utils/attachment_config.dart';
 
 ///@author sunlunchang
 ///Api配置类、配置url、token等，可根据需要再此拓展
@@ -43,10 +40,7 @@ class ApiConfig extends DpManager {
       "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKoR8mX0rGKLqzcWmOzbfj64K8ZIgOdHnzkXSOVOZbFu/TJhZ7rFAN+eaGkl3C4buccQd/EjEsj9ir7ijT7h96MCAwEAAQ==";
 
   ApiConfig._privateConstructor() : super(SP_NAME) {
-    _serviceApiAddress = EnvConfig.getEnvConfig().apiUrl;
-    _clientid = EnvConfig.getEnvConfig().clientId;
 
-    _syncAttachment();
   }
 
   static final ApiConfig _instance = ApiConfig._privateConstructor();
@@ -71,12 +65,11 @@ class ApiConfig extends DpManager {
   void setServiceApiAddress(String value) {
     setServiceApiAddressByDp(value, forceSave: false);
     _serviceApiAddress = value;
-    _syncAttachment();
+    //同步其他配置
   }
 
-  void _syncAttachment() {
-    AttachmentConfig().setDownloadIpPort(_serviceApiAddress);
-    AttachmentConfig().setDownloadApiPart("");
+  setClientId(String value) {
+    _clientid = value;
   }
 
   String? getToken() {

@@ -1,9 +1,9 @@
+import 'package:base/base/api/json_converter.dart';
+import 'package:base/base/entity/tenant_entity.dart';
 import 'package:boxes_flutter/flutter/slc/common/object_util.dart';
-import 'package:ruoyi_plus_flutter/code/base/entity/tenant_entity.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/post.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/adapter/app_select_box.dart';
 
-import '../../../../base/api/json_converter.dart';
 import 'role.dart';
 import 'package:json_annotation/json_annotation.dart';
 

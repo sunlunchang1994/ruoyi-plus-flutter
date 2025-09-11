@@ -2,19 +2,20 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:ruoyi_plus_flutter/code/base/repository/remote/data_transform_utils.dart';
+import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/dept.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/user/entity/user.dart';
 
-import '../../../../base/api/api_config.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/api/request_utils.dart';
-import '../../../../base/api/result_entity.dart';
-import '../../../../base/repository/remote/page_transform_utils.dart';
-import '../../../../base/vm/global_vm.dart';
+import 'package:base/base/api/api_config.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/request_utils.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/repository/remote/page_transform_utils.dart';
+import 'package:base/base/vm/global_vm.dart';
 import '../../../../feature/bizapi/user/entity/post.dart';
 import '../../../../feature/bizapi/user/entity/user_info_vo.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
+import '../../../../feature/component/dict/vm/dict_share_vm.dart';
 import '../../entity/dept_tree.dart';
 
 part 'user_api.g.dart';
@@ -115,12 +116,10 @@ class UserServiceRepository {
         .successMap2Single((event) {
       return event.toIntensify<UserInfoVo>(createData: (resultEntity) {
         UserInfoVo userInfo = UserInfoVo.fromJson(resultEntity.data);
-        userInfo.user?.sexName = GlobalVm()
-            .dictShareVm
+        userInfo.user?.sexName = DictShareVm()
             .findDict(LocalDictLib.CODE_SYS_USER_SEX, userInfo.user?.sex)
             ?.tdDictLabel;
-        userInfo.user?.statusName = GlobalVm()
-            .dictShareVm
+        userInfo.user?.statusName = DictShareVm()
             .findDict(LocalDictLib.CODE_SYS_NORMAL_DISABLE, userInfo.user?.status)
             ?.tdDictLabel;
         fillUserPosts(userInfo);

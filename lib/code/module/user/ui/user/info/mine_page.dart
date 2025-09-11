@@ -5,13 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/res/colors.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/widget/fast_slc_ui_box.dart';
-import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
+import 'package:base/base/ui/widget/fast_slc_ui_box.dart';
+import 'package:base/base/vm/global_vm.dart';
 import '../../../../../../gen/assets.gen.dart';
+import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../../system/ui/setting/main/setting_page.dart';
 import 'profile_page.dart';
 import '../../../../../../res/dimens.dart';
-import '../../../../../base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../gen/app_l10n.dart';
@@ -126,11 +127,11 @@ class _MineVm extends AppBaseVm {
 
   void initVm() {
     _onUserInfoVoChange(notify: false);
-    GlobalVm().userShareVm.userInfoOf.addListener(_onUserInfoVoChange);
+    UserShareVm().userInfoOf.addListener(_onUserInfoVoChange);
   }
 
   void _onUserInfoVoChange({bool notify = true}) {
-    userInfoVo = GlobalVm().userShareVm.userInfoOf.value;
+    userInfoVo = UserShareVm().userInfoOf.value;
     if (notify) {
       notifyListeners();
     }
@@ -138,7 +139,7 @@ class _MineVm extends AppBaseVm {
 
   @override
   void dispose() {
-    GlobalVm().userShareVm.userInfoOf.removeListener(_onUserInfoVoChange);
+    UserShareVm().userInfoOf.removeListener(_onUserInfoVoChange);
     super.dispose();
   }
 }

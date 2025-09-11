@@ -11,7 +11,7 @@ import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:fast/fast/utils/app_toast.dart';
@@ -23,11 +23,13 @@ import 'package:form_extra/form/input_decoration_utils.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_oss_config.dart';
 
 import '../../../../../../gen/app_l10n.dart';
-import '../../../../../base/api/base_dio.dart';
-import '../../../../../base/api/result_entity.dart';
-import '../../../../../base/ui/utils/fast_dialog_utils.dart';
-import '../../../../../base/vm/global_vm.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/vm/global_vm.dart';
+import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../../../feature/component/dict/entity/tree_dict.dart';
+import '../../../../../feature/component/dict/vm/dict_share_vm.dart';
 import '../../../repository/remote/sys_oss_config_api.dart';
 
 class OssConfigAddEditPage extends AppBaseStatelessWidget<_OssConfigAddEditVm> {
@@ -64,9 +66,9 @@ class OssConfigAddEditPage extends AppBaseStatelessWidget<_OssConfigAddEditVm> {
                         ? S.current.sys_label_oss_config_add
                         : S.current.sys_label_oss_config_edit),
                     actions: [
-                      if ((globalVm.userShareVm.hasPermiAny(["system:ossConfig:edit"]) &&
+                      if ((UserShareVm().hasPermiAny(["system:ossConfig:edit"]) &&
                               sysOssConfig != null) ||
-                          (globalVm.userShareVm.hasPermiAny(["system:ossConfig:add"]) &&
+                          (UserShareVm().hasPermiAny(["system:ossConfig:add"]) &&
                               sysOssConfig == null))
                         IconButton(
                             onPressed: () {
@@ -74,10 +76,10 @@ class OssConfigAddEditPage extends AppBaseStatelessWidget<_OssConfigAddEditVm> {
                             },
                             icon: Icon(Icons.save)),
                       if (sysOssConfig != null &&
-                          globalVm.userShareVm.hasPermiAny(["system:ossConfig:remove"]))
+                          UserShareVm().hasPermiAny(["system:ossConfig:remove"]))
                         PopupMenuButton(itemBuilder: (context) {
                           return [
-                            if (globalVm.userShareVm.hasPermiAny(["system:ossConfig:remove"]))
+                            if (UserShareVm().hasPermiAny(["system:ossConfig:remove"]))
                               PopupMenuItem(
                                 child: Text(FastS.current.action_delete),
                                 onTap: () {
@@ -242,11 +244,11 @@ class OssConfigAddEditPage extends AppBaseStatelessWidget<_OssConfigAddEditVm> {
                     ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderRadioGroup<OptionVL<String>>(
                         name: "isHttps",
-                        initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
+                        initialValue: DictUiUtils.dict2OptionVL(DictShareVm().findDict(
                             LocalDictLib.CODE_SYS_YES_NO, getVm().sysOssConfig!.isHttps,
                             defDictKey: LocalDictLib.KEY_SYS_YES_NO_N)),
                         options: DictUiUtils.dictList2FromOption(
-                            globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_YES_NO]!),
+                            DictShareVm().dictMap[LocalDictLib.CODE_SYS_YES_NO]!),
                         decoration:
                             MyInputDecoration(labelText: S.current.sys_label_oss_config_is_https),
                         onChanged: (value) {
@@ -257,12 +259,12 @@ class OssConfigAddEditPage extends AppBaseStatelessWidget<_OssConfigAddEditVm> {
                     ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderRadioGroup<OptionVL<String>>(
                         name: "accessPolicy",
-                        initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
+                        initialValue: DictUiUtils.dict2OptionVL(DictShareVm().findDict(
                             LocalDictLib.CODE_ACCESS_POLICY_TYPE,
                             getVm().sysOssConfig!.accessPolicy,
                             defDictKey: LocalDictLib.KEY_ACCESS_POLICY_TYPE_PUBLIC)),
                         options: DictUiUtils.dictList2FromOption(
-                            globalVm.dictShareVm.dictMap[LocalDictLib.CODE_ACCESS_POLICY_TYPE]!),
+                            DictShareVm().dictMap[LocalDictLib.CODE_ACCESS_POLICY_TYPE]!),
                         decoration: MyInputDecoration(
                             labelText: S.current.sys_label_oss_config_bucket_permissions_name),
                         onChanged: (value) {
@@ -332,11 +334,10 @@ class _OssConfigAddEditVm extends AppBaseVm with CancelTokenAssist {
     }
     if (sysOssConfig == null) {
       sysOssConfig = SysOssConfig();
-      ITreeDict<dynamic>? statusDict = GlobalVm()
-          .dictShareVm
-          .findDict(LocalDictLib.CODE_SYS_YES_NO, LocalDictLib.KEY_SYS_YES_NO_N);
+      ITreeDict<dynamic>? statusDict =
+          DictShareVm().findDict(LocalDictLib.CODE_SYS_YES_NO, LocalDictLib.KEY_SYS_YES_NO_N);
       sysOssConfig.isHttps = statusDict?.tdDictValue;
-      ITreeDict<dynamic>? accessPolicyDict = GlobalVm().dictShareVm.findDict(
+      ITreeDict<dynamic>? accessPolicyDict = DictShareVm().findDict(
           LocalDictLib.CODE_ACCESS_POLICY_TYPE, LocalDictLib.KEY_ACCESS_POLICY_TYPE_PUBLIC);
       sysOssConfig.accessPolicy = accessPolicyDict?.tdDictValue;
       this.sysOssConfig = sysOssConfig;

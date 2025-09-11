@@ -1,12 +1,11 @@
+import 'package:base/base/api/api_config.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
-import 'package:ruoyi_plus_flutter/code/base/repository/remote/data_transform_utils.dart';
-
-import '../../../../base/api/api_config.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/api/result_entity.dart';
 import '../../../../env_config.dart';
-import '../../../../base/vm/global_vm.dart';
+import '../../../bizapi/user/vm/user_share_vm.dart';
 import '../../entity/captcha.dart';
 import '../../entity/login_result.dart';
 import '../../entity/login_tenant_vo.dart';
@@ -59,7 +58,7 @@ class AuthRepository {
     }).map((event) {
       LoginResult loginResult = event.data!;
       ApiConfig().setToken("Bearer ${loginResult.access_token!}");
-      GlobalVm().userShareVm.loginResult = loginResult;
+      UserShareVm().loginResult = loginResult;
       return event;
     }).single;
   }

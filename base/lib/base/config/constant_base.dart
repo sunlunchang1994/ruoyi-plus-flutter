@@ -18,4 +18,5 @@ class ConstantBase {
   /// path
   ///文件保存基础路径
   static final String PATH_SAVE_DIR = "${Platform.pathSeparator}file";
+
 }

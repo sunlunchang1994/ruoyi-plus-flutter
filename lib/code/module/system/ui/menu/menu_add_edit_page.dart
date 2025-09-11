@@ -10,8 +10,8 @@ import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/config/constant_base.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/config/constant_base.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/utils/dict_ui_utils.dart';
@@ -22,12 +22,14 @@ import 'package:form_extra/form/input_decoration_utils.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu.dart';
 
 import '../../../../../gen/app_l10n.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/api/result_entity.dart';
-import '../../../../base/ui/app_mvvm.dart';
-import '../../../../base/vm/global_vm.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/ui/app_mvvm.dart';
+import 'package:base/base/vm/global_vm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
+import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
+import '../../../../feature/component/dict/vm/dict_share_vm.dart';
 import '../../config/constant_sys.dart';
 import '../../repository/remote/menu_api.dart';
 import 'menu_list_select_single_page.dart';
@@ -68,20 +70,19 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
                         ? S.current.sys_label_menu_add
                         : S.current.sys_label_menu_edit),
                     actions: [
-                      if ((globalVm.userShareVm.hasPermiAny(["system:menu:edit"]) &&
+                      if ((UserShareVm().hasPermiAny(["system:menu:edit"]) &&
                               sysMenuInfo != null) ||
-                          (globalVm.userShareVm.hasPermiAny(["system:menu:add"]) &&
-                              sysMenuInfo == null))
+                          (UserShareVm().hasPermiAny(["system:menu:add"]) && sysMenuInfo == null))
                         IconButton(
                             onPressed: () {
                               getVm().onSave();
                             },
                             icon: const Icon(Icons.save)),
                       if (sysMenuInfo != null &&
-                          (globalVm.userShareVm.hasPermiAny(["system:menu:remove"])))
+                          (UserShareVm().hasPermiAny(["system:menu:remove"])))
                         PopupMenuButton(itemBuilder: (context) {
                           return [
-                            if (globalVm.userShareVm.hasPermiAny(["system:menu:remove"]))
+                            if (UserShareVm().hasPermiAny(["system:menu:remove"]))
                               PopupMenuItem(
                                 child: Text(FastS.current.action_delete),
                                 onTap: () {
@@ -154,12 +155,12 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
       FormBuilderRadioGroup<OptionVL<String>>(
         decoration: MyInputDecoration(labelText: S.current.sys_label_menu_type),
         name: "menuType",
-        initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
+        initialValue: DictUiUtils.dict2OptionVL(DictShareVm().findDict(
             LocalDictLib.CODE_MENU_TYPE, getVm().sysMenuInfo!.menuType,
             defDictKey: LocalDictLib.KEY_MENU_TYPE_MULU)),
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        options: DictUiUtils.dictList2FromOption(
-            globalVm.dictShareVm.dictMap[LocalDictLib.CODE_MENU_TYPE]!),
+        options:
+            DictUiUtils.dictList2FromOption(DictShareVm().dictMap[LocalDictLib.CODE_MENU_TYPE]!),
         onChanged: (value) {
           //此处需改成选择的
           getVm().applyInfoChange();
@@ -218,12 +219,12 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
             ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
             FormBuilderRadioGroup<OptionVL<String>>(
               name: "isFrame",
-              initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
+              initialValue: DictUiUtils.dict2OptionVL(DictShareVm().findDict(
                   LocalDictLib.CODE_SYS_YES_NO_INT, getVm().sysMenuInfo!.isFrame,
                   defDictKey: LocalDictLib.KEY_SYS_YES_NO_INT_N)),
               autovalidateMode: AutovalidateMode.onUserInteraction,
               options: DictUiUtils.dictList2FromOption(
-                  globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_YES_NO_INT]!),
+                  DictShareVm().dictMap[LocalDictLib.CODE_SYS_YES_NO_INT]!),
               decoration: MyInputDecoration(
                 labelText: S.current.sys_label_menu_is_frame,
               ),
@@ -327,12 +328,12 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
             ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
             FormBuilderRadioGroup<OptionVL<String>>(
               name: "isCache",
-              initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
+              initialValue: DictUiUtils.dict2OptionVL(DictShareVm().findDict(
                   LocalDictLib.CODE_SYS_YES_NO_INT, getVm().sysMenuInfo!.isCache,
                   defDictKey: LocalDictLib.KEY_SYS_YES_NO_Y)),
               autovalidateMode: AutovalidateMode.onUserInteraction,
               options: DictUiUtils.dictList2FromOption(
-                  globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_YES_NO_INT]!),
+                  DictShareVm().dictMap[LocalDictLib.CODE_SYS_YES_NO_INT]!),
               decoration: MyInputDecoration(
                 labelText: S.current.sys_label_menu_cache_status,
               ),
@@ -349,12 +350,12 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
             ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
             FormBuilderRadioGroup<OptionVL<String>>(
               name: "visible",
-              initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
+              initialValue: DictUiUtils.dict2OptionVL(DictShareVm().findDict(
                   LocalDictLib.CODE_SYS_SHOW_HIDE, getVm().sysMenuInfo!.visible,
                   defDictKey: LocalDictLib.KEY_SYS_SHOW_HIDE_S)),
               autovalidateMode: AutovalidateMode.onUserInteraction,
               options: DictUiUtils.dictList2FromOption(
-                  globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_SHOW_HIDE]!),
+                  DictShareVm().dictMap[LocalDictLib.CODE_SYS_SHOW_HIDE]!),
               decoration: MyInputDecoration(
                 labelText: S.current.sys_label_menu_display_status,
               ),
@@ -371,12 +372,11 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
       FormBuilderRadioGroup<OptionVL<String>>(
         decoration: MyInputDecoration(labelText: S.current.user_label_dept_status),
         name: "status",
-        initialValue: DictUiUtils.dict2OptionVL(GlobalVm()
-            .dictShareVm
+        initialValue: DictUiUtils.dict2OptionVL(DictShareVm()
             .findDict(LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().sysMenuInfo!.status)),
         autovalidateMode: AutovalidateMode.onUserInteraction,
         options: DictUiUtils.dictList2FromOption(
-            globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
+            DictShareVm().dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
         onChanged: (value) {
           //此处需改成选择的
           getVm().applyInfoChange();

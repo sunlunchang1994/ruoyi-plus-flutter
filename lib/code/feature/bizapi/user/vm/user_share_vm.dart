@@ -1,8 +1,9 @@
+import 'package:base/base/api/api_config.dart';
+import 'package:base/base/route/base_router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:boxes_flutter/flutter/slc/code/observable_field.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/router_vo.dart';
 
-import '../../../../base/api/api_config.dart';
 import '../../../auth/entity/login_result.dart';
 import '../../../auth/ui/login_page.dart';
 import '../entity/my_user_info_vo.dart';
@@ -26,7 +27,7 @@ class UserShareVm {
     ApiConfig().setToken(null);
     userInfoOf.setValue(null);
     Navigator.of(context).pushNamedAndRemoveUntil(
-      LoginPage.routeName,
+      BaseRouter.loginPage,
       (Route<dynamic> route) => false,
     );
   }

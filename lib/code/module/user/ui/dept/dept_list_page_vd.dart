@@ -5,12 +5,13 @@ import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/api/result_entity.dart';
-import '../../../../base/config/constant_base.dart';
-import '../../../../base/repository/remote/data_transform_utils.dart';
-import '../../../../base/vm/global_vm.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/config/constant_base.dart';
+import 'package:base/base/repository/remote/data_transform_utils.dart';
+import 'package:base/base/vm/global_vm.dart';
 import '../../../../feature/bizapi/user/entity/dept.dart';
+import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
@@ -69,7 +70,7 @@ class DeptListPageWidget {
           listenerItemSelect.onItemClick(index, listItem);
         },
         onLongPress: () {
-          GlobalVm().userShareVm.execPermiEvery(
+          UserShareVm().execPermiEvery(
               ["system:dept:remove"], () => listenerItemSelect.onItemLongClick(index, listItem));
         });
   }

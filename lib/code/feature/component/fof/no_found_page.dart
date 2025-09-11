@@ -1,9 +1,7 @@
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
-import '../../../../../gen/app_l10n.dart';
 import 'package:provider/provider.dart';
-
-import '../../../base/ui/app_mvvm.dart';
 
 /// @author sunlunchang
 /// 404页面

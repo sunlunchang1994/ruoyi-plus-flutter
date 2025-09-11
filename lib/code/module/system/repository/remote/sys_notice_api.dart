@@ -4,16 +4,17 @@ import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:retrofit/dio.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
-import 'package:ruoyi_plus_flutter/code/base/api/api_config.dart';
-import 'package:ruoyi_plus_flutter/code/base/api/base_dio.dart';
-import 'package:ruoyi_plus_flutter/code/base/api/request_utils.dart';
-import 'package:ruoyi_plus_flutter/code/base/repository/remote/data_transform_utils.dart';
-import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
+import 'package:base/base/api/api_config.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/request_utils.dart';
+import 'package:base/base/repository/remote/data_transform_utils.dart';
+import 'package:base/base/vm/global_vm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_notice.dart';
 
-import '../../../../base/api/result_entity.dart';
+import 'package:base/base/api/result_entity.dart';
 import '../../../../feature/bizapi/system/entity/sys_config.dart';
+import '../../../../feature/component/dict/vm/dict_share_vm.dart';
 
 part 'sys_notice_api.g.dart';
 
@@ -87,8 +88,7 @@ class SysNoticeRepository {
   static void fillShowText(List<SysNotice>? sysNoticeList) {
     if (sysNoticeList?.isNotEmpty ?? false) {
       for (var itemData in sysNoticeList!) {
-        itemData.noticeTypeName = GlobalVm()
-            .dictShareVm
+        itemData.noticeTypeName = DictShareVm()
             .findDict(LocalDictLib.CODE_SYS_NOTICE_TYPE, itemData.noticeType)
             ?.tdDictLabel;
       }
@@ -101,9 +101,7 @@ class SysNoticeRepository {
     //参数校验
     assert(id != null && ids == null || id == null && ids != null);
     ids ??= [id!];
-    return _sysConfigApi
-        .delete(ids.join(TextUtil.COMMA), cancelToken)
-        .successMap2Single((event) {
+    return _sysConfigApi.delete(ids.join(TextUtil.COMMA), cancelToken).successMap2Single((event) {
       return event.toIntensify();
     });
   }

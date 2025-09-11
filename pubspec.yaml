@@ -111,6 +111,9 @@ dependencies:
   # 数据库基础库
   db_base:
     path: "./lib_module/db_base"
+  # 数据库基础库
+  base:
+    path: "./base"
 
 dev_dependencies:
   flutter_test:

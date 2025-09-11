@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../base/api/json_converter.dart';
+import 'package:base/base/api/json_converter.dart';
 import '../../../feature/component/adapter/app_select_box.dart';
 
 part 'dept_tree.g.dart';

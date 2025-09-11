@@ -10,7 +10,7 @@ import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/entity/sys_dict_type.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
@@ -19,10 +19,11 @@ import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
 
 import '../../../../../../gen/app_l10n.dart';
-import '../../../../../base/api/base_dio.dart';
-import '../../../../../base/api/result_entity.dart';
-import '../../../../../base/ui/utils/fast_dialog_utils.dart';
-import '../../../../../base/vm/global_vm.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/vm/global_vm.dart';
+import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../repository/remote/dict_type_api.dart';
 
 class DictTypeAddEditPage extends AppBaseStatelessWidget<_DictTypeAddEditVm> {
@@ -59,20 +60,17 @@ class DictTypeAddEditPage extends AppBaseStatelessWidget<_DictTypeAddEditVm> {
                         ? S.current.sys_label_dict_type_add
                         : S.current.sys_label_dict_type_edit),
                     actions: [
-                      if ((globalVm.userShareVm.hasPermiAny(["system:dict:edit"]) &&
-                              dictType != null) ||
-                          (globalVm.userShareVm.hasPermiAny(["system:dict:add"]) &&
-                              dictType == null))
+                      if ((UserShareVm().hasPermiAny(["system:dict:edit"]) && dictType != null) ||
+                          (UserShareVm().hasPermiAny(["system:dict:add"]) && dictType == null))
                         IconButton(
                             onPressed: () {
                               getVm().onSave();
                             },
                             icon: Icon(Icons.save)),
-                      if (dictType != null &&
-                          globalVm.userShareVm.hasPermiAny(["system:dict:remove"]))
+                      if (dictType != null && UserShareVm().hasPermiAny(["system:dict:remove"]))
                         PopupMenuButton(itemBuilder: (context) {
                           return [
-                            if (globalVm.userShareVm.hasPermiAny(["system:dict:remove"]))
+                            if (UserShareVm().hasPermiAny(["system:dict:remove"]))
                               PopupMenuItem(
                                 child: Text(FastS.current.action_delete),
                                 onTap: () {

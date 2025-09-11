@@ -17,11 +17,11 @@ import 'package:ruoyi_plus_flutter/code/module/system/ui/dict/type/dict_type_add
 
 import '../../../../../../gen/app_l10n.dart';
 import '../../../../../../res/styles.dart';
-import '../../../../../base/api/base_dio.dart';
-import '../../../../../base/api/result_entity.dart';
-import '../../../../../base/config/constant_base.dart';
-import '../../../../../base/repository/remote/data_transform_utils.dart';
-import '../../../../../base/vm/global_vm.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/config/constant_base.dart';
+import 'package:base/base/repository/remote/data_transform_utils.dart';
+import 'package:base/base/vm/global_vm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/list_data_component.dart';
@@ -31,6 +31,7 @@ import 'package:dio/dio.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
+import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../config/constant_sys.dart';
 
 ///@author slc
@@ -83,7 +84,7 @@ class DictTypeListPageWidget {
           listenerItemSelect.onItemClick(index, listItem);
         },
         onLongPress: () {
-          GlobalVm().userShareVm.execPermiAny(
+          UserShareVm().execPermiAny(
               ["system:dict:remove"], () => listenerItemSelect.onItemLongClick(index, listItem));
         });
   }

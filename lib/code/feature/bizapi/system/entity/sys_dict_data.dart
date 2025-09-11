@@ -1,8 +1,7 @@
-import 'package:ruoyi_plus_flutter/code/base/entity/tenant_entity.dart';
-
+import 'package:base/base/api/json_converter.dart';
+import 'package:base/base/entity/tenant_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../../base/api/json_converter.dart';
 import '../../../component/adapter/app_select_box.dart';
 import '../../../component/dict/entity/tree_dict.dart';
 

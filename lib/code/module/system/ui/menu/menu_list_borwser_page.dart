@@ -2,12 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/tree/vd/tree_data_list_vd.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu.dart';
 
 import '../../../../../gen/app_l10n.dart';
-import '../../../../base/config/constant_base.dart';
+import 'package:base/base/config/constant_base.dart';
+import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
@@ -41,7 +42,7 @@ class MenuListBrowserPage extends AppBaseStatelessWidget<_MenuListBrowserVm> {
             child: Scaffold(
                 appBar: AppBar(title: Text(title)),
                 floatingActionButton:
-                    globalVm.userShareVm.widgetWithPermiAny(["system:menu:add"], () {
+                    UserShareVm().widgetWithPermiAny(["system:menu:add"], () {
                   return NqSelector<_MenuListBrowserVm, bool>(builder: (context, value, child) {
                     return WidgetUtils.getAnimVisibility(
                         !value,

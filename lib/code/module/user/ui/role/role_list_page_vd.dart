@@ -17,11 +17,12 @@ import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/role_api.dart';
 
 import '../../../../../gen/app_l10n.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/api/result_entity.dart';
-import '../../../../base/repository/remote/data_transform_utils.dart';
-import '../../../../base/vm/global_vm.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/api/result_entity.dart';
+import 'package:base/base/repository/remote/data_transform_utils.dart';
+import 'package:base/base/vm/global_vm.dart';
 import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
+import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
@@ -74,7 +75,7 @@ class RoleListPageVd {
           listenerItemSelect.onItemClick(index, listItem);
         },
         onLongPress: () {
-          GlobalVm().userShareVm.execPermiAny(
+          UserShareVm().execPermiAny(
               ["system:role:remove"], () => listenerItemSelect.onItemLongClick(index, listItem));
         });
   }

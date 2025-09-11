@@ -19,16 +19,18 @@ import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
+import 'package:base/base/vm/global_vm.dart';
 import 'package:ruoyi_plus_flutter/code/feature/bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:ruoyi_plus_flutter/code/feature/component/dict/entity/tree_dict.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_client.dart';
 
 import '../../../../../../gen/app_l10n.dart';
-import '../../../../base/api/base_dio.dart';
-import '../../../../base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/ui/utils/fast_dialog_utils.dart';
+import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
 import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
+import '../../../../feature/component/dict/vm/dict_share_vm.dart';
 import '../../repository/remote/sys_client_api.dart';
 import '../dict/data/dict_data_list_multiple_choices_dialog.dart';
 
@@ -65,9 +67,9 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                         ? S.current.sys_label_sys_client_add
                         : S.current.sys_label_sys_client_edit),
                     actions: [
-                      if ((globalVm.userShareVm.hasPermiAny(["system:client:edit"]) &&
+                      if ((UserShareVm().hasPermiAny(["system:client:edit"]) &&
                               sysClient != null) ||
-                          (globalVm.userShareVm.hasPermiAny(["system:client:add"]) &&
+                          (UserShareVm().hasPermiAny(["system:client:add"]) &&
                               sysClient == null))
                         IconButton(
                             onPressed: () {
@@ -75,10 +77,10 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                             },
                             icon: Icon(Icons.save)),
                       if (sysClient != null &&
-                          globalVm.userShareVm.hasPermiAny(["system:client:remove"]))
+                          UserShareVm().hasPermiAny(["system:client:remove"]))
                         PopupMenuButton(itemBuilder: (context) {
                           return [
-                            if (globalVm.userShareVm.hasPermiAny(["system:client:remove"]))
+                            if (UserShareVm().hasPermiAny(["system:client:remove"]))
                               PopupMenuItem(
                                 child: Text(FastS.current.action_delete),
                                 onTap: () {
@@ -247,11 +249,11 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                     ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
                     FormBuilderRadioGroup<OptionVL<String>>(
                         name: "status",
-                        initialValue: DictUiUtils.dict2OptionVL(GlobalVm().dictShareVm.findDict(
+                        initialValue: DictUiUtils.dict2OptionVL(DictShareVm().findDict(
                             LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().sysClient!.status,
                             defDictKey: LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL)),
                         options: DictUiUtils.dictList2FromOption(
-                            globalVm.dictShareVm.dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
+                            DictShareVm().dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
                         decoration:
                             MyInputDecoration(labelText: S.current.sys_label_sys_client_status),
                         onChanged: (value) {
@@ -316,9 +318,9 @@ class _SysClientAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   //字典数据
   List<ITreeDict<dynamic>>? grantTypeList =
-      GlobalVm().dictShareVm.dictMap[LocalDictLib.CODE_SYS_GRANT_TYPE];
+      DictShareVm().dictMap[LocalDictLib.CODE_SYS_GRANT_TYPE];
   List<ITreeDict<dynamic>>? deviceTypeList =
-      GlobalVm().dictShareVm.dictMap[LocalDictLib.CODE_SYS_DEVICE_TYPE];
+      DictShareVm().dictMap[LocalDictLib.CODE_SYS_DEVICE_TYPE];
 
   void initVm({SysClient? sysClient}) {
     if (this.sysClient != null) {

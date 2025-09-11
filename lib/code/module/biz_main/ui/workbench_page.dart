@@ -1,11 +1,11 @@
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
 import 'package:ruoyi_plus_flutter/code/module/system/ui/router/router_grid.dart';
 
 import '../../../../gen/app_l10n.dart';
+import '../../../feature/bizapi/user/vm/user_share_vm.dart';
 
 class WorkbenchPage extends StatefulWidget {
   const WorkbenchPage({super.key});
@@ -31,7 +31,7 @@ class _WorkbenchState extends AppBaseState<WorkbenchPage, _WorkbenchVm> with Aut
           appBar: AppBar(title: Text(title),
               titleSpacing: NavigationToolbar.kMiddleSpacing),
           //图标滚动使用固定大小来解决
-          body: MenuGrid(GlobalVm().userShareVm.routerVoOf.value ?? [], null));
+          body: MenuGrid(UserShareVm().routerVoOf.value ?? [], null));
     });
   }
 

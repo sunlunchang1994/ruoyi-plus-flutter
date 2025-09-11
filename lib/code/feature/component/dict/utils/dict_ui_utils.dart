@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:boxes_flutter/flutter/slc/common/object_util.dart';
 import 'package:form_extra/form/fast_form_builder_field_option.dart';
-import 'package:ruoyi_plus_flutter/code/base/vm/global_vm.dart';
-
-import '../../../../../gen/app_l10n.dart';
 import '../../../../../res/colors.dart';
 import '../entity/tree_dict.dart';
+import '../vm/dict_share_vm.dart';
 
 /// @author: sunlunchang
 /// 字典工具类
@@ -43,7 +41,7 @@ class DictUiUtils {
         context: context,
         builder: (context) {
           List<SimpleDialogOption> dialogItem = dictList2DialogItem(
-              context, GlobalVm().dictShareVm.dictMap[dictType]!, onPressed,
+              context, DictShareVm().dictMap[dictType]!, onPressed,
               autoPopDialog: autoPopDialog, resultGrowable: resultGrowable);
           return SimpleDialog(
               title: Text(title ?? FastS.current.app_label_please_choose),
@@ -72,7 +70,7 @@ class DictUiUtils {
   }
 
   static Color getDictStyle(String dictType, String? dictKey) {
-    ITreeDict<dynamic>? dictData = GlobalVm().dictShareVm.findDict(dictType, dictKey);
+    ITreeDict<dynamic>? dictData = DictShareVm().findDict(dictType, dictKey);
     if (dictData == null) {
       AppColors.getStatusColorByTag(AppColors.STATUS_TAG_DEFAULT);
     }

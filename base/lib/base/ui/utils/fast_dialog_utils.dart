@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 
-import '../../../../gen/app_l10n.dart';
-
 ///@author sunlunchang
 ///快速dialog工具
 class FastDialogUtils {

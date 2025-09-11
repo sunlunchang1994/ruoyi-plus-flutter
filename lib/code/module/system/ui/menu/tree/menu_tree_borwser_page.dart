@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/base/ui/app_mvvm.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 
 import '../../../../../../gen/app_l10n.dart';
-import '../../../../../base/config/constant_base.dart';
+import 'package:base/base/config/constant_base.dart';
 import '../../../../../feature/component/tree/entity/slc_tree_nav.dart';
 import '../../../../../feature/component/tree/vd/tree_data_list_vd.dart';
 import 'package:fast/fast/vd/list_data_vd.dart';
