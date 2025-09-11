@@ -38,7 +38,7 @@ class _DevEnvConfig extends EnvConfig {
   }
 
   @override
-  String get apiUrl => "http://172.18.0.29:8080";
+  String get apiUrl => "http://localhost:8080";
 
   @override
   String get clientId => "428a8310cd442757ae699df5d894f051";
