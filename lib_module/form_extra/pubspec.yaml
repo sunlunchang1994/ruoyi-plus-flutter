@@ -23,7 +23,7 @@ dependencies:
 
   #快速开发库
   fast:
-    path: "../../package/fast"
+    path: "../../lib_module/fast"
 dev_dependencies:
   flutter_test:
     sdk: flutter

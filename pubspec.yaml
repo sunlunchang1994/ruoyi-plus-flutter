@@ -104,13 +104,13 @@ dependencies:
 
   #快速开发库
   fast:
-    path: "./package/fast"
+    path: "./lib_module/fast"
   # 表单扩展库
   form_extra:
-    path: "./package/form_extra"
+    path: "./lib_module/form_extra"
   # 数据库基础库
   db_base:
-    path: "./package/db_base"
+    path: "./lib_module/db_base"
 
 dev_dependencies:
   flutter_test:
