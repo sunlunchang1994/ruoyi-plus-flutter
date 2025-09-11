@@ -52,6 +52,13 @@ class MenuGrid extends AppBaseStatelessWidget<_MenuGridVm> {
   List<Widget> getMenuWidgetList() {
     List<Widget> menuList = List.empty(growable: true);
     getVm().routerList.forEach((action) {
+      if (action.hidden == true) {
+        return;
+      }
+      //只有一个时显示子节点
+      if(action.path==TextUtil.SLASH&&action.children?.length==1){
+        action = action.children![0];
+      }
       menuList.add(MenuItemView(action, onTap: () {
         getVm().onRouterClick(action);
       }));
