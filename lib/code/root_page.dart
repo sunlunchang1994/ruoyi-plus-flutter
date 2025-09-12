@@ -1,4 +1,8 @@
+import 'package:auth/gen/auth_l10n.dart';
+import 'package:base/base/route/base_router.dart';
+import 'package:base/base/startup/task.dart';
 import 'package:base/gen/base_l10n.dart';
+import 'package:component/gen/component_l10n.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
@@ -6,16 +10,12 @@ import 'package:boxes_flutter/flutter/slc/common/log_util.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:provider/provider.dart';
 import 'package:base/base/vm/global_vm.dart';
-import 'package:ruoyi_plus_flutter/code/startup/task_utils.dart';
 import 'package:ruoyi_plus_flutter/gen/app_l10n.dart';
 import 'package:ruoyi_plus_flutter/gen/l10n/app_localizations.dart';
 import 'package:boxes_flutter/gen/l10n/boxes_localizations.dart';
+import 'package:ruoyi_plus_flutter/res/styles.dart';
 
 import 'route/app_router.dart';
-import '../res/styles.dart';
-import 'feature/welcome/ui/welcome_page.dart';
-
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 /// @author sunlunchang
 /// 页面入口
@@ -31,8 +31,8 @@ class RootPage extends StatelessWidget {
         builder: (context, child) {
           return NqSelector<GlobalVm, ThemeMode>(builder: (context, themeMode, child) {
             return MaterialApp(
-              navigatorKey: navigatorKey,
-              initialRoute: WelcomePage.routeName,
+              navigatorKey: BaseRouter.navigatorKey,
+              initialRoute: BaseRouter.welcomePage,
               routes: router,
               onUnknownRoute: get404Route,
               onGenerateTitle: (context) {
@@ -46,6 +46,8 @@ class RootPage extends StatelessWidget {
                 ...S.localizationsDelegates,
                 FastS.delegate,
                 BaseS.delegate,
+                ComponentS.delegate,
+                AuthS.delegate,
                 BoxesLocalizations.delegate,
                 FormBuilderLocalizations.delegate,
               ],
@@ -60,7 +62,7 @@ class RootPage extends StatelessWidget {
   }
 
   void _init(BuildContext context) {
-    TaskUtils.execRunAppAfterTask(context: context).then((value) {
+    TaskManager().execRunAppAfterTask(context: context).then((value) {
       LogUtil.d("初始化完毕", tag: "FirstTask");
     });
   }

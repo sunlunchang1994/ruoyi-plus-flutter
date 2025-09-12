@@ -1,0 +1,61 @@
+name: component
+description: "常用组件"
+version: 0.0.1
+
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  #基础框架
+  #boxes_flutter: ^0.4.3
+  boxes_flutter:
+    git:
+      url: https://gitee.com/sunlunchang/boxes-flutter.git
+
+  # 文件相关---------------------------------------
+  # 图片裁剪
+  crop_your_image: ^1.1.0
+
+  # 特殊的UI组件---------------------------------------
+  #WebView
+  webview_flutter: ^4.10.0
+
+  # 其他---------------------------------------
+  #设备信息 会影响编译和冲突，暂不加入
+  # device_info_plus: ^11.3.3
+  #UUID
+  uuid: ^4.4.0
+  #解决键盘被遮挡
+  keyboard_avoider: ^0.2.0
+  #包信息
+  package_info_plus: ^8.3.0
+
+  #表单拓展
+  form_extra:
+    path: "../../lib_module/form_extra"
+  #基础组件
+  base:
+    path: "../../base"
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.4.11
+  flutter_gen_runner: ^5.10.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/images/mp/

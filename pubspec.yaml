@@ -114,6 +114,22 @@ dependencies:
   # 数据库基础库
   base:
     path: "./base"
+  # 能力库
+  # 原生混入库
+  mix:
+    path: "./feature/mix"
+  # 常用组件库
+  component:
+    path: "./feature/component"
+  # 认证
+  auth:
+    path: "./feature/auth"
+  # 欢迎页
+  welcome:
+    path: "./feature/welcome"
+  # 业务api
+  bizapi:
+    path: "./feature/bizapi"
 
 dev_dependencies:
   flutter_test:
@@ -152,8 +168,6 @@ flutter:
   assets:
     - assets/images/
     - assets/images/base/
-    - assets/images/user/
-    - assets/images/mp/
     - assets/key/
 
   # An image asset can refer to one or more resolution-specific "variants", see

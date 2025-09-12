@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import 'data_persistence.dart';
 import 'db_sp.dart';
 
@@ -15,6 +17,7 @@ abstract class DpManager {
     return _dp;
   }
 
+  @protected
   DataPersistence<dynamic> createDp(String dpName) {
     return DbSp(dpName);
   }

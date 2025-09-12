@@ -1,4 +1,25 @@
 {
   "@@locale": "en",
-  "base_label_login_normal_unauthorized": "登录失效，请重新登录！"
+  "app_divide_text": "-----------------------------",
+  "app_label_no_location_information": "未获取到位置信息",
+  "app_label_please_add_attachments": "请添加附件",
+  "app_label_un_submitted": "未提交",
+  "app_label_starting_time": "开始时间",
+  "app_label_end_time": "结束时间",
+  "app_label_personal_information": "个人信息",
+  "app_label_logging_in": "正在登录",
+  "app_toast_login_login_successful": "登录成功",
+  "app_toast_login_login_failed": "登录失败",
+  "app_label_login_normal_unauthorized": "登录失效，请重新登录！",
+
+  "app_label_show_sort": "显示排序",
+  "app_label_status": "状态",
+
+  "app_label_photograph": "拍照",
+  "app_label_photo_album": "相册",
+  "app_label_image_crop": "裁剪",
+  "app_label_select_file": "选择文件",
+  "app_label_crop_ing": "正在裁剪...",
+  "app_label_open_url_in_sys_browser": "在系统浏览器打开"
+
 }

@@ -15,13 +15,45 @@ dependencies:
     git:
       url: https://gitee.com/sunlunchang/boxes-flutter.git
 
+  # 网络相关-------------------------------------
+  json_annotation: ^4.9.0
+  retrofit: ^4.1.0
+  # 网络请求 用了retrofit无需使用以下方法
+  #dio: ^4.0.0
+  # RxJava
+  rxdart: ^0.28.0
+  #加解密
+  encrypt: ^5.0.3
+
+  # 文件相关---------------------------------------
+  #图片选择
+  image_picker: ^1.1.2
+  # 保存图片到相册 仅支持Android IOS 其他平台需要编写兼容性方案
+  image_gallery_saver_plus: ^4.0.1
+  # 文件选择
+  file_picker: ^10.2.0
+  # 路径访问
+  path_provider: ^2.1.5
+  # 打开文件
+  open_file: ^3.5.10
+  # url_launcher
+  url_launcher: ^6.3.0
+
   #快速开发库
   fast:
     path: "../lib_module/fast"
+  #基础数据库组件
+  db_base:
+    path: "../lib_module/db_base"
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^2.4.11
+  flutter_gen_runner: ^5.10.0
+  # 网络相关-------------------------------------
+  retrofit_generator: ^8.1.1
+  #json_serializable 生成新的命令 flutter pub run build_runner build
+  json_serializable: ^6.8.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -32,3 +64,5 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/images/

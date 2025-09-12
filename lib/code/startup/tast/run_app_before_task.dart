@@ -1,10 +1,10 @@
 import 'dart:ui';
 
+import 'package:base/base/repository/local/app_config.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:boxes_flutter/flutter/slc/common/log_util.dart';
-import 'package:boxes_flutter/flutter/slc/common/screen_util.dart';
 import 'package:boxes_flutter/flutter/slc/common/sp_cache_util.dart';
-import 'package:ruoyi_plus_flutter/code/startup/tast/task.dart';
+import 'package:base/base/startup/task.dart';
+import 'package:ruoyi_plus_flutter/gen/app_l10n.dart';
 
 /// @author sunlunchang
 /// 执行runApp之前执行的任务
@@ -13,5 +13,7 @@ class RunAppBeforeTask extends Task {
   Future<void> run({BuildContext? context}) async {
     WidgetsFlutterBinding.ensureInitialized();
     await SpCacheUtil.getInstance();
+
+    AppConfig().init(appName: S.current.app_name);
   }
 }

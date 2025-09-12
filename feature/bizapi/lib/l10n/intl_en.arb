@@ -1,0 +1,6 @@
+{
+  "@@locale": "en",
+  "user_label_logging_in": "正在登录",
+  "user_toast_login_login_successful": "登录成功",
+  "user_toast_login_login_failed": "登录失败"
+}

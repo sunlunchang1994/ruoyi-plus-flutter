@@ -93,11 +93,119 @@ abstract class BaseLocalizations {
     Locale('en')
   ];
 
-  /// No description provided for @base_label_login_normal_unauthorized.
+  /// No description provided for @app_divide_text.
+  ///
+  /// In en, this message translates to:
+  /// **'-----------------------------'**
+  String get app_divide_text;
+
+  /// No description provided for @app_label_no_location_information.
+  ///
+  /// In en, this message translates to:
+  /// **'未获取到位置信息'**
+  String get app_label_no_location_information;
+
+  /// No description provided for @app_label_please_add_attachments.
+  ///
+  /// In en, this message translates to:
+  /// **'请添加附件'**
+  String get app_label_please_add_attachments;
+
+  /// No description provided for @app_label_un_submitted.
+  ///
+  /// In en, this message translates to:
+  /// **'未提交'**
+  String get app_label_un_submitted;
+
+  /// No description provided for @app_label_starting_time.
+  ///
+  /// In en, this message translates to:
+  /// **'开始时间'**
+  String get app_label_starting_time;
+
+  /// No description provided for @app_label_end_time.
+  ///
+  /// In en, this message translates to:
+  /// **'结束时间'**
+  String get app_label_end_time;
+
+  /// No description provided for @app_label_personal_information.
+  ///
+  /// In en, this message translates to:
+  /// **'个人信息'**
+  String get app_label_personal_information;
+
+  /// No description provided for @app_label_logging_in.
+  ///
+  /// In en, this message translates to:
+  /// **'正在登录'**
+  String get app_label_logging_in;
+
+  /// No description provided for @app_toast_login_login_successful.
+  ///
+  /// In en, this message translates to:
+  /// **'登录成功'**
+  String get app_toast_login_login_successful;
+
+  /// No description provided for @app_toast_login_login_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'登录失败'**
+  String get app_toast_login_login_failed;
+
+  /// No description provided for @app_label_login_normal_unauthorized.
   ///
   /// In en, this message translates to:
   /// **'登录失效，请重新登录！'**
-  String get base_label_login_normal_unauthorized;
+  String get app_label_login_normal_unauthorized;
+
+  /// No description provided for @app_label_show_sort.
+  ///
+  /// In en, this message translates to:
+  /// **'显示排序'**
+  String get app_label_show_sort;
+
+  /// No description provided for @app_label_status.
+  ///
+  /// In en, this message translates to:
+  /// **'状态'**
+  String get app_label_status;
+
+  /// No description provided for @app_label_photograph.
+  ///
+  /// In en, this message translates to:
+  /// **'拍照'**
+  String get app_label_photograph;
+
+  /// No description provided for @app_label_photo_album.
+  ///
+  /// In en, this message translates to:
+  /// **'相册'**
+  String get app_label_photo_album;
+
+  /// No description provided for @app_label_image_crop.
+  ///
+  /// In en, this message translates to:
+  /// **'裁剪'**
+  String get app_label_image_crop;
+
+  /// No description provided for @app_label_select_file.
+  ///
+  /// In en, this message translates to:
+  /// **'选择文件'**
+  String get app_label_select_file;
+
+  /// No description provided for @app_label_crop_ing.
+  ///
+  /// In en, this message translates to:
+  /// **'正在裁剪...'**
+  String get app_label_crop_ing;
+
+  /// No description provided for @app_label_open_url_in_sys_browser.
+  ///
+  /// In en, this message translates to:
+  /// **'在系统浏览器打开'**
+  String get app_label_open_url_in_sys_browser;
 }
 
 class _BaseLocalizationsDelegate extends LocalizationsDelegate<BaseLocalizations> {

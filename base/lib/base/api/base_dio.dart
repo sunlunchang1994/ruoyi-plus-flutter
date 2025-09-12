@@ -161,7 +161,7 @@ class BaseDio {
           builder: (context) {
             return AlertDialog(
                 title: Text(FastS.current.label_prompt),
-                content: Text(BaseS.current.base_label_login_normal_unauthorized),
+                content: Text(BaseS.current.app_label_login_normal_unauthorized),
                 actions: FastDialogUtils.getCommonlyAction(context, positiveLister: () {
                   Navigator.of(context).pushNamedAndRemoveUntil(
                     BaseRouter.loginPage,

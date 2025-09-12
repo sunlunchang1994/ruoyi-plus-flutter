@@ -14,6 +14,13 @@ class AppConfig extends DpManager {
     return _instance;
   }
 
+  String _appName = "Unknown";
+  String get appName => _appName;
+
+  void init({required String appName}) {
+    this._appName = appName;
+  }
+
   ThemeMode getThemeMode() {
     int? mode = getDp().getInt("themeMode", defValue: 0);
     switch (mode) {
