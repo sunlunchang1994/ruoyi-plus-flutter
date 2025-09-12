@@ -130,6 +130,15 @@ dependencies:
   # 业务api
   bizapi:
     path: "./feature/bizapi"
+  # 用户模块
+  user:
+    path: "./business/user"
+  # 系统模块
+  system:
+    path: "./business/system"
+  # 主业务
+  biz_main:
+    path: "./business/biz_main"
 
 dev_dependencies:
   flutter_test:
