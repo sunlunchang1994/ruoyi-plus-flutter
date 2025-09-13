@@ -6,9 +6,9 @@ import 'package:provider/provider.dart';
 import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/vd/page_data_vd.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_page_vd.dart';
+import 'package:user/user/ui/role/role_list_page_vd.dart';
 
-import '../../../../../gen/app_l10n.dart';
+import 'package:user/gen/user_l10n.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 
 ///

@@ -18,21 +18,21 @@ import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
 
-import '../../../../../gen/app_l10n.dart';
+import 'package:user/gen/user_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
 import 'package:base/base/vm/global_vm.dart';
-import '../../../../feature/bizapi/user/config/constant_user_api.dart';
-import '../../../../feature/bizapi/user/entity/role.dart';
-import '../../../../feature/bizapi/user/entity/select_menu_result.dart';
-import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../../feature/component/dict/entity/tree_dict.dart';
-import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
-import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
-import '../../../../feature/component/dict/vm/dict_share_vm.dart';
-import '../../../system/config/constant_sys.dart';
-import '../../../system/ui/menu/tree/menu_tree_select_multiple_page.dart';
-import '../../repository/remote/role_api.dart';
+import 'package:base/gen/base_l10n.dart';
+import 'package:bizapi/user/config/constant_user_api.dart';
+import 'package:bizapi/user/entity/role.dart';
+import 'package:bizapi/user/entity/select_menu_result.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
+import 'package:bizapi/system/repository/local/local_dict_lib.dart';
+import 'package:bizapi/system/config/constant_sys_api.dart';
+import 'package:component/component/dict/entity/tree_dict.dart';
+import 'package:component/component/dict/utils/dict_ui_utils.dart';
+import 'package:component/component/dict/vm/dict_share_vm.dart';
+import 'package:user/user/repository/remote/role_api.dart';
 
 class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
   static const String routeName = '/system/role/add_edit';
@@ -169,7 +169,7 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                       decoration: MyInputDecoration(
                           contentPadding: EdgeInsets.zero,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          label: InputDecUtils.getRequiredLabel(S.current.app_label_show_sort),
+                          label: InputDecUtils.getRequiredLabel(BaseS.current.app_label_show_sort),
                           hintText: FastS.current.app_label_please_input,
                           border: const UnderlineInputBorder()),
                       onChanged: (value) {
@@ -190,7 +190,7 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                             LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().roleInfo!.status,
                             defDictKey: LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL)),
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: MyInputDecoration(labelText: S.current.app_label_status),
+                        decoration: MyInputDecoration(labelText: BaseS.current.app_label_status),
                         options: DictUiUtils.dictList2FromOption(
                             DictShareVm().dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
                         onChanged: (value) {
@@ -319,9 +319,9 @@ class _PostAddEditVm extends AppBaseVm with CancelTokenAssist {
   }
 
   void onSelectMenu() {
-    pushNamed(RoleMenuTreeSelectMultiplePage.routeName, arguments: {
+    pushNamed(ConstantSysApi.ROUTER_SETTING_MENU_ROLE_TREE_MULTIPLE_SELECT, arguments: {
       ConstantBase.KEY_INTENT_TITLE: S.current.user_label_menu_permission_select,
-      ConstantSys.KEY_MENU_ID: roleInfo!.roleId,
+      ConstantSysApi.INTENT_KEY_MENU_ID: roleInfo!.roleId,
       ConstantBase.KEY_INTENT_SELECT_DATA: roleInfo!.menuIds,
     }).then((result) {
       if (result != null && result is SelectMenuResult) {

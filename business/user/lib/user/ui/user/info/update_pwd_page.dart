@@ -13,8 +13,8 @@ import 'package:base/base/api/base_dio.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../../gen/app_l10n.dart';
 import 'package:base/base/ui/app_mvvm.dart';
+import 'package:user/gen/user_l10n.dart';
 
 //用户修改密码
 class UpdatePwdPage extends AppBaseStatelessWidget<_UpdatePwdVm> {

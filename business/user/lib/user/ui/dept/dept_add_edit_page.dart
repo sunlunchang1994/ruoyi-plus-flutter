@@ -25,12 +25,14 @@ import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/ui/app_mvvm.dart';
 import 'package:base/base/vm/global_vm.dart';
+import 'package:base/gen/base_l10n.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
+import 'package:user/gen/user_l10n.dart';
+import 'package:user/user/config/constant_user.dart';
+import 'package:user/user/entity/dept_tree.dart';
 import 'package:user/user/repository/remote/dept_api.dart';
-import '../../config/constant_user.dart';
-import '../../entity/dept_tree.dart';
-import '../user/user_list_select_by_dept_page.dart';
+import 'package:user/user/ui/user/user_list_select_by_dept_page.dart';
 import 'dept_list_select_single_page.dart';
 
 ///部门信息新增修改
@@ -185,7 +187,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
         decoration: MyInputDecoration(
             contentPadding: EdgeInsets.zero,
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            label: InputDecUtils.getRequiredLabel(S.current.app_label_show_sort),
+            label: InputDecUtils.getRequiredLabel(BaseS.current.app_label_show_sort),
             hintText: FastS.current.app_label_please_input,
             border: const UnderlineInputBorder()),
         onChanged: (value) {

@@ -15,6 +15,9 @@ dependencies:
     git:
       url: https://gitee.com/sunlunchang/boxes-flutter.git
 
+  #图表
+  fl_chart: ^0.70.2
+
   #业务组件
   bizapi:
     path: "../../feature/bizapi"

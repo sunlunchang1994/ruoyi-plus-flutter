@@ -27,7 +27,7 @@ class ContentEmptyWidget extends StatelessWidget {
               color: themeData.slcTidyUpColor.getTextColorHintByTheme(themeData)),
           Padding(
               padding: EdgeInsets.only(top: SlcDimens.appDimens8),
-              child: Text(FastS.of(context).label_data_is_null,
+              child: Text(FastS.current.label_data_is_null,
                   style: themeData.slcTidyUpStyle.getTextColorHintStyleByTheme(themeData)))
         ]));
   }

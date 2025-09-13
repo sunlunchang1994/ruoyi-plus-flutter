@@ -5,22 +5,21 @@ import 'package:boxes_flutter/flutter/slc/res/styles.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:fast/fast/utils/app_toast.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/entity/sys_menu.dart';
 import 'package:bizapi/system/repository/local/local_dict_lib.dart';
+import 'package:system/system/repository/remote/menu_api.dart';
 
-import '../../../../../gen/app_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/config/constant_base.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
-import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
-import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
+import 'package:component/component/tree/entity/slc_tree_nav.dart';
+import 'package:component/component/tree/vd/tree_data_list_vd.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/list_data_component.dart';
 import 'package:fast/fast/vd/refresh/content_empty.dart';
 import 'package:dio/dio.dart';
-
-import '../../repository/remote/menu_api.dart';
 
 ///@author slc
 ///菜单树列表

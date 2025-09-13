@@ -17,19 +17,20 @@ import 'package:form_extra/form/fast_form_builder_field_option.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_select_single_page.dart';
+import 'package:user/user/entity/dept_tree.dart';
+import 'package:user/user/repository/remote/post_api.dart';
+import 'package:user/user/ui/dept/dept_list_select_single_page.dart';
 
-import '../../../../../gen/app_l10n.dart';
+import 'package:user/gen/user_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
-import '../../../../feature/bizapi/user/entity/post.dart';
-import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../../feature/component/dict/entity/tree_dict.dart';
-import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
-import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
-import '../../../../feature/component/dict/vm/dict_share_vm.dart';
-import '../../entity/dept_tree.dart';
-import '../../repository/remote/post_api.dart';
+import 'package:base/gen/base_l10n.dart';
+import 'package:bizapi/user/entity/post.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
+import 'package:component/component/dict/entity/tree_dict.dart';
+import 'package:bizapi/system/repository/local/local_dict_lib.dart';
+import 'package:component/component/dict/utils/dict_ui_utils.dart';
+import 'package:component/component/dict/vm/dict_share_vm.dart';
 
 class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
   static const String routeName = '/system/post/add_edit';
@@ -193,7 +194,7 @@ class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                             LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().postInfo!.status,
                             defDictKey: LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL)),
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: MyInputDecoration(labelText: S.current.app_label_status),
+                        decoration: MyInputDecoration(labelText: BaseS.current.app_label_status),
                         options: DictUiUtils.dictList2FromOption(
                             DictShareVm().dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
                         onChanged: (value) {
@@ -212,7 +213,7 @@ class PostAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                       decoration: MyInputDecoration(
                           contentPadding: EdgeInsets.zero,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          label: InputDecUtils.getRequiredLabel(S.current.app_label_show_sort),
+                          label: InputDecUtils.getRequiredLabel(BaseS.current.app_label_show_sort),
                           hintText: FastS.current.app_label_please_input,
                           border: const UnderlineInputBorder()),
                       onChanged: (value) {

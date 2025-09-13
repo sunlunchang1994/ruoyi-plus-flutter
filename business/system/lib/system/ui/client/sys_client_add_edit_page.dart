@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:fast/gen/fast_l10n.dart';
@@ -9,7 +8,6 @@ import 'package:boxes_flutter/flutter/slc/common/slc_num_util.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:boxes_flutter/flutter/slc/mvvm/status_widget.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
-import 'package:boxes_flutter/flutter/slc/res/styles.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:form_extra/form/fast_form_builder_field_option.dart';
@@ -20,19 +18,18 @@ import 'package:form_extra/form/input_decoration_utils.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
 import 'package:base/base/ui/app_mvvm.dart';
-import 'package:base/base/vm/global_vm.dart';
 import 'package:bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:component/component/dict/entity/tree_dict.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_client.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/entity/sys_client.dart';
 
-import '../../../../../../gen/app_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
-import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
-import '../../../../feature/component/dict/vm/dict_share_vm.dart';
-import '../../repository/remote/sys_client_api.dart';
-import '../dict/data/dict_data_list_multiple_choices_dialog.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
+import 'package:component/component/dict/utils/dict_ui_utils.dart';
+import 'package:component/component/dict/vm/dict_share_vm.dart';
+import 'package:system/system/repository/remote/sys_client_api.dart';
+import 'package:system/system/ui/dict/data/dict_data_list_multiple_choices_dialog.dart';
 
 class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
   static const String routeName = '/system/client/add_edit';
@@ -68,7 +65,7 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                         : S.current.sys_label_sys_client_edit),
                     actions: [
                       if ((UserShareVm().hasPermiAny(["system:client:edit"]) &&
-                              sysClient != null) ||
+                          sysClient != null) ||
                           (UserShareVm().hasPermiAny(["system:client:add"]) &&
                               sysClient == null))
                         IconButton(
@@ -164,8 +161,9 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                           return FormBuilderChipOption(
                               value: value,
                               child: Text(
-                                  DictUiUtils.findDictByDataList(getVm().grantTypeList, value)
-                                          ?.tdDictLabel ??
+                                  DictUiUtils
+                                      .findDictByDataList(getVm().grantTypeList, value)
+                                      ?.tdDictLabel ??
                                       ""));
                         },
                         spacing: 10,
@@ -193,8 +191,9 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                           return FormBuilderChipOption(
                               value: value,
                               child: Text(
-                                  DictUiUtils.findDictByDataList(getVm().deviceTypeList, value)
-                                          ?.tdDictLabel ??
+                                  DictUiUtils
+                                      .findDictByDataList(getVm().deviceTypeList, value)
+                                      ?.tdDictLabel ??
                                       ""));
                         },
                         spacing: 10,
@@ -255,7 +254,7 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                         options: DictUiUtils.dictList2FromOption(
                             DictShareVm().dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
                         decoration:
-                            MyInputDecoration(labelText: S.current.sys_label_sys_client_status),
+                        MyInputDecoration(labelText: S.current.sys_label_sys_client_status),
                         onChanged: (value) {
                           getVm().applyInfoChange();
                           getVm().sysClient!.status = value?.value;
@@ -302,9 +301,9 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
               content: Text(FastS.current.app_label_data_save_prompt),
               actions: FastDialogUtils.getCommonlyAction(context,
                   positiveText: FastS.current.action_exit, positiveLister: () {
-                Navigator.pop(context);
-                getVm().abandonEdit();
-              }));
+                    Navigator.pop(context);
+                    getVm().abandonEdit();
+                  }));
         });
   }
 }
@@ -318,9 +317,9 @@ class _SysClientAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   //字典数据
   List<ITreeDict<dynamic>>? grantTypeList =
-      DictShareVm().dictMap[LocalDictLib.CODE_SYS_GRANT_TYPE];
+  DictShareVm().dictMap[LocalDictLib.CODE_SYS_GRANT_TYPE];
   List<ITreeDict<dynamic>>? deviceTypeList =
-      DictShareVm().dictMap[LocalDictLib.CODE_SYS_DEVICE_TYPE];
+  DictShareVm().dictMap[LocalDictLib.CODE_SYS_DEVICE_TYPE];
 
   void initVm({SysClient? sysClient}) {
     if (this.sysClient != null) {
@@ -332,11 +331,15 @@ class _SysClientAddEditVm extends AppBaseVm with CancelTokenAssist {
       this.sysClient = sysClient;
       setLoadingStatusWithNotify(LoadingStatus.success, notify: false);
     } else {
-      SysClientRepository.getInfo(sysClient.id!, defCancelToken).asStream().single.then(
-          (intensifyEntity) {
-        this.sysClient = intensifyEntity.data;
-        setLoadingStatus(LoadingStatus.success);
-      }, onError: BaseDio.errProxyFunc(onError: (error) {
+      SysClientRepository
+          .getInfo(sysClient.id!, defCancelToken)
+          .asStream()
+          .single
+          .then(
+              (intensifyEntity) {
+            this.sysClient = intensifyEntity.data;
+            setLoadingStatus(LoadingStatus.success);
+          }, onError: BaseDio.errProxyFunc(onError: (error) {
         if (error.isUnauthorized()) {
           return;
         }

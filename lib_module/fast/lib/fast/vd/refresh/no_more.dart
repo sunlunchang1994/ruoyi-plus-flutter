@@ -13,7 +13,7 @@ class NoMoreWidget extends StatelessWidget {
     return Center(
         child: Padding(
             padding: EdgeInsets.all(8),
-            child: Text(FastS.of(context).label_refresh_loading_no_more,
+            child: Text(FastS.current.label_refresh_loading_no_more,
                 style: themeData.slcTidyUpStyle.getTextColorHintStyleByTheme(Theme.of(context)))));
   }
 }

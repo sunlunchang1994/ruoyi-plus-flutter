@@ -13,14 +13,15 @@ import 'package:base/base/repository/remote/page_transform_utils.dart';
 import 'package:fast/fast/vd/list_data_vm_sub.dart';
 import 'package:fast/fast/vd/page_data_vm_sub.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/config/constant_sys.dart';
+import 'package:system/system/repository/remote/dict_data_api.dart';
 
-import '../../../../../../gen/app_l10n.dart';
-import '../../../../../../res/styles.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:base/base/vm/global_vm.dart';
-import '../../../../../feature/bizapi/system/entity/sys_dict_data.dart';
+import 'package:bizapi/system/entity/sys_dict_data.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/list_data_component.dart';
@@ -29,9 +30,7 @@ import 'package:fast/fast/vd/refresh/content_empty.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
-import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../config/constant_sys.dart';
-import '../../../repository/remote/dict_data_api.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
 import 'dict_data_add_edit_page.dart';
 
 ///@author slc

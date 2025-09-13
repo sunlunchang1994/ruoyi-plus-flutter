@@ -25,7 +25,7 @@ class LoadMoreLoadingWidget extends StatelessWidget {
               padding: const EdgeInsets.only(
                 left: 16,
               ),
-              child: new Text(FastS.of(context).label_refresh_loading,
+              child: new Text(FastS.current.label_refresh_loading,
                   style: themeData.slcTidyUpStyle
                       .getTextColorSecondaryStyleByTheme(themeData))),
         ],

@@ -1,11 +1,9 @@
-import 'package:dio/dio.dart';
 import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:boxes_flutter/flutter/slc/mvvm/status_widget.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
-import 'package:boxes_flutter/flutter/slc/res/styles.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
@@ -19,19 +17,21 @@ import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:form_extra/form/fast_form_builder_field_option.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/config/constant_sys.dart';
+import 'package:system/system/entity/sys_menu.dart';
+import 'package:system/system/repository/remote/menu_api.dart';
 
-import '../../../../../gen/app_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/ui/app_mvvm.dart';
 import 'package:base/base/vm/global_vm.dart';
+import 'package:base/gen/base_l10n.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
-import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../../feature/component/dict/vm/dict_share_vm.dart';
-import '../../config/constant_sys.dart';
-import '../../repository/remote/menu_api.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
+import 'package:bizapi/system/config/constant_sys_api.dart';
+import 'package:component/component/dict/vm/dict_share_vm.dart';
 import 'menu_list_select_single_page.dart';
 
 ///部门信息新增修改
@@ -197,7 +197,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: MyInputDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            label: InputDecUtils.getRequiredLabel(S.current.app_label_show_sort),
+            label: InputDecUtils.getRequiredLabel(BaseS.current.app_label_show_sort),
             hintText: FastS.current.app_label_please_input,
             border: const UnderlineInputBorder()),
         onChanged: (value) {
@@ -370,7 +370,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
       }.call(),
       ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
       FormBuilderRadioGroup<OptionVL<String>>(
-        decoration: MyInputDecoration(labelText: S.current.user_label_dept_status),
+        decoration: MyInputDecoration(labelText: S.current.sys_label_dept_status),
         name: "status",
         initialValue: DictUiUtils.dict2OptionVL(DictShareVm()
             .findDict(LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().sysMenuInfo!.status)),
@@ -447,7 +447,7 @@ class _MenuAddEditModel extends AppBaseVm with CancelTokenAssist {
   void onSelectParentMenu() {
     pushNamed(MenuListSelectSinglePage.routeName, arguments: {
       ConstantBase.KEY_INTENT_TITLE: S.current.sys_label_menu_parent_name_select,
-      ConstantSys.KEY_MENU_ID: sysMenuInfo?.menuId ?? -1
+      ConstantSysApi.INTENT_KEY_MENU_ID: sysMenuInfo?.menuId ?? -1
     }).then((result) {
       if (result != null) {
         setSelectParentMenu(result);

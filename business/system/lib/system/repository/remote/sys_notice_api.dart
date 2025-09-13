@@ -10,11 +10,10 @@ import 'package:base/base/api/request_utils.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:base/base/vm/global_vm.dart';
 import 'package:bizapi/system/repository/local/local_dict_lib.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_notice.dart';
 
 import 'package:base/base/api/result_entity.dart';
-import '../../../../feature/bizapi/system/entity/sys_config.dart';
-import '../../../../feature/component/dict/vm/dict_share_vm.dart';
+import 'package:system/system/entity/sys_notice.dart';
+import 'package:component/component/dict/vm/dict_share_vm.dart';
 
 part 'sys_notice_api.g.dart';
 

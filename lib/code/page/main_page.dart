@@ -1,12 +1,11 @@
 import 'package:base/base/ui/app_mvvm.dart';
+import 'package:biz_main/biz_main/ui/analyse_page.dart';
 import 'package:fast/fast/utils/bar_utils.dart';
 import 'package:flutter/material.dart';
-import 'analyse_page.dart';
+import 'package:user/user/ui/user/info/mine_page.dart';
 import 'workbench_page.dart';
-import '../../user/ui/user/info/mine_page.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../gen/app_l10n.dart';
+import '../../gen/app_l10n.dart';
 
 class MainPage extends AppBaseStatelessWidget<_MainVm> {
   static const String routeName = '/index';
@@ -78,9 +77,9 @@ class _MainVm extends AppBaseVm {
   int currentPageIndex = 0;
 
   final List<String> titleArray = [
-    S.current.main_label_analyse,
-    S.current.main_label_workbench,
-    S.current.main_label_mine
+    S.current.app_label_analyse,
+    S.current.app_label_workbench,
+    S.current.app_label_mine
   ];
 
   void updateTabIndex(int index) {

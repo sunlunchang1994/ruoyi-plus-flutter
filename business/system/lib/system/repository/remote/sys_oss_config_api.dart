@@ -5,11 +5,11 @@ import 'package:retrofit/retrofit.dart';
 import 'package:base/base/api/request_utils.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:bizapi/system/entity/sys_oss_vo.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_oss_config.dart';
 
 import 'package:base/base/api/api_config.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
+import 'package:system/system/entity/sys_oss_config.dart';
 
 part 'sys_oss_config_api.g.dart';
 

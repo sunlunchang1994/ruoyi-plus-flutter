@@ -11,14 +11,17 @@ import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:bizapi/system/entity/sys_oss_vo.dart';
 import 'package:component/component/attachment/utils/media_type_constant.dart';
+import 'package:component/gen/assets.gen.dart' as ComponentAssets;
+import 'package:component/package_component_info.dart';
 import 'package:fast/fast/vd/page_data_vm_sub.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:fast/gen/assets.gen.dart' as FastAssets;
-import 'package:ruoyi_plus_flutter/code/module/system/ui/oss/oss_details_page.dart';
-import 'package:ruoyi_plus_flutter/gen/assets.gen.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/res/dimens.dart';
+import 'package:system/system/config/constant_sys.dart';
+import 'package:system/system/repository/remote/sys_oss_api.dart';
+import 'package:system/system/ui/oss/oss_details_page.dart';
 
-import '../../../../../../gen/app_l10n.dart';
-import '../../../../../res/dimens.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
@@ -31,9 +34,7 @@ import 'package:fast/fast/vd/refresh/content_empty.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
-import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../config/constant_sys.dart';
-import '../../repository/remote/sys_oss_api.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
 
 ///@author slc
 ///Oss列表
@@ -81,27 +82,32 @@ class OssListPageWidget {
                 borderRadius: BorderRadius.all(Radius.circular(SlcDimens.appDimens6)),
                 child: CachedNetworkImage(
                     fit: BoxFit.cover,
-                    width: AppDimens.sysItemOssImgSize,
-                    height: AppDimens.sysItemOssImgSize,
+                    width: SysDimens.sysItemOssImgSize,
+                    height: SysDimens.sysItemOssImgSize,
                     imageUrl: listItem.url ?? "",
                     useOldImageOnUrlChange: true,
                     placeholder: (context, url) {
-                      return Image(image: FastAssets.Assets.fast.images.icLoadingPng.provider(
-                          package: FastPkgInfo.packageName),
-                          width: AppDimens.sysItemOssImgSize,
-                          height: AppDimens.sysItemOssImgSize);
+                      return Image(
+                          image: FastAssets.Assets.fast.images.icLoadingPng
+                              .provider(package: FastPkgInfo.packageName),
+                          width: SysDimens.sysItemOssImgSize,
+                          height: SysDimens.sysItemOssImgSize);
                     },
-                    errorWidget: (context,
-                        error,
-                        stackTrace,) {
-                      return Assets.images.mp.slcMpIcImage.image(
-                          width: AppDimens.sysItemOssImgSize, height: AppDimens.sysItemOssImgSize);
+                    errorWidget: (
+                      context,
+                      error,
+                      stackTrace,
+                    ) {
+                      return ComponentAssets.Assets.images.mp.slcMpIcImage.image(
+                          package: ComponentPkgInfo.packageName,
+                          width: SysDimens.sysItemOssImgSize,
+                          height: SysDimens.sysItemOssImgSize);
                     }));
           } else {
             return Image(
                 image: AssetImage(MediaTypeConstant.getIconByMediaType(mediaType)),
-                width: AppDimens.sysItemOssImgSize,
-                height: AppDimens.sysItemOssImgSize);
+                width: SysDimens.sysItemOssImgSize,
+                height: SysDimens.sysItemOssImgSize);
           }
         }.call(),
         trailing: WidgetUtils.getAnimCrossFade(
@@ -126,18 +132,14 @@ class OssListPageWidget {
   }
 
   ///搜索侧滑栏视图
-  static Widget getSearchEndDrawer<A>(BuildContext context, ThemeData themeData,
-      OssListDataVmSub listVmSub,
+  static Widget getSearchEndDrawer<A>(
+      BuildContext context, ThemeData themeData, OssListDataVmSub listVmSub,
       {List<Widget>? Function(String? name)? formItemSlot}) {
     return Container(
         color: themeData.colorScheme.surface,
-        width: ScreenUtil
-            .getInstance()
-            .screenWidthDpr * 0.73,
+        width: ScreenUtil.getInstance().screenWidthDpr * 0.73,
         padding: EdgeInsets.only(
-            top: ScreenUtil
-                .getInstance()
-                .statusBarHeightDpr,
+            top: ScreenUtil.getInstance().statusBarHeightDpr,
             left: SlcDimens.appDimens16,
             right: SlcDimens.appDimens16,
             bottom: SlcDimens.appDimens14),
@@ -277,13 +279,12 @@ class OssListDataVmSub extends FastBasePageDataVmSub<SysOssVo> with CancelTokenA
     //设置刷新方法主体
     setLoadData((loadMoreFormat) async {
       try {
-        IntensifyEntity<PageModel<SysOssVo>> intensifyEntity = await SysOssRepository
-            .list(
-            loadMoreFormat.offset, loadMoreFormat.size, currentSearch, defCancelToken)
+        IntensifyEntity<PageModel<SysOssVo>> intensifyEntity = await SysOssRepository.list(
+                loadMoreFormat.offset, loadMoreFormat.size, currentSearch, defCancelToken)
             .asStream()
             .single;
         DataWrapper<PageModel<SysOssVo>> dataWrapper =
-        DataTransformUtils.entity2LDWrapper(intensifyEntity);
+            DataTransformUtils.entity2LDWrapper(intensifyEntity);
         return dataWrapper;
       } catch (e) {
         ResultEntity resultEntity = BaseDio.handlerErr(e, showToast: false);

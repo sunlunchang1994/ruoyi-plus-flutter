@@ -12,10 +12,12 @@ import 'package:bizapi/system/entity/sys_oss_vo.dart';
 import 'package:bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:fast/fast/vd/page_data_vm_sub.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_oss_config.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/oss/oss_details_page.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/config/constant_sys.dart';
+import 'package:system/system/entity/sys_oss_config.dart';
+import 'package:system/system/repository/remote/sys_oss_config_api.dart';
+import 'package:system/system/ui/oss/oss_details_page.dart';
 
-import '../../../../../../gen/app_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
@@ -30,9 +32,7 @@ import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../config/constant_sys.dart';
-import '../../../repository/remote/sys_oss_config_api.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
 import 'oss_config_add_edit_page.dart';
 
 ///@author slc

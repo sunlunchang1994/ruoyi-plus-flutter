@@ -16,6 +16,7 @@ import 'package:bizapi/user/entity/dept.dart';
 import 'package:component/component/tree/vd/tree_data_list_vd.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
+import 'package:user/gen/user_l10n.dart';
 import 'package:user/user/config/constant_user.dart';
 import 'package:user/user/repository/remote/dept_api.dart';
 import '../../entity/dept_tree.dart';

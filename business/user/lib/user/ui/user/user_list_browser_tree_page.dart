@@ -5,13 +5,12 @@ import 'package:provider/provider.dart';
 import 'package:base/base/config/constant_base.dart';
 import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/vd/list_data_vd.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_page_vd.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_list_page_vd.dart';
+import 'package:user/user/ui/user/user_list_page_vd.dart';
 
-import '../../../../../gen/app_l10n.dart';
-import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
-import '../../../../feature/bizapi/user/entity/dept.dart';
-import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
+import 'package:user/gen/user_l10n.dart';
+import 'package:component/component/tree/entity/slc_tree_nav.dart';
+import 'package:bizapi/user/entity/dept.dart';
+import 'package:component/component/tree/vd/tree_data_list_vd.dart';
 
 ///
 /// 用户浏览列表：通讯录的形势

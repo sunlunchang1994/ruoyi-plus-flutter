@@ -1,3 +1,4 @@
+import 'package:bizapi/system/entity/sys_tenant_package.dart';
 import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
@@ -6,16 +7,15 @@ import 'package:provider/provider.dart';
 import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/vd/page_data_vd.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/tenant/package/tenant_package_add_edit_page.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/repository/remote/sys_tenant_package_api.dart';
+import 'package:system/system/ui/tenant/package/tenant_package_add_edit_page.dart';
 
-import '../../../../../../gen/app_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
-import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../entity/sys_tenant_package.dart';
-import '../../../repository/remote/sys_tenant_package_api.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
 import 'tenant_package_page_vd.dart';
 
 ///

@@ -9,9 +9,9 @@ import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:fast/fast/vd/page_data_vm_sub.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_user_online.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/entity/sys_user_online.dart';
 
-import '../../../../../../gen/app_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';

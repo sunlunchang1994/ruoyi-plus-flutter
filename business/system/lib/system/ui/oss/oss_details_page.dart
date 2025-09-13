@@ -21,6 +21,8 @@ import 'package:bizapi/system/repository/remote/pub_oss_api.dart';
 import 'package:component/component/attachment/repository/local/attachment_config.dart';
 import 'package:component/component/attachment/utils/attachment_utils.dart';
 import 'package:component/component/attachment/utils/media_type_constant.dart';
+import 'package:component/gen/assets.gen.dart' as ComponentGen;
+import 'package:component/package_component_info.dart';
 import 'package:fast/fast/permission/permission_compat.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/app_toast.dart';
@@ -28,14 +30,13 @@ import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:fast/gen/assets.gen.dart' as FastGen;
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
-import 'package:ruoyi_plus_flutter/gen/assets.gen.dart';
+import 'package:system/gen/sys_l10n.dart';
 
-import '../../../../../../gen/app_l10n.dart';
-import '../../../../../res/dimens.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
-import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../../feature/component/attachment/entity/progress.dart';
-import '../../repository/remote/sys_oss_api.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
+import 'package:component/component/attachment/entity/progress.dart';
+import 'package:system/res/dimens.dart';
+import 'package:system/system/repository/remote/sys_oss_api.dart';
 
 class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
   static const String routeName = '/system/oss/details';
@@ -104,8 +105,8 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                                         Radius.circular(SlcDimens.appDimens6)),
                                                     child: CachedNetworkImage(
                                                         fit: BoxFit.cover,
-                                                        width: AppDimens.sysDetailsOssImgSize,
-                                                        height: AppDimens.sysDetailsOssImgSize,
+                                                        width: SysDimens.sysDetailsOssImgSize,
+                                                        height: SysDimens.sysDetailsOssImgSize,
                                                         imageUrl: field.value ?? "",
                                                         placeholder: (context, url) {
                                                           return Image(
@@ -114,20 +115,21 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                                                   .provider(
                                                                       package:
                                                                           FastPkgInfo.packageName),
-                                                              width: AppDimens.sysDetailsOssImgSize,
+                                                              width: SysDimens.sysDetailsOssImgSize,
                                                               height:
-                                                                  AppDimens.sysDetailsOssImgSize);
+                                                                  SysDimens.sysDetailsOssImgSize);
                                                         },
                                                         errorWidget: (
                                                           context,
                                                           error,
                                                           stackTrace,
                                                         ) {
-                                                          return Assets.images.mp.slcMpIcImage
+                                                          return ComponentGen.Assets.images.mp.slcMpIcImage
                                                               .image(
-                                                                  width: AppDimens
+                                                            package: ComponentPkgInfo.packageName,
+                                                                  width: SysDimens
                                                                       .sysDetailsOssImgSize,
-                                                                  height: AppDimens
+                                                                  height: SysDimens
                                                                       .sysDetailsOssImgSize);
                                                         })),
                                                 Spacer()

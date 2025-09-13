@@ -4,12 +4,12 @@ import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:base/base/api/request_utils.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/repository/remote/sys_tenant_package_api.dart';
 
 import 'package:base/base/api/api_config.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
-import '../../../../feature/bizapi/system/entity/sys_tenant.dart';
+import 'package:bizapi/system/entity/sys_tenant.dart';
+import 'package:system/system/repository/remote/sys_tenant_package_api.dart';
 
 part 'sys_tenant_api.g.dart';
 

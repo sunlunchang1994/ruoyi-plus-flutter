@@ -7,16 +7,15 @@ import 'package:provider/provider.dart';
 import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/vd/page_data_vd.dart';
-
-import '../../../../../../gen/app_l10n.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/entity/sys_oss_config.dart';
+import 'package:system/system/repository/remote/sys_oss_config_api.dart';
 
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
-import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../entity/sys_oss_config.dart';
-import '../../../repository/remote/sys_oss_config_api.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
 import 'oss_config_add_edit_page.dart';
 import 'oss_config_list_page_vd.dart';
 

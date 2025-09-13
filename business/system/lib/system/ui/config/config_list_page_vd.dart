@@ -20,19 +20,18 @@ import 'package:provider/provider.dart';
 import 'package:bizapi/system/entity/sys_config.dart';
 import 'package:component/component/dict/entity/tree_dict.dart';
 
-import '../../../../../../gen/app_l10n.dart';
-import '../../../../../../res/styles.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:base/base/vm/global_vm.dart';
-import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
-import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
+import 'package:bizapi/system/repository/local/local_dict_lib.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
+import 'package:component/component/dict/utils/dict_ui_utils.dart';
 import 'package:dio/dio.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/config/constant_sys.dart';
+import 'package:system/system/repository/remote/sys_config_api.dart';
 
-import '../../config/constant_sys.dart';
-import '../../repository/remote/sys_config_api.dart';
 import 'config_add_edit_page.dart';
 
 ///@author slc

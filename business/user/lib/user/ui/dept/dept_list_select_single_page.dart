@@ -6,6 +6,7 @@ import 'package:base/base/config/constant_base.dart';
 import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/vd/list_data_vd.dart';
+import 'package:user/gen/user_l10n.dart';
 import 'package:user/user/entity/dept_tree.dart';
 import 'package:component/component/tree/entity/slc_tree_nav.dart';
 import 'package:component/component/tree/vd/tree_data_list_vd.dart';

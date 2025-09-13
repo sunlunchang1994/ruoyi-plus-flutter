@@ -1,3 +1,5 @@
+import 'package:bizapi/package_bizapi_info.dart';
+import 'package:bizapi/system/config/constant_sys_api.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,16 +9,15 @@ import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 import 'package:base/base/ui/widget/fast_slc_ui_box.dart';
 import 'package:base/base/vm/global_vm.dart';
-import '../../../../../../gen/assets.gen.dart';
-import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../../system/ui/setting/main/setting_page.dart';
+import 'package:user/gen/user_l10n.dart';
+import 'package:user/res/dimens.dart';
 import 'profile_page.dart';
-import '../../../../../../res/dimens.dart';
 import 'package:base/base/ui/app_mvvm.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../../gen/app_l10n.dart';
-import '../../../../../feature/bizapi/user/entity/my_user_info_vo.dart';
+import 'package:bizapi/user/entity/my_user_info_vo.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
+import 'package:bizapi/gen/assets.gen.dart' as BizApi;
 
 class MinePage extends StatefulWidget {
   const MinePage({super.key});
@@ -28,7 +29,7 @@ class MinePage extends StatefulWidget {
 }
 
 class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAliveClientMixin {
-  final String title = S.current.main_label_mine;
+  final String title = S.current.user_label_mine;
 
   @override
   Widget build(BuildContext context) {
@@ -76,25 +77,29 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                             ])),
                             ClipRRect(
                                 borderRadius: BorderRadius.all(
-                                    Radius.circular(AppDimens.userMineAvatarRadius)),
+                                    Radius.circular(UserDimens.userMineAvatarRadius)),
                                 child: CachedNetworkImage(
                                     fit: BoxFit.cover,
-                                    width: AppDimens.userMineAvatarSize,
-                                    height: AppDimens.userMineAvatarSize,
+                                    width: UserDimens.userMineAvatarSize,
+                                    height: UserDimens.userMineAvatarSize,
                                     imageUrl: getVm().userInfoVo?.user.avatar ?? "",
                                     placeholder: (context, url) {
-                                      return Image.asset(Assets.images.base.icDefUserHead.path,
-                                          width: AppDimens.userMineAvatarSize,
-                                          height: AppDimens.userMineAvatarSize);
+                                      return Image.asset(
+                                          BizApi.Assets.images.user.icDefUserHead.path,
+                                          package: BizApiPkgInfo.packageName,
+                                          width: UserDimens.userMineAvatarSize,
+                                          height: UserDimens.userMineAvatarSize);
                                     },
                                     errorWidget: (
                                       context,
                                       url,
                                       error,
                                     ) {
-                                      return Image.asset(Assets.images.base.icDefUserHead.path,
-                                          width: AppDimens.userMineAvatarSize,
-                                          height: AppDimens.userMineAvatarSize);
+                                      return Image.asset(
+                                          BizApi.Assets.images.user.icDefUserHead.path,
+                                          package: BizApiPkgInfo.packageName,
+                                          width: UserDimens.userMineAvatarSize,
+                                          height: UserDimens.userMineAvatarSize);
                                     }))
                           ]))),
                 ),
@@ -109,7 +114,7 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                               tileColor: themeData.slcTidyUpColor.getCardColorByTheme(themeData),
                               //根据card规则实现
                               onTap: () {
-                                getVm().pushNamed(SettingPage.routeName);
+                                getVm().pushNamed(ConstantSysApi.ROUTER_SETTING);
                               }),
                         ])))
               ]);

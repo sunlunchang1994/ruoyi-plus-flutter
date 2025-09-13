@@ -1,3 +1,4 @@
+import 'package:bizapi/system/entity/sys_tenant_package.dart';
 import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -18,18 +19,17 @@ import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_tenant_package.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/tenant/package/tenant_package_select_single_page.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/ui/tenant/package/tenant_package_select_single_page.dart';
 
-import '../../../../../gen/app_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/config/constant_base.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
 import 'package:base/base/vm/global_vm.dart';
-import '../../../../feature/bizapi/system/entity/sys_tenant.dart';
-import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../../feature/component/dict/entity/tree_dict.dart';
-import '../../../../feature/component/dict/vm/dict_share_vm.dart';
+import 'package:bizapi/system/entity/sys_tenant.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
+import 'package:component/component/dict/entity/tree_dict.dart';
+import 'package:component/component/dict/vm/dict_share_vm.dart';
 import '../../repository/remote/sys_tenant_api.dart';
 
 class TenantAddEditPage extends AppBaseStatelessWidget<_TenantAddEditVm> {

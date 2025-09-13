@@ -11,14 +11,13 @@ import 'package:base/base/ui/utils/fast_dialog_utils.dart';
 import 'package:base/base/vm/global_vm.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/ui/setting/about/about_page.dart';
 
-import '../../../../../../gen/app_l10n.dart';
 import 'package:base/base/repository/local/app_config.dart';
-import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../about/about_page.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
 
 class SettingPage extends AppBaseStatelessWidget<SettingVm> {
-  static const String routeName = '/setting/index';
 
   @override
   build(context) {
@@ -29,7 +28,7 @@ class SettingPage extends AppBaseStatelessWidget<SettingVm> {
           registerEvent(context);
           getVm().initVm();
           return Scaffold(
-              appBar: AppBar(title: Text(S.current.user_label_setting)),
+              appBar: AppBar(title: Text(S.current.sys_label_setting)),
               body: Column(
                 children: [
                   Expanded(
@@ -62,7 +61,7 @@ class SettingPage extends AppBaseStatelessWidget<SettingVm> {
                             onPressed: () {
                               UserShareVm().logOut(context);
                             },
-                            child: Text(S.current.user_label_sign_out))),
+                            child: Text(S.current.sys_label_sign_out))),
                   )
                 ],
               ));

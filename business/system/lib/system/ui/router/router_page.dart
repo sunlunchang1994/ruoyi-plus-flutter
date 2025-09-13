@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:base/base/ui/app_mvvm.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/router/router_grid.dart';
+import 'package:system/system/ui/router/router_grid.dart';
 
-import '../../../../feature/bizapi/system/entity/router_vo.dart';
+import 'package:bizapi/system/entity/router_vo.dart';
 
 class MenuPage extends AppBaseStatelessWidget<_MenuPageVm> {
 

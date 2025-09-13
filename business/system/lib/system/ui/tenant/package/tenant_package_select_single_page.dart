@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/vd/page_data_vd.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/tenant/package/tenant_package_add_edit_page.dart';
+import 'package:system/system/ui/tenant/package/tenant_package_add_edit_page.dart';
 
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/list_data_vd.dart';

@@ -6,9 +6,9 @@ import 'package:retrofit/http.dart';
 import 'package:base/base/api/api_config.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/redis_cache_info.dart';
 
 import 'package:base/base/api/result_entity.dart';
+import 'package:system/system/entity/redis_cache_info.dart';
 
 part 'cache_monitor_api.g.dart';
 

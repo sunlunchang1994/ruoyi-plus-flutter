@@ -4,35 +4,30 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
 import 'package:boxes_flutter/flutter/slc/common/screen_util.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
-import 'package:boxes_flutter/flutter/slc/res/styles.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:bizapi/system/entity/sys_dict_type.dart';
 import 'package:fast/fast/vd/page_data_vm_sub.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/repository/remote/dict_type_api.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/dict/data/dict_data_list_browser_page.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/dict/type/dict_type_add_edit_page.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/config/constant_sys.dart';
+import 'package:system/system/repository/remote/dict_type_api.dart';
+import 'package:system/system/ui/dict/data/dict_data_list_browser_page.dart';
 
-import '../../../../../../gen/app_l10n.dart';
-import '../../../../../../res/styles.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/config/constant_base.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
-import 'package:base/base/vm/global_vm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/list_data_component.dart';
 import 'package:fast/fast/vd/refresh/content_empty.dart';
-import 'package:dio/dio.dart';
 
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
-import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../config/constant_sys.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
 
 ///@author slc
 ///字典类型列表

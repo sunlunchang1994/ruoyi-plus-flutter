@@ -19,21 +19,21 @@ import 'package:form_extra/form/input_decoration_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:bizapi/system/entity/sys_oss_vo.dart';
 import 'package:bizapi/system/repository/local/local_dict_lib.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
 import 'package:component/component/dict/entity/tree_dict.dart';
 import 'package:component/component/dict/utils/dict_ui_utils.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_client.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/client/sys_client_add_edit_page.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/config/constant_sys.dart';
+import 'package:system/system/entity/sys_client.dart';
+import 'package:system/system/repository/remote/sys_client_api.dart';
 
-import '../../../../../../gen/app_l10n.dart';
+import 'package:system/system/ui/client/sys_client_add_edit_page.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:base/base/vm/global_vm.dart';
-import 'package:dio/dio.dart';
 
-import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../config/constant_sys.dart';
-import '../../repository/remote/sys_client_api.dart';
+import 'package:dio/dio.dart';
 
 ///@author slc
 ///客户端列表

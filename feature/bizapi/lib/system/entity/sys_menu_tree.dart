@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:component/component/adapter/app_select_box.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu_tree.dart';
 
 import 'package:base/base/api/json_converter.dart';
 

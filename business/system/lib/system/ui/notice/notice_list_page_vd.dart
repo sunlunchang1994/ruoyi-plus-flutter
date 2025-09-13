@@ -11,16 +11,18 @@ import 'package:provider/provider.dart';
 import 'package:component/component/dict/entity/tree_dict.dart';
 import 'package:fast/fast/vd/page_data_vm_sub.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/config/constant_sys.dart';
+import 'package:system/system/entity/sys_notice.dart';
+import 'package:system/system/repository/remote/sys_notice_api.dart';
 
-import '../../../../../../gen/app_l10n.dart';
-import '../../../../../../res/styles.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:base/base/vm/global_vm.dart';
-import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
-import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
+import 'package:bizapi/system/repository/local/local_dict_lib.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
+import 'package:component/component/dict/utils/dict_ui_utils.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/list_data_component.dart';
@@ -30,9 +32,6 @@ import 'package:dio/dio.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
-import '../../config/constant_sys.dart';
-import '../../entity/sys_notice.dart';
-import '../../repository/remote/sys_notice_api.dart';
 import 'notice_add_edit_page.dart';
 
 ///@author slc

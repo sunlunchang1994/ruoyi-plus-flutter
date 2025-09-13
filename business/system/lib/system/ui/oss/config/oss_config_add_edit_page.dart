@@ -20,17 +20,17 @@ import 'package:form_extra/form/fast_form_builder_field_option.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_oss_config.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/entity/sys_oss_config.dart';
+import 'package:system/system/repository/remote/sys_oss_config_api.dart';
 
-import '../../../../../../gen/app_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
 import 'package:base/base/vm/global_vm.dart';
-import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../../../feature/component/dict/entity/tree_dict.dart';
-import '../../../../../feature/component/dict/vm/dict_share_vm.dart';
-import '../../../repository/remote/sys_oss_config_api.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
+import 'package:component/component/dict/entity/tree_dict.dart';
+import 'package:component/component/dict/vm/dict_share_vm.dart';
 
 class OssConfigAddEditPage extends AppBaseStatelessWidget<_OssConfigAddEditVm> {
   static const String routeName = '/system/oss/config/add_edit';

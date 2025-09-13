@@ -1,3 +1,4 @@
+import 'package:bizapi/system/entity/sys_tenant_package.dart';
 import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -16,20 +17,19 @@ import 'package:fast/fast/utils/app_toast.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/config/constant_sys.dart';
+import 'package:system/system/repository/remote/sys_tenant_package_api.dart';
+import 'package:system/system/ui/menu/tree/menu_tree_select_multiple_page.dart';
 
-import '../../../../../../gen/app_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/config/constant_base.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
 import 'package:base/base/vm/global_vm.dart';
-import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../../../feature/component/dict/entity/tree_dict.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
+import 'package:component/component/dict/entity/tree_dict.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
-import '../../../../../feature/component/dict/vm/dict_share_vm.dart';
-import '../../../config/constant_sys.dart';
-import '../../../entity/sys_tenant_package.dart';
-import '../../../repository/remote/sys_tenant_package_api.dart';
-import '../../menu/tree/menu_tree_select_multiple_page.dart';
+import 'package:component/component/dict/vm/dict_share_vm.dart';
 
 class TenantPackageAddEditPage extends AppBaseStatelessWidget<_TenantPackageAddEditVm> {
   static const String routeName = '/tenant/tenantPackage/add_edit';
@@ -146,7 +146,7 @@ class TenantPackageAddEditPage extends AppBaseStatelessWidget<_TenantPackageAddE
                       decoration: MySelectDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           label:
-                              InputDecUtils.getRequiredLabel(S.current.user_label_menu_permission),
+                              InputDecUtils.getRequiredLabel(S.current.sys_label_menu_permission),
                           hintText: FastS.current.app_label_please_choose,
                           border: const UnderlineInputBorder()),
                       onChanged: (value) {
@@ -230,7 +230,7 @@ class _TenantPackageAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   void onSelectMenu() {
     pushNamed(TenantPackageMenuTreeSelectMultiplePage.routeName, arguments: {
-      ConstantBase.KEY_INTENT_TITLE: S.current.user_label_menu_permission_select,
+      ConstantBase.KEY_INTENT_TITLE: S.current.sys_label_menu_permission_select,
       ConstantSys.KEY_SYS_TENANT_PACKAGE_ID: sysTenantPackage!.packageId,
       ConstantSys.KEY_MENU_LINKAGE_ENABLE: sysTenantPackage!.menuCheckStrictly,
       ConstantBase.KEY_INTENT_SELECT_DATA: sysTenantPackage!.menuIds,
@@ -248,7 +248,7 @@ class _TenantPackageAddEditVm extends AppBaseVm with CancelTokenAssist {
       return "";
     } else {
       //return S.current.user_label_menu_permission_select_result.replaceAll("%s", roleInfo!.menuIds!.length.toString());
-      return S.current.user_label_menu_permission_select_result2;
+      return S.current.sys_label_menu_permission_select_result2;
     }
   }
 

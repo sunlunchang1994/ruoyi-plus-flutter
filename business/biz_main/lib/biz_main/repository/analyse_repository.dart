@@ -1,9 +1,8 @@
+import 'package:biz_main/biz_main/entity/analyse_model.dart';
 import 'package:boxes_flutter/flutter/slc/common/date_util.dart';
 import 'package:boxes_flutter/flutter/slc/common/random_util.dart';
 import 'package:boxes_flutter/flutter/slc/common/slc_color_util.dart';
 import 'package:boxes_flutter/flutter/slc/common/slc_num_util.dart';
-import 'package:boxes_flutter/flutter/slc/res/colors.dart';
-import 'package:ruoyi_plus_flutter/code/module/biz_main/entity/analyse_model.dart';
 
 class AnalyseRepository {
   /// 获取一周在线人数

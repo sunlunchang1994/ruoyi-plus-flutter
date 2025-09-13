@@ -1,3 +1,4 @@
+import 'package:bizapi/package_bizapi_info.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,31 +11,31 @@ import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
-import 'package:bizapi/user/entity/dept.dart';
-import 'package:bizapi/user/entity/user.dart';
-import 'package:component/component/dict/entity/tree_dict.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/page_data_vm_sub.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/entity/dept_tree.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/dept_api.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/repository/remote/user_api.dart';
 import 'package:dio/dio.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/dept/dept_list_page_vd.dart';
+import 'package:user/res/dimens.dart';
+import 'package:user/user/entity/dept_tree.dart';
+import 'package:user/user/repository/remote/dept_api.dart';
+import 'package:user/user/repository/remote/user_api.dart';
+import 'package:user/user/ui/dept/dept_list_page_vd.dart';
 
-import '../../../../../gen/assets.gen.dart';
-import '../../../../../gen/app_l10n.dart';
-import '../../../../../res/dimens.dart';
+import 'package:user/gen/user_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/config/constant_base.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:base/base/vm/global_vm.dart';
-import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
-import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
-import '../../../../feature/component/tree/entity/slc_tree_nav.dart';
-import '../../../../feature/component/tree/vd/tree_data_list_vd.dart';
+import 'package:bizapi/user/entity/dept.dart';
+import 'package:bizapi/user/entity/user.dart';
+import 'package:bizapi/system/repository/local/local_dict_lib.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
+import 'package:bizapi/gen/assets.gen.dart' as BizApi;
+import 'package:component/component/dict/entity/tree_dict.dart';
+import 'package:component/component/dict/utils/dict_ui_utils.dart';
+import 'package:component/component/tree/entity/slc_tree_nav.dart';
+import 'package:component/component/tree/vd/tree_data_list_vd.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/vd/list_data_component.dart';
 import 'package:fast/fast/vd/refresh/content_empty.dart';
@@ -125,27 +126,31 @@ class UserListPageVd {
     return ListTile(
       contentPadding: EdgeInsets.only(left: SlcDimens.appDimens16),
       leading: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(AppDimens.userItemAvatarRadius)),
+          borderRadius: BorderRadius.all(Radius.circular(UserDimens.userItemAvatarRadius)),
           child: CachedNetworkImage(
               fit: BoxFit.cover,
-              width: AppDimens.userItemAvatarSize,
-              height: AppDimens.userItemAvatarSize,
+              width: UserDimens.userItemAvatarSize,
+              height: UserDimens.userItemAvatarSize,
               imageUrl: listItem.avatar ?? "",
               placeholder: (context, url) {
-                return Image.asset(Assets.images.base.icDefUserHead.path,
-                    width: AppDimens.userItemAvatarSize, height: AppDimens.userItemAvatarSize);
+                return Image.asset(BizApi.Assets.images.user.icDefUserHead.path,
+                    package: BizApiPkgInfo.packageName,
+                    width: UserDimens.userItemAvatarSize,
+                    height: UserDimens.userItemAvatarSize);
               },
               errorWidget: (
                 context,
                 error,
                 stackTrace,
               ) {
-                return Image.asset(Assets.images.base.icDefUserHead.path,
-                    width: AppDimens.userItemAvatarSize, height: AppDimens.userItemAvatarSize);
+                return Image.asset(BizApi.Assets.images.user.icDefUserHead.path,
+                    package: BizApiPkgInfo.packageName,
+                    width: UserDimens.userItemAvatarSize,
+                    height: UserDimens.userItemAvatarSize);
               })),
       title: Text(listItem.nickName ?? "-"),
       subtitle: Text(listItem.deptName ?? "-"),
-      minTileHeight: AppDimens.userItemAvatarSize + SlcDimens.appDimens16,
+      minTileHeight: UserDimens.userItemAvatarSize + SlcDimens.appDimens16,
       trailing: WidgetUtils.getAnimCrossFade(
           Checkbox(
             value: listItem.isBoxChecked(),

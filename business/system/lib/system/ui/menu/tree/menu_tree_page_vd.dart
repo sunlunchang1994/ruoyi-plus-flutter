@@ -1,24 +1,24 @@
+import 'package:bizapi/system/entity/sys_menu_tree.dart';
+import 'package:bizapi/system/repository/remote/pub_menu_api.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
 import 'package:boxes_flutter/flutter/slc/mvvm/fast_mvvm.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 import 'package:fast/fast/utils/app_toast.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu_tree.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_menu.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/entity/sys_menu.dart';
 import 'package:bizapi/system/repository/local/local_dict_lib.dart';
+import 'package:system/system/repository/remote/menu_api.dart';
 
-import '../../../../../../gen/app_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
-import '../../../../../feature/component/tree/entity/slc_tree_nav.dart';
-import '../../../../../feature/component/tree/vd/tree_data_list_vd.dart';
+import 'package:component/component/tree/entity/slc_tree_nav.dart';
+import 'package:component/component/tree/vd/tree_data_list_vd.dart';
 import 'package:fast/fast/vd/list_data_component.dart';
 import 'package:fast/fast/vd/refresh/content_empty.dart';
 import 'package:dio/dio.dart';
-
-import '../../../repository/remote/menu_api.dart';
 
 ///@author slc
 ///菜单树列表
@@ -207,7 +207,7 @@ class RoleMenuTreeListDataVmSub extends MenuTreeListDataBaseVmSub {
   @override
   Future<IntensifyEntity<List<SysMenuTree>>> requestMenuData(CancelToken cancelToken) async {
     if (roleId != null) {
-      return await MenuRepository.roleMenuTreeselect(roleId, cancelToken)
+      return await PubMenuPublicRepository.roleMenuTreeselect(roleId, cancelToken)
           .asStream()
           .map(fillCheckedIdsMap)
           .single;
@@ -227,7 +227,7 @@ class TenantPackageMenuTreeListDataVmSub extends MenuTreeListDataBaseVmSub {
   Future<IntensifyEntity<List<SysMenuTree>>> requestMenuData(CancelToken cancelToken) async {
     if (packageId != null) {
       //此处需更改
-      return await MenuRepository.tenantPackageMenuTreeselect(packageId, cancelToken)
+      return await PubMenuPublicRepository.tenantPackageMenuTreeselect(packageId, cancelToken)
           .asStream()
           .map(fillCheckedIdsMap)
           .single;

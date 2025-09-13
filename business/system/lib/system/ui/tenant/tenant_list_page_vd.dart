@@ -11,14 +11,16 @@ import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
 import 'package:bizapi/system/entity/sys_oss_vo.dart';
 import 'package:fast/fast/vd/page_data_vm_sub.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/tenant/tenant_add_edit_page.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/config/constant_sys.dart';
+import 'package:system/system/repository/remote/sys_tenant_api.dart';
+import 'package:system/system/ui/tenant/tenant_add_edit_page.dart';
 
-import '../../../../../gen/app_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:base/base/vm/global_vm.dart';
-import '../../../../feature/bizapi/system/entity/sys_tenant.dart';
+import 'package:bizapi/system/entity/sys_tenant.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/list_data_component.dart';
@@ -29,9 +31,7 @@ import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../config/constant_sys.dart';
-import '../../repository/remote/sys_tenant_api.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
 
 ///@author slc
 ///租户管理

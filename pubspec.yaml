@@ -49,8 +49,6 @@ dependencies:
   extended_nested_scroll_view: ^6.2.1
   #设置
   #settings_ui: ^1.0.0
-  #图表
-  fl_chart: ^0.70.2
   #syncfusion_flutter_charts: ^28.2.11
   # 图片缓存加载
   cached_network_image: ^3.4.1
@@ -94,10 +92,6 @@ dependencies:
   # 特殊的UI组件---------------------------------------
   #WebView
   webview_flutter: ^4.10.0
-  #markdown
-  flutter_markdown: ^0.7.6+2
-  #Json格式化
-  interactive_json_preview: ^0.1.0
 
   #html处理相关
   #universal_html: ^2.2.4

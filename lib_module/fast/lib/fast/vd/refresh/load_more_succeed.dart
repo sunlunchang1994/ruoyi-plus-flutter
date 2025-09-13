@@ -13,7 +13,7 @@ class LoadMoreSucceedWidget extends StatelessWidget {
     return Center(
         child: Padding(
             padding: EdgeInsets.all(8),
-            child: Text(FastS.of(context).label_refresh_loading_succeed,
+            child: Text(FastS.current.label_refresh_loading_succeed,
                 style: themeData.slcTidyUpStyle.getTextColorSecondaryStyleByTheme(Theme.of(context)))));
   }
 }

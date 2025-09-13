@@ -7,14 +7,12 @@ import 'package:retrofit/http.dart';
 import 'package:base/base/api/api_config.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
-import 'package:base/base/vm/global_vm.dart';
-import 'package:bizapi/system/repository/local/local_dict_lib.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_notice.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_oper_log.dart';
-
 import 'package:base/base/api/request_utils.dart';
+import 'package:base/base/vm/global_vm.dart';
 import 'package:base/base/api/result_entity.dart';
-import '../../../../feature/component/dict/vm/dict_share_vm.dart';
+import 'package:component/component/dict/vm/dict_share_vm.dart';
+import 'package:bizapi/system/repository/local/local_dict_lib.dart';
+import 'package:system/system/entity/sys_oper_log.dart';
 
 part 'sys_oper_log_api.g.dart';
 
@@ -71,9 +69,7 @@ class SysOperLogRepository {
     //参数校验
     assert(id != null && ids == null || id == null && ids != null);
     ids ??= [id!];
-    return _sysOperLogApi
-        .delete(ids.join(TextUtil.COMMA), cancelToken)
-        .successMap2Single((event) {
+    return _sysOperLogApi.delete(ids.join(TextUtil.COMMA), cancelToken).successMap2Single((event) {
       return event.toIntensify();
     });
   }

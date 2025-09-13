@@ -2,6 +2,7 @@ import 'package:auth/gen/auth_l10n.dart';
 import 'package:base/base/route/base_router.dart';
 import 'package:base/base/startup/task.dart';
 import 'package:base/gen/base_l10n.dart';
+import 'package:biz_main/gen/main_l10n.dart';
 import 'package:component/gen/component_l10n.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/gen/fast_l10n.dart';
@@ -10,11 +11,13 @@ import 'package:boxes_flutter/flutter/slc/common/log_util.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:provider/provider.dart';
 import 'package:base/base/vm/global_vm.dart';
-import 'package:ruoyi_plus_flutter/gen/app_l10n.dart';
 import 'package:ruoyi_plus_flutter/gen/l10n/app_localizations.dart';
 import 'package:boxes_flutter/gen/l10n/boxes_localizations.dart';
 import 'package:ruoyi_plus_flutter/res/styles.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:user/gen/user_l10n.dart';
 
+import '../gen/app_l10n.dart';
 import 'route/app_router.dart';
 
 /// @author sunlunchang
@@ -36,18 +39,21 @@ class RootPage extends StatelessWidget {
               routes: router,
               onUnknownRoute: get404Route,
               onGenerateTitle: (context) {
-                return S.current.app_name;
+                return AppS.current.app_name;
               },
               theme: AppStyles.getAppLightThemeMD3(),
               darkTheme: AppStyles.getAppDarkThemeMD3(),
               themeMode: themeMode,
               // 设置语言
               localizationsDelegates: const [
-                ...S.localizationsDelegates,
+                ...AppS.localizationsDelegates,
                 FastS.delegate,
                 BaseS.delegate,
                 ComponentS.delegate,
                 AuthS.delegate,
+                UserS.delegate,
+                SysS.delegate,
+                MainS.delegate,
                 BoxesLocalizations.delegate,
                 FormBuilderLocalizations.delegate,
               ],

@@ -16,13 +16,13 @@ import 'package:bizapi/system/entity/sys_dict_data.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/repository/remote/dict_data_api.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/repository/remote/dict_data_api.dart';
 
-import '../../../../../../gen/app_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
 
-import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
 
 class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
   static const String routeName = '/system/dict/data/add_edit';
@@ -59,17 +59,14 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                         ? S.current.sys_label_dict_data_add
                         : S.current.sys_label_dict_data_edit),
                     actions: [
-                      if ((UserShareVm().hasPermiAny(["system:dict:edit"]) &&
-                              dictData != null) ||
-                          (UserShareVm().hasPermiAny(["system:dict:add"]) &&
-                              dictData == null))
+                      if ((UserShareVm().hasPermiAny(["system:dict:edit"]) && dictData != null) ||
+                          (UserShareVm().hasPermiAny(["system:dict:add"]) && dictData == null))
                         IconButton(
                             onPressed: () {
                               getVm().onSave();
                             },
                             icon: Icon(Icons.save)),
-                      if (dictData != null &&
-                          UserShareVm().hasPermiAny(["system:dict:remove"]))
+                      if (dictData != null && UserShareVm().hasPermiAny(["system:dict:remove"]))
                         PopupMenuButton(itemBuilder: (context) {
                           return [
                             if (UserShareVm().hasPermiAny(["system:dict:remove"]))
@@ -131,8 +128,8 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label:
-                                InputDecUtils.getRequiredLabel(S.current.sys_label_dict_data_label),
+                            label: InputDecUtils.getRequiredLabel(
+                                S.current.sys_label_dict_data_label),
                             hintText: FastS.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
@@ -150,8 +147,8 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label:
-                                InputDecUtils.getRequiredLabel(S.current.sys_label_dict_data_value),
+                            label: InputDecUtils.getRequiredLabel(
+                                S.current.sys_label_dict_data_value),
                             hintText: FastS.current.app_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {

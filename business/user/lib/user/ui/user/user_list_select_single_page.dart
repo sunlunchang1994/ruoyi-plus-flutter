@@ -15,12 +15,12 @@ import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/page_data_vd.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_list_page_vd.dart';
+import 'package:user/user/ui/user/user_list_page_vd.dart';
 
-import '../../../../../gen/app_l10n.dart';
-import '../../../../feature/bizapi/user/entity/user.dart';
-import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
-import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
+import 'package:user/gen/user_l10n.dart';
+import 'package:bizapi/user/entity/user.dart';
+import 'package:bizapi/system/repository/local/local_dict_lib.dart';
+import 'package:component/component/dict/utils/dict_ui_utils.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/vd/refresh/content_empty.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';

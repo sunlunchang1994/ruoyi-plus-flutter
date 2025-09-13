@@ -8,14 +8,14 @@ import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/vd/list_data_vm_sub.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/user/user_list_page_vd.dart';
 
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
-import '../../../../feature/bizapi/user/entity/user.dart';
+import 'package:bizapi/user/entity/user.dart';
 import 'package:fast/fast/vd/list_data_component.dart';
 import 'package:fast/fast/vd/list_data_vd.dart';
+import 'package:user/user/ui/user/user_list_page_vd.dart';
 import '../../repository/remote/user_api.dart';
 
 ///

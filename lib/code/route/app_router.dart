@@ -7,58 +7,57 @@ import 'package:component/component/webview/app_web_view_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/router/slc_router.dart';
-import 'package:ruoyi_plus_flutter/code/module/biz_main/ui/main_page.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/config/constant_sys.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/monitor/cache_monitor/cache_monitor_page.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_browser_page.dart';
+import 'package:ruoyi_plus_flutter/code/page/main_page.dart';
+import 'package:system/system/config/constant_sys.dart';
+import 'package:system/system/ui/client/sys_client_add_edit_page.dart';
+import 'package:system/system/ui/client/sys_client_list_browser_page.dart';
+import 'package:system/system/ui/config/config_add_edit_page.dart';
+import 'package:system/system/ui/config/config_list_browser_page.dart';
+import 'package:system/system/ui/dict/data/dict_data_add_edit_page.dart';
+import 'package:system/system/ui/dict/data/dict_data_list_browser_page.dart';
+import 'package:system/system/ui/dict/type/dict_type_add_edit_page.dart';
+import 'package:system/system/ui/dict/type/dict_type_list_browser_page.dart';
+import 'package:system/system/ui/log/sys_log_page.dart';
+import 'package:system/system/ui/log/sys_oper_log_details_page.dart';
+import 'package:system/system/ui/menu/menu_add_edit_page.dart';
+import 'package:system/system/ui/menu/menu_list_borwser_page.dart';
+import 'package:system/system/ui/menu/menu_list_select_single_page.dart';
+import 'package:system/system/ui/menu/tree/menu_tree_borwser_page.dart';
+import 'package:system/system/ui/menu/tree/menu_tree_select_multiple_page.dart';
+import 'package:system/system/ui/monitor/cache_monitor/cache_monitor_page.dart';
+import 'package:system/system/ui/monitor/online/user_online_list_browser_page.dart';
+import 'package:system/system/ui/notice/notice_add_edit_page.dart';
+import 'package:system/system/ui/notice/notice_list_browser_page.dart';
+import 'package:system/system/ui/oss/config/oss_config_add_edit_page.dart';
+import 'package:system/system/ui/oss/config/oss_config_list_browser_page.dart';
+import 'package:system/system/ui/oss/oss_details_page.dart';
+import 'package:system/system/ui/oss/oss_list_browser_page.dart';
+import 'package:system/system/ui/router/router_page.dart';
+import 'package:system/system/ui/setting/about/about_page.dart';
+import 'package:system/system/ui/setting/main/setting_page.dart';
+import 'package:system/system/ui/tenant/package/tenant_package_add_edit_page.dart';
+import 'package:system/system/ui/tenant/package/tenant_package_browser_page.dart';
+import 'package:system/system/ui/tenant/package/tenant_package_select_single_page.dart';
+import 'package:system/system/ui/tenant/tenant_add_edit_page.dart';
+import 'package:system/system/ui/tenant/tenant_list_browser_page.dart';
+import 'package:user/user/config/constant_user.dart';
+import 'package:user/user/ui/dept/dept_add_edit_page.dart';
+import 'package:user/user/ui/dept/dept_list_browser_page.dart';
+import 'package:user/user/ui/dept/dept_list_select_single_page.dart';
+import 'package:user/user/ui/post/post_add_edit_page.dart';
+import 'package:user/user/ui/post/post_list_browser_page.dart';
+import 'package:user/user/ui/post/post_list_select_single_page.dart';
+import 'package:user/user/ui/role/role_add_edit_page.dart';
+import 'package:user/user/ui/role/role_list_browser_page.dart';
+import 'package:user/user/ui/role/role_list_select_single_page.dart';
+import 'package:user/user/ui/user/info/profile_page.dart';
+import 'package:user/user/ui/user/info/update_pwd_page.dart';
+import 'package:user/user/ui/user/user_add_edit_page.dart';
+import 'package:user/user/ui/user/user_list_browser_page.dart';
+import 'package:user/user/ui/user/user_list_browser_tree_page.dart';
+import 'package:user/user/ui/user/user_list_select_by_dept_page.dart';
+import 'package:user/user/ui/user/user_list_select_single_page.dart';
 import 'package:welcome/ui/welcome_page.dart';
-
-import '../module/system/ui/client/sys_client_add_edit_page.dart';
-import '../module/system/ui/client/sys_client_list_browser_page.dart';
-import '../module/system/ui/config/config_add_edit_page.dart';
-import '../module/system/ui/config/config_list_browser_page.dart';
-import '../module/system/ui/dict/data/dict_data_add_edit_page.dart';
-import '../module/system/ui/dict/data/dict_data_list_browser_page.dart';
-import '../module/system/ui/dict/type/dict_type_add_edit_page.dart';
-import '../module/system/ui/dict/type/dict_type_list_browser_page.dart';
-import '../module/system/ui/log/sys_log_page.dart';
-import '../module/system/ui/log/sys_oper_log_details_page.dart';
-import '../module/system/ui/menu/menu_add_edit_page.dart';
-import '../module/system/ui/menu/menu_list_borwser_page.dart';
-import '../module/system/ui/menu/menu_list_select_single_page.dart';
-import '../module/system/ui/menu/tree/menu_tree_borwser_page.dart';
-import '../module/system/ui/menu/tree/menu_tree_select_multiple_page.dart';
-import '../module/system/ui/monitor/online/user_online_list_browser_page.dart';
-import '../module/system/ui/notice/notice_add_edit_page.dart';
-import '../module/system/ui/notice/notice_list_browser_page.dart';
-import '../module/system/ui/oss/config/oss_config_add_edit_page.dart';
-import '../module/system/ui/oss/config/oss_config_list_browser_page.dart';
-import '../module/system/ui/oss/oss_details_page.dart';
-import '../module/system/ui/oss/oss_list_browser_page.dart';
-import '../module/system/ui/router/router_page.dart';
-import '../module/system/ui/setting/about/about_page.dart';
-import '../module/system/ui/setting/main/setting_page.dart';
-import '../module/system/ui/tenant/package/tenant_package_add_edit_page.dart';
-import '../module/system/ui/tenant/package/tenant_package_browser_page.dart';
-import '../module/system/ui/tenant/package/tenant_package_select_single_page.dart';
-import '../module/system/ui/tenant/tenant_add_edit_page.dart';
-import '../module/system/ui/tenant/tenant_list_browser_page.dart';
-import '../module/user/ui/dept/dept_add_edit_page.dart';
-import '../module/user/ui/dept/dept_list_browser_page.dart';
-import '../module/user/ui/dept/dept_list_select_single_page.dart';
-import '../module/user/ui/post/post_add_edit_page.dart';
-import '../module/user/ui/post/post_list_browser_page.dart';
-import '../module/user/ui/post/post_list_select_single_page.dart';
-import '../module/user/ui/role/role_add_edit_page.dart';
-import '../module/user/ui/role/role_list_select_single_page.dart';
-import '../module/user/ui/user/info/profile_page.dart';
-import '../module/user/ui/user/info/update_pwd_page.dart';
-import '../module/user/ui/user/user_add_edit_page.dart';
-import '../module/user/ui/user/user_list_browser_page.dart';
-import '../module/user/ui/user/user_list_browser_tree_page.dart';
-import '../module/user/ui/user/user_list_select_by_dept_page.dart';
-import '../module/user/ui/user/user_list_select_single_page.dart';
 
 /// @author sunlunchang
 /// 路由配置
@@ -84,7 +83,7 @@ final Map<String, WidgetBuilder> router = {
         slcRouterInfo.arguments["routerList"], slcRouterInfo.arguments["parentPath"]);
   },
   //设置页
-  SettingPage.routeName: (BuildContext context) {
+  ConstantSysApi.ROUTER_SETTING: (BuildContext context) {
     return SettingPage();
   },
   //关于页
@@ -196,10 +195,10 @@ final Map<String, WidgetBuilder> router = {
     return MenuTreeBrowserPage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE]);
   },
   //菜单：角色菜单树多选
-  RoleMenuTreeSelectMultiplePage.routeName: (BuildContext context) {
+  ConstantSysApi.ROUTER_SETTING_MENU_ROLE_TREE_MULTIPLE_SELECT: (BuildContext context) {
     SlcRouterInfo? slcRouterInfo = context.getSlcRouterInfo();
     return RoleMenuTreeSelectMultiplePage(slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_TITLE],
-        roleId: slcRouterInfo?.arguments[ConstantSys.KEY_MENU_ID],
+        roleId: slcRouterInfo?.arguments[ConstantSysApi.INTENT_KEY_MENU_ID],
         checkedIds: slcRouterInfo?.arguments[ConstantBase.KEY_INTENT_SELECT_DATA]);
   },
   //菜单：租户菜单树多选

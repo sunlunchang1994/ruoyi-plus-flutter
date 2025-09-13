@@ -9,14 +9,14 @@ import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/page_data_vd.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_notice.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/config/constant_sys.dart';
+import 'package:system/system/entity/sys_notice.dart';
+import 'package:system/system/repository/remote/sys_notice_api.dart';
 
-import '../../../../../gen/app_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
 import 'package:fast/fast/utils/app_toast.dart';
-import '../../config/constant_sys.dart';
-import '../../repository/remote/sys_notice_api.dart';
 import 'notice_add_edit_page.dart';
 import 'notice_list_page_vd.dart';
 

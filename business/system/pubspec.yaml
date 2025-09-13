@@ -15,6 +15,13 @@ dependencies:
     git:
       url: https://gitee.com/sunlunchang/boxes-flutter.git
 
+  #markdown
+  flutter_markdown: ^0.7.6+2
+  #Json格式化
+  interactive_json_preview: ^0.1.0
+  #图表
+  fl_chart: ^0.70.2
+
   #业务组件
   bizapi:
     path: "../../feature/bizapi"

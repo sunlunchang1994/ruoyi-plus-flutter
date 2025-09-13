@@ -1,18 +1,17 @@
 import 'package:base/base/config/constant_base.dart';
 import 'package:base/base/ui/app_mvvm.dart';
+import 'package:base/base/repository/local/app_config.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/common/object_util.dart';
 import 'package:boxes_flutter/flutter/slc/common/slc_url_util.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:bizapi/system/config/constant_sys_api.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/router/router_page.dart';
-import '../../../../../gen/app_l10n.dart';
+import 'package:system/system/ui/router/router_page.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../feature/bizapi/system/entity/router_vo.dart';
-import '../../../../feature/component/webview/app_web_view_page.dart';
-import '../../../user/ui/dept/dept_list_browser_page.dart';
+import 'package:bizapi/system/entity/router_vo.dart';
+import 'package:component/component/webview/app_web_view_page.dart';
 import 'router_item_view.dart';
 
 class MenuGrid extends AppBaseStatelessWidget<_MenuGridVm> {
@@ -54,7 +53,7 @@ class MenuGrid extends AppBaseStatelessWidget<_MenuGridVm> {
         return;
       }
       //只有一个时显示子节点
-      if(action.path==TextUtil.SLASH&&action.children?.length==1){
+      if (action.path == TextUtil.SLASH && action.children?.length == 1) {
         action = action.children![0];
       }
       menuList.add(MenuItemView(action, onTap: () {
@@ -102,13 +101,13 @@ class _MenuGridVm extends AppBaseVm {
     }
     if (ConstantSysApi.VALUE_COMPONENT_PARENT_VIEW == router.component) {
       pushNamed(_targetPathByRouter(router), arguments: {
-        ConstantBase.KEY_INTENT_TITLE: router.meta?.title ?? S.current.app_name,
+        ConstantBase.KEY_INTENT_TITLE: router.meta?.title ?? AppConfig().appName,
         ConstantSysApi.INTENT_KEY_ROUTER: router
       });
       return;
     }
     pushNamed(_targetPathByRouter(router),
-        arguments: {ConstantBase.KEY_INTENT_TITLE: router.meta?.title ?? S.current.app_name});
+        arguments: {ConstantBase.KEY_INTENT_TITLE: router.meta?.title ?? AppConfig().appName});
   }
 
   @override

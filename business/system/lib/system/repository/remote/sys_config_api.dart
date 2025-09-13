@@ -1,3 +1,4 @@
+import 'package:bizapi/system/entity/sys_config.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
@@ -10,7 +11,6 @@ import 'package:base/base/repository/remote/data_transform_utils.dart';
 
 import 'package:base/base/api/request_utils.dart';
 import 'package:base/base/api/result_entity.dart';
-import '../../../../feature/bizapi/system/entity/sys_config.dart';
 
 part 'sys_config_api.g.dart';
 

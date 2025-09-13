@@ -17,7 +17,7 @@ class LoadingWidget extends StatelessWidget {
             padding: const EdgeInsets.only(
               top: 16,
             ),
-            child:  Text(FastS.of(context).label_loading,
+            child:  Text(FastS.current.label_loading,
                 style: Theme.of(context).dialogTheme.titleTextStyle),
           )
         ]));

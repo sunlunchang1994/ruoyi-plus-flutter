@@ -20,18 +20,18 @@ import 'package:form_extra/form/fast_form_builder_field_option.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_notice.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/entity/sys_notice.dart';
+import 'package:system/system/repository/remote/sys_notice_api.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../../../../../../gen/app_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
 import 'package:base/base/vm/global_vm.dart';
-import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../../feature/component/dict/entity/tree_dict.dart';
-import '../../../../feature/component/dict/vm/dict_share_vm.dart';
-import '../../repository/remote/sys_notice_api.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
+import 'package:component/component/dict/entity/tree_dict.dart';
+import 'package:component/component/dict/vm/dict_share_vm.dart';
 
 class NoticeAddEditPage extends AppBaseStatelessWidget<_NoticeAddEditVm> {
   static const String routeName = '/system/notice/add_edit';

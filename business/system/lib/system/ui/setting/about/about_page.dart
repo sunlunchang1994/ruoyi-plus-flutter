@@ -6,9 +6,9 @@ import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:base/base/ui/app_mvvm.dart';
-
-import '../../../../../../gen/assets.gen.dart';
-import '../../../../../../gen/app_l10n.dart';
+import 'package:base/gen/assets.gen.dart';
+import 'package:base/package_base_info.dart';
+import 'package:system/gen/sys_l10n.dart';
 
 class AboutPage extends AppBaseStatelessWidget<_AboutVm> {
   static const String routeName = '/setting/about';
@@ -33,7 +33,9 @@ class AboutPage extends AppBaseStatelessWidget<_AboutVm> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Center(child: Assets.images.icLauncher.image(width: 56, height: 56)),
+                              Center(
+                                  child: Assets.images.icAppLogo.image(
+                                      package: BasePkgInfo.packageName, width: 56, height: 56)),
                               ThemeUtil.getSizedBox(height: SlcDimens.appDimens12),
                               Text(snapshot.data?.appName ?? "",
                                   style: themeData.textTheme.titleMedium),

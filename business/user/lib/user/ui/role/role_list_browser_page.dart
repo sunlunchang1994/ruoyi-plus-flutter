@@ -9,16 +9,16 @@ import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/page_data_vd.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_add_edit_page.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_page_vd.dart';
+import 'package:user/user/config/constant_user.dart';
+import 'package:user/user/ui/role/role_add_edit_page.dart';
+import 'package:user/user/ui/role/role_list_page_vd.dart';
 
-import '../../../../../gen/app_l10n.dart';
+import 'package:user/gen/user_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
-import '../../../../feature/bizapi/user/config/constant_user_api.dart';
-import '../../../../feature/bizapi/user/entity/role.dart';
-import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
+import 'package:bizapi/user/config/constant_user_api.dart';
+import 'package:bizapi/user/entity/role.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
 import '../../repository/remote/role_api.dart';
 
 ///

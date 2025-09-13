@@ -1,16 +1,16 @@
 import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:boxes_flutter/flutter/slc/res/styles.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:interactive_json_preview/interactive_json_preview.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/sys_oper_log.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/entity/sys_oper_log.dart';
 
-import '../../../../../gen/app_l10n.dart';
 import 'package:base/base/ui/app_mvvm.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 

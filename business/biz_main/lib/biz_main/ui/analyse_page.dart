@@ -1,4 +1,7 @@
 import 'package:base/base/ui/app_mvvm.dart';
+import 'package:biz_main/biz_main/repository/analyse_repository.dart';
+import 'package:biz_main/biz_main/entity/analyse_model.dart';
+import 'package:biz_main/gen/main_l10n.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,10 +12,6 @@ import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
 import 'package:provider/provider.dart';
-import 'package:ruoyi_plus_flutter/code/module/biz_main/repository/analyse_repository.dart';
-
-import '../../../../gen/app_l10n.dart';
-import '../entity/analyse_model.dart';
 
 class AnalysePage extends StatefulWidget {
   const AnalysePage({super.key});
@@ -35,7 +34,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
           getVm().initVm();
           return Scaffold(
             appBar: AppBar(
-                title: Text(S.current.main_label_analyse),
+                title: Text(S.current.analyse_label_title),
                 titleSpacing: NavigationToolbar.kMiddleSpacing),
             body: SingleChildScrollView(
               child: Column(children: [
@@ -133,7 +132,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
   }
 
   AxisTitles getBottomAxisTitles(String Function(double value, TitleMeta meta)? getTitlesText,
-      {double reservedSize = 36,double angle = 0.5}) {
+      {double reservedSize = 36, double angle = 0.5}) {
     return AxisTitles(
       sideTitles: SideTitles(
           showTitles: true,
@@ -160,8 +159,10 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
     return FlBorderData(
       show: true,
       border: Border(
-        bottom: BorderSide(color: themeData.slcTidyUpColor.getDividerColorByTheme(themeData), width: 2),
-        left: BorderSide(color: themeData.slcTidyUpColor.getDividerColorByTheme(themeData), width: 2),
+        bottom:
+            BorderSide(color: themeData.slcTidyUpColor.getDividerColorByTheme(themeData), width: 2),
+        left:
+            BorderSide(color: themeData.slcTidyUpColor.getDividerColorByTheme(themeData), width: 2),
         right: BorderSide.none,
         top: BorderSide.none,
       ),
@@ -409,7 +410,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
                                       titlesData: FlTitlesData(
                                           bottomTitles: getBottomAxisTitles((value, meta) {
                                             return browseMonthList[value.round()].month;
-                                          },angle: 0.7),
+                                          }, angle: 0.7),
                                           rightTitles: const AxisTitles(
                                             sideTitles: SideTitles(showTitles: false),
                                           ),
@@ -538,8 +539,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
                                         showTitle: true,
                                         titlePositionPercentageOffset: 0.6,
                                         titleStyle: TextStyle(
-                                            color: Colors.white70,
-                                            fontWeight: FontWeight.bold),
+                                            color: Colors.white70, fontWeight: FontWeight.bold),
                                         color: Color(accessSource.color),
                                         value: accessSource.count.toDouble(),
                                         title: "${accessSource.type}\n${accessSource.count}",
@@ -610,17 +610,20 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
                                 ),
                                 radarBackgroundColor: Colors.transparent,
                                 radarBorderData: BorderSide(
-                                    color: themeData.slcTidyUpColor.getDividerColorByTheme(themeData),
+                                    color:
+                                        themeData.slcTidyUpColor.getDividerColorByTheme(themeData),
                                     width: 2),
                                 radarShape: RadarShape.polygon,
                                 tickCount: 3,
                                 ticksTextStyle: TextStyle(
                                     color: themeData.colorScheme.onSurfaceVariant, fontSize: 10),
                                 tickBorderData: BorderSide(
-                                    color: themeData.slcTidyUpColor.getDividerColorByTheme(themeData),
+                                    color:
+                                        themeData.slcTidyUpColor.getDividerColorByTheme(themeData),
                                     width: 1),
                                 gridBorderData: BorderSide(
-                                    color: themeData.slcTidyUpColor.getDividerColorByTheme(themeData),
+                                    color:
+                                        themeData.slcTidyUpColor.getDividerColorByTheme(themeData),
                                     width: 1),
                                 titlePositionPercentageOffset: 0.08,
                                 titleTextStyle:

@@ -13,7 +13,7 @@ class LoadMoreWidget extends StatelessWidget {
     return Center(
         child: Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Text(FastS.of(context).label_refresh_loading,
+      child: Text(FastS.current.label_refresh_loading,
           style:
               themeData.slcTidyUpStyle.getTextColorSecondaryStyleByTheme(themeData)),
     ));

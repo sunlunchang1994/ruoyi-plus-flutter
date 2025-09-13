@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:base/base/entity/tenant_entity.dart';
 
 import 'package:base/base/api/json_converter.dart';
-import '../../../feature/component/adapter/app_select_box.dart';
+import 'package:component/component/adapter/app_select_box.dart';
 
 part 'sys_menu.g.dart';
 ///@author slc

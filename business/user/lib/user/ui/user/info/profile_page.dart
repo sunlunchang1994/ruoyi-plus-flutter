@@ -1,4 +1,5 @@
 //个人资料
+import 'package:bizapi/package_bizapi_info.dart';
 import 'package:dio/dio.dart';
 import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
@@ -17,29 +18,30 @@ import 'package:bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:component/component/dict/utils/dict_ui_utils.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/user/info/update_pwd_page.dart';
-import 'package:ruoyi_plus_flutter/res/dimens.dart';
-import '../../../../../../gen/assets.gen.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:form_extra/form/image_picker/form_builder_single_image_picker.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:base/base/vm/global_vm.dart';
-import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../../../feature/component/crop/crop_image.dart';
-import '../../../../../feature/bizapi/user/entity/avatar_vo.dart';
-import '../../../../../feature/bizapi/user/entity/user.dart';
+import 'package:base/gen/base_l10n.dart';
+import 'package:component/component/crop/crop_image.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
+import 'package:bizapi/user/entity/avatar_vo.dart';
+import 'package:bizapi/user/entity/user.dart';
+import 'package:bizapi/gen/assets.gen.dart' as BizApi;
 import 'package:provider/provider.dart';
 
-import '../../../../../../gen/app_l10n.dart';
 import 'package:base/base/ui/app_mvvm.dart';
 
-import '../../../../../feature/component/dict/vm/dict_share_vm.dart';
+import 'package:component/component/dict/vm/dict_share_vm.dart';
+import 'package:user/res/dimens.dart';
+import 'package:user/user/ui/user/info/update_pwd_page.dart';
+import 'package:user/gen/user_l10n.dart';
 
 class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
   static const String routeName = '/profile';
 
-  final String title = S.current.app_label_personal_information;
+  final String title = BaseS.current.app_label_personal_information;
 
   ProfilePage({super.key});
 
@@ -95,21 +97,22 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
                                   previewWidth: 96,
                                   previewHeight: 96,
-                                  placeholderImage:
-                                      AssetImage(Assets.images.base.icDefUserHead.path),
+                                  placeholderImage: AssetImage(
+                                      BizApi.Assets.images.user.icDefUserHead.path,
+                                      package: BizApiPkgInfo.packageName),
                                   imageErrorBuilder: (
                                     context,
                                     error,
                                     stackTrace,
                                   ) {
-                                    return Assets.images.base.icDefUserHead
-                                        .image(width: 96, height: 96);
+                                    return BizApi.Assets.images.user.icDefUserHead.image(
+                                        width: 96, height: 96, package: BizApiPkgInfo.packageName);
                                   },
                                   //TODO 此处应该加个缓存，内部的FadeInImage改成CachedNetworkImage
                                   transformImageWidget: (context, child) {
                                     return ClipRRect(
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(AppDimens.userMineAvatarRadius)),
+                                            Radius.circular(UserDimens.userMineAvatarRadius)),
                                         child: child);
                                   },
                                   decoration: InputDecoration(

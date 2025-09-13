@@ -1,3 +1,4 @@
+import 'package:bizapi/system/entity/sys_menu_tree.dart';
 import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,16 +9,16 @@ import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
 import 'package:base/base/ui/app_mvvm.dart';
 
-import '../../../../../../gen/app_l10n.dart';
 import 'package:base/base/config/constant_base.dart';
-import '../../../../../feature/bizapi/user/entity/select_menu_result.dart';
-import '../../../../../feature/component/tree/vd/tree_data_list_vd.dart';
-import '../../../entity/sys_menu_tree.dart';
-import '../../../../../feature/component/tree/entity/slc_tree_nav.dart';
+import 'package:bizapi/user/entity/select_menu_result.dart';
+import 'package:component/component/tree/vd/tree_data_list_vd.dart';
+import 'package:component/component/tree/entity/slc_tree_nav.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/vd/list_data_vd.dart';
 import 'package:fast/fast/widget/menu/slc_checked_popup_menu_item.dart';
-import '../tree/menu_tree_page_vd.dart';
+import 'package:system/gen/sys_l10n.dart';
+
+import 'menu_tree_page_vd.dart';
 
 abstract class MenuTreeSelectMultipleBasePage<T extends _MenuTreeSelectMultipleBaseVm>
     extends AppBaseStatelessWidget<T> {
@@ -154,7 +155,6 @@ abstract class _MenuTreeSelectMultipleBaseVm extends AppBaseVm {
 ///角色树菜单选择多选页面
 class RoleMenuTreeSelectMultiplePage
     extends MenuTreeSelectMultipleBasePage<_RoleMenuTreeSelectMultipleVm> {
-  static const String routeName = '/system/menu/role_tree_multiple_select';
 
   final int? roleId;
 

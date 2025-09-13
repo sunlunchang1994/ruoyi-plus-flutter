@@ -13,7 +13,7 @@ class LoadMoreErrorWidget extends StatelessWidget {
     return Center(
         child: Padding(
             padding: EdgeInsets.all(8),
-            child: Text(FastS.of(context).label_refresh_load_failed,
+            child: Text(FastS.current.label_refresh_load_failed,
                 style: themeData.slcTidyUpStyle
                     .getTextColorSecondaryStyleByTheme(themeData))));
   }

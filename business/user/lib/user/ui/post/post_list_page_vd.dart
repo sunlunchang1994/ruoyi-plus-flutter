@@ -15,25 +15,25 @@ import 'package:fast/fast/vd/list_data_component.dart';
 import 'package:fast/fast/vd/refresh/content_empty.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
+import 'package:user/user/entity/dept_tree.dart';
+import 'package:user/user/repository/remote/post_api.dart';
+import 'package:user/user/ui/dept/dept_list_select_single_page.dart';
 
-import '../../../../../gen/app_l10n.dart';
+import 'package:user/gen/user_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/config/constant_base.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:base/base/vm/global_vm.dart';
-import '../../../../feature/bizapi/user/entity/dept.dart';
-import '../../../../feature/bizapi/system/repository/local/local_dict_lib.dart';
-import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../../feature/component/dict/utils/dict_ui_utils.dart';
+import 'package:bizapi/user/entity/dept.dart';
+import 'package:bizapi/system/repository/local/local_dict_lib.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
+import 'package:component/component/dict/utils/dict_ui_utils.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/page_data_vm_sub.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
-import '../../entity/dept_tree.dart';
-import '../../repository/remote/post_api.dart';
-import '../dept/dept_list_select_single_page.dart';
 
 class PostListPageVd {
   static Widget getUserListWidget(ThemeData themeData, IListDataVmSub<Post> listVmSub,

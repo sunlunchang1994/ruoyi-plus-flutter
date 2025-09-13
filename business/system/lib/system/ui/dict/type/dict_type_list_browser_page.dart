@@ -9,19 +9,15 @@ import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/page_data_vd.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/config/constant_user.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/post/post_add_edit_page.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/post/post_list_page_vd.dart';
-import 'package:ruoyi_plus_flutter/code/module/user/ui/role/role_list_page_vd.dart';
 
-import '../../../../../../gen/app_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
-import '../../../../../feature/bizapi/system/entity/sys_dict_type.dart';
+import 'package:bizapi/system/entity/sys_dict_type.dart';
 import 'package:fast/fast/utils/app_toast.dart';
-import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../config/constant_sys.dart';
-import '../../../repository/remote/dict_type_api.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/config/constant_sys.dart';
+import 'package:system/system/repository/remote/dict_type_api.dart';
 import 'dict_type_add_edit_page.dart';
 import 'dict_type_list_page_vd.dart';
 

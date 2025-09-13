@@ -5,6 +5,12 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ruoyi_plus_flutter/gen/l10n/app_localizations.dart';
 
+class AppS {
+  static AppLocalizations get current => S.current;
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      S.localizationsDelegates;
+}
+
 class S {
   static AppLocalizations? _current;
 

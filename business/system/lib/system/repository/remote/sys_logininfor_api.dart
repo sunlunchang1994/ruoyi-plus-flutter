@@ -8,11 +8,11 @@ import 'package:base/base/api/api_config.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/request_utils.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
+import 'package:component/component/dict/vm/dict_share_vm.dart';
 import 'package:bizapi/system/repository/local/local_dict_lib.dart';
 
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/vm/global_vm.dart';
-import '../../../../feature/component/dict/vm/dict_share_vm.dart';
 import '../../entity/sys_logininfor.dart';
 
 part 'sys_logininfor_api.g.dart';

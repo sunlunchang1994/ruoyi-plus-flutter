@@ -2,29 +2,22 @@ import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/load_more_format.dart';
-import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
 import 'package:boxes_flutter/flutter/slc/common/screen_util.dart';
-import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
 import 'package:base/base/ui/app_mvvm.dart';
 import 'package:component/component/dict/entity/tree_dict.dart';
 import 'package:fast/fast/provider/fast_select.dart';
-import 'package:fast/fast/utils/widget_utils.dart';
-import 'package:fast/fast/vd/page_data_vd.dart';
 
-import '../../../../../../gen/app_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:base/base/repository/remote/page_transform_utils.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
-import '../../../../../feature/bizapi/system/entity/sys_dict_data.dart';
+import 'package:bizapi/system/entity/sys_dict_data.dart';
 import 'package:fast/fast/vd/list_data_component.dart';
 import 'package:fast/fast/vd/list_data_vd.dart';
-import '../../../config/constant_sys.dart';
-import '../../../repository/remote/dict_data_api.dart';
-import 'dict_data_add_edit_page.dart';
+import 'package:system/system/repository/remote/dict_data_api.dart';
 import 'dict_data_list_page_vd.dart';
 
 ///

@@ -18,10 +18,10 @@ import 'package:provider/provider.dart';
 import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/entity/redis_cache_info.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/repository/remote/cache_monitor_api.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/entity/redis_cache_info.dart';
+import 'package:system/system/repository/remote/cache_monitor_api.dart';
 
-import '../../../../../../gen/app_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:fast/fast/provider/should_set_state.dart';
 

@@ -1,3 +1,4 @@
+import 'package:bizapi/system/repository/remote/pub_menu_api.dart';
 import 'package:bizapi/user/entity/role.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
@@ -68,7 +69,7 @@ class RoleRepository {
       });
     }).asyncMap((result) {
       Role roleInfo = result.data!;
-      return MenuRepository.roleMenuCheckedList(roleInfo.roleId, cancelToken)
+      return PubMenuPublicRepository.roleMenuCheckedList(roleInfo.roleId, cancelToken)
           .asMap((roleMenuCheckedList) {
         roleInfo.menuIds = roleMenuCheckedList.data;
         return result;

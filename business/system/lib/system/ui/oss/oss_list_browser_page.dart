@@ -16,18 +16,19 @@ import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/page_data_vd.dart';
 
-import '../../../../../gen/app_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
-import '../../../../feature/bizapi/system/entity/sys_oss_upload_vo.dart';
-import '../../../../feature/bizapi/system/entity/sys_oss_vo.dart';
-import '../../../../feature/bizapi/system/repository/remote/pub_oss_api.dart';
-import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../../feature/component/attachment/utils/media_type_constant.dart';
+import 'package:base/gen/base_l10n.dart';
+import 'package:bizapi/system/entity/sys_oss_upload_vo.dart';
+import 'package:bizapi/system/entity/sys_oss_vo.dart';
+import 'package:bizapi/system/repository/remote/pub_oss_api.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
+import 'package:component/component/attachment/utils/media_type_constant.dart';
 import 'package:fast/fast/permission/permission_compat.dart';
 import 'package:fast/fast/utils/app_toast.dart';
-import '../../repository/remote/sys_oss_api.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/repository/remote/sys_oss_api.dart';
 import 'config/oss_config_list_browser_page.dart';
 import 'oss_list_page_vd.dart';
 
@@ -153,21 +154,21 @@ class OssListBrowserPage extends AppBaseStatelessWidget<_OssListBrowserVm> {
         builder: (context) {
           return Wrap(children: [
             ListTile(
-              title: Text(S.current.app_label_photograph),
+              title: Text(BaseS.current.app_label_photograph),
               onTap: () {
                 Navigator.pop(context);
                 getVm().onSelectCamera();
               },
             ),
             ListTile(
-              title: Text(S.current.app_label_photo_album),
+              title: Text(BaseS.current.app_label_photo_album),
               onTap: () {
                 Navigator.pop(context);
                 getVm().onSelectImg();
               },
             ),
             ListTile(
-              title: Text(S.current.app_label_select_file),
+              title: Text(BaseS.current.app_label_select_file),
               onTap: () {
                 Navigator.pop(context);
                 getVm().onSelectFile();

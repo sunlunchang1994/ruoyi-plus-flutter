@@ -6,14 +6,14 @@ import 'package:provider/provider.dart';
 import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/vd/page_data_vd.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/log/sys_log_page.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/log/sys_logininfor_list_page_vd.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/entity/sys_logininfor.dart';
+import 'package:system/system/repository/remote/sys_logininfor_api.dart';
+import 'package:system/system/ui/log/sys_log_page.dart';
+import 'package:system/system/ui/log/sys_logininfor_list_page_vd.dart';
 
-import '../../../../../gen/app_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:fast/fast/utils/app_toast.dart';
-import '../../entity/sys_logininfor.dart';
-import '../../repository/remote/sys_logininfor_api.dart';
 
 class SysLogininforListBrowserPage extends StatefulWidget {
   final String title;

@@ -10,14 +10,14 @@ import 'package:base/base/ui/app_mvvm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/page_data_vd.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/config/constant_sys.dart';
+import 'package:system/system/repository/remote/dict_data_api.dart';
 
-import '../../../../../../gen/app_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
-import '../../../../../feature/bizapi/system/entity/sys_dict_data.dart';
-import '../../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../../config/constant_sys.dart';
-import '../../../repository/remote/dict_data_api.dart';
+import 'package:bizapi/system/entity/sys_dict_data.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
 import 'dict_data_add_edit_page.dart';
 import 'dict_data_list_page_vd.dart';
 
@@ -103,8 +103,7 @@ class DictDataListBrowserPage extends AppBaseStatelessWidget<_DictDataListBrowse
                       ]),
                   endDrawer: DictTypeListPageWidget.getSearchEndDrawer<_DictDataListBrowserVm>(
                       context, themeData, getVm().listVmSub),
-                  floatingActionButton:
-                      UserShareVm().widgetWithPermiAny(["system:dict:add"], () {
+                  floatingActionButton: UserShareVm().widgetWithPermiAny(["system:dict:add"], () {
                     return NqSelector<_DictDataListBrowserVm, bool>(
                         builder: (context, value, child) {
                       return WidgetUtils.getAnimVisibility(

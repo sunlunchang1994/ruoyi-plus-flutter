@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 
-import '../../../../../gen/assets.gen.dart';
-import '../../../../feature/bizapi/system/entity/router_vo.dart';
+import 'package:base/gen/assets.gen.dart';
+import 'package:base/package_base_info.dart';
+import 'package:bizapi/system/entity/router_vo.dart';
 
 /// @author sunlunchang
 /// 菜单路由控件
@@ -25,8 +26,10 @@ class MenuItemView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Assets.images.icLauncher.image(
-                  width: iconSize == 0 ? 32 : iconSize, height: iconSize == 0 ? 32 : iconSize),
+              Assets.images.icAppLogo.image(
+                  package: BasePkgInfo.packageName,
+                  width: iconSize == 0 ? 32 : iconSize,
+                  height: iconSize == 0 ? 32 : iconSize),
               Padding(
                 padding: EdgeInsets.only(top: SlcDimens.appDimens8),
                 child: DefaultTextStyle(

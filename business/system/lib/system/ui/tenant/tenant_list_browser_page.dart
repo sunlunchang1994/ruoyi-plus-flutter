@@ -10,16 +10,16 @@ import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:fast/fast/vd/page_data_vd.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/repository/remote/sys_tenant_api.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/tenant/package/tenant_package_add_edit_page.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/tenant/tenant_add_edit_page.dart';
-import 'package:ruoyi_plus_flutter/code/module/system/ui/tenant/tenant_list_page_vd.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/repository/remote/sys_tenant_api.dart';
+import 'package:system/system/ui/tenant/package/tenant_package_add_edit_page.dart';
+import 'package:system/system/ui/tenant/tenant_add_edit_page.dart';
+import 'package:system/system/ui/tenant/tenant_list_page_vd.dart';
 
-import '../../../../../gen/app_l10n.dart';
-import '../../../../feature/bizapi/system/entity/sys_tenant.dart';
+import 'package:bizapi/system/entity/sys_tenant.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 
-import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
 
 ///
 /// @author slc

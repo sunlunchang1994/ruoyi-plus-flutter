@@ -1,0 +1,11 @@
+{
+  "@@locale": "en",
+  "main_divide_text": "-----------------------------",
+  "analyse_label_title": "分析",
+  "analyse_label_week_online": "在线统计",
+  "analyse_label_traffic_trends": "流量趋势",
+  "analyse_label_month_visits": "月访问量",
+  "analyse_label_access_source": "访问来源",
+  "analyse_label_access_trends": "访问趋势"
+
+}

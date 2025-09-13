@@ -11,13 +11,13 @@ import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
 import 'package:base/base/ui/app_mvvm.dart';
 
-import '../../../../../gen/app_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
-import '../../../../feature/bizapi/system/entity/sys_config.dart';
-import '../../../../feature/bizapi/user/vm/user_share_vm.dart';
-import '../../config/constant_sys.dart';
-import '../../repository/remote/sys_config_api.dart';
+import 'package:bizapi/system/entity/sys_config.dart';
+import 'package:bizapi/user/vm/user_share_vm.dart';
+import 'package:system/gen/sys_l10n.dart';
+import 'package:system/system/config/constant_sys.dart';
+import 'package:system/system/repository/remote/sys_config_api.dart';
 import 'config_add_edit_page.dart';
 import 'config_list_page_vd.dart';
 

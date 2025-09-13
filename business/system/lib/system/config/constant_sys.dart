@@ -1,7 +1,6 @@
 class ConstantSys {
   //菜单
   static const String KEY_MENU = "menu";
-  static const String KEY_MENU_ID = "menuId";
   static const String KEY_MENU_PARENT = "menuParent";
   static const String KEY_MENU_LINKAGE_ENABLE = "menuLinkageEnable";
 
