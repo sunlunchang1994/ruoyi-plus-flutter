@@ -1,5 +1,4 @@
 import 'package:auth/gen/auth_l10n.dart';
-import 'package:base/base/repository/local/app_config.dart';
 import 'package:base/base/route/base_router.dart';
 import 'package:base/base/startup/task.dart';
 import 'package:base/gen/base_l10n.dart';
