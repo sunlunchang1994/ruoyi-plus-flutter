@@ -21,7 +21,15 @@ dependencies:
   interactive_json_preview: ^0.1.0
   #图表
   fl_chart: ^0.70.2
-
+  #快速开发库
+  fast:
+    path: "../../lib_module/fast"
+  #基础数据库组件
+  db_base:
+    path: "../../lib_module/db_base"
+  #基础组件
+  base:
+    path: "../../base"
   #业务组件
   bizapi:
     path: "../../feature/bizapi"

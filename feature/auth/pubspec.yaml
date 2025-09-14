@@ -14,6 +14,12 @@ dependencies:
   boxes_flutter:
     git:
       url: https://gitee.com/sunlunchang/boxes-flutter.git
+  #快速开发库
+  fast:
+    path: "../../lib_module/fast"
+  #基础数据库组件
+  db_base:
+    path: "../../lib_module/db_base"
   #业务api
   bizapi:
     path: "../bizapi"

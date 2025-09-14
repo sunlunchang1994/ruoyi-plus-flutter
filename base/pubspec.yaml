@@ -5,6 +5,8 @@ version: 0.0.1
 environment:
   sdk: '>=3.5.0 <4.0.0'
 
+publish_to: none  # 添加这一行，否会使用本地宝会有警告提示
+
 dependencies:
   flutter:
     sdk: flutter
@@ -45,6 +47,7 @@ dependencies:
   #基础数据库组件
   db_base:
     path: "../lib_module/db_base"
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
