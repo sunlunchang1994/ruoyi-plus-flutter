@@ -25,9 +25,8 @@ import 'package:system/system/entity/sys_oss_config.dart';
 import 'package:system/system/repository/remote/sys_oss_config_api.dart';
 
 import 'package:base/base/api/base_dio.dart';
-import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
-import 'package:base/base/vm/global_vm.dart';
+import 'package:base/gen/base_l10n.dart';
 import 'package:bizapi/user/vm/user_share_vm.dart';
 import 'package:component/component/dict/entity/tree_dict.dart';
 import 'package:component/component/dict/vm/dict_share_vm.dart';
@@ -125,7 +124,7 @@ class OssConfigAddEditPage extends AppBaseStatelessWidget<_OssConfigAddEditVm> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label:
                                 InputDecUtils.getRequiredLabel(S.current.sys_label_oss_config_key),
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysOssConfig!.configKey = value;
@@ -144,7 +143,7 @@ class OssConfigAddEditPage extends AppBaseStatelessWidget<_OssConfigAddEditVm> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
                                 S.current.sys_label_oss_config_visit_site),
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysOssConfig!.endpoint = value;
@@ -161,7 +160,7 @@ class OssConfigAddEditPage extends AppBaseStatelessWidget<_OssConfigAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.sys_label_oss_config_custom_domain,
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysOssConfig!.domain = value;
@@ -177,7 +176,7 @@ class OssConfigAddEditPage extends AppBaseStatelessWidget<_OssConfigAddEditVm> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
                                 S.current.sys_label_oss_config_access_key),
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysOssConfig!.accessKey = value;
@@ -198,7 +197,7 @@ class OssConfigAddEditPage extends AppBaseStatelessWidget<_OssConfigAddEditVm> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
                                 S.current.sys_label_oss_config_secret_key),
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysOssConfig!.secretKey = value;
@@ -217,7 +216,7 @@ class OssConfigAddEditPage extends AppBaseStatelessWidget<_OssConfigAddEditVm> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
                                 S.current.sys_label_oss_config_bucket_name),
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysOssConfig!.bucketName = value;
@@ -234,7 +233,7 @@ class OssConfigAddEditPage extends AppBaseStatelessWidget<_OssConfigAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.sys_label_oss_config_prefix,
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysOssConfig!.prefix = value;
@@ -279,7 +278,7 @@ class OssConfigAddEditPage extends AppBaseStatelessWidget<_OssConfigAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.sys_label_oss_config_region,
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysOssConfig!.region = value;
@@ -293,7 +292,7 @@ class OssConfigAddEditPage extends AppBaseStatelessWidget<_OssConfigAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.sys_label_oss_config_remark,
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysOssConfig!.remark = value;
@@ -311,7 +310,7 @@ class OssConfigAddEditPage extends AppBaseStatelessWidget<_OssConfigAddEditVm> {
         builder: (context) {
           return AlertDialog(
               title: Text(FastS.current.label_prompt),
-              content: Text(FastS.current.app_label_data_save_prompt),
+              content: Text(BaseS.current.ab_label_data_save_prompt),
               actions: FastDialogUtils.getCommonlyAction(context,
                   positiveText: FastS.current.action_exit, positiveLister: () {
                 Navigator.pop(context);
@@ -381,7 +380,7 @@ class _OssConfigAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   void onSave() {
     if (!_checkSaveParams()) {
-      AppToastUtil.showToast(msg: FastS.current.app_label_form_check_hint);
+      AppToastUtil.showToast(msg: BaseS.current.ab_label_form_check_hint);
       return;
     }
     showLoading(text: FastS.current.label_save_ing);

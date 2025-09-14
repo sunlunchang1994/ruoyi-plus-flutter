@@ -18,13 +18,12 @@ import 'package:form_extra/form/input_decoration_utils.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
 import 'package:base/base/ui/app_mvvm.dart';
-import 'package:base/base/vm/global_vm.dart';
+import 'package:base/gen/base_l10n.dart';
 import 'package:bizapi/system/entity/sys_config.dart';
 import 'package:bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:component/component/dict/utils/dict_ui_utils.dart';
 
 import 'package:base/base/api/base_dio.dart';
-import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
 import 'package:bizapi/user/vm/user_share_vm.dart';
 import 'package:component/component/dict/vm/dict_share_vm.dart';
@@ -121,7 +120,7 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(S.current.sys_label_config_name),
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysConfig!.configName = value;
@@ -139,7 +138,7 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(S.current.sys_label_config_key),
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysConfig!.configKey = value;
@@ -157,7 +156,7 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(S.current.sys_label_config_value),
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysConfig!.configValue = value;
@@ -194,8 +193,8 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelText: FastS.current.app_label_remark,
-                            hintText: FastS.current.app_label_please_input,
+                            labelText: BaseS.current.ab_label_remark,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         textInputAction: TextInputAction.next,
                         onChanged: (value) {
@@ -214,7 +213,7 @@ class ConfigAddEditPage extends AppBaseStatelessWidget<_ConfigAddEditVm> {
         builder: (context) {
           return AlertDialog(
               title: Text(FastS.current.label_prompt),
-              content: Text(FastS.current.app_label_data_save_prompt),
+              content: Text(BaseS.current.ab_label_data_save_prompt),
               actions: FastDialogUtils.getCommonlyAction(context,
                   positiveText: FastS.current.action_exit, positiveLister: () {
                 Navigator.pop(context);
@@ -275,7 +274,7 @@ class _ConfigAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   void onSave() {
     if (!_checkSaveParams()) {
-      AppToastUtil.showToast(msg: FastS.current.app_label_form_check_hint);
+      AppToastUtil.showToast(msg: BaseS.current.ab_label_form_check_hint);
       return;
     }
     showLoading(text: FastS.current.label_save_ing);

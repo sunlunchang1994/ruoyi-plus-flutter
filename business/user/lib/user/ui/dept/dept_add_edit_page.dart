@@ -134,7 +134,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
           decoration: MySelectDecoration(
               floatingLabelBehavior: FloatingLabelBehavior.always,
               label: InputDecUtils.getRequiredLabel(S.current.user_label_dept_parent_name),
-              hintText: FastS.current.app_label_please_choose,
+              hintText: BaseS.current.ab_label_please_choose,
               border: const UnderlineInputBorder()),
           validator: FormBuilderValidators.compose([
             FormBuilderValidators.required(),
@@ -151,7 +151,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
               label: InputDecUtils.getRequiredLabel(S.current.user_label_dept_name),
-              hintText: FastS.current.app_label_please_input,
+              hintText: BaseS.current.ab_label_please_input,
               border: const UnderlineInputBorder()),
           onChanged: (value) {
             getVm().applyInfoChange();
@@ -169,7 +169,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
               labelText: S.current.user_label_dept_category,
-              hintText: FastS.current.app_label_please_input,
+              hintText: BaseS.current.ab_label_please_input,
               border: const UnderlineInputBorder()),
           onChanged: (value) {
             getVm().applyInfoChange();
@@ -187,8 +187,8 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
         decoration: MyInputDecoration(
             contentPadding: EdgeInsets.zero,
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            label: InputDecUtils.getRequiredLabel(BaseS.current.app_label_show_sort),
-            hintText: FastS.current.app_label_please_input,
+            label: InputDecUtils.getRequiredLabel(BaseS.current.ab_label_show_sort),
+            hintText: BaseS.current.ab_label_please_input,
             border: const UnderlineInputBorder()),
         onChanged: (value) {
           getVm().applyInfoChange();
@@ -209,7 +209,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
           decoration: MySelectDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.always,
             labelText: S.current.user_label_dept_leader,
-            hintText: FastS.current.app_label_please_choose,
+            hintText: BaseS.current.ab_label_please_choose,
             border: const UnderlineInputBorder(),
             suffixIcon: InputDecUtils.autoClearSuffixBySelect(
                 TextUtil.isNotEmpty(getVm().deptInfo!.leaderName), onPressed: () {
@@ -228,7 +228,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
               labelText: S.current.user_label_dept_contact_number,
-              hintText: FastS.current.app_label_please_input,
+              hintText: BaseS.current.ab_label_please_input,
               border: const UnderlineInputBorder()),
           onChanged: (value) {
             //此处需改成选择的
@@ -249,7 +249,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
               labelText: S.current.user_label_dept_contact_email,
-              hintText: FastS.current.app_label_please_input,
+              hintText: BaseS.current.ab_label_please_input,
               border: const UnderlineInputBorder()),
           onChanged: (value) {
             //此处需改成选择的
@@ -294,7 +294,7 @@ class DeptAddEditPage extends AppBaseStatelessWidget<_DeptAddEditModel> {
         builder: (context) {
           return AlertDialog(
               title: Text(FastS.current.label_prompt),
-              content: Text(FastS.current.app_label_data_save_prompt),
+              content: Text(BaseS.current.ab_label_data_save_prompt),
               actions: FastDialogUtils.getCommonlyAction(context,
                   positiveText: FastS.current.action_exit, positiveLister: () {
                 Navigator.pop(context);
@@ -390,7 +390,7 @@ class _DeptAddEditModel extends AppBaseVm with CancelTokenAssist {
 
   void onSave() {
     if (!_checkSaveParams()) {
-      AppToastUtil.showToast(msg: FastS.current.app_label_form_check_hint);
+      AppToastUtil.showToast(msg: BaseS.current.ab_label_form_check_hint);
       return;
     }
     showLoading(text: FastS.current.label_save_ing);

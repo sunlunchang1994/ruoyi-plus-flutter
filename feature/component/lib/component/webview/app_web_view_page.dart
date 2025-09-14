@@ -54,13 +54,13 @@ class AppWebViewPage extends AppBaseStatelessWidget<AppWebViewVm> {
                           value: FastS.current.action_refresh,
                           child: Text(FastS.current.action_refresh)),
                       PopupMenuItem(
-                          value: BaseS.current.app_label_open_url_in_sys_browser,
-                          child: Text(BaseS.current.app_label_open_url_in_sys_browser))
+                          value: BaseS.current.ab_label_open_url_in_sys_browser,
+                          child: Text(BaseS.current.ab_label_open_url_in_sys_browser))
                     ];
                   }, onSelected: (value) {
                     if (value == FastS.current.action_refresh) {
                       getVm().controller.reload();
-                    } else if (value == BaseS.current.app_label_open_url_in_sys_browser) {
+                    } else if (value == BaseS.current.ab_label_open_url_in_sys_browser) {
                       launchUrl(Uri.parse(url));
                     }
                   })

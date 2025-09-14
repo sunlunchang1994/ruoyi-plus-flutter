@@ -22,6 +22,7 @@ import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
 import 'package:base/base/vm/global_vm.dart';
+import 'package:base/gen/base_l10n.dart';
 import 'package:bizapi/user/vm/user_share_vm.dart';
 import 'package:system/gen/sys_l10n.dart';
 import 'package:system/system/repository/remote/dict_type_api.dart';
@@ -115,7 +116,7 @@ class DictTypeAddEditPage extends AppBaseStatelessWidget<_DictTypeAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(S.current.sys_label_dict_name),
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysDictType!.dictName = value;
@@ -133,7 +134,7 @@ class DictTypeAddEditPage extends AppBaseStatelessWidget<_DictTypeAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(S.current.sys_label_dict_type),
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysDictType!.dictType = value;
@@ -149,8 +150,8 @@ class DictTypeAddEditPage extends AppBaseStatelessWidget<_DictTypeAddEditVm> {
                         initialValue: getVm().sysDictType!.remark,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelText: FastS.current.app_label_remark,
-                            hintText: FastS.current.app_label_please_input,
+                            labelText: BaseS.current.ab_label_remark,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         textInputAction: TextInputAction.next,
                         onChanged: (value) {
@@ -169,7 +170,7 @@ class DictTypeAddEditPage extends AppBaseStatelessWidget<_DictTypeAddEditVm> {
         builder: (context) {
           return AlertDialog(
               title: Text(FastS.current.label_prompt),
-              content: Text(FastS.current.app_label_data_save_prompt),
+              content: Text(BaseS.current.ab_label_data_save_prompt),
               actions: FastDialogUtils.getCommonlyAction(context,
                   positiveText: FastS.current.action_exit, positiveLister: () {
                 Navigator.pop(context);
@@ -231,7 +232,7 @@ class _DictTypeAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   void onSave() {
     if (!_checkSaveParams()) {
-      AppToastUtil.showToast(msg: FastS.current.app_label_form_check_hint);
+      AppToastUtil.showToast(msg: BaseS.current.ab_label_form_check_hint);
       return;
     }
     showLoading(text: FastS.current.label_save_ing);

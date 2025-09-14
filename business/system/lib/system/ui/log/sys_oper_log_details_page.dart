@@ -12,6 +12,7 @@ import 'package:system/gen/sys_l10n.dart';
 import 'package:system/system/entity/sys_oper_log.dart';
 
 import 'package:base/base/ui/app_mvvm.dart';
+import 'package:base/gen/base_l10n.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 
 ///操作详情
@@ -53,7 +54,7 @@ class SysOperLogDetailsPage extends AppBaseStatelessWidget<_SysOperLogDetailsMod
           decoration: MyInputDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.always,
             labelText: S.current.sys_label_oper_id,
-            hintText: FastS.current.app_label_not_completed,
+            hintText: BaseS.current.ab_label_not_completed,
             border: const UnderlineInputBorder(),
           )),
       ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),

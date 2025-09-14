@@ -41,7 +41,7 @@ import 'package:user/gen/user_l10n.dart';
 class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
   static const String routeName = '/profile';
 
-  final String title = BaseS.current.app_label_personal_information;
+  final String title = BaseS.current.ab_label_personal_information;
 
   ProfilePage({super.key});
 
@@ -140,7 +140,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                     decoration: MyInputDecoration(
                                         floatingLabelBehavior: FloatingLabelBehavior.always,
                                         labelText: S.current.user_label_nike_name,
-                                        hintText: FastS.current.app_label_please_input,
+                                        hintText: BaseS.current.ab_label_please_input,
                                         border: const UnderlineInputBorder()),
                                     onChanged: (value) {
                                       getVm().applyInfoChange();
@@ -154,7 +154,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                     decoration: MyInputDecoration(
                                         floatingLabelBehavior: FloatingLabelBehavior.always,
                                         labelText: S.current.user_label_phone_number,
-                                        hintText: FastS.current.app_label_please_input,
+                                        hintText: BaseS.current.ab_label_please_input,
                                         border: const UnderlineInputBorder()),
                                     onChanged: (value) {
                                       getVm().applyInfoChange();
@@ -168,7 +168,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                     decoration: MyInputDecoration(
                                         floatingLabelBehavior: FloatingLabelBehavior.always,
                                         labelText: S.current.user_label_mailbox,
-                                        hintText: FastS.current.app_label_please_input,
+                                        hintText: BaseS.current.ab_label_please_input,
                                         border: const UnderlineInputBorder()),
                                     onChanged: (value) {
                                       getVm().applyInfoChange();
@@ -189,7 +189,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                     decoration: MySelectDecoration(
                                         floatingLabelBehavior: FloatingLabelBehavior.always,
                                         labelText: S.current.user_label_sex,
-                                        hintText: FastS.current.app_label_please_input,
+                                        hintText: BaseS.current.ab_label_please_input,
                                         border: const UnderlineInputBorder())),
                               ],
                             ))))));
@@ -204,7 +204,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
         builder: (context) {
           return AlertDialog(
               title: Text(FastS.current.label_prompt),
-              content: Text(FastS.current.app_label_data_save_prompt),
+              content: Text(BaseS.current.ab_label_data_save_prompt),
               actions: FastDialogUtils.getCommonlyAction(context,
                   positiveText: FastS.current.action_exit, positiveLister: () {
                 Navigator.pop(context);
@@ -267,7 +267,7 @@ class _ProfileModel extends AppBaseVm with CancelTokenAssist {
 
   void save() {
     if (!_checkSaveParams()) {
-      AppToastUtil.showToast(msg: FastS.current.app_label_required_information_cannot_be_empty);
+      AppToastUtil.showToast(msg: BaseS.current.ab_label_required_information_cannot_be_empty);
       return;
     }
     showLoading(text: FastS.current.label_save_ing);

@@ -7,115 +7,115 @@ class BaseLocalizationsEn extends BaseLocalizations {
   BaseLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get app_divide_text => '-----------------------------';
+  String get ab_divide_text => '-----------------------------';
 
   @override
-  String get app_label_location_permission_hint => '我们需要获取位置权限才能进定位！';
+  String get ab_label_location_permission_hint => '我们需要获取位置权限才能进定位！';
 
   @override
-  String get app_label_location_permission_request_hint => '使用该功能需要位置权限，请授予允许！';
+  String get ab_label_location_permission_request_hint => '使用该功能需要位置权限，请授予允许！';
 
   @override
-  String get app_label_location_permission_request_hint_denied => '您没有授予位置权限，此功能将无法使用！';
+  String get ab_label_location_permission_request_hint_denied => '您没有授予位置权限，此功能将无法使用！';
 
   @override
-  String get app_label_start_time_less_than_end_time => '开始时间必须小于结束时间';
+  String get ab_label_start_time_less_than_end_time => '开始时间必须小于结束时间';
 
   @override
-  String get app_label_end_time_more_than_the_start_time => '结束时间必须大于开始时间';
+  String get ab_label_end_time_more_than_the_start_time => '结束时间必须大于开始时间';
 
   @override
-  String get app_label_please_choose => '请选择';
+  String get ab_label_please_choose => '请选择';
 
   @override
-  String get app_label_please_input => '请输入';
+  String get ab_label_please_input => '请输入';
 
   @override
-  String get app_label_not_completed => '待完善';
+  String get ab_label_not_completed => '待完善';
 
   @override
-  String get app_label_unfilled => '未填写';
+  String get ab_label_unfilled => '未填写';
 
   @override
-  String get app_label_required_information_cannot_be_empty => '必要参数不能为空';
+  String get ab_label_required_information_cannot_be_empty => '必要参数不能为空';
 
   @override
-  String get app_label_form_check_hint => '请检查表单';
+  String get ab_label_form_check_hint => '请检查表单';
 
   @override
-  String get app_label_data_save_prompt => '您的修改未保存，确认要退出吗？';
+  String get ab_label_data_save_prompt => '您的修改未保存，确认要退出吗？';
 
   @override
-  String get app_label_data_del_prompt => '确定要删除该%s信息吗？';
+  String get ab_label_data_del_prompt => '确定要删除该%s信息吗？';
 
   @override
-  String get app_label_404 => '404';
+  String get ab_label_404 => '404';
 
   @override
-  String get app_label_404_msg => '抱歉，页面未找到！';
+  String get ab_label_404_msg => '抱歉，页面未找到！';
 
   @override
-  String get app_label_agree => '同意';
+  String get ab_label_agree => '同意';
 
   @override
-  String get app_label_select_all => '全选';
+  String get ab_label_select_all => '全选';
 
   @override
-  String get app_label_unselect_all => '全不选';
+  String get ab_label_unselect_all => '全不选';
 
   @override
-  String get app_label_pass => '通过';
+  String get ab_label_pass => '通过';
 
   @override
-  String get app_label_refuse => '拒绝';
+  String get ab_label_refuse => '拒绝';
 
   @override
-  String get app_label_remark => '备注';
+  String get ab_label_remark => '备注';
 
   @override
-  String get app_label_department_x => '部门：%s';
+  String get ab_label_department_x => '部门：%s';
 
   @override
-  String get app_label_department => '部门';
+  String get ab_label_department => '部门';
 
   @override
-  String get app_label_post_x => '岗位：%s';
+  String get ab_label_post_x => '岗位：%s';
 
   @override
-  String get app_label_post => '岗位';
+  String get ab_label_post => '岗位';
 
   @override
-  String get app_label_am => '上午';
+  String get ab_label_am => '上午';
 
   @override
-  String get app_label_pm => '下午';
+  String get ab_label_pm => '下午';
 
   @override
-  String get app_label_am_pm_full => '全天';
+  String get ab_label_am_pm_full => '全天';
 
   @override
-  String get app_label_am_pm_error => '错误';
+  String get ab_label_am_pm_error => '错误';
 
   @override
-  String get app_label_no_location_information => '未获取到位置信息';
+  String get ab_label_no_location_information => '未获取到位置信息';
 
   @override
-  String get app_label_please_add_attachments => '请添加附件';
+  String get ab_label_please_add_attachments => '请添加附件';
 
   @override
-  String get app_label_un_submitted => '未提交';
+  String get ab_label_un_submitted => '未提交';
 
   @override
-  String get app_label_starting_time => '开始时间';
+  String get ab_label_starting_time => '开始时间';
 
   @override
-  String get app_label_end_time => '结束时间';
+  String get ab_label_end_time => '结束时间';
 
   @override
-  String get app_label_personal_information => '个人信息';
+  String get ab_label_personal_information => '个人信息';
 
   @override
-  String get app_label_logging_in => '正在登录';
+  String get ab_label_logging_in => '正在登录';
 
   @override
   String get app_toast_login_login_successful => '登录成功';
@@ -124,29 +124,29 @@ class BaseLocalizationsEn extends BaseLocalizations {
   String get app_toast_login_login_failed => '登录失败';
 
   @override
-  String get app_label_login_normal_unauthorized => '登录失效，请重新登录！';
+  String get ab_label_login_normal_unauthorized => '登录失效，请重新登录！';
 
   @override
-  String get app_label_show_sort => '显示排序';
+  String get ab_label_show_sort => '显示排序';
 
   @override
-  String get app_label_status => '状态';
+  String get ab_label_status => '状态';
 
   @override
-  String get app_label_photograph => '拍照';
+  String get ab_label_photograph => '拍照';
 
   @override
-  String get app_label_photo_album => '相册';
+  String get ab_label_photo_album => '相册';
 
   @override
-  String get app_label_image_crop => '裁剪';
+  String get ab_label_image_crop => '裁剪';
 
   @override
-  String get app_label_select_file => '选择文件';
+  String get ab_label_select_file => '选择文件';
 
   @override
-  String get app_label_crop_ing => '正在裁剪...';
+  String get ab_label_crop_ing => '正在裁剪...';
 
   @override
-  String get app_label_open_url_in_sys_browser => '在系统浏览器打开';
+  String get ab_label_open_url_in_sys_browser => '在系统浏览器打开';
 }

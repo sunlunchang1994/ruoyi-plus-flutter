@@ -11,7 +11,6 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
-import 'package:base/base/ui/app_mvvm.dart';
 import 'package:bizapi/system/entity/sys_dict_data.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
@@ -20,7 +19,9 @@ import 'package:system/gen/sys_l10n.dart';
 import 'package:system/system/repository/remote/dict_data_api.dart';
 
 import 'package:base/base/api/base_dio.dart';
+import 'package:base/base/ui/app_mvvm.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/gen/base_l10n.dart';
 
 import 'package:bizapi/user/vm/user_share_vm.dart';
 
@@ -115,7 +116,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(S.current.sys_label_dict_type),
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(),
@@ -130,7 +131,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
                                 S.current.sys_label_dict_data_label),
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysDictData!.dictLabel = value;
@@ -149,7 +150,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
                                 S.current.sys_label_dict_data_value),
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysDictData!.dictValue = value;
@@ -167,7 +168,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.sys_label_dict_data_css_class,
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysDictData!.cssClass = value;
@@ -182,7 +183,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.sys_label_dict_data_list_style,
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysDictData!.listClass = value;
@@ -201,7 +202,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
                                 S.current.sys_label_dict_data_order_num),
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysDictData!.dictSort =
@@ -219,8 +220,8 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelText: FastS.current.app_label_remark,
-                            hintText: FastS.current.app_label_please_input,
+                            labelText: BaseS.current.ab_label_remark,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         textInputAction: TextInputAction.next,
                         onChanged: (value) {
@@ -239,7 +240,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
         builder: (context) {
           return AlertDialog(
               title: Text(FastS.current.label_prompt),
-              content: Text(FastS.current.app_label_data_save_prompt),
+              content: Text(BaseS.current.ab_label_data_save_prompt),
               actions: FastDialogUtils.getCommonlyAction(context,
                   positiveText: FastS.current.action_exit, positiveLister: () {
                 Navigator.pop(context);
@@ -305,7 +306,7 @@ class _DictDataAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   void onSave() {
     if (!_checkSaveParams()) {
-      AppToastUtil.showToast(msg: FastS.current.app_label_form_check_hint);
+      AppToastUtil.showToast(msg: BaseS.current.ab_label_form_check_hint);
       return;
     }
     showLoading(text: FastS.current.label_save_ing);

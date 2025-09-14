@@ -26,14 +26,13 @@ import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
-import 'package:base/base/vm/global_vm.dart';
+import 'package:base/gen/base_l10n.dart';
 import 'package:bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/app_toast.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/list_data_component.dart';
 import 'package:fast/fast/vd/refresh/content_empty.dart';
-import 'package:dio/dio.dart';
 
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
@@ -171,7 +170,7 @@ class SysOperLogListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oper_ip,
-                          hintText: FastS.current.app_label_please_input,
+                          hintText: BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<LogOperSearchVm, String?>(
                               builder: (context, value, child) {
@@ -192,7 +191,7 @@ class SysOperLogListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oper_title,
-                          hintText: FastS.current.app_label_please_input,
+                          hintText: BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<LogOperSearchVm, String?>(
                               builder: (context, value, child) {
@@ -213,7 +212,7 @@ class SysOperLogListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oper_name,
-                          hintText: FastS.current.app_label_please_input,
+                          hintText: BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<LogOperSearchVm, String?>(
                               builder: (context, value, child) {
@@ -240,7 +239,7 @@ class SysOperLogListPageWidget {
                       decoration: MySelectDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oper_business_type,
-                          hintText: FastS.current.app_label_please_choose,
+                          hintText: BaseS.current.ab_label_please_choose,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqSelector<LogOperSearchVm, String?>(
                               builder: (context, value, child) {
@@ -264,7 +263,7 @@ class SysOperLogListPageWidget {
                       decoration: MySelectDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_logininfor_status,
-                          hintText: FastS.current.app_label_please_choose,
+                          hintText: BaseS.current.ab_label_please_choose,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<LogLoginSearchVm, String?>(
                               builder: (context, value, child) {

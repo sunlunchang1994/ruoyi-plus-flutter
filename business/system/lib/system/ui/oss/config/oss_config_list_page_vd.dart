@@ -16,12 +16,11 @@ import 'package:system/gen/sys_l10n.dart';
 import 'package:system/system/config/constant_sys.dart';
 import 'package:system/system/entity/sys_oss_config.dart';
 import 'package:system/system/repository/remote/sys_oss_config_api.dart';
-import 'package:system/system/ui/oss/oss_details_page.dart';
 
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
-import 'package:base/base/vm/global_vm.dart';
+import 'package:base/gen/base_l10n.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/list_data_component.dart';
@@ -30,7 +29,6 @@ import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:form_extra/form/input_decoration_utils.dart';
-import 'package:dio/dio.dart';
 
 import 'package:bizapi/user/vm/user_share_vm.dart';
 import 'oss_config_add_edit_page.dart';
@@ -127,7 +125,7 @@ class OssConfigListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oss_config_key,
-                          hintText: FastS.current.app_label_please_input,
+                          hintText: BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
@@ -147,7 +145,7 @@ class OssConfigListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oss_config_bucket_name,
-                          hintText: FastS.current.app_label_please_input,
+                          hintText: BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,

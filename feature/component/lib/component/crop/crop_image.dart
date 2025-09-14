@@ -42,13 +42,13 @@ class CropState extends State<CropImage> {
     });
     return Scaffold(
         appBar: AppBar(
-          title: Text(BaseS.current.app_label_image_crop),
+          title: Text(BaseS.current.ab_label_image_crop),
           actions: [
             IconButton(
                 onPressed: () {
                   LoadingDialog.showLoadingDialog(context,
                       barrierDismissible: false,
-                      text: BaseS.current.app_label_crop_ing);
+                      text: BaseS.current.ab_label_crop_ing);
                   _controller.crop();
                 },
                 icon: const Icon(Icons.save))

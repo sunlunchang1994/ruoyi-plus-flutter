@@ -19,6 +19,7 @@ import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/config/constant_base.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
+import 'package:base/gen/base_l10n.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/list_data_component.dart';
@@ -113,7 +114,7 @@ class DictTypeListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_dict_name,
-                          hintText: FastS.current.app_label_please_input,
+                          hintText: BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
@@ -134,7 +135,7 @@ class DictTypeListPageWidget {
                           contentPadding: EdgeInsets.zero,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_dict_type,
-                          hintText: FastS.current.app_label_please_input,
+                          hintText: BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,

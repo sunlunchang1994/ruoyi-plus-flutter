@@ -10,6 +10,7 @@ import 'package:bizapi/user/repository/remote/pub_user_profile_api.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:base/base/api/base_dio.dart';
+import 'package:base/gen/base_l10n.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:provider/provider.dart';
 
@@ -54,7 +55,7 @@ class UpdatePwdPage extends AppBaseStatelessWidget<_UpdatePwdVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.user_label_old_password,
-                                    hintText: FastS.current.app_label_please_input,
+                                    hintText: BaseS.current.ab_label_please_input,
                                     border: const UnderlineInputBorder()),
                                 validator: FormBuilderValidators.compose([
                                   FormBuilderValidators.required(),
@@ -71,7 +72,7 @@ class UpdatePwdPage extends AppBaseStatelessWidget<_UpdatePwdVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.user_label_new_password,
-                                    hintText: FastS.current.app_label_please_input,
+                                    hintText: BaseS.current.ab_label_please_input,
                                     border: const UnderlineInputBorder()),
                                 validator: FormBuilderValidators.compose([
                                   FormBuilderValidators.required(),
@@ -88,7 +89,7 @@ class UpdatePwdPage extends AppBaseStatelessWidget<_UpdatePwdVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.user_label_verify_new_password,
-                                    hintText: FastS.current.app_label_please_input,
+                                    hintText: BaseS.current.ab_label_please_input,
                                     border: const UnderlineInputBorder()),
                                 validator: FormBuilderValidators.compose([
                                   FormBuilderValidators.required(),
@@ -122,7 +123,7 @@ class _UpdatePwdVm extends AppBaseVm with CancelTokenAssist {
 
   void _submitPwd() {
     if (!_checkSaveParams()) {
-      AppToastUtil.showToast(msg: FastS.current.app_label_form_check_hint);
+      AppToastUtil.showToast(msg: BaseS.current.ab_label_form_check_hint);
       return;
     }
     if (newPassword != confirmNewPassword) {

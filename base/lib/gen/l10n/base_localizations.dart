@@ -93,227 +93,227 @@ abstract class BaseLocalizations {
     Locale('en')
   ];
 
-  /// No description provided for @app_divide_text.
+  /// No description provided for @ab_divide_text.
   ///
   /// In en, this message translates to:
   /// **'-----------------------------'**
-  String get app_divide_text;
+  String get ab_divide_text;
 
-  /// No description provided for @app_label_location_permission_hint.
+  /// No description provided for @ab_label_location_permission_hint.
   ///
   /// In en, this message translates to:
   /// **'我们需要获取位置权限才能进定位！'**
-  String get app_label_location_permission_hint;
+  String get ab_label_location_permission_hint;
 
-  /// No description provided for @app_label_location_permission_request_hint.
+  /// No description provided for @ab_label_location_permission_request_hint.
   ///
   /// In en, this message translates to:
   /// **'使用该功能需要位置权限，请授予允许！'**
-  String get app_label_location_permission_request_hint;
+  String get ab_label_location_permission_request_hint;
 
-  /// No description provided for @app_label_location_permission_request_hint_denied.
+  /// No description provided for @ab_label_location_permission_request_hint_denied.
   ///
   /// In en, this message translates to:
   /// **'您没有授予位置权限，此功能将无法使用！'**
-  String get app_label_location_permission_request_hint_denied;
+  String get ab_label_location_permission_request_hint_denied;
 
-  /// No description provided for @app_label_start_time_less_than_end_time.
+  /// No description provided for @ab_label_start_time_less_than_end_time.
   ///
   /// In en, this message translates to:
   /// **'开始时间必须小于结束时间'**
-  String get app_label_start_time_less_than_end_time;
+  String get ab_label_start_time_less_than_end_time;
 
-  /// No description provided for @app_label_end_time_more_than_the_start_time.
+  /// No description provided for @ab_label_end_time_more_than_the_start_time.
   ///
   /// In en, this message translates to:
   /// **'结束时间必须大于开始时间'**
-  String get app_label_end_time_more_than_the_start_time;
+  String get ab_label_end_time_more_than_the_start_time;
 
-  /// No description provided for @app_label_please_choose.
+  /// No description provided for @ab_label_please_choose.
   ///
   /// In en, this message translates to:
   /// **'请选择'**
-  String get app_label_please_choose;
+  String get ab_label_please_choose;
 
-  /// No description provided for @app_label_please_input.
+  /// No description provided for @ab_label_please_input.
   ///
   /// In en, this message translates to:
   /// **'请输入'**
-  String get app_label_please_input;
+  String get ab_label_please_input;
 
-  /// No description provided for @app_label_not_completed.
+  /// No description provided for @ab_label_not_completed.
   ///
   /// In en, this message translates to:
   /// **'待完善'**
-  String get app_label_not_completed;
+  String get ab_label_not_completed;
 
-  /// No description provided for @app_label_unfilled.
+  /// No description provided for @ab_label_unfilled.
   ///
   /// In en, this message translates to:
   /// **'未填写'**
-  String get app_label_unfilled;
+  String get ab_label_unfilled;
 
-  /// No description provided for @app_label_required_information_cannot_be_empty.
+  /// No description provided for @ab_label_required_information_cannot_be_empty.
   ///
   /// In en, this message translates to:
   /// **'必要参数不能为空'**
-  String get app_label_required_information_cannot_be_empty;
+  String get ab_label_required_information_cannot_be_empty;
 
-  /// No description provided for @app_label_form_check_hint.
+  /// No description provided for @ab_label_form_check_hint.
   ///
   /// In en, this message translates to:
   /// **'请检查表单'**
-  String get app_label_form_check_hint;
+  String get ab_label_form_check_hint;
 
-  /// No description provided for @app_label_data_save_prompt.
+  /// No description provided for @ab_label_data_save_prompt.
   ///
   /// In en, this message translates to:
   /// **'您的修改未保存，确认要退出吗？'**
-  String get app_label_data_save_prompt;
+  String get ab_label_data_save_prompt;
 
-  /// No description provided for @app_label_data_del_prompt.
+  /// No description provided for @ab_label_data_del_prompt.
   ///
   /// In en, this message translates to:
   /// **'确定要删除该%s信息吗？'**
-  String get app_label_data_del_prompt;
+  String get ab_label_data_del_prompt;
 
-  /// No description provided for @app_label_404.
+  /// No description provided for @ab_label_404.
   ///
   /// In en, this message translates to:
   /// **'404'**
-  String get app_label_404;
+  String get ab_label_404;
 
-  /// No description provided for @app_label_404_msg.
+  /// No description provided for @ab_label_404_msg.
   ///
   /// In en, this message translates to:
   /// **'抱歉，页面未找到！'**
-  String get app_label_404_msg;
+  String get ab_label_404_msg;
 
-  /// No description provided for @app_label_agree.
+  /// No description provided for @ab_label_agree.
   ///
   /// In en, this message translates to:
   /// **'同意'**
-  String get app_label_agree;
+  String get ab_label_agree;
 
-  /// No description provided for @app_label_select_all.
+  /// No description provided for @ab_label_select_all.
   ///
   /// In en, this message translates to:
   /// **'全选'**
-  String get app_label_select_all;
+  String get ab_label_select_all;
 
-  /// No description provided for @app_label_unselect_all.
+  /// No description provided for @ab_label_unselect_all.
   ///
   /// In en, this message translates to:
   /// **'全不选'**
-  String get app_label_unselect_all;
+  String get ab_label_unselect_all;
 
-  /// No description provided for @app_label_pass.
+  /// No description provided for @ab_label_pass.
   ///
   /// In en, this message translates to:
   /// **'通过'**
-  String get app_label_pass;
+  String get ab_label_pass;
 
-  /// No description provided for @app_label_refuse.
+  /// No description provided for @ab_label_refuse.
   ///
   /// In en, this message translates to:
   /// **'拒绝'**
-  String get app_label_refuse;
+  String get ab_label_refuse;
 
-  /// No description provided for @app_label_remark.
+  /// No description provided for @ab_label_remark.
   ///
   /// In en, this message translates to:
   /// **'备注'**
-  String get app_label_remark;
+  String get ab_label_remark;
 
-  /// No description provided for @app_label_department_x.
+  /// No description provided for @ab_label_department_x.
   ///
   /// In en, this message translates to:
   /// **'部门：%s'**
-  String get app_label_department_x;
+  String get ab_label_department_x;
 
-  /// No description provided for @app_label_department.
+  /// No description provided for @ab_label_department.
   ///
   /// In en, this message translates to:
   /// **'部门'**
-  String get app_label_department;
+  String get ab_label_department;
 
-  /// No description provided for @app_label_post_x.
+  /// No description provided for @ab_label_post_x.
   ///
   /// In en, this message translates to:
   /// **'岗位：%s'**
-  String get app_label_post_x;
+  String get ab_label_post_x;
 
-  /// No description provided for @app_label_post.
+  /// No description provided for @ab_label_post.
   ///
   /// In en, this message translates to:
   /// **'岗位'**
-  String get app_label_post;
+  String get ab_label_post;
 
-  /// No description provided for @app_label_am.
+  /// No description provided for @ab_label_am.
   ///
   /// In en, this message translates to:
   /// **'上午'**
-  String get app_label_am;
+  String get ab_label_am;
 
-  /// No description provided for @app_label_pm.
+  /// No description provided for @ab_label_pm.
   ///
   /// In en, this message translates to:
   /// **'下午'**
-  String get app_label_pm;
+  String get ab_label_pm;
 
-  /// No description provided for @app_label_am_pm_full.
+  /// No description provided for @ab_label_am_pm_full.
   ///
   /// In en, this message translates to:
   /// **'全天'**
-  String get app_label_am_pm_full;
+  String get ab_label_am_pm_full;
 
-  /// No description provided for @app_label_am_pm_error.
+  /// No description provided for @ab_label_am_pm_error.
   ///
   /// In en, this message translates to:
   /// **'错误'**
-  String get app_label_am_pm_error;
+  String get ab_label_am_pm_error;
 
-  /// No description provided for @app_label_no_location_information.
+  /// No description provided for @ab_label_no_location_information.
   ///
   /// In en, this message translates to:
   /// **'未获取到位置信息'**
-  String get app_label_no_location_information;
+  String get ab_label_no_location_information;
 
-  /// No description provided for @app_label_please_add_attachments.
+  /// No description provided for @ab_label_please_add_attachments.
   ///
   /// In en, this message translates to:
   /// **'请添加附件'**
-  String get app_label_please_add_attachments;
+  String get ab_label_please_add_attachments;
 
-  /// No description provided for @app_label_un_submitted.
+  /// No description provided for @ab_label_un_submitted.
   ///
   /// In en, this message translates to:
   /// **'未提交'**
-  String get app_label_un_submitted;
+  String get ab_label_un_submitted;
 
-  /// No description provided for @app_label_starting_time.
+  /// No description provided for @ab_label_starting_time.
   ///
   /// In en, this message translates to:
   /// **'开始时间'**
-  String get app_label_starting_time;
+  String get ab_label_starting_time;
 
-  /// No description provided for @app_label_end_time.
+  /// No description provided for @ab_label_end_time.
   ///
   /// In en, this message translates to:
   /// **'结束时间'**
-  String get app_label_end_time;
+  String get ab_label_end_time;
 
-  /// No description provided for @app_label_personal_information.
+  /// No description provided for @ab_label_personal_information.
   ///
   /// In en, this message translates to:
   /// **'个人信息'**
-  String get app_label_personal_information;
+  String get ab_label_personal_information;
 
-  /// No description provided for @app_label_logging_in.
+  /// No description provided for @ab_label_logging_in.
   ///
   /// In en, this message translates to:
   /// **'正在登录'**
-  String get app_label_logging_in;
+  String get ab_label_logging_in;
 
   /// No description provided for @app_toast_login_login_successful.
   ///
@@ -327,59 +327,59 @@ abstract class BaseLocalizations {
   /// **'登录失败'**
   String get app_toast_login_login_failed;
 
-  /// No description provided for @app_label_login_normal_unauthorized.
+  /// No description provided for @ab_label_login_normal_unauthorized.
   ///
   /// In en, this message translates to:
   /// **'登录失效，请重新登录！'**
-  String get app_label_login_normal_unauthorized;
+  String get ab_label_login_normal_unauthorized;
 
-  /// No description provided for @app_label_show_sort.
+  /// No description provided for @ab_label_show_sort.
   ///
   /// In en, this message translates to:
   /// **'显示排序'**
-  String get app_label_show_sort;
+  String get ab_label_show_sort;
 
-  /// No description provided for @app_label_status.
+  /// No description provided for @ab_label_status.
   ///
   /// In en, this message translates to:
   /// **'状态'**
-  String get app_label_status;
+  String get ab_label_status;
 
-  /// No description provided for @app_label_photograph.
+  /// No description provided for @ab_label_photograph.
   ///
   /// In en, this message translates to:
   /// **'拍照'**
-  String get app_label_photograph;
+  String get ab_label_photograph;
 
-  /// No description provided for @app_label_photo_album.
+  /// No description provided for @ab_label_photo_album.
   ///
   /// In en, this message translates to:
   /// **'相册'**
-  String get app_label_photo_album;
+  String get ab_label_photo_album;
 
-  /// No description provided for @app_label_image_crop.
+  /// No description provided for @ab_label_image_crop.
   ///
   /// In en, this message translates to:
   /// **'裁剪'**
-  String get app_label_image_crop;
+  String get ab_label_image_crop;
 
-  /// No description provided for @app_label_select_file.
+  /// No description provided for @ab_label_select_file.
   ///
   /// In en, this message translates to:
   /// **'选择文件'**
-  String get app_label_select_file;
+  String get ab_label_select_file;
 
-  /// No description provided for @app_label_crop_ing.
+  /// No description provided for @ab_label_crop_ing.
   ///
   /// In en, this message translates to:
   /// **'正在裁剪...'**
-  String get app_label_crop_ing;
+  String get ab_label_crop_ing;
 
-  /// No description provided for @app_label_open_url_in_sys_browser.
+  /// No description provided for @ab_label_open_url_in_sys_browser.
   ///
   /// In en, this message translates to:
   /// **'在系统浏览器打开'**
-  String get app_label_open_url_in_sys_browser;
+  String get ab_label_open_url_in_sys_browser;
 }
 
 class _BaseLocalizationsDelegate extends LocalizationsDelegate<BaseLocalizations> {

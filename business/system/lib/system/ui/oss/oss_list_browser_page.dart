@@ -154,21 +154,21 @@ class OssListBrowserPage extends AppBaseStatelessWidget<_OssListBrowserVm> {
         builder: (context) {
           return Wrap(children: [
             ListTile(
-              title: Text(BaseS.current.app_label_photograph),
+              title: Text(BaseS.current.ab_label_photograph),
               onTap: () {
                 Navigator.pop(context);
                 getVm().onSelectCamera();
               },
             ),
             ListTile(
-              title: Text(BaseS.current.app_label_photo_album),
+              title: Text(BaseS.current.ab_label_photo_album),
               onTap: () {
                 Navigator.pop(context);
                 getVm().onSelectImg();
               },
             ),
             ListTile(
-              title: Text(BaseS.current.app_label_select_file),
+              title: Text(BaseS.current.ab_label_select_file),
               onTap: () {
                 Navigator.pop(context);
                 getVm().onSelectFile();

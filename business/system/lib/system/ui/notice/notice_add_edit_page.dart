@@ -26,9 +26,8 @@ import 'package:system/system/repository/remote/sys_notice_api.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import 'package:base/base/api/base_dio.dart';
-import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
-import 'package:base/base/vm/global_vm.dart';
+import 'package:base/gen/base_l10n.dart';
 import 'package:bizapi/user/vm/user_share_vm.dart';
 import 'package:component/component/dict/entity/tree_dict.dart';
 import 'package:component/component/dict/vm/dict_share_vm.dart';
@@ -126,7 +125,7 @@ class NoticeAddEditPage extends AppBaseStatelessWidget<_NoticeAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(S.current.sys_label_notice_title),
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysNotice!.noticeTitle = value;
@@ -151,7 +150,7 @@ class NoticeAddEditPage extends AppBaseStatelessWidget<_NoticeAddEditVm> {
                         decoration: MySelectDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(S.current.sys_label_config_type),
-                            hintText: FastS.current.app_label_please_choose,
+                            hintText: BaseS.current.ab_label_please_choose,
                             border: const UnderlineInputBorder()),
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(),
@@ -198,7 +197,7 @@ class NoticeAddEditPage extends AppBaseStatelessWidget<_NoticeAddEditVm> {
         builder: (context) {
           return AlertDialog(
               title: Text(FastS.current.label_prompt),
-              content: Text(FastS.current.app_label_data_save_prompt),
+              content: Text(BaseS.current.ab_label_data_save_prompt),
               actions: FastDialogUtils.getCommonlyAction(context,
                   positiveText: FastS.current.action_exit, positiveLister: () {
                 Navigator.pop(context);
@@ -292,7 +291,7 @@ class _NoticeAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   void onSave() {
     if (!_checkSaveParams()) {
-      AppToastUtil.showToast(msg: FastS.current.app_label_form_check_hint);
+      AppToastUtil.showToast(msg: BaseS.current.ab_label_form_check_hint);
       return;
     }
     showLoading(text: FastS.current.label_save_ing);

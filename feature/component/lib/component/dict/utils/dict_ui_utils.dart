@@ -1,5 +1,5 @@
+import 'package:base/gen/base_l10n.dart';
 import 'package:base/res/colors.dart';
-import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:boxes_flutter/flutter/slc/common/object_util.dart';
@@ -44,7 +44,7 @@ class DictUiUtils {
               context, DictShareVm().dictMap[dictType]!, onPressed,
               autoPopDialog: autoPopDialog, resultGrowable: resultGrowable);
           return SimpleDialog(
-              title: Text(title ?? FastS.current.app_label_please_choose),
+              title: Text(title ?? BaseS.current.ab_label_please_choose),
               children: dialogItem);
         });
   }

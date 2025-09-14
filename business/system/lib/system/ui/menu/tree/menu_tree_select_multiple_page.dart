@@ -4,12 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
 import 'package:boxes_flutter/flutter/slc/code/value_wrapper.dart';
-import 'package:boxes_flutter/flutter/slc/common/entity/label_value.dart';
-import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:provider/provider.dart';
 import 'package:base/base/ui/app_mvvm.dart';
-
 import 'package:base/base/config/constant_base.dart';
+import 'package:base/gen/base_l10n.dart';
 import 'package:bizapi/user/entity/select_menu_result.dart';
 import 'package:component/component/tree/vd/tree_data_list_vd.dart';
 import 'package:component/component/tree/entity/slc_tree_nav.dart';
@@ -63,7 +61,7 @@ abstract class MenuTreeSelectMultipleBasePage<T extends _MenuTreeSelectMultipleB
                       child: Row(
                         children: [
                           Text(
-                              "${FastS.current.app_label_select_all}/${FastS.current.app_label_unselect_all}")
+                              "${BaseS.current.ab_label_select_all}/${BaseS.current.ab_label_unselect_all}")
                         ],
                       )),
                   SlcCheckedPopupMenuItem<ValueWrap<bool>>(

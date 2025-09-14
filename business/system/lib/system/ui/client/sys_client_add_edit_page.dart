@@ -18,6 +18,7 @@ import 'package:form_extra/form/input_decoration_utils.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:provider/provider.dart';
 import 'package:base/base/ui/app_mvvm.dart';
+import 'package:base/gen/base_l10n.dart';
 import 'package:bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:component/component/dict/entity/tree_dict.dart';
 import 'package:system/gen/sys_l10n.dart';
@@ -120,7 +121,7 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
                                 S.current.sys_label_sys_client_client_key),
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysClient!.clientKey = value;
@@ -139,7 +140,7 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
                                 S.current.sys_label_sys_client_client_secret),
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysClient!.clientSecret = value;
@@ -174,7 +175,7 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
                                 S.current.sys_label_sys_client_grant_type),
-                            hintText: FastS.current.app_label_please_choose,
+                            hintText: BaseS.current.ab_label_please_choose,
                             border: UnderlineInputBorder(),
                             suffixIcon: InputDecUtils.getSuffixAction(InputDecUtils.moreIcon, () {
                               _showSelectGrantTypeDialog(context);
@@ -204,7 +205,7 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
                                 S.current.sys_label_sys_client_device_type),
-                            hintText: FastS.current.app_label_please_choose,
+                            hintText: BaseS.current.ab_label_please_choose,
                             border: UnderlineInputBorder(),
                             suffixIcon: InputDecUtils.getSuffixAction(InputDecUtils.moreIcon, () {
                               _showSelectDeviceTypeDialog(context);
@@ -217,7 +218,7 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.sys_label_sys_client_active_timeout,
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysClient!.activeTimeout = SlcNumUtil.getIntByValueStr(value);
@@ -235,7 +236,7 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.sys_label_sys_client_timeout,
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysClient!.timeout = SlcNumUtil.getIntByValueStr(value);
@@ -298,7 +299,7 @@ class SysClientAddEditPage extends AppBaseStatelessWidget<_SysClientAddEditVm> {
         builder: (context) {
           return AlertDialog(
               title: Text(FastS.current.label_prompt),
-              content: Text(FastS.current.app_label_data_save_prompt),
+              content: Text(BaseS.current.ab_label_data_save_prompt),
               actions: FastDialogUtils.getCommonlyAction(context,
                   positiveText: FastS.current.action_exit, positiveLister: () {
                     Navigator.pop(context);
@@ -403,7 +404,7 @@ class _SysClientAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   void onSave() {
     if (!_checkSaveParams()) {
-      AppToastUtil.showToast(msg: FastS.current.app_label_form_check_hint);
+      AppToastUtil.showToast(msg: BaseS.current.ab_label_form_check_hint);
       return;
     }
     showLoading(text: FastS.current.label_save_ing);

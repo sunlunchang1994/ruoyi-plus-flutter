@@ -1,7 +1,7 @@
 {
   "@@locale": "en",
   "app_name": "ruoyi-plus-flutter",
-  "app_label_analyse": "分析",
-  "app_label_workbench": "工作台",
-  "app_label_mine": "我的"
+  "ab_label_analyse": "分析",
+  "ab_label_workbench": "工作台",
+  "ab_label_mine": "我的"
 }

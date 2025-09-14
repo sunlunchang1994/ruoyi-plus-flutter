@@ -22,6 +22,7 @@ import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/gen/base_l10n.dart';
 import 'package:bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/app_toast.dart';
@@ -196,7 +197,7 @@ class SysLogininforListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_logininfor_ip,
-                          hintText: FastS.current.app_label_please_input,
+                          hintText: BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<LogLoginSearchVm, String?>(
                               builder: (context, value, child) {
@@ -217,7 +218,7 @@ class SysLogininforListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oper_name,
-                          hintText: FastS.current.app_label_please_input,
+                          hintText: BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<LogLoginSearchVm, String?>(
                               builder: (context, value, child) {
@@ -244,7 +245,7 @@ class SysLogininforListPageWidget {
                       decoration: MySelectDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_logininfor_status,
-                          hintText: FastS.current.app_label_please_choose,
+                          hintText: BaseS.current.ab_label_please_choose,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<LogLoginSearchVm, String?>(
                               builder: (context, value, child) {

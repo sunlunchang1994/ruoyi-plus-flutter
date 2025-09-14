@@ -26,9 +26,7 @@ import 'package:user/user/ui/role/role_list_select_multiple_page.dart';
 import 'package:user/gen/user_l10n.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
-import 'package:base/base/vm/global_vm.dart';
 import 'package:base/gen/base_l10n.dart';
-import 'package:bizapi/user/entity/dept.dart';
 import 'package:bizapi/user/entity/post.dart';
 import 'package:bizapi/user/entity/role.dart';
 import 'package:bizapi/user/entity/user.dart';
@@ -129,8 +127,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                                   FastDialogUtils.getCommonlyAction(context, positiveLister: () {
                                 if (TextUtil.isEmpty(newPassword)) {
                                   AppToastUtil.showToast(
-                                      msg: FastS
-                                          .current.app_label_required_information_cannot_be_empty);
+                                      msg: BaseS.current.ab_label_required_information_cannot_be_empty);
                                   return;
                                 }
                                 Navigator.pop(context);
@@ -170,7 +167,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(S.current.user_label_nike_name),
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().userInfo!.nickName = value;
@@ -192,7 +189,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
                                 S.current.user_label_user_owner_dept),
-                            hintText: FastS.current.app_label_please_choose,
+                            hintText: BaseS.current.ab_label_please_choose,
                             border: const UnderlineInputBorder()),
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(),
@@ -206,7 +203,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.user_label_phone_number,
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().userInfo!.phonenumber = value;
@@ -225,7 +222,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.user_label_mailbox,
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().userInfo!.email = value;
@@ -248,7 +245,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(S.current.user_label_user_name),
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().userInfo!.userName = value;
@@ -272,7 +269,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                                 floatingLabelBehavior: FloatingLabelBehavior.always,
                                 label:
                                     InputDecUtils.getRequiredLabel(S.current.user_label_password),
-                                hintText: FastS.current.app_label_please_input,
+                                hintText: BaseS.current.ab_label_please_input,
                                 border: const UnderlineInputBorder()),
                             onChanged: (value) {
                               getVm().userInfo!.password = value;
@@ -301,7 +298,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.user_label_sex,
-                            hintText: FastS.current.app_label_please_choose,
+                            hintText: BaseS.current.ab_label_please_choose,
                             border: const UnderlineInputBorder(),
                             suffixIcon: NqSelector<_UserAddEditVm, String?>(
                                 builder: (context, value, child) {
@@ -319,7 +316,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                             LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().userInfo!.status,
                             defDictKey: LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL)),
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: MyInputDecoration(labelText: BaseS.current.app_label_status),
+                        decoration: MyInputDecoration(labelText: BaseS.current.ab_label_status),
                         options: DictUiUtils.dictList2FromOption(
                             DictShareVm().dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
                         onChanged: (value) {
@@ -345,7 +342,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                         decoration: MySelectDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(S.current.user_label_role),
-                            hintText: FastS.current.app_label_please_choose,
+                            hintText: BaseS.current.ab_label_please_choose,
                             border: UnderlineInputBorder(),
                             suffixIcon: InputDecUtils.getSuffixAction(InputDecUtils.moreIcon, () {
                               _showSelectRoleDialog(context);
@@ -368,7 +365,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                       decoration: MySelectDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           label: Text(S.current.user_label_post),
-                          hintText: FastS.current.app_label_please_choose,
+                          hintText: BaseS.current.ab_label_please_choose,
                           border: UnderlineInputBorder(),
                           suffixIcon: InputDecUtils.getSuffixAction(InputDecUtils.moreIcon, () {
                             _showSelectPostDialog(context);
@@ -380,8 +377,8 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
                         initialValue: getVm().userInfo!.remark,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelText: FastS.current.app_label_remark,
-                            hintText: FastS.current.app_label_please_input,
+                            labelText: BaseS.current.ab_label_remark,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         textInputAction: TextInputAction.next,
                         onChanged: (value) {
@@ -429,7 +426,7 @@ class UserAddEditPage extends AppBaseStatelessWidget<_UserAddEditVm> {
         builder: (context) {
           return AlertDialog(
               title: Text(FastS.current.label_prompt),
-              content: Text(FastS.current.app_label_data_save_prompt),
+              content: Text(BaseS.current.ab_label_data_save_prompt),
               actions: FastDialogUtils.getCommonlyAction(context,
                   positiveText: FastS.current.action_exit, positiveLister: () {
                 Navigator.pop(context);
@@ -543,7 +540,7 @@ class _UserAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   void onSave() {
     if (!_checkSaveParams()) {
-      AppToastUtil.showToast(msg: FastS.current.app_label_form_check_hint);
+      AppToastUtil.showToast(msg: BaseS.current.ab_label_form_check_hint);
       return;
     }
     showLoading(text: FastS.current.label_save_ing);

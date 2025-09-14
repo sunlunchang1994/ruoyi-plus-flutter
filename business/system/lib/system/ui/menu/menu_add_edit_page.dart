@@ -138,7 +138,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
           decoration: MySelectDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.always,
             labelText: S.current.sys_label_menu_parent_name,
-            hintText: FastS.current.app_label_please_choose,
+            hintText: BaseS.current.ab_label_please_choose,
             border: const UnderlineInputBorder(),
             suffixIcon:
                 NqNullSelector<_MenuAddEditModel, String?>(builder: (context, value, child) {
@@ -177,7 +177,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
               label: InputDecUtils.getRequiredLabel(S.current.sys_label_menu_name),
-              hintText: FastS.current.app_label_please_input,
+              hintText: BaseS.current.ab_label_please_input,
               border: const UnderlineInputBorder()),
           onChanged: (value) {
             getVm().applyInfoChange();
@@ -197,8 +197,8 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: MyInputDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            label: InputDecUtils.getRequiredLabel(BaseS.current.app_label_show_sort),
-            hintText: FastS.current.app_label_please_input,
+            label: InputDecUtils.getRequiredLabel(BaseS.current.ab_label_show_sort),
+            hintText: BaseS.current.ab_label_please_input,
             border: const UnderlineInputBorder()),
         onChanged: (value) {
           getVm().applyInfoChange();
@@ -247,7 +247,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
         decoration: MyInputDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.always,
             label: InputDecUtils.getRequiredLabel(S.current.sys_label_menu_path),
-            hintText: FastS.current.app_label_please_input,
+            hintText: BaseS.current.ab_label_please_input,
             border: const UnderlineInputBorder()),
         onChanged: (value) {
           getVm().applyInfoChange();
@@ -272,7 +272,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
               decoration: MyInputDecoration(
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                   labelText: S.current.sys_label_menu_component_path,
-                  hintText: FastS.current.app_label_please_input,
+                  hintText: BaseS.current.ab_label_please_input,
                   border: const UnderlineInputBorder()),
               onChanged: (value) {
                 getVm().applyInfoChange();
@@ -295,7 +295,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
               decoration: MyInputDecoration(
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                   labelText: S.current.sys_label_menu_permission_characters,
-                  hintText: FastS.current.app_label_please_input,
+                  hintText: BaseS.current.ab_label_please_input,
                   border: const UnderlineInputBorder()),
               onChanged: (value) {
                 getVm().applyInfoChange();
@@ -317,7 +317,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
               decoration: MyInputDecoration(
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                   labelText: S.current.sys_label_menu_route_parameters,
-                  hintText: FastS.current.app_label_please_input,
+                  hintText: BaseS.current.ab_label_please_input,
                   border: const UnderlineInputBorder()),
               onChanged: (value) {
                 getVm().applyInfoChange();
@@ -395,7 +395,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
         builder: (context) {
           return AlertDialog(
               title: Text(FastS.current.label_prompt),
-              content: Text(FastS.current.app_label_data_save_prompt),
+              content: Text(BaseS.current.ab_label_data_save_prompt),
               actions: FastDialogUtils.getCommonlyAction(context,
                   positiveText: FastS.current.action_exit, positiveLister: () {
                 Navigator.pop(context);
@@ -484,7 +484,7 @@ class _MenuAddEditModel extends AppBaseVm with CancelTokenAssist {
 
   void onSave() {
     if (!_checkSaveParams()) {
-      AppToastUtil.showToast(msg: FastS.current.app_label_form_check_hint);
+      AppToastUtil.showToast(msg: BaseS.current.ab_label_form_check_hint);
       return;
     }
     showLoading(text: FastS.current.label_save_ing);

@@ -2,6 +2,7 @@ import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
+import 'package:base/gen/base_l10n.dart';
 
 ///@author sunlunchang
 ///快速dialog工具
@@ -133,7 +134,7 @@ class FastDialogUtils {
           return AlertDialog(
             title: Text(FastS.current.label_prompt),
             content: content ??
-                Text(contentText ?? TextUtil.format(FastS.current.app_label_data_del_prompt, [""])),
+                Text(contentText ?? TextUtil.format(BaseS.current.ab_label_data_del_prompt, [""])),
             actions: getCommonlyAction(context, positiveLister: () {
               Navigator.pop(context, true);
             }, negativeLister: () {

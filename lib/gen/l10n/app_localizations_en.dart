@@ -10,11 +10,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get app_name => 'ruoyi-plus-flutter';
 
   @override
-  String get app_label_analyse => '分析';
+  String get ab_label_analyse => '分析';
 
   @override
-  String get app_label_workbench => '工作台';
+  String get ab_label_workbench => '工作台';
 
   @override
-  String get app_label_mine => '我的';
+  String get ab_label_mine => '我的';
 }

@@ -130,7 +130,7 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(S.current.user_label_role_name),
-                            hintText: FastS.current.app_label_please_input,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().roleInfo!.roleName = value;
@@ -148,7 +148,7 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(S.current.user_label_role_key),
-                            hintText: FastS.current.app_label_please_choose,
+                            hintText: BaseS.current.ab_label_please_choose,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().roleInfo!.roleKey = value;
@@ -169,8 +169,8 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                       decoration: MyInputDecoration(
                           contentPadding: EdgeInsets.zero,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          label: InputDecUtils.getRequiredLabel(BaseS.current.app_label_show_sort),
-                          hintText: FastS.current.app_label_please_input,
+                          label: InputDecUtils.getRequiredLabel(BaseS.current.ab_label_show_sort),
+                          hintText: BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder()),
                       onChanged: (value) {
                         getVm().applyInfoChange();
@@ -190,7 +190,7 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                             LocalDictLib.CODE_SYS_NORMAL_DISABLE, getVm().roleInfo!.status,
                             defDictKey: LocalDictLib.KEY_SYS_NORMAL_DISABLE_NORMAL)),
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: MyInputDecoration(labelText: BaseS.current.app_label_status),
+                        decoration: MyInputDecoration(labelText: BaseS.current.ab_label_status),
                         options: DictUiUtils.dictList2FromOption(
                             DictShareVm().dictMap[LocalDictLib.CODE_SYS_NORMAL_DISABLE]!),
                         onChanged: (value) {
@@ -211,7 +211,7 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           label:
                               InputDecUtils.getRequiredLabel(S.current.user_label_menu_permission),
-                          hintText: FastS.current.app_label_please_choose,
+                          hintText: BaseS.current.ab_label_please_choose,
                           border: const UnderlineInputBorder()),
                       onChanged: (value) {
                         getVm().applyInfoChange();
@@ -239,7 +239,7 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
                                 S.current.user_label_data_permission),
-                            hintText: FastS.current.app_label_please_choose,
+                            hintText: BaseS.current.ab_label_please_choose,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().applyInfoChange();
@@ -254,8 +254,8 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelText: FastS.current.app_label_remark,
-                            hintText: FastS.current.app_label_please_input,
+                            labelText: BaseS.current.ab_label_remark,
+                            hintText: BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         textInputAction: TextInputAction.next,
                         onChanged: (value) {
@@ -274,7 +274,7 @@ class RoleAddEditPage extends AppBaseStatelessWidget<_PostAddEditVm> {
         builder: (context) {
           return AlertDialog(
               title: Text(FastS.current.label_prompt),
-              content: Text(FastS.current.app_label_data_save_prompt),
+              content: Text(BaseS.current.ab_label_data_save_prompt),
               actions: FastDialogUtils.getCommonlyAction(context,
                   positiveText: FastS.current.action_exit, positiveLister: () {
                 Navigator.pop(context);
@@ -369,7 +369,7 @@ class _PostAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   void onSave() {
     if (!_checkSaveParams()) {
-      AppToastUtil.showToast(msg: FastS.current.app_label_form_check_hint);
+      AppToastUtil.showToast(msg: BaseS.current.ab_label_form_check_hint);
       return;
     }
     showLoading(text: FastS.current.label_save_ing);

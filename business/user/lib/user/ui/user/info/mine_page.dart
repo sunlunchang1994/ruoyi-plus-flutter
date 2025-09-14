@@ -9,6 +9,7 @@ import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 import 'package:base/base/ui/widget/fast_slc_ui_box.dart';
 import 'package:base/base/vm/global_vm.dart';
+import 'package:base/gen/base_l10n.dart';
 import 'package:user/gen/user_l10n.dart';
 import 'package:user/res/dimens.dart';
 import 'profile_page.dart';
@@ -60,19 +61,19 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                                     Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                               Text(
                                   getVm().userInfoVo?.user.deptName ??
-                                      FastS.current.app_label_not_completed,
+                                      BaseS.current.ab_label_not_completed,
                                   style: themeData.slcTidyUpStyle
                                       .getTextColorSecondaryStyleByTheme(themeData)),
                               Text(
                                   getVm().userInfoVo?.user.getRoleName() ??
-                                      FastS.current.app_label_not_completed,
+                                      BaseS.current.ab_label_not_completed,
                                   style: themeData.slcTidyUpStyle
                                       .getTextColorSecondaryStyleByTheme(themeData)),
                               Padding(
                                   padding: EdgeInsets.only(top: SlcDimens.appDimens8),
                                   child: Text(
                                       getVm().userInfoVo?.user.nickName ??
-                                          FastS.current.app_label_not_completed,
+                                          BaseS.current.ab_label_not_completed,
                                       style: themeData.textTheme.titleLarge)),
                             ])),
                             ClipRRect(

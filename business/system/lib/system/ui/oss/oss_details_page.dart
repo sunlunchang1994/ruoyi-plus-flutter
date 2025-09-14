@@ -33,6 +33,7 @@ import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:system/gen/sys_l10n.dart';
 
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
+import 'package:base/gen/base_l10n.dart';
 import 'package:bizapi/user/vm/user_share_vm.dart';
 import 'package:component/component/attachment/entity/progress.dart';
 import 'package:system/res/dimens.dart';
@@ -225,7 +226,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.sys_label_oss_file_name,
-                                    hintText: FastS.current.app_label_not_completed,
+                                    hintText: BaseS.current.ab_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
                               ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
@@ -237,7 +238,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.sys_label_oss_original_name,
-                                    hintText: FastS.current.app_label_not_completed,
+                                    hintText: BaseS.current.ab_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
                               ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
@@ -249,7 +250,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.sys_label_oss_file_suffix,
-                                    hintText: FastS.current.app_label_not_completed,
+                                    hintText: BaseS.current.ab_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
                               ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
@@ -261,7 +262,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.sys_label_oss_create_by,
-                                    hintText: FastS.current.app_label_not_completed,
+                                    hintText: BaseS.current.ab_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
                               ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
@@ -273,7 +274,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.sys_label_oss_service,
-                                    hintText: FastS.current.app_label_not_completed,
+                                    hintText: BaseS.current.ab_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
                               ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
@@ -285,7 +286,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.sys_label_oss_create_tile,
-                                    hintText: FastS.current.app_label_not_completed,
+                                    hintText: BaseS.current.ab_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
                             ],

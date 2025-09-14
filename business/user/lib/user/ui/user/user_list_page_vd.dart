@@ -27,6 +27,7 @@ import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/config/constant_base.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:base/base/vm/global_vm.dart';
+import 'package:base/gen/base_l10n.dart';
 import 'package:bizapi/user/entity/dept.dart';
 import 'package:bizapi/user/entity/user.dart';
 import 'package:bizapi/system/repository/local/local_dict_lib.dart';
@@ -206,7 +207,7 @@ class UserListPageVd {
                             decoration: MySelectDecoration(
                               floatingLabelBehavior: FloatingLabelBehavior.always,
                               labelText: S.current.user_label_user_owner_dept,
-                              hintText: FastS.current.app_label_please_choose,
+                              hintText: BaseS.current.ab_label_please_choose,
                               border: const UnderlineInputBorder(),
                               suffixIcon:
                                   NqNullSelector<A, String?>(builder: (context, value, child) {
@@ -230,7 +231,7 @@ class UserListPageVd {
                                 contentPadding: EdgeInsets.zero,
                                 floatingLabelBehavior: FloatingLabelBehavior.always,
                                 labelText: S.current.user_label_user_name,
-                                hintText: FastS.current.app_label_please_input,
+                                hintText: BaseS.current.ab_label_please_input,
                                 border: const UnderlineInputBorder(),
                                 suffixIcon:
                                     NqNullSelector<A, String?>(builder: (context, value, child) {
@@ -256,7 +257,7 @@ class UserListPageVd {
                                 contentPadding: EdgeInsets.zero,
                                 floatingLabelBehavior: FloatingLabelBehavior.always,
                                 labelText: S.current.user_label_phone_number,
-                                hintText: FastS.current.app_label_please_input,
+                                hintText: BaseS.current.ab_label_please_input,
                                 border: const UnderlineInputBorder(),
                                 suffixIcon:
                                     NqNullSelector<A, String?>(builder: (context, value, child) {
@@ -287,7 +288,7 @@ class UserListPageVd {
                             decoration: MySelectDecoration(
                                 floatingLabelBehavior: FloatingLabelBehavior.always,
                                 labelText: S.current.user_label_status,
-                                hintText: FastS.current.app_label_please_choose,
+                                hintText: BaseS.current.ab_label_please_choose,
                                 border: const UnderlineInputBorder(),
                                 suffixIcon:
                                     NqSelector<A, String?>(builder: (context, value, child) {

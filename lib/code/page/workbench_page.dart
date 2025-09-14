@@ -16,7 +16,7 @@ class WorkbenchPage extends StatefulWidget {
 }
 
 class _WorkbenchState extends AppBaseState<WorkbenchPage, _WorkbenchVm> with AutomaticKeepAliveClientMixin {
-  final String title = S.current.app_label_workbench;
+  final String title = S.current.ab_label_workbench;
 
   @override
   Widget build(BuildContext context) {

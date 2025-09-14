@@ -77,9 +77,9 @@ class _MainVm extends AppBaseVm {
   int currentPageIndex = 0;
 
   final List<String> titleArray = [
-    S.current.app_label_analyse,
-    S.current.app_label_workbench,
-    S.current.app_label_mine
+    S.current.ab_label_analyse,
+    S.current.ab_label_workbench,
+    S.current.ab_label_mine
   ];
 
   void updateTabIndex(int index) {
