@@ -89,7 +89,7 @@ abstract class IResultEntity {
             : null,
         createData: createData != null
             ? (resultEntity) {
-                return (resultEntity).toPageModel(current, size, createRecords: (resultData) {
+                return resultEntity.toPageModel(current, size, createRecords: (resultData) {
                   List<dynamic>? jsonArray = resultEntity.data;
                   return jsonArray?.map((item) {
                     return createData.call(item);
