@@ -28,6 +28,7 @@ class _WorkbenchState extends AppBaseState<WorkbenchPage, _WorkbenchVm> with Aut
       getVm().initVm();
       return Scaffold(
           appBar: AppBar(title: Text(title),
+              automaticallyImplyLeading: false,
               titleSpacing: NavigationToolbar.kMiddleSpacing),
           //图标滚动使用固定大小来解决
           body: MenuGrid(UserShareVm().routerVoOf.value ?? [], null));

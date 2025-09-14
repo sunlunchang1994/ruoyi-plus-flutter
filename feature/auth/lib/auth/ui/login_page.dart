@@ -50,7 +50,9 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
         getVm().initVm();
         return Scaffold(
             appBar: AppBar(
-                title: Text(AppConfig().appName), titleSpacing: NavigationToolbar.kMiddleSpacing),
+                title: Text(AppConfig().appName),
+                automaticallyImplyLeading: false,
+                titleSpacing: NavigationToolbar.kMiddleSpacing),
             body: KeyboardAvoider(
                 autoScroll: true,
                 child: Column(

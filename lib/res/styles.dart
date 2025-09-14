@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 import '/res/dimens.dart';
@@ -12,9 +13,10 @@ class AppStyles extends SlcStyles {
   static ThemeData getAppLightThemeMD3() {
     _appLightTheme ??= SlcStyles.buildAppTheme().copyWith(
         appBarTheme: AppBarTheme(
-      toolbarHeight: AppDimens.appBarHeight,
-      titleSpacing: 0,
-    ));
+          toolbarHeight: AppDimens.appBarHeight,
+          titleSpacing: 0,
+          centerTitle: kIsWeb ? true : null,
+        ));
     return _appLightTheme!;
   }
 
@@ -22,9 +24,9 @@ class AppStyles extends SlcStyles {
   static ThemeData getAppDarkThemeMD3() {
     _appDarkTheme ??= SlcStyles.buildAppTheme(brightness: Brightness.dark).copyWith(
         appBarTheme: AppBarTheme(
-      toolbarHeight: AppDimens.appBarHeight,
-      titleSpacing: 0,
-    ));
+          toolbarHeight: AppDimens.appBarHeight,
+          titleSpacing: 0,
+        ));
     return _appDarkTheme!;
   }
 
@@ -57,5 +59,5 @@ class SysStyle {
   //日志状态
   static const TextStyle sysLogListStatusText = TextStyle(fontSize: 12);
   static const StrutStyle sysLogListStatusTextStrutStyle =
-      StrutStyle(forceStrutHeight: true, height: 0.9);
+  StrutStyle(forceStrutHeight: true, height: 0.9);
 }

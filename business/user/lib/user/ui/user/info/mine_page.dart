@@ -41,7 +41,10 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
         registerEvent(context);
         getVm().initVm();
         return Scaffold(
-            appBar: AppBar(title: Text(title), titleSpacing: NavigationToolbar.kMiddleSpacing),
+            appBar: AppBar(
+                title: Text(title),
+                automaticallyImplyLeading: false,
+                titleSpacing: NavigationToolbar.kMiddleSpacing),
             //图标滚动使用固定大小来解决
             body: Consumer<_MineVm>(builder: (context, value, child) {
               return Column(children: [

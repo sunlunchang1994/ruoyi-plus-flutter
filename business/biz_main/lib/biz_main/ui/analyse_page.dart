@@ -35,6 +35,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
           return Scaffold(
             appBar: AppBar(
                 title: Text(S.current.analyse_label_title),
+                automaticallyImplyLeading: false,
                 titleSpacing: NavigationToolbar.kMiddleSpacing),
             body: SingleChildScrollView(
               child: Column(children: [
