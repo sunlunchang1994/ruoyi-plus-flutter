@@ -129,12 +129,6 @@ abstract class ComponentLocalizations {
   /// **'添加附件'**
   String get comp_label_add_attachments;
 
-  /// No description provided for @comp_label_add_add_details.
-  ///
-  /// In en, this message translates to:
-  /// **'添加明细'**
-  String get comp_label_add_add_details;
-
   /// No description provided for @comp_label_add_no_attachments.
   ///
   /// In en, this message translates to:

@@ -99,23 +99,23 @@ abstract class AppLocalizations {
   /// **'ruoyi-plus-flutter'**
   String get app_name;
 
-  /// No description provided for @ab_label_analyse.
+  /// No description provided for @app_label_analyse.
   ///
   /// In en, this message translates to:
   /// **'分析'**
-  String get ab_label_analyse;
+  String get app_label_analyse;
 
-  /// No description provided for @ab_label_workbench.
+  /// No description provided for @app_label_workbench.
   ///
   /// In en, this message translates to:
   /// **'工作台'**
-  String get ab_label_workbench;
+  String get app_label_workbench;
 
-  /// No description provided for @ab_label_mine.
+  /// No description provided for @app_label_mine.
   ///
   /// In en, this message translates to:
   /// **'我的'**
-  String get ab_label_mine;
+  String get app_label_mine;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

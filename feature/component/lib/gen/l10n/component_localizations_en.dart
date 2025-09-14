@@ -25,9 +25,6 @@ class ComponentLocalizationsEn extends ComponentLocalizations {
   String get comp_label_add_attachments => '添加附件';
 
   @override
-  String get comp_label_add_add_details => '添加明细';
-
-  @override
   String get comp_label_add_no_attachments => '没有附件';
 
   @override
