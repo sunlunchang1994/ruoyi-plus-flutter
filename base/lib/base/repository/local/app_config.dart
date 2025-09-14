@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class AppConfig extends DpManager {
   static const String SP_NAME = "app_config";
 
+
   AppConfig._privateConstructor() : super(SP_NAME);
 
   static final AppConfig _instance = AppConfig._privateConstructor();
@@ -14,11 +15,12 @@ class AppConfig extends DpManager {
     return _instance;
   }
 
-  String _appName = "Unknown";
-  String get appName => _appName;
+  String Function()? _getAppName;
 
-  void init({required String appName}) {
-    this._appName = appName;
+  String get appName => _getAppName?.call() ?? "Unknown";
+
+  void registerGetAppName({required String Function() getAppName}) {
+    _getAppName = getAppName;
   }
 
   ThemeMode getThemeMode() {

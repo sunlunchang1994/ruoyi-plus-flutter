@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 import 'l10n/biz_api_localizations.dart';
+import 'l10n/biz_api_localizations_en.dart';
 
 class BizApiS {
   static BizApiLocalizations? _current;
@@ -43,7 +44,7 @@ class _LocalizationsDelegate extends LocalizationsDelegate<BizApiLocalizations> 
 BizApiLocalizations lookupLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en':
+    case 'en': return BizApiLocalizationsEn();
   }
 
   throw FlutterError(

@@ -44,7 +44,7 @@ class _LocalizationsDelegate extends LocalizationsDelegate<AuthLocalizations> {
 AuthLocalizations lookupLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en':
+    case 'en': return AuthLocalizationsEn();
   }
 
   throw FlutterError(

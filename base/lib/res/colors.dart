@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/res/colors.dart';
 
 class BaseColors {
+
+  //app
+  static double appBarHeight = 48;
+
   //状态
   static const String STATUS_TAG_DEFAULT = "default";
   static const String STATUS_TAG_PRIMARY = "primary";

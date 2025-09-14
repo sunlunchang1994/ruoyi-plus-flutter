@@ -2,6 +2,7 @@ import 'package:base/base/api/api_config.dart';
 import 'package:base/base/route/base_router.dart';
 import 'package:bizapi/auth/entity/login_result.dart';
 import 'package:bizapi/system/entity/router_vo.dart';
+import 'package:boxes_flutter/flutter/slc/mvvm/base_mvvm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:boxes_flutter/flutter/slc/code/observable_field.dart';
 import '../entity/my_user_info_vo.dart';
@@ -9,13 +10,19 @@ import '../repository/local/user_config.dart';
 
 /// @author sunlunchang
 /// 用户共享数据
-class UserShareVm {
+class UserShareVm extends AbsoluteChangeNotifier {
   final ObservableField<MyUserInfoVo> userInfoOf = ObservableField(); //用户信息监听
   final ObservableField<List<RouterVo>> routerVoOf = ObservableField(); //路由信息监听
 
   LoginResult? loginResult; //登录结果信息
 
-  UserShareVm() {}
+  UserShareVm._privateConstructor();
+
+  static final UserShareVm _instance = UserShareVm._privateConstructor();
+
+  factory UserShareVm() {
+    return _instance;
+  }
 
   void saveLoginInfo() {}
 
@@ -65,5 +72,4 @@ class UserShareVm {
       buildWidget.call();
     }
   }
-
 }

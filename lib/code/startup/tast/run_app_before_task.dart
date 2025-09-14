@@ -14,6 +14,6 @@ class RunAppBeforeTask extends Task {
     WidgetsFlutterBinding.ensureInitialized();
     await SpCacheUtil.getInstance();
 
-    AppConfig().init(appName: S.current.app_name);
+    AppConfig().registerGetAppName(getAppName: () => S.current.app_name);
   }
 }
