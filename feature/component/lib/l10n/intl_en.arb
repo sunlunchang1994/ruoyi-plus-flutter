@@ -1,3 +1,11 @@
 {
-  "@@locale": "en"
+  "@@locale": "en",
+  "comp_label_attachment": "附件",
+  "comp_label_unknown_file": "未知文件",
+  "comp_label_compressed_file": "压缩文件",
+  "comp_label_click_preview": "点击预览",
+  "comp_label_please_wait_for_the_download_to_complete": "请等待下载完成",
+  "comp_label_add_attachments": "添加附件",
+  "comp_label_add_no_attachments": "没有附件",
+  "comp_label_get_attachments_error": "附件获取失败"
 }

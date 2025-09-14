@@ -6,5 +6,30 @@ import 'component_localizations.dart';
 class ComponentLocalizationsEn extends ComponentLocalizations {
   ComponentLocalizationsEn([String locale = 'en']) : super(locale);
 
+  @override
+  String get comp_label_attachment => '附件';
 
+  @override
+  String get comp_label_unknown_file => '未知文件';
+
+  @override
+  String get comp_label_compressed_file => '压缩文件';
+
+  @override
+  String get comp_label_click_preview => '点击预览';
+
+  @override
+  String get comp_label_please_wait_for_the_download_to_complete => '请等待下载完成';
+
+  @override
+  String get comp_label_add_attachments => '添加附件';
+
+  @override
+  String get comp_label_add_add_details => '添加明细';
+
+  @override
+  String get comp_label_add_no_attachments => '没有附件';
+
+  @override
+  String get comp_label_get_attachments_error => '附件获取失败';
 }

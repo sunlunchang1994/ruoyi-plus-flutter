@@ -10,6 +10,93 @@ class BaseLocalizationsEn extends BaseLocalizations {
   String get app_divide_text => '-----------------------------';
 
   @override
+  String get app_label_location_permission_hint => '我们需要获取位置权限才能进定位！';
+
+  @override
+  String get app_label_location_permission_request_hint => '使用该功能需要位置权限，请授予允许！';
+
+  @override
+  String get app_label_location_permission_request_hint_denied => '您没有授予位置权限，此功能将无法使用！';
+
+  @override
+  String get app_label_start_time_less_than_end_time => '开始时间必须小于结束时间';
+
+  @override
+  String get app_label_end_time_more_than_the_start_time => '结束时间必须大于开始时间';
+
+  @override
+  String get app_label_please_choose => '请选择';
+
+  @override
+  String get app_label_please_input => '请输入';
+
+  @override
+  String get app_label_not_completed => '待完善';
+
+  @override
+  String get app_label_unfilled => '未填写';
+
+  @override
+  String get app_label_required_information_cannot_be_empty => '必要参数不能为空';
+
+  @override
+  String get app_label_form_check_hint => '请检查表单';
+
+  @override
+  String get app_label_data_save_prompt => '您的修改未保存，确认要退出吗？';
+
+  @override
+  String get app_label_data_del_prompt => '确定要删除该%s信息吗？';
+
+  @override
+  String get app_label_404 => '404';
+
+  @override
+  String get app_label_404_msg => '抱歉，页面未找到！';
+
+  @override
+  String get app_label_agree => '同意';
+
+  @override
+  String get app_label_select_all => '全选';
+
+  @override
+  String get app_label_unselect_all => '全不选';
+
+  @override
+  String get app_label_pass => '通过';
+
+  @override
+  String get app_label_refuse => '拒绝';
+
+  @override
+  String get app_label_remark => '备注';
+
+  @override
+  String get app_label_department_x => '部门：%s';
+
+  @override
+  String get app_label_department => '部门';
+
+  @override
+  String get app_label_post_x => '岗位：%s';
+
+  @override
+  String get app_label_post => '岗位';
+
+  @override
+  String get app_label_am => '上午';
+
+  @override
+  String get app_label_pm => '下午';
+
+  @override
+  String get app_label_am_pm_full => '全天';
+
+  @override
+  String get app_label_am_pm_error => '错误';
+
+  @override
   String get app_label_no_location_information => '未获取到位置信息';
 
   @override

@@ -99,6 +99,180 @@ abstract class BaseLocalizations {
   /// **'-----------------------------'**
   String get app_divide_text;
 
+  /// No description provided for @app_label_location_permission_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'我们需要获取位置权限才能进定位！'**
+  String get app_label_location_permission_hint;
+
+  /// No description provided for @app_label_location_permission_request_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'使用该功能需要位置权限，请授予允许！'**
+  String get app_label_location_permission_request_hint;
+
+  /// No description provided for @app_label_location_permission_request_hint_denied.
+  ///
+  /// In en, this message translates to:
+  /// **'您没有授予位置权限，此功能将无法使用！'**
+  String get app_label_location_permission_request_hint_denied;
+
+  /// No description provided for @app_label_start_time_less_than_end_time.
+  ///
+  /// In en, this message translates to:
+  /// **'开始时间必须小于结束时间'**
+  String get app_label_start_time_less_than_end_time;
+
+  /// No description provided for @app_label_end_time_more_than_the_start_time.
+  ///
+  /// In en, this message translates to:
+  /// **'结束时间必须大于开始时间'**
+  String get app_label_end_time_more_than_the_start_time;
+
+  /// No description provided for @app_label_please_choose.
+  ///
+  /// In en, this message translates to:
+  /// **'请选择'**
+  String get app_label_please_choose;
+
+  /// No description provided for @app_label_please_input.
+  ///
+  /// In en, this message translates to:
+  /// **'请输入'**
+  String get app_label_please_input;
+
+  /// No description provided for @app_label_not_completed.
+  ///
+  /// In en, this message translates to:
+  /// **'待完善'**
+  String get app_label_not_completed;
+
+  /// No description provided for @app_label_unfilled.
+  ///
+  /// In en, this message translates to:
+  /// **'未填写'**
+  String get app_label_unfilled;
+
+  /// No description provided for @app_label_required_information_cannot_be_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'必要参数不能为空'**
+  String get app_label_required_information_cannot_be_empty;
+
+  /// No description provided for @app_label_form_check_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'请检查表单'**
+  String get app_label_form_check_hint;
+
+  /// No description provided for @app_label_data_save_prompt.
+  ///
+  /// In en, this message translates to:
+  /// **'您的修改未保存，确认要退出吗？'**
+  String get app_label_data_save_prompt;
+
+  /// No description provided for @app_label_data_del_prompt.
+  ///
+  /// In en, this message translates to:
+  /// **'确定要删除该%s信息吗？'**
+  String get app_label_data_del_prompt;
+
+  /// No description provided for @app_label_404.
+  ///
+  /// In en, this message translates to:
+  /// **'404'**
+  String get app_label_404;
+
+  /// No description provided for @app_label_404_msg.
+  ///
+  /// In en, this message translates to:
+  /// **'抱歉，页面未找到！'**
+  String get app_label_404_msg;
+
+  /// No description provided for @app_label_agree.
+  ///
+  /// In en, this message translates to:
+  /// **'同意'**
+  String get app_label_agree;
+
+  /// No description provided for @app_label_select_all.
+  ///
+  /// In en, this message translates to:
+  /// **'全选'**
+  String get app_label_select_all;
+
+  /// No description provided for @app_label_unselect_all.
+  ///
+  /// In en, this message translates to:
+  /// **'全不选'**
+  String get app_label_unselect_all;
+
+  /// No description provided for @app_label_pass.
+  ///
+  /// In en, this message translates to:
+  /// **'通过'**
+  String get app_label_pass;
+
+  /// No description provided for @app_label_refuse.
+  ///
+  /// In en, this message translates to:
+  /// **'拒绝'**
+  String get app_label_refuse;
+
+  /// No description provided for @app_label_remark.
+  ///
+  /// In en, this message translates to:
+  /// **'备注'**
+  String get app_label_remark;
+
+  /// No description provided for @app_label_department_x.
+  ///
+  /// In en, this message translates to:
+  /// **'部门：%s'**
+  String get app_label_department_x;
+
+  /// No description provided for @app_label_department.
+  ///
+  /// In en, this message translates to:
+  /// **'部门'**
+  String get app_label_department;
+
+  /// No description provided for @app_label_post_x.
+  ///
+  /// In en, this message translates to:
+  /// **'岗位：%s'**
+  String get app_label_post_x;
+
+  /// No description provided for @app_label_post.
+  ///
+  /// In en, this message translates to:
+  /// **'岗位'**
+  String get app_label_post;
+
+  /// No description provided for @app_label_am.
+  ///
+  /// In en, this message translates to:
+  /// **'上午'**
+  String get app_label_am;
+
+  /// No description provided for @app_label_pm.
+  ///
+  /// In en, this message translates to:
+  /// **'下午'**
+  String get app_label_pm;
+
+  /// No description provided for @app_label_am_pm_full.
+  ///
+  /// In en, this message translates to:
+  /// **'全天'**
+  String get app_label_am_pm_full;
+
+  /// No description provided for @app_label_am_pm_error.
+  ///
+  /// In en, this message translates to:
+  /// **'错误'**
+  String get app_label_am_pm_error;
+
   /// No description provided for @app_label_no_location_information.
   ///
   /// In en, this message translates to:

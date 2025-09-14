@@ -93,6 +93,59 @@ abstract class ComponentLocalizations {
     Locale('en')
   ];
 
+  /// No description provided for @comp_label_attachment.
+  ///
+  /// In en, this message translates to:
+  /// **'附件'**
+  String get comp_label_attachment;
+
+  /// No description provided for @comp_label_unknown_file.
+  ///
+  /// In en, this message translates to:
+  /// **'未知文件'**
+  String get comp_label_unknown_file;
+
+  /// No description provided for @comp_label_compressed_file.
+  ///
+  /// In en, this message translates to:
+  /// **'压缩文件'**
+  String get comp_label_compressed_file;
+
+  /// No description provided for @comp_label_click_preview.
+  ///
+  /// In en, this message translates to:
+  /// **'点击预览'**
+  String get comp_label_click_preview;
+
+  /// No description provided for @comp_label_please_wait_for_the_download_to_complete.
+  ///
+  /// In en, this message translates to:
+  /// **'请等待下载完成'**
+  String get comp_label_please_wait_for_the_download_to_complete;
+
+  /// No description provided for @comp_label_add_attachments.
+  ///
+  /// In en, this message translates to:
+  /// **'添加附件'**
+  String get comp_label_add_attachments;
+
+  /// No description provided for @comp_label_add_add_details.
+  ///
+  /// In en, this message translates to:
+  /// **'添加明细'**
+  String get comp_label_add_add_details;
+
+  /// No description provided for @comp_label_add_no_attachments.
+  ///
+  /// In en, this message translates to:
+  /// **'没有附件'**
+  String get comp_label_add_no_attachments;
+
+  /// No description provided for @comp_label_get_attachments_error.
+  ///
+  /// In en, this message translates to:
+  /// **'附件获取失败'**
+  String get comp_label_get_attachments_error;
 }
 
 class _ComponentLocalizationsDelegate extends LocalizationsDelegate<ComponentLocalizations> {
