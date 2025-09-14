@@ -26,6 +26,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^2.4.11
+  flutter_gen_runner: ^5.10.0
+  # 网络相关-------------------------------------
+  retrofit_generator: ^8.1.1
+  #json_serializable 生成新的命令 flutter pub run build_runner build
+  json_serializable: ^6.8.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
