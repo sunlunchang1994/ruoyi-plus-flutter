@@ -4,6 +4,8 @@ import 'dart:io';
 ///基础常量
 class ConstantBase {
   ///key
+  ///IntentData
+  static const String KEY_INTENT_DATA = "intentData";
   ///Intent 标题Key
   static const String KEY_INTENT_TITLE = "title";
   ///Intent url
