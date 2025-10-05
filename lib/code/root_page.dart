@@ -4,6 +4,7 @@ import 'package:base/base/startup/task.dart';
 import 'package:base/gen/base_l10n.dart';
 import 'package:biz_main/gen/main_l10n.dart';
 import 'package:component/gen/component_l10n.dart';
+import 'package:bizapi/gen/biz_api_l10n.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/gen/fast_l10n.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,7 @@ class RootPage extends StatelessWidget {
                 BaseS.delegate,
                 ComponentS.delegate,
                 AuthS.delegate,
+                BizApiS.delegate,
                 UserS.delegate,
                 SysS.delegate,
                 MainS.delegate,
