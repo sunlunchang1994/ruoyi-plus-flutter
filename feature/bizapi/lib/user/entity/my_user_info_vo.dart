@@ -22,18 +22,14 @@ class MyUserInfoVo {
 
   bool hasPermiAny(List<String> permis) {
     assert(permis.isNotEmpty);
-    return permis.any((item) {
-      return (permissions?.contains(_allPermission) ??
-          false || (permissions?.contains(item) ?? false));
-    });
+    final hasAll = permissions?.contains(_allPermission) ?? false;
+    return hasAll || permis.any((item) => permissions?.contains(item) ?? false);
   }
 
   bool hasPermiEvery(List<String> permis) {
     assert(permis.isNotEmpty);
-    return permis.every((item) {
-      return (permissions?.contains(_allPermission) ??
-          false || (permissions?.contains(item) ?? false));
-    });
+    final hasAll = permissions?.contains(_allPermission) ?? false;
+    return hasAll || permis.every((item) => permissions?.contains(item) ?? false);
   }
 
   static MyUserInfoVo copyUser(MyUserInfoVo user) {
