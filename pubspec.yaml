@@ -21,30 +21,50 @@ version:  5.3.1
 environment:
   sdk: '>=3.5.0 <4.0.0'
 
-# Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
-# dependencies can be manually updated by changing the version numbers below to
-# the latest version available on pub.dev. To see which dependencies have newer
-# versions available, run `flutter pub outdated`.
+# ============================================
+# Workspace 配置 - 统一管理所有本地包
+# ============================================
+workspace:
+  - base
+  - lib_module/fast
+  - lib_module/form_extra
+  - lib_module/db_base
+  - feature/mix
+  - feature/component
+  - feature/auth
+  - feature/welcome
+  - feature/bizapi
+  - business/user
+  - business/system
+  - business/biz_main
+
+# ============================================
+# 依赖配置 - Workspace 统一管理版本
+# ============================================
 dependencies:
   flutter:
     sdk: flutter
 
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.6
-
   # 国际化
   flutter_localizations:
     sdk: flutter
-  flukit: any #https://pub.flutter-io.cn/packages/flukit
 
+  # ============================================
+  # 共享的第三方依赖（统一版本管理）
+  # ============================================
+  
+  # 基础框架
+  boxes_flutter:
+    git:
+      url: https://gitee.com/sunlunchang/boxes-flutter.git
+  
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.6
+  flukit: any #https://pub.flutter-io.cn/packages/flukit
   intl: any
 
   # UI相关---------------------------------------
-
   #扩展NestedScrollView https://pub.flutter-io.cn/packages/extended_nested_scroll_view
   extended_nested_scroll_view: ^6.2.1
   #设置
@@ -52,6 +72,14 @@ dependencies:
   #syncfusion_flutter_charts: ^28.2.11
   # 图片缓存加载
   cached_network_image: ^3.4.1
+  #状态管理
+  provider: ^6.1.2
+  #Toast
+  fluttertoast: ^8.2.8
+  #下拉刷新
+  easy_refresh: ^3.4.0
+  #svg
+  flutter_svg: ^2.0.10+1
 
   # 网络相关-------------------------------------
   json_annotation: ^4.9.0
@@ -79,14 +107,20 @@ dependencies:
   # url_launcher
   url_launcher: ^6.3.0
 
+  # 存储---------------------------------------
+  shared_preferences: ^2.5.2
+
   # 其他---------------------------------------
   #设备信息 会影响编译和冲突，暂不加入
   # device_info_plus: ^11.3.3
+  logger: ^2.3.0  #for logging purpose
+  #权限处理
+  permission_handler: ^11.4.0
   #UUID
   uuid: ^4.4.0
   #解决键盘被遮挡
   keyboard_avoider: ^0.2.0
-  #
+  #包信息
   package_info_plus: ^8.3.0
 
   # 特殊的UI组件---------------------------------------
@@ -96,44 +130,42 @@ dependencies:
   #html处理相关
   #universal_html: ^2.2.4
 
-  #快速开发库
-  fast:
-    path: "./lib_module/fast"
-  # 表单扩展库
-  form_extra:
-    path: "./lib_module/form_extra"
-  # 数据库基础库
-  db_base:
-    path: "./lib_module/db_base"
-  # 数据库基础库
-  base:
-    path: "./base"
-  # 能力库
-  # 原生混入库
-  mix:
-    path: "./feature/mix"
-  # 常用组件库
-  component:
-    path: "./feature/component"
-  # 认证
-  auth:
-    path: "./feature/auth"
-  # 欢迎页
-  welcome:
-    path: "./feature/welcome"
-  # 业务api
-  bizapi:
-    path: "./feature/bizapi"
-  # 用户模块
-  user:
-    path: "./business/user"
-  # 系统模块
-  system:
-    path: "./business/system"
-  # 主业务
-  biz_main:
-    path: "./business/biz_main"
+  # 表单相关---------------------------------------
+  flutter_form_builder: ^9.7.0
+  form_builder_extra_fields: ^11.0.0
+  form_builder_image_picker: ^4.1.0
+  # form_builder_file_picker: ^4.2.0
+  form_builder_validators: ^11.1.1
+  form_builder_phone_field: ^2.0.1
+  # form_builder_cupertino_fields: ^0.4.0 ios风格
 
+  # 系统模块特有依赖---------------------------------------
+  #markdown
+  flutter_markdown: ^0.7.6+2
+  #Json格式化
+  interactive_json_preview: ^0.1.0
+  #图表
+  fl_chart: ^0.70.2
+
+  # ============================================
+  # Workspace 内的本地包（无需指定 path）
+  # ============================================
+  fast:
+  form_extra:
+  db_base:
+  base:
+  mix:
+  component:
+  auth:
+  welcome:
+  bizapi:
+  user:
+  system:
+  biz_main:
+
+# ============================================
+# 开发依赖（统一版本管理）
+# ============================================
 dev_dependencies:
   flutter_test:
     sdk: flutter

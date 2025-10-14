@@ -6,26 +6,199 @@
 
 `UI界面暂时只有移动端样式`
 
-## 简介
+## 💡 简介
 
-## 平台简介
+**RuoYi-Flutter-Plus** 是一个基于 **Flutter 3.27.4** 开发的**企业级全平台应用框架**，完美对接 [RuoYi-Vue-Plus](https://gitee.com/dromara/RuoYi-Vue-Plus) 后端系统。项目采用**现代化 Workspace 架构**，实现模块化开发、依赖统一管理，为企业应用开发提供开箱即用的解决方案。
 
-- 基于RuoYi-Vue-Plus Api的[Flutter](https://flutter.dev/)客户端项目
+### ⭐ 核心亮点
 
-- 配套后端代码仓库地址
-- [RuoYi-Vue-Plus 5.X(注意版本号)](https://gitee.com/dromara/RuoYi-Vue-Plus)
-- [RuoYi-Cloud-Plus 2.X(注意版本号)](https://gitee.com/dromara/RuoYi-Cloud-Plus)
+- 🎯 **真正的全平台支持** - Android、iOS、Windows、Linux、macOS、Web 六端统一
+- 🏗️ **Workspace 架构** - 模块化设计，依赖版本统一管理，开发效率倍增
+- 🔐 **完整的 RBAC 权限体系** - 用户、角色、部门、岗位、菜单权限全覆盖
+- 🏢 **多租户 SaaS 架构** - 开箱即用的多租户管理能力
+- 📊 **丰富的业务功能** - 30+ 业务模块，涵盖系统管理、日志监控、文件管理等
+- 🎨 **Material 3 设计** - 支持明暗主题，跟随系统主题自动切换
+- 🌍 **国际化支持** - 内置中英文，易于扩展其他语言
+- 📦 **开箱即用** - 提供完整的脚本工具，一键构建、部署
 
-## 预览
+## 🏗️ 项目架构
 
-admin 账号: admin admin123
+项目采用 **Flutter Workspace** 模块化架构设计，将功能划分为多个独立模块，职责清晰、松耦合、易维护。
 
-[请在发布页下载Apk安装预览](https://gitee.com/sunlunchang/ruoyi-plus-flutter/releases)
+### 📁 模块结构总览
 
-## 相关文档
-[点击查看Wiki](https://gitee.com/sunlunchang/ruoyi-plus-flutter/wikis)
+```
+ruoyi-flutter-plus/
+├── 📦 基础设施层
+│   ├── base/                    # 核心基础模块
+│   └── lib_module/              # 工具库模块
+│       ├── fast/                # 快速开发工具
+│       ├── db_base/             # 数据持久化
+│       └── form_extra/          # 表单扩展
+├── 🔌 功能特性层
+│   └── feature/
+│       ├── auth/                # 认证授权
+│       ├── bizapi/              # 业务 API
+│       ├── component/           # 通用组件
+│       ├── welcome/             # 欢迎页
+│       └── mix/                 # 原生混合
+└── 💼 业务应用层
+    └── business/
+        ├── biz_main/            # 主业务入口
+        ├── system/              # 系统管理
+        └── user/                # 用户管理
+```
 
-## 基于[RuoYi-Vue-Plus 5.X](https://gitee.com/dromara/RuoYi-Vue-Plus)版本并结合移动端特性，本项目实现了以下业务功能：
+### 🎯 模块详细介绍
+
+#### 📦 基础设施层
+
+**核心模块**
+- **[Base - 基础核心模块](base/README.md)** 🔧  
+  提供网络请求、路由管理、MVVM 架构、全局配置等基础设施，是所有模块的基石
+
+**工具库模块**
+- **[Fast - 快速开发工具](lib_module/fast/README.md)** ⚡  
+  视图驱动（VD）组件、Provider 扩展、权限管理、Toast 提示，让开发飞起来
+  
+- **[DB Base - 数据持久化](lib_module/db_base/README.md)** 💾  
+  统一的本地存储封装，简化 SharedPreferences 和数据库操作
+  
+- **[Form Extra - 表单扩展](lib_module/form_extra/README.md)** 📝  
+  基于 flutter_form_builder 的增强表单组件，丰富的验证器和字段类型
+
+#### 🔌 功能特性层
+
+- **[Auth - 认证授权](feature/auth/README.md)** 🔐  
+  完整的登录认证、Token 管理、多租户支持、权限验证
+  
+- **[BizAPI - 业务 API](feature/bizapi/README.md)** 🌐  
+  按业务领域组织的 API 接口层，类型安全的 Retrofit 接口定义
+  
+- **[Component - 通用组件](feature/component/README.md)** 🎨  
+  字典选择、树形选择、文件上传、图片裁剪、WebView 等可复用业务组件
+  
+- **[Welcome - 欢迎页](feature/welcome/README.md)** 👋  
+  应用启动屏、引导页、版本检查
+  
+- **[Mix - 原生混合](feature/mix/README.md)** 🔗  
+  Flutter 与原生平台交互，支持混合开发场景
+
+#### 💼 业务应用层
+
+- **[BizMain - 主业务入口](business/biz_main/README.md)** 🏠  
+  应用主框架、导航结构、数据仪表盘，整合所有业务模块
+  
+- **[System - 系统管理](business/system/README.md)** ⚙️  
+  租户管理、字典管理、菜单管理、参数配置、日志监控、文件管理、在线用户、缓存监控等完整的后台管理功能
+  
+- **[User - 用户管理](business/user/README.md)** 👥  
+  用户管理、部门管理、岗位管理、角色管理、个人中心、权限分配
+
+## 🔗 配套后端系统
+
+本项目完美对接以下后端系统：
+
+| 后端系统 | 版本 | 仓库地址 | 说明 |
+|---------|------|---------|------|
+| RuoYi-Vue-Plus | 5.X | [Gitee](https://gitee.com/dromara/RuoYi-Vue-Plus) | 单体架构（推荐） |
+| RuoYi-Cloud-Plus | 2.X | [Gitee](https://gitee.com/dromara/RuoYi-Cloud-Plus) | 微服务架构 |
+
+> ⚠️ **注意**：请确保后端版本匹配，建议使用 RuoYi-Vue-Plus 5.X 版本
+
+## 🚀 快速开始
+
+### 环境要求
+
+- Flutter SDK >= 3.27.4
+- Dart SDK >= 3.6.0
+- IDE: Android Studio / VS Code / IntelliJ IDEA
+
+### 一键安装依赖
+
+```bash
+# macOS / Linux
+./scripts/pub_get_all.sh
+
+# Windows
+scripts\pub_get_all.bat
+```
+
+### 构建运行
+
+```bash
+# 生成国际化文件
+./scripts/gen_l10n_all.sh
+
+# 生成代码（API、实体等）
+./scripts/build_runner_all.sh
+
+# 运行应用
+flutter run
+```
+
+### 更多脚本命令
+
+查看完整的脚本使用说明：[scripts/README.md](scripts/README.md)
+
+## 📱 在线体验
+
+**测试账号**: admin / admin123
+
+- **Android APK 下载**: [发布页面](https://gitee.com/sunlunchang/ruoyi-plus-flutter/releases)
+
+## 🛠️ 技术栈
+
+### 核心框架
+
+| 技术 | 版本 | 说明 |
+|-----|------|------|
+| Flutter | 3.27.4 | Google 跨平台 UI 框架 |
+| Dart | 3.6.0 | 现代化编程语言 |
+| Material 3 | Latest | Google Material Design 3 |
+
+### 主要依赖
+
+| 库名 | 功能 |
+|-----|------|
+| [boxes_flutter](https://pub.dev/packages/boxes_flutter) | MVVM 架构基础框架 |
+| [provider](https://pub.dev/packages/provider) | 状态管理 |
+| [retrofit](https://pub.dev/packages/retrofit) + [dio](https://pub.dev/packages/dio) | 网络请求 |
+| [easy_refresh](https://pub.dev/packages/easy_refresh) | 下拉刷新 / 上拉加载 |
+| [flutter_form_builder](https://pub.dev/packages/flutter_form_builder) | 表单构建 |
+| [fl_chart](https://pub.dev/packages/fl_chart) | 数据图表 |
+| [cached_network_image](https://pub.dev/packages/cached_network_image) | 图片缓存 |
+| [webview_flutter](https://pub.dev/packages/webview_flutter) | WebView |
+| [shared_preferences](https://pub.dev/packages/shared_preferences) | 本地存储 |
+| [permission_handler](https://pub.dev/packages/permission_handler) | 权限管理 |
+
+> 📚 完整依赖列表请查看 [pubspec.yaml](pubspec.yaml)
+
+## ✨ 架构特色
+
+### 🏗️ Workspace 模块化架构
+
+- **依赖统一管理** - 所有模块依赖版本在根目录统一配置
+- **模块独立开发** - 每个模块可独立开发、测试
+- **按需加载** - 灵活的模块组合，按需引入
+- **清晰的分层** - 基础设施层、功能层、业务层职责分明
+
+### 🎨 MVVM 架构模式
+
+- **View（视图）** - 负责 UI 展示
+- **ViewModel（视图模型）** - 负责业务逻辑和状态管理
+- **Model（模型）** - 负责数据定义和存储
+- **Repository（仓库）** - 负责数据获取（远程 API / 本地数据库）
+
+### 🔄 视图驱动（VD）组件
+
+- **ListDataVD** - 列表数据自动管理（加载、刷新、空数据、错误处理）
+- **PageDataVD** - 分页数据自动管理（上拉加载更多）
+- **减少 90% 的列表页样板代码**
+
+## 📋 功能列表
+
+基于 [RuoYi-Vue-Plus 5.X](https://gitee.com/dromara/RuoYi-Vue-Plus) 并结合移动端特性实现：
 
 | 业务         | 功能说明                                                      | 本项目是否实现 | 后续是否实现或更新 |
 | ------------ | ------------------------------------------------------------- | -------------- | ------------------ |
@@ -56,41 +229,59 @@ admin 账号: admin admin123
 | 工作流       | 系统工作流模块业务功能                                        | 否             | 是                 |
 | 我的任务     | 系统我的任务模块业务功能                                      | 否             | 是                 |
 
-## 本项目使用到的第三方库：
+## 📖 开发指南
 
-| 名称                                                                                  | 功能说明                                   |
-|-------------------------------------------------------------------------------------|----------------------------------------|
-| [boxes_flutter](https://pub.dev/packages/boxes_flutter)                     | 本人开发的基于mvvm设计模式的基础框架，附带路由页面状态，工具库      |
-| route                      | 未使用第三方路由，使用flutter官方路由，无入侵式的提供了快速操作api |
-| [provider](https://pub.dev/packages/provider)                                       | 状态管理                                   |
-| [cupertino_icons](https://pub.dev/packages/cupertino_icons)                         | 图表库                                    |
-| [flutter_localizations](https://pub.dev/packages/flutter_localization)              | 国际化                                    |
-| [easy_refresh](https://pub.dev/packages/easy_refresh)                               | 下拉刷新上拉加载                               |
-| [flutter_svg](https://pub.dev/packages/flutter_svg)                                 | SVG图加载                                 |
-| [extended_nested_scroll_view](https://pub.dev/packages/extended_nested_scroll_view) | 扩展NestedScrollView                     |
-| [fl_chart](https://pub.dev/packages/fl_chart)                                       | 图表UI库                                  |
-| [cached_network_image](https://pub.dev/packages/cached_network_image)               | 图片加载缓存                                 |
-| [json_annotation](https://pub.dev/packages/json_annotation)                         | Json序列化反序列化                            |
-| [retrofit](https://pub.dev/packages/retrofit)                                       | 基于dio的网络请求库，简化编码                       |
-| [rxdart](https://pub.dev/packages/rxdart)                                           | 扩展了 Dart Streams                       |
-| [encrypt](https://pub.dev/packages/encrypt)                                         | 加解密                                    |
-| [image_picker](https://pub.dev/packages/image_picker)                               | 图片选择                                   |
-| [image_gallery_saver](https://pub.dev/packages/image_gallery_saver)                 | 将图片保存到图片库                              |
-| [crop_your_image](https://pub.dev/packages/crop_your_image)                         | 图片裁剪                                   |
-| [file_picker](https://pub.dev/packages/file_picker)                                 | 文件选择                                   |
-| [path_provider](https://pub.dev/packages/path_provider)                             | 获取系统相关路径                               |
-| [open_file](https://pub.dev/packages/open_file)                                     | 通过系统应用打开指定文件路径                         |
-| [shared_preferences](https://pub.dev/packages/shared_preferences)                   | 简单数据封装特定于平台的持久性存储                      |
-| [permission_handler](https://pub.dev/packages/permission_handler)                   | 权限申请                                   |
-| [uuid](https://pub.dev/packages/uuid)                                               | 生成uuid                                 |
-| [keyboard_avoider](https://pub.dev/packages/keyboard_avoider)                       | 解决键盘遮挡                                 |
-| [package_info_plus](https://pub.dev/packages/package_info_plus)                     | 查询应用程序包信息                              |
-| [flutter_form_builder系列](https://pub.dev/packages/flutter_form_builder)             | 表单相关                                   |
-| [webview_flutter](https://pub.dev/packages/webview_flutter)                         | Webview                                |
-| [flutter_markdown](https://pub.dev/packages/flutter_markdown)                       | Markdown控件                             |
-| [interactive_json_preview](https://pub.dev/packages/interactive_json_preview)       | Json格式化                                |
+### 批量执行脚本
 
-## 捐献作者
+本项目提供了完整的批量执行脚本，支持 macOS、Linux 和 Windows：
+
+```bash
+# 获取所有模块依赖
+./scripts/pub_get_all.sh         # macOS/Linux
+scripts\pub_get_all.bat          # Windows
+
+# 生成国际化文件
+./scripts/gen_l10n_all.sh        # macOS/Linux
+scripts\gen_l10n_all.bat         # Windows
+
+# 代码生成（Retrofit、JsonSerializable）
+./scripts/build_runner_all.sh    # macOS/Linux
+scripts\build_runner_all.bat     # Windows
+
+# 清理构建产物
+./scripts/clean_all.sh           # macOS/Linux
+scripts\clean_all.bat            # Windows
+```
+
+📚 **详细使用说明**: [scripts/README.md](scripts/README.md)
+
+### 添加新模块
+
+1. 在对应目录下创建新模块
+2. 在根目录 `pubspec.yaml` 的 `workspace:` 中添加模块路径
+3. 运行 `./scripts/pub_get_all.sh` 初始化
+
+### 代码规范
+
+- 遵循 [Effective Dart](https://dart.dev/guides/language/effective-dart) 规范
+- 使用 `flutter analyze` 检查代码质量
+- 使用 `dart format .` 格式化代码
+
+## 🤝 参与贡献
+
+欢迎提交 Issue 和 Pull Request！
+
+1. Fork 本仓库
+2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交您的更改 (`git commit -m 'Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 提交 Pull Request
+
+## 📄 开源协议
+
+本项目基于 MIT 协议开源
+
+## 💖 捐献作者
 感谢每一位支持者的慷慨相助！您的每一份贡献都是对我莫大的鼓励。
 
 |                                                                          |                                                                           |

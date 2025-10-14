@@ -5,34 +5,26 @@ version: 0.0.1
 environment:
   sdk: '>=3.5.0 <4.0.0'
 
+resolution: workspace  # 使用 workspace 统一管理依赖
+
 dependencies:
   flutter:
     sdk: flutter
 
-  #基础框架
-  #boxes_flutter: ^0.4.3
-  boxes_flutter:
-    git:
-      url: https://gitee.com/sunlunchang/boxes-flutter.git
-  #快速开发库
+  # Workspace 内的本地包
   fast:
-    path: "../../lib_module/fast"
-  #基础数据库组件
   db_base:
-    path: "../../lib_module/db_base"
-  #业务组件
   bizapi:
-    path: "../../feature/bizapi"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^2.4.11
-  flutter_gen_runner: ^5.10.0
+  build_runner:
+  flutter_gen_runner:
   # 网络相关-------------------------------------
-  retrofit_generator: ^8.1.1
+  retrofit_generator:
   #json_serializable 生成新的命令 flutter pub run build_runner build
-  json_serializable: ^6.8.0
+  json_serializable:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

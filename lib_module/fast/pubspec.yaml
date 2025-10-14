@@ -5,6 +5,8 @@ version: 0.0.1
 environment:
   sdk: '>=3.5.0 <4.0.0'
 
+resolution: workspace  # 使用 workspace 统一管理依赖
+
 dependencies:
   flutter:
     sdk: flutter
@@ -13,46 +15,41 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  #基础框架
-  #boxes_flutter: ^0.4.3
-  boxes_flutter:
-    git:
-      url: https://gitee.com/sunlunchang/boxes-flutter.git
-
+  # 第三方依赖（版本由根 workspace 统一管理）
   #----------------- 版本不要轻易改动  加上是因为上述包也用了这个
   #状态管理
-  provider: ^6.1.2
+  provider:
   #路由
   # go_router: ^14.2.7
 
   # UI相关---------------------------------------
   #Toast
-  fluttertoast: ^8.2.8
+  fluttertoast:
   #地址：https://github.com/peng8350/flutter_pulltorefresh/blob/master/README_CN.md
-  easy_refresh: ^3.4.0
+  easy_refresh:
 
   #svg
   #地址：https://pub.flutter-io.cn/packages/flutter_svg
-  flutter_svg: ^2.0.10+1
+  flutter_svg:
 
-  logger: ^2.3.0  #for logging purpose
+  logger:  #for logging purpose
 
   # 存储---------------------------------------
-  shared_preferences: ^2.5.2
+  shared_preferences:
 
   # 其他---------------------------------------
   #权限处理
-  permission_handler: ^11.4.0
+  permission_handler:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^2.4.11
-  flutter_gen_runner: ^5.10.0
+  build_runner:
+  flutter_gen_runner:
 
   # 网络相关-------------------------------------
-  retrofit_generator: ^8.1.1
+  retrofit_generator:
   #json_serializable 生成新的命令 flutter pub run build_runner build
-  json_serializable: ^6.8.0
+  json_serializable:
   #路由
   # go_router_builder: ^2.7.1
 

@@ -6,57 +6,50 @@ environment:
   sdk: '>=3.5.0 <4.0.0'
 
 publish_to: none  # 添加这一行，否会使用本地宝会有警告提示
+resolution: workspace  # 使用 workspace 统一管理依赖
 
 dependencies:
   flutter:
     sdk: flutter
 
-  #基础框架
-  #boxes_flutter: ^0.4.3
-  boxes_flutter:
-    git:
-      url: https://gitee.com/sunlunchang/boxes-flutter.git
-
+  # 第三方依赖（版本由根 workspace 统一管理）
   # 网络相关-------------------------------------
-  json_annotation: ^4.9.0
-  retrofit: ^4.1.0
+  json_annotation:
+  retrofit:
   # 网络请求 用了retrofit无需使用以下方法
-  #dio: ^4.0.0
+  #dio:
   # RxJava
-  rxdart: ^0.28.0
+  rxdart:
   #加解密
-  encrypt: ^5.0.3
+  encrypt:
 
   # 文件相关---------------------------------------
   #图片选择
-  image_picker: ^1.1.2
+  image_picker:
   # 保存图片到相册 仅支持Android IOS 其他平台需要编写兼容性方案
-  image_gallery_saver_plus: ^4.0.1
+  image_gallery_saver_plus:
   # 文件选择
-  file_picker: ^10.2.0
+  file_picker:
   # 路径访问
-  path_provider: ^2.1.5
+  path_provider:
   # 打开文件
-  open_file: ^3.5.10
+  open_file:
   # url_launcher
-  url_launcher: ^6.3.0
+  url_launcher:
 
-  #快速开发库
+  # Workspace 内的本地包
   fast:
-    path: "../lib_module/fast"
-  #基础数据库组件
   db_base:
-    path: "../lib_module/db_base"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^2.4.11
-  flutter_gen_runner: ^5.10.0
+  build_runner:
+  flutter_gen_runner:
   # 网络相关-------------------------------------
-  retrofit_generator: ^8.1.1
+  retrofit_generator:
   #json_serializable 生成新的命令 flutter pub run build_runner build
-  json_serializable: ^6.8.0
+  json_serializable:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

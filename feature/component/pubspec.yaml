@@ -5,50 +5,44 @@ version: 0.0.1
 environment:
   sdk: '>=3.5.0 <4.0.0'
 
+resolution: workspace  # 使用 workspace 统一管理依赖
+
 dependencies:
   flutter:
     sdk: flutter
 
-  #基础框架
-  #boxes_flutter: ^0.4.3
-  boxes_flutter:
-    git:
-      url: https://gitee.com/sunlunchang/boxes-flutter.git
-
+  # 第三方依赖（版本由根 workspace 统一管理）
   # 文件相关---------------------------------------
   # 图片裁剪
-  crop_your_image: ^1.1.0
+  crop_your_image:
 
   # 特殊的UI组件---------------------------------------
   #WebView
-  webview_flutter: ^4.10.0
+  webview_flutter:
 
   # 其他---------------------------------------
   #设备信息 会影响编译和冲突，暂不加入
   # device_info_plus: ^11.3.3
   #UUID
-  uuid: ^4.4.0
+  uuid:
   #解决键盘被遮挡
-  keyboard_avoider: ^0.2.0
+  keyboard_avoider:
   #包信息
-  package_info_plus: ^8.3.0
+  package_info_plus:
 
-  #表单拓展
+  # Workspace 内的本地包
   form_extra:
-    path: "../../lib_module/form_extra"
-  #基础组件
   base:
-    path: "../../base"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^2.4.11
-  flutter_gen_runner: ^5.10.0
+  build_runner:
+  flutter_gen_runner:
   # 网络相关-------------------------------------
-  retrofit_generator: ^8.1.1
+  retrofit_generator:
   #json_serializable 生成新的命令 flutter pub run build_runner build
-  json_serializable: ^6.8.0
+  json_serializable:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
