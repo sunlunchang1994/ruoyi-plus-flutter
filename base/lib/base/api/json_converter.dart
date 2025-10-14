@@ -53,12 +53,12 @@ class DateConverter implements JsonConverter<DateTime, String> {
 
   @override
   DateTime fromJson(String json) {
-    return DateFormat(DateFormats.y_mo_d).parse(json);
+    return DateFormat(DateFormats.yMoD).parse(json);
   }
 
   @override
   String toJson(DateTime object) {
-    return DateFormat(DateFormats.y_mo_d).format(object);
+    return DateFormat(DateFormats.yMoD).format(object);
   }
 }
 
@@ -167,7 +167,7 @@ class Split2IntListConverter implements JsonConverter<List<int>?, dynamic> {
       return json;
     }
     String jsonStr = json;
-    List<int>? result = TextUtil.split(jsonStr, TextUtil.COMMA)
+    List<int>? result = TextUtil.split(jsonStr, TextUtil.comma)
         .map((e) => SlcNumUtil.getIntByValueStr(e.trim()))
         .nonNulls
         .toList();

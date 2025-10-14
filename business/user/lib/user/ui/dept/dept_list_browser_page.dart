@@ -80,7 +80,7 @@ class DeptListBrowserPage extends AppBaseStatelessWidget<_DeptListBrowserVm> {
                                         return FastDialogUtils.showDelConfirmDialog(context,
                                             contentText: TextUtil.format(
                                                 S.current.user_label_dept_del_prompt,
-                                                [nameList.join(TextUtil.COMMA)]));
+                                                [nameList.join(TextUtil.comma)]));
                                       });
                                     }, onSelectAll: () {
                                       getVm().listVmSub.onSelectAll(true);

@@ -110,7 +110,7 @@ class MenuRepository {
     assert(menuId != null && menuIds == null || menuId == null && menuIds != null);
     menuIds ??= [menuId!];
     return _menuApi
-        .delete(menuIds.join(TextUtil.COMMA), cancelToken)
+        .delete(menuIds.join(TextUtil.comma), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
     });

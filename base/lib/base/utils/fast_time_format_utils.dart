@@ -17,7 +17,7 @@ class FastTimeFormatUtils {
     if (TextUtil.isEmpty(date)) {
       return "";
     }
-    return toTargetFormat(date, DateFormats.y_mo, DateFormats.zh_y_mo);
+    return toTargetFormat(date, DateFormats.yMo, DateFormats.zhYMo);
   }
 
   ///
@@ -30,7 +30,7 @@ class FastTimeFormatUtils {
     if (TextUtil.isEmpty(date)) {
       return "";
     }
-    return toTargetFormat(date, DateFormats.y_mo_d, DateFormats.zh_y_mo_d);
+    return toTargetFormat(date, DateFormats.yMoD, DateFormats.zhYMoD);
   }
 
   ///
@@ -43,7 +43,7 @@ class FastTimeFormatUtils {
     if (TextUtil.isEmpty(date)) {
       return "";
     }
-    return toTargetFormat(date, DateFormats.y_mo_d_h_m, DateFormats.zh_y_mo_d_h_m_en_time);
+    return toTargetFormat(date, DateFormats.yMoDHM, DateFormats.zhYMoDHMEnTime);
   }
 
   ///
@@ -56,7 +56,7 @@ class FastTimeFormatUtils {
     if (TextUtil.isEmpty(date)) {
       return "";
     }
-    return toTargetFormat(date, DateFormats.full, DateFormats.zh_full_en_time);
+    return toTargetFormat(date, DateFormats.full, DateFormats.zhFullEnTime);
   }
 
   ///

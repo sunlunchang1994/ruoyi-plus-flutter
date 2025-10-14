@@ -74,7 +74,7 @@ class SysClientListBrowserPage extends AppBaseStatelessWidget<_SysClientListBrow
                                           return FastDialogUtils.showDelConfirmDialog(context,
                                               contentText: TextUtil.format(
                                                   S.current.sys_label_sys_client_del_prompt,
-                                                  [nameList.join(TextUtil.COMMA)]));
+                                                  [nameList.join(TextUtil.comma)]));
                                         });
                                       }, onSelectAll: () {
                                         getVm().listVmSub.onSelectAll(true);

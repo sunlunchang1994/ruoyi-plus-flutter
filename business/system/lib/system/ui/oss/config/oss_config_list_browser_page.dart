@@ -72,7 +72,7 @@ class OssConfigListBrowserPage extends AppBaseStatelessWidget<_OssConfigListBrow
                                           return FastDialogUtils.showDelConfirmDialog(context,
                                               contentText: TextUtil.format(
                                                   S.current.sys_label_oss_config_del_prompt,
-                                                  [nameList.join(TextUtil.COMMA)]));
+                                                  [nameList.join(TextUtil.comma)]));
                                         });
                                       }, onSelectAll: () {
                                         getVm().listVmSub.onSelectAll(true);

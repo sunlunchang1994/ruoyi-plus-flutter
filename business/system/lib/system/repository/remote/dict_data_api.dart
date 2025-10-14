@@ -87,7 +87,7 @@ class DictDataRepository {
     assert(dictDataId != null && dictDataIds == null || dictDataId == null && dictDataIds != null);
     dictDataIds ??= [dictDataId!];
     return _dictDataApi
-        .delete(dictDataIds.join(TextUtil.COMMA), cancelToken)
+        .delete(dictDataIds.join(TextUtil.comma), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
     });

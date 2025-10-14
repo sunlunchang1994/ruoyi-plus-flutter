@@ -12,7 +12,7 @@ class AnalyseRepository {
     DateTime now = DateTime.now();
     for (int i = 0; i < regressDay; i++) {
       DateTime dateTime = now.subtract(Duration(days: i));
-      WeekOnline weekOnline = WeekOnline(DateUtil.formatDate(dateTime, format: DateFormats.mo_d),
+      WeekOnline weekOnline = WeekOnline(DateUtil.formatDate(dateTime, format: DateFormats.moD),
           RandomUtil.randomIntRange(1000, 10000));
       entityList.add(weekOnline);
     }

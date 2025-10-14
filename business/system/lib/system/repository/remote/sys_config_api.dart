@@ -86,7 +86,7 @@ class SysConfigRepository {
     assert(configId != null && configIds == null || configId == null && configIds != null);
     configIds ??= [configId!];
     return _sysConfigApi
-        .delete(configIds.join(TextUtil.COMMA), cancelToken)
+        .delete(configIds.join(TextUtil.comma), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
     });

@@ -74,7 +74,7 @@ class PostListBrowserPage extends AppBaseStatelessWidget<_PostListBrowserVm> {
                                           return FastDialogUtils.showDelConfirmDialog(context,
                                               contentText: TextUtil.format(
                                                   S.current.user_label_post_del_prompt,
-                                                  [nameList.join(TextUtil.COMMA)]));
+                                                  [nameList.join(TextUtil.comma)]));
                                         });
                                       }, onSelectAll: () {
                                         getVm().listVmSub.onSelectAll(true);

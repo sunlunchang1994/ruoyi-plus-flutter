@@ -72,7 +72,7 @@ class TenantPackageBrowserPage extends AppBaseStatelessWidget<_TenantPackageBrow
                                           return FastDialogUtils.showDelConfirmDialog(context,
                                               contentText: TextUtil.format(
                                                   S.current.sys_label_sys_tenant_package_del_prompt,
-                                                  [nameList.join(TextUtil.COMMA)]));
+                                                  [nameList.join(TextUtil.comma)]));
                                         });
                                       }, onSelectAll: () {
                                         getVm().listVmSub.onSelectAll(true);

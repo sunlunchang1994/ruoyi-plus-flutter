@@ -94,7 +94,7 @@ class RoleRepository {
     assert(roleId != null && roleIds == null || roleId == null && roleIds != null);
     roleIds ??= [roleId!];
     return _roleApi
-        .delete(roleIds.join(TextUtil.COMMA), cancelToken)
+        .delete(roleIds.join(TextUtil.comma), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
     });

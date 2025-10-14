@@ -104,7 +104,7 @@ class DeptRepository {
     //参数校验
     assert(deptId != null && deptIds == null || deptId == null && deptIds != null);
     deptIds ??= [deptId!];
-    return _deptApi.delete(deptIds.join(TextUtil.COMMA), cancelToken).successMap2Single((event) {
+    return _deptApi.delete(deptIds.join(TextUtil.comma), cancelToken).successMap2Single((event) {
       return event.toIntensify();
     });
   }

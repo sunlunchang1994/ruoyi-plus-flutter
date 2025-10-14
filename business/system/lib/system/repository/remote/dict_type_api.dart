@@ -86,7 +86,7 @@ class DictTypeRepository {
     assert(dictTypeId != null && dictTypeIds == null || dictTypeId == null && dictTypeIds != null);
     dictTypeIds ??= [dictTypeId!];
     return _dictTypeApi
-        .delete(dictTypeIds.join(TextUtil.COMMA), cancelToken)
+        .delete(dictTypeIds.join(TextUtil.comma), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
     });

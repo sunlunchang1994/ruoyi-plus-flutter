@@ -53,7 +53,7 @@ class MenuGrid extends AppBaseStatelessWidget<_MenuGridVm> {
         return;
       }
       //只有一个时显示子节点
-      if (action.path == TextUtil.SLASH && action.children?.length == 1) {
+      if (action.path == TextUtil.slash && action.children?.length == 1) {
         action = action.children![0];
       }
       menuList.add(MenuItemView(action, onTap: () {

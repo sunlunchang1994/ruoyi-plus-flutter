@@ -156,7 +156,7 @@ class UserServiceRepository {
     assert(userId != null && userIds == null || userId == null && userIds != null);
     userIds ??= [userId!];
     return _userApiClient
-        .delete(userIds.join(TextUtil.COMMA), cancelToken)
+        .delete(userIds.join(TextUtil.comma), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
     });

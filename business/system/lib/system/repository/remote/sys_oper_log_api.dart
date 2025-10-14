@@ -69,7 +69,7 @@ class SysOperLogRepository {
     //参数校验
     assert(id != null && ids == null || id == null && ids != null);
     ids ??= [id!];
-    return _sysOperLogApi.delete(ids.join(TextUtil.COMMA), cancelToken).successMap2Single((event) {
+    return _sysOperLogApi.delete(ids.join(TextUtil.comma), cancelToken).successMap2Single((event) {
       return event.toIntensify();
     });
   }

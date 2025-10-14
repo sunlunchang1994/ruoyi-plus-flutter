@@ -86,7 +86,7 @@ class PostRepository {
     assert(postId != null && postIds == null || postId == null && postIds != null);
     postIds ??= [postId!];
     return _postApi
-        .delete(postIds.join(TextUtil.COMMA), cancelToken)
+        .delete(postIds.join(TextUtil.comma), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
     });

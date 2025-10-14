@@ -362,7 +362,7 @@ class _SysClientAddEditVm extends AppBaseVm with CancelTokenAssist {
   void setSelectGrantType(List<ITreeDict<dynamic>> dictList) {
     sysClient!.grantType = dictList.map((item) {
       return item.tdDictValue;
-    }).join(TextUtil.COMMA);
+    }).join(TextUtil.comma);
     formOperate.patchField("grantType", sysClient!.grantTypeList);
     applyInfoChange();
   }
@@ -380,7 +380,7 @@ class _SysClientAddEditVm extends AppBaseVm with CancelTokenAssist {
   void setSelectDeviceType(List<ITreeDict<dynamic>> dictList) {
     sysClient!.deviceType = dictList.map((item) {
       return item.tdDictValue;
-    }).join(TextUtil.COMMA);
+    }).join(TextUtil.comma);
     formOperate.patchField("deviceType", sysClient!.deviceTypeList);
     applyInfoChange();
   }

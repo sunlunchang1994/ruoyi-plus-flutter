@@ -75,7 +75,7 @@ class UserListBrowserPage extends AppBaseStatelessWidget<_UserListBrowserVm> {
                                       return FastDialogUtils.showDelConfirmDialog(context,
                                           contentText: TextUtil.format(
                                               S.current.user_label_data_del_prompt,
-                                              [nameList.join(TextUtil.COMMA)]));
+                                              [nameList.join(TextUtil.comma)]));
                                     });
                                   }, onSelectAll: () {
                                     getVm().listVmSub.onSelectAll(true);

@@ -49,15 +49,15 @@ class SysClient extends TenantEntity with AppSelectBoxMixin<SysClient> {
   ///授权类型
   ///
   @JsonKey(includeFromJson: false, includeToJson: true)
-  List<String>? get grantTypeList => TextUtil.split(grantType, TextUtil.COMMA);
+  List<String>? get grantTypeList => TextUtil.split(grantType, TextUtil.comma);
 
-  set grantTypeList(List<String>? value) => grantType = value?.join(TextUtil.COMMA);
+  set grantTypeList(List<String>? value) => grantType = value?.join(TextUtil.comma);
 
   ///授权类型
   @JsonKey(includeFromJson: false, includeToJson: true)
-  List<String>? get deviceTypeList => TextUtil.split(deviceType, TextUtil.COMMA);
+  List<String>? get deviceTypeList => TextUtil.split(deviceType, TextUtil.comma);
 
-  set deviceTypeList(List<String>? value) => deviceType = value?.join(TextUtil.COMMA);
+  set deviceTypeList(List<String>? value) => deviceType = value?.join(TextUtil.comma);
 
   SysClient(
       {this.id,

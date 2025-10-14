@@ -52,7 +52,7 @@ class SysOssRepository {
     assert(id != null && ids == null || id == null && ids != null);
     ids ??= [id!];
     return _sysOssApi
-        .delete(ids.join(TextUtil.COMMA), cancelToken)
+        .delete(ids.join(TextUtil.comma), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
     });
