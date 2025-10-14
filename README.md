@@ -2,10 +2,6 @@
 
 本项目使用Flutter v3.27.4开发，后续持续跟进官方最新版本
 
-`支持Android、IOS、Windows、Linux、MacOS、Web全平台`
-
-`UI界面暂时只有移动端样式`
-
 ## 💡 简介
 
 **RuoYi-Flutter-Plus** 是一个基于 **Flutter 3.27.4** 开发的**企业级全平台应用框架**，完美对接 [RuoYi-Vue-Plus](https://gitee.com/dromara/RuoYi-Vue-Plus) 后端系统。项目采用**现代化 Workspace 架构**，实现模块化开发、依赖统一管理，为企业应用开发提供开箱即用的解决方案。
