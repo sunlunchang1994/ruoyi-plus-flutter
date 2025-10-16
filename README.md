@@ -124,10 +124,12 @@ scripts\pub_get_all.bat
 
 ```bash
 # 生成国际化文件
-./scripts/gen_l10n_all.sh
+./scripts/gen_l10n_all.sh        # macOS/Linux
+scripts\gen_l10n_all.bat         # Windows
 
 # 生成代码（API、实体等）
-./scripts/build_runner_all.sh
+./scripts/build_runner_all.sh    # macOS/Linux
+scripts\build_runner_all.bat     # Windows
 
 # 运行应用
 flutter run

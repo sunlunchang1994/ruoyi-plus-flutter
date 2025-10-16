@@ -2,14 +2,17 @@
 
 ## 💻 跨平台支持
 
-本脚本支持所有主流操作系统：
-- ✅ **macOS** - 使用 `.sh` 脚本
-- ✅ **Linux** - 使用 `.sh` 脚本  
+本项目提供了跨平台的批量执行脚本，支持：
+- ✅ **macOS / Linux** - 使用 `.sh` 脚本
 - ✅ **Windows** - 使用 `.bat` 脚本
 
-## 🎯 快速开始
+**自动选择**：根据你的操作系统使用对应的脚本即可！
 
-### macOS / Linux
+## 🚀 快速开始
+
+### 基本用法
+
+#### macOS / Linux
 
 ```bash
 # 基本用法
@@ -21,7 +24,7 @@
 ./scripts/build_runner_all.sh
 ```
 
-### Windows
+#### Windows
 
 ```cmd
 REM 基本用法
@@ -43,23 +46,10 @@ scripts\build_runner_all.bat
 - 支持任意 Flutter/Dart 命令
 - 彩色输出（Bash版本），清晰的状态提示
 
-**用法：**
+### 快捷脚本（推荐）
 
-macOS/Linux:
-```bash
-./scripts/run_all.sh "flutter pub get"
-./scripts/run_all.sh "flutter analyze"
-./scripts/run_all.sh "dart format ."
-```
-
-Windows:
-```cmd
-scripts\run_all.bat "flutter pub get"
-scripts\run_all.bat "flutter analyze"
-scripts\run_all.bat "dart format ."
-```
-
-### 快捷脚本
+这些脚本会**自动**读取 `pubspec.yaml` 中的 workspace 配置，对所有模块（包括根目录）执行命令。
+**新增模块无需修改脚本**，自动生效！
 
 **`pub_get_all`** - 批量执行 `flutter pub get`
 
@@ -80,6 +70,32 @@ Windows: `scripts\build_runner_all.bat`
 
 macOS/Linux: `./scripts/clean_all.sh`  
 Windows: `scripts\clean_all.bat`
+
+### 通用命令
+
+#### macOS / Linux
+
+```bash
+# 自定义命令（适用于任何 Flutter/Dart 命令）
+./scripts/run_all.sh "你的命令"
+
+# 示例：
+./scripts/run_all.sh "flutter analyze"
+./scripts/run_all.sh "flutter test"
+./scripts/run_all.sh "dart format ."
+```
+
+#### Windows
+
+```cmd
+REM 自定义命令（适用于任何 Flutter/Dart 命令）
+scripts\run_all.bat "你的命令"
+
+REM 示例：
+scripts\run_all.bat "flutter analyze"
+scripts\run_all.bat "flutter test"
+scripts\run_all.bat "dart format ."
+```
 
 ## 🌟 特性
 
@@ -141,11 +157,14 @@ workspace:
     └── biz_main
 ```
 
+**添加新模块时**：只需在根 `pubspec.yaml` 的 `workspace:` 中添加路径即可！
+
 ## 💡 常见场景
 
 ### 完整构建流程
 
-**macOS/Linux:**
+#### macOS/Linux
+
 ```bash
 # 1. 清理
 ./scripts/clean_all.sh
@@ -163,7 +182,8 @@ workspace:
 ./scripts/clean_all.sh && ./scripts/pub_get_all.sh && ./scripts/gen_l10n_all.sh && ./scripts/build_runner_all.sh
 ```
 
-**Windows:**
+#### Windows
+
 ```cmd
 REM 1. 清理
 scripts\clean_all.bat
@@ -183,7 +203,8 @@ scripts\clean_all.bat && scripts\pub_get_all.bat && scripts\gen_l10n_all.bat && 
 
 ### 代码质量检查
 
-**macOS/Linux:**
+#### macOS/Linux
+
 ```bash
 # 分析所有模块
 ./scripts/run_all.sh "flutter analyze"
@@ -195,7 +216,8 @@ scripts\clean_all.bat && scripts\pub_get_all.bat && scripts\gen_l10n_all.bat && 
 ./scripts/run_all.sh "flutter test"
 ```
 
-**Windows:**
+#### Windows
+
 ```cmd
 REM 分析所有模块
 scripts\run_all.bat "flutter analyze"
@@ -209,7 +231,8 @@ scripts\run_all.bat "flutter test"
 
 ### 依赖管理
 
-**macOS/Linux:**
+#### macOS/Linux
+
 ```bash
 # 检查过时的依赖
 ./scripts/run_all.sh "flutter pub outdated"
@@ -218,7 +241,8 @@ scripts\run_all.bat "flutter test"
 ./scripts/run_all.sh "flutter pub upgrade"
 ```
 
-**Windows:**
+#### Windows
+
 ```cmd
 REM 检查过时的依赖
 scripts\run_all.bat "flutter pub outdated"
@@ -227,11 +251,27 @@ REM 升级依赖
 scripts\run_all.bat "flutter pub upgrade"
 ```
 
+## 📝 单模块命令
+
+如果只想对某个模块执行命令：
+
+```bash
+# 根目录
+flutter pub get
+flutter gen-l10n
+dart run build_runner build
+
+# 指定模块
+cd base && flutter pub get
+cd lib_module/fast && flutter gen-l10n
+cd business/user && dart run build_runner build
+```
+
 ## 🔧 自定义
 
 ### 创建新的快捷脚本
 
-**macOS/Linux:**
+#### macOS/Linux
 
 1. 复制模板：
 ```bash
@@ -250,7 +290,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 chmod +x scripts/my_command.sh
 ```
 
-**Windows:**
+#### Windows
 
 1. 复制模板：
 ```cmd
@@ -263,17 +303,77 @@ copy scripts\pub_get_all.bat scripts\my_command.bat
 "%~dp0run_all.bat" "你的命令"
 ```
 
-### 执行多个命令
+### 高级用法
+
+#### 组合命令
+
+**macOS / Linux:**
+```bash
+# 清理后重新获取依赖
+./scripts/clean_all.sh && ./scripts/pub_get_all.sh
+
+# 完整的代码生成流程
+./scripts/pub_get_all.sh && ./scripts/gen_l10n_all.sh && ./scripts/build_runner_all.sh
+```
+
+**Windows:**
+```cmd
+REM 清理后重新获取依赖
+scripts\clean_all.bat && scripts\pub_get_all.bat
+
+REM 完整的代码生成流程
+scripts\pub_get_all.bat && scripts\gen_l10n_all.bat && scripts\build_runner_all.bat
+```
+
+#### 条件执行
+
+```bash
+# 只对有 l10n.yaml 的模块执行
+./scripts/run_all.sh "[ -f l10n.yaml ] && flutter gen-l10n || echo 'Skip: no l10n.yaml'"
+```
+
+#### 执行多个命令
 
 ```bash
 ./scripts/run_all.sh "flutter pub get && flutter gen-l10n"
 ```
 
-### 条件执行
+#### 调试模式
 
 ```bash
-# 只在有 l10n.yaml 的模块执行
-./scripts/run_all.sh "[ -f l10n.yaml ] && flutter gen-l10n || true"
+# 添加 -x 查看详细执行过程
+bash -x ./scripts/run_all.sh "flutter pub get"
+```
+
+## 🛠️ 工作原理
+
+`run_all.sh` 脚本会：
+1. 自动从根 `pubspec.yaml` 读取 `workspace:` 配置
+2. 提取所有模块路径
+3. 依次进入每个模块目录执行命令
+4. 显示执行结果和统计信息
+
+**优势：**
+- ✅ 自动发现模块，新增模块无需修改脚本
+- ✅ 彩色输出，清晰显示执行状态
+- ✅ 错误处理，失败时显示详细信息
+- ✅ 执行统计，显示成功/失败/跳过数量
+
+## 🔧 脚本目录结构
+
+```
+scripts/
+├── run_all.sh           # 核心脚本 (macOS/Linux)
+├── run_all.bat          # 核心脚本 (Windows)
+├── pub_get_all.sh       # 快捷方式：pub get (macOS/Linux)
+├── pub_get_all.bat      # 快捷方式：pub get (Windows)
+├── gen_l10n_all.sh      # 快捷方式：gen-l10n (macOS/Linux)
+├── gen_l10n_all.bat     # 快捷方式：gen-l10n (Windows)
+├── build_runner_all.sh  # 快捷方式：build_runner (macOS/Linux)
+├── build_runner_all.bat # 快捷方式：build_runner (Windows)
+├── clean_all.sh         # 快捷方式：clean (macOS/Linux)
+├── clean_all.bat        # 快捷方式：clean (Windows)
+└── README.md            # 详细说明文档
 ```
 
 ## 🐛 故障排除
@@ -285,12 +385,12 @@ chmod +x scripts/*.sh
 
 ### 查看详细执行过程
 
-**macOS/Linux:**
+#### macOS/Linux
 ```bash
 bash -x scripts/run_all.sh "flutter pub get"
 ```
 
-**Windows:**
+#### Windows
 ```cmd
 REM 在脚本第二行添加 @echo on 可以看到详细执行过程
 ```
@@ -311,24 +411,20 @@ cd base && flutter pub get
 3. **失败不中断**：某个模块失败不会影响其他模块
 4. **相对路径**：脚本使用相对路径，可以重命名项目目录
 
-## 🎓 工作原理
+## ❓ 常见问题
 
-```
-run_all.sh 脚本流程:
-1. 解析 pubspec.yaml 的 workspace 配置
-2. 提取所有模块路径
-3. 首先在根目录执行命令
-4. 依次进入每个模块目录
-5. 执行指定命令
-6. 收集执行结果
-7. 显示统计摘要
-```
+**Q: 为什么要用这些脚本？**  
+A: 在 Workspace 模式下，根目录执行命令**不会自动**递归到子模块，需要手动对每个模块执行。
+
+**Q: 新增模块后需要修改脚本吗？**  
+A: **不需要**！脚本会自动从 `pubspec.yaml` 读取 workspace 配置。
+
+**Q: 如果某个模块执行失败怎么办？**  
+A: 脚本会继续执行其他模块，最后显示失败统计。可以根据红色错误信息定位问题。
+
+**Q: 能否跳过某些模块？**  
+A: 可以！修改对应模块的 `pubspec.yaml`，临时移除需要的命令配置（如删除 `l10n.yaml`），脚本会自动跳过。
 
 ## 🤝 贡献
 
 如果您创建了有用的脚本，欢迎添加到 `scripts/` 目录！
-
----
-
-**提示**：更多使用示例请参考项目根目录的 `CMD.md` 文件。
-
