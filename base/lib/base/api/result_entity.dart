@@ -32,7 +32,7 @@ abstract class IResultEntity {
       bool createNull = false}) {
     return IntensifyEntity(
         resultEntity: this,
-        createSucceed: succeedEntity ? () => ResultEntity.createSucceedEntity() : null,
+        createSucceed: succeedEntity ? () => ResultEntity.createSucceedEntity() : createSucceed,
         data: data,
         createData: createData != null ? (resultEntity) => createData.call(resultEntity) : null,
         createNull: createNull);

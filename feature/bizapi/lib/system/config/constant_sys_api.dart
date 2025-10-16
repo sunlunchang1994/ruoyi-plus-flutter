@@ -15,7 +15,11 @@ class ConstantSysApi {
   //路由
   static const String ROUTER_SETTING = '/setting/index';
 
+  //路由字页面
+  static const String ROUTER_CHILD_PAGE = '/router_page';
+
   //设置-菜单-角色树选择多选
   static const String ROUTER_SETTING_MENU_ROLE_TREE_MULTIPLE_SELECT =
       '/system/menu/role_tree_multiple_select';
+
 }

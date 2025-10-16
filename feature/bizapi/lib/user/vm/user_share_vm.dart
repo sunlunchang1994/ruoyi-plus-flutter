@@ -2,6 +2,7 @@ import 'package:base/base/api/api_config.dart';
 import 'package:base/base/route/base_router.dart';
 import 'package:bizapi/auth/entity/login_result.dart';
 import 'package:bizapi/system/entity/router_vo.dart';
+import 'package:boxes_flutter/flutter/slc/common/object_util.dart';
 import 'package:boxes_flutter/flutter/slc/mvvm/base_mvvm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:boxes_flutter/flutter/slc/code/observable_field.dart';
@@ -71,5 +72,21 @@ class UserShareVm extends AbsoluteChangeNotifier {
     if (hasPermiEvery(permis)) {
       buildWidget.call();
     }
+  }
+
+  bool hasRouter(List<RouterVo>? routers, String path) {
+    return findRouterVo(routers, path) != null;
+  }
+
+  RouterVo? findRouterVo(List<RouterVo>? routers, String path) {
+    if (ObjectUtil.isEmpty(routers)) {
+      return null;
+    }
+    for (RouterVo router in routers!) {
+      if (router.path == path) {
+        return router;
+      }
+    }
+    return null;
   }
 }

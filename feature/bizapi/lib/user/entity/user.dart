@@ -35,6 +35,7 @@ class User extends TenantEntity with AppSelectBoxMixin<User> {
   List<int>? roleIds;
   @IntListConverter()
   List<int>? postIds;
+  @IntConverter()
   int? roleId;
 
   //本地
