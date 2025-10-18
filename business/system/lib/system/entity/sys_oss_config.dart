@@ -11,8 +11,8 @@ part 'sys_oss_config.g.dart';
 @JsonSerializable()
 class SysOssConfig extends TenantEntity with AppSelectBoxMixin<SysOssConfig> {
   ///主键
-  @IntConverter()
-  int? ossConfigId;
+  @BigIntConverter()
+  BigInt? ossConfigId;
 
   ///配置key
   String? configKey;

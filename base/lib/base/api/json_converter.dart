@@ -179,3 +179,89 @@ class Split2IntListConverter implements JsonConverter<List<int>?, dynamic> {
     return object;
   }
 }
+
+///BigInt（大整数）
+///@BigIntConverter()
+class BigIntConverter implements JsonConverter<BigInt?, dynamic> {
+  const BigIntConverter();
+
+  @override
+  BigInt? fromJson(dynamic json) {
+    if (json == null) {
+      return null;
+    }
+    if (json is BigInt) {
+      return json;
+    }
+    if (json is int) {
+      return BigInt.from(json);
+    }
+    if (json is String) {
+      return BigInt.tryParse(json);
+    }
+    return BigInt.tryParse(json.toString());
+  }
+
+  @override
+  String? toJson(BigInt? object) {
+    return object?.toString();
+  }
+}
+
+///BigInt列表
+///@BigIntListConverter()
+class BigIntListConverter implements JsonConverter<List<BigInt>?, dynamic> {
+  const BigIntListConverter();
+
+  @override
+  List<BigInt>? fromJson(dynamic json) {
+    if (json == null) {
+      return null;
+    }
+    BigIntConverter bigIntConverter = BigIntConverter();
+    if (json is List) {
+      return json.map((itemData) {
+        return bigIntConverter.fromJson(itemData)!;
+      }).toList();
+    }
+    List<String> jsonStrList = json;
+    return jsonStrList.map((itemData) {
+      return BigInt.parse(itemData);
+    }).toList();
+  }
+
+  @override
+  List<String>? toJson(List<BigInt>? object) {
+    return object?.map((e) => e.toString()).toList();
+  }
+}
+
+///分割字符串转BigInt列表
+///@Split2BigIntListConverter()
+class Split2BigIntListConverter implements JsonConverter<List<BigInt>?, dynamic> {
+  const Split2BigIntListConverter();
+
+  @override
+  List<BigInt>? fromJson(dynamic json) {
+    if (json == null) {
+      return null;
+    }
+    if (json is List<BigInt>) {
+      return json;
+    }
+    String jsonStr = json.toString();
+    List<BigInt>? result = TextUtil.split(jsonStr, TextUtil.comma)
+        .map((e) {
+          String trimmed = e.trim();
+          return BigInt.tryParse(trimmed);
+        })
+        .nonNulls
+        .toList();
+    return result;
+  }
+
+  @override
+  String? toJson(List<BigInt>? object) {
+    return object?.map((e) => e.toString()).join(TextUtil.comma);
+  }
+}

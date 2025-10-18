@@ -25,7 +25,7 @@ class UserListSelectByDeptPage extends AppBaseStatelessWidget<_UserListSingleSel
   static const String routeName = '/system/user/select_by_dept';
 
   final String title;
-  final int deptId;
+  final BigInt deptId;
 
   UserListSelectByDeptPage(this.title, this.deptId, {super.key});
 
@@ -60,7 +60,7 @@ class _UserListSingleSelectVm extends AppBaseVm {
     });
   }
 
-  void initVm(int deptId) {
+  void initVm(BigInt deptId) {
     listVmSub.deptId = deptId;
     registerVmSub(listVmSub);
   }
@@ -70,7 +70,7 @@ class _UserListSingleSelectVm extends AppBaseVm {
 class _UserListDataVmSub extends FastBaseListDataVmSub<User> with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
-  late int deptId;
+  late BigInt deptId;
 
   _UserListDataVmSub() {
     setRefresh(() async {

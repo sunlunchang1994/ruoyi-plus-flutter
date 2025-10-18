@@ -27,7 +27,7 @@ abstract class SysOssConfigApi {
 
   ///获取信息
   @GET("/resource/oss/config/{ossConfigId}")
-  Future<ResultEntity> getInfo(@Path() int? ossConfigId, @CancelRequest() CancelToken cancelToken);
+  Future<ResultEntity> getInfo(@Path() String? ossConfigId, @CancelRequest() CancelToken cancelToken);
 
   ///改变状态
   @PUT("/resource/oss/config/changeStatus")
@@ -65,8 +65,8 @@ class SysOssConfigRepository {
 
   ///配置列表
   static Future<IntensifyEntity<SysOssConfig>> getInfo(
-      int ossConfigId, CancelToken cancelToken) async {
-    return _sysOssConfig.getInfo(ossConfigId, cancelToken).successMap2Single((event) {
+      BigInt ossConfigId, CancelToken cancelToken) async {
+    return _sysOssConfig.getInfo(ossConfigId.toString(), cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return SysOssConfig.fromJson(resultEntity.data);
       });
@@ -94,12 +94,12 @@ class SysOssConfigRepository {
 
   ///删除OSS配置
   static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
-      {int? id, List<int>? ids}) {
+      {BigInt? id, List<BigInt>? ids}) {
     //参数校验
     assert(id != null && ids == null || id == null && ids != null);
     ids ??= [id!];
     return _sysOssConfig
-        .delete(ids.join(TextUtil.comma), cancelToken)
+        .delete(ids.map((e) => e.toString()).join(TextUtil.comma), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
     });

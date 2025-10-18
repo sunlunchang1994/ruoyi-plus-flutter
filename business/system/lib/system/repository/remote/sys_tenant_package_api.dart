@@ -31,7 +31,7 @@ abstract class SysTenantPackageApi {
 
   ///获取租户套餐信息
   @GET("/system/tenant/package/{packageId}")
-  Future<ResultEntity> getInfo(@Path() int? packageId, @CancelRequest() CancelToken cancelToken);
+  Future<ResultEntity> getInfo(@Path() String? packageId, @CancelRequest() CancelToken cancelToken);
 
   ///添加租户套餐
   @POST("/system/tenant/package")
@@ -77,8 +77,8 @@ class SysTenantPackageRepository {
 
   ///租户套餐信息
   static Future<IntensifyEntity<SysTenantPackage>> getInfo(
-      int packageId, CancelToken cancelToken) async {
-    return _sysTenantPackageApi.getInfo(packageId, cancelToken).successMap2Single((event) {
+      BigInt packageId, CancelToken cancelToken) async {
+    return _sysTenantPackageApi.getInfo(packageId.toString(), cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return SysTenantPackage.fromJson(resultEntity.data);
       });
@@ -99,12 +99,12 @@ class SysTenantPackageRepository {
 
   ///删除租户套餐
   static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
-      {int? id, List<int>? ids}) {
+      {BigInt? id, List<BigInt>? ids}) {
     //参数校验
     assert(id != null && ids == null || id == null && ids != null);
     ids ??= [id!];
     return _sysTenantPackageApi
-        .delete(ids.join(TextUtil.comma), cancelToken)
+        .delete(ids.map((e) => e.toString()).join(TextUtil.comma), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
     });

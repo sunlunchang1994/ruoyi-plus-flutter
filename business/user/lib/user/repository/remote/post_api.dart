@@ -27,7 +27,7 @@ abstract class PostApi {
   ///获取岗位信息
   @GET("/system/post/{postId}")
   Future<ResultEntity> getInfo(
-      @Path("postId") int postId, @CancelRequest() CancelToken cancelToken);
+      @Path("postId") String postId, @CancelRequest() CancelToken cancelToken);
 
   ///添加岗位
   @POST("/system/post")
@@ -61,8 +61,8 @@ class PostRepository {
   }
 
   ///获取岗位信息
-  static Future<IntensifyEntity<Post>> getInfo(int postId, CancelToken cancelToken) {
-    return _postApi.getInfo(postId, cancelToken).successMap2Single((event) {
+  static Future<IntensifyEntity<Post>> getInfo(BigInt postId, CancelToken cancelToken) {
+    return _postApi.getInfo(postId.toString(), cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return Post.fromJson(resultEntity.data);
       });
@@ -81,12 +81,12 @@ class PostRepository {
 
   //删除岗位
   static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
-      {int? postId, List<int>? postIds}) {
+      {BigInt? postId, List<BigInt>? postIds}) {
     //参数校验
     assert(postId != null && postIds == null || postId == null && postIds != null);
     postIds ??= [postId!];
     return _postApi
-        .delete(postIds.join(TextUtil.comma), cancelToken)
+        .delete(postIds.map((e) => e.toString()).join(TextUtil.comma), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
     });

@@ -161,7 +161,7 @@ class _UserListBrowserVm extends AppBaseVm {
   }
 
   //删除事件
-  void onDelete({Future<bool?> Function(List<String>)? confirmHandler, List<int>? idList}) {
+  void onDelete({Future<bool?> Function(List<String>)? confirmHandler, List<BigInt>? idList}) {
     if (idList == null) {
       List<User> selectList = SelectUtils.getSelect(listVmSub.dataList) ?? [];
       //移除超级管理员
@@ -173,7 +173,7 @@ class _UserListBrowserVm extends AppBaseVm {
         return;
       }
       List<String> nickList = selectList.map<String>((item) => item.nickName!).toList();
-      List<int> userList = selectList.map<int>((item) => item.userId!).toList();
+      List<BigInt> userList = selectList.map<BigInt>((item) => item.userId!).toList();
       confirmHandler?.call(nickList).then((value) {
         if (value == true) {
           onDelete(idList: userList);

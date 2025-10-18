@@ -114,7 +114,7 @@ class _SysLogininforListBrowserVm extends AppBaseVm {
   }
 
   //删除事件
-  void onDelete({Future<bool?> Function(List<String>)? confirmHandler, List<int>? idList}) {
+  void onDelete({Future<bool?> Function(List<String>)? confirmHandler, List<BigInt>? idList}) {
     if (idList == null) {
       List<SysLogininfor> selectList = SelectUtils.getSelect(listVmSub.dataList) ?? [];
       if (selectList.isEmpty) {
@@ -122,7 +122,7 @@ class _SysLogininforListBrowserVm extends AppBaseVm {
         return;
       }
       List<String> nameList = selectList.map<String>((item) => item.infoId!.toString()).toList();
-      List<int> idList = selectList.map<int>((item) => item.infoId!).toList();
+      List<BigInt> idList = selectList.map<BigInt>((item) => item.infoId!).toList();
       confirmHandler?.call(nameList).then((value) {
         if (value == true) {
           onDelete(idList: idList);

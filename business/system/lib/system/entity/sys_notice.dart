@@ -10,11 +10,10 @@ part 'sys_notice.g.dart';
 ///通知公告实体类
 @JsonSerializable()
 class SysNotice extends TenantEntity with AppSelectBoxMixin<SysNotice> {
-  //菜单ID
-  @IntConverter()
 
   ///公告ID
-  int? noticeId;
+  @BigIntConverter()
+  BigInt? noticeId;
 
   ///公告标题
   String? noticeTitle;

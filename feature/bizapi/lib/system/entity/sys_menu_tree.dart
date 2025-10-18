@@ -12,10 +12,10 @@ part 'sys_menu_tree.g.dart';
 ///菜单树结构
 @JsonSerializable()
 class SysMenuTree with AppSelectBoxMixin<SysMenuTree> {
-  @IntConverter()
-  int id;
-  @IntConverter()
-  int parentId;
+  @BigIntConverter()
+  BigInt id;
+  @BigIntConverter()
+  BigInt parentId;
   String label;
   int weight;
   String menuType;
@@ -38,7 +38,7 @@ class SysMenuTree with AppSelectBoxMixin<SysMenuTree> {
   }
 
   static void getSelectAll2Ids(
-      List<int> collection, List<SysMenuTree>? dataList,
+      List<BigInt> collection, List<SysMenuTree>? dataList,
       {bool penetrate = false, bool linkageEnable = true}) {
     if (linkageEnable) {
       SelectUtils.getSelectListWithLinkage(dataList, collection: collection,
@@ -76,7 +76,7 @@ class SysMenuTree with AppSelectBoxMixin<SysMenuTree> {
 ///菜单树结构
 @JsonSerializable()
 class SysMenuTreeWrapper {
-  List<int>? checkedKeys;
+  List<BigInt>? checkedKeys;
   List<SysMenuTree>? menus;
 
   SysMenuTreeWrapper({this.checkedKeys, this.menus});
@@ -91,7 +91,7 @@ class SysMenuTreeWrapper {
 ///菜单树结构
 @JsonSerializable()
 class SysMenuTreeWrapperOnlyCheckedKeys {
-  List<int>? checkedKeys;
+  List<BigInt>? checkedKeys;
 
   SysMenuTreeWrapperOnlyCheckedKeys({this.checkedKeys});
 

@@ -10,15 +10,15 @@ part 'dept_tree.g.dart';
 @JsonSerializable()
 class DeptTree with AppSelectBoxMixin<DeptTree> {
   //部门id
-  @IntConverter()
-  int? id;
+  @BigIntConverter()
+  BigInt? id;
 
   //标题
   String label;
 
   //父id
-  @IntConverter()
-  int? parentId;
+  @BigIntConverter()
+  BigInt? parentId;
 
   //部门树子结构
   List<DeptTree>? children;

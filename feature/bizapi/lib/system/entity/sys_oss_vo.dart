@@ -10,8 +10,8 @@ part 'sys_oss_vo.g.dart';
 @JsonSerializable()
 class SysOssVo extends TenantEntity with AppSelectBoxMixin<SysOssVo> {
   ///对象存储主键
-  @IntConverter()
-  int? ossId;
+  @BigIntConverter()
+  BigInt? ossId;
 
   ///文件名
   String? fileName;

@@ -10,12 +10,12 @@ part 'sys_menu.g.dart';
 @JsonSerializable()
 class SysMenu extends TenantEntity with AppSelectBoxMixin<SysMenu> {
   //菜单ID
-  @IntConverter()
-  int? menuId;
+  @BigIntConverter()
+  BigInt? menuId;
 
   //父菜单ID
-  @IntConverter()
-  int? parentId;
+  @BigIntConverter()
+  BigInt? parentId;
 
   //菜单名称
   String? menuName;

@@ -11,8 +11,8 @@ part 'sys_config.g.dart';
 @JsonSerializable()
 class SysConfig extends TenantEntity with AppSelectBoxMixin<SysConfig> {
   ///参数主键
-  @IntConverter()
-  int? configId;
+  @BigIntConverter()
+  BigInt? configId;
 
   ///参数名称
   String? configName;

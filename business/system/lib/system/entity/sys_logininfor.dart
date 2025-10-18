@@ -9,8 +9,8 @@ part 'sys_logininfor.g.dart';
 @JsonSerializable()
 class SysLogininfor with AppSelectBoxMixin<SysLogininfor> {
   ///ID
-  @IntConverter()
-  int? infoId;
+  @BigIntConverter()
+  BigInt? infoId;
 
   ///租户编号
   String? tenantId;

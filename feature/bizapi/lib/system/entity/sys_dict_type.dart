@@ -12,8 +12,8 @@ part 'sys_dict_type.g.dart';
 class SysDictType extends TenantEntity with AppSelectBoxMixin<SysDictType> {
   ///字典主键
   ///
-  @IntConverter()
-  int? dictId;
+  @BigIntConverter()
+  BigInt? dictId;
 
   ///字典名称
   String? dictName;

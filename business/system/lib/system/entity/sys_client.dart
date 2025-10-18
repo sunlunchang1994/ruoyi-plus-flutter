@@ -11,8 +11,8 @@ part 'sys_client.g.dart';
 @JsonSerializable()
 class SysClient extends TenantEntity with AppSelectBoxMixin<SysClient> {
   ///id
-  @IntConverter()
-  int? id;
+  @BigIntConverter()
+  BigInt? id;
 
   ///客户端id
   String? clientId;

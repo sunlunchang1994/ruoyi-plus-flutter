@@ -10,8 +10,8 @@ part 'role.g.dart';
 /// 角色实体类
 @JsonSerializable()
 class Role extends TenantEntity with AppSelectBoxMixin<Role> {
-  @IntConverter()
-  int? roleId;
+  @BigIntConverter()
+  BigInt? roleId;
   String? roleName;
   String? roleKey;
   int? roleSort;
@@ -21,8 +21,8 @@ class Role extends TenantEntity with AppSelectBoxMixin<Role> {
   String? status;
   String? remark;
   bool flag;
-  @IntListConverter()
-  List<int>? menuIds;
+  @BigIntListConverter()
+  List<BigInt>? menuIds;
 
   String? statusName;
   String? dataScopeName;
@@ -57,7 +57,7 @@ class Role extends TenantEntity with AppSelectBoxMixin<Role> {
   }
 
 
-  static List<int>? toRoleIdList(List<Role>? values) {
+  static List<BigInt>? toRoleIdList(List<Role>? values) {
     return values?.map((value) {
       return value.roleId!;
     }).toList();

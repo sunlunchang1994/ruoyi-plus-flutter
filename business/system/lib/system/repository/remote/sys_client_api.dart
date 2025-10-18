@@ -26,7 +26,7 @@ abstract class SysClientApi {
 
   ///获取客户端信息
   @GET("/system/client/{clientId}")
-  Future<ResultEntity> getInfo(@Path() int? clientId, @CancelRequest() CancelToken cancelToken);
+  Future<ResultEntity> getInfo(@Path() String? clientId, @CancelRequest() CancelToken cancelToken);
 
   ///添加客户端
   @POST("/system/client")
@@ -57,8 +57,8 @@ class SysClientRepository {
   }
 
   ///客户端信息
-  static Future<IntensifyEntity<SysClient>> getInfo(int clientId, CancelToken cancelToken) async {
-    return _sysClientApi.getInfo(clientId, cancelToken).successMap2Single((event) {
+  static Future<IntensifyEntity<SysClient>> getInfo(BigInt clientId, CancelToken cancelToken) async {
+    return _sysClientApi.getInfo(clientId.toString(), cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return SysClient.fromJson(resultEntity.data);
       });
@@ -78,12 +78,12 @@ class SysClientRepository {
 
   ///删除客户端
   static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
-      {int? id, List<int>? ids}) {
+      {BigInt? id, List<BigInt>? ids}) {
     //参数校验
     assert(id != null && ids == null || id == null && ids != null);
     ids ??= [id!];
     return _sysClientApi
-        .delete(ids.join(TextUtil.comma), cancelToken)
+        .delete(ids.map((e) => e.toString()).join(TextUtil.comma), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
     });

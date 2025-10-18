@@ -9,15 +9,16 @@ part 'dept.g.dart';
 /// 部门实体类
 @JsonSerializable()
 class Dept extends TenantEntity with AppSelectBoxMixin<Dept> {
-  @IntConverter()
-  int? deptId;
-  @IntConverter()
-  int? parentId;
+  @BigIntConverter()
+  BigInt? deptId;
+  @BigIntConverter()
+  BigInt? parentId;
   String? parentName;
   String? deptName;
   String? deptCategory;
   int? orderNum;
-  int? leader;
+  @BigIntConverter()
+  BigInt? leader;
   String? leaderName;
   String? phone;
   String? email;
@@ -50,11 +51,11 @@ class Dept extends TenantEntity with AppSelectBoxMixin<Dept> {
     return deptName!;
   }
 
-  int deptIdVo() {
+  BigInt deptIdVo() {
     return deptId!;
   }
 
-  int parentIdVo() {
+  BigInt parentIdVo() {
     return parentId!;
   }
 

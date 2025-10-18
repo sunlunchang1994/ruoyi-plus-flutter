@@ -28,7 +28,7 @@ import '../../repository/remote/post_api.dart';
 class PostListMultipleSelectPage extends AppBaseStatelessWidget<_PostListMultipleSelectVm> {
   static const String routeName = '/system/post/multiple';
   final String title;
-  final List<int>? selectDataId;
+  final List<BigInt>? selectDataId;
   final List<Post>? dataSrc;
 
   PostListMultipleSelectPage(this.title, {super.key, this.selectDataId, this.dataSrc});
@@ -82,7 +82,7 @@ class PostListMultipleSelectDialog extends AppBaseStatelessWidget<_PostListMulti
   PostListMultipleSelectDialog({super.key});
 
   static Widget getPostListSelectDialog(
-      {String? title, List<int>? selectDataIds, List<Post>? dataSrc}) {
+      {String? title, List<BigInt>? selectDataIds, List<Post>? dataSrc}) {
     _PostListMultipleSelectVm vm =
         _PostListMultipleSelectVm(selectDataIds: selectDataIds, dataSrc: dataSrc);
     return ChangeNotifierProvider(
@@ -141,7 +141,7 @@ class PostListMultipleSelectDialog extends AppBaseStatelessWidget<_PostListMulti
 class _PostListMultipleSelectVm extends AppBaseVm {
   late PostPageDataVmSub listVmSub;
 
-  _PostListMultipleSelectVm({List<int>? selectDataIds, List<Post>? dataSrc}) {
+  _PostListMultipleSelectVm({List<BigInt>? selectDataIds, List<Post>? dataSrc}) {
     listVmSub = PostPageDataVmSub(loadMore: (loadMoreFormat) async {
       DataWrapper<PageModel<Post>> dataWrapper;
       if (dataSrc != null) {

@@ -8,8 +8,8 @@ part 'sys_tenant.g.dart';
 
 @JsonSerializable()
 class SysTenant extends BaseEntity with AppSelectBoxMixin<SysTenant> {
-  @IntConverter()
-  int? id;
+  @BigIntConverter()
+  BigInt? id;
 
   ///租户编号
   String? tenantId;
@@ -39,7 +39,8 @@ class SysTenant extends BaseEntity with AppSelectBoxMixin<SysTenant> {
   String? remark;
 
   ///套餐ID
-  int? packageId;
+  @BigIntConverter()
+  BigInt? packageId;
 
   ///到期时间
   String? expireTime;

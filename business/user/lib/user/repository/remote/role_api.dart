@@ -29,7 +29,7 @@ abstract class RoleApi {
   ///获取角色信息
   @GET("/system/role/{roleId}")
   Future<ResultEntity> getInfo(
-      @Path("roleId") int roleId, @CancelRequest() CancelToken cancelToken);
+      @Path("roleId") String roleId, @CancelRequest() CancelToken cancelToken);
 
   ///添加角色
   @POST("/system/role")
@@ -62,8 +62,8 @@ class RoleRepository {
   }
 
   ///获取角色信息
-  static Future<IntensifyEntity<Role>> getInfo(int roleId, CancelToken cancelToken) {
-    return _roleApi.getInfo(roleId, cancelToken).successMap((event) {
+  static Future<IntensifyEntity<Role>> getInfo(BigInt roleId, CancelToken cancelToken) {
+    return _roleApi.getInfo(roleId.toString(), cancelToken).successMap((event) {
       return event.toIntensify(createData: (resultEntity) {
         return Role.fromJson(resultEntity.data);
       });
@@ -89,12 +89,12 @@ class RoleRepository {
 
   ///删除角色
   static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
-      {int? roleId, List<int>? roleIds}) {
+      {BigInt? roleId, List<BigInt>? roleIds}) {
     //参数校验
     assert(roleId != null && roleIds == null || roleId == null && roleIds != null);
     roleIds ??= [roleId!];
     return _roleApi
-        .delete(roleIds.join(TextUtil.comma), cancelToken)
+        .delete(roleIds.map((e) => e.toString()).join(TextUtil.comma), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
     });

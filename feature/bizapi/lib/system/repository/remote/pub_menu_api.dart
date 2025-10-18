@@ -27,12 +27,12 @@ abstract class PubMenuApi {
   ///获取角色菜单树信息
   @GET("/system/menu/roleMenuTreeselect/{roleId}")
   Future<ResultEntity> roleMenuTreeselect(
-      @Path("roleId") int? roleId, @CancelRequest() CancelToken cancelToken);
+      @Path("roleId") String? roleId, @CancelRequest() CancelToken cancelToken);
 
   ///获取租户套餐菜单树信息
   @GET("/system/menu/tenantPackageMenuTreeselect/{packageId}")
   Future<ResultEntity> tenantPackageMenuTreeselect(
-      @Path("packageId") int? packageId, @CancelRequest() CancelToken cancelToken);
+      @Path("packageId") String? packageId, @CancelRequest() CancelToken cancelToken);
 
 }
 
@@ -61,8 +61,8 @@ class PubMenuPublicRepository {
 
   ///获取角色菜单树信息
   static Future<IntensifyEntity<List<SysMenuTree>>> roleMenuTreeselect(
-      int? roleId, CancelToken cancelToken) {
-    return _pubMenuApi.roleMenuTreeselect(roleId, cancelToken).successMap2Single((event) {
+      BigInt? roleId, CancelToken cancelToken) {
+    return _pubMenuApi.roleMenuTreeselect(roleId?.toString(), cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         SysMenuTreeWrapper sysMenuTreeWrapper = SysMenuTreeWrapper.fromJson(resultEntity.data);
         SelectUtils.fillSelect(
@@ -76,9 +76,9 @@ class PubMenuPublicRepository {
   }
 
   ///获取角色菜单树id信息
-  static Future<IntensifyEntity<List<int>>> roleMenuCheckedList(
-      int? roleId, CancelToken cancelToken) {
-    return _pubMenuApi.roleMenuTreeselect(roleId, cancelToken).successMap2Single((event) {
+  static Future<IntensifyEntity<List<BigInt>?>> roleMenuCheckedList(
+      BigInt? roleId, CancelToken cancelToken) {
+    return _pubMenuApi.roleMenuTreeselect(roleId?.toString(), cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         SysMenuTreeWrapperOnlyCheckedKeys sysMenuTreeWrapper =
         SysMenuTreeWrapperOnlyCheckedKeys.fromJson(resultEntity.data);
@@ -89,9 +89,9 @@ class PubMenuPublicRepository {
 
   ///获取租户套餐菜单树信息
   static Future<IntensifyEntity<List<SysMenuTree>>> tenantPackageMenuTreeselect(
-      int? tenantPackageId, CancelToken cancelToken) {
+      BigInt? tenantPackageId, CancelToken cancelToken) {
     return _pubMenuApi
-        .tenantPackageMenuTreeselect(tenantPackageId, cancelToken)
+        .tenantPackageMenuTreeselect(tenantPackageId?.toString(), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         SysMenuTreeWrapper sysMenuTreeWrapper = SysMenuTreeWrapper.fromJson(resultEntity.data);

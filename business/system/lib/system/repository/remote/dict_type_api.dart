@@ -29,7 +29,7 @@ abstract class DictTypeApi {
   ///获取字典类型信息
   @GET("/system/dict/type/{dictId}")
   Future<ResultEntity> getInfo(
-      @Path("dictId") int dictId, @CancelRequest() CancelToken cancelToken);
+      @Path("dictId") String dictId, @CancelRequest() CancelToken cancelToken);
 
   ///添加字典类型
   @POST("/system/dict/type")
@@ -60,9 +60,9 @@ class DictTypeRepository {
   }
 
   ///获取字典类型信息
-  static Future<IntensifyEntity<SysDictType?>> getInfo(int dictId, CancelToken cancelToken,
+  static Future<IntensifyEntity<SysDictType?>> getInfo(BigInt dictId, CancelToken cancelToken,
       {bool fillParentName = false}) {
-    return _dictTypeApi.getInfo(dictId, cancelToken).successMap2Single((event) {
+    return _dictTypeApi.getInfo(dictId.toString(), cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return SysDictType.fromJson(resultEntity.data);
       });
@@ -81,12 +81,12 @@ class DictTypeRepository {
 
   ///删除字典类型
   static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
-      {int? dictTypeId, List<int>? dictTypeIds}) {
+      {BigInt? dictTypeId, List<BigInt>? dictTypeIds}) {
     //参数校验
     assert(dictTypeId != null && dictTypeIds == null || dictTypeId == null && dictTypeIds != null);
     dictTypeIds ??= [dictTypeId!];
     return _dictTypeApi
-        .delete(dictTypeIds.join(TextUtil.comma), cancelToken)
+        .delete(dictTypeIds.map((e) => e.toString()).join(TextUtil.comma), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
     });

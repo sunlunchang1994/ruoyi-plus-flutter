@@ -156,7 +156,7 @@ class _PostListBrowserVm extends AppBaseVm {
   }
 
   //删除事件
-  void onDelete({Future<bool?> Function(List<String>)? confirmHandler, List<int>? idList}) {
+  void onDelete({Future<bool?> Function(List<String>)? confirmHandler, List<BigInt>? idList}) {
     if (idList == null) {
       List<Post> selectList = SelectUtils.getSelect(listVmSub.dataList) ?? [];
       if (selectList.isEmpty) {
@@ -164,7 +164,7 @@ class _PostListBrowserVm extends AppBaseVm {
         return;
       }
       List<String> nameList = selectList.map<String>((item) => item.postName!).toList();
-      List<int> idList = selectList.map<int>((item) => item.postId!).toList();
+      List<BigInt> idList = selectList.map<BigInt>((item) => item.postId!).toList();
       confirmHandler?.call(nameList).then((value) {
         if (value == true) {
           onDelete(idList: idList);

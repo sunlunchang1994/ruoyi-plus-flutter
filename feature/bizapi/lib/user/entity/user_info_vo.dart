@@ -12,11 +12,11 @@ part 'user_info_vo.g.dart';
 @JsonSerializable()
 class UserInfoVo {
   User? user;
-  @IntListConverter()
-  List<int>? roleIds;
+  @BigIntListConverter()
+  List<BigInt>? roleIds;
   List<Role>? roles;
-  @IntListConverter()
-  List<int>? postIds;
+  @BigIntListConverter()
+  List<BigInt>? postIds;
   List<Post>? posts;
 
   UserInfoVo(this.user, {this.roleIds,this.roles,this.postIds,this.posts});

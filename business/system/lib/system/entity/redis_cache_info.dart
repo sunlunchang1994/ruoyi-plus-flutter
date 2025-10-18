@@ -9,8 +9,8 @@ class RedisCacheInfo {
   RedisInfo? info;
 
   /// 数据库大小
-  @IntConverter()
-  int? dbSize;
+  @BigIntConverter()
+  BigInt? dbSize;
 
   /// 命令统计信息列表
   List<CommandStats>? commandStats;
