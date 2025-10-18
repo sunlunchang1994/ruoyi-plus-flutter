@@ -96,7 +96,7 @@ class MenuTreeListDataBaseVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
         if (previousTreeStacksData != null) {
           //数据不为空时通过lastTreeId查找目标数据，lastTreeId就是当前点击的item的id;
 
-          int? lastTreeId = getLastTreeId();
+          dynamic lastTreeId = getLastTreeId();
 
           SysMenuTree menuTreeByTreeId = previousTreeStacksData.firstWhere((itemData) {
             return itemData.id == lastTreeId;
