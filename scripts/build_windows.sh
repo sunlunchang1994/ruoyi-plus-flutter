@@ -17,11 +17,18 @@ echo -e "${BLUE}========================================"
 echo -e "开始打包 Windows 桌面应用"
 echo -e "========================================${NC}"
 
-# 询问用户是否需要执行步骤3和4
+# 询问用户配置选项
 echo -e "\n${BLUE}========================================"
 echo -e "可选步骤配置"
 echo -e "========================================${NC}"
-echo -e "${YELLOW}是否需要生成国际化文件？${NC}"
+
+echo -e "${YELLOW}是否需要清理所有子模块？${NC}"
+echo -e "${YELLOW}  提示: 只清理根目录通常已足够，清理所有子模块会花费更多时间${NC}"
+echo -e "${YELLOW}  (y/n，默认n): ${NC}\c"
+read -r CLEAN_ALL
+CLEAN_ALL=${CLEAN_ALL:-n}
+
+echo -e "\n${YELLOW}是否需要生成国际化文件？${NC}"
 echo -e "${YELLOW}  提示: 如果项目中已存在国际化文件且未修改，可跳过此步骤以加快打包速度${NC}"
 echo -e "${YELLOW}  (y/n，默认y): ${NC}\c"
 read -r GEN_L10N
@@ -33,23 +40,45 @@ echo -e "${YELLOW}  (y/n，默认y): ${NC}\c"
 read -r BUILD_RUNNER
 BUILD_RUNNER=${BUILD_RUNNER:-y}
 
-# 步骤1: 清理所有模块
-echo -e "\n${BLUE}[1/5] 清理所有模块...${NC}"
-"$SCRIPT_DIR/clean_all.sh"
-if [ $? -ne 0 ]; then
-    echo -e "${RED}清理失败！${NC}"
-    exit 1
+# 步骤1: 清理
+if [[ "$CLEAN_ALL" == "y" || "$CLEAN_ALL" == "Y" ]]; then
+    echo -e "\n${BLUE}[1/5] 清理所有模块（根目录 + 子模块）...${NC}"
+    "$SCRIPT_DIR/clean_all.sh"
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}清理失败！${NC}"
+        exit 1
+    fi
+    echo -e "${GREEN}✓ 清理完成${NC}"
+else
+    echo -e "\n${BLUE}[1/5] 清理根目录...${NC}"
+    cd "$PROJECT_ROOT"
+    flutter clean
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}清理失败！${NC}"
+        exit 1
+    fi
+    echo -e "${GREEN}✓ 清理完成${NC}"
 fi
-echo -e "${GREEN}✓ 清理完成${NC}"
 
 # 步骤2: 获取依赖
-echo -e "\n${BLUE}[2/5] 获取所有依赖...${NC}"
-"$SCRIPT_DIR/pub_get_all.sh"
-if [ $? -ne 0 ]; then
-    echo -e "${RED}获取依赖失败！${NC}"
-    exit 1
+if [[ "$CLEAN_ALL" == "y" || "$CLEAN_ALL" == "Y" ]]; then
+    echo -e "\n${BLUE}[2/5] 获取所有依赖（根目录 + 子模块）...${NC}"
+    "$SCRIPT_DIR/pub_get_all.sh"
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}获取依赖失败！${NC}"
+        exit 1
+    fi
+    echo -e "${GREEN}✓ 依赖获取完成${NC}"
+else
+    echo -e "\n${BLUE}[2/5] 获取根目录依赖...${NC}"
+    cd "$PROJECT_ROOT"
+    flutter pub get
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}获取依赖失败！${NC}"
+        exit 1
+    fi
+    echo -e "${GREEN}✓ 依赖获取完成${NC}"
 fi
-echo -e "${GREEN}✓ 依赖获取完成${NC}"
 
 # 步骤3: 生成国际化文件（可选）
 if [[ "$GEN_L10N" == "y" || "$GEN_L10N" == "Y" ]]; then

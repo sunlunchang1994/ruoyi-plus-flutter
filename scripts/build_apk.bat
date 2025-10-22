@@ -10,11 +10,18 @@ echo ========================================
 echo 开始打包 APK
 echo ========================================
 
-REM 询问用户是否需要执行步骤3和4
+REM 询问用户配置选项
 echo.
 echo ========================================
 echo 可选步骤配置
 echo ========================================
+
+echo 是否需要清理所有子模块？
+echo   提示: 只清理根目录通常已足够，清理所有子模块会花费更多时间
+set /p CLEAN_ALL="  (y/n，默认n): "
+if "%CLEAN_ALL%"=="" set CLEAN_ALL=n
+
+echo.
 echo 是否需要生成国际化文件？
 echo   提示: 如果项目中已存在国际化文件且未修改，可跳过此步骤以加快打包速度
 set /p GEN_L10N="  (y/n，默认y): "
@@ -26,25 +33,47 @@ echo   提示: 如果项目中已存在生成的代码且未修改相关注解�
 set /p BUILD_RUNNER="  (y/n，默认y): "
 if "%BUILD_RUNNER%"=="" set BUILD_RUNNER=y
 
-REM 步骤1: 清理所有模块
+REM 步骤1: 清理
 echo.
-echo [1/5] 清理所有模块...
-call "%SCRIPT_DIR%clean_all.bat"
-if errorlevel 1 (
-    echo 清理失败！
-    exit /b 1
+if /i "%CLEAN_ALL%"=="y" (
+    echo [1/5] 清理所有模块（根目录 + 子模块）...
+    call "%SCRIPT_DIR%clean_all.bat"
+    if errorlevel 1 (
+        echo 清理失败！
+        exit /b 1
+    )
+    echo 清理完成
+) else (
+    echo [1/5] 清理根目录...
+    cd /d "%PROJECT_ROOT%"
+    flutter clean
+    if errorlevel 1 (
+        echo 清理失败！
+        exit /b 1
+    )
+    echo 清理完成
 )
-echo 清理完成
 
 REM 步骤2: 获取依赖
 echo.
-echo [2/5] 获取所有依赖...
-call "%SCRIPT_DIR%pub_get_all.bat"
-if errorlevel 1 (
-    echo 获取依赖失败！
-    exit /b 1
+if /i "%CLEAN_ALL%"=="y" (
+    echo [2/5] 获取所有依赖（根目录 + 子模块）...
+    call "%SCRIPT_DIR%pub_get_all.bat"
+    if errorlevel 1 (
+        echo 获取依赖失败！
+        exit /b 1
+    )
+    echo 依赖获取完成
+) else (
+    echo [2/5] 获取根目录依赖...
+    cd /d "%PROJECT_ROOT%"
+    flutter pub get
+    if errorlevel 1 (
+        echo 获取依赖失败！
+        exit /b 1
+    )
+    echo 依赖获取完成
 )
-echo 依赖获取完成
 
 REM 步骤3: 生成国际化文件（可选）
 echo.
