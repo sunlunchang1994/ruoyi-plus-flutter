@@ -15,25 +15,27 @@
 #### macOS / Linux
 
 ```bash
-# 基本用法
-./scripts/run_all.sh "<你的命令>"
+# 常用快捷脚本
+./scripts/pub_get_all.sh        # 获取所有依赖
+./scripts/gen_l10n_all.sh       # 生成国际化文件
+./scripts/build_runner_all.sh   # 执行代码生成
+./scripts/clean_all.sh          # 清理所有模块
 
-# 或使用快捷脚本
-./scripts/pub_get_all.sh
-./scripts/gen_l10n_all.sh
-./scripts/build_runner_all.sh
+# 基本用法（自定义命令）
+./scripts/run_all.sh "<你的命令>"
 ```
 
 #### Windows
 
 ```cmd
-REM 基本用法
-scripts\run_all.bat "你的命令"
+REM 常用快捷脚本
+scripts\pub_get_all.bat         REM 获取所有依赖
+scripts\gen_l10n_all.bat        REM 生成国际化文件
+scripts\build_runner_all.bat    REM 执行代码生成
+scripts\clean_all.bat           REM 清理所有模块
 
-REM 或使用快捷脚本
-scripts\pub_get_all.bat
-scripts\gen_l10n_all.bat
-scripts\build_runner_all.bat
+REM 基本用法（自定义命令）
+scripts\run_all.bat "你的命令"
 ```
 
 ## 📜 脚本列表
@@ -251,6 +253,92 @@ REM 升级依赖
 scripts\run_all.bat "flutter pub upgrade"
 ```
 
+## 📦 打包应用
+
+### 打包脚本
+
+所有打包脚本都会自动执行完整的清理和构建流程，确保打包包含最新的代码更改。
+
+**脚本列表：**
+
+| 平台 | macOS/Linux 脚本 | Windows 脚本 | 输出路径 |
+|------|-----------------|-------------|---------|
+| Android APK | `./scripts/build_apk.sh` | `scripts\build_apk.bat` | `build/app/outputs/flutter-apk/app-release.apk` |
+| Web 应用 | `./scripts/build_web.sh` | `scripts\build_web.bat` | `build/web/` |
+| Windows 桌面 | `./scripts/build_windows.sh` | `scripts\build_windows.bat` | `build/windows/x64/runner/Release/` |
+| macOS 桌面 | `./scripts/build_macos.sh` | - | `build/macos/Build/Products/Release/*.app` |
+| Linux 桌面 | `./scripts/build_linux.sh` | - | `build/linux/x64/release/bundle/` |
+
+### 使用方法
+
+#### macOS/Linux
+
+```bash
+# 打包移动端
+./scripts/build_apk.sh      # Android APK
+
+# 打包 Web
+./scripts/build_web.sh       # Web 应用
+
+# 打包桌面应用
+./scripts/build_windows.sh   # Windows 桌面应用
+./scripts/build_macos.sh     # macOS 桌面应用
+./scripts/build_linux.sh     # Linux 桌面应用
+```
+
+#### Windows
+
+```cmd
+REM 打包移动端
+scripts\build_apk.bat        REM Android APK
+
+REM 打包 Web
+scripts\build_web.bat         REM Web 应用
+
+REM 打包桌面应用
+scripts\build_windows.bat     REM Windows 桌面应用
+```
+
+### 打包流程说明
+
+**交互式选择：**
+
+所有打包脚本在执行前会**先询问**你是否需要执行以下可选步骤，并提供详细的提示信息帮助你做出选择：
+
+```
+========================================
+可选步骤配置
+========================================
+是否需要生成国际化文件？
+  提示: 如果项目中已存在国际化文件且未修改，可跳过此步骤以加快打包速度
+  (y/n，默认y): 
+
+是否需要执行代码生成 (build_runner)？
+  提示: 如果项目中已存在生成的代码且未修改相关注解，可跳过此步骤
+  (y/n，默认y): 
+```
+
+**执行流程：**
+
+> ⚠️ **重要**：打包会自动执行以下步骤，确保打包包含最新的代码更改：
+> 
+> **询问阶段（在清理之前）：**
+> - 💬 询问是否生成国际化文件
+> - 💬 询问是否执行代码生成
+>
+> **执行阶段：**
+> 1. ✅ 清理所有模块缓存（`clean_all`）- **必须**
+> 2. ✅ 获取所有依赖（`pub_get_all`）- **必须**
+> 3. ⚠️ 生成国际化文件（`gen_l10n_all`）- **根据你的选择执行或跳过**
+> 4. ⚠️ 执行代码生成（`build_runner_all`）- **根据你的选择执行或跳过**
+> 5. ✅ 打包应用（`flutter build`）- **必须**
+>
+> 💡 **提示**：
+> - 如果直接按回车，默认执行步骤3和步骤4
+> - 如果输入 `n`，会跳过对应步骤
+> - 如果项目中已经存在生成的文件，可以选择跳过以加快打包速度
+> - 这是因为 Flutter 的构建缓存机制可能导致打包时不包含最新的代码更改
+
 ## 📝 单模块命令
 
 如果只想对某个模块执行命令：
@@ -373,6 +461,14 @@ scripts/
 ├── build_runner_all.bat # 快捷方式：build_runner (Windows)
 ├── clean_all.sh         # 快捷方式：clean (macOS/Linux)
 ├── clean_all.bat        # 快捷方式：clean (Windows)
+├── build_apk.sh         # 一键打包 Android APK (macOS/Linux) ⭐
+├── build_apk.bat        # 一键打包 Android APK (Windows) ⭐
+├── build_web.sh         # 一键打包 Web (macOS/Linux) ⭐
+├── build_web.bat        # 一键打包 Web (Windows) ⭐
+├── build_windows.sh     # 一键打包 Windows 桌面 (macOS/Linux) ⭐
+├── build_windows.bat    # 一键打包 Windows 桌面 (Windows) ⭐
+├── build_macos.sh       # 一键打包 macOS 桌面 (macOS/Linux) ⭐
+├── build_linux.sh       # 一键打包 Linux 桌面 (macOS/Linux) ⭐
 └── README.md            # 详细说明文档
 ```
 
@@ -424,6 +520,76 @@ A: 脚本会继续执行其他模块，最后显示失败统计。可以根据�
 
 **Q: 能否跳过某些模块？**  
 A: 可以！修改对应模块的 `pubspec.yaml`，临时移除需要的命令配置（如删除 `l10n.yaml`），脚本会自动跳过。
+
+**Q: 为什么打包前需要 clean？** ⭐  
+A: **这是 Flutter 构建缓存的已知问题**。如果不执行 `flutter clean`，打包后的应用可能不包含最新的代码更改。原因是：
+- Flutter 的增量编译会缓存之前的构建结果
+- 某些代码生成的文件（如国际化、build_runner生成的代码）可能使用旧缓存
+- 资源文件的更新可能不被正确识别
+
+**解决方案**：使用打包脚本（`build_apk.sh` / `build_web.sh` / `build_windows.sh` 等），它们会自动：
+1. ✅ 清理所有模块的构建缓存
+2. ✅ 重新获取依赖
+3. ⚠️ 重新生成国际化文件（可选，失败不中断）
+4. ⚠️ 重新执行代码生成（可选，失败不中断）
+5. ✅ 确保打包包含最新代码
+
+**手动打包（不推荐）**：
+```bash
+# 如果要手动打包，请务必先执行：
+./scripts/clean_all.sh
+./scripts/pub_get_all.sh
+./scripts/gen_l10n_all.sh      # 可选
+./scripts/build_runner_all.sh  # 可选
+# 然后再打包
+flutter build apk --release      # Android
+flutter build web --release      # Web
+flutter build windows --release  # Windows
+flutter build macos --release    # macOS
+flutter build linux --release    # Linux
+```
+
+**Q: 步骤3和步骤4为什么是可选的？**  
+A: 国际化文件生成（gen-l10n）和代码生成（build_runner）是可选步骤，原因是：
+- 如果项目中已经存在这些生成的文件，重新生成不是必须的
+- 某些模块可能没有配置国际化或代码生成
+- 即使这两步失败，也不应该阻止打包流程
+- 脚本会显示警告但继续执行，让你知道发生了什么
+
+**Q: 打包时如何跳过国际化和代码生成？**  
+A: 所有打包脚本在执行前会**交互式询问**并提供详细的提示信息：
+
+```bash
+========================================
+可选步骤配置
+========================================
+是否需要生成国际化文件？
+  提示: 如果项目中已存在国际化文件且未修改，可跳过此步骤以加快打包速度
+  (y/n，默认y): n    # 输入 n 跳过
+
+是否需要执行代码生成 (build_runner)？
+  提示: 如果项目中已存在生成的代码且未修改相关注解，可跳过此步骤
+  (y/n，默认y): n    # 输入 n 跳过
+```
+
+**选择说明：**
+- 输入 `y` 或直接回车：执行该步骤（默认推荐）
+- 输入 `n`：跳过该步骤
+
+**什么时候可以跳过？**
+- 国际化文件：如果你没有修改 `l10n.yaml` 或 `.arb` 文件
+- 代码生成：如果你没有修改使用了注解的代码（如 `@JsonSerializable`、`@freezed` 等）
+
+**Q: 支持哪些平台的打包？**  
+A: 支持 Flutter 的所有主流平台：
+- 📱 **移动端**: Android APK (`build_apk`)
+- 🌐 **Web**: Web 应用 (`build_web`)
+- 🖥️ **桌面端**: Windows (`build_windows`)、macOS (`build_macos`)、Linux (`build_linux`)
+
+注意：
+- iOS 打包需要 macOS 系统和 Xcode，暂不提供脚本（可以手动执行 `flutter build ios`）
+- Windows 桌面打包需要 Windows 环境或配置了交叉编译
+- macOS 桌面打包需要 macOS 系统
 
 ## 🤝 贡献
 
