@@ -8,14 +8,14 @@ part 'sys_tenant_package.g.dart';
 
 @JsonSerializable()
 class SysTenantPackage extends BaseEntity with AppSelectBoxMixin<SysTenantPackage> {
-  @IntConverter()
-  int? packageId;
+  @BigIntConverter()
+  BigInt? packageId;
 
   String? packageName;
 
   //提交时是List<int>，获取时是String，此处使用自定义转换器转换
-  @Split2IntListConverter()
-  List<int>? menuIds;
+  @Split2BigIntListConverter()
+  List<BigInt>? menuIds;
 
   String? remark;
 

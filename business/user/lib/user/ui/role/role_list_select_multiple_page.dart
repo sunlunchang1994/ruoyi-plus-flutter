@@ -28,7 +28,7 @@ class RoleListMultipleSelectPage
     extends AppBaseStatelessWidget<_RoleListMultipleSelectVm> {
   static const String routeName = '/system/role/multiple';
   final String title;
-  final List<int>? selectDataId;
+  final List<BigInt>? selectDataId;
   final List<Role>? dataSrc;
 
   RoleListMultipleSelectPage(this.title,
@@ -91,7 +91,7 @@ class RoleListMultipleSelectDialog
   RoleListMultipleSelectDialog({super.key});
 
   static Widget getRoleListSelectDialog(
-      {String? title, List<int>? selectDataIds, List<Role>? dataSrc}) {
+      {String? title, List<BigInt>? selectDataIds, List<Role>? dataSrc}) {
     _RoleListMultipleSelectVm vm = _RoleListMultipleSelectVm(
         selectDataIds: selectDataIds, dataSrc: dataSrc);
     return ChangeNotifierProvider(
@@ -156,7 +156,7 @@ class RoleListMultipleSelectDialog
 class _RoleListMultipleSelectVm extends AppBaseVm {
   late RolePageDataVmSub listVmSub;
 
-  _RoleListMultipleSelectVm({List<int>? selectDataIds, List<Role>? dataSrc}) {
+  _RoleListMultipleSelectVm({List<BigInt>? selectDataIds, List<Role>? dataSrc}) {
     listVmSub = RolePageDataVmSub(loadMore: (loadMoreFormat) async {
       DataWrapper<PageModel<Role>> dataWrapper;
       if (dataSrc != null) {

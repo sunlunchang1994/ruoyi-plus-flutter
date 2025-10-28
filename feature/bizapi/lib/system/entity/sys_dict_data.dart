@@ -15,8 +15,8 @@ class SysDictData extends TenantEntity
   static const String DEF_TAG = "Y";
 
   ///字典编码
-  @IntConverter()
-  int? dictCode;
+  @BigIntConverter()
+  BigInt? dictCode;
 
   ///字典排序
   @IntConverter()

@@ -5,16 +5,16 @@ import '../api/json_converter.dart';
 class BaseEntity {
   String? searchValue;
 
-  @IntConverter()
-  int? createDept;
+  @BigIntConverter()
+  BigInt? createDept;
 
-  @IntConverter()
-  int? createBy;
+  @BigIntConverter()
+  BigInt? createBy;
 
   String? createTime;
 
-  @IntConverter()
-  int? updateBy;
+  @BigIntConverter()
+  BigInt? updateBy;
 
   String? updateTime;
 

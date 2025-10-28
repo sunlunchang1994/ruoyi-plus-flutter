@@ -14,7 +14,7 @@ class ConstantBase {
   static const String KEY_INTENT_SELECT_DATA = "selectData";
 
   ///value
-  static const int VALUE_PARENT_ID_DEF = 0; //默认父id
+  static final BigInt VALUE_PARENT_ID_DEF = BigInt.zero; //默认父id
   static final String VALUE_PARENT_ID_DEF_STR = VALUE_PARENT_ID_DEF.toString(); //默认父id
 
   /// path

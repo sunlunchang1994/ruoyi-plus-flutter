@@ -21,7 +21,7 @@ import 'menu_tree_page_vd.dart';
 abstract class MenuTreeSelectMultipleBasePage<T extends _MenuTreeSelectMultipleBaseVm>
     extends AppBaseStatelessWidget<T> {
   final String title;
-  final List<int>? checkedIds;
+  final List<BigInt>? checkedIds;
 
   MenuTreeSelectMultipleBasePage(this.title, {super.key, this.checkedIds});
 
@@ -45,7 +45,7 @@ abstract class MenuTreeSelectMultipleBasePage<T extends _MenuTreeSelectMultipleB
             actions: [
               IconButton(
                   onPressed: () {
-                    List<int> collection = List.empty(growable: true);
+                    List<BigInt> collection = List.empty(growable: true);
                     SysMenuTree.getSelectAll2Ids(collection, getVm().listVmSub.dataList,
                         penetrate: true, linkageEnable: getVm().linkageEnable.data!);
                     getVm().finish(
@@ -127,7 +127,7 @@ abstract class _MenuTreeSelectMultipleBaseVm extends AppBaseVm {
   final ValueWrap<bool> selectAllEnable = ValueWrap(data: false);
   final ValueWrap<bool> linkageEnable = ValueWrap(data: true);
 
-  void initVm({List<int>? checkedIds}) {
+  void initVm({List<BigInt>? checkedIds}) {
     listVmSub = createListVmSub(checkedIds: checkedIds);
     registerVmSub(listVmSub);
 
@@ -135,7 +135,7 @@ abstract class _MenuTreeSelectMultipleBaseVm extends AppBaseVm {
     listVmSub.next(slcTreeNav, notify: false);
   }
 
-  MenuTreeListDataBaseVmSub createListVmSub({List<int>? checkedIds});
+  MenuTreeListDataBaseVmSub createListVmSub({List<BigInt>? checkedIds});
 
   //选择所有item事件
   void onSelectAllAction(bool isSelected) {
@@ -154,7 +154,7 @@ abstract class _MenuTreeSelectMultipleBaseVm extends AppBaseVm {
 class RoleMenuTreeSelectMultiplePage
     extends MenuTreeSelectMultipleBasePage<_RoleMenuTreeSelectMultipleVm> {
 
-  final int? roleId;
+  final BigInt? roleId;
 
   RoleMenuTreeSelectMultiplePage(super.title, {super.key, this.roleId, super.checkedIds});
 
@@ -172,15 +172,15 @@ class RoleMenuTreeSelectMultiplePage
 
 /// 角色树菜单选择多选页面
 class _RoleMenuTreeSelectMultipleVm extends _MenuTreeSelectMultipleBaseVm {
-  int? roleId;
+  BigInt? roleId;
 
-  void initVm({int? roleId, List<int>? checkedIds}) {
+  void initVm({BigInt? roleId, List<BigInt>? checkedIds}) {
     this.roleId = roleId;
     super.initVm(checkedIds: checkedIds);
   }
 
   @override
-  MenuTreeListDataBaseVmSub createListVmSub({List<int>? checkedIds}) {
+  MenuTreeListDataBaseVmSub createListVmSub({List<BigInt>? checkedIds}) {
     return RoleMenuTreeListDataVmSub(this, roleId: roleId, checkedIds: checkedIds);
   }
 }
@@ -190,7 +190,7 @@ class TenantPackageMenuTreeSelectMultiplePage
     extends MenuTreeSelectMultipleBasePage<_TenantPackageTreeSelectMultipleVm> {
   static const String routeName = '/system/menu/tenant_package_tree_multiple_select';
 
-  final int? packageId;
+  final BigInt? packageId;
   final bool? linkageEnable;
 
   TenantPackageMenuTreeSelectMultiplePage(super.title,
@@ -210,16 +210,16 @@ class TenantPackageMenuTreeSelectMultiplePage
 
 /// 租户套餐树菜单选择多选页面
 class _TenantPackageTreeSelectMultipleVm extends _MenuTreeSelectMultipleBaseVm {
-  int? packageId;
+  BigInt? packageId;
 
-  void initVm({int? packageId, bool? linkageEnable, List<int>? checkedIds}) {
+  void initVm({BigInt? packageId, bool? linkageEnable, List<BigInt>? checkedIds}) {
     this.packageId = packageId;
     this.linkageEnable.data = linkageEnable ?? this.linkageEnable.data;
     super.initVm(checkedIds: checkedIds);
   }
 
   @override
-  MenuTreeListDataBaseVmSub createListVmSub({List<int>? checkedIds}) {
+  MenuTreeListDataBaseVmSub createListVmSub({List<BigInt>? checkedIds}) {
     return TenantPackageMenuTreeListDataVmSub(this, packageId: packageId, checkedIds: checkedIds);
   }
 }

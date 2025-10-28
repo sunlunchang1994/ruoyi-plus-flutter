@@ -33,7 +33,7 @@ abstract class MenuApi {
   ///获取菜单信息
   @GET("/system/menu/{menuId}")
   Future<ResultEntity> getInfo(
-      @Path("menuId") int menuId, @CancelRequest() CancelToken cancelToken);
+      @Path("menuId") String menuId, @CancelRequest() CancelToken cancelToken);
 
   ///添加菜单
   @POST("/system/menu")
@@ -74,9 +74,9 @@ class MenuRepository {
   }
 
   ///获取菜单信息
-  static Future<IntensifyEntity<SysMenu?>> getInfo(int menuId, CancelToken cancelToken,
+  static Future<IntensifyEntity<SysMenu?>> getInfo(BigInt menuId, CancelToken cancelToken,
       {bool fillParentName = false}) {
-    return _menuApi.getInfo(menuId, cancelToken).successMap((event) {
+    return _menuApi.getInfo(menuId.toString(), cancelToken).successMap((event) {
       return event.toIntensify(createData: (resultEntity) {
         return SysMenu.fromJson(resultEntity.data);
       });
@@ -105,12 +105,12 @@ class MenuRepository {
 
   ///删除菜单
   static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
-      {int? menuId, List<int>? menuIds}) {
+      {BigInt? menuId, List<BigInt>? menuIds}) {
     //参数校验
     assert(menuId != null && menuIds == null || menuId == null && menuIds != null);
     menuIds ??= [menuId!];
     return _menuApi
-        .delete(menuIds.join(TextUtil.comma), cancelToken)
+        .delete(menuIds.map((e) => e.toString()).join(TextUtil.comma), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
     });

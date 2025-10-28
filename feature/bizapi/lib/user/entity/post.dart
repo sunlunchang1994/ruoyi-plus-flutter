@@ -9,10 +9,10 @@ part 'post.g.dart';
 /// 岗位实体类
 @JsonSerializable()
 class Post extends TenantEntity with AppSelectBoxMixin<Post> {
-  @IntConverter()
-  int? postId;
-  @IntConverter()
-  int? deptId;
+  @BigIntConverter()
+  BigInt? postId;
+  @BigIntConverter()
+  BigInt? deptId;
   String? postCode;
   String? postName;
   String? postCategory;
@@ -51,7 +51,7 @@ class Post extends TenantEntity with AppSelectBoxMixin<Post> {
     return data?.map((json) => Post.fromJson(json)).toList() ?? List.empty();
   }
 
-  static List<int>? toPostIdList(List<Post>? values) {
+  static List<BigInt>? toPostIdList(List<Post>? values) {
     return values?.map((value) {
       return value.postId!;
     }).toList();

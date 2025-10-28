@@ -13,10 +13,10 @@ part 'user.g.dart';
 /// 用户实体类
 @JsonSerializable()
 class User extends TenantEntity with AppSelectBoxMixin<User> {
-  @IntConverter()
-  int? userId;
-  @IntConverter()
-  int? deptId;
+  @BigIntConverter()
+  BigInt? userId;
+  @BigIntConverter()
+  BigInt? deptId;
   String? userName;
   String? nickName;
   String? userType;
@@ -31,12 +31,12 @@ class User extends TenantEntity with AppSelectBoxMixin<User> {
   String? remark;
   String? deptName;
   List<Role>? roles;
-  @IntListConverter()
-  List<int>? roleIds;
-  @IntListConverter()
-  List<int>? postIds;
-  @IntConverter()
-  int? roleId;
+  @BigIntListConverter()
+  List<BigInt>? roleIds;
+  @BigIntListConverter()
+  List<BigInt>? postIds;
+  @BigIntConverter()
+  BigInt? roleId;
 
   //本地
   String? sexName;

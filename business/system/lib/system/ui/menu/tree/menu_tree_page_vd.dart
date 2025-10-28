@@ -67,7 +67,7 @@ class MenuTreePageWidget {
 class MenuTreeListDataBaseVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
   final FastVm fastVm;
 
-  final List<int>? checkedIds;
+  final List<BigInt>? checkedIds;
 
   final SysMenu _currentMenuSearch = SysMenu();
 
@@ -96,7 +96,7 @@ class MenuTreeListDataBaseVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
         if (previousTreeStacksData != null) {
           //数据不为空时通过lastTreeId查找目标数据，lastTreeId就是当前点击的item的id;
 
-          int? lastTreeId = getLastTreeId();
+          dynamic lastTreeId = getLastTreeId();
 
           SysMenuTree menuTreeByTreeId = previousTreeStacksData.firstWhere((itemData) {
             return itemData.id == lastTreeId;
@@ -200,7 +200,7 @@ class MenuTreeListDataBaseVmSub extends TreeFastBaseListDataVmSub<SysMenuTree> {
 
 ///角色菜单树数据VmSub
 class RoleMenuTreeListDataVmSub extends MenuTreeListDataBaseVmSub {
-  final int? roleId;
+  final BigInt? roleId;
 
   RoleMenuTreeListDataVmSub(super.fastVm, {this.roleId, super.checkedIds});
 
@@ -219,7 +219,7 @@ class RoleMenuTreeListDataVmSub extends MenuTreeListDataBaseVmSub {
 
 ///租户套餐菜单树数据VmSub
 class TenantPackageMenuTreeListDataVmSub extends MenuTreeListDataBaseVmSub {
-  final int? packageId;
+  final BigInt? packageId;
 
   TenantPackageMenuTreeListDataVmSub(super.fastVm, {this.packageId, super.checkedIds});
 

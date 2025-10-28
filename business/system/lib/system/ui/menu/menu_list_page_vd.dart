@@ -97,7 +97,7 @@ class MenuListDataVmSub extends TreeFastBaseListDataVmSub<SysMenu> {
       //2、后续通过点击当前列表，根据当前列表和点击的item获取点击的item的子节点
       //查找上一个树节点id
       SlcTreeNav? previousTree = getPreviousTree();
-      int? previousTreeId = previousTree?.id;
+      dynamic previousTreeId = previousTree?.id;
       //上一个树节点id不是空时
       if (previousTreeId != null) {
         //获取目标栈堆的数据列表
@@ -105,7 +105,7 @@ class MenuListDataVmSub extends TreeFastBaseListDataVmSub<SysMenu> {
         if (previousTreeStacksData != null) {
           //数据不为空时通过lastTreeId查找目标数据，lastTreeId就是当前点击的item的id;
 
-          int? lastTreeId = getLastTreeId();
+          dynamic lastTreeId = getLastTreeId();
 
           List<SysMenu>? resultList = _allTreeList?.where((item) {
             return lastTreeId == item.parentId;

@@ -39,7 +39,7 @@ abstract class UserApi {
   ///部门下的用户列表
   @GET("/system/user/list/dept/{deptId}")
   Future<ResultEntity> userListByDept(
-      @Path("deptId") int deptId, @CancelRequest() CancelToken cancelToken);
+      @Path("deptId") String deptId, @CancelRequest() CancelToken cancelToken);
 
   ///获取用户信息
   @GET("/system/user/{userId}")
@@ -101,15 +101,15 @@ class UserServiceRepository {
     });
   }
 
-  static Future<IntensifyEntity<List<User>>> userListByDept(int deptId, CancelToken cancelToken) {
-    return _userApiClient.userListByDept(deptId, cancelToken).successMap2Single((event) {
+  static Future<IntensifyEntity<List<User>>> userListByDept(BigInt deptId, CancelToken cancelToken) {
+    return _userApiClient.userListByDept(deptId.toString(), cancelToken).successMap2Single((event) {
       return event.toListIntensify(createData: (dateItem) {
         return User.fromJson(dateItem);
       });
     });
   }
 
-  static Future<IntensifyEntity<UserInfoVo>> getUserById(int? userId, CancelToken cancelToken) {
+  static Future<IntensifyEntity<UserInfoVo>> getUserById(BigInt? userId, CancelToken cancelToken) {
     return _userApiClient
         .getUserById(userId?.toString() ?? '', cancelToken)
         .successMap2Single((event) {
@@ -132,10 +132,10 @@ class UserServiceRepository {
     }
     List<Post> userPost = List.empty(growable: true);
     for (var postId in userInfo.postIds!) {
-      Post target = userInfo.posts?.firstWhere((post) {
-            return postId == post.postId;
-          }) ??
-          Post(postId: postId, postName: postId.toString());
+      Post? target = userInfo.posts?.cast<Post?>().firstWhere((post) {
+            return postId == post?.postId;
+          }, orElse: () => null);
+      target ??= Post(postId: postId, postName: postId.toString());
       userPost.add(target);
     }
     userInfo.user!.posts = userPost;
@@ -151,12 +151,12 @@ class UserServiceRepository {
   }
 
   static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
-      {int? userId, List<int>? userIds}) {
+      {BigInt? userId, List<BigInt>? userIds}) {
     //参数校验
     assert(userId != null && userIds == null || userId == null && userIds != null);
     userIds ??= [userId!];
     return _userApiClient
-        .delete(userIds.join(TextUtil.comma), cancelToken)
+        .delete(userIds.map((e) => e.toString()).join(TextUtil.comma), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
     });

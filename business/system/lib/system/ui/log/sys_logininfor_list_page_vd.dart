@@ -294,7 +294,7 @@ class LogininforListDataVmSub extends FastBasePageDataVmSub<SysLogininfor>
   SysLogininfor currentSearch = SysLogininfor();
 
   //显示详情
-  final Map<int, bool> showDetailsStatusMap = {};
+  final Map<BigInt, bool> showDetailsStatusMap = {};
 
   void Function(SysLogininfor data)? onSuffixClick;
 

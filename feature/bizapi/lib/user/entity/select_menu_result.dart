@@ -2,7 +2,7 @@
 /// @author sunlunchang
 /// 选择菜单结果
 class SelectMenuResult {
-  List<int> menuIds;
+  List<BigInt> menuIds;
   bool? menuCheckStrictly;
 
   SelectMenuResult(this.menuIds, {this.menuCheckStrictly});

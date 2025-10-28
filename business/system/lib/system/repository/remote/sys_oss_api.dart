@@ -47,7 +47,7 @@ class SysOssRepository {
 
   ///删除OSS存储
   static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
-      {int? id, List<int>? ids}) {
+      {BigInt? id, List<BigInt>? ids}) {
     //参数校验
     assert(id != null && ids == null || id == null && ids != null);
     ids ??= [id!];

@@ -27,7 +27,7 @@ abstract class SysTenantApi {
 
   ///获取租户信息
   @GET("/system/tenant/{tenantId}")
-  Future<ResultEntity> getInfo(@Path() int? tenantId, @CancelRequest() CancelToken cancelToken);
+  Future<ResultEntity> getInfo(@Path() String? tenantId, @CancelRequest() CancelToken cancelToken);
 
   ///添加租户
   @POST("/system/tenant")
@@ -41,7 +41,7 @@ abstract class SysTenantApi {
   ///同步租户列表
   @GET("/system/tenant/syncTenantPackage")
   Future<ResultEntity> syncTenantPackage(@Query("tenantId") String tenantId,
-      @Query("packageId") int? packageId, @CancelRequest() CancelToken cancelToken);
+      @Query("packageId") String? packageId, @CancelRequest() CancelToken cancelToken);
 
   ///同步租户字典列表
   @GET("/system/tenant/syncTenantDict")
@@ -69,8 +69,8 @@ class SysTenantRepository {
   }
 
   ///租户信息
-  static Future<IntensifyEntity<SysTenant>> getInfo(int tenantId, CancelToken cancelToken) async {
-    return _sysTenantApi.getInfo(tenantId, cancelToken).successMap((event) {
+  static Future<IntensifyEntity<SysTenant>> getInfo(BigInt tenantId, CancelToken cancelToken) async {
+    return _sysTenantApi.getInfo(tenantId.toString(), cancelToken).successMap((event) {
       return event.toIntensify(createData: (resultEntity) {
         return SysTenant.fromJson(resultEntity.data);
       });
@@ -103,9 +103,9 @@ class SysTenantRepository {
 
   ///同步租户套餐
   static Future<IntensifyEntity<dynamic>> syncTenantPackage(
-      String tenantId, int? packageId, CancelToken cancelToken) {
+      String tenantId, BigInt? packageId, CancelToken cancelToken) {
     return _sysTenantApi
-        .syncTenantPackage(tenantId, packageId, cancelToken)
+        .syncTenantPackage(tenantId, packageId?.toString(), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
     });
@@ -120,12 +120,12 @@ class SysTenantRepository {
 
   ///删除租户
   static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
-      {int? id, List<int>? ids}) {
+      {BigInt? id, List<BigInt>? ids}) {
     //参数校验
     assert(id != null && ids == null || id == null && ids != null);
     ids ??= [id!];
     return _sysTenantApi
-        .delete(ids.join(TextUtil.comma), cancelToken)
+        .delete(ids.map((e) => e.toString()).join(TextUtil.comma), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
     });

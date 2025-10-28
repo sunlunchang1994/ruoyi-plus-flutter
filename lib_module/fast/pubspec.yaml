@@ -45,11 +45,6 @@ dev_dependencies:
     sdk: flutter
   build_runner:
   flutter_gen_runner:
-
-  # 网络相关-------------------------------------
-  retrofit_generator:
-  #json_serializable 生成新的命令 flutter pub run build_runner build
-  json_serializable:
   #路由
   # go_router_builder: ^2.7.1
 
@@ -58,7 +53,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-  generate: true # Add this line
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

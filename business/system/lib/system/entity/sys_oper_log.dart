@@ -9,8 +9,8 @@ part 'sys_oper_log.g.dart';
 @JsonSerializable()
 class SysOperLog with AppSelectBoxMixin<SysOperLog> {
   ///日志主键
-  @IntConverter()
-  int? operId;
+  @BigIntConverter()
+  BigInt? operId;
 
   ///租户编号
   String? tenantId;
@@ -62,8 +62,8 @@ class SysOperLog with AppSelectBoxMixin<SysOperLog> {
   String? operTime;
 
   ///消耗时间
-  @IntConverter()
-  int? costTime;
+  @BigIntConverter()
+  BigInt? costTime;
 
   //本地
   String? businessTypeName;

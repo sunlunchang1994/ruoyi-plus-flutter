@@ -27,7 +27,7 @@ abstract class DeptApi {
   ///获取部门信息
   @GET("/system/dept/{deptId}")
   Future<ResultEntity> getInfo(
-      @Path("deptId") int deptId, @CancelRequest() CancelToken cancelToken);
+      @Path("deptId") String deptId, @CancelRequest() CancelToken cancelToken);
 
   ///添加部门
   @POST("/system/dept")
@@ -64,8 +64,8 @@ class DeptRepository {
   }
 
   ///获取部门信息
-  static Future<IntensifyEntity<Dept>> getInfo(int deptId, CancelToken cancelToken) {
-    return _deptApi.getInfo(deptId, cancelToken).successMap((event) {
+  static Future<IntensifyEntity<Dept>> getInfo(BigInt deptId, CancelToken cancelToken) {
+    return _deptApi.getInfo(deptId.toString(), cancelToken).successMap((event) {
       var intensifyEntity = IntensifyEntity<Dept>(
           resultEntity: event,
           createData: (resultEntity) {
@@ -100,11 +100,11 @@ class DeptRepository {
 
   //删除部门
   static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
-      {int? deptId, List<int>? deptIds}) {
+      {BigInt? deptId, List<BigInt>? deptIds}) {
     //参数校验
     assert(deptId != null && deptIds == null || deptId == null && deptIds != null);
     deptIds ??= [deptId!];
-    return _deptApi.delete(deptIds.join(TextUtil.comma), cancelToken).successMap2Single((event) {
+    return _deptApi.delete(deptIds.map((e) => e.toString()).join(TextUtil.comma), cancelToken).successMap2Single((event) {
       return event.toIntensify();
     });
   }

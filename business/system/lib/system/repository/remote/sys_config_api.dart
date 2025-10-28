@@ -29,7 +29,7 @@ abstract class SysConfigApi {
   ///获取参数配置信息
   @GET("/system/config/{dictId}")
   Future<ResultEntity> getInfo(
-      @Path("dictId") int dictId, @CancelRequest() CancelToken cancelToken);
+      @Path("dictId") String dictId, @CancelRequest() CancelToken cancelToken);
 
   ///添加参数配置
   @POST("/system/config")
@@ -59,9 +59,9 @@ class SysConfigRepository {
   }
 
   ///获取参数配置信息
-  static Future<IntensifyEntity<SysConfig?>> getInfo(int dictId, CancelToken cancelToken,
+  static Future<IntensifyEntity<SysConfig?>> getInfo(BigInt dictId, CancelToken cancelToken,
       {bool fillParentName = false}) {
-    return _sysConfigApi.getInfo(dictId, cancelToken).successMap2Single((event) {
+    return _sysConfigApi.getInfo(dictId.toString(), cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         return SysConfig.fromJson(resultEntity.data);
       });
@@ -81,12 +81,12 @@ class SysConfigRepository {
 
   ///删除参数配置
   static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
-      {int? configId, List<int>? configIds}) {
+      {BigInt? configId, List<BigInt>? configIds}) {
     //参数校验
     assert(configId != null && configIds == null || configId == null && configIds != null);
     configIds ??= [configId!];
     return _sysConfigApi
-        .delete(configIds.join(TextUtil.comma), cancelToken)
+        .delete(configIds.map((e) => e.toString()).join(TextUtil.comma), cancelToken)
         .successMap2Single((event) {
       return event.toIntensify();
     });

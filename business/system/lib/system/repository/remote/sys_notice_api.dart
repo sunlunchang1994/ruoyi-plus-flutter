@@ -32,7 +32,7 @@ abstract class SysNoticeApi {
   ///获取通知公告信息
   @GET("/system/notice/{dictId}")
   Future<ResultEntity> getInfo(
-      @Path("dictId") int dictId, @CancelRequest() CancelToken cancelToken);
+      @Path("dictId") String dictId, @CancelRequest() CancelToken cancelToken);
 
   ///添加通知公告
   @POST("/system/notice")
@@ -62,9 +62,9 @@ class SysNoticeRepository {
   }
 
   ///获取通知公告信息
-  static Future<IntensifyEntity<SysNotice?>> getInfo(int dictId, CancelToken cancelToken,
+  static Future<IntensifyEntity<SysNotice?>> getInfo(BigInt dictId, CancelToken cancelToken,
       {bool fillParentName = false}) {
-    return _sysConfigApi.getInfo(dictId, cancelToken).successMap2Single((event) {
+    return _sysConfigApi.getInfo(dictId.toString(), cancelToken).successMap2Single((event) {
       return event.toIntensify(createData: (resultEntity) {
         SysNotice sysNotice = SysNotice.fromJson(resultEntity.data);
         fillShowText([sysNotice]);
@@ -96,11 +96,11 @@ class SysNoticeRepository {
 
   ///删除通知公告
   static Future<IntensifyEntity<dynamic>> delete(CancelToken cancelToken,
-      {int? id, List<int>? ids}) {
+      {BigInt? id, List<BigInt>? ids}) {
     //参数校验
     assert(id != null && ids == null || id == null && ids != null);
     ids ??= [id!];
-    return _sysConfigApi.delete(ids.join(TextUtil.comma), cancelToken).successMap2Single((event) {
+    return _sysConfigApi.delete(ids.map((e) => e.toString()).join(TextUtil.comma), cancelToken).successMap2Single((event) {
       return event.toIntensify();
     });
   }
