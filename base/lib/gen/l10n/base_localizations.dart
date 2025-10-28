@@ -380,6 +380,36 @@ abstract class BaseLocalizations {
   /// In en, this message translates to:
   /// **'在系统浏览器打开'**
   String get ab_label_open_url_in_sys_browser;
+
+  /// No description provided for @ab_toast_data_exception_cannot_export.
+  ///
+  /// In en, this message translates to:
+  /// **'数据异常，无法导出'**
+  String get ab_toast_data_exception_cannot_export;
+
+  /// No description provided for @ab_toast_storage_permission_required.
+  ///
+  /// In en, this message translates to:
+  /// **'需要存储权限才能下载文件'**
+  String get ab_toast_storage_permission_required;
+
+  /// No description provided for @ab_toast_directory_not_selected.
+  ///
+  /// In en, this message translates to:
+  /// **'未选择保存目录'**
+  String get ab_toast_directory_not_selected;
+
+  /// No description provided for @ab_toast_storage_file_saved_2.
+  ///
+  /// In en, this message translates to:
+  /// **'文件已保存到：%s'**
+  String get ab_toast_storage_file_saved_2;
+
+  /// No description provided for @ab_toast_storage_file_open_fast.
+  ///
+  /// In en, this message translates to:
+  /// **'立即打开'**
+  String get ab_toast_storage_file_open_fast;
 }
 
 class _BaseLocalizationsDelegate extends LocalizationsDelegate<BaseLocalizations> {

@@ -140,6 +140,18 @@ abstract class ComponentLocalizations {
   /// In en, this message translates to:
   /// **'附件获取失败'**
   String get comp_label_get_attachments_error;
+
+  /// No description provided for @comp_label_file_downloaded.
+  ///
+  /// In en, this message translates to:
+  /// **'文件已下载：%s'**
+  String get comp_label_file_downloaded;
+
+  /// No description provided for @comp_label_check_browser_downloads.
+  ///
+  /// In en, this message translates to:
+  /// **'请在浏览器的下载文件夹中查看'**
+  String get comp_label_check_browser_downloads;
 }
 
 class _ComponentLocalizationsDelegate extends LocalizationsDelegate<ComponentLocalizations> {

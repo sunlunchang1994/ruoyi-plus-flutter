@@ -149,4 +149,19 @@ class BaseLocalizationsEn extends BaseLocalizations {
 
   @override
   String get ab_label_open_url_in_sys_browser => '在系统浏览器打开';
+
+  @override
+  String get ab_toast_data_exception_cannot_export => '数据异常，无法导出';
+
+  @override
+  String get ab_toast_storage_permission_required => '需要存储权限才能下载文件';
+
+  @override
+  String get ab_toast_directory_not_selected => '未选择保存目录';
+
+  @override
+  String get ab_toast_storage_file_saved_2 => '文件已保存到：%s';
+
+  @override
+  String get ab_toast_storage_file_open_fast => '立即打开';
 }

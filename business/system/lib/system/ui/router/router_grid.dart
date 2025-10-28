@@ -100,10 +100,16 @@ class _MenuGridVm extends AppBaseVm {
       return;
     }
     if (ConstantSysApi.VALUE_COMPONENT_PARENT_VIEW == router.component) {
-      pushNamed(_targetPathByRouter(router), arguments: {
+      pushNamed(ConstantSysApi.ROUTER_CHILD_PAGE, arguments: {
+        ConstantBase.KEY_INTENT_TITLE: router.getRouterTitle(),
+        "routerList": router.children,
+        "parentPath": _targetPathByRouter(router)
+      });
+      //下面注释掉的不要移除
+      /*pushNamed(_targetPathByRouter(router), arguments: {
         ConstantBase.KEY_INTENT_TITLE: router.meta?.title ?? AppConfig().appName,
         ConstantSysApi.INTENT_KEY_ROUTER: router
-      });
+      });*/
       return;
     }
     pushNamed(_targetPathByRouter(router),

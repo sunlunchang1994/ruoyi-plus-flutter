@@ -29,6 +29,7 @@ class Progress {
   final DownloadStatus status; // 当前状态
   final Object? error; // 错误信息 (类型安全替代 dynamic)
   final Map<String, dynamic> extras; // 扩展数据 (替代 extra1/extra2)
+  final List<int>? bytes; // 文件字节数据（用于Web端）
 
   // 计算属性：文件完整路径（按需生成，避免冗余存储）
   String? get filePath {
@@ -86,6 +87,7 @@ class Progress {
     this.error,
     Map<String, dynamic>? extras,
     int? fraction, // 可选的显式进度
+    this.bytes, // 文件字节数据
   })  : _folder = folder,
         _fileName = fileName,
         _filePath = filePath,

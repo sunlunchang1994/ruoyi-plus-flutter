@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:base/base/api/api_config.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
@@ -23,9 +21,9 @@ abstract class PubOssApi {
     return _PubOssApi(dio, baseUrl: baseUrl ?? ApiConfig().getServiceApiAddress());
   }
 
-  ///上传文件
-  @POST("/resource/oss/upload")
-  Future<ResultEntity> upload(@Part(name: "file") File file);
+  ///上传文件（手动实现，不使用自动生成）
+  // @POST("/resource/oss/upload")
+  // Future<ResultEntity> upload(@Part(name: "file") File file);
 
   ///下载文件
   @POST("/resource/oss/download/{ossId}")
@@ -37,16 +35,38 @@ abstract class PubOssApi {
 
 ///OSS存储服务
 class PubOssRepository {
-  static final PubOssApi _pubOssApi = PubOssApi();
+  // static final PubOssApi _pubOssApi = PubOssApi(); // 暂时不使用自动生成的 API
 
-  ///上传文件
-  static Future<IntensifyEntity<SysOssUploadVo>> upload(String filePath) async {
-    return _pubOssApi.upload(File(filePath)).successMap2Single((event) {
-      var intensifyEntity = IntensifyEntity<SysOssUploadVo>(
-          resultEntity: event,
-          createData: (resultEntity) => SysOssUploadVo.fromJson(resultEntity.data));
-      return intensifyEntity;
-    });
+  ///上传文件（支持 Web 平台）
+  static Future<IntensifyEntity<SysOssUploadVo>> upload(MultipartFile file) async {
+    try {
+      // 手动构建 FormData
+      final formData = FormData();
+      formData.files.add(MapEntry('file', file));
+
+      // 直接使用 Dio 发送请求
+      final dio = BaseDio.getInstance().getDio();
+      final response = await dio.post(
+        '${ApiConfig().getServiceApiAddress()}/resource/oss/upload',
+        data: formData,
+        options: Options(
+          contentType: 'multipart/form-data',
+        ),
+      );
+
+      // 转换响应并检查错误
+      final resultEntity = ResultEntity.fromJson(response.data);
+      
+      // 使用 successMap2Single 统一处理成功和错误响应
+      return Future.value(resultEntity).successMap2Single((event) {
+        var intensifyEntity = IntensifyEntity<SysOssUploadVo>(
+            resultEntity: event,
+            createData: (resultEntity) => SysOssUploadVo.fromJson(resultEntity.data));
+        return intensifyEntity;
+      });
+    } catch (error) {
+      return Future.error(error);
+    }
   }
 
   ///下载文件

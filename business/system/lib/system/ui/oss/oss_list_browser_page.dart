@@ -1,17 +1,17 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:fast/gen/fast_l10n.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
-import 'package:boxes_flutter/flutter/slc/common/object_util.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:base/base/ui/app_mvvm.dart';
-import 'package:base/base/vm/global_vm.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/page_data_vd.dart';
@@ -223,6 +223,10 @@ class _OssListBrowserVm extends AppBaseVm {
   }
 
   void checkStoragePermission() async {
+    // Web 平台不需要权限检查
+    if (kIsWeb) {
+      return;
+    }
     if (Platform.isAndroid) {
       final status = await PermissionCompat.requestStorage;
       if (!status.isGranted) {
@@ -242,7 +246,22 @@ class _OssListBrowserVm extends AppBaseVm {
     if (pickedFile == null) {
       return;
     }
-    _uploadSelectByPath(pickedFile.path);
+    
+    // Web 平台和移动平台处理方式不同
+    MultipartFile multipartFile;
+    if (kIsWeb) {
+      final bytes = await pickedFile.readAsBytes();
+      multipartFile = MultipartFile.fromBytes(
+        bytes,
+        filename: pickedFile.name,
+      );
+    } else {
+      multipartFile = await MultipartFile.fromFile(
+        pickedFile.path,
+        filename: pickedFile.name,
+      );
+    }
+    _uploadFile(multipartFile);
   }
 
   void onSelectFile() async {
@@ -250,15 +269,47 @@ class _OssListBrowserVm extends AppBaseVm {
     checkStoragePermission();
     FilePickerResult? filePickerResult = await FilePicker.platform.pickFiles(
         type: FileType.custom, allowedExtensions: MediaTypeConstant.getAllowedExtensions());
-    if (filePickerResult == null || ObjectUtil.isEmptyList(filePickerResult.paths)) {
+    if (filePickerResult == null || filePickerResult.files.isEmpty) {
       return;
     }
-    _uploadSelectByPath(filePickerResult.paths.first!);
+    
+    final pickedFile = filePickerResult.files.first;
+    MultipartFile multipartFile;
+    
+    // Web 平台和移动端处理文件的方式不同
+    if (kIsWeb) {
+      // Web 平台使用 bytes
+      if (pickedFile.bytes == null) {
+        AppToastUtil.showToast(msg: FastS.current.label_file_upload_by_file_failed);
+        return;
+      }
+      multipartFile = MultipartFile.fromBytes(
+        pickedFile.bytes!,
+        filename: pickedFile.name,
+      );
+    } else {
+      // 移动端使用文件路径
+      if (filePickerResult.paths.isEmpty || filePickerResult.paths.first == null) {
+        return;
+      }
+      String filePath = filePickerResult.paths.first!;
+      multipartFile = await MultipartFile.fromFile(
+        filePath,
+        filename: pickedFile.name,
+      );
+    }
+    _uploadFile(multipartFile);
   }
 
-  void _uploadSelectByPath(String path) {
+  void _uploadSelectByPath(String path) async {
+    // 兼容旧代码，将路径转换为 MultipartFile
+    final multipartFile = await MultipartFile.fromFile(path);
+    _uploadFile(multipartFile);
+  }
+
+  void _uploadFile(MultipartFile file) {
     showLoading(text: FastS.current.label_file_are_uploading);
-    PubOssRepository.upload(path).then((IntensifyEntity<SysOssUploadVo> value) {
+    PubOssRepository.upload(file).then((IntensifyEntity<SysOssUploadVo> value) {
       dismissLoading();
       listVmSub.sendRefreshEvent();
     },

@@ -29,4 +29,10 @@ class ComponentLocalizationsEn extends ComponentLocalizations {
 
   @override
   String get comp_label_get_attachments_error => '附件获取失败';
+
+  @override
+  String get comp_label_file_downloaded => '文件已下载：%s';
+
+  @override
+  String get comp_label_check_browser_downloads => '请在浏览器的下载文件夹中查看';
 }
