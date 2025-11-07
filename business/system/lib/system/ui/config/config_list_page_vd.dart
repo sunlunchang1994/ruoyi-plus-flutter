@@ -4,7 +4,7 @@ import 'package:fast/fast/vd/list_data_component.dart';
 import 'package:fast/fast/vd/page_data_vm_sub.dart';
 import 'package:fast/fast/vd/refresh/content_empty.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
-import 'package:fast/gen/fast_l10n.dart';
+import 'package:fast/gen/fast_l10n.dart' as fast_l10n;
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
@@ -23,7 +23,7 @@ import 'package:component/component/dict/entity/tree_dict.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
-import 'package:base/gen/base_l10n.dart';
+import 'package:base/gen/base_l10n.dart' as base_l10n;
 import 'package:bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:bizapi/user/vm/user_share_vm.dart';
 import 'package:component/component/dict/utils/dict_ui_utils.dart';
@@ -117,7 +117,7 @@ class ConfigListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_config_name,
-                          hintText: BaseS.current.ab_label_please_input,
+                          hintText: base_l10n.BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
@@ -137,7 +137,7 @@ class ConfigListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_config_key,
-                          hintText: BaseS.current.ab_label_please_input,
+                          hintText: base_l10n.BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
@@ -164,7 +164,7 @@ class ConfigListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_config_type,
-                          hintText: BaseS.current.ab_label_please_choose,
+                          hintText: base_l10n.BaseS.current.ab_label_please_choose,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixBySelectVal(value, onPressed: () {
@@ -184,7 +184,7 @@ class ConfigListPageWidget {
                                 onPressed: () {
                                   listVmSub.onResetSearch();
                                 },
-                                child: Text(FastS.current.action_reset))),
+                                child: Text(fast_l10n.FastS.current.action_reset))),
                         ThemeUtil.getSizedBox(width: SlcDimens.appDimens16),
                         Expanded(
                             child: FilledButton(
@@ -192,7 +192,7 @@ class ConfigListPageWidget {
                                   WidgetUtils.autoHandlerSearchDrawer(context);
                                   listVmSub.onSearch();
                                 },
-                                child: Text(FastS.current.action_search)))
+                                child: Text(fast_l10n.FastS.current.action_search)))
                       ],
                     );
                   }))

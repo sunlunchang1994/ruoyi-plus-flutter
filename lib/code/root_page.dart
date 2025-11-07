@@ -18,7 +18,7 @@ import 'package:ruoyi_plus_flutter/res/styles.dart';
 import 'package:system/gen/sys_l10n.dart';
 import 'package:user/gen/user_l10n.dart';
 
-import '../gen/app_l10n.dart';
+import '../gen/app_l10n.dart' as app_l10n;
 import 'route/app_router.dart';
 
 /// @author sunlunchang
@@ -40,14 +40,14 @@ class RootPage extends StatelessWidget {
               routes: router,
               onUnknownRoute: get404Route,
               onGenerateTitle: (context) {
-                return AppS.current.app_name;
+                return app_l10n.S.current.app_name;
               },
               theme: AppStyles.getAppLightThemeMD3(),
               darkTheme: AppStyles.getAppDarkThemeMD3(),
               themeMode: themeMode,
               // 设置语言
               localizationsDelegates: const [
-                ...AppS.localizationsDelegates,
+                ...app_l10n.S.localizationsDelegates,
                 FastS.delegate,
                 BaseS.delegate,
                 ComponentS.delegate,

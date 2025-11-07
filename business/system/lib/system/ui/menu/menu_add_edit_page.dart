@@ -1,4 +1,4 @@
-import 'package:fast/gen/fast_l10n.dart';
+import 'package:fast/gen/fast_l10n.dart' as fast_l10n;
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
@@ -26,7 +26,7 @@ import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/ui/app_mvvm.dart';
 import 'package:base/base/vm/global_vm.dart';
-import 'package:base/gen/base_l10n.dart';
+import 'package:base/gen/base_l10n.dart' as base_l10n;
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:bizapi/user/vm/user_share_vm.dart';
@@ -84,7 +84,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
                           return [
                             if (UserShareVm().hasPermiAny(["system:menu:remove"]))
                               PopupMenuItem(
-                                child: Text(FastS.current.action_delete),
+                                child: Text(fast_l10n.FastS.current.action_delete),
                                 onTap: () {
                                   FastDialogUtils.showDelConfirmDialog(context,
                                       contentText: TextUtil.format(
@@ -138,7 +138,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
           decoration: MySelectDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.always,
             labelText: S.current.sys_label_menu_parent_name,
-            hintText: BaseS.current.ab_label_please_choose,
+            hintText: base_l10n.BaseS.current.ab_label_please_choose,
             border: const UnderlineInputBorder(),
             suffixIcon:
                 NqNullSelector<_MenuAddEditModel, String?>(builder: (context, value, child) {
@@ -177,7 +177,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
               contentPadding: EdgeInsets.zero,
               floatingLabelBehavior: FloatingLabelBehavior.always,
               label: InputDecUtils.getRequiredLabel(S.current.sys_label_menu_name),
-              hintText: BaseS.current.ab_label_please_input,
+              hintText: base_l10n.BaseS.current.ab_label_please_input,
               border: const UnderlineInputBorder()),
           onChanged: (value) {
             getVm().applyInfoChange();
@@ -197,8 +197,8 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: MyInputDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            label: InputDecUtils.getRequiredLabel(BaseS.current.ab_label_show_sort),
-            hintText: BaseS.current.ab_label_please_input,
+            label: InputDecUtils.getRequiredLabel(base_l10n.BaseS.current.ab_label_show_sort),
+            hintText: base_l10n.BaseS.current.ab_label_please_input,
             border: const UnderlineInputBorder()),
         onChanged: (value) {
           getVm().applyInfoChange();
@@ -247,7 +247,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
         decoration: MyInputDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.always,
             label: InputDecUtils.getRequiredLabel(S.current.sys_label_menu_path),
-            hintText: BaseS.current.ab_label_please_input,
+            hintText: base_l10n.BaseS.current.ab_label_please_input,
             border: const UnderlineInputBorder()),
         onChanged: (value) {
           getVm().applyInfoChange();
@@ -272,7 +272,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
               decoration: MyInputDecoration(
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                   labelText: S.current.sys_label_menu_component_path,
-                  hintText: BaseS.current.ab_label_please_input,
+                  hintText: base_l10n.BaseS.current.ab_label_please_input,
                   border: const UnderlineInputBorder()),
               onChanged: (value) {
                 getVm().applyInfoChange();
@@ -295,7 +295,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
               decoration: MyInputDecoration(
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                   labelText: S.current.sys_label_menu_permission_characters,
-                  hintText: BaseS.current.ab_label_please_input,
+                  hintText: base_l10n.BaseS.current.ab_label_please_input,
                   border: const UnderlineInputBorder()),
               onChanged: (value) {
                 getVm().applyInfoChange();
@@ -317,7 +317,7 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
               decoration: MyInputDecoration(
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                   labelText: S.current.sys_label_menu_route_parameters,
-                  hintText: BaseS.current.ab_label_please_input,
+                  hintText: base_l10n.BaseS.current.ab_label_please_input,
                   border: const UnderlineInputBorder()),
               onChanged: (value) {
                 getVm().applyInfoChange();
@@ -394,10 +394,10 @@ class MenuAddEditPage extends AppBaseStatelessWidget<_MenuAddEditModel> {
         context: context,
         builder: (context) {
           return AlertDialog(
-              title: Text(FastS.current.label_prompt),
-              content: Text(BaseS.current.ab_label_data_save_prompt),
+              title: Text(fast_l10n.FastS.current.label_prompt),
+              content: Text(base_l10n.BaseS.current.ab_label_data_save_prompt),
               actions: FastDialogUtils.getCommonlyAction(context,
-                  positiveText: FastS.current.action_exit, positiveLister: () {
+                  positiveText: fast_l10n.FastS.current.action_exit, positiveLister: () {
                 Navigator.pop(context);
                 getVm().abandonEdit();
               }));
@@ -414,7 +414,7 @@ class _MenuAddEditModel extends AppBaseVm with CancelTokenAssist {
 
   void initVm(SysMenu? menuInfo, SysMenu? parentMenu) {
     if (menuInfo == null && parentMenu == null) {
-      AppToastUtil.showToast(msg: FastS.current.label_select_parameter_is_missing);
+      AppToastUtil.showToast(msg: fast_l10n.FastS.current.label_select_parameter_is_missing);
       finish();
       return;
     }
@@ -484,12 +484,12 @@ class _MenuAddEditModel extends AppBaseVm with CancelTokenAssist {
 
   void onSave() {
     if (!_checkSaveParams()) {
-      AppToastUtil.showToast(msg: BaseS.current.ab_label_form_check_hint);
+      AppToastUtil.showToast(msg: base_l10n.BaseS.current.ab_label_form_check_hint);
       return;
     }
-    showLoading(text: FastS.current.label_save_ing);
+    showLoading(text: fast_l10n.FastS.current.label_save_ing);
     MenuRepository.submit(sysMenuInfo!, defCancelToken).then((value) {
-      AppToastUtil.showToast(msg: FastS.current.label_submitted_success);
+      AppToastUtil.showToast(msg: fast_l10n.FastS.current.label_submitted_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;
@@ -501,14 +501,14 @@ class _MenuAddEditModel extends AppBaseVm with CancelTokenAssist {
 
   //删除菜单
   void onDelete() {
-    showLoading(text: FastS.current.label_delete_ing);
+    showLoading(text: fast_l10n.FastS.current.label_delete_ing);
     MenuRepository.delete(defCancelToken, menuId: sysMenuInfo!.menuId).then((value) {
       dismissLoading();
-      AppToastUtil.showToast(msg: FastS.current.label_delete_success);
+      AppToastUtil.showToast(msg: fast_l10n.FastS.current.label_delete_success);
       finish(result: true);
     },
         onError: BaseDio.errProxyFunc(
-            defErrMsg: FastS.current.label_delete_failed,
+            defErrMsg: fast_l10n.FastS.current.label_delete_failed,
             onError: (error) {
               dismissLoading();
             }));

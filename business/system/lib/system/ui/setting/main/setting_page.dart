@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:fast/gen/fast_l10n.dart';
+import 'package:fast/gen/fast_l10n.dart' as fast_l10n;
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_util.dart';
@@ -43,7 +43,7 @@ class SettingPage extends AppBaseStatelessWidget<SettingVm> {
                       ListTile(
                           title: Text(S.current.sys_label_setting_item_check_updates),
                           onTap: () {
-                            AppToastUtil.showToast(msg: FastS.current.title_already_the_latest_version);
+                            AppToastUtil.showToast(msg: fast_l10n.FastS.current.title_already_the_latest_version);
                           }),
                       ListTile(
                           title: Text(S.current.sys_label_setting_item_about),

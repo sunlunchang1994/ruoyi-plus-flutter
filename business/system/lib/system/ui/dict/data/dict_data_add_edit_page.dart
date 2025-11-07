@@ -1,5 +1,5 @@
 import 'package:fast/fast/utils/app_toast.dart';
-import 'package:fast/gen/fast_l10n.dart';
+import 'package:fast/gen/fast_l10n.dart' as fast_l10n;
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -21,7 +21,7 @@ import 'package:system/system/repository/remote/dict_data_api.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/ui/app_mvvm.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
-import 'package:base/gen/base_l10n.dart';
+import 'package:base/gen/base_l10n.dart' as base_l10n;
 
 import 'package:bizapi/user/vm/user_share_vm.dart';
 
@@ -72,7 +72,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                           return [
                             if (UserShareVm().hasPermiAny(["system:dict:remove"]))
                               PopupMenuItem(
-                                child: Text(FastS.current.action_delete),
+                                child: Text(fast_l10n.FastS.current.action_delete),
                                 onTap: () {
                                   FastDialogUtils.showDelConfirmDialog(context,
                                       contentText: TextUtil.format(
@@ -116,7 +116,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(S.current.sys_label_dict_type),
-                            hintText: BaseS.current.ab_label_please_input,
+                            hintText: base_l10n.BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(),
@@ -131,7 +131,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
                                 S.current.sys_label_dict_data_label),
-                            hintText: BaseS.current.ab_label_please_input,
+                            hintText: base_l10n.BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysDictData!.dictLabel = value;
@@ -150,7 +150,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
                                 S.current.sys_label_dict_data_value),
-                            hintText: BaseS.current.ab_label_please_input,
+                            hintText: base_l10n.BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysDictData!.dictValue = value;
@@ -168,7 +168,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.sys_label_dict_data_css_class,
-                            hintText: BaseS.current.ab_label_please_input,
+                            hintText: base_l10n.BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysDictData!.cssClass = value;
@@ -183,7 +183,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: S.current.sys_label_dict_data_list_style,
-                            hintText: BaseS.current.ab_label_please_input,
+                            hintText: base_l10n.BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysDictData!.listClass = value;
@@ -202,7 +202,7 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             label: InputDecUtils.getRequiredLabel(
                                 S.current.sys_label_dict_data_order_num),
-                            hintText: BaseS.current.ab_label_please_input,
+                            hintText: base_l10n.BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         onChanged: (value) {
                           getVm().sysDictData!.dictSort =
@@ -220,8 +220,8 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: MyInputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelText: BaseS.current.ab_label_remark,
-                            hintText: BaseS.current.ab_label_please_input,
+                            labelText: base_l10n.BaseS.current.ab_label_remark,
+                            hintText: base_l10n.BaseS.current.ab_label_please_input,
                             border: const UnderlineInputBorder()),
                         textInputAction: TextInputAction.next,
                         onChanged: (value) {
@@ -239,10 +239,10 @@ class DictDataAddEditPage extends AppBaseStatelessWidget<_DictDataAddEditVm> {
         context: context,
         builder: (context) {
           return AlertDialog(
-              title: Text(FastS.current.label_prompt),
-              content: Text(BaseS.current.ab_label_data_save_prompt),
+              title: Text(fast_l10n.FastS.current.label_prompt),
+              content: Text(base_l10n.BaseS.current.ab_label_data_save_prompt),
               actions: FastDialogUtils.getCommonlyAction(context,
-                  positiveText: FastS.current.action_exit, positiveLister: () {
+                  positiveText: fast_l10n.FastS.current.action_exit, positiveLister: () {
                 Navigator.pop(context);
                 getVm().abandonEdit();
               }));
@@ -259,7 +259,7 @@ class _DictDataAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   void initVm({SysDictData? dictData, String? parentType}) {
     if (dictData == null && parentType == null) {
-      throw Exception(FastS.current.label_select_parameter_is_missing);
+      throw Exception(fast_l10n.FastS.current.label_select_parameter_is_missing);
     }
     if (this.sysDictData != null) {
       return;
@@ -306,12 +306,12 @@ class _DictDataAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   void onSave() {
     if (!_checkSaveParams()) {
-      AppToastUtil.showToast(msg: BaseS.current.ab_label_form_check_hint);
+      AppToastUtil.showToast(msg: base_l10n.BaseS.current.ab_label_form_check_hint);
       return;
     }
-    showLoading(text: FastS.current.label_save_ing);
+    showLoading(text: fast_l10n.FastS.current.label_save_ing);
     DictDataRepository.submit(sysDictData!, defCancelToken).then((value) {
-      AppToastUtil.showToast(msg: FastS.current.label_submitted_success);
+      AppToastUtil.showToast(msg: fast_l10n.FastS.current.label_submitted_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;
@@ -323,14 +323,14 @@ class _DictDataAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   //删除字典数据
   void onDelete() {
-    showLoading(text: FastS.current.label_delete_ing);
+    showLoading(text: fast_l10n.FastS.current.label_delete_ing);
     DictDataRepository.delete(defCancelToken, dictDataId: sysDictData!.dictCode).then((value) {
       dismissLoading();
-      AppToastUtil.showToast(msg: FastS.current.label_delete_success);
+      AppToastUtil.showToast(msg: fast_l10n.FastS.current.label_delete_success);
       finish(result: true);
     },
         onError: BaseDio.errProxyFunc(
-            defErrMsg: FastS.current.label_delete_failed,
+            defErrMsg: fast_l10n.FastS.current.label_delete_failed,
             onError: (error) {
               dismissLoading();
             }));

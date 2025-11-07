@@ -1,4 +1,4 @@
-import 'package:fast/gen/fast_l10n.dart';
+import 'package:fast/gen/fast_l10n.dart' as fast_l10n;
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/select_box.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
@@ -144,7 +144,7 @@ class TenantListBrowserPage extends AppBaseStatelessWidget<_TenantListBrowserVm>
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text(FastS.current.label_prompt),
+            title: Text(fast_l10n.FastS.current.label_prompt),
             content: Text(S.current.sys_label_sys_tenant_sync_dict_confirm),
             actions: FastDialogUtils.getCommonlyAction(context, positiveLister: () {
               Navigator.of(context).pop();
@@ -219,14 +219,14 @@ class _TenantListBrowserVm extends AppBaseVm with CancelTokenAssist {
       return;
     }
     //删除
-    showLoading(text: FastS.current.label_delete_ing);
+    showLoading(text: fast_l10n.FastS.current.label_delete_ing);
     SysTenantRepository.delete(listVmSub.defCancelToken, ids: idList).then((value) {
       dismissLoading();
-      AppToastUtil.showToast(msg: FastS.current.label_delete_success);
+      AppToastUtil.showToast(msg: fast_l10n.FastS.current.label_delete_success);
       listVmSub.sendRefreshEvent();
     },
         onError: BaseDio.errProxyFunc(
-            defErrMsg: FastS.current.label_delete_failed,
+            defErrMsg: fast_l10n.FastS.current.label_delete_failed,
             onError: (error) {
               dismissLoading();
             }));

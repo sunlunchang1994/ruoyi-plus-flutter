@@ -1,11 +1,20 @@
-import 'package:fast/gen/l10n/fast_localizations.dart';
-import 'package:fast/gen/l10n/fast_localizations_en.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-
 import 'package:flutter/widgets.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'l10n/fast_localizations.dart';
+import 'l10n/fast_localizations_en.dart';
 
 class FastS {
+  static get current {
+    return S._current;
+  }
+
+  static const delegate  = S.delegate;
+}
+
+class S {
   static FastLocalizations? _current;
 
   static FastLocalizations get current {
@@ -22,6 +31,13 @@ class FastS {
 
   static const LocalizationsDelegate<FastLocalizations> delegate = _LocalizationsDelegate();
 
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 }
 
 class _LocalizationsDelegate extends LocalizationsDelegate<FastLocalizations> {
@@ -30,8 +46,8 @@ class _LocalizationsDelegate extends LocalizationsDelegate<FastLocalizations> {
   @override
   Future<FastLocalizations> load(Locale locale) {
     FastLocalizations fastLocalizations = lookupLocalizations(locale);
-    FastS._current = fastLocalizations;
-    return SynchronousFuture<FastLocalizations>(fastLocalizations);
+    S._current = fastLocalizations;
+    return SynchronousFuture<FastLocalizations>(lookupLocalizations(locale));
   }
 
   @override
@@ -42,15 +58,17 @@ class _LocalizationsDelegate extends LocalizationsDelegate<FastLocalizations> {
 }
 
 FastLocalizations lookupLocalizations(Locale locale) {
+
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en':
-      return FastLocalizationsEn();
+    case 'en': return FastLocalizationsEn();
   }
 
   throw FlutterError(
-      'FastLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'FastLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }

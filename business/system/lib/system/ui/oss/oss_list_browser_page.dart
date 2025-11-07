@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:fast/gen/fast_l10n.dart';
+import 'package:fast/gen/fast_l10n.dart' as fast_l10n;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ import 'package:fast/fast/vd/page_data_vd.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
-import 'package:base/gen/base_l10n.dart';
+import 'package:base/gen/base_l10n.dart' as base_l10n;
 import 'package:bizapi/system/entity/sys_oss_upload_vo.dart';
 import 'package:bizapi/system/entity/sys_oss_vo.dart';
 import 'package:bizapi/system/repository/remote/pub_oss_api.dart';
@@ -154,21 +154,21 @@ class OssListBrowserPage extends AppBaseStatelessWidget<_OssListBrowserVm> {
         builder: (context) {
           return Wrap(children: [
             ListTile(
-              title: Text(BaseS.current.ab_label_photograph),
+              title: Text(base_l10n.BaseS.current.ab_label_photograph),
               onTap: () {
                 Navigator.pop(context);
                 getVm().onSelectCamera();
               },
             ),
             ListTile(
-              title: Text(BaseS.current.ab_label_photo_album),
+              title: Text(base_l10n.BaseS.current.ab_label_photo_album),
               onTap: () {
                 Navigator.pop(context);
                 getVm().onSelectImg();
               },
             ),
             ListTile(
-              title: Text(BaseS.current.ab_label_select_file),
+              title: Text(base_l10n.BaseS.current.ab_label_select_file),
               onTap: () {
                 Navigator.pop(context);
                 getVm().onSelectFile();
@@ -230,7 +230,7 @@ class _OssListBrowserVm extends AppBaseVm {
     if (Platform.isAndroid) {
       final status = await PermissionCompat.requestStorage;
       if (!status.isGranted) {
-        AppToastUtil.showToast(msg: FastS.current.label_permission_file_picker_hint);
+        AppToastUtil.showToast(msg: fast_l10n.FastS.current.label_permission_file_picker_hint);
         return;
       }
     }
@@ -280,7 +280,7 @@ class _OssListBrowserVm extends AppBaseVm {
     if (kIsWeb) {
       // Web 平台使用 bytes
       if (pickedFile.bytes == null) {
-        AppToastUtil.showToast(msg: FastS.current.label_file_upload_by_file_failed);
+        AppToastUtil.showToast(msg: fast_l10n.FastS.current.label_file_upload_by_file_failed);
         return;
       }
       multipartFile = MultipartFile.fromBytes(
@@ -308,13 +308,13 @@ class _OssListBrowserVm extends AppBaseVm {
   }
 
   void _uploadFile(MultipartFile file) {
-    showLoading(text: FastS.current.label_file_are_uploading);
+    showLoading(text: fast_l10n.FastS.current.label_file_are_uploading);
     PubOssRepository.upload(file).then((IntensifyEntity<SysOssUploadVo> value) {
       dismissLoading();
       listVmSub.sendRefreshEvent();
     },
         onError: BaseDio.errProxyFunc(
-            defErrMsg: FastS.current.label_file_upload_by_file_failed,
+            defErrMsg: fast_l10n.FastS.current.label_file_upload_by_file_failed,
             onError: (error) {
               dismissLoading();
             }));
@@ -339,14 +339,14 @@ class _OssListBrowserVm extends AppBaseVm {
     }
 
     //删除
-    showLoading(text: FastS.current.label_delete_ing);
+    showLoading(text: fast_l10n.FastS.current.label_delete_ing);
     SysOssRepository.delete(listVmSub.defCancelToken, ids: idList).then((value) {
       dismissLoading();
-      AppToastUtil.showToast(msg: FastS.current.label_delete_success);
+      AppToastUtil.showToast(msg: fast_l10n.FastS.current.label_delete_success);
       listVmSub.sendRefreshEvent();
     },
         onError: BaseDio.errProxyFunc(
-            defErrMsg: FastS.current.label_delete_failed,
+            defErrMsg: fast_l10n.FastS.current.label_delete_failed,
             onError: (error) {
               dismissLoading();
             }));

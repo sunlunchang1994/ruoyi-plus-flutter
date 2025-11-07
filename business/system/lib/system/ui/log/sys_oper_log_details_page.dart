@@ -1,4 +1,4 @@
-import 'package:fast/gen/fast_l10n.dart';
+import 'package:fast/gen/fast_l10n.dart' as fast_l10n;
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
@@ -12,7 +12,7 @@ import 'package:system/gen/sys_l10n.dart';
 import 'package:system/system/entity/sys_oper_log.dart';
 
 import 'package:base/base/ui/app_mvvm.dart';
-import 'package:base/gen/base_l10n.dart';
+import 'package:base/gen/base_l10n.dart' as base_l10n;
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 
 ///操作详情
@@ -54,7 +54,7 @@ class SysOperLogDetailsPage extends AppBaseStatelessWidget<_SysOperLogDetailsMod
           decoration: MyInputDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.always,
             labelText: S.current.sys_label_oper_id,
-            hintText: BaseS.current.ab_label_not_completed,
+            hintText: base_l10n.BaseS.current.ab_label_not_completed,
             border: const UnderlineInputBorder(),
           )),
       ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),

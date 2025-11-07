@@ -11,7 +11,7 @@ class UserS {
     return S._current;
   }
 
-  static const delegate = S.delegate;
+  static const delegate  = S.delegate;
 }
 
 class S {
@@ -31,16 +31,6 @@ class S {
 
   static const LocalizationsDelegate<UserLocalizations> delegate = _LocalizationsDelegate();
 
-  /// A list of this localizations delegate along with the default localizations
-  /// delegates.
-  ///
-  /// Returns a list of localizations delegates containing this delegate along with
-  /// GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate,
-  /// and GlobalWidgetsLocalizations.delegate.
-  ///
-  /// Additional delegates can be added by appending to this list in
-  /// MaterialApp. This list does not have to be used at all if a custom list
-  /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
     delegate,
@@ -57,7 +47,7 @@ class _LocalizationsDelegate extends LocalizationsDelegate<UserLocalizations> {
   Future<UserLocalizations> load(Locale locale) {
     UserLocalizations fastLocalizations = lookupLocalizations(locale);
     S._current = fastLocalizations;
-    return SynchronousFuture<UserLocalizations>(fastLocalizations);
+    return SynchronousFuture<UserLocalizations>(lookupLocalizations(locale));
   }
 
   @override
@@ -68,15 +58,17 @@ class _LocalizationsDelegate extends LocalizationsDelegate<UserLocalizations> {
 }
 
 UserLocalizations lookupLocalizations(Locale locale) {
+
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en':
-      return UserLocalizationsEn();
+    case 'en': return UserLocalizationsEn();
   }
 
   throw FlutterError(
-      'UserLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'UserLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }

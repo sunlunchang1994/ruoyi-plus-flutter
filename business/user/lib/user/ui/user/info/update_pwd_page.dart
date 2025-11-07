@@ -1,4 +1,4 @@
-import 'package:fast/gen/fast_l10n.dart';
+import 'package:fast/gen/fast_l10n.dart' as fast_l10n;
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
@@ -10,7 +10,7 @@ import 'package:bizapi/user/repository/remote/pub_user_profile_api.dart';
 import 'package:fast/fast/vd/request_token_manager.dart';
 import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:base/base/api/base_dio.dart';
-import 'package:base/gen/base_l10n.dart';
+import 'package:base/gen/base_l10n.dart' as base_l10n;
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:provider/provider.dart';
 
@@ -55,7 +55,7 @@ class UpdatePwdPage extends AppBaseStatelessWidget<_UpdatePwdVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.user_label_old_password,
-                                    hintText: BaseS.current.ab_label_please_input,
+                                    hintText: base_l10n.BaseS.current.ab_label_please_input,
                                     border: const UnderlineInputBorder()),
                                 validator: FormBuilderValidators.compose([
                                   FormBuilderValidators.required(),
@@ -72,7 +72,7 @@ class UpdatePwdPage extends AppBaseStatelessWidget<_UpdatePwdVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.user_label_new_password,
-                                    hintText: BaseS.current.ab_label_please_input,
+                                    hintText: base_l10n.BaseS.current.ab_label_please_input,
                                     border: const UnderlineInputBorder()),
                                 validator: FormBuilderValidators.compose([
                                   FormBuilderValidators.required(),
@@ -89,7 +89,7 @@ class UpdatePwdPage extends AppBaseStatelessWidget<_UpdatePwdVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.user_label_verify_new_password,
-                                    hintText: BaseS.current.ab_label_please_input,
+                                    hintText: base_l10n.BaseS.current.ab_label_please_input,
                                     border: const UnderlineInputBorder()),
                                 validator: FormBuilderValidators.compose([
                                   FormBuilderValidators.required(),
@@ -123,7 +123,7 @@ class _UpdatePwdVm extends AppBaseVm with CancelTokenAssist {
 
   void _submitPwd() {
     if (!_checkSaveParams()) {
-      AppToastUtil.showToast(msg: BaseS.current.ab_label_form_check_hint);
+      AppToastUtil.showToast(msg: base_l10n.BaseS.current.ab_label_form_check_hint);
       return;
     }
     if (newPassword != confirmNewPassword) {
@@ -131,10 +131,10 @@ class _UpdatePwdVm extends AppBaseVm with CancelTokenAssist {
       return;
     }
     //提交保存密码
-    showLoading(text: FastS.current.label_submit_ing);
+    showLoading(text: fast_l10n.FastS.current.label_submit_ing);
     PubUserProfileRepository.updatePwd(oldPassword!, newPassword!).then((result) {
       //更新成功了把当前的值设置给全局（此处应该重新调用获取用户信息的接口重新赋值，暂时先这么写）
-      AppToastUtil.showToast(msg: FastS.current.toast_edit_success);
+      AppToastUtil.showToast(msg: fast_l10n.FastS.current.toast_edit_success);
       dismissLoading();
     }, onError: (e) {
       BaseDio.handlerErr(e);

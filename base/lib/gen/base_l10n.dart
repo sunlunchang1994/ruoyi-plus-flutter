@@ -1,12 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-
 import 'package:flutter/widgets.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'l10n/base_localizations.dart';
 import 'l10n/base_localizations_en.dart';
 
 class BaseS {
+  static get current {
+    return S._current;
+  }
+
+  static const delegate  = S.delegate;
+}
+
+class S {
   static BaseLocalizations? _current;
 
   static BaseLocalizations get current {
@@ -23,6 +31,13 @@ class BaseS {
 
   static const LocalizationsDelegate<BaseLocalizations> delegate = _LocalizationsDelegate();
 
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 }
 
 class _LocalizationsDelegate extends LocalizationsDelegate<BaseLocalizations> {
@@ -31,8 +46,8 @@ class _LocalizationsDelegate extends LocalizationsDelegate<BaseLocalizations> {
   @override
   Future<BaseLocalizations> load(Locale locale) {
     BaseLocalizations fastLocalizations = lookupLocalizations(locale);
-    BaseS._current = fastLocalizations;
-    return SynchronousFuture<BaseLocalizations>(fastLocalizations);
+    S._current = fastLocalizations;
+    return SynchronousFuture<BaseLocalizations>(lookupLocalizations(locale));
   }
 
   @override
@@ -43,15 +58,17 @@ class _LocalizationsDelegate extends LocalizationsDelegate<BaseLocalizations> {
 }
 
 BaseLocalizations lookupLocalizations(Locale locale) {
+
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en':
-      return BaseLocalizationsEn();
+    case 'en': return BaseLocalizationsEn();
   }
 
   throw FlutterError(
-      'BaseLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'BaseLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }

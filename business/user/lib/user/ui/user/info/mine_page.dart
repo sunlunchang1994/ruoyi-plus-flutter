@@ -1,7 +1,7 @@
 import 'package:bizapi/package_bizapi_info.dart';
 import 'package:bizapi/system/config/constant_sys_api.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fast/gen/fast_l10n.dart';
+import 'package:fast/gen/fast_l10n.dart' as fast_l10n;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:boxes_flutter/flutter/slc/res/colors.dart';
@@ -9,7 +9,7 @@ import 'package:boxes_flutter/flutter/slc/res/dimens.dart';
 import 'package:boxes_flutter/flutter/slc/res/theme_extension.dart';
 import 'package:base/base/ui/widget/fast_slc_ui_box.dart';
 import 'package:base/base/vm/global_vm.dart';
-import 'package:base/gen/base_l10n.dart';
+import 'package:base/gen/base_l10n.dart' as base_l10n;
 import 'package:user/gen/user_l10n.dart';
 import 'package:user/res/dimens.dart';
 import 'profile_page.dart';
@@ -64,19 +64,19 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
                                     Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                               Text(
                                   getVm().userInfoVo?.user.deptName ??
-                                      BaseS.current.ab_label_not_completed,
+                                      base_l10n.BaseS.current.ab_label_not_completed,
                                   style: themeData.slcTidyUpStyle
                                       .getTextColorSecondaryStyleByTheme(themeData)),
                               Text(
                                   getVm().userInfoVo?.user.getRoleName() ??
-                                      BaseS.current.ab_label_not_completed,
+                                      base_l10n.BaseS.current.ab_label_not_completed,
                                   style: themeData.slcTidyUpStyle
                                       .getTextColorSecondaryStyleByTheme(themeData)),
                               Padding(
                                   padding: EdgeInsets.only(top: SlcDimens.appDimens8),
                                   child: Text(
                                       getVm().userInfoVo?.user.nickName ??
-                                          BaseS.current.ab_label_not_completed,
+                                          base_l10n.BaseS.current.ab_label_not_completed,
                                       style: themeData.textTheme.titleLarge)),
                             ])),
                             ClipRRect(

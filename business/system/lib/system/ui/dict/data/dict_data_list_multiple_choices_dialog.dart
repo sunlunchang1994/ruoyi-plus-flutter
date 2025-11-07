@@ -1,4 +1,4 @@
-import 'package:fast/gen/fast_l10n.dart';
+import 'package:fast/gen/fast_l10n.dart' as fast_l10n;
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/load_more_format.dart';
@@ -45,14 +45,14 @@ class DictDataListMultipleChoicesDialog
                   onPressed: () {
                     vm.finish();
                   },
-                  child: Text(FastS.current.action_cancel)),
+                  child: Text(fast_l10n.FastS.current.action_cancel)),
               TextButton(
                   onPressed: () {
                     vm.finish(
                         result: SelectUtils.getSelect<SysDictData, ITreeDict<dynamic>>(
                             vm.listVmSub.dataList));
                   },
-                  child: Text(FastS.current.action_ok))
+                  child: Text(fast_l10n.FastS.current.action_ok))
             ],
           );
         });

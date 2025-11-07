@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fast/gen/fast_l10n.dart';
+import 'package:fast/gen/fast_l10n.dart' as fast_l10n;
 import 'package:fast/package_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -33,7 +33,7 @@ import 'package:form_extra/form/form_operate_with_provider.dart';
 import 'package:system/gen/sys_l10n.dart';
 
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
-import 'package:base/gen/base_l10n.dart';
+import 'package:base/gen/base_l10n.dart' as base_l10n;
 import 'package:bizapi/user/vm/user_share_vm.dart';
 import 'package:component/component/attachment/entity/progress.dart';
 import 'package:system/res/dimens.dart';
@@ -226,7 +226,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.sys_label_oss_file_name,
-                                    hintText: BaseS.current.ab_label_not_completed,
+                                    hintText: base_l10n.BaseS.current.ab_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
                               ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
@@ -238,7 +238,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.sys_label_oss_original_name,
-                                    hintText: BaseS.current.ab_label_not_completed,
+                                    hintText: base_l10n.BaseS.current.ab_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
                               ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
@@ -250,7 +250,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.sys_label_oss_file_suffix,
-                                    hintText: BaseS.current.ab_label_not_completed,
+                                    hintText: base_l10n.BaseS.current.ab_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
                               ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
@@ -262,7 +262,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.sys_label_oss_create_by,
-                                    hintText: BaseS.current.ab_label_not_completed,
+                                    hintText: base_l10n.BaseS.current.ab_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
                               ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
@@ -274,7 +274,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.sys_label_oss_service,
-                                    hintText: BaseS.current.ab_label_not_completed,
+                                    hintText: base_l10n.BaseS.current.ab_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
                               ThemeUtil.getSizedBox(height: SlcDimens.appDimens16),
@@ -286,7 +286,7 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                 decoration: MyInputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelText: S.current.sys_label_oss_create_tile,
-                                    hintText: BaseS.current.ab_label_not_completed,
+                                    hintText: base_l10n.BaseS.current.ab_label_not_completed,
                                     border: const UnderlineInputBorder()),
                               ),
                             ],
@@ -351,11 +351,11 @@ class _OssAddEditVm extends AppBaseVm with CancelTokenAssist {
       this._downloadProgress = result;
       notifyListeners();
       //提示并打开
-      AppToastUtil.showToast(msg: FastS.current.action_download_on_success);
+      AppToastUtil.showToast(msg: fast_l10n.FastS.current.action_download_on_success);
       onOpenFile(result.filePath!);
     },
         onError: BaseDio.errProxyFunc(
-            defErrMsg: FastS.current.label_file_download_failed, onError: (error) {}));
+            defErrMsg: fast_l10n.FastS.current.label_file_download_failed, onError: (error) {}));
   }
 
   void onOpenFile(String filePath) {
@@ -364,14 +364,14 @@ class _OssAddEditVm extends AppBaseVm with CancelTokenAssist {
 
   //删除字典类型
   void onDelete() {
-    showLoading(text: FastS.current.label_delete_ing);
+    showLoading(text: fast_l10n.FastS.current.label_delete_ing);
     SysOssRepository.delete(defCancelToken, id: sysOssVo.ossId).then((value) {
       dismissLoading();
-      AppToastUtil.showToast(msg: FastS.current.label_delete_success);
+      AppToastUtil.showToast(msg: fast_l10n.FastS.current.label_delete_success);
       finish(result: true);
     },
         onError: BaseDio.errProxyFunc(
-            defErrMsg: FastS.current.label_delete_failed,
+            defErrMsg: fast_l10n.FastS.current.label_delete_failed,
             onError: (error) {
               dismissLoading();
             }));

@@ -1,12 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-
 import 'package:flutter/widgets.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'l10n/biz_api_localizations.dart';
 import 'l10n/biz_api_localizations_en.dart';
 
 class BizApiS {
+  static get current {
+    return S._current;
+  }
+
+  static const delegate  = S.delegate;
+}
+
+class S {
   static BizApiLocalizations? _current;
 
   static BizApiLocalizations get current {
@@ -22,6 +30,14 @@ class BizApiS {
   }
 
   static const LocalizationsDelegate<BizApiLocalizations> delegate = _LocalizationsDelegate();
+
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 }
 
 class _LocalizationsDelegate extends LocalizationsDelegate<BizApiLocalizations> {
@@ -30,8 +46,8 @@ class _LocalizationsDelegate extends LocalizationsDelegate<BizApiLocalizations> 
   @override
   Future<BizApiLocalizations> load(Locale locale) {
     BizApiLocalizations fastLocalizations = lookupLocalizations(locale);
-    BizApiS._current = fastLocalizations;
-    return SynchronousFuture<BizApiLocalizations>(fastLocalizations);
+    S._current = fastLocalizations;
+    return SynchronousFuture<BizApiLocalizations>(lookupLocalizations(locale));
   }
 
   @override
@@ -42,14 +58,17 @@ class _LocalizationsDelegate extends LocalizationsDelegate<BizApiLocalizations> 
 }
 
 BizApiLocalizations lookupLocalizations(Locale locale) {
+
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'en': return BizApiLocalizationsEn();
   }
 
   throw FlutterError(
-      'BizApiLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'BizApiLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }

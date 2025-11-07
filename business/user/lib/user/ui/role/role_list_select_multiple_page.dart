@@ -1,4 +1,4 @@
-import 'package:fast/gen/fast_l10n.dart';
+import 'package:fast/gen/fast_l10n.dart' as fast_l10n;
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
@@ -112,13 +112,13 @@ class RoleListMultipleSelectDialog
                   onPressed: () {
                     vm.finish();
                   },
-                  child: Text(FastS.current.action_cancel)),
+                  child: Text(fast_l10n.FastS.current.action_cancel)),
               TextButton(
                   onPressed: () {
                     vm.finish(
                         result: SelectUtils.getSelect<Role,Role>(vm.listVmSub.dataList));
                   },
-                  child: Text(FastS.current.action_ok))
+                  child: Text(fast_l10n.FastS.current.action_ok))
             ],
           );
         });

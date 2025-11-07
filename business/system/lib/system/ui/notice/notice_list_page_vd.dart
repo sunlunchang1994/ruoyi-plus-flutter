@@ -1,4 +1,4 @@
-import 'package:fast/gen/fast_l10n.dart';
+import 'package:fast/gen/fast_l10n.dart' as fast_l10n;
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
@@ -20,7 +20,7 @@ import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:base/base/vm/global_vm.dart';
-import 'package:base/gen/base_l10n.dart';
+import 'package:base/gen/base_l10n.dart' as base_l10n;
 import 'package:bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:bizapi/user/vm/user_share_vm.dart';
 import 'package:component/component/dict/utils/dict_ui_utils.dart';
@@ -118,7 +118,7 @@ class NoticeListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_notice_title,
-                          hintText: BaseS.current.ab_label_please_input,
+                          hintText: base_l10n.BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
@@ -145,7 +145,7 @@ class NoticeListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_config_type,
-                          hintText: BaseS.current.ab_label_please_choose,
+                          hintText: base_l10n.BaseS.current.ab_label_please_choose,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixBySelectVal(value, onPressed: () {
@@ -165,7 +165,7 @@ class NoticeListPageWidget {
                                 onPressed: () {
                                   listVmSub.onResetSearch();
                                 },
-                                child: Text (FastS.current.action_reset))),
+                                child: Text (fast_l10n.FastS.current.action_reset))),
                         ThemeUtil.getSizedBox(width: SlcDimens.appDimens16),
                         Expanded(
                             child: FilledButton(
@@ -173,7 +173,7 @@ class NoticeListPageWidget {
                                   WidgetUtils.autoHandlerSearchDrawer(context);
                                   listVmSub.onSearch();
                                 },
-                                child: Text(FastS.current.action_search)))
+                                child: Text(fast_l10n.FastS.current.action_search)))
                       ],
                     );
                   }))

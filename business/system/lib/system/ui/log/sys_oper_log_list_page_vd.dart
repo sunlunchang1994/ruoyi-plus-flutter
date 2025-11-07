@@ -1,4 +1,4 @@
-import 'package:fast/gen/fast_l10n.dart';
+import 'package:fast/gen/fast_l10n.dart' as fast_l10n;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -26,7 +26,7 @@ import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
 import 'package:base/base/ui/utils/fast_dialog_utils.dart';
-import 'package:base/gen/base_l10n.dart';
+import 'package:base/gen/base_l10n.dart' as base_l10n;
 import 'package:bizapi/system/repository/local/local_dict_lib.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/app_toast.dart';
@@ -170,7 +170,7 @@ class SysOperLogListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oper_ip,
-                          hintText: BaseS.current.ab_label_please_input,
+                          hintText: base_l10n.BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<LogOperSearchVm, String?>(
                               builder: (context, value, child) {
@@ -191,7 +191,7 @@ class SysOperLogListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oper_title,
-                          hintText: BaseS.current.ab_label_please_input,
+                          hintText: base_l10n.BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<LogOperSearchVm, String?>(
                               builder: (context, value, child) {
@@ -212,7 +212,7 @@ class SysOperLogListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oper_name,
-                          hintText: BaseS.current.ab_label_please_input,
+                          hintText: base_l10n.BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<LogOperSearchVm, String?>(
                               builder: (context, value, child) {
@@ -239,7 +239,7 @@ class SysOperLogListPageWidget {
                       decoration: MySelectDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oper_business_type,
-                          hintText: BaseS.current.ab_label_please_choose,
+                          hintText: base_l10n.BaseS.current.ab_label_please_choose,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqSelector<LogOperSearchVm, String?>(
                               builder: (context, value, child) {
@@ -263,7 +263,7 @@ class SysOperLogListPageWidget {
                       decoration: MySelectDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_logininfor_status,
-                          hintText: BaseS.current.ab_label_please_choose,
+                          hintText: base_l10n.BaseS.current.ab_label_please_choose,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<LogLoginSearchVm, String?>(
                               builder: (context, value, child) {
@@ -284,7 +284,7 @@ class SysOperLogListPageWidget {
                                 onPressed: () {
                                   searchVm.onResetSearch();
                                 },
-                                child: Text(FastS.current.action_reset))),
+                                child: Text(fast_l10n.FastS.current.action_reset))),
                         ThemeUtil.getSizedBox(width: SlcDimens.appDimens16),
                         Expanded(
                             child: FilledButton(
@@ -292,7 +292,7 @@ class SysOperLogListPageWidget {
                                   WidgetUtils.autoHandlerSearchDrawer(context);
                                   searchVm.onSearch();
                                 },
-                                child: Text(FastS.current.action_search)))
+                                child: Text(fast_l10n.FastS.current.action_search)))
                       ],
                     );
                   }))
@@ -336,14 +336,14 @@ class SysOperLogListDataVmSub extends FastBasePageDataVmSub<SysOperLog> with Can
 
   //删除日志
   void onDelete(SysOperLog itemData) {
-    showLoading(text: FastS.current.label_delete_ing);
+    showLoading(text: fast_l10n.FastS.current.label_delete_ing);
     SysOperLogRepository.delete(defCancelToken, id: itemData.operId).then((value) {
       dismissLoading();
-      AppToastUtil.showToast(msg: FastS.current.label_delete_success);
+      AppToastUtil.showToast(msg: fast_l10n.FastS.current.label_delete_success);
       sendRefreshEvent();
     },
         onError: BaseDio.errProxyFunc(
-            defErrMsg: FastS.current.label_delete_failed,
+            defErrMsg: fast_l10n.FastS.current.label_delete_failed,
             onError: (error) {
               dismissLoading();
             }));

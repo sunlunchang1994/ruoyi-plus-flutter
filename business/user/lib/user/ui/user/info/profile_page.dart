@@ -1,7 +1,7 @@
 //个人资料
 import 'package:bizapi/package_bizapi_info.dart';
 import 'package:dio/dio.dart';
-import 'package:fast/gen/fast_l10n.dart';
+import 'package:fast/gen/fast_l10n.dart' as fast_l10n;
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:boxes_flutter/flutter/slc/common/text_util.dart';
@@ -23,7 +23,7 @@ import 'package:base/base/api/result_entity.dart';
 import 'package:form_extra/form/image_picker/form_builder_single_image_picker.dart';
 import 'package:form_extra/form/fast_form_builder_text_field.dart';
 import 'package:base/base/vm/global_vm.dart';
-import 'package:base/gen/base_l10n.dart';
+import 'package:base/gen/base_l10n.dart' as base_l10n;
 import 'package:component/component/crop/crop_image.dart';
 import 'package:bizapi/user/vm/user_share_vm.dart';
 import 'package:bizapi/user/entity/avatar_vo.dart';
@@ -41,7 +41,7 @@ import 'package:user/gen/user_l10n.dart';
 class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
   static const String routeName = '/profile';
 
-  final String title = BaseS.current.ab_label_personal_information;
+  final String title = base_l10n.BaseS.current.ab_label_personal_information;
 
   ProfilePage({super.key});
 
@@ -140,7 +140,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                     decoration: MyInputDecoration(
                                         floatingLabelBehavior: FloatingLabelBehavior.always,
                                         labelText: S.current.user_label_nike_name,
-                                        hintText: BaseS.current.ab_label_please_input,
+                                        hintText: base_l10n.BaseS.current.ab_label_please_input,
                                         border: const UnderlineInputBorder()),
                                     onChanged: (value) {
                                       getVm().applyInfoChange();
@@ -154,7 +154,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                     decoration: MyInputDecoration(
                                         floatingLabelBehavior: FloatingLabelBehavior.always,
                                         labelText: S.current.user_label_phone_number,
-                                        hintText: BaseS.current.ab_label_please_input,
+                                        hintText: base_l10n.BaseS.current.ab_label_please_input,
                                         border: const UnderlineInputBorder()),
                                     onChanged: (value) {
                                       getVm().applyInfoChange();
@@ -168,7 +168,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                     decoration: MyInputDecoration(
                                         floatingLabelBehavior: FloatingLabelBehavior.always,
                                         labelText: S.current.user_label_mailbox,
-                                        hintText: BaseS.current.ab_label_please_input,
+                                        hintText: base_l10n.BaseS.current.ab_label_please_input,
                                         border: const UnderlineInputBorder()),
                                     onChanged: (value) {
                                       getVm().applyInfoChange();
@@ -189,7 +189,7 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
                                     decoration: MySelectDecoration(
                                         floatingLabelBehavior: FloatingLabelBehavior.always,
                                         labelText: S.current.user_label_sex,
-                                        hintText: BaseS.current.ab_label_please_input,
+                                        hintText: base_l10n.BaseS.current.ab_label_please_input,
                                         border: const UnderlineInputBorder())),
                               ],
                             ))))));
@@ -203,10 +203,10 @@ class ProfilePage extends AppBaseStatelessWidget<_ProfileModel> {
         context: context,
         builder: (context) {
           return AlertDialog(
-              title: Text(FastS.current.label_prompt),
-              content: Text(BaseS.current.ab_label_data_save_prompt),
+              title: Text(fast_l10n.FastS.current.label_prompt),
+              content: Text(base_l10n.BaseS.current.ab_label_data_save_prompt),
               actions: FastDialogUtils.getCommonlyAction(context,
-                  positiveText: FastS.current.action_exit, positiveLister: () {
+                  positiveText: fast_l10n.FastS.current.action_exit, positiveLister: () {
                 Navigator.pop(context);
                 getVm().abandonEdit();
               }));
@@ -267,10 +267,10 @@ class _ProfileModel extends AppBaseVm with CancelTokenAssist {
 
   void save() {
     if (!_checkSaveParams()) {
-      AppToastUtil.showToast(msg: BaseS.current.ab_label_required_information_cannot_be_empty);
+      AppToastUtil.showToast(msg: base_l10n.BaseS.current.ab_label_required_information_cannot_be_empty);
       return;
     }
-    showLoading(text: FastS.current.label_save_ing);
+    showLoading(text: fast_l10n.FastS.current.label_save_ing);
     if (_selectAvatarPath != null) {
       PubUserProfileRepository.avatar(_selectAvatarPath!).then((IntensifyEntity<AvatarVo> value) {
         //提交成功了设置头像路径为空，防止后续提交信息时重复提交
@@ -296,13 +296,13 @@ class _ProfileModel extends AppBaseVm with CancelTokenAssist {
         .then((result) {
       //更新成功了把当前的值设置给全局（此处应该重新调用获取用户信息的接口重新赋值，暂时先这么写）
       UserShareVm().userInfoOf.value!.user = userInfo;
-      AppToastUtil.showToast(msg: FastS.current.toast_edit_success);
+      AppToastUtil.showToast(msg: fast_l10n.FastS.current.toast_edit_success);
       dismissLoading();
       //保存成功后要设置
       _infoChange = false;
     },
             onError: BaseDio.errProxyFunc(
-                defErrMsg: FastS.current.toast_edit_failure,
+                defErrMsg: fast_l10n.FastS.current.toast_edit_failure,
                 onError: (error) {
                   dismissLoading();
                 }));

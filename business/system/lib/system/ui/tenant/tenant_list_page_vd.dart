@@ -1,4 +1,4 @@
-import 'package:fast/gen/fast_l10n.dart';
+import 'package:fast/gen/fast_l10n.dart' as fast_l10n;
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:boxes_flutter/flutter/slc/adapter/page_model.dart';
@@ -19,7 +19,7 @@ import 'package:system/system/ui/tenant/tenant_add_edit_page.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
-import 'package:base/gen/base_l10n.dart';
+import 'package:base/gen/base_l10n.dart' as base_l10n;
 import 'package:bizapi/system/entity/sys_tenant.dart';
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
@@ -116,7 +116,7 @@ class TenantListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_sys_tenant_id,
-                          hintText: BaseS.current.ab_label_please_input,
+                          hintText: base_l10n.BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
@@ -136,7 +136,7 @@ class TenantListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_sys_tenant_contact_user_name,
-                          hintText: BaseS.current.ab_label_please_input,
+                          hintText: base_l10n.BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
@@ -157,7 +157,7 @@ class TenantListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_sys_tenant_contact_phone,
-                          hintText: BaseS.current.ab_label_please_input,
+                          hintText: base_l10n.BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
@@ -177,7 +177,7 @@ class TenantListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_sys_tenant_company_name,
-                          hintText: BaseS.current.ab_label_please_input,
+                          hintText: base_l10n.BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
@@ -200,7 +200,7 @@ class TenantListPageWidget {
                                 onPressed: () {
                                   listVmSub.onResetSearch();
                                 },
-                                child: Text(FastS.current.action_reset))),
+                                child: Text(fast_l10n.FastS.current.action_reset))),
                         ThemeUtil.getSizedBox(width: SlcDimens.appDimens16),
                         Expanded(
                             child: FilledButton(
@@ -208,7 +208,7 @@ class TenantListPageWidget {
                                   WidgetUtils.autoHandlerSearchDrawer(context);
                                   listVmSub.onSearch();
                                 },
-                                child: Text(FastS.current.action_search)))
+                                child: Text(fast_l10n.FastS.current.action_search)))
                       ],
                     );
                   }))

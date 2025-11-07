@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fast/gen/fast_l10n.dart';
+import 'package:fast/gen/fast_l10n.dart' as fast_l10n;
 import 'package:fast/package_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -25,7 +25,7 @@ import 'package:system/system/ui/oss/oss_details_page.dart';
 import 'package:base/base/api/base_dio.dart';
 import 'package:base/base/api/result_entity.dart';
 import 'package:base/base/repository/remote/data_transform_utils.dart';
-import 'package:base/gen/base_l10n.dart';
+import 'package:base/gen/base_l10n.dart' as base_l10n;
 import 'package:fast/fast/provider/fast_select.dart';
 import 'package:fast/fast/utils/widget_utils.dart';
 import 'package:fast/fast/vd/list_data_component.dart';
@@ -160,7 +160,7 @@ class OssListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oss_file_name,
-                          hintText: BaseS.current.ab_label_please_input,
+                          hintText: base_l10n.BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
@@ -180,7 +180,7 @@ class OssListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oss_original_name,
-                          hintText: BaseS.current.ab_label_please_input,
+                          hintText: base_l10n.BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
@@ -200,7 +200,7 @@ class OssListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oss_file_suffix,
-                          hintText: BaseS.current.ab_label_please_input,
+                          hintText: base_l10n.BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
@@ -220,7 +220,7 @@ class OssListPageWidget {
                       decoration: MyInputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: S.current.sys_label_oss_service,
-                          hintText: BaseS.current.ab_label_please_input,
+                          hintText: base_l10n.BaseS.current.ab_label_please_input,
                           border: const UnderlineInputBorder(),
                           suffixIcon: NqNullSelector<A, String?>(builder: (context, value, child) {
                             return InputDecUtils.autoClearSuffixByInputVal(value,
@@ -243,7 +243,7 @@ class OssListPageWidget {
                                 onPressed: () {
                                   listVmSub.onResetSearch();
                                 },
-                                child: Text(FastS.current.action_reset))),
+                                child: Text(fast_l10n.FastS.current.action_reset))),
                         ThemeUtil.getSizedBox(width: SlcDimens.appDimens16),
                         Expanded(
                             child: FilledButton(
@@ -251,7 +251,7 @@ class OssListPageWidget {
                                   WidgetUtils.autoHandlerSearchDrawer(context);
                                   listVmSub.onSearch();
                                 },
-                                child: Text(FastS.current.action_search)))
+                                child: Text(fast_l10n.FastS.current.action_search)))
                       ],
                     );
                   }))
