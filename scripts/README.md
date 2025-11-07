@@ -63,6 +63,22 @@ Windows: `scripts\pub_get_all.bat`
 macOS/Linux: `./scripts/gen_l10n_all.sh`  
 Windows: `scripts\gen_l10n_all.bat`
 
+> ⚠️ **注意**：此脚本会自动执行 `sync_l10n_wrapper` 同步包装文件，无需手动执行。
+
+**`sync_l10n_wrapper`** - 同步 l10n 包装文件
+
+自动从生成的 `xxx_localizations.dart` 文件同步代码到 `xxx_l10n.dart` 文件。
+
+macOS/Linux: `./scripts/sync_l10n_wrapper.sh`  
+Windows: `scripts\sync_l10n_wrapper.bat`
+
+> 💡 **说明**：
+> - 通常不需要手动执行，`gen_l10n_all` 会自动调用
+> - 如果只修改了 arb 文件并手动执行了 `flutter gen-l10n`，可以单独运行此脚本同步包装文件
+> - 脚本会自动扫描所有包含 `l10n.yaml` 的模块
+> - 自动检测所有语言的本地化文件（如 `main_localizations_en.dart`、`main_localizations_zh.dart` 等）
+> - 自动生成对应的导入语句和 switch case
+
 **`build_runner_all`** - 批量执行代码生成
 
 macOS/Linux: `./scripts/build_runner_all.sh`  
@@ -184,6 +200,12 @@ workspace:
 ./scripts/clean_all.sh && ./scripts/pub_get_all.sh && ./scripts/gen_l10n_all.sh && ./scripts/build_runner_all.sh
 ```
 
+> 💡 **关于国际化文件生成**：
+> - `gen_l10n_all.sh` 会自动执行 `flutter gen-l10n` 生成本地化文件
+> - 然后自动执行 `sync_l10n_wrapper.sh` 同步包装文件
+> - 包装文件（如 `main_l10n.dart`）会自动包含所有语言的导入和 switch case
+> - 如果只修改了 arb 文件并手动执行了 `flutter gen-l10n`，可以单独运行 `./scripts/sync_l10n_wrapper.sh` 同步包装文件
+
 #### Windows
 
 ```cmd
@@ -202,6 +224,12 @@ scripts\build_runner_all.bat
 REM 或一行执行
 scripts\clean_all.bat && scripts\pub_get_all.bat && scripts\gen_l10n_all.bat && scripts\build_runner_all.bat
 ```
+
+> 💡 **关于国际化文件生成**：
+> - `gen_l10n_all.bat` 会自动执行 `flutter gen-l10n` 生成本地化文件
+> - 然后自动执行 `sync_l10n_wrapper.bat` 同步包装文件
+> - 包装文件（如 `main_l10n.dart`）会自动包含所有语言的导入和 switch case
+> - 如果只修改了 arb 文件并手动执行了 `flutter gen-l10n`，可以单独运行 `scripts\sync_l10n_wrapper.bat` 同步包装文件
 
 ### 代码质量检查
 
@@ -469,6 +497,8 @@ scripts/
 ├── pub_get_all.bat      # 快捷方式：pub get (Windows)
 ├── gen_l10n_all.sh      # 快捷方式：gen-l10n (macOS/Linux)
 ├── gen_l10n_all.bat     # 快捷方式：gen-l10n (Windows)
+├── sync_l10n_wrapper.sh # 同步 l10n 包装文件 (macOS/Linux)
+├── sync_l10n_wrapper.bat # 同步 l10n 包装文件 (Windows)
 ├── build_runner_all.sh  # 快捷方式：build_runner (macOS/Linux)
 ├── build_runner_all.bat # 快捷方式：build_runner (Windows)
 ├── clean_all.sh         # 快捷方式：clean (macOS/Linux)
@@ -532,6 +562,24 @@ A: 脚本会继续执行其他模块，最后显示失败统计。可以根据�
 
 **Q: 能否跳过某些模块？**  
 A: 可以！修改对应模块的 `pubspec.yaml`，临时移除需要的命令配置（如删除 `l10n.yaml`），脚本会自动跳过。
+
+**Q: gen_l10n_all 和 sync_l10n_wrapper 的关系是什么？**  
+A: 
+- `gen_l10n_all` 会自动执行 `flutter gen-l10n` 生成本地化文件，然后自动调用 `sync_l10n_wrapper` 同步包装文件
+- `sync_l10n_wrapper` 是一个独立的脚本，用于同步 l10n 包装文件
+- 通常只需要运行 `gen_l10n_all`，它会自动完成所有步骤
+- 如果只修改了 arb 文件并手动执行了 `flutter gen-l10n`，可以单独运行 `sync_l10n_wrapper` 同步包装文件
+
+**Q: sync_l10n_wrapper 做了什么？**  
+A: `sync_l10n_wrapper` 脚本会：
+1. 自动扫描所有包含 `l10n.yaml` 的模块
+2. 扫描每个模块的 `l10n` 目录下所有语言的本地化文件（如 `main_localizations_en.dart`、`main_localizations_zh.dart` 等）
+3. 从生成的 `xxx_localizations.dart` 文件中提取 `_MainLocalizationsDelegate` 类和 `lookupMainLocalizations` 函数
+4. 在 `load` 方法中添加两行关键代码来设置 `S._current`
+5. 自动生成所有语言的导入语句和 switch case
+6. 生成 `xxx_l10n.dart` 包装文件
+
+这样就不需要手动复制代码了，添加新语言时脚本会自动处理！
 
 **Q: 为什么打包前需要 clean？** ⭐  
 A: **这是 Flutter 构建缓存的已知问题**。如果不执行 `flutter clean`，打包后的应用可能不包含最新的代码更改。原因是：
