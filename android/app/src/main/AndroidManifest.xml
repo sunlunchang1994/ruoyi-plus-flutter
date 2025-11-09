@@ -16,6 +16,7 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:label="ruoyi_plus_flutter"
+        android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true">
         <activity
             android:name=".MainActivity"

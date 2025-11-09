@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
@@ -33,6 +34,46 @@ class WebViewUtil {
         controller: controller,
         layoutDirection: layoutDirection,
         gestureRecognizers: gestureRecognizers);
+  }
+
+  static WebViewController createWebViewController({
+    JavaScriptMode javaScriptMode = JavaScriptMode.unrestricted,
+    bool enableZoom = false,
+    Color? backgroundColor,
+    FutureOr<NavigationDecision> Function(NavigationRequest request)? onNavigationRequest,
+    void Function(String url)? onPageStarted,
+    void Function(String url)? onPageFinished,
+    void Function(int progress)? onProgress,
+    void Function(WebResourceError error)? onWebResourceError,
+    void Function(UrlChange change)? onUrlChange,
+    void Function(HttpAuthRequest request)? onHttpAuthRequest,
+    void Function(HttpResponseError error)? onHttpError,
+  }) {
+    WebViewController webViewController = WebViewController()
+      ..setJavaScriptMode(javaScriptMode)
+      ..enableZoom(enableZoom)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onNavigationRequest: onNavigationRequest ??
+                  (NavigationRequest request) {
+                /*if (request.url.startsWith('https://www.youtube.com/')) {
+                  return NavigationDecision.prevent;
+                }*/
+                return NavigationDecision.navigate;
+              },
+          onPageStarted: onPageStarted,
+          onPageFinished: onPageFinished,
+          onProgress: onProgress,
+          onWebResourceError: onWebResourceError,
+          onUrlChange: onUrlChange,
+          onHttpAuthRequest: onHttpAuthRequest,
+          onHttpError: onHttpError,
+        ),
+      );
+    if (backgroundColor != null) {
+      webViewController.setBackgroundColor(backgroundColor);
+    }
+    return webViewController;
   }
 
   /// 富文本处理
