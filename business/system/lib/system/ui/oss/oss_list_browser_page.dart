@@ -227,12 +227,10 @@ class _OssListBrowserVm extends AppBaseVm {
     if (kIsWeb) {
       return;
     }
-    if (Platform.isAndroid) {
-      final status = await PermissionCompat.requestStorage;
-      if (!status.isGranted) {
-        AppToastUtil.showToast(msg: fast_l10n.FastS.current.label_permission_file_picker_hint);
-        return;
-      }
+    final status = await PermissionCompat.requestStorage;
+    if (!status.isGranted) {
+      AppToastUtil.showToast(msg: fast_l10n.FastS.current.label_permission_file_picker_hint);
+      return;
     }
   }
 
@@ -246,7 +244,7 @@ class _OssListBrowserVm extends AppBaseVm {
     if (pickedFile == null) {
       return;
     }
-    
+
     // Web 平台和移动平台处理方式不同
     MultipartFile multipartFile;
     if (kIsWeb) {
@@ -272,10 +270,10 @@ class _OssListBrowserVm extends AppBaseVm {
     if (filePickerResult == null || filePickerResult.files.isEmpty) {
       return;
     }
-    
+
     final pickedFile = filePickerResult.files.first;
     MultipartFile multipartFile;
-    
+
     // Web 平台和移动端处理文件的方式不同
     if (kIsWeb) {
       // Web 平台使用 bytes

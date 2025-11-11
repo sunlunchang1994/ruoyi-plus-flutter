@@ -14,7 +14,7 @@ import 'package:fast/gen/fast_l10n.dart';
 import 'package:base/gen/base_l10n.dart' as base_l10n;
 import 'package:component/gen/component_l10n.dart';
 import 'package:component/component/attachment/utils/web_download_stub.dart'
-if (dart.library.html) 'package:component/component/attachment/utils/web_download_impl.dart';
+    if (dart.library.html) 'package:component/component/attachment/utils/web_download_impl.dart';
 
 /// @author sunlunchang
 /// 附件工具类
@@ -80,13 +80,11 @@ class AttachmentUtils {
       );
     }
 
-    // 1. 请求存储权限（仅Android）
-    if (Platform.isAndroid) {
-      final status = await PermissionCompat.requestStorage;
-      if (!status.isGranted) {
-        onPermissionDenied?.call();
-        return null;
-      }
+    // 1. 请求存储权限
+    final status = await PermissionCompat.requestStorage;
+    if (!status.isGranted) {
+      onPermissionDenied?.call();
+      return null;
     }
 
     // 2. 获取下载目录
@@ -202,9 +200,9 @@ class AttachmentUtils {
       onDirectoryNotSelected: onDirectoryNotSelected,
       onFileExists: onFileExists != null
           ? (filePath) async {
-        onFileExists();
-        return false; // 文件存在时取消下载
-      }
+              onFileExists();
+              return false; // 文件存在时取消下载
+            }
           : null,
       overrideIfExists: overrideIfExists,
     );
@@ -216,10 +214,10 @@ class AttachmentUtils {
   /// [filePath] 文件保存路径
   /// [fileName] 文件名（可选，用于显示）
   static Future<void> showFileSavedDialog(
-      BuildContext context,
-      String filePath, {
-        String? fileName,
-      }) async {
+    BuildContext context,
+    String filePath, {
+    String? fileName,
+  }) async {
     await showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -230,9 +228,10 @@ class AttachmentUtils {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(kIsWeb
-                  ? TextUtil.format(ComponentS.current.comp_label_file_downloaded, [fileName ?? filePath])
+                  ? TextUtil.format(
+                      ComponentS.current.comp_label_file_downloaded, [fileName ?? filePath])
                   : TextUtil.format(
-                  base_l10n.BaseS.current.ab_toast_storage_file_saved_2, [filePath])),
+                      base_l10n.BaseS.current.ab_toast_storage_file_saved_2, [filePath])),
               if (kIsWeb) ...[
                 const SizedBox(height: 8),
                 Text(

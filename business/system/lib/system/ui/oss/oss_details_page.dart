@@ -125,9 +125,11 @@ class OssDetailsPage extends AppBaseStatelessWidget<_OssAddEditVm> {
                                                           error,
                                                           stackTrace,
                                                         ) {
-                                                          return ComponentGen.Assets.images.mp.slcMpIcImage
+                                                          return ComponentGen
+                                                              .Assets.images.mp.slcMpIcImage
                                                               .image(
-                                                            package: ComponentPkgInfo.packageName,
+                                                                  package:
+                                                                      ComponentPkgInfo.packageName,
                                                                   width: SysDimens
                                                                       .sysDetailsOssImgSize,
                                                                   height: SysDimens
@@ -311,12 +313,10 @@ class _OssAddEditVm extends AppBaseVm with CancelTokenAssist {
   //开始下载文件
   void onDownloadFile() async {
     // 请求存储权限
-    if (Platform.isAndroid) {
-      final status = await PermissionCompat.requestStorage;
-      if (!status.isGranted) {
-        AppToastUtil.showToast(msg: S.current.sys_label_permission_file_download_hint);
-        return;
-      }
+    final status = await PermissionCompat.requestStorage;
+    if (!status.isGranted) {
+      AppToastUtil.showToast(msg: S.current.sys_label_permission_file_download_hint);
+      return;
     }
     //获取下载路径
     String? fileDir =
