@@ -121,6 +121,18 @@ class FastLocalizationsEn extends FastLocalizations {
   String get label_permission_base_hint_denied => '您没有授予最基本的权限，部分功能将无法使用！';
 
   @override
+  String get title_permission_storage_required => '需要存储权限';
+
+  @override
+  String get label_permission_storage_required => '请授予存储权限以继续使用该功能。';
+
+  @override
+  String get action_permission_retry => '重新申请';
+
+  @override
+  String get action_permission_open_settings => '前往设置';
+
+  @override
   String get label_content_cannot_be_empty_blank => '内容不能为空或空格';
 
   @override

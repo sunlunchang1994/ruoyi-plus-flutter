@@ -321,6 +321,30 @@ abstract class FastLocalizations {
   /// **'您没有授予最基本的权限，部分功能将无法使用！'**
   String get label_permission_base_hint_denied;
 
+  /// No description provided for @title_permission_storage_required.
+  ///
+  /// In en, this message translates to:
+  /// **'需要存储权限'**
+  String get title_permission_storage_required;
+
+  /// No description provided for @label_permission_storage_required.
+  ///
+  /// In en, this message translates to:
+  /// **'请授予存储权限以继续使用该功能。'**
+  String get label_permission_storage_required;
+
+  /// No description provided for @action_permission_retry.
+  ///
+  /// In en, this message translates to:
+  /// **'重新申请'**
+  String get action_permission_retry;
+
+  /// No description provided for @action_permission_open_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'前往设置'**
+  String get action_permission_open_settings;
+
   /// No description provided for @label_content_cannot_be_empty_blank.
   ///
   /// In en, this message translates to:
