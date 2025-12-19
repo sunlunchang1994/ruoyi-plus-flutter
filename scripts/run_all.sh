@@ -111,7 +111,10 @@ cd "$PROJECT_ROOT"
 echo -e "${BLUE}========================================${NC}"
 echo -e "${BLUE}执行完成${NC}"
 echo -e "${BLUE}========================================${NC}"
-echo -e "总模块数: $(echo "$WORKSPACE_PACKAGES" | wc -l | tr -d ' ')"
+# 统计非空的 workspace 模块数
+WORKSPACE_MODULE_COUNT=$(echo "$WORKSPACE_PACKAGES" | grep -v '^$' | wc -l | tr -d ' ')
+TOTAL_MODULES=$((WORKSPACE_MODULE_COUNT + 1))
+echo -e "总模块数: $TOTAL_MODULES (包含根目录)"
 echo -e "${GREEN}成功: $((SUCCESS_COUNT + 1))${NC} (包含根目录)"
 [ $FAIL_COUNT -gt 0 ] && echo -e "${RED}失败: $FAIL_COUNT${NC}"
 [ $SKIP_COUNT -gt 0 ] && echo -e "${YELLOW}跳过: $SKIP_COUNT${NC}"
