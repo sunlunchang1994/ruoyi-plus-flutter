@@ -34,8 +34,12 @@ echo.
 
 REM 提取 workspace 配置
 REM 只解析 workspace: 块中以 "  - " 开头的行（两个空格 + 减号 + 空格）
-set "WORKSPACE_LIST="
+REM 使用临时文件存储模块列表，避免字符串分割问题
+set "TEMP_MODULES_FILE=%TEMP%\workspace_modules_%RANDOM%.txt"
 set "IN_WORKSPACE=0"
+
+REM 创建空的临时文件
+if exist "%TEMP_MODULES_FILE%" del "%TEMP_MODULES_FILE%"
 
 for /f "usebackq tokens=* delims=" %%a in ("%PUBSPEC_FILE%") do (
     set "LINE=%%a"
@@ -59,11 +63,8 @@ for /f "usebackq tokens=* delims=" %%a in ("%PUBSPEC_FILE%") do (
                 REM 去掉尾随空格
                 for /f "tokens=* delims= " %%b in ("!MODULE!") do set "MODULE=%%b"
                 if not "!MODULE!"=="" (
-                    if "!WORKSPACE_LIST!"=="" (
-                        set "WORKSPACE_LIST=!MODULE!"
-                    ) else (
-                        set "WORKSPACE_LIST=!WORKSPACE_LIST!;!MODULE!"
-                    )
+                    REM 直接写入临时文件
+                    echo !MODULE! >> "%TEMP_MODULES_FILE%"
                 )
             )
         )
@@ -88,35 +89,48 @@ set /a SKIP_COUNT=0
 set /a TOTAL_COUNT=0
 
 REM 对每个 workspace 成员执行命令
-for %%m in ("%WORKSPACE_LIST:;=" "%") do (
-    set "MODULE=%%~m"
-    set "MODULE_PATH=%PROJECT_ROOT%\!MODULE!"
-    
-    REM 转换路径分隔符
-    set "MODULE_PATH=!MODULE_PATH:/=\!"
-    
-    set /a TOTAL_COUNT+=1
-    
-    REM 检查目录是否存在
-    if not exist "!MODULE_PATH!" (
-        echo [警告] 跳过 !MODULE! ^(目录不存在^)
-        set /a SKIP_COUNT+=1
-    ) else if not exist "!MODULE_PATH!\pubspec.yaml" (
-        echo [警告] 跳过 !MODULE! ^(无 pubspec.yaml^)
-        set /a SKIP_COUNT+=1
-    ) else (
-        echo ^>^>^> 执行模块: !MODULE!
-        cd /d "!MODULE_PATH!"
-        call %COMMAND%
-        if errorlevel 1 (
-            echo [失败] !MODULE! 执行失败
-            set /a FAIL_COUNT+=1
-        ) else (
-            echo [成功] !MODULE! 执行成功
-            set /a SUCCESS_COUNT+=1
+REM 从临时文件读取模块列表（每行一个模块）
+if exist "%TEMP_MODULES_FILE%" (
+    for /f "usebackq tokens=* delims=" %%m in ("%TEMP_MODULES_FILE%") do (
+        set "MODULE=%%m"
+        REM 跳过空行
+        if not "!MODULE!"=="" (
+            REM 去掉可能的尾随空格和换行符
+            for /f "tokens=* delims= " %%b in ("!MODULE!") do set "MODULE=%%b"
+            if not "!MODULE!"=="" (
+                set "MODULE_PATH=%PROJECT_ROOT%\!MODULE!"
+                
+                REM 转换路径分隔符
+                set "MODULE_PATH=!MODULE_PATH:/=\!"
+                
+                set /a TOTAL_COUNT+=1
+                
+                REM 检查目录是否存在
+                if not exist "!MODULE_PATH!" (
+                    echo [警告] 跳过 !MODULE! ^(目录不存在^)
+                    set /a SKIP_COUNT+=1
+                ) else if not exist "!MODULE_PATH!\pubspec.yaml" (
+                    echo [警告] 跳过 !MODULE! ^(无 pubspec.yaml^)
+                    set /a SKIP_COUNT+=1
+                ) else (
+                    echo ^>^>^> 执行模块: !MODULE!
+                    cd /d "!MODULE_PATH!"
+                    call %COMMAND%
+                    if errorlevel 1 (
+                        echo [失败] !MODULE! 执行失败
+                        set /a FAIL_COUNT+=1
+                    ) else (
+                        echo [成功] !MODULE! 执行成功
+                        set /a SUCCESS_COUNT+=1
+                    )
+                    echo.
+                )
+            )
         )
-        echo.
     )
+    
+    REM 清理临时文件
+    if exist "%TEMP_MODULES_FILE%" del "%TEMP_MODULES_FILE%"
 )
 
 REM 返回根目录
@@ -126,7 +140,8 @@ REM 显示执行摘要
 echo ========================================
 echo 执行完成
 echo ========================================
-echo 总模块数: %TOTAL_COUNT%
+set /a TOTAL_MODULES=%TOTAL_COUNT%+1
+echo 总模块数: %TOTAL_MODULES% ^(包含根目录^)
 echo 成功: %SUCCESS_COUNT% ^(包含根目录^)
 if %FAIL_COUNT% gtr 0 echo 失败: %FAIL_COUNT%
 if %SKIP_COUNT% gtr 0 echo 跳过: %SKIP_COUNT%
