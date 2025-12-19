@@ -3,6 +3,9 @@ REM Flutter Workspace 批量执行脚本 (Windows 批处理版本)
 REM 使用方法: scripts\run_all.bat "命令"
 REM 例如: scripts\run_all.bat "flutter pub get"
 
+REM 设置控制台编码为UTF-8，防止中文乱码
+chcp 65001 >nul 2>&1
+
 setlocal enabledelayedexpansion
 
 REM 检查参数
@@ -30,29 +33,37 @@ echo 执行命令: %COMMAND%
 echo.
 
 REM 提取 workspace 配置
+REM 只解析 workspace: 块中以 "  - " 开头的行（两个空格 + 减号 + 空格）
 set "WORKSPACE_LIST="
 set "IN_WORKSPACE=0"
 
 for /f "usebackq tokens=* delims=" %%a in ("%PUBSPEC_FILE%") do (
     set "LINE=%%a"
     
-    REM 检查是否进入 workspace 块
-    if "!LINE!"=="workspace:" (
+    REM 检查是否进入 workspace 块（精确匹配 "workspace:"）
+    echo !LINE! | findstr /r /c:"^workspace:" >nul
+    if not errorlevel 1 (
         set "IN_WORKSPACE=1"
     ) else if "!IN_WORKSPACE!"=="1" (
-        REM 检查是否退出 workspace 块（遇到不以空格开头的行）
+        REM 检查是否退出 workspace 块（遇到不以空格开头的行，表示新的顶级键）
         echo !LINE! | findstr /r "^[^ ]" >nul
         if not errorlevel 1 (
+            REM 遇到不以空格开头的行，退出 workspace 块
             set "IN_WORKSPACE=0"
         ) else (
-            REM 提取模块路径
-            set "MODULE=!LINE:  - =!"
-            set "MODULE=!MODULE: =!"
-            if not "!MODULE!"=="" (
-                if "!WORKSPACE_LIST!"=="" (
-                    set "WORKSPACE_LIST=!MODULE!"
-                ) else (
-                    set "WORKSPACE_LIST=!WORKSPACE_LIST!;!MODULE!"
+            REM 只处理以 "  - " 开头的行（两个空格 + 减号 + 空格）
+            echo !LINE! | findstr /r /c:"^  - " >nul
+            if not errorlevel 1 (
+                REM 提取模块路径：去掉 "  - " 前缀和尾随空格
+                set "MODULE=!LINE:  - =!"
+                REM 去掉尾随空格
+                for /f "tokens=* delims= " %%b in ("!MODULE!") do set "MODULE=%%b"
+                if not "!MODULE!"=="" (
+                    if "!WORKSPACE_LIST!"=="" (
+                        set "WORKSPACE_LIST=!MODULE!"
+                    ) else (
+                        set "WORKSPACE_LIST=!WORKSPACE_LIST!;!MODULE!"
+                    )
                 )
             )
         )
@@ -126,4 +137,3 @@ if %FAIL_COUNT% gtr 0 exit /b 1
 
 endlocal
 exit /b 0
-
