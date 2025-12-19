@@ -3,6 +3,9 @@ REM Flutter Workspace 批量执行脚本 (Windows 批处理版本)
 REM 使用方法: scripts\run_all.bat "命令"
 REM 例如: scripts\run_all.bat "flutter pub get"
 
+REM 设置控制台编码为UTF-8，防止中文乱码
+chcp 65001 >nul 2>&1
+
 setlocal enabledelayedexpansion
 
 REM 检查参数
@@ -29,35 +32,56 @@ echo ========================================
 echo 执行命令: %COMMAND%
 echo.
 
-REM 提取 workspace 配置
-set "WORKSPACE_LIST="
+REM 智能解析 workspace 模块列表
+echo [信息] 正在解析 workspace 配置...
 set "IN_WORKSPACE=0"
+set "WORKSPACE_LIST="
 
-for /f "usebackq tokens=* delims=" %%a in ("%PUBSPEC_FILE%") do (
-    set "LINE=%%a"
+for /f "usebackq tokens=*" %%l in ("%PUBSPEC_FILE%") do (
+    set "LINE=%%l"
     
-    REM 检查是否进入 workspace 块
+    REM 移除行首空格
+    for /f "tokens=*" %%a in ("!LINE!") do set "LINE=%%a"
+    
+    REM 检查是否进入workspace部分
     if "!LINE!"=="workspace:" (
         set "IN_WORKSPACE=1"
     ) else if "!IN_WORKSPACE!"=="1" (
-        REM 检查是否退出 workspace 块（遇到不以空格开头的行）
-        echo !LINE! | findstr /r "^[^ ]" >nul
-        if not errorlevel 1 (
-            set "IN_WORKSPACE=0"
-        ) else (
-            REM 提取模块路径
-            set "MODULE=!LINE:  - =!"
-            set "MODULE=!MODULE: =!"
-            if not "!MODULE!"=="" (
-                if "!WORKSPACE_LIST!"=="" (
-                    set "WORKSPACE_LIST=!MODULE!"
-                ) else (
-                    set "WORKSPACE_LIST=!WORKSPACE_LIST!;!MODULE!"
+        REM 检查是否遇到其他顶级键（结束workspace）
+        echo !LINE! | findstr /b /r "[a-zA-Z][a-zA-Z0-9_]*:" >nul
+        if !errorlevel! equ 0 (
+            if not "!LINE:~0,1!"==" " if not "!LINE:~0,1!"=="-" (
+                set "IN_WORKSPACE=0"
+            )
+        )
+        
+        REM 如果在workspace内，解析模块
+        if "!IN_WORKSPACE!"=="1" (
+            REM 检查是否是列表项（以-开头）
+            echo !LINE! | findstr /b /r "^ *-" >nul
+            if !errorlevel! equ 0 (
+                REM 提取模块名（移除-和空格）
+                set "MODULE=!LINE:*- =!"
+                for /f "tokens=*" %%a in ("!MODULE!") do set "MODULE=%%a"
+                
+                REM 如果不是注释且不为空
+                if not "!MODULE:~0,1!"=="#" if not "!MODULE!"=="" (
+                    if not "!WORKSPACE_LIST!"=="" set "WORKSPACE_LIST=!WORKSPACE_LIST!;"
+                    set "WORKSPACE_LIST=!WORKSPACE_LIST!!MODULE!"
                 )
             )
         )
     )
 )
+
+REM 检查是否解析到模块
+if "!WORKSPACE_LIST!"=="" (
+    echo [错误] 未找到 workspace 配置
+    exit /b 1
+)
+
+echo [信息] 找到模块: !WORKSPACE_LIST!
+echo.
 
 REM 首先在根目录执行
 echo ^>^>^> 执行根目录: .
@@ -125,4 +149,3 @@ if %FAIL_COUNT% gtr 0 exit /b 1
 
 endlocal
 exit /b 0
-
