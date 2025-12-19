@@ -3,6 +3,9 @@ REM Flutter Workspace 批量执行脚本 (Windows 批处理版本)
 REM 使用方法: scripts\run_all.bat "命令"
 REM 例如: scripts\run_all.bat "flutter pub get"
 
+REM 设置控制台编码为UTF-8，防止中文乱码
+chcp 65001 >nul 2>&1
+
 setlocal enabledelayedexpansion
 
 REM 检查参数
@@ -133,4 +136,3 @@ if %FAIL_COUNT% gtr 0 exit /b 1
 
 endlocal
 exit /b 0
-
