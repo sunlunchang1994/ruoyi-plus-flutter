@@ -62,7 +62,12 @@ fi
 # 首先在根目录执行命令
 echo -e "${GREEN}>>> 执行根目录: .${NC}"
 cd "$PROJECT_ROOT"
-eval $COMMAND
+ROOT_SUCCESS=0
+if eval $COMMAND; then
+    ROOT_SUCCESS=1
+else
+    echo -e "${YELLOW}⚠ 根目录执行失败，继续执行 workspace 模块${NC}"
+fi
 echo ""
 
 # 对每个 workspace 成员执行命令
@@ -73,25 +78,25 @@ SKIP_COUNT=0
 while IFS= read -r package; do
     # 跳过空行
     [ -z "$package" ] && continue
-    
+
     PACKAGE_PATH="$PROJECT_ROOT/$package"
-    
+
     # 检查目录是否存在
     if [ ! -d "$PACKAGE_PATH" ]; then
         echo -e "${YELLOW}⚠ 跳过 $package (目录不存在)${NC}"
         ((SKIP_COUNT++))
         continue
     fi
-    
+
     # 检查是否有 pubspec.yaml
     if [ ! -f "$PACKAGE_PATH/pubspec.yaml" ]; then
         echo -e "${YELLOW}⚠ 跳过 $package (无 pubspec.yaml)${NC}"
         ((SKIP_COUNT++))
         continue
     fi
-    
+
     echo -e "${GREEN}>>> 执行模块: $package${NC}"
-    
+
     # 进入包目录并执行命令
     if cd "$PACKAGE_PATH" && eval $COMMAND; then
         echo -e "${GREEN}✓ $package 执行成功${NC}"
@@ -101,7 +106,7 @@ while IFS= read -r package; do
         ((FAIL_COUNT++))
     fi
     echo ""
-    
+
 done <<< "$WORKSPACE_PACKAGES"
 
 # 返回根目录
@@ -111,11 +116,8 @@ cd "$PROJECT_ROOT"
 echo -e "${BLUE}========================================${NC}"
 echo -e "${BLUE}执行完成${NC}"
 echo -e "${BLUE}========================================${NC}"
-# 统计非空的 workspace 模块数
-WORKSPACE_MODULE_COUNT=$(echo "$WORKSPACE_PACKAGES" | grep -v '^$' | wc -l | tr -d ' ')
-TOTAL_MODULES=$((WORKSPACE_MODULE_COUNT + 1))
-echo -e "总模块数: $TOTAL_MODULES (包含根目录)"
-echo -e "${GREEN}成功: $((SUCCESS_COUNT + 1))${NC} (包含根目录)"
+echo -e "总模块数: $(echo "$WORKSPACE_PACKAGES" | wc -l | tr -d ' ')"
+echo -e "${GREEN}成功: $((SUCCESS_COUNT + ROOT_SUCCESS))${NC} (包含根目录)"
 [ $FAIL_COUNT -gt 0 ] && echo -e "${RED}失败: $FAIL_COUNT${NC}"
 [ $SKIP_COUNT -gt 0 ] && echo -e "${YELLOW}跳过: $SKIP_COUNT${NC}"
 
@@ -123,4 +125,3 @@ echo -e "${GREEN}成功: $((SUCCESS_COUNT + 1))${NC} (包含根目录)"
 [ $FAIL_COUNT -gt 0 ] && exit 1
 
 exit 0
-
