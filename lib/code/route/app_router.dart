@@ -65,7 +65,7 @@ final Map<String, WidgetBuilder> router = {
   //404页面
   BaseRouter.notFoundPage: (BuildContext context) => NotFoundPage(),
   //欢迎页
-  BaseRouter.welcomePage: (BuildContext context) => WelcomePage(),
+  BaseRouter.initialPage: (BuildContext context) => WelcomePage(),
   //欢迎页
   AppWebViewPage.routeName: (BuildContext context) {
     SlcRouterInfo slcRouterInfo = context.getSlcRouterInfo()!;

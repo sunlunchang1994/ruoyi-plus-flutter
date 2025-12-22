@@ -36,7 +36,7 @@ class RootPage extends StatelessWidget {
           return NqSelector<GlobalVm, ThemeMode>(builder: (context, themeMode, child) {
             return MaterialApp(
               navigatorKey: BaseRouter.navigatorKey,
-              initialRoute: BaseRouter.welcomePage,
+              initialRoute: BaseRouter.initialPage,
               routes: router,
               onUnknownRoute: get404Route,
               onGenerateTitle: (context) {
