@@ -11,6 +11,7 @@ resolution: workspace  # 使用 workspace 统一管理依赖
 dependencies:
   flutter:
     sdk: flutter
+  boxes_flutter:
   
   # 第三方依赖（版本由根 workspace 统一管理）
   # 表单---------------------------------------
@@ -25,6 +26,10 @@ dependencies:
 
   # 图片缓存加载
   cached_network_image:
+  image_picker:
+
+  # 异步工具
+  async:
 
   # Workspace 内的本地包
   fast:
@@ -32,6 +37,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner:
+  flutter_lints:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

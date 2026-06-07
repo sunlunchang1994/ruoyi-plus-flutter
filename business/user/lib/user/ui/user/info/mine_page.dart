@@ -34,6 +34,7 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ChangeNotifierProvider(
       create: (context) => _MineVm(),
       builder: (context, child) {
@@ -133,8 +134,13 @@ class _MineState extends AppBaseState<MinePage, _MineVm> with AutomaticKeepAlive
 
 class _MineVm extends AppBaseVm {
   MyUserInfoVo? userInfoVo;
+  bool _initialized = false;
 
   void initVm() {
+    if (_initialized) {
+      return;
+    }
+    _initialized = true;
     _onUserInfoVoChange(notify: false);
     UserShareVm().userInfoOf.addListener(_onUserInfoVoChange);
   }

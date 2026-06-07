@@ -489,8 +489,13 @@ class _CacheMonitorVm extends AppBaseVm with CancelTokenAssist {
   final ShouldSetState shouldSetState = ShouldSetState();
   double commandStatsBaseLineX = defBaseLineX;
   int commandStatsMaxY = 0;
+  bool _initialized = false;
 
   void initVm() {
+    if (_initialized) {
+      return;
+    }
+    _initialized = true;
     CacheMonitorRepository.getInfo(defCancelToken).then((result) {
       redisCacheInfo = result.data!;
       _buildTableInfo();

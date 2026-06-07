@@ -95,6 +95,10 @@ class FastBasePageDataVmSub<T> extends BasePageDataVmSub<T> with ListenerItemSel
 
   @override
   Future<DataWrapper<PageModel<T>>> onLoadMore(LoadMoreFormat<T> loadMoreFormat) {
-    return _loadMore!.call(loadMoreFormat);
+    final loadMore = _loadMore;
+    if (loadMore == null) {
+      throw StateError('FastBasePageDataVmSub.setLoadData must be called before loadMore.');
+    }
+    return loadMore.call(loadMoreFormat);
   }
 }

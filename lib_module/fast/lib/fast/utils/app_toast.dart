@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 /// @author sunlunchang
 /// toast桥接类
 class AppToastUtil {
-  static void showToast({msg = String, ToastBridgeDuration? toastDuration}) {
+  static void showToast({String msg = '', ToastBridgeDuration? toastDuration}) {
     //BotToast.showText(text: msg);
     Fluttertoast.showToast(
         msg: msg,

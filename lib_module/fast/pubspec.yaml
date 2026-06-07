@@ -17,6 +17,12 @@ dependencies:
 
   # 第三方依赖（版本由根 workspace 统一管理）
   #----------------- 版本不要轻易改动  加上是因为上述包也用了这个
+  # 基础盒子
+  boxes_flutter:
+  # 网络请求取消
+  dio:
+  # 国际化生成代码依赖
+  intl:
   #状态管理
   provider:
   #路由
@@ -45,6 +51,7 @@ dev_dependencies:
     sdk: flutter
   build_runner:
   flutter_gen_runner:
+  flutter_lints:
   #路由
   # go_router_builder: ^2.7.1
 

@@ -26,6 +26,7 @@ class _AnalysePage extends AppBaseState<AnalysePage, _AnalyseVm>
     with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ChangeNotifierProvider<_AnalyseVm>(
         create: (context) => _AnalyseVm(),
         builder: (context, child) {
@@ -682,8 +683,13 @@ class _AnalyseVm extends AppBaseVm {
   List<BrowseMonth> browseMonthList = [];
   List<AccessSource> accessSourceList = [];
   List<AccessTrends> accessTrendsList = [];
+  bool _initialized = false;
 
   void initVm() {
+    if (_initialized) {
+      return;
+    }
+    _initialized = true;
     AnalyseRepository.getWeekOnline().then((value) {
       weekOnlineList = value;
       notifyListeners();

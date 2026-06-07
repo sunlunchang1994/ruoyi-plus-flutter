@@ -222,8 +222,13 @@ class _ProfileModel extends AppBaseVm with CancelTokenAssist {
   String? _selectAvatarPath;
 
   bool _infoChange = false;
+  bool _initialized = false;
 
   void initVm() {
+    if (_initialized) {
+      return;
+    }
+    _initialized = true;
     userInfo = User.copyUser(UserShareVm().userInfoOf.value!.user);
     userInfo.sexName =
         DictShareVm().findDict(LocalDictLib.CODE_SYS_USER_SEX, userInfo.sex)?.tdDictLabel;

@@ -41,6 +41,7 @@ class _SysLogininforListBrowserPage
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ChangeNotifierProvider(
         create: (context) => _SysLogininforListBrowserVm(),
         builder: (context, child) {
@@ -88,7 +89,7 @@ class _SysLogininforListBrowserPage
 
   //绑定搜索vm
   void _bindingSearchVm(BuildContext context) {
-    LogLoginSearchVm searchVm = Provider.of<LogLoginSearchVm>(context);
+    LogLoginSearchVm searchVm = Provider.of<LogLoginSearchVm>(context, listen: false);
     searchVm.onResetSearchEvent = () {
       getVm().listVmSub.currentSearch = searchVm.currentSearch;
     };

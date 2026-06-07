@@ -33,6 +33,22 @@ migrate_working_dir/
 .pub/
 /build/
 
+# Flutter iOS generated files
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral/
+**/ios/Flutter/flutter_assets/
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/Runner/GeneratedPluginRegistrant.*
+**/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/configuration
+**/ios/ServiceDefinitions.json
+**/ios/**/DerivedData/
+**/ios/**/xcuserdata/
+
 # Symbolication related
 app.*.symbols
 

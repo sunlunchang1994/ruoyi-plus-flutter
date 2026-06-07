@@ -70,7 +70,11 @@ class FastBaseListDataVmSub<T> extends BaseListDataVmSub<T>
 
   @override
   Future<DataWrapper<List<T>>> onRefresh() {
-    return _refresh!.call();
+    final refresh = _refresh;
+    if (refresh == null) {
+      throw StateError('FastBaseListDataVmSub.setRefresh must be called before refresh.');
+    }
+    return refresh.call();
   }
 
 }

@@ -23,15 +23,29 @@ import 'route/app_router.dart';
 
 /// @author sunlunchang
 /// 页面入口
-class RootPage extends StatelessWidget {
+class RootPage extends StatefulWidget {
   const RootPage({super.key});
+
+  @override
+  State<RootPage> createState() => _RootPageState();
+}
+
+class _RootPageState extends State<RootPage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _init(context);
+      }
+    });
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    _init(context);
-    return ChangeNotifierProvider<GlobalVm>(
-        create: (context) => GlobalVm(),
+    return ChangeNotifierProvider<GlobalVm>.value(
+        value: GlobalVm(),
         builder: (context, child) {
           return NqSelector<GlobalVm, ThemeMode>(builder: (context, themeMode, child) {
             return MaterialApp(

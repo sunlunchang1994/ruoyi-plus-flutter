@@ -7,10 +7,29 @@ import 'workbench_page.dart';
 import 'package:provider/provider.dart';
 import '../../gen/app_l10n.dart';
 
-class MainPage extends AppBaseStatelessWidget<_MainVm> {
+class MainPage extends StatefulWidget {
   static const String routeName = '/index';
 
-  MainPage({super.key});
+  const MainPage({super.key});
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends AppBaseState<MainPage, _MainVm> {
+  late final PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +41,6 @@ class MainPage extends AppBaseStatelessWidget<_MainVm> {
       registerEvent(context);
 
       List<Widget> pageList = [const AnalysePage(), const WorkbenchPage(), const MinePage()];
-
-      var pageController = PageController();
 
       List<BottomNavigationBarItem> bottomNavigationBarItem = <BottomNavigationBarItem>[
         BottomNavigationBarItem(
@@ -53,7 +70,7 @@ class MainPage extends AppBaseStatelessWidget<_MainVm> {
               //要点1
               //禁止页面左右滑动切换
               //physics: const NeverScrollableScrollPhysics(),
-              controller: pageController,
+              controller: _pageController,
               //回调函数
               itemCount: pageList.length,
               itemBuilder: (context, index) => pageList[index]),
@@ -63,7 +80,7 @@ class MainPage extends AppBaseStatelessWidget<_MainVm> {
                 currentIndex: vm.currentPageIndex,
                 onTap: (value) {
                   //跳转
-                  pageController.jumpToPage(value);
+                  _pageController.jumpToPage(value);
                   vm.updateTabIndex(value);
                 },
                 selectedFontSize: 12,

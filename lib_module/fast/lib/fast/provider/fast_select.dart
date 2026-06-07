@@ -2,6 +2,16 @@ import 'package:provider/provider.dart';
 
 ///@author slc
 
+bool _selectorValueVisible(dynamic value) {
+  if (value == null) {
+    return false;
+  }
+  if (value is String) {
+    return value.isNotEmpty;
+  }
+  return true;
+}
+
 ///
 /// 不等于
 ///
@@ -25,7 +35,8 @@ class NqNullSelector0<A> extends Selector0<A> {
     required super.selector,
     super.child,
   }) : super(shouldRebuild: (oldVal, newVal) {
-          return oldVal != newVal && (oldVal == null || newVal == null);
+          return oldVal != newVal &&
+              _selectorValueVisible(oldVal) != _selectorValueVisible(newVal);
         });
 }
 
@@ -52,6 +63,7 @@ class NqNullSelector<A, S> extends Selector<A, S> {
     required super.selector,
     super.child,
   }) : super(shouldRebuild: (oldVal, newVal) {
-          return oldVal != newVal && (oldVal == null || newVal == null);
+          return oldVal != newVal &&
+              _selectorValueVisible(oldVal) != _selectorValueVisible(newVal);
         });
 }

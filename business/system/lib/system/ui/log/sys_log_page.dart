@@ -32,9 +32,9 @@ class SysLogPage extends AppBaseStatelessWidget<_LogVm> {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider.value(value: _LogVm()),
-          ChangeNotifierProvider.value(value: LogOperSearchVm()),
-          ChangeNotifierProvider.value(value: LogLoginSearchVm())
+          ChangeNotifierProvider(create: (context) => _LogVm()),
+          ChangeNotifierProvider(create: (context) => LogOperSearchVm()),
+          ChangeNotifierProvider(create: (context) => LogLoginSearchVm())
         ],
         builder: (context, child) {
           ThemeData themeData = Theme.of(context);

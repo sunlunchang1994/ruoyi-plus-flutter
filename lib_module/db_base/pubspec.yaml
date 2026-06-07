@@ -10,11 +10,14 @@ resolution: workspace  # 使用 workspace 统一管理依赖
 dependencies:
   flutter:
     sdk: flutter
+  boxes_flutter:
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner:
+  flutter_lints:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

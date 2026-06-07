@@ -76,17 +76,24 @@ class WelcomePage extends AppBaseStatelessWidget<_WelcomeVm> {
 class _WelcomeVm extends AppBaseVm with CancelTokenAssist {
   //是否是完成页面
   bool isFinishPage = false;
+  bool _initialized = false;
+  Timer? _autoLoginTimeOutTimer;
 
   _WelcomeVm() {}
 
   void init(BuildContext context) async {
+    if (_initialized) {
+      return;
+    }
+    _initialized = true;
     TaskManager().execSlcTask(context: context).then((value) async {
       await Future.delayed(const Duration(milliseconds: 1200));
       if (!UserConfig().isAutoLogin() || ApiConfig().getToken() == null) {
+        isFinishPage = true;
         pushReplacementNamed(BaseRouter.loginPage);
         return;
       }
-      Timer autoLoginTimeOutTimer = Timer(Duration(milliseconds: 2000), () {
+      _autoLoginTimeOutTimer = Timer(Duration(milliseconds: 2000), () {
         defCancelToken.cancel();
       });
       PubUserRepository.getInfo(defCancelToken)
@@ -100,7 +107,7 @@ class _WelcomeVm extends AppBaseVm with CancelTokenAssist {
           .then((IntensifyEntity<List<RouterVo>> value) {
         isFinishPage = true;
         //登录成功了就取消
-        autoLoginTimeOutTimer.cancel();
+        _autoLoginTimeOutTimer?.cancel();
         if (value.isSuccess()) {
           //成功了跳转主界面
           AppToastUtil.showToast(msg: BizApiS.current.user_toast_login_login_successful);
@@ -118,5 +125,11 @@ class _WelcomeVm extends AppBaseVm with CancelTokenAssist {
         pushReplacementNamed(BaseRouter.loginPage);
       });
     });
+  }
+
+  @override
+  void dispose() {
+    _autoLoginTimeOutTimer?.cancel();
+    super.dispose();
   }
 }

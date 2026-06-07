@@ -155,9 +155,13 @@ class BaseDio {
   ///处理未授权
   static bool handlerUnauthorized(ResultEntity resultEntity) {
     if (resultEntity.code == ApiConfig.VALUE_CODE_NORMAL_UNAUTHORIZED) {
+      final currentContext = BaseRouter.navigatorKey.currentContext;
+      if (currentContext == null) {
+        return false;
+      }
       //在此处弹框
       showDialog(
-          context: BaseRouter.navigatorKey.currentContext!,
+          context: currentContext,
           builder: (context) {
             return AlertDialog(
                 title: Text(FastS.current.label_prompt),

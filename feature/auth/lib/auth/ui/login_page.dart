@@ -233,6 +233,8 @@ class LoginPage extends AppBaseStatelessWidget<_LoginModel> {
 class _LoginModel extends AppBaseVm with CancelTokenAssist {
   final FormOperateWithProvider formOperate = FormOperateWithProvider();
 
+  bool _initialized = false;
+
   //租户相关
   String? tenantId = UserConfig().getTenantId();
   String? tenantName = UserConfig().getTenantName();
@@ -265,12 +267,16 @@ class _LoginModel extends AppBaseVm with CancelTokenAssist {
   LoginTenantVo? loginTenant;
 
   void initVm() {
+    if (_initialized) {
+      return;
+    }
+    _initialized = true;
     refreshCaptcha();
     AuthRepository.tenantList().then((result) {
       loginTenant = result.data;
-      SysTenant? targetTenantItem = loginTenant!.voList?.firstWhere((item) {
-        return item.tenantId == tenantId;
-      });
+      SysTenant? targetTenantItem = loginTenant?.voList
+          ?.cast<SysTenant?>()
+          .firstWhere((item) => item?.tenantId == tenantId, orElse: () => null);
       onSelectTenant(targetTenantItem);
     }, onError: (error) {
       BaseDio.handlerErr(error, defErrMsg: AuthS.current.auth_label_tenant_get_info_error);
@@ -394,6 +400,9 @@ class _LoginModel extends AppBaseVm with CancelTokenAssist {
   @override
   dispose() {
     _cancelRefreshCaptchaTimer();
+    userNameInputFocus.dispose();
+    passwordInputFocus.dispose();
+    captchaInputFocus.dispose();
     super.dispose();
   }
 }

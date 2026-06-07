@@ -84,8 +84,8 @@ dependencies:
   # 网络相关-------------------------------------
   json_annotation: ^4.9.0
   retrofit: ^4.1.0
-  # 网络请求 用了retrofit无需使用以下方法
-  #dio: ^4.0.0
+  # 网络请求，retrofit 与请求取消能力都会直接使用
+  dio: ^5.8.0+1
   # RxJava
   rxdart: ^0.28.0
   #加解密
@@ -111,6 +111,8 @@ dependencies:
   shared_preferences: ^2.5.2
 
   # 其他---------------------------------------
+  # 异步工具
+  async: ^2.11.0
   #设备信息 会影响编译和冲突，暂不加入
   # device_info_plus: ^11.3.3
   logger: ^2.3.0  #for logging purpose
@@ -183,6 +185,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

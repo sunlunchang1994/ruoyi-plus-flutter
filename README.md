@@ -25,6 +25,8 @@
 
 ```
 ruoyi-flutter-plus/
+├── .codex/skills/             # Codex 技能入口，负责触发和导航
+├── scaffold/                  # 脚手架标准、模板、检查清单
 ├── 📦 基础设施层
 │   ├── base/                    # 核心基础模块
 │   └── lib_module/              # 工具库模块
@@ -58,10 +60,10 @@ ruoyi-flutter-plus/
   视图驱动（VD）组件、Provider 扩展、权限管理、Toast 提示，让开发飞起来
   
 - **[DB Base - 数据持久化](lib_module/db_base/README.md)** 💾  
-  统一的本地存储封装，简化 SharedPreferences 和数据库操作
+  轻量 SharedPreferences 命名空间封装，提供 `DpManager` 配置管理基类
   
 - **[Form Extra - 表单扩展](lib_module/form_extra/README.md)** 📝  
-  基于 flutter_form_builder 的增强表单组件，丰富的验证器和字段类型
+  基于 flutter_form_builder 的文本输入、选择输入、表单操作、标签流和单图选择扩展
 
 #### 🔌 功能特性层
 
@@ -138,6 +140,22 @@ flutter run
 ### 更多脚本命令
 
 查看完整的脚本使用说明：[scripts/README.md](scripts/README.md)
+
+### 脚手架标准与模板
+
+项目级标准写法和模板统一放在 [scaffold/INDEX.md](scaffold/INDEX.md)，包括启动任务、网络访问、Provider/MVVM、路由、列表、搜索、表单、详情、本地持久化、国际化、主题、权限、字典和清理成干净脚手架的检查清单。
+
+### Codex 技能入口
+
+项目内置的 Codex 技能放在 [.codex/skills](.codex/skills)，用于让 AI 在后续开发时先读取项目规则，不偏离当前架构。
+
+| 技能 | 使用场景 |
+|------|----------|
+| [flutter-slc-boxes](.codex/skills/flutter-slc-boxes/SKILL.md) | 处理 `flutter_slc_boxes` / `boxes_flutter` 基础盒子边界、MVVM、路由、状态页、分页、国际化代理和依赖解析问题 |
+| [ruoyi-flutter-plus](.codex/skills/ruoyi-flutter-plus/SKILL.md) | 处理本项目页面开发、Provider/MVVM、路由、列表、搜索、表单、网络、本地持久化、国际化、主题和权限规则 |
+| [ruoyi-clean-scaffold](.codex/skills/ruoyi-clean-scaffold/SKILL.md) | 将当前项目整理成干净脚手架时使用；清理前必须先保留页面、网络、表单、路由、权限等范例知识 |
+
+说明：技能只负责触发和导航，详细标准、模板和检查清单以 [scaffold/INDEX.md](scaffold/INDEX.md) 为准。
 
 ## 📱 在线体验
 

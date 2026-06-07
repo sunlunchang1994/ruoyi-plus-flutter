@@ -199,7 +199,7 @@ class FormBuilderSingleImagePicker extends FormBuilderFieldDecoration<dynamic> {
                               fit: fit)
                           : displayItem is Uint8List
                               ? Image.memory(displayItem,
-                                  width: previewWidth, height: previewWidth, fit: fit)
+                                  width: previewWidth, height: previewHeight, fit: fit)
                               : displayItem is String
                                   ? CachedNetworkImage(
                                       imageUrl: displayItem,
@@ -265,19 +265,30 @@ class FormBuilderSingleImagePicker extends FormBuilderFieldDecoration<dynamic> {
                     optionsBuilder: optionsBuilder,
                     availableImageSources: availableImageSources,
                     onImageSelected: (image) {
+                      if (image.isEmpty) {
+                        return;
+                      }
+                      if (!field.mounted) {
+                        return;
+                      }
+                      final selectedImage = image.first;
                       state.focus();
                       //如果有监听则通过监听处理完之后获取结果
                       if (onImageSelect != null) {
-                        Navigator.pop(state.context);
-                        onImageSelect.call(image.first).then((imageSingle) {
-                          if (imageSingle == null) {
+                        if (state.mounted) {
+                          Navigator.pop(state.context);
+                        }
+                        onImageSelect.call(selectedImage).then((imageSingle) {
+                          if (!field.mounted || imageSingle == null) {
                             return;
                           }
                           field.didChange(imageSingle);
                         });
                       } else {
-                        field.didChange(image.first);
-                        Navigator.pop(state.context);
+                        field.didChange(selectedImage);
+                        if (state.mounted) {
+                          Navigator.pop(state.context);
+                        }
                       }
                     },
                   );

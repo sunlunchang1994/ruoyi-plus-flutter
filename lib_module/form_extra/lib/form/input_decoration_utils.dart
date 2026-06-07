@@ -11,7 +11,7 @@ import 'form_operate_with_provider.dart';
 class InputDecUtils {
   static Widget getSuffixAction(Icon actionIcon, [VoidCallback? onPressed]) {
     return IconButton(
-      constraints: BoxConstraints(),
+      constraints: const BoxConstraints(),
       visualDensity: ThemeUtil.minimumDensity,
       padding: EdgeInsets.zero,
       icon: actionIcon,
@@ -43,13 +43,16 @@ class InputDecUtils {
   ///输入类型的InputDecoration 自动显示清除按钮
   static Widget autoClearSuffixByInput(bool showClear,
       {VoidCallback? onPressed, FormOperateWithProvider? formOperate, String? formFieldName}) {
-    assert(onPressed == null || formOperate == null || formFieldName != null);
+    assert(onPressed != null || formOperate == null || formFieldName != null);
+    final VoidCallback? clearAction = onPressed ??
+        (formOperate != null && formFieldName != null
+            ? () {
+                formOperate.clearField(formFieldName);
+              }
+            : null);
     return showClear
-        ? getClearAction(onPressed ??
-            () {
-              formOperate?.clearField(formFieldName!);
-            })
-        : SizedBox.shrink();
+        ? getClearAction(clearAction)
+        : const SizedBox.shrink();
   }
 
   ///输入类型的InputDecoration 自动显示清除按钮

@@ -34,6 +34,7 @@ class _SysOperLogListBrowserPage
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ChangeNotifierProvider(
         create: (context) => _SysOperLogListBrowserVm(),
         builder: (context, child) {
@@ -56,7 +57,7 @@ class _SysOperLogListBrowserPage
 
   //绑定搜索vm
   void _bindingSearchVm(BuildContext context) {
-    LogOperSearchVm searchVm = Provider.of<LogOperSearchVm>(context);
+    LogOperSearchVm searchVm = Provider.of<LogOperSearchVm>(context, listen: false);
     searchVm.onResetSearchEvent = () {
       getVm().listVmSub.currentSearch = searchVm.currentSearch;
     };

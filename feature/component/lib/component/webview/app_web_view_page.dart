@@ -86,10 +86,15 @@ class AppWebViewPage extends AppBaseStatelessWidget<AppWebViewVm> {
 
 class AppWebViewVm extends AppBaseVm {
   int loadProgress = 0;
+  bool _initialized = false;
 
   late WebViewController controller;
 
   void initVm(String url) {
+    if (_initialized) {
+      return;
+    }
+    _initialized = true;
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..enableZoom(true)

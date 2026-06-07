@@ -20,6 +20,7 @@ class _WorkbenchState extends AppBaseState<WorkbenchPage, _WorkbenchVm> with Aut
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ChangeNotifierProvider(create: (context) {
       return _WorkbenchVm();
     }, builder: (context, child) {

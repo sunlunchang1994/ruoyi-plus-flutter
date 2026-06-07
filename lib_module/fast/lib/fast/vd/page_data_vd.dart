@@ -126,9 +126,11 @@ class PageDataState extends State<PageDataVd> {
 
   @override
   void dispose() {
-    if (controllerByState == null) {
-      controllerByState?.dispose();
-      widget.vmSub.refreshEvent.removeListener(refreshEventCallback!);
+    if (controllerByState != null) {
+      controllerByState!.dispose();
+      if (refreshEventCallback != null) {
+        widget.vmSub.refreshEvent.removeListener(refreshEventCallback!);
+      }
     }
     super.dispose();
   }
@@ -138,6 +140,17 @@ class PageDataState extends State<PageDataVd> {
       return widget.controller!;
     }
     return controllerByState!;
+  }
+
+  IndicatorResult _getLoadIndicatorResult() {
+    switch (widget.vmSub.getLoadMoreFormat().refreshStatusOf.value) {
+      case LoadMoreStatus.noMore:
+        return IndicatorResult.noMore;
+      case LoadMoreStatus.failed:
+        return IndicatorResult.fail;
+      default:
+        return IndicatorResult.success;
+    }
   }
 
   @override
@@ -151,21 +164,13 @@ class PageDataState extends State<PageDataVd> {
             () async {
               await widget.vmSub.refresh();
               _getErController().finishRefresh();
-              _getErController().finishLoad(
-                  widget.vmSub.getLoadMoreFormat().refreshStatusOf.value ==
-                      LoadMoreStatus.noMore
-                      ? IndicatorResult.noMore
-                      : IndicatorResult.fail);
+              _getErController().finishLoad(_getLoadIndicatorResult());
               widget.changeNotifier.notifyListeners();
             },
         onLoad: widget.onLoad ??
             () async {
               await widget.vmSub.loadMore();
-              _getErController().finishLoad(
-                  widget.vmSub.getLoadMoreFormat().refreshStatusOf.value ==
-                          LoadMoreStatus.noMore
-                      ? IndicatorResult.noMore
-                      : IndicatorResult.fail);
+              _getErController().finishLoad(_getLoadIndicatorResult());
               widget.changeNotifier.notifyListeners();
             },
         spring: widget.spring,

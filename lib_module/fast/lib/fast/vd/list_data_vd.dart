@@ -120,9 +120,11 @@ class PageDataState extends State<ListDataVd> {
 
   @override
   void dispose() {
-    if (controllerByState == null) {
-      controllerByState?.dispose();
-      widget.vmSub.refreshEvent.removeListener(refreshEventCallback!);
+    if (controllerByState != null) {
+      controllerByState!.dispose();
+      if (refreshEventCallback != null) {
+        widget.vmSub.refreshEvent.removeListener(refreshEventCallback!);
+      }
     }
     super.dispose();
   }

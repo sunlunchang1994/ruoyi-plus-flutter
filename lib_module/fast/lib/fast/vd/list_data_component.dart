@@ -101,17 +101,14 @@ mixin class ListenerItemSelect<T> implements IListenerItemClick<T> {
     updateShouldSetVersion();
   }
 
-  @OvalBorder()
   void setItemClick(OnItemClick<T> itemClick) {
     this._itemClick = itemClick;
   }
 
-  @OvalBorder()
   void setItemLongClick(OnItemLongClick<T> itemLongClick) {
     this._itemLongClick = itemLongClick;
   }
 
-  @OvalBorder()
   void onItemClick(int index, T data) {
     if (selectModelIsRun) {
       if (data is ISelectBox) {
@@ -124,7 +121,6 @@ mixin class ListenerItemSelect<T> implements IListenerItemClick<T> {
     _itemClick?.call(index, data);
   }
 
-  @OvalBorder()
   void onItemLongClick(int index, T data) {
     //未启用，直接返回
     if (!enableSelectModel) {
@@ -159,11 +155,15 @@ mixin class ListenerItemSelect<T> implements IListenerItemClick<T> {
     }
     //全选/全不选
     IListDataVmSub listDataVmSub = this as IListDataVmSub;
+    bool hasChanged = false;
     for (var element in listDataVmSub.dataList) {
       if (element is ISelectBox) {
         element.boxChecked = isSelect;
-        updateShouldSetVersion();
+        hasChanged = true;
       }
+    }
+    if (hasChanged) {
+      updateShouldSetVersion();
     }
   }
 

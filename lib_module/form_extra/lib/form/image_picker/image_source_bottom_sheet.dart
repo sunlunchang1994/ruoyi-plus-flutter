@@ -68,9 +68,22 @@ class ImageSourceBottomSheet extends StatefulWidget {
 class ImageSourceBottomSheetState extends State<ImageSourceBottomSheet> {
   bool _isPickingImage = false;
 
+  void _setPickingImage(bool value) {
+    if (_isPickingImage == value) {
+      return;
+    }
+    if (!mounted) {
+      _isPickingImage = value;
+      return;
+    }
+    setState(() {
+      _isPickingImage = value;
+    });
+  }
+
   Future<void> _onPickImage(ImageSource source) async {
     if (_isPickingImage) return;
-    _isPickingImage = true;
+    _setPickingImage(true);
     final imagePicker = ImagePicker();
     try {
       if (source == ImageSource.camera || widget.remainingImages == 1) {
@@ -81,7 +94,10 @@ class ImageSourceBottomSheetState extends State<ImageSourceBottomSheet> {
           maxWidth: widget.maxWidth,
           imageQuality: widget.imageQuality,
         );
-        _isPickingImage = false;
+        if (!mounted) {
+          return;
+        }
+        _setPickingImage(false);
         if (pickedFile != null) {
           widget.onImageSelected([pickedFile]);
         }
@@ -91,13 +107,16 @@ class ImageSourceBottomSheetState extends State<ImageSourceBottomSheet> {
           maxWidth: widget.maxWidth,
           imageQuality: widget.imageQuality,
         );
-        _isPickingImage = false;
+        if (!mounted) {
+          return;
+        }
+        _setPickingImage(false);
         if (pickedFiles.isNotEmpty) {
           widget.onImageSelected(pickedFiles);
         }
       }
     } catch (e) {
-      _isPickingImage = false;
+      _setPickingImage(false);
       rethrow;
     }
   }

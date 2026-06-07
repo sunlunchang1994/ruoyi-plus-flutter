@@ -76,6 +76,7 @@ class DbSp extends DataPersistence<DbSp> {
   DataPersistence<dynamic> putValue(String key, dynamic value, {bool submit = true}) {
     if (value == null) {
       remove(key);
+      return this;
     }
     DataPersistence.checkValueType(value);
     if (value is int) {
@@ -102,13 +103,13 @@ class DbSp extends DataPersistence<DbSp> {
   }
 
   @override
-  void remove(String key){
+  void remove(String key) {
     spUtils.remove(_formatKey(key));
   }
-  
+
   @override
   void clear() {
-    Set<String> keys = spUtils.keys;
+    final keys = List<String>.from(spUtils.keys);
     for (var item in keys) {
       if (item.startsWith("$spName:")) {
         spUtils.remove(item);
